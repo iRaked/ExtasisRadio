@@ -34,7 +34,7 @@
 <style>
 
  body {
-     background-image: url('https://i.imgur.com/GXSQLlC.png');
+     background-image: url('https://i.imgur.com/QzWYfng.png');
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
