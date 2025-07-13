@@ -1,0 +1,1516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TheBunkerVip</title>
+    
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/fontawesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/brands.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/solid.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/regular.min.css">
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Widget script de Antyserv que proporciona información de la canción -->
+    <script id='sonic_js' data-port='8100' src='https://antyserv.in/cp/widgets.js?r=79'></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+   
+</head>
+<body>
+    <!-- Contenedor del reproductor existente -->
+    <div class="player-container">
+        <!-- Elementos para las notas musicales flotantes (ahora dentro del contenedor) -->
+        <div class="music-notes-container">
+            <div class="music-note">♪</div>
+            <div class="music-note">♫</div>
+            <div class="music-note">♩</div>
+            <div class="music-note">♬</div>
+            <div class="music-note">♪</div>
+            <div class="music-note">♫</div>
+            <div class="music-note">♩</div>
+            <div class="music-note">♬</div>
+        </div>
+        
+        <!-- Elementos para efectos de brillos (ahora dentro del contenedor) -->
+        <div class="sparkles-container">
+            <div class="sparkle"></div>
+            <div class="sparkle"></div>
+            <div class="sparkle"></div>
+            <div class="sparkle"></div>
+            <div class="sparkle"></div>
+            <div class="sparkle"></div>
+            <div class="sparkle"></div>
+            <div class="sparkle"></div>
+            <div class="sparkle"></div>
+            <div class="sparkle"></div>
+            <div class="sparkle"></div>
+        </div>
+        
+        <div class="listeners-container">
+            <span><i class="fas fa-headphones"></i></span>
+            <div id='sonic_listeners' class="listeners-count">--</div>
+        </div>
+        <div class="dj-wrapper">
+            <i class="fas fa-headset dj-icon"></i>
+            <div id="sonic_dj" class="dj-container">AutoDj</div>
+        </div>
+        <div id='sonic_art' class="song-art"></div>
+        <!-- Modificar la estructura del radio-logo para incluir el botón dentro -->
+        <div class="radio-logo">
+            <!-- Agregar el efecto de pulso detrás del logo -->
+            <div class="pulse-effect-container">
+                <div class="pulse-ring pulse-ring-1"></div>
+                <div class="pulse-ring pulse-ring-2"></div>
+                <div class="pulse-ring pulse-ring-3"></div>
+            </div>
+            
+            <img src="https://i.imgur.com/g0anXBS.png" alt="Radio La Calle Logo">
+            <!-- Insertar los controles de reproducción dentro del logo -->
+            <div class="player-controls">
+                <button class="play-button" id="playButton">▶</button>
+            </div>
+        </div>
+        <div class="player-title animated-title">
+            <div class="neon-title">
+                <span class="neon-word first-word">
+                    <span class="neon-letter" style="--delay: 0s;">T</span>
+                    <span class="neon-letter" style="--delay: 0.1s;">H</span>
+                    <span class="neon-letter" style="--delay: 0.2s;">E</span>
+                    <span class="neon-letter" style="--delay: 0.3s;">B</span>
+                    <span class="neon-letter" style="--delay: 0.4s;">U</span>
+                    <span class="neon-word second-word">
+                    <span class="neon-letter" style="--delay: 0.5s;">N</span>
+                    <span class="neon-letter" style="--delay: 0.6s;">K</span>
+                    <span class="neon-letter" style="--delay: 0.7s;">E</span>
+                    <span class="neon-letter" style="--delay: 0.5s;">R</span>
+                    <span class="neon-letter" style="--delay: 0.6s;">V</span>
+                    <span class="neon-letter" style="--delay: 0.7s;">I</span>
+                    <span class="neon-letter" style="--delay: 0.8s;">P</span>
+                    <span class="neon-letter" style="--delay: 0.9s;"></span>
+                    <span class="neon-letter" style="--delay: 1.0s;"></span>
+                    <span class="neon-letter" style="--delay: 1.1s;"></span>
+                    <span class="neon-letter" style="--delay: 1.2s;"></span>
+                    <span class="neon-letter" style="--delay: 1.3s;"></span>
+                    <span class="neon-letter" style="--delay: 1.4s;"></span>
+					</span></span></div>
+            <div class="audio-waves">
+                <div class="wave-bar" style="--delay: 0.1s; --height: 15px;"></div>
+                <div class="wave-bar" style="--delay: 0.2s; --height: 35px;"></div>
+                <div class="wave-bar" style="--delay: 0.3s; --height: 25px;"></div>
+                <div class="wave-bar" style="--delay: 0.4s; --height: 40px;"></div>
+                <div class="wave-bar" style="--delay: 0.5s; --height: 20px;"></div>
+                <div class="wave-bar" style="--delay: 0.6s; --height: 30px;"></div>
+                <div class="wave-bar" style="--delay: 0.7s; --height: 35px;"></div>
+                <div class="wave-bar" style="--delay: 0.8s; --height: 45px;"></div>
+                <div class="wave-bar" style="--delay: 0.9s; --height: 30px;"></div>
+                <div class="wave-bar" style="--delay: 1.0s; --height: 25px;"></div>
+                <div class="wave-bar" style="--delay: 0.1s; --height: 15px;"></div>
+                <div class="wave-bar" style="--delay: 0.2s; --height: 35px;"></div>
+                <div class="wave-bar" style="--delay: 0.3s; --height: 25px;"></div>
+                <div class="wave-bar" style="--delay: 0.4s; --height: 40px;"></div>
+                <div class="wave-bar" style="--delay: 0.5s; --height: 20px;"></div>
+                <div class="wave-bar" style="--delay: 0.6s; --height: 30px;"></div>
+                <div class="wave-bar" style="--delay: 0.7s; --height: 35px;"></div>
+                <div class="wave-bar" style="--delay: 0.8s; --height: 45px;"></div>
+                <div class="wave-bar" style="--delay: 0.9s; --height: 30px;"></div>
+                <div class="wave-bar" style="--delay: 1.0s; --height: 25px;"></div>
+                <div class="wave-bar" style="--delay: 0.4s; --height: 40px;"></div>
+                <div class="wave-bar" style="--delay: 0.5s; --height: 20px;"></div>
+              
+                
+            </div>
+            <div class="glow-effect"></div>
+        </div>
+        
+        <div class="volume-control">
+            <i id="volumeIcon" class="fas fa-volume-down"></i>
+            <input type="range" class="volume-slider" id="volumeSlider" min="0" max="1" step="0.1" value="0.7">
+            <span id="volumePercentage" class="volume-percentage">70%</span>
+        </div>
+        <div class="now-playing" id="nowPlaying">
+            <div id='sonic_title'>En vivo...</div>
+        </div>
+        <!-- Agregar después de la sección now-playing -->
+        <div class="datetime-container">
+            <i class="fas fa-clock"></i>
+            <span id="current-time">00:00:00</span>
+            <span class="date-separator">|</span>
+            <i class="fas fa-calendar-alt"></i>
+            <span id="current-date">01/01/2025</span>
+        </div>
+        <div>
+            <span class="bydev">Developer by RICK</span>
+        </div>
+        
+        <!-- Añadir después del contenedor datetime -->
+        <div class="history-button-container">
+            <button id="historyButton" class="history-button">
+                <i class="fas fa-history"></i> Historial
+            </button></div></div> <!-- Cierre del player-container -->
+
+    <!-- Contenedor para el historial que se mostrará/ocultará -->
+    <div id="historyContainer" class="history-container">
+        <div class="history-header">
+            <h3>Historial de Reproducción</h3>
+            <button id="closeHistory" class="close-history">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div id='sonic_history' class="history-content"></div>
+    </div>  
+    <style>
+        /* Estilo del bydev */
+.bydev {
+        
+        bottom: 10px;
+        right: 10px;
+        font-size: 10px;
+        color: #fff;
+        text-align: right;
+    }
+    
+    .bydev a {
+        color: #fff;
+        text-decoration: none;
+    }
+    .bydev1 {
+        bottom: 10px;
+        right: 1px;
+        font-size: 10px;
+        color: #fff;
+        text-align: right;
+    }
+    
+    body {
+        font-family: 'Arial', sans-serif;
+        background-image: url('');
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+    
+    /* Contenedor principal más grande */
+    .player-container {
+        background-color: rgb(0 0 0 / 47%);
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        padding: 56px;
+        width: 430px;
+        height: 33em;
+        text-align: center;
+        backdrop-filter: blur(2px);
+        position: relative;
+        overflow: hidden;
+        margin-top: 50px;
+        margin-bottom: 20px;
+        transition: all 0.5s ease, filter 0.5s ease;
+    }
+    
+    @keyframes pulse {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+    
+    /* Modificar el estilo del radio-logo para posicionar el botón correctamente */
+    .radio-logo {
+        width: 120px;
+        height: 120px;
+        margin: 25px auto 20px;
+        border: 3px solid rgb(255, 255, 255);
+        border-radius: 50%;
+        overflow: hidden;
+        position: relative;
+        animation: vinylSpin 3s linear infinite, glow 3s infinite alternate;
+        box-shadow: 0 0 15px rgb(255, 255, 255);
+        z-index: 3;
+    }
+    
+    /* Crear un pseudo-elemento para la imagen de fondo con opacidad */
+    .radio-logo::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url(https://i.imgur.com/g0anXBS.png);
+        background-size: cover;
+        background-position: center;
+        opacity: 0.8; /* Ajusta la opacidad aquí */
+        z-index: 1;
+    }
+    
+    /* Añadir el círculo central del vinilo */
+    .radio-logo::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 20px;
+        height: 20px;
+        background: #333;
+        border: 1px solid rgba(0, 0, 0, 0.9);
+        border-radius: 50%;
+        box-shadow: 0 0 8px rgba(255, 0, 0, 0.8);
+        z-index: 2;
+    }
+    
+    /* Mejorar la animación de giro del vinilo */
+    @keyframes vinylSpin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+    
+    /* Mejorar el efecto de brillo */
+    @keyframes glow {
+        0% { 
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+            border-color: rgba(255, 0, 0, 0.6);
+        }
+        100% { 
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
+            border-color: rgba(255, 0, 0, 0.9);
+        }
+    }
+    
+    /* Mantener la animación del disco cuando se pasa el cursor */
+    .radio-logo:hover {
+        box-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
+    }
+    
+    /* Modificar la posición de los controles del reproductor */
+    .radio-logo .player-controls {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 5;
+    opacity: 1;
+    pointer-events: none;
+    /* Esta es la clave para evitar que gire con el tocadiscos */
+    animation: counterRotation 3s linear infinite;
+    }
+    .history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(221, 78, 78, 0.3);
+    }
+    .history-header h3 {
+    color: white;
+    margin: 0;
+    font-size: 18px;
+    }
+    /* Animación que contrarresta la rotación del disco */
+    @keyframes counterRotation {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(-360deg); }
+    }
+    
+    /* Ajustar el estilo del botón de reproducción */
+    .radio-logo .play-button {
+        background-color: rgba(0, 0, 0, 0.8);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        cursor: pointer;
+        font-size: 18px;
+        transition: all 0.3s;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5), 0 0 15px rgba(0, 0, 0, 0.6);
+        z-index: 6;
+        pointer-events: auto; /* Permite que el botón sea clickeable */
+    }
+    
+    /* Ajustar el estilo del botón de reproducción */
+    .radio-logo .play-button {
+    background-color: rgba(134, 8, 8, 0.8);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: all 0.3s;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5), 0 0 15px rgba(0, 0, 0, 0.6);
+    z-index: 6;
+    pointer-events: auto;
+    }
+    
+    /* Ajustar posición de los elementos flotantes */
+    .listeners-container {
+        color: white;
+        font-size: 13px;
+        background-color: rgba(0, 0, 0, 0.3);
+        border-radius: 12px;
+        padding: 5px 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        z-index: 10;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+    
+    .listeners-count {
+        font-weight: bold;
+        color: #ff5e5e;
+        animation: countPulse 2s infinite;
+    }
+    
+    @keyframes countPulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+        100% { transform: scale(1); }
+    }
+    
+    .dj-wrapper {
+        color: white;
+        font-size: 13px;
+        background-color: rgba(0, 0, 0, 0.3);
+        border-radius: 12px;
+        padding: 5px 10px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        justify-content: center;
+        position: absolute;
+        top: 50px; /* Aumentado para dar más espacio entre elementos */
+        left: 15px;
+        z-index: 10;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+    
+    #sonic_dj {
+        color: white;
+        font-size: 13px;
+        background-color: transparent;
+        border-radius: 0;
+        padding: 0;
+        font-weight: bold;
+        display: inline;
+        animation: djPulse 3s infinite alternate;
+    }
+    
+    @keyframes djPulse {
+        0% { text-shadow: 0 0 5px rgba(221, 78, 78, 0.5); }
+        100% { text-shadow: 0 0 10px rgba(221, 78, 78, 1); }
+    }
+    
+    #sonic_art {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        width: 100px;
+        height: 100px;
+        border-radius: 5px;
+        overflow: hidden;
+        background-color: rgba(0, 0, 0, 0.3);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        z-index: 10;
+        animation: fadeIn 1s;
+        background-image: url('https://i.imgur.com/g0anXBS.png');
+        background-size: cover;
+        background-position: center;
+        border: 2px solid rgba(127, 122, 131, 0);
+        transition: transform 0.3s ease-in-out;
+    }
+    
+    #sonic_art:hover {
+        transform: scale(1.1);
+    }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    
+    /* Mejorar el espaciado de otros elementos */
+    .player-title.animated-title {
+        margin-bottom: 35px;
+        text-align: center;
+        position: relative;
+       
+        overflow: visible;
+        background: transparent;
+    }
+    
+    /* Contenedor de título con neón */
+    .neon-title {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.7));
+    flex-direction: column;
+    align-items: center;
+}
+    
+    /* Estilo para las palabras */
+    .neon-word {
+        display: flex;
+    }
+    
+    /* Estilo para cada letra con neón */
+    .neon-letter {
+        display: inline-block;
+        font-family: 'Arial', sans-serif;
+        font-weight: bold;
+        font-size: 3.2rem;
+        text-transform: uppercase;
+        color: white;
+        text-shadow: 0 0 10px #ff0000, 0 0 15px #ff0000, 0 0 25px #ff0000, 0 0 40px #ff0000;
+        animation: neon-flicker 3s infinite alternate-reverse, neon-pulse 2s infinite;
+        animation-delay: var(--delay);
+        transform-style: preserve-3d;
+    }
+    
+    /* Efecto de reflejo para las letras */
+    .neon-letter::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -15px;
+        width: 100%;
+        height: 5px;
+        background: linear-gradient(90deg, rgba(221, 78, 78, 0.3), rgba(78, 221, 78, 0.3));
+        border-radius: 50%;
+        filter: blur(3px);
+        animation: reflectionPulse 3s infinite alternate var(--delay);
+    }
+    
+    .neon-reflection {
+        position: absolute;
+        bottom: -15px;
+        left: 0;
+        right: 0;
+        height: 5px;
+        background: linear-gradient(
+            to bottom, 
+            rgba(255, 0, 0, 0.5), 
+            rgba(255, 0, 0, 0.1)
+        );
+        filter: blur(3px);
+        border-radius: 50%;
+        transform: scaleX(0.8);
+        opacity: 0.6;
+        animation: reflection-pulse 2s infinite;
+    }
+    
+    /* Ondas de audio debajo del título */
+    .audio-waves {
+        display: flex;
+        justify-content: center;
+        gap: 3px;
+        padding: 15px 0;
+        margin-top: 5px;
+        margin-bottom: 15px;
+        width: 100%;
+        max-width: 380px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .wave-bar {
+        width: 4px;
+        height: var(--height);
+        background: linear-gradient(to top, #ffffff, #ffffff);
+        border-radius: 2px;
+        animation: wave-animation 1.2s infinite ease-in-out;
+        animation-delay: var(--delay);
+    }
+    
+    @keyframes wave-animation {
+        0%, 100% {
+            transform: scaleY(0.5);
+        }
+        50% {
+            transform: scaleY(1);
+        }
+    }
+    
+    /* Efecto de brillo en el fondo */
+    .glow-effect {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 120%;
+        height: 140%;
+        background: radial-gradient(
+            ellipse at center,
+            rgba(236, 1, 1, 0.2) 0%,
+            rgba(78, 221, 78, 0.1) 40%,
+            transparent 70%
+        );
+        filter: blur(20px);
+        z-index: 0;
+        opacity: 0.6;
+        animation: glowPulse 5s infinite alternate;
+        pointer-events: none;
+    }
+    
+    /* Animaciones */
+    @keyframes letterPulse {
+        0% {
+            text-shadow:
+                0 0 6px rgba(255, 255, 255, 0.9),
+                0 0 12px rgba(221, 78, 78, 0.7),
+                0 0 24px rgba(78, 221, 78, 0.5);
+            color: rgba(255, 255, 255, 0.9);
+        }
+        100% {
+            text-shadow:
+                0 0 10px rgba(255, 255, 255, 1),
+                0 0 20px rgba(221, 78, 78, 0.9),
+                0 0 30px rgba(221, 78, 78, 0.7),
+                0 0 40px rgba(78, 221, 78, 0.5);
+            color: rgba(255, 255, 255, 1);
+        }
+    }
+    
+    @keyframes letterFloat {
+        0% { transform: translateY(0px) translateZ(0); }
+        30% { transform: translateY(-3px) translateZ(10px); }
+        70% { transform: translateY(2px) translateZ(5px); }
+        100% { transform: translateY(-1px) translateZ(0); }
+    }
+    
+    @keyframes reflectionPulse {
+        0% { opacity: 0.2; transform: scale(0.8); }
+        100% { opacity: 0.6; transform: scale(1.2); }
+    }
+    
+    @keyframes barDance {
+        0% { height: calc(var(--height) * 0.6); opacity: 0.6; }
+        100% { height: var(--height); opacity: 0.9; }
+    }
+    
+    @keyframes glowPulse {
+        0% { opacity: 0.4; filter: blur(20px); }
+        100% { opacity: 0.8; filter: blur(25px); }
+    }
+    
+    @keyframes wordRotate {
+        0%, 100% { transform: rotateX(0deg); }
+        25% { transform: rotateX(2deg); }
+        75% { transform: rotateX(-2deg); }
+    }
+    
+    @keyframes wordFloat {
+        0% { transform: translateY(0); }
+        50% { transform: translateY(-3px); }
+        100% { transform: translateY(1px); }
+    }
+    
+    @keyframes neon-flicker {
+        0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+            opacity: 1;
+            text-shadow: 0 0 10px #ff0000, 0 0 15px #ff0000, 0 0 25px #ff0000, 0 0 40px #ff0000;
+        }
+        20%, 22%, 24%, 55% {
+            opacity: 0.8;
+            text-shadow: 0 0 5px #ff0000, 0 0 10px #ff0000, 0 0 15px #ff0000;
+        }
+    }
+    
+    @keyframes neon-pulse {
+        0%, 100% {
+            filter: brightness(1);
+        }
+        50% {
+            filter: brightness(1.5);
+        }
+    }
+    
+    @keyframes reflection-pulse {
+        0%, 100% {
+            opacity: 0.3;
+            width: 80%;
+            left: 10%;
+        }
+        50% {
+            opacity: 0.6;
+            width: 90%;
+            left: 5%;
+        }
+    }
+    
+    /* Intensificar animaciones cuando el reproductor está activo */
+    .player-container.playing .wave-bar {
+        animation-duration: 0.8s;
+    }
+    
+    .player-container.playing .neon-letter {
+        animation: 
+            letterPulse 2s infinite ease-in-out alternate var(--delay),
+            letterFloat 4s infinite ease-in-out alternate var(--delay);
+    }
+    
+    .player-container.playing .glow-effect {
+        opacity: 0.8;
+    }
+    
+    /* Interactividad al pasar el cursor */
+    .neon-letter:hover {
+        animation-play-state: paused;
+        color: #fff;
+        text-shadow:
+            0 0 15px #ff0000, 0 0 25px #ff0000, 0 0 35px #ff0000, 0 0 50px #ff3333;
+        transform: scale(1.1);
+        transition: all 0.2s ease;
+    }
+    
+    /* Estilos para el control de volumen */
+    .volume-control {
+        margin-top: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 0 5px; /* Agregar un poco de padding en los extremos */
+    }
+    
+    .volume-control i {
+        color: #ffffff;
+        font-size: 16px;
+        width: 20px; /* Ancho fijo para evitar saltos */
+        transition: color 0.3s;
+    }
+    
+    .volume-control i:hover {
+        color: #ff0000;
+    }
+    
+    .volume-slider {
+        width: 60%;
+        -webkit-appearance: none;
+        height: 6px;
+        background: linear-gradient(to right, 
+            #dd4e4e 0%, 
+            #dd4e4e var(--volume-percent, 70%), 
+            rgba(255, 255, 255, 0.3) var(--volume-percent, 70%)
+        );
+        border-radius: 5px;
+        outline: none;
+        position: relative;
+    }
+    
+    .volume-slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 15px;
+        height: 15px;
+        background: #ff0000;
+        border-radius: 50%;
+        cursor: pointer;
+        border: 2px solid rgba(255, 255, 255, 0.8);
+        box-shadow: 0 0 10px rgba(103, 207, 117, 0.6);
+        transition: all 0.2s;
+    }
+    
+    .volume-slider::-webkit-slider-thumb:hover {
+        transform: scale(1.2);
+        background: #dd4e4e;
+        box-shadow: 0 0 15px rgba(78, 221, 78, 0.8);
+    }
+    
+    .volume-slider:active::-webkit-slider-thumb {
+        transform: scale(1.3);
+        background: #ff7d7d;
+    }
+    
+    .volume-slider::-moz-range-progress {
+        background-color: #dd4e4e;
+        height: 6px;
+        border-radius: 5px;
+    }
+    
+    .volume-slider::-moz-range-thumb {
+        width: 15px;
+        height: 15px;
+        background: #4edd4e;
+        border-radius: 50%;
+        cursor: pointer;
+        border: 2px solid rgba(255, 255, 255, 0.8);
+        box-shadow: 0 0 10px rgba(221, 78, 78, 0.6);
+    }
+    
+    .volume-percentage {
+        color: #ffffff;
+        font-size: 12px;
+        min-width: 32px; /* Ancho fijo para evitar saltos de diseño */
+        text-align: right;
+        font-weight: bold;
+    }
+    
+    .now-playing {
+        color: white;
+        font-size: 14px;
+        margin-top: 20px; /* Aumentado de 15px a 20px */
+        padding: 10px 2px 8px; /* Aumentado el padding vertical */
+        background-color: rgba(0, 0, 0, 0.2);
+        border-radius: 5px;
+        overflow: hidden;
+        position: relative;
+        width: 100%;
+        height: 22px; /* Aumentado de 20px a 22px */
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+    }
+    
+    .song-title {
+        color: #ffffff;
+        font-weight: bold;
+        display: block;
+        margin-top: 5px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        animation: marquee 15s linear infinite;
+    }
+    
+    @keyframes marquee {
+        0% { transform: translateX(100%); }
+        100% { transform: translateX(-100%); }
+    }
+    
+    
+    
+    /* Estilos para el sonic_title tenga un marquee adecuado */
+    #sonic_title {
+        color: #ffffff;
+        font-weight: bold;
+        display: inline-block;
+        white-space: nowrap;
+        position: relative;
+        padding-right: 285px;
+        animation: marquee-contained 12s linear infinite;
+        width: max-content;
+        font-size: 1.5em;
+    }
+    
+    @keyframes marquee-contained {
+        0% { transform: translateX(100%); } /* Comienza fuera del contenedor a la derecha */
+        100% { transform: translateX(-100%); } /* Termina fuera del contenedor a la izquierda */
+    }
+    
+    /* Estilos para que el sonic_listeners tenga la animación de pulso */
+    #sonic_listeners {
+        color: #ffffff;
+        animation: countPulse 2s infinite;
+        display: inline-block; /* Para que el elemento mantenga el pulso adecuadamente */
+    }
+    
+    /* Estilo para el icono de audífonos */
+    .fa-headphones {
+        margin-right: 5px;
+        color: #ffffff; /* Mismo color que los números de oyentes */
+        animation: headphonesPulse 3s infinite alternate;
+    }
+    
+    @keyframes headphonesPulse {
+        0% { transform: scale(1); opacity: 0.7; }
+        100% { transform: scale(1.1); opacity: 1; }
+    }
+    /* Modificación de los contenedores de efectos para limitarlos al reproductor */
+    .music-notes-container, .sparkles-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
+    overflow: hidden;
+    }
+    
+    /* Corregir las posiciones de inicio de las notas musicales */
+    .music-note {
+    position: absolute;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 24px;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+    animation: floatNote 12s linear infinite;
+    opacity: 0;
+    }
+    
+    .music-note:nth-child(1) { left: 20%; top: -30px; animation-delay: 0s; font-size: 25px; }
+    .music-note:nth-child(2) { left: 40%; top: -30px; animation-delay: 2s; font-size: 18px; }
+    .music-note:nth-child(3) { left: 60%; top: -30px; animation-delay: 4s; font-size: 22px; }
+    .music-note:nth-child(4) { left: 80%; top: -30px; animation-delay: 6s; font-size: 26px; }
+    .music-note:nth-child(5) { left: 10%; top: -30px; animation-delay: 1s; font-size: 20px; }
+    .music-note:nth-child(6) { left: 30%; top: -30px; animation-delay: 3s; font-size: 19px; }
+    .music-note:nth-child(7) { left: 50%; top: -30px; animation-delay: 5s; font-size: 24px; }
+    .music-note:nth-child(8) { left: 70%; top: -30px; animation-delay: 7s; font-size: 21px; }
+    
+    /* Animación modificada para que las notas se muevan solo dentro del contenedor */
+    @keyframes floatNote {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.8;
+    }
+    90% {
+        opacity: 0.6;
+    }
+    100% {
+        transform: translateY(380px) rotate(360deg);
+        opacity: 0;
+    }
+    }
+    
+    /* Modificar los brillos para que estén dentro del contenedor */
+    .sparkle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: transparent;
+    border-radius: 50%;
+    box-shadow: 
+        0 0 4px #fff,
+        0 0 8px #fff,
+        0 0 12px rgba(255, 125, 125, 0.8),
+        0 0 16px rgba(125, 255, 125, 0.6);
+    animation: sparkleFloat 5s linear infinite;
+    opacity: 0;
+    }
+    
+    /* Ajustar posiciones iniciales de los brillos */
+    .sparkle:nth-child(1) { top: 80px; left: 50%; width: 8px; height: 8px; animation-delay: 0s; }
+    .sparkle:nth-child(2) { top: 140px; left: 30%; width: 5px; height: 5px; animation-delay: 0.8s; }
+    .sparkle:nth-child(3) { top: 200px; left: 70%; width: 7px; height: 7px; animation-delay: 1.6s; }
+    .sparkle:nth-child(4) { top: 100px; left: 60%; width: 8px; height: 8px; animation-delay: 2.4s; }
+    .sparkle:nth-child(5) { top: 220px; left: 40%; width: 6px; height: 6px; animation-delay: 3.2s; }
+    .sparkle:nth-child(6) { top: 180px; left: 55%; width: 8px; height: 8px; animation-delay: 4.0s; }
+    .sparkle:nth-child(7) { top: 160px; left: 65%; width: 5px; height: 5px; animation-delay: 2.0s; }
+    .sparkle:nth-child(8) { top: 120px; left: 45%; width: 7px; height: 7px; animation-delay: 2.8s; }
+    
+    /* Animación modificada para que los brillos permanezcan dentro del contenedor */
+    @keyframes sparkleFloat {
+    0% {
+        transform: translate(0, 0) scale(0);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+        transform: translate(0, 0) scale(1);
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        transform: translate(var(--x, 40px), var(--y, -40px)) scale(0.2);
+        opacity: 0;
+    }
+    }
+    
+    /* Ajustar las distancias de movimiento para los brillos */
+    .sparkle:nth-child(1) { --x: 40px; --y: -40px; }
+    .sparkle:nth-child(2) { --x: -30px; --y: -30px; }
+    .sparkle:nth-child(3) { --x: 35px; --y: 35px; }
+    .sparkle:nth-child(4) { --x: -40px; --y: 40px; }
+    .sparkle:nth-child(5) { --x: 45px; --y: 15px; }
+    .sparkle:nth-child(6) { --x: -15px; --y: -45px; }
+    .sparkle:nth-child(7) { --x: -35px; --y: 20px; }
+    .sparkle:nth-child(8) { --x: 25px; --y: -25px; }
+    
+    /* Efecto de brillo al pasar el cursor sobre el reproductor */
+    .player-container {
+    transition: all 0.5s ease;
+    }
+    
+    /* Modificar el funcionamiento del difuminado solo para el reproductor */
+    .player-container.blur-background {
+    filter: blur(6px) brightness(0.5);
+    pointer-events: none;
+    }
+    
+    /* Mover el historial fuera del reproductor para que no se vea afectado por el filtro */
+    /* Mover el historial fuera del reproductor para que no se vea afectado por el filtro */
+    body > .history-container {
+    z-index: 999999;
+    }
+    /* Estilos para el contenedor de fecha y hora */
+    .datetime-container {
+    color: white;
+    background-color: rgb(0 0 0 / 26%);
+    border-radius: 12px;
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 7px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+    
+    .datetime-container i {
+    color: #ff0000;
+    font-size: 14px;
+    }
+    
+    #current-time, #current-date {
+    font-weight: bold;
+    }
+    
+    .date-separator {
+    margin: 0 5px;
+    opacity: 0.6;
+    }
+    
+    /* Animación sutil para el reloj */
+    .datetime-container .fa-clock {
+    animation: clockPulse 2s infinite linear;
+    }
+    
+    @keyframes clockPulse {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(3deg); }
+    75% { transform: rotate(-3deg); }
+    100% { transform: rotate(0deg); }
+    }
+    
+    /* Estilos para el botón de historial */
+    .history-button-container {
+    position: absolute;
+    top: 125px; /* Justo debajo del sonic_art (100px de alto + 15px de margen superior + 10px de espacio) */
+    right: 15px; /* Alineado con el borde derecho del sonic_art */
+    z-index: 10;
+    width: 100px; /* Mismo ancho que sonic_art */
+    display: flex;
+    justify-content: center;
+    }
+    /* Asegurar que el botón de cierre esté por encima */
+    .close-history {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.2s;
+    }
+    .close-history:hover {
+    color: rgba(221, 78, 78, 1);
+    transform: scale(1.1);
+    }
+    .history-button {
+    background-color: rgba(221, 78, 78, 0.7);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 6px 12px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    width: 90%; /* Para que quede un poco más estrecho que el contenedor */
+    }
+    
+    .history-button:hover {
+    background-color: rgba(221, 78, 78, 0.9);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    }
+    
+    .history-button i {
+    font-size: 12px;
+    }
+    
+    /* Ajustar el z-index y otros estilos del contenedor del historial */
+    .history-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 400px;
+    max-height: 70vh;
+    background-color: rgba(53, 0, 0, 0.582);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 0, 0, 0.5);
+    z-index: 99999;
+    display: none;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    overflow: hidden;
+    }
+    
+    .history-content {
+    overflow-y: auto;
+    flex-grow: 1;
+    color: white;
+    font-size: 14px;
+    max-height: 50vh;
+    }
+    /* Garantizar que los controles del historial sean interactivos y visibles */
+    
+    .history-container.active {
+    display: flex;
+    flex-direction: column;
+    }
+    /* Mejoras para el sonic_history con carátulas de álbumes */
+    #sonic_history div {
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s;
+    }
+    
+    #sonic_history div:hover {
+    background-color: rgba(78, 221, 78, 0.1);
+    }
+    
+    /* Estilo para las imágenes de carátulas */
+    #sonic_history img {
+    width: 50px;
+    height: 50px;
+    border-radius: 6px;
+    margin-right: 12px;
+    object-fit: cover;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: transform 0.3s ease;
+    }
+    
+    #sonic_history img:hover {
+    transform: scale(1.1);
+    }
+    
+    /* Ajuste para el texto del título de la canción */
+    #sonic_history span {
+    flex-grow: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 13px;
+    color: #ffffff;
+    transition: color 0.3s;
+    padding-right: 5px;
+    }
+    
+    #sonic_history span:hover {
+    color: rgba(221, 78, 78, 1);
+    }
+    
+    /* Estilo para la marca de tiempo (si existe) */
+    #sonic_history small {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 11px;
+    margin-left: auto;
+    min-width: 55px;
+    text-align: right;
+    }
+    
+    /* Animación de entrada para nuevos elementos */
+    @keyframes fadeInSlide {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    }
+    
+    #sonic_history div:first-child {
+    animation: fadeInSlide 0.5s ease-out;
+    }
+    
+    /* Estilo para el mensaje de carga */
+    .loading-history {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 0;
+    color: rgba(255, 255, 255, 0.7);
+    }
+    
+    .loading-history::after {
+    content: '...';
+    animation: loadingDots 1.5s infinite;
+    }
+    
+    @keyframes loadingDots {
+    0%, 20% { content: '.'; }
+    40% { content: '..'; }
+    60%, 100% { content: '...'; }
+    }
+    
+    /* Personalización de la barra de desplazamiento */
+    .history-content::-webkit-scrollbar {
+    width: 8px;
+    }
+    
+    .history-content::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    }
+    
+    .history-content::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, rgba(221, 78, 78, 0.6), rgba(78, 221, 78, 0.6));
+    border-radius: 10px;
+    }
+    
+    .history-content::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(to bottom, rgba(221, 78, 78,.8), rgba(78, 221, 78, 0.8));
+    }
+    
+    /* Estilos responsivos */
+    @media (max-width: 768px) {
+    .neon-letter {
+        font-size: 2.2rem;
+    }
+    .neon-title {
+        gap: 10px;
+    }
+    }
+    
+    @media (max-width: 480px) {
+    .neon-letter {
+        font-size: 1.8rem;
+    }
+    .neon-title {
+        gap: 6px;
+    }
+    }
+    
+    </style>
+    
+
+    <script>
+        // Radio player functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const playButton = document.getElementById('playButton');
+    const volumeSlider = document.getElementById('volumeSlider');
+    const volumePercentage = document.getElementById('volumePercentage');
+    const listenersCount = document.getElementById('listenersCount');
+    
+    // Create audio element
+    const audio = new Audio();
+    audio.src = "https://antyserv.in/8100/stream"; // Radio stream URL
+    audio.volume = 0.7;
+    audio.crossOrigin = "anonymous"; // Important for some streams
+    
+    
+    let isPlaying = false;
+    
+    // Play/Pause button
+    playButton.addEventListener('click', function() {
+        if (isPlaying) {
+            // Pause
+            audio.pause();
+            playButton.innerHTML = "▶";
+            document.querySelector('.player-container').classList.remove('playing'); // Detener las animaciones de sonido
+        } else {
+            // Play
+            audio.play().catch(e => {
+                console.error("Error playing audio:", e);
+                // Solo en caso de error mostramos un mensaje
+                document.getElementById('sonic_title').textContent = "Error al reproducir";
+            });
+            playButton.innerHTML = "⏸";
+            
+            // No mostramos "Cargando..." y mantenemos el título actual
+            document.querySelector('.player-container').classList.add('playing'); // Activar las animaciones de sonido
+        }
+        isPlaying = !isPlaying;
+    });
+
+    // Error handler
+    audio.addEventListener('error', function() {
+        document.getElementById('sonic_title').textContent = "Error con la transmisión";
+        playButton.innerHTML = "▶";
+        isPlaying = false;
+    });
+    
+    // Volume control with dynamic icon and percentage display
+    volumeSlider.addEventListener('input', function() {
+        const volume = volumeSlider.value;
+        audio.volume = volume;
+        updateVolumeIcon(volume);
+        
+        // Actualizar el porcentaje mostrado
+        const volumePercentage = document.getElementById('volumePercentage');
+        volumePercentage.textContent = Math.round(volume * 100) + '%';
+        
+        // Actualizar el efecto de llenado del slider
+        volumeSlider.style.setProperty('--volume-percent', Math.round(volume * 100) + '%');
+    });
+
+    // Asegurarnos de que el porcentaje inicial se muestra correctamente
+    document.getElementById('volumePercentage').textContent = 
+        Math.round(volumeSlider.value * 100) + '%';
+
+    // También actualizar el porcentaje en la función de mute/unmute
+    document.getElementById('volumeIcon').addEventListener('click', function() {
+        if (audio.volume > 0) {
+            // Si hay volumen, guardarlo y silenciar
+            previousVolume = audio.volume;
+            audio.volume = 0;
+            volumeSlider.value = 0;
+            updateVolumeIcon(0);
+            document.getElementById('volumePercentage').textContent = '0%';
+            
+            // Actualizar el efecto de llenado del slider
+            volumeSlider.style.setProperty('--volume-percent', '0%');
+        } else {
+            // Si está silenciado, restaurar volumen anterior
+            audio.volume = previousVolume;
+            volumeSlider.value = previousVolume;
+            updateVolumeIcon(previousVolume);
+            document.getElementById('volumePercentage').textContent = 
+                Math.round(previousVolume * 100) + '%';
+            
+            // Actualizar el efecto de llenado del slider
+            volumeSlider.style.setProperty('--volume-percent', Math.round(previousVolume * 100) + '%');
+        }
+    });
+
+    // Función para actualizar el icono según el nivel de volumen
+    function updateVolumeIcon(volume) {
+        const volumeIcon = document.getElementById('volumeIcon');
+        
+        // Eliminar todas las clases de volumen existentes
+        volumeIcon.classList.remove('fa-volume-up', 'fa-volume-down', 'fa-volume-off', 'fa-volume-mute');
+        
+        // Agregar la clase apropiada según el nivel de volumen
+        if (volume >= 0.7) {
+            volumeIcon.classList.add('fa-volume-up');
+        } else if (volume >= 0.3) {
+            volumeIcon.classList.add('fa-volume-down');
+        } else if (volume > 0) {
+            volumeIcon.classList.add('fa-volume-off');
+        } else {
+            volumeIcon.classList.add('fa-volume-mute');
+        }
+    }
+
+    // Inicializar el icono y porcentaje con el valor actual
+    updateVolumeIcon(volumeSlider.value);
+    
+    // Variable para almacenar el volumen anterior cuando se silencia
+    let previousVolume = 0.7;
+});
+
+// Después de cargar el script de Antyserv, reorganizar el contenido de sonic_dj
+document.addEventListener('DOMContentLoaded', function() {
+// Variable global para rastrear si ya hemos establecido AutoDj
+let usingAutoDj = false;
+
+// Función para formatear el texto del DJ
+function formatDjText() {
+const sonicDj = document.getElementById('sonic_dj');
+
+if (sonicDj) {
+    // Si el widget de Antyserv cambió la estructura, simplificamos el contenido
+    if (sonicDj.querySelector('i')) {
+        // Si hay un icono dentro, probablemente Antyserv lo agregó
+        // Vamos a obtener solo el texto
+        const textContent = sonicDj.textContent.trim();
+        // Y reemplazar todo el contenido
+        sonicDj.innerHTML = textContent;
+    }
+    
+    // Verificar si el texto está vacío o contiene "No Dj"
+    const currentText = sonicDj.textContent.trim();
+    if (currentText === '' || currentText === '--' || currentText === 'No DJ' || currentText === 'no DJ') {
+        // Reemplazar con "AutoDj"
+        sonicDj.textContent = 'AutoDj';
+        usingAutoDj = true; // Marcar que estamos usando AutoDj
+    } else if (currentText !== 'AutoDj') {
+        // Si hay un texto que no es "AutoDj", es un DJ real
+        usingAutoDj = false;
+    } else if (usingAutoDj) {
+        // Si ya estamos usando AutoDj, forzar mantenerlo
+        sonicDj.textContent = 'AutoDj';
+    }
+    
+    // Asegurarnos que el texto nunca esté vacío
+    if (sonicDj.textContent.trim() === '') {
+        sonicDj.textContent = 'AutoDj';
+        usingAutoDj = true;
+    }
+}
+}
+
+// Ejecutar inmediatamente para establecer el valor inicial
+formatDjText();
+
+// Verificar periódicamente con mayor frecuencia, ya que el widget actualiza rápido
+
+
+// También ejecutar después de un pequeño retraso, cuando el widget podría haber cargado
+
+setTimeout(function() {
+formatDjText();
+}, 5000); // 5 segundos de retraso para la primera verificación
+});
+
+
+// Control de actualizaciones para sonic_art y sonic_dj
+document.addEventListener('DOMContentLoaded', function() {
+// Variables para almacenar los valores actuales
+let currentSong = '';
+let currentArtUrl = '';
+let currentDj = '';
+
+// Función para supervisar y controlar actualizaciones
+function monitorUpdates() {
+const sonicTitle = document.getElementById('sonic_title');
+const sonicArt = document.getElementById('sonic_art');
+const sonicDj = document.getElementById('sonic_dj');
+
+// Si hay un cambio en la canción, permitir actualizaciones
+if (sonicTitle && sonicTitle.textContent.trim() !== currentSong) {
+    // Almacenar la nueva canción
+    currentSong = sonicTitle.textContent.trim();
+    
+    // Reiniciar el bloqueo de actualizaciones para la carátula
+    // cuando hay una nueva canción
+    currentArtUrl = '';
+}
+
+// Controlar actualizaciones de la carátula
+if (sonicArt) {
+    const artStyle = window.getComputedStyle(sonicArt);
+    const artUrl = artStyle.backgroundImage;
+    
+    // Si no tenemos una URL de arte guardada o si hay un cambio de canción, permitir actualización
+    if (currentArtUrl === '' && artUrl !== 'url("https://i.imgur.com/g0anXBS.png")') {
+        currentArtUrl = artUrl;
+    } else if (currentArtUrl !== '' && artUrl !== currentArtUrl) {
+        // Si intentan cambiar la carátula sin cambio de canción, restaurar la anterior
+        sonicArt.style.backgroundImage = currentArtUrl;
+    }
+}
+
+// Control para el DJ
+if (sonicDj) {
+    const djText = sonicDj.textContent.trim();
+    
+    // Gestionar el texto del DJ
+    const isNoDj = djText === '' || djText === '--' || 
+                   djText === 'No DJ' || djText === 'no DJ';
+                   
+    if (isNoDj) {
+        // Si no hay DJ, usar AutoDj
+        sonicDj.textContent = 'AutoDj';
+        currentDj = 'AutoDj';
+    } else if (djText !== currentDj && djText !== 'AutoDj') {
+        // Si hay un nuevo DJ real, permitir la actualización
+        currentDj = djText;
+    } else if (djText !== currentDj) {
+        // Si hay un intento de cambio que no sea a un DJ real, restaurar
+        sonicDj.textContent = currentDj;
+    }
+}
+}
+
+// Ejecutar la comprobación inicial
+setTimeout(monitorUpdates, 2000);
+
+// Establecer un intervalo para verificar periódicamente
+// Usamos 2 segundos para tener un buen balance entre rendimiento y respuesta
+setInterval(monitorUpdates, 2000);
+});
+
+// Función para actualizar la fecha y hora
+function updateDateTime() {
+const now = new Date();
+
+// Formatear la hora (formato 24h)
+const hours = String(now.getHours()).padStart(2, '0');
+const minutes = String(now.getMinutes()).padStart(2, '0');
+const seconds = String(now.getSeconds()).padStart(2, '0');
+const timeString = `${hours}:${minutes}:${seconds}`;
+
+// Formatear la fecha (formato dd/mm/yyyy)
+const day = String(now.getDate()).padStart(2, '0');
+const month = String(now.getMonth() + 1).padStart(2, '0'); // +1 porque los meses van de 0 a 11
+const year = now.getFullYear();
+const dateString = `${day}/${month}/${year}`;
+
+// Actualizar los elementos en el DOM
+document.getElementById('current-time').textContent = timeString;
+document.getElementById('current-date').textContent = dateString;
+}
+
+// Actualizar inmediatamente al cargar la página
+updateDateTime();
+
+// Actualizar cada segundo
+setInterval(updateDateTime, 1000);
+
+// Funcionalidad para el botón de historial
+document.addEventListener('DOMContentLoaded', function() {
+const historyButton = document.getElementById('historyButton');
+const historyContainer = document.getElementById('historyContainer');
+const closeHistory = document.getElementById('closeHistory');
+const playerContainer = document.querySelector('.player-container');
+
+// Función para mostrar el historial
+historyButton.addEventListener('click', function() {
+historyContainer.classList.add('active');
+playerContainer.classList.add('blur-background'); // Añadir efecto de difuminado
+
+// Opcional: Verificar si el contenido ya ha sido cargado
+const historyContent = document.getElementById('sonic_history');
+if (historyContent && historyContent.children.length === 0) {
+    // Podríamos mostrar un mensaje de carga o animación aquí
+    historyContent.innerHTML = '<div class="loading-history">Cargando historial...</div>';
+}
+});
+
+// Función para cerrar el historial
+closeHistory.addEventListener('click', function() {
+historyContainer.classList.remove('active');
+playerContainer.classList.remove('blur-background'); // Quitar efecto de difuminado
+});
+
+// Cerrar el historial al hacer clic fuera del contenedor
+window.addEventListener('click', function(event) {
+if (event.target === historyContainer) {
+    historyContainer.classList.remove('active');
+    playerContainer.classList.remove('blur-background'); // Quitar efecto de difuminado
+}
+});
+
+// Evitar que los clics dentro del contenedor lo cierren
+historyContainer.addEventListener('click', function(event) {
+event.stopPropagation();
+});
+});
+    </script>
+</body>
+</html>
