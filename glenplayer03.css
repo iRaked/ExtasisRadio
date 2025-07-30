@@ -136,15 +136,7 @@
 
 /* NEON EXTRA */
 
-div[glenplayer03]::-webkit-scrollbar {
-  width: 6px;
-}
-
-div[glenplayer03]::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.2);
-}
-
-div[glenplayer03]::-webkit-scrollbar-thumb {
-  background-color: #7f00ff;
-  border-radius: 10px;
+div[glenplayer03] {
+  max-height: 300px;
+  overflow-y: auto;      /* Scroll aparece solo si hay desbordamiento */
 }
