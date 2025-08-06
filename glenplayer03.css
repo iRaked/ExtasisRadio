@@ -135,8 +135,24 @@
 .aff {display:block;}
 
 /* NEON EXTRA */
-
 div[glenplayer03] {
   max-height: 300px;
   overflow-y: auto;      /* Scroll aparece solo si hay desbordamiento */
+}
+
+html, body {
+  overflow-x: hidden; /* Elimina el scroll horizontal global */
+}
+
+[glenplayer03] {
+  overflow-x: hidden;     /* Elimina scroll horizontal */
+  overflow-y: auto;       /* Solo scroll vertical */
+  max-width: 100vw;       /* Nunca excede el ancho de la ventana */
+  box-sizing: border-box;
+}
+
+img[album-art] {
+  max-width: 100%; /* Evita que las imágenes causen desbordamiento */
+  height: auto;
+  display: block;
 }
