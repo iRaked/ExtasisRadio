@@ -8,7 +8,7 @@
     
 ---------------------------------------------------*/
 
-[glenplayer06]{
+[glenplayer03]{
     position:fixed;
     bottom:0;margin-bottom:0;
     width:var(--MusicBox-Width);
@@ -16,11 +16,11 @@
     z-index:699;
 }
 
-[glenplayer06][position='left']{
+[glenplayer03][position='left']{
     left:0;margin-left:var(--MusicBox-Edge-Distance);
 }
 
-[glenplayer06][position='right']{
+[glenplayer03][position='right']{
     right:0;margin-right:var(--MusicBox-Edge-Distance);
 }
 
@@ -135,7 +135,7 @@
 .aff {display:block;}
 
 /* NEON EXTRA */
-div[glenplayer06] {
+div[glenplayer03] {
   max-height: 300px;
   overflow-y: auto;      /* Scroll aparece solo si hay desbordamiento */
 }
@@ -144,7 +144,7 @@ html, body {
   overflow-x: hidden; /* Elimina el scroll horizontal global */
 }
 
-[glenplayer06] {
+[glenplayer03] {
   overflow-x: hidden;     /* Elimina scroll horizontal */
   overflow-y: auto;       /* Solo scroll vertical */
   max-width: 100vw;       /* Nunca excede el ancho de la ventana */
