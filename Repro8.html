@@ -1,0 +1,97 @@
+<!-- jQuery -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script>
+
+<!-- GlenPlayer Scripts -->
+<script src="https://glenthemes.github.io/-music-/glenplayer01.js"></script>
+<link href="https://glenthemes.github.io/-music-/glenplayer01.css" rel="stylesheet">
+
+<!-- Eventos de pestañas -->
+<script>
+$(document).ready(function(){
+  $(".tablink").click(function(){
+    $("#postwrap, .notes, .mtitle").hide();
+  });
+  $(".tabsclose").click(function(){
+    $("#postwrap, .notes, .mtitle").show();
+  });
+});
+</script>
+
+<!-- Drag funcional -->
+<script>
+function dragElement(elmnt) {
+  let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+  const header = document.getElementById(elmnt.id + "header");
+  (header || elmnt).onmousedown = function(e) {
+    e.preventDefault();
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    document.onmouseup = closeDragElement;
+    document.onmousemove = elementDrag;
+  };
+  function elementDrag(e) {
+    e.preventDefault();
+    pos1 = pos3 - e.clientX;
+    pos2 = pos4 - e.clientY;
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+  }
+  function closeDragElement() {
+    document.onmouseup = null;
+    document.onmousemove = null;
+  }
+}
+document.addEventListener("DOMContentLoaded", () => {
+  dragElement(document.getElementById("window"));
+});
+</script>
+
+<!-- Estilos ritualizados -->
+<style>
+:root {
+  --MusicPlayer-Distance-From-Bottom:30px;
+  --MusicPlayer-Frame-Thickness:12px;
+  --MusicPlayer-Frame-Color:transparent;
+  --MusicPlayer-Frame-Transparency:40%;
+  --MusicPlayer-Text-Background:transparent;
+  --MusicPlayer-Text-Padding:12px;
+  --MusicPlayer-Text-Align:right;
+  --MusicPlayer-Text-TOP-Size:0px;
+  --MusicPlayer-Text-TOP-Color:#c8cdb3;
+  --MusicPlayer-Text-BOTTOM-Size:0px;
+  --MusicPlayer-Text-BOTTOM-Color:#c8cdb3;
+  --MusicPlayer-Circle-Size:50px;
+  --MusicPlayer-Circle-Background:transparent;
+  --MusicPlayer-PlayButton-Size:12px;
+  --MusicPlayer-PlayButton-Color:#00BFFF;
+  --MusicPlayer-Bar-Thickness:2px;
+  --MusicPlayer-Bar-Spacing:2px;
+  --MusicPlayer-Bar-Color:#c8cdb3;
+  --MusicPlayer-SlideIn-Speed:0.69s;
+  --MusicPlayer-SlideOut-Speed:1s;
+}
+#window {
+  position: absolute;
+  top: 100px;
+  left: 100px;
+  z-index: 999;
+}
+#windowheader {
+  cursor: move;
+  background: #f0f0f0;
+  padding: 6px;
+  font-weight: bold;
+}
+</style>
+
+<!-- Reproductor encapsulado -->
+<div id="window">
+  <div id="windowheader">🎧 REPRODUCTOR 🎵</div>
+  <div class="glenplayer01">
+    <div top-text>Las cosas más bonitas</div>
+    <div bottom-text>Magnolia Y Los No Me Olvides</div>
+    <audio id="music-id" src="https://dl.dropboxusercontent.com/scl/fi/psxi6ijpas4a53dkbshob/Magonolia-Las-cosas-m-s-bonitas.mp3?rlkey=rrvqdgj6x0jg2yecjklwgwcn3&st=ox5namin"></audio>
+  </div>
+</div>
