@@ -1,97 +1,88 @@
-<!-- jQuery -->
-<script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <link rel="icon" type="image/x-icon" href="assets/SG.ico" />
+        <!-- BLOCK RIGHT CLICK -->
+  <script type="text/javascript">
+    document.onkeydown = function(){return false};
+    document.oncontextmenu = function(){return false}
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reproductor 8</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Dancing Script', cursive;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100%;
+      overflow: auto;
+    }
 
-<!-- GlenPlayer Scripts -->
-<script src="https://glenthemes.github.io/-music-/glenplayer01.js"></script>
-<link href="https://glenthemes.github.io/-music-/glenplayer01.css" rel="stylesheet">
+    .reproductor-container {
+      background-color: #01010190;
+      border: 2px solid #00BFFF;
+      border-radius: 16px;
+      padding: 20px;
+      width: 320px;
+      text-align: center;
+      box-shadow: 0 0 20px #00BFFF;
+    }
 
-<!-- Eventos de pestañas -->
-<script>
-$(document).ready(function(){
-  $(".tablink").click(function(){
-    $("#postwrap, .notes, .mtitle").hide();
-  });
-  $(".tabsclose").click(function(){
-    $("#postwrap, .notes, .mtitle").show();
-  });
-});
-</script>
+    .reproductor-container h2 {
+      color: #c8cdb3;
+      margin-bottom: 10px;
+      font-size: 1.5rem;
+    }
 
-<!-- Drag funcional -->
-<script>
-function dragElement(elmnt) {
-  let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-  const header = document.getElementById(elmnt.id + "header");
-  (header || elmnt).onmousedown = function(e) {
-    e.preventDefault();
-    pos3 = e.clientX;
-    pos4 = e.clientY;
-    document.onmouseup = closeDragElement;
-    document.onmousemove = elementDrag;
-  };
-  function elementDrag(e) {
-    e.preventDefault();
-    pos1 = pos3 - e.clientX;
-    pos2 = pos4 - e.clientY;
-    pos3 = e.clientX;
-    pos4 = e.clientY;
-    elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-  }
-  function closeDragElement() {
-    document.onmouseup = null;
-    document.onmousemove = null;
-  }
-}
-document.addEventListener("DOMContentLoaded", () => {
-  dragElement(document.getElementById("window"));
-});
-</script>
+    .reproductor-container p {
+      color: #c8cdb3;
+      font-size: 1rem;
+      margin-bottom: 20px;
+    }
 
-<!-- Estilos ritualizados -->
-<style>
-:root {
-  --MusicPlayer-Distance-From-Bottom:30px;
-  --MusicPlayer-Frame-Thickness:12px;
-  --MusicPlayer-Frame-Color:transparent;
-  --MusicPlayer-Frame-Transparency:40%;
-  --MusicPlayer-Text-Background:transparent;
-  --MusicPlayer-Text-Padding:12px;
-  --MusicPlayer-Text-Align:right;
-  --MusicPlayer-Text-TOP-Size:0px;
-  --MusicPlayer-Text-TOP-Color:#c8cdb3;
-  --MusicPlayer-Text-BOTTOM-Size:0px;
-  --MusicPlayer-Text-BOTTOM-Color:#c8cdb3;
-  --MusicPlayer-Circle-Size:50px;
-  --MusicPlayer-Circle-Background:transparent;
-  --MusicPlayer-PlayButton-Size:12px;
-  --MusicPlayer-PlayButton-Color:#00BFFF;
-  --MusicPlayer-Bar-Thickness:2px;
-  --MusicPlayer-Bar-Spacing:2px;
-  --MusicPlayer-Bar-Color:#c8cdb3;
-  --MusicPlayer-SlideIn-Speed:0.69s;
-  --MusicPlayer-SlideOut-Speed:1s;
-}
-#window {
-  position: absolute;
-  top: 100px;
-  left: 100px;
-  z-index: 999;
-}
-#windowheader {
-  cursor: move;
-  background: #f0f0f0;
-  padding: 6px;
-  font-weight: bold;
-}
-</style>
+    .reproductor-container button {
+      background-color: #00BFFF80;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      margin: 5px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.3s ease;
+    }
 
-<!-- Reproductor encapsulado -->
-<div id="window">
-  <div id="windowheader">🎧 REPRODUCTOR 🎵</div>
-  <div class="glenplayer01">
-    <div top-text>Las cosas más bonitas</div>
-    <div bottom-text>Magnolia Y Los No Me Olvides</div>
-    <audio id="music-id" src="https://dl.dropboxusercontent.com/scl/fi/psxi6ijpas4a53dkbshob/Magonolia-Las-cosas-m-s-bonitas.mp3?rlkey=rrvqdgj6x0jg2yecjklwgwcn3&st=ox5namin"></audio>
+    .reproductor-container button:hover {
+      background-color: #0099cc;
+    }
+
+    .reproductor-container .status {
+      margin-top: 10px;
+      color: #c8cdb3;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="reproductor-container">
+    <h2>🎧 Las cosas más bonitas</h2>
+    <p>Magnolia y Los No Me Olvides</p>
+    <audio id="miAudio" src="https://dl.dropboxusercontent.com/scl/fi/psxi6ijpas4a53dkbshob/Magonolia-Las-cosas-m-s-bonitas.mp3?rlkey=rrvqdgj6x0jg2yecjklwgwcn3&st=ox5namin" preload="auto"></audio>
+    <button onclick="document.getElementById('miAudio').play(); actualizarEstado('Reproduciendo 🎶')">▶️ Play</button>
+    <button onclick="document.getElementById('miAudio').pause(); actualizarEstado('Pausado ⏸️')">⏸️ Pause</button>
   </div>
-</div>
+
+  <script>
+    function actualizarEstado(texto) {
+      document.getElementById('estado').textContent = texto;
+    }
+  </script>
+
+</body>
+</html>
