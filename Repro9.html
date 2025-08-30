@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Repro9</title>
+
+  <!-- GlenThemes Music Player -->
+  <script src="//glen-players.gitlab.io/03/core.js"></script>
+  <link href="//glen-players.gitlab.io/03/main.css" rel="stylesheet" />
+
+  <style>
+    [glenplayer03] {
+      --MusicPlayer-Screen-Gap: 20px;
+      --MusicPlayer-Width: 230px;
+      z-index: 699;
+
+      --MusicPlayer-Always-Show: "no";
+      --MusicPlayer-Start-State: "hide";
+      --MusicPlayer-Interaction-Trigger: "hover";
+      --MusicPlayer-Animation-Speed: 0.7s;
+
+      --Autoplay-First-Song: "no";
+      --Autoplay-Next-Song: "yes";
+      --Loop-Playlist: "no";
+
+      --MusicPlayer-Title-Size: 0.7rem;
+      --MusicPlayer-Title-Color: #e0e0d7;
+      --MusicPlayer-Title-BG: #14022f;
+      --MusicPlayer-Title-Padding: 12px;
+      --MusicPlayer-Title-Rounded-Corners: 8px;
+
+      --MusicPlayer-List-Padding: 14px;
+      --MusicPlayer-List-BG: #14022f;
+      --MusicPlayer-List-Borders-Size: 1px;
+      --MusicPlayer-List-Borders-Color: #5d566f;
+      --MusicPlayer-List-Row-Spacing: 9px;
+
+      --MusicPlayer-Album-Image-Size: 32px;
+      --MusicPlayer-Album-Image-Rounded-Corners: 3px;
+      --MusicPlayer-Album-Gap-Right: 10px;
+
+      --MusicPlayer-Song-Name-Size: 0.65rem;
+      --MusicPlayer-Song-Name-Color: #ffffff;
+
+      --MusicPlayer-Artist-Name-Size: 0.7rem;
+      --MusicPlayer-Artist-Name-Color: #ffffff;
+
+      --MusicPlayer-Details-Row-Gap: 2px;
+      --MusicPlayer-Scrollbar-Color: #1c0f3d;
+
+      --MusicPlayer-Icon-Style: "fill";
+      --MusicPlayer-Buttons-Touch-Padding: 4px;
+      --MusicPlayer-Buttons-Size: 12px;
+    }
+  </style>
+</head>
+
+<body>
+  <section glenplayer03 position="left">
+    <button player-title>
+      <h3>music</h3>
+    </button>
+
+    <div music-list>
+      <!-- SONG #1 -->
+      <figure song-row>
+        <img album-image src="https://i.postimg.cc/HnRZ4jZp/HNKG.png" />
+        <figcaption song-details>
+          <span song-name>Happy Now</span>
+          <span artist-name>Kygo</span>
+        </figcaption>
+        <audio src="https://www.dropbox.com/scl/fi/znj5iyi65vo8gt0etwdl3/HappyNow.mp3?rlkey=swrdlv78efrxg2wkepvze4q6r&st=aln1o378&dl=1" volume="98%"></audio>
+      </figure>
+
+      <!-- SONG #2 -->
+      <figure song-row>
+        <img album-image src="https://i.postimg.cc/KcH8SJXV/BoH.png" />
+        <figcaption song-details>
+          <span song-name>The Funeral</span>
+          <span artist-name>Band of Horses</span>
+        </figcaption>
+        <audio src="https://www.dropbox.com/scl/fi/q9opbe5fnvpovujpaj2q8/BoH.mp3?rlkey=x7zmm6eopjpapc5c9i0aagw7d&st=v1spgq8p&dl=1" volume="96%"></audio>
+      </figure>
+
+      <!-- SONG #3 -->
+      <figure song-row>
+        <img album-image src="https://i.postimg.cc/FKVHMvmg/YDI.png" />
+        <figcaption song-details>
+          <span song-name>Yellow</span>
+          <span artist-name>Downer Inc.</span>
+        </figcaption>
+        <audio src="https://www.dropbox.com/scl/fi/3bc9u0yguqooe4kiek544/Yllow.mp3?rlkey=6qh4eqz8ry3edgmhc3xwj4gk0&st=zsepcfkx&dl=1" volume="90%"></audio>
+      </figure>
+    </div>
+  </section>
+</body>
+</html>
