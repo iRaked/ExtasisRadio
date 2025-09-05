@@ -96,7 +96,7 @@ function restaurarDiscoBase() {
 // ===============================
 function generarRutaDiscoBase() {
   const timestamp = new Date().getTime();
-  return `assets/Vinyl-Disc-FX.png?${timestamp}`;
+  return `https://i.ibb.co/xtm4bs3p/Vinyl-Disc-FX.png?${timestamp}`;
 }
 
 // ===============================
