@@ -28,7 +28,7 @@ body::before {
   width: 480px;
   height: 650px;
   transform: translate(-50%, -50%);
-  background-image: url('assets/background/Screan.gif');
+  background-image: url("assets/background/Background-Repro-Fusion-GFX.gif");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -39,11 +39,11 @@ body::before {
   position: relative;
   width: 480px;
   height: 650px;
-  background-color: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(2px);
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(1px);
   -webkit-backdrop-filter: blur(8px);
   border-radius: 20px;
-  box-shadow: 0 0 30px rgba(255, 0, 0, 0.2);
+  box-shadow: 0 0 30px rgba(255, 0, 0, 0.8);
   overflow: hidden;
   z-index: 1;
 }
