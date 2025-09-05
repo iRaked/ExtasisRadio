@@ -1,0 +1,62 @@
+[
+  {
+    "name": "Americo, Abel Pintos - El embrujo",
+    "url": "https://www.dropbox.com/scl/fi/wb9o72k2qowb3ro1a8ufh/Americo-Abel-Pintos-El-embrujo.MP3?rlkey=0d7b8e49xi5hohakkmxyj2wpe&raw=1",
+    "cover": "assets/covers/AmericoElEmbrujo.png",
+    "isPlaying": false
+  },
+  {
+    "name": "DesaKTa2 - La de la mala suerte",
+    "url": "https://www.dropbox.com/scl/fi/mizs9liwqeap58s8mv5wd/DesaKTa2-La-de-la-mala-suerte.MP3?rlkey=c11ejxit8y2gcvyo53t0qlrk6&raw=1",
+    "cover": "assets/covers/DesaKTa2MalaSuerte.jpg",
+    "isPlaying": false
+  },
+  {
+    "name": "Grupo Cañaveral, La Joaqui - Echarme al olvido",
+    "url": "https://www.dropbox.com/scl/fi/8utx43so5j5re5u6mhwyy/Grupo-Ca-averal-La-Joaqui-Echarme-al-olvido.MP3?rlkey=05ra9zbf9pxvcdgqbxws1125q&raw=1",
+    "cover": "assets/covers/GrupoCanaveralOlvido.jpg",
+    "isPlaying": false
+  },
+  {
+    "name": "La Repandilla x Aneley - Estaba aquí pensando",
+    "url": "https://www.dropbox.com/scl/fi/qa811rddeprdbf355cxkg/La-Repandilla-x-Aneley-Estaba-aqu-pensando.MP3?rlkey=vgr7eju622f7m3ka2d8jotsue&raw=1",
+    "cover": "assets/covers/LaRepandillaPensando.jpg",
+    "isPlaying": false
+  },
+  {
+    "name": "Luciano Pereyra - 22 de Marzo",
+    "url": "https://www.dropbox.com/scl/fi/p48dcu5lojofqqvpd4vrg/Luciano-Pereyra-22-de-Marzo.MP3?rlkey=8a1vwoz33zp7afjbgg6qcubeh&raw=1",
+    "cover": "assets/covers/LucianoPereyra22Marzo.jpg",
+    "isPlaying": false
+  },
+  {
+    "name": "Luciano Pereyra & Emanero - Ahora resulta",
+    "url": "https://www.dropbox.com/scl/fi/77wbnzbufjy668qefuo5c/Luciano-Pereyra-Emanero-Ahora-resulta.MP3?rlkey=0i1toqydj2t3ig62m3i1me96s&raw=1",
+    "cover": "assets/covers/LucianoPereyraAhoraResulta.jpg",
+    "isPlaying": false
+  },
+  {
+    "name": "Migrantes, Los Nocheros, Nico Valdi - Mi chica de pueblo",
+    "url": "https://www.dropbox.com/scl/fi/7eghnlb0i9t5tkn4gunef/Migrantes-Los-Nocheros-Nico-Valdi-Mi-chica-de-pueblo.MP3?rlkey=3uw0ty55blsf5f6pgrhi7tobf&raw=1",
+    "cover": "assets/covers/MigrantesChicaPueblo.jpg",
+    "isPlaying": false
+  },
+  {
+    "name": "Migrantes, G Sony, Rodrigo Tapari - Las 5",
+    "url": "https://www.dropbox.com/scl/fi/jfzlxgmiqhx4kpt1aunx7/Migrantes-G-Sony-Rodrigo-Tapari-Las-5.MP3?rlkey=g1l7o3lvtcvk7gxbbmok8zxa9&raw=1",
+    "cover": "assets/covers/MigrantesLas5.jpg",
+    "isPlaying": false
+  },
+  {
+    "name": "Sharon y los camperos del chamamé - Cuidado que te supero",
+    "url": "https://www.dropbox.com/scl/fi/m11tliy6f2lgpmlsjw4z0/Sharon-y-los-camperos-del-chamam-Cuidado-que-te-supero.MP3?rlkey=e5duyb142x6y41mu6j6xspz47&raw=1",
+    "cover": "assets/covers/SharonCuidadoSupero.jpg",
+    "isPlaying": false
+  },
+  {
+    "name": "Valentina Márquez - No me enseñaste",
+    "url": "https://www.dropbox.com/scl/fi/4nkakcebvjrkpt3ofnwop/Valentina-M-rquez-No-me-ense-aste.MP3?rlkey=h2ra71z6n8x2j1zt4ah99cd5h&raw=1",
+    "cover": "assets/covers/ValentinaMarquezNoEnseñaste.jpg",
+    "isPlaying": false
+  }
+]
