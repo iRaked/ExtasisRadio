@@ -25,6 +25,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // 📦 Estado del sistema
   let trackData = [];
   let currentTrack = null;
+  let autoplayEnabled = false;
+  let repeatMode = "none"; // "none", "track", "list"
 
   // ===============================
   // 🎼 Cargar metadata y generar lista ✓
@@ -57,106 +59,228 @@ document.addEventListener("DOMContentLoaded", () => {
       playTrack(0, false);
     });
 
-// ===============================
-// 🎵 Función para cargar y reproducir pista
-// ===============================
-function playTrack(index, autoplay = true) {
-  if (typeof index !== "number" || index < 0 || index >= trackData.length) {
-    restaurarDiscoBase(); // 🌀 Restaurar disco base si el índice es inválido
-    return;
+  // ===============================
+  // 🎵 Función para cargar y reproducir pista
+  // ===============================
+  function playTrack(index, autoplay = true) {
+    if (typeof index !== "number" || index < 0 || index >= trackData.length) {
+      restaurarDiscoBase();
+      return;
+    }
+
+    const track = trackData[index];
+    if (!track || !track.url) {
+      restaurarDiscoBase();
+      return;
+    }
+
+    currentTrack = index;
+    audio.src = track.url;
+    autoplayEnabled = true; // ✅ Activamos reproducción continua
+
+    if (autoplay) {
+      audio.play().catch(err => {
+        console.warn("Autoplay bloqueado:", err);
+      });
+    }
+
+    discImg.src = track.cover || generarRutaDiscoBase();
   }
 
-  const track = trackData[index];
-  if (!track || !track.url) {
-    restaurarDiscoBase(); // 🌀 Restaurar disco base si no hay pista válida
-    return;
+  // ===============================
+  // 🍐 Restaurar disco base cuando no hay pista activa
+  // ===============================
+  function restaurarDiscoBase() {
+    discImg.src = generarRutaDiscoBase();
   }
 
-  currentTrack = index;
-  audio.src = track.url;
-
-  if (autoplay) {
-    audio.play().catch(err => {
-      console.warn("Autoplay bloqueado:", err);
-    });
+  // ===============================
+  // 🌀 Generar ruta única para el disco base (evita caché)
+  // ===============================
+  function generarRutaDiscoBase() {
+    const timestamp = new Date().getTime();
+    return `https://i.ibb.co/xtm4bs3p/Vinyl-Disc-FX.png?${timestamp}`;
   }
 
-  discImg.src = track.cover || generarRutaDiscoBase(); // 🎯 Mostrar carátula o disco base
-}
+  // ===============================
+  // 🎯 Evento al terminar la pista (consolidado)
+  // ===============================
+  audio.addEventListener("ended", () => {
+    console.log("🔚 Evento 'ended' disparado");
 
-// ===============================
-// 🍐 Restaurar disco base cuando no hay pista activa
-// ===============================
-function restaurarDiscoBase() {
-  discImg.src = generarRutaDiscoBase(); // ✅ Forzar recarga con parámetro dinámico
-}
+    iconPause.classList.add("hidden");
+    iconPlay.classList.remove("hidden");
 
-// ===============================
-// 🌀 Generar ruta única para el disco base (evita caché)
-// ===============================
-function generarRutaDiscoBase() {
-  const timestamp = new Date().getTime();
-  return `https://i.ibb.co/xtm4bs3p/Vinyl-Disc-FX.png?${timestamp}`;
-}
+    if (repeatMode === "track") {
+      audio.currentTime = 0;
+      audio.play().then(() => {
+        console.log("🔂 Repetición automática de pista");
+      }).catch(err => {
+        console.warn("❌ Error al repetir pista:", err);
+      });
+      return;
+    }
 
-// ===============================
-// 🎯 Evento al terminar la pista
-// ===============================
-audio.addEventListener("ended", () => {
-  iconPause.classList.add("hidden");
-  iconPlay.classList.remove("hidden");
+    if (repeatMode === "list") {
+      currentTrack = (currentTrack + 1) % trackData.length;
+      playTrack(currentTrack);
+      console.log("🔁 Avance automático en lista");
+      return;
+    }
 
-  if (repeatMode === "track") {
-    audio.currentTime = 0;
-    audio.play();
-    console.log("🔂 Repetición automática de pista");
-  } else if (repeatMode === "list") {
-    currentTrack = (currentTrack + 1) % trackData.length;
-    playTrack(currentTrack);
-    console.log("🔁 Avance automático en lista");
-  } else {
-    restaurarDiscoBase(); // ✅ Restaurar disco base al finalizar sin repetición
+    if (autoplayEnabled) {
+      const nextIndex = currentTrack + 1;
+      const nextTrack = trackData[nextIndex];
+
+      if (!nextTrack || !nextTrack.url) {
+        console.log("⏹ Fin de pista sin repetición");
+        autoplayEnabled = false;
+        restaurarDiscoBase();
+        return;
+      }
+
+      currentTrack = nextIndex;
+      audio.src = nextTrack.url;
+      audio.load();
+
+      audio.play().then(() => {
+        console.log(`▶️ Reproduciendo track ${currentTrack}`);
+      }).catch(err => {
+        console.warn("❌ Error al reproducir siguiente track:", err);
+        autoplayEnabled = false;
+      });
+      return;
+    }
+
+    restaurarDiscoBase();
     console.log("⏹ Fin de pista sin repetición");
-  }
-});
+  });
 
-// ===============================
-// ⏸ Evento al pausar manualmente
-// ===============================
-audio.addEventListener("pause", () => {
-  iconPause.classList.add("hidden");
-  iconPlay.classList.remove("hidden");
+  // ===============================
+  // ⏪ BOTÓN REWIND — 1 clic: pista anterior | sostenido: retroceso de 5s ✓
+  // ===============================
+  let rewindHoldTimer = null;
 
-  restaurarDiscoBase(); // ✅ Restaurar disco base al pausar
-});
-    
-// ===============================
-// 🎛️ BOTÓN MENU — MODAL ✓
-// ===============================
-const menuBtn = document.getElementById("btn-menu-tracks");
-const closeModalBtn = document.getElementById("close-modal");
+  prevBtn?.addEventListener("mousedown", () => {
+    rewindHoldTimer = setTimeout(() => {
+      if (!audio.src || currentTrack === null || !trackData[currentTrack]) return;
+      audio.currentTime = Math.max(0, audio.currentTime - 5);
+      console.log("⏪ Retroceso de 5 segundos (clic sostenido)");
+    }, 600);
+  });
 
-menuBtn?.addEventListener("click", () => {
-  if (!trackData || trackData.length === 0) {
-    console.warn("📂 No hay pistas para mostrar en el modal");
-    return;
-  }
+  prevBtn?.addEventListener("mouseup", () => {
+    clearTimeout(rewindHoldTimer);
+  });
 
-  modalTracks.classList.remove("hidden");
-  console.log("🎛️ Modal abierto");
-});
+  prevBtn?.addEventListener("click", () => {
+    if (!trackData || trackData.length === 0 || currentTrack === null) return;
+    currentTrack = (currentTrack - 1 + trackData.length) % trackData.length;
+    playTrack(currentTrack);
+    console.log("⏮ Cambio a pista anterior (clic simple)");
+  });
 
-closeModalBtn?.addEventListener("click", () => {
-  modalTracks.classList.add("hidden");
-  console.log("❌ Modal cerrado");
-});
+  // ===============================
+  // ⏭ BOTÓN FORWARD ✓
+  // ===============================
+  let forwardClickCount = 0;
+  let forwardClickTimer = null;
 
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape" && !modalTracks.classList.contains("hidden")) {
+  nextBtn?.addEventListener("click", () => {
+    forwardClickCount++;
+
+    if (forwardClickCount === 1) {
+      forwardClickTimer = setTimeout(() => {
+        if (!trackData || trackData.length === 0 || currentTrack === null) return;
+        currentTrack = (currentTrack + 1) % trackData.length;
+        playTrack(currentTrack);
+        console.log("⏭ Cambio a pista siguiente:", trackData[currentTrack].name);
+        forwardClickCount = 0;
+      }, 300);
+    }
+
+    if (forwardClickCount === 2) {
+      clearTimeout(forwardClickTimer);
+      forwardClickCount = 0;
+
+      if (!audio.src || currentTrack === null || !trackData[currentTrack]) return;
+      audio.currentTime = Math.min(audio.duration, audio.currentTime + 10);
+      console.log("⏩ Avance de 10 segundos");
+    }
+  });
+
+  // ===============================
+  // 🔁 BOTÓN REPEAT — 1 clic: repetir pista | 2 clics o clic sostenido: repetir lista ✓
+  // ===============================
+  const repeatBtn = document.getElementById("repeat-button");
+
+  let repeatClickCount = 0;
+  let repeatClickTimer = null;
+  let holdTimer = null;
+
+  repeatBtn?.addEventListener("mousedown", () => {
+    holdTimer = setTimeout(() => {
+      repeatMode = "list";
+      console.log("🔁 Modo: repetir lista completa");
+      repeatBtn.classList.add("repeat-list");
+    }, 600);
+  });
+
+  repeatBtn?.addEventListener("mouseup", () => {
+    clearTimeout(holdTimer);
+  });
+
+  repeatBtn?.addEventListener("click", () => {
+    repeatClickCount++;
+
+    if (repeatClickCount === 1) {
+      repeatClickTimer = setTimeout(() => {
+        repeatMode = "track";
+        console.log("🔂 Modo: repetir pista actual");
+        repeatBtn.classList.remove("repeat-list");
+        repeatBtn.classList.add("repeat-track");
+        repeatClickCount = 0;
+      }, 300);
+    }
+
+    if (repeatClickCount === 2) {
+      clearTimeout(repeatClickTimer);
+      repeatClickCount = 0;
+
+      repeatMode = "list";
+      console.log("🔁 Modo: repetir lista completa");
+      repeatBtn.classList.remove("repeat-track");
+      repeatBtn.classList.add("repeat-list");
+    }
+  });
+
+  // ===============================
+  // 🎛️ BOTÓN MENU — MODAL ✓
+  // ===============================
+  const menuBtn = document.getElementById("btn-menu-tracks");
+  const closeModalBtn = document.getElementById("close-modal");
+
+  menuBtn?.addEventListener("click", () => {
+    if (!trackData || trackData.length === 0) {
+      console.warn("📂 No hay pistas para mostrar en el modal");
+      return;
+    }
+
+    modalTracks.classList.remove("hidden");
+    console.log("🎛️ Modal abierto");
+  });
+
+  closeModalBtn?.addEventListener("click", () => {
     modalTracks.classList.add("hidden");
-    console.log("❌ Modal cerrado con ESC");
-  }
-});
+    console.log("❌ Modal cerrado");
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !modalTracks.classList.contains("hidden")) {
+      modalTracks.classList.add("hidden");
+      console.log("❌ Modal cerrado con ESC");
+    }
+  });
 
   // ===============================
   // 🔁 BOTÓN PLAY/PAUSE ✓
@@ -167,10 +291,13 @@ document.addEventListener("keydown", (e) => {
       return;
     }
 
+    autoplayEnabled = true;
+
     if (audio.paused || audio.ended) {
       audio.play().then(() => {
         iconPlay.classList.add("hidden");
         iconPause.classList.remove("hidden");
+        console.log("▶️ Reproduciendo track actual");
       }).catch(err => {
         console.warn("⚠️ Error al reproducir:", err);
       });
@@ -178,171 +305,9 @@ document.addEventListener("keydown", (e) => {
       audio.pause();
       iconPause.classList.add("hidden");
       iconPlay.classList.remove("hidden");
+      console.log("⏸️ Pausado por usuario");
     }
   });
-
-  // ===============================
-// ⏪ BOTÓN REWIND — 1 clic: pista anterior | sostenido: retroceso de 5s ✓
-// ===============================
-let rewindHoldTimer = null;
-
-prevBtn?.addEventListener("mousedown", () => {
-  rewindHoldTimer = setTimeout(() => {
-    if (!audio.src || currentTrack === null || !trackData[currentTrack]) return;
-    audio.currentTime = Math.max(0, audio.currentTime - 5);
-    console.log("⏪ Retroceso de 5 segundos (clic sostenido)");
-  }, 600); // Tiempo de activación sostenida
-});
-
-prevBtn?.addEventListener("mouseup", () => {
-  clearTimeout(rewindHoldTimer);
-});
-
-prevBtn?.addEventListener("click", () => {
-  if (!trackData || trackData.length === 0 || currentTrack === null) return;
-  currentTrack = (currentTrack - 1 + trackData.length) % trackData.length;
-  playTrack(currentTrack);
-  console.log("⏮ Cambio a pista anterior (clic simple)");
-});
-  
-  // ===============================
-// ⏭ BOTÓN FORWARD ✓
-// ===============================
-let forwardClickCount = 0;
-let forwardClickTimer = null;
-
-nextBtn?.addEventListener("click", () => {
-  forwardClickCount++;
-
-  if (forwardClickCount === 1) {
-    forwardClickTimer = setTimeout(() => {
-      // 🟢 Acción de 1 clic: ir a pista siguiente
-      if (!trackData || trackData.length === 0 || currentTrack === null) return;
-      currentTrack = (currentTrack + 1) % trackData.length;
-      playTrack(currentTrack);
-      console.log("⏭ Cambio a pista siguiente:", trackData[currentTrack].name);
-      forwardClickCount = 0;
-    }, 300);
-  }
-
-  if (forwardClickCount === 2) {
-    clearTimeout(forwardClickTimer);
-    forwardClickCount = 0;
-
-    // 🟢 Acción de doble clic: adelantar 10 segundos
-    if (!audio.src || currentTrack === null || !trackData[currentTrack]) return;
-    audio.currentTime = Math.min(audio.duration, audio.currentTime + 10);
-    console.log("⏩ Avance de 10 segundos");
-  }
-});
-
-// ===============================
-// 🔁 BOTÓN REPEAT — 1 clic: repetir pista | 2 clics o clic sostenido: repetir lista ✓
-// ===============================
-const repeatBtn = document.getElementById("repeat-button");
-
-let repeatMode = "none"; // Modos posibles: "none", "track", "list"
-let repeatClickCount = 0;
-let repeatClickTimer = null;
-
-// 🌀 Detectar clic sostenido
-let holdTimer = null;
-repeatBtn?.addEventListener("mousedown", () => {
-  holdTimer = setTimeout(() => {
-    repeatMode = "list";
-    console.log("🔁 Modo: repetir lista completa");
-    repeatBtn.classList.add("repeat-list");
-  }, 600); // Sostenido por 600ms activa modo lista
-});
-
-repeatBtn?.addEventListener("mouseup", () => {
-  clearTimeout(holdTimer);
-});
-
-repeatBtn?.addEventListener("click", () => {
-  repeatClickCount++;
-
-  if (repeatClickCount === 1) {
-    repeatClickTimer = setTimeout(() => {
-      // 🟢 Acción de 1 clic: repetir pista actual
-      repeatMode = "track";
-      console.log("🔂 Modo: repetir pista actual");
-      repeatBtn.classList.remove("repeat-list");
-      repeatBtn.classList.add("repeat-track");
-      repeatClickCount = 0;
-    }, 300);
-  }
-
-  if (repeatClickCount === 2) {
-    clearTimeout(repeatClickTimer);
-    repeatClickCount = 0;
-
-    // 🟢 Acción de doble clic: repetir lista
-    repeatMode = "list";
-    console.log("🔁 Modo: repetir lista completa");
-    repeatBtn.classList.remove("repeat-track");
-    repeatBtn.classList.add("repeat-list");
-  }
-});
-
-// ===============================
-// 🎯 Evento al terminar la pista (actualizado)
-// ===============================
-audio.addEventListener("ended", () => {
-  iconPause.classList.add("hidden");
-  iconPlay.classList.remove("hidden");
-
-  if (repeatMode === "track") {
-    audio.currentTime = 0;
-    audio.play();
-    console.log("🔂 Repetición automática de pista");
-  } else if (repeatMode === "list") {
-    currentTrack = (currentTrack + 1) % trackData.length;
-    playTrack(currentTrack);
-    console.log("🔁 Avance automático en lista");
-  } else {
-    discImg.src = "assets/Vinyl-Disc-FX.png";
-
-    console.log("⏹ Fin de pista sin repetición");
-  }
-});
-
-// ===============================
-// 🔀 BOTÓN SHUFFLE ✓
-// ===============================
-
-    shuffleBtn?.addEventListener("click", () => {
-  if (!Array.isArray(trackData) || trackData.length < 2) {
-    console.warn("🔀 No hay suficientes pistas para mezclar");
-    return;
-  }
-
-  // Mezclar el array de pistas usando Fisher-Yates
-  for (let i = trackData.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [trackData[i], trackData[j]] = [trackData[j], trackData[i]];
-  }
-
-  // Reiniciar desde la primera pista mezclada
-  currentTrack = 0;
-  playTrack(currentTrack);
-
-  // Regenerar visuales del modal
-  trackList.innerHTML = "";
-  trackData.forEach((track, index) => {
-    const li = document.createElement("li");
-    li.textContent = track.name;
-    li.classList.add("modal-track-item");
-    li.setAttribute("data-index", index);
-    li.addEventListener("click", () => {
-      playTrack(index, false);
-      modalTracks.classList.add("hidden");
-    });
-    trackList.appendChild(li);
-  });
-
-  console.log("🔀 Lista mezclada. Nueva danza iniciada.");
-});
 
   // ===============================
   // 🎯 Sincronización visual con eventos del audio
@@ -357,11 +322,42 @@ audio.addEventListener("ended", () => {
     iconPlay.classList.remove("hidden");
   });
 
-  audio.addEventListener("ended", () => {
-    iconPause.classList.add("hidden");
-    iconPlay.classList.remove("hidden");
+  // ===============================
+  // 🔀 BOTÓN SHUFFLE ✓
+  // ===============================
+  shuffleBtn?.addEventListener("click", () => {
+    if (!Array.isArray(trackData) || trackData.length < 2) {
+      console.warn("🔀 No hay suficientes pistas para mezclar");
+      return;
+    }
+
+    // Mezclar el array de pistas usando Fisher-Yates
+    for (let i = trackData.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [trackData[i], trackData[j]] = [trackData[j], trackData[i]];
+    }
+
+    // Reiniciar desde la primera pista mezclada
+    currentTrack = 0;
+    playTrack(currentTrack);
+
+    // Regenerar visuales del modal
+    trackList.innerHTML = "";
+    trackData.forEach((track, index) => {
+      const li = document.createElement("li");
+      li.textContent = track.name;
+      li.classList.add("modal-track-item");
+      li.setAttribute("data-index", index);
+      li.addEventListener("click", () => {
+        playTrack(index, false);
+        modalTracks.classList.add("hidden");
+      });
+      trackList.appendChild(li);
+    });
+
+    console.log("🔀 Lista mezclada. Nueva danza iniciada.");
   });
-});
+}); // ✅ Cierre único del bloque DOMContentLoaded
 
 // ===============================
 // 🌌 PARTÍCULAS ✓
