@@ -62,13 +62,13 @@ document.addEventListener("DOMContentLoaded", () => {
 // ===============================
 function playTrack(index, autoplay = true) {
   if (typeof index !== "number" || index < 0 || index >= trackData.length) {
-    restaurarDiscoBase();
+    restaurarPlato(); // 💤 Sin pista válida: mostrar Plato
     return;
   }
 
   const track = trackData[index];
   if (!track || !track.url) {
-    restaurarDiscoBase();
+    restaurarPlato(); // 💤 Sin URL válida: mostrar Plato
     return;
   }
 
@@ -80,55 +80,173 @@ function playTrack(index, autoplay = true) {
     audio.play().catch(err => {
       console.warn("Autoplay bloqueado:", err);
     });
+
+    // ✅ Mostrar portada del track y activar animación
+    discImg.classList.add("rotating");
+    discImg.src = track.cover || "assets/covers/Cover-Vinyl-Disc-FX1.png";
+  } else {
+    // ⏸ Carga sin reproducción: mostrar disco detenido sin animación
+    discImg.classList.remove("rotating");
+    discImg.src = "assets/covers/Cover-Vinyl-Disc-FX1.png";
   }
-
-  discImg.src = track.cover || generarRutaDiscoBase();
 }
 
 // ===============================
-// 🍐 Restaurar disco base cuando no hay pista activa
+// 🍐 Restaurar Plato cuando no hay pista activa
 // ===============================
-function restaurarDiscoBase() {
-  discImg.src = generarRutaDiscoBase(); // ✅ Forzar recarga con parámetro dinámico
+function restaurarPlato() {
+  discImg.classList.remove("rotating"); // ✅ Detener animación
+  discImg.src = "assets/covers/Plato.png"; // ✅ Mostrar Plato
 }
 
 // ===============================
-// 🌀 Generar ruta única para el disco base (evita caché)
+// 🔁 BLOQUE 2: EVENTOS DE REPRODUCCIÓN Y PAUSA
 // ===============================
-function generarRutaDiscoBase() {
-  const timestamp = new Date().getTime();
-  return `https://i.ibb.co/2MrKpVt/Cover-Vinyl-Disc-FX1.png?${timestamp}`;
-}
+//   - Reproduce automáticamente según el modo activo.
+//   - Actualiza portada y animación al avanzar o repetir.
+//   - Muestra disco base al pausar.
+// ===============================
 
-// ===============================
 // 🎯 Evento al terminar la pista
-// ===============================
 audio.addEventListener("ended", () => {
   iconPause.classList.add("hidden");
   iconPlay.classList.remove("hidden");
 
   if (repeatMode === "track") {
+    // 🔂 Repetir la misma pista
     audio.currentTime = 0;
-    audio.play();
-    console.log("🔂 Repetición automática de pista");
+    audio.play().then(() => {
+      discImg.src = trackData[currentTrack].cover || "assets/covers/Cover-Vinyl-Disc-FX1.png";
+      discImg.classList.add("rotating");
+      actualizarEstadoCaratula();
+      console.log("🔂 Repetición automática de pista");
+    }).catch(err => {
+      console.warn("❌ Error al repetir pista:", err);
+    });
   } else if (repeatMode === "list") {
+    // 🔁 Avanzar al siguiente track
     currentTrack = (currentTrack + 1) % trackData.length;
-    playTrack(currentTrack);
-    console.log("🔁 Avance automático en lista");
+    const track = trackData[currentTrack];
+
+    if (!track || !track.url) {
+      console.warn("❌ Track inválido. Deteniendo reproducción.");
+      discImg.src = "assets/covers/Plato.png";
+      discImg.classList.add("rotating");
+      actualizarEstadoCaratula();
+      return;
+    }
+
+    // ✅ Actualizar datos del nuevo track
+    currentTrackName.textContent = track.name;
+    audio.src = track.url;
+    discImg.src = track.cover || "assets/covers/Cover-Vinyl-Disc-FX1.png";
+
+    // ✅ Reproducir directamente sin depender de canplay
+    setTimeout(() => {
+      audio.play().then(() => {
+        discImg.classList.add("rotating");
+        iconPlay.classList.add("hidden");
+        iconPause.classList.remove("hidden");
+        actualizarEstadoCaratula();
+        console.log("🔁 Avance automático en lista");
+      }).catch(err => {
+        console.warn("❌ Error al reproducir siguiente pista:", err);
+      });
+    }, 100); // 🧼 Pequeño delay para asegurar que audio.src esté listo
   } else {
-    restaurarDiscoBase(); // ✅ Restaurar disco base al finalizar sin repetición
+    // ⏹ Sin modo de repetición
+    discImg.src = "assets/covers/Plato.png";
+    discImg.classList.add("rotating");
+    actualizarEstadoCaratula();
     console.log("⏹ Fin de pista sin repetición");
   }
 });
 
-// ===============================
 // ⏸ Evento al pausar manualmente
-// ===============================
 audio.addEventListener("pause", () => {
   iconPause.classList.add("hidden");
   iconPlay.classList.remove("hidden");
 
-  restaurarDiscoBase(); // ✅ Restaurar disco base al pausar
+  discImg.src = "assets/covers/Cover-Vinyl-Disc-FX1.png";
+  discImg.classList.remove("rotating");
+  actualizarEstadoCaratula();
+});
+    
+// ===============================
+// 🎛️ CONTROL DE GIRO DE CARÁTULA SEGÚN ESTADO REAL DE REPRODUCCIÓN
+// ===============================
+//   - La carátula gira solo cuando el audio está reproduciéndose.
+//   - Se detiene cuando el audio está en pausa.
+//   - En reposo (sin reproducción iniciada), se muestra Plato.
+//   - Este bloque actualiza dinámicamente la clase CSS del elemento .disc-img
+//   - Se ejecuta dentro de los eventos 'play', 'pause' y 'DOMContentLoaded'.
+// ===============================
+
+// ✅ Función que actualiza el estado visual de la carátula
+function actualizarEstadoCaratula() {
+  const discImg = document.querySelector('.disc-img');
+  if (!discImg) return;
+
+  const hasTrack = trackData[currentTrack] && trackData[currentTrack].cover;
+  const isPlaying = !audio.paused && audio.currentTime > 0;
+  const isPaused = audio.paused && audio.currentTime > 0;
+  const isIdle = audio.currentTime === 0;
+
+  if (isPlaying && hasTrack) {
+    // 🔄 Reproducción activa: portada del track + animación
+    discImg.classList.add("rotating");
+    discImg.src = trackData[currentTrack].cover;
+  } else if (isPaused) {
+    // ⏸ Pausa: disco detenido sin animación
+    discImg.classList.remove("rotating");
+    discImg.src = "assets/covers/Cover-Vinyl-Disc-FX1.png";
+  } else if (isIdle) {
+    // 💤 Reposo: sin reproducción ni pista activa
+    discImg.classList.remove("rotating");
+    discImg.src = "assets/covers/Plato.png";
+  }
+}
+
+// ✅ Evento al iniciar reproducción
+audio.addEventListener("play", () => {
+  iconPlay.classList.add("hidden");
+  iconPause.classList.remove("hidden");
+  actualizarEstadoCaratula();
+});
+
+// ✅ Evento al pausar reproducción
+audio.addEventListener("pause", () => {
+  iconPause.classList.add("hidden");
+  iconPlay.classList.remove("hidden");
+  actualizarEstadoCaratula();
+});
+
+// ✅ Evento al cargar DOM: mostrar Plato antes de cargar pista
+document.addEventListener("DOMContentLoaded", () => {
+  const discImg = document.querySelector('.disc-img');
+  if (discImg) {
+    discImg.classList.remove("rotating");
+    discImg.src = "assets/covers/Plato.png"; // ✅ Mostrar Plato al iniciar
+  }
+
+  // ✅ Cargar pista sin activar portada ni reproducción
+  fetch("Repro11.json")
+    .then(res => res.json())
+    .then(data => {
+      trackData = data;
+      if (!Array.isArray(trackData) || trackData.length === 0) {
+        console.warn("❌ No se encontraron pistas");
+        return;
+      }
+
+      currentTrack = 0;
+      currentTrackName.textContent = trackData[0].name;
+      audio.src = trackData[0].url;
+
+      // ✅ No mostrar portada ni activar animación aún
+      audio.load(); // Carga el audio sin reproducir
+      actualizarEstadoCaratula(); // Refuerza visual tras carga
+    });
 });
     
 // ===============================
@@ -287,26 +405,47 @@ repeatBtn?.addEventListener("click", () => {
 });
 
 // ===============================
-// 🎯 Evento al terminar la pista (actualizado)
+// 🎵 BLOQUE: CARGA Y REPRODUCCIÓN DE PISTA
 // ===============================
-audio.addEventListener("ended", () => {
-  iconPause.classList.add("hidden");
-  iconPlay.classList.remove("hidden");
-
-  if (repeatMode === "track") {
-    audio.currentTime = 0;
-    audio.play();
-    console.log("🔂 Repetición automática de pista");
-  } else if (repeatMode === "list") {
-    currentTrack = (currentTrack + 1) % trackData.length;
-    playTrack(currentTrack);
-    console.log("🔁 Avance automático en lista");
-  } else {
-    discImg.src = "assets/Vinyl-Disc-FX.png";
-
-    console.log("⏹ Fin de pista sin repetición");
+//   - Actualiza el nombre, audio, portada y animación según autoplay.
+//   - Si autoplay está activo, muestra la carátula girando.
+//   - Si autoplay está desactivado, muestra el disco base detenido.
+// ===============================
+function playTrack(index, autoplay = true) {
+  if (typeof index !== "number" || index < 0 || index >= trackData.length) {
+    restaurarPlato(); // 💤 Plato girando como fallback
+    return;
   }
-});
+
+  const track = trackData[index];
+  if (!track || !track.url) {
+    restaurarPlato(); // 💤 Plato girando como fallback
+    return;
+  }
+
+  currentTrack = index;
+  currentTrackName.textContent = track.name;
+  audio.src = track.url;
+
+  if (autoplay) {
+    discImg.classList.add("rotating");
+    discImg.src = track.cover || "assets/covers/Cover-Vinyl-Disc-FX1.png";
+
+    audio.play().then(() => {
+      iconPlay.classList.add("hidden");
+      iconPause.classList.remove("hidden");
+      actualizarEstadoCaratula();
+    }).catch(err => {
+      console.warn("❌ Error al reproducir pista:", err);
+    });
+  } else {
+    discImg.classList.remove("rotating");
+    discImg.src = "assets/covers/Cover-Vinyl-Disc-FX1.png";
+    iconPause.classList.add("hidden");
+    iconPlay.classList.remove("hidden");
+    actualizarEstadoCaratula();
+  }
+}
 
 // ===============================
 // 🔀 BOTÓN SHUFFLE ✓
