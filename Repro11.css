@@ -39,9 +39,9 @@ body::before {
   position: relative;
   width: 480px;
   height: 650px;
-  background-color: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(1px);
-  -webkit-backdrop-filter: blur(8px);
+  background-color: rgba(0, 0, 0, 0.2);/* Antes 0.4 */
+  /*backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(8px);*/
   border-radius: 20px;
   box-shadow: 0 0 30px rgba(54, 136, 255, 1)
   overflow: hidden;
@@ -114,7 +114,16 @@ body::before {
   width: 256px;
   height: 256px;
   border-radius: 50%;
-  box-shadow: 0 0 20px rgba(54, 136, 255, 1)
+  box-shadow: 0 0 20px rgba(54, 136, 255, 1);
+  animation: spin 10s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.rotating {
   animation: spin 10s linear infinite;
 }
 
@@ -402,5 +411,4 @@ button svg {
 
 /* ===================== */
 /* BOTON REWIND
-
 /* ===================== */
