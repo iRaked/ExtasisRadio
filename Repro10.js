@@ -96,9 +96,12 @@ audio.addEventListener("ended", () => {
     // 🔂 Repetir la misma pista
     audio.currentTime = 0;
     audio.play().then(() => {
-      discImg.src = trackData[currentTrack].cover || "assets/covers/Cover-Vinyl-Disc-FX1.png";
-      discImg.classList.add("rotating");
-      actualizarEstadoCaratula();
+      const track = trackData[currentTrack];
+      if (track && track.cover) {
+        discImg.src = track.cover;
+        discImg.classList.add("rotating");
+        actualizarEstadoCaratula();
+      }
       console.log("🔂 Repetición automática de pista");
     }).catch(err => {
       console.warn("❌ Error al repetir pista:", err);
@@ -109,8 +112,29 @@ audio.addEventListener("ended", () => {
   if (repeatMode === "list") {
     // 🔁 Avanzar al siguiente track
     currentTrack = (currentTrack + 1) % trackData.length;
-    playTrack(currentTrack, true);
-    console.log("🔁 Avance automático en lista");
+    const track = trackData[currentTrack];
+
+    if (!track || !track.url) {
+      console.warn("❌ Track inválido. Deteniendo reproducción.");
+      discImg.src = "assets/covers/Plato.png";
+      discImg.classList.add("rotating");
+      actualizarEstadoCaratula();
+      return;
+    }
+
+    currentTrackName.textContent = track.name;
+    audio.src = track.url;
+
+    audio.play().then(() => {
+      discImg.src = track.cover || "assets/covers/Cover-Vinyl-Disc-FX1.png";
+      discImg.classList.add("rotating");
+      iconPlay.classList.add("hidden");
+      iconPause.classList.remove("hidden");
+      actualizarEstadoCaratula();
+      console.log("🔁 Avance automático en lista");
+    }).catch(err => {
+      console.warn("❌ Error al reproducir siguiente pista:", err);
+    });
     return;
   }
 
@@ -122,13 +146,27 @@ audio.addEventListener("ended", () => {
     if (!nextTrack || !nextTrack.url) {
       console.log("⏹ Fin de pista sin repetición");
       autoplayEnabled = false;
-      restaurarDiscoBase();
+      discImg.src = "assets/covers/Plato.png";
+      discImg.classList.add("rotating");
+      actualizarEstadoCaratula();
       return;
     }
 
     currentTrack = nextIndex;
-    playTrack(currentTrack, true);
-    console.log("▶️ Reproducción continua activada");
+    currentTrackName.textContent = nextTrack.name;
+    audio.src = nextTrack.url;
+
+    audio.play().then(() => {
+      discImg.src = nextTrack.cover || "assets/covers/Cover-Vinyl-Disc-FX1.png";
+      discImg.classList.add("rotating");
+      iconPlay.classList.add("hidden");
+      iconPause.classList.remove("hidden");
+      actualizarEstadoCaratula();
+      console.log("▶️ Reproducción continua activada");
+    }).catch(err => {
+      console.warn("❌ Error al reproducir siguiente pista:", err);
+      autoplayEnabled = false;
+    });
     return;
   }
 
@@ -391,13 +429,13 @@ repeatBtn?.addEventListener("click", () => {
 // ===============================
 function playTrack(index, autoplay = true) {
   if (typeof index !== "number" || index < 0 || index >= trackData.length) {
-    restaurarPlato(); // 💤 Plato girando como fallback
+    restaurarPlato();
     return;
   }
 
   const track = trackData[index];
   if (!track || !track.url) {
-    restaurarPlato(); // 💤 Plato girando como fallback
+    restaurarPlato();
     return;
   }
 
@@ -406,12 +444,17 @@ function playTrack(index, autoplay = true) {
   audio.src = track.url;
 
   if (autoplay) {
-    discImg.src = track.cover || "assets/covers/Cover-Vinyl-Disc-FX1.png";
-    discImg.classList.add("rotating");
-
     audio.play().then(() => {
+      // ✅ Solo después de que el audio comienza, actualizamos visuales
+      discImg.src = track.cover || "assets/covers/Cover-Vinyl-Disc-FX1.png";
+      discImg.classList.remove("rotating");
+      void discImg.offsetWidth;
+      discImg.classList.add("rotating");
+
       iconPlay.classList.add("hidden");
       iconPause.classList.remove("hidden");
+
+      // ✅ Invocación directa del estado visual
       actualizarEstadoCaratula();
       console.log("▶️ Reproduciendo:", track.name);
     }).catch(err => {
