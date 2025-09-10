@@ -17,11 +17,11 @@
   <script src="Repro11.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
 
-  <!-- BLOCK -->
-  <script>
-    document.onkeydown = () => false;
-    document.oncontextmenu = () => false;
-  </script>
+  <!-- BLOCK RIGHT CLICK -->
+        <script type="text/javascript">
+            document.onkeydown = function(){return false};
+            document.oncontextmenu = function(){return false}
+        </script>
 </head>
 
 <body>
@@ -45,7 +45,7 @@
 
       <!-- 🎧 Imagen Tipo Disco -->
     <div class="repro-disc">
-      <img src="https://i.ibb.co/2MrKpVt/Cover-Vinyl-Disc-FX1.png" alt="Speaker Disc" class="disc-img" />
+      <img src="assets/covers/Plato.png" alt="Speaker Disc" class="disc-img" />
     </div>
 
       <!-- Nombre e ID -->
