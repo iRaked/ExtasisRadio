@@ -43,7 +43,7 @@ preloadPlato.src = "assets/covers/Plato.png";
   // ===============================
   // 🎼 Cargar metadata y generar lista ✓
   // ===============================
-  fetch("Repro11.json")
+  fetch("Repro10.json")
     .then(res => res.json())
     .then(data => {
       trackData = data;
@@ -595,3 +595,4 @@ function animateParticles() {
 }
 
 animateParticles();
+
