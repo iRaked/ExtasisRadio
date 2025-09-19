@@ -41,6 +41,18 @@
     "cover": "assets/covers/Travis%20Barker%20&%20Paulo%20Londra%20-%20Nublado.png",
     "isPlaying": false
   },
+    {
+    "name": "Miguel Paniagua - Me la suda",
+    "url": "https://www.dropbox.com/scl/fi/ewj1js7n0zjzm4o2u0plc/Miguel-Paniagua-Me-la-suda.mp3?rlkey=4oe67jeut6snlzgvq8d8gjl5g&st=27arshcj&dl=0&raw=1",
+    "cover": "assets/covers/Miguel-Paniagua-Me-la-suda.png",
+    "isPlaying": false
+  },
+    {
+    "name": "José Madero - Gardenias '87",
+    "url": "https://www.dropbox.com/scl/fi/zv03h45i4n8gjunq3geci/Jos-Madero-Gardenias-87.mp3?rlkey=73r3k00uj8jcktvm0m1pskkc1&st=ae7su72p&dl=0&raw=1",
+    "cover": "assets/covers/Jose-Madero-Gardenias-87.jpg",
+    "isPlaying": false
+  },
   {
     "name": "Pxndx - Al voluntario",
     "url": "https://www.dropbox.com/scl/fi/cs9snwx2h4d6r6p4skv7w/Pxndx.MP3?rlkey=5np4r1slc1jyd8qrini5udwsb&raw=1",
@@ -69,7 +81,7 @@
     "isPlaying": false
   },
   {
-    "name": "No Konforme - No me haces bien",
+    "name": "Kaotiko - No me haces bien",
     "url": "https://www.dropbox.com/scl/fi/6hlz1puoj3wmgtiwqlgeu/Kaotiko.mp3?rlkey=cum4elgzt9qcjnjhzgrezra7o&raw=1",
     "cover": "assets/covers/Kaotiko.jpg",
     "isPlaying": false
@@ -165,6 +177,12 @@
     "name": "The Locos - La realidad",
     "url": "https://www.dropbox.com/scl/fi/zkq0168pu46rp7421uf72/The-Locos-La-realidad.mp3?rlkey=8bosy680cwdezidkuamtarfdr&raw=1",
     "cover": "assets/covers/The%20Locos%20-%20La%20realidad.jpg",
+    "isPlaying": false
+  },
+    {
+    "name": "Alademoska",
+    "url": "https://www.dropbox.com/scl/fi/88qgfncuff1y1w14ril3b/Alademoska-Ni-una-m-s.mp3?rlkey=c0rfsjnritpzhdplndzm0lgl3&st=nc3rpt4l&dl=0&raw=1",
+    "cover": "assets/covers/Alademoska-Ni-una-mas.jpg",
     "isPlaying": false
   },
   {
