@@ -69,18 +69,11 @@
 }
 
 @media (max-width: 768px) {
-  #background-layer {
-    clip-path: none;
-    border-radius: 0;
-  }
-
   #left-panel,
   #right-panel {
-    height: auto;
-    max-height: 528px;
     width: 100%;
-    max-width: 430px;
-    margin-bottom: 24px;
+    max-width: none;
+    margin-bottom: 16px;
   }
 }
 
@@ -218,12 +211,12 @@
 
 @media (max-width: 768px) {
   .audio-waves {
-    top: 12px;
-    width: 90vw;
-    gap: 2px;
-    padding: 10px 0;
-    transform: translateX(-50%);
+    position: static;
+    margin-top: 12px;
+    width: 100%;
+    justify-content: center;
   }
+}
 
   .wave-bar {
     width: 6px;
@@ -657,30 +650,6 @@
 .emotion-default      { color: #ff4081; }
 .emotion-picardia     { color: #ff80b3; }
 
-/* Resposive */
-@media (max-width: 768px) {
-  .track-display-container {
-    position: static;
-    width: 100%;
-    max-width: 360px;
-    margin: 16px auto;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-
-  .info-track-container {
-    padding-left: 0;
-    align-items: center;
-  }
-
-  #cover-art {
-    width: 80px;
-    height: 80px;
-    margin-bottom: 8px;
-  }
-}
-
 /* ***************************** BOTONES 1 ***************************** */
 /* 🎛️ Controles del reproductor */
 .radio-logo .player-controls {
@@ -858,11 +827,59 @@
   cursor: pointer;
 }
 
-/* Responsive */
+/* 🎛️ Responsive Unificado: Track + Info + Botones ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 @media (max-width: 768px) {
+  /* Contenedor principal del track */
+  .track-display-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: static;
+    width: 100%;
+    max-width: 360px;
+    margin: 16px auto;
+    text-align: center;
+    overflow: visible;
+  }
+
+  /* Portada */
+  #cover-art {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 8px;
+    object-fit: cover;
+    display: block;
+    flex-shrink: 0;
+  }
+
+  /* Información del track */
+  .info-track-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-left: 0;
+    text-align: center;
+    width: 100%;
+    gap: 4px;
+    overflow: visible;
+  }
+
+  /* Botón de menú */
   .menu-btn {
-    right: 16px;
     top: 8px;
+    right: 16px;
+    position: absolute;
+  }
+
+  /* Controles del reproductor */
+  .player-controls {
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 12px;
+    gap: 12px;
   }
 
   .repeat-btn,
@@ -871,21 +888,9 @@
   .forward-btn,
   .shuffle-btn,
   .playlist-btn {
-    transform: scale(0.85);
-    bottom: auto;
-    top: 50%;
-    left: auto;
-    right: auto;
-    margin: 4px;
     position: static;
-  }
-
-  .player-controls {
-    flex-wrap: wrap;
-    gap: 12px;
-    justify-content: center;
-    align-items: center;
-    padding: 12px;
+    transform: scale(0.85);
+    margin: 6px;
   }
 }
 
@@ -1533,4 +1538,13 @@
 
 #particles {
   display: block;
+}
+
+@media (max-width: 768px) {
+  #particles {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
 }
