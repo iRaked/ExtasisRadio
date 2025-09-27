@@ -211,12 +211,12 @@
 
 @media (max-width: 768px) {
   .audio-waves {
-    position: static;
-    margin-top: 12px;
-    width: 100%;
-    justify-content: center;
+    top: 12px;
+    width: 90vw;
+    gap: 2px;
+    padding: 10px 0;
+    transform: translateX(-50%);
   }
-}
 
   .wave-bar {
     width: 6px;
@@ -339,6 +339,7 @@
   color: #ffffff; /* tono ritual */
 }
 
+/* Responsive */
 @media (max-width: 768px) {
   .datetime-container {
     position: static;
@@ -530,13 +531,22 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
   position: absolute;
   top: 370px;
-  right: 60px;
+  right: 50px;
   width: 400px;
   min-height: 120px;
   max-height: 180px;
   overflow: hidden;
   z-index: 9;
 }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .track-display-container {
+    right: 50%;
+    transform: translateX(50%);
+  }
+}
+
 
 /* Carátula */
 .cover-art-container {
@@ -651,6 +661,7 @@
 .emotion-picardia     { color: #ff80b3; }
 
 /* ***************************** BOTONES 1 ***************************** */
+
 /* 🎛️ Controles del reproductor */
 .radio-logo .player-controls {
   position: absolute;
@@ -674,18 +685,21 @@
   100% { transform: rotate(-360deg); }
 }
 
-/* 🎯 Botón Menú */
+/* 🎯 Botón Menú/POWER */
 .menu-btn {
+  position: absolute;
   width: 32px;
   height: 32px;
-  border-radius: 50%;
-  background: #222;
-  color: #fff;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.5);
-  transition: transform 0.3s ease;
-  position: absolute;
   top: 10px;
   right: 500px;
+  background: #222;
+  border-radius: 50%;
+  color: #fff;
+  box-shadow: 0 0 8px rgba(255, 128, 179, 0.8); /* resplandor rosa suave */
+  transition: transform 0.3s ease;
+  align-items: center;
+  justify-content: center;
+  display: flex;
 }
 .menu-btn:hover {
   transform: scale(1.1);
@@ -731,8 +745,14 @@
   height: 45px;
   bottom: 32px;
   left: 100px;
-  transition: transform 0.3s ease;
   cursor: pointer;
+  transition: transform 0.3s ease;
+  border-radius: 50%;
+  box-shadow: 0 0 6px rgba(255, 64, 129, 0.3);
+  font-size: 1.0em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .rewind-btn {
@@ -740,8 +760,14 @@
   height: 55px;
   bottom: 28px;
   left: 160px;
-  transition: transform 0.3s ease;
+  border-radius: 50%;
+  box-shadow: 0 0 6px rgba(255, 64, 129, 0.3);
+  font-size: 1.0em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
+  user-select: none;
 }
 
 .rewind-btn:active {
@@ -762,7 +788,14 @@
   height: 80px;
   bottom: 20px;
   left: 43%;
+  border-radius: 50%;
+  box-shadow: 0 0 6px rgba(255, 64, 129, 0.3);
+  font-size: 1.0em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
+  user-select: none;
 }
 
 .forward-btn {
@@ -770,7 +803,12 @@
   height: 55px;
   bottom: 28px;
   right: 160px;
-  transition: transform 0.3s ease;
+  border-radius: 50%;
+  box-shadow: 0 0 6px rgba(255, 64, 129, 0.3);
+  font-size: 1.0em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
   user-select: none;
 }
@@ -794,7 +832,14 @@
   height: 45px;
   bottom: 32px;
   right: 100px;
+  border-radius: 50%;
+  box-shadow: 0 0 6px rgba(255, 64, 129, 0.3);
+  font-size: 1.0em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
+  user-select: none;
 }
 
 .shuffle-active {
@@ -824,74 +869,14 @@
   height: 40px;
   bottom: 60px;
   left: 30px;
+  border-radius: 50%;
+  box-shadow: 0 0 6px rgba(255, 64, 129, 0.3);
+  font-size: 1.0em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
-}
-
-/* 🎛️ Responsive Unificado: Track + Info + Botones ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-@media (max-width: 768px) {
-  /* Contenedor principal del track */
-  .track-display-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: static;
-    width: 100%;
-    max-width: 360px;
-    margin: 16px auto;
-    text-align: center;
-    overflow: visible;
-  }
-
-  /* Portada */
-  #cover-art {
-    width: 80px;
-    height: 80px;
-    margin-bottom: 8px;
-    object-fit: cover;
-    display: block;
-    flex-shrink: 0;
-  }
-
-  /* Información del track */
-  .info-track-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding-left: 0;
-    text-align: center;
-    width: 100%;
-    gap: 4px;
-    overflow: visible;
-  }
-
-  /* Botón de menú */
-  .menu-btn {
-    top: 8px;
-    right: 16px;
-    position: absolute;
-  }
-
-  /* Controles del reproductor */
-  .player-controls {
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    padding: 12px;
-    gap: 12px;
-  }
-
-  .repeat-btn,
-  .rewind-btn,
-  .play-btn,
-  .forward-btn,
-  .shuffle-btn,
-  .playlist-btn {
-    position: static;
-    transform: scale(0.85);
-    margin: 6px;
-  }
+  user-select: none;
 }
 
 /* ***************************** BOTONES 2 ***************************** */
@@ -900,13 +885,16 @@
   top: auto;
   right: 350px;
   width: 280px;
-  background: rgba(0, 0, 0, 0.85);
-  color: white;
-  border-radius: 10px;
   padding: 15px;
-  box-shadow: 0 0 12px rgba(0,0,0,0.6);
+  border-radius: 50%;
+  box-shadow: 0 0 6px rgba(255, 64, 129, 0.3);
+  font-size: 1.0em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
   z-index: 10;
-  font-family: 'Arial', sans-serif;
 }
 
 .playlist-panel.hidden {
@@ -942,16 +930,14 @@
   height: 40px;
   bottom: 60px;
   right: 30px;
-  background-color: #1a1a1a;
   border-radius: 50%;
+  box-shadow: 0 0 6px rgba(255, 64, 129, 0.3);
+  font-size: 1.0em;
   display: flex;
-  align-items: center;
   justify-content: center;
-  color: #fff;
+  align-items: center;
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  z-index: 1100;
-  cursor: pointer;
+  user-select: none;
 }
 
 .contenido-btn:hover {
@@ -1538,13 +1524,4 @@
 
 #particles {
   display: block;
-}
-
-@media (max-width: 768px) {
-  #particles {
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  }
 }
