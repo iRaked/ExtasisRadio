@@ -1,0 +1,1335 @@
+/*   ***************************** NUEVO CONTENEDOR *****************************  */
+#main-container::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1080px;
+  height: 640px;
+  transform: translate(-50%, -50%);
+  background-image: url("https://i.ibb.co/CsVcpscX/BG-Repro-GFX.gif");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  clip-path: inset(0 round 20px);
+  z-index: -1;
+  opacity: 0.9;
+}
+
+/* CONTENEDOR PRINCIPAL */
+#main-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;  /* 542 + 542 */
+  max-width: 1084px; /* o lo que defina tu layout */
+  height: 640px;
+  margin: auto; /* ← centrado absoluto */
+  background-color: transparent;
+  position: relative;
+  z-index: 1;
+  gap: 0px; /* ← sin espacio visible */
+  padding: 0px;
+}
+
+/* PANEL IZQUIERDO */
+#left-panel {
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  padding: 56px;
+  width: 430px;
+  height: 528px;
+  text-align: center;
+  transform: translateZ(0);
+/*backdrop-filter: blur(2px);*/
+  position: relative;
+  overflow: hidden;
+  z-index: 3;
+  align-self: flex-start;
+  transform: translateZ(0);
+}
+
+/* PANEL DERECHO */
+#right-panel {
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  padding: 56px;
+  width: 430px;
+  height: 528px;
+  text-align: center;
+  /*backdrop-filter: blur(2px);*/
+  position: relative;
+  overflow: hidden;
+  z-index: 3;
+  align-self: flex-start;
+  transform: translateZ(0);
+}
+
+
+/* ***************************** Ondas ***************************** */
+/* Ondas posicionadas manualmente */
+.audio-waves {
+  position: absolute;
+  top: 20px; /* Ajusta según la posición del logo */
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  gap: 3px;
+  padding: 15px 0;
+  width: 300px; /* Más grande que el logo */
+  z-index: 2;
+
+  -webkit-mask-image: radial-gradient(circle at center, transparent 40%, black 100%);
+  mask-image: radial-gradient(circle at center, transparent 40%, black 100%);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: cover;
+  mask-size: cover;
+}
+
+.wave-bar {
+  width: 10px;
+  height: var(--height, 60px); /* Valor por defecto si no se define */
+  background-color: #ff4081; /* Validación emocional */
+  border-radius: 2px;
+  animation: barDance 1s infinite cubic-bezier(0.4, 0, 0.2, 1);
+  animation-delay: var(--delay, 0s);
+  opacity: 1; /* Opacidad fija, sin transparencia */
+}
+
+/* Animaciones */
+@keyframes wave-animation {
+  0%, 100% {
+    transform: scaleY(0.5);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes letterPulse {
+  0% {
+    text-shadow:
+      0 0 6px rgba(255, 64, 129, 0.9),   /* rosa base vibrante */
+      0 0 12px rgba(255, 153, 0, 0.6),   /* naranja cálido */
+      0 0 24px rgba(255, 255, 102, 0.4); /* amarillo suave */
+    color: rgba(255, 64, 129, 0.9);      /* rosa base */
+  }
+  100% {
+    text-shadow:
+      0 0 10px rgba(255, 64, 129, 1),    /* rosa intenso */
+      0 0 20px rgba(255, 153, 0, 0.8),   /* naranja más fuerte */
+      0 0 30px rgba(255, 255, 102, 0.6), /* amarillo más brillante */
+      0 0 40px rgba(255, 255, 255, 0.4); /* halo blanco suave */
+    color: rgba(255, 64, 129, 1);        /* rosa puro */
+  }
+}
+
+@keyframes letterFloat {
+  0% { transform: translateY(0px) translateZ(0); }
+  30% { transform: translateY(-3px) translateZ(10px); }
+  70% { transform: translateY(2px) translateZ(5px); }
+  100% { transform: translateY(-1px) translateZ(0); }
+}
+
+@keyframes reflectionPulse {
+  0% { opacity: 0.2; transform: scale(0.8); }
+  100% { opacity: 0.6; transform: scale(1.2); }
+}
+
+@keyframes barDance {
+  0% { height: calc(var(--height) * 0.6); }
+  100% { height: var(--height); }
+}
+
+@keyframes glowPulse {
+  0% { opacity: 0.4; filter: blur(20px); }
+  100% { opacity: 0.8; filter: blur(25px); }
+}
+
+@keyframes wordRotate {
+  0%, 100% { transform: rotateX(0deg); }
+  25% { transform: rotateX(2deg); }
+  75% { transform: rotateX(-2deg); }
+}
+
+@keyframes wordFloat {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+  100% { transform: translateY(1px); }
+}
+
+@keyframes neonFlicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+    opacity: 1;
+    text-shadow:
+      0 0 10px #ff4081,   /* rosa base vibrante */
+      0 0 15px #ffcc00,   /* dorado cálido */
+      0 0 25px #ffff66,   /* amarillo ritual */
+      0 0 40px #ffffff;   /* halo blanco */
+    color: #ff4081;
+  }
+  20%, 22%, 24%, 55% {
+    opacity: 0.8;
+    text-shadow:
+      0 0 5px #ff4081,
+      0 0 10px #ffcc00,
+      0 0 15px #ffff66;
+    color: #ff4081;
+  }
+}
+
+@keyframes neon-pulse {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.5); }
+}
+
+@keyframes reflection-pulse {
+  0%, 100% {
+    opacity: 0.3;
+    width: 80%;
+    left: 10%;
+  }
+  50% {
+    opacity: 0.6;
+    width: 90%;
+    left: 5%;
+  }
+}
+
+/*  ****************** Estilos para el contenedor de fecha y hora ******************  */
+.datetime-container {
+  color: #ffffff;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 12px;
+  padding: 5px 10px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  justify-content: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  bottom: 600px;
+  left: 90px;
+  z-index: 10; /* ← asegura que esté por encima si hay capas */
+}
+
+.datetime-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.date-separator {
+  color: #999;
+}
+
+/* Marquesina Ubicacion */
+#current-city {
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 120px;
+  position: relative;
+}
+
+#current-city::before {
+  content: attr(data-text);
+  position: absolute;
+  animation: deslizar 8s linear infinite;
+}
+
+@keyframes deslizar {
+  0% { left: 100%; }
+  100% { left: -100%; }
+}
+
+/*  *************************PARTE 1*************************  */
+    .datetime-container i {
+    color: #ff4081;
+    font-size: 14px;
+    }
+    
+    #current-time, #current-date {
+    font-weight: bold;
+    }
+    
+    .date-separator {
+    margin: 0 5px;
+    opacity: 0.6;
+    }
+    
+    /* Animación sutil para el reloj */
+    .datetime-container .fa-clock {
+    animation: clockPulse 2s infinite linear;
+    }
+    
+    @keyframes clockPulse {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(3deg); }
+    75% { transform: rotate(-3deg); }
+    100% { transform: rotate(0deg); }
+    }
+
+/*  Radioescuchas */
+    .listeners-container {
+        color: white;
+        font-size: 13px;
+        background-color: rgba(0, 0, 0, 0.6);
+        border-radius: 12px;
+        padding: 5px 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+        position: absolute;
+        top: 55px;
+        left: 10px;
+        z-index: 10;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+    
+    .listeners-count {
+        font-weight: bold;
+        color: #ff4081;
+        animation: countPulse 2s infinite;
+    }
+    
+    @keyframes countPulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+        100% { transform: scale(1); }
+    }
+
+/* Contador de Usuarios */
+
+.listeners-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #ff4081;
+}
+
+.listeners-count {
+  font-weight: bold;
+  color: #ffffff; /* tono ritual */
+}
+
+/* ***************************** LOGO ***************************** */
+.radio-logo {
+  width: 220px;
+  height: 220px;
+  margin: 25px auto 20px;
+  border: 1px solid rgb(255, 255, 255);
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  animation: vinylSpin 3s linear infinite, glow 3s infinite alternate;
+  box-shadow: 0 0 15px rgb(255, 255, 255);
+  top: 0px;
+  left: 0px;
+  z-index: 5;
+  position: relative;
+  isolation: isolate;
+}
+
+.radio-logo::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url(https://i.ibb.co/nMz9Tyjg/Plato.png);
+  background-size: cover;
+  background-position: center;
+  opacity: 8.0; /* corregido: valor válido entre 0 y 1 */
+  z-index: 2;
+}
+
+.radio-logo:hover {
+  box-shadow: 0 0 20px rgba(255, 64, 129, 0.8); /* resplandor rosa intenso */
+}
+
+/* ***************************** Animaciones ***************************** */
+@keyframes vinylSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 25px rgba(255, 64, 129, 0.5);   /* rosa suave */
+    border-color: rgba(255, 64, 129, 0.6);          /* borde rosa tenue */
+  }
+  100% {
+    box-shadow: 0 0 30px rgba(255, 64, 129, 0.8);   /* resplandor rosa intenso */
+    border-color: rgba(255, 64, 129, 0.9);          /* borde vibrante */
+  }
+}
+
+/*  *******************Estilos para el control de volumen***************  */
+    .volume-control {
+        margin-top: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 0 5px; /* Agregar un poco de padding en los extremos */
+    }
+    
+    .volume-control i {
+        color: #ffffff;
+        font-size: 16px;
+        width: 20px; /* Ancho fijo para evitar saltos */
+        transition: color 0.3s;
+    }
+    
+    .volume-control i:hover {
+        color: #ff4081;
+    }
+    
+    .volume-slider {
+        width: 70%;
+        -webkit-appearance: none;
+        height: 6px;
+        background: linear-gradient(to right,
+  #ff80b3 0%,                                       /* inicio rosa claro */
+  #ff4081 var(--volume-percent, 70%),               /* hasta el volumen actual */
+  rgba(255, 255, 255, 0.3) var(--volume-percent, 70%) /* transición a halo blanco */
+);
+        border-radius: 5px;
+        outline: none;
+        position: relative;
+    }
+    
+/*  *************************PARTE 2*************************  */
+
+    .volume-slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 15px;
+        height: 15px;
+        background: #ffffff;
+        border-radius: 50%;
+        cursor: pointer;
+        border: 2px solid rgba(255, 255, 255, 0.8);
+        box-shadow: 0 0 10px rgba(255, 128, 179, 0.6); /* resplandor rosa suave */
+        transition: all 0.2s;
+    }
+    
+    .volume-slider::-webkit-slider-thumb:hover {
+        transform: scale(1.2);
+        background: #ff80b3;
+        box-shadow: 0 0 10px rgba(255, 128, 179, 0.6); /* resplandor rosa suave */
+    }
+    
+    .volume-slider:active::-webkit-slider-thumb {
+        transform: scale(1.3);
+        background: #ff4081;
+    }
+    
+    .volume-slider::-moz-range-progress {
+        background-color: #ffff66;
+        height: 6px;
+        border-radius: 5px;
+    }
+    
+    .volume-slider::-moz-range-thumb {
+        width: 15px;
+        height: 15px;
+        background: #4edd4e;
+        border-radius: 50%;
+        cursor: pointer;
+        border: 2px solid rgba(255, 255, 255, 0.8);
+        box-shadow: 0 0 10px rgba(255, 128, 179, 0.6); /* resplandor rosa suave */
+    }
+    
+    .volume-percentage {
+        color: #ffffff;
+        font-size: 12px;
+        min-width: 32px; /* Ancho fijo para evitar saltos de diseño */
+        text-align: right;
+        font-weight: bold;
+    }
+
+/* ***************************** INFO + EMOCIONES ***************************** */
+/* Contenedor principal */
+.track-display-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 12px;
+  padding: 12px 18px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  position: absolute;
+  top: 370px;
+  right: 60px;
+  width: 400px;
+  min-height: 120px;
+  max-height: 180px;
+  overflow: hidden;
+  z-index: 9;
+}
+
+/* Carátula */
+.cover-art-container {
+  flex-shrink: 0;
+}
+
+#cover-art {
+  width: 100px;
+  height: 100px;
+  border-radius: 10px;
+  box-shadow:
+    0 0 12px 4px rgba(255, 128, 179, 0.6),  /* rosa suave cercano */
+    0 0 24px 6px rgba(255, 64, 129, 0.4),   /* rosa base medio */
+    0 0 36px 8px rgba(255, 255, 255, 0.2);  /* halo blanco lejano */
+  object-fit: cover;
+}
+
+/* Información */
+.info-track-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  padding-left: 12px;
+  color: #fff;
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+/* Iconos */
+.info-track-container i {
+  color: #ff4081;
+  font-size: 15px;
+}
+
+.info-separator {
+  margin: 0 4px;
+  opacity: 0.5;
+}
+
+/* Contenedor por línea */
+.scroll-wrapper {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  height: 1.4em;
+  mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+}
+
+.scroll-text {
+  display: inline-block;
+  white-space: nowrap;
+  font-size: 16px;
+  line-height: 1.4;
+  color: #fff;
+  transform: translateX(0%);
+  will-change: transform;
+  margin: 0;
+}
+
+/* Activación forzada para prueba */
+.scrollable {
+  animation: scroll-left 10s linear infinite;
+}
+
+/* Animación */
+@keyframes scroll-left {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* Base Colores Para Emociones en Info Track */
+#track-emotion[class^="emotion-"] {
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: color 0.4s ease;
+  animation: emotionPulse 3s ease-in-out infinite;
+  display: inline-block;
+  overflow: visible;
+}
+
+@keyframes emotionPulse {
+  0%, 100% {
+    transform: scale(0.90);
+    box-shadow: 0 0 6px currentColor;
+  }
+  50% {
+    transform: scale(1.00);
+    box-shadow: 0 0 12px currentColor;
+  }
+}
+
+/* Estilos por género detectado */
+.emotion-cuarteto     { color: #ff9800; }
+.emotion-balada       { color: #f5c6aa; }
+.emotion-cumbia       { color: #ff4081; }
+.emotion-pop          { color: #f06292; }
+.emotion-reggae       { color: #4caf50; }
+.emotion-rock         { color: #ff5722; }
+.emotion-regional     { color: #a1887f; }
+.emotion-r-b          { color: #b39ddb; }
+.emotion-metal        { color: #ff1744; }
+.emotion-ska          { color: #ffffff; }
+.emotion-electro      { color: #3688ff; }
+.emotion-default      { color: #ff4081; }
+.emotion-picardia     { color: #ff80b3; }
+
+
+/*  *************************PARTE 3*************************  */
+/* ***************************** BOTONES ***************************** */
+
+/* 🎛️ Controles del reproductor */
+.radio-logo .player-controls {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 5;
+  opacity: 1;
+  pointer-events: none;
+  animation: counterRotation 3s linear infinite;
+}
+
+/* 🔄 Contrarresta rotación del disco */
+@keyframes counterRotation {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(-360deg); }
+}
+
+/* 🎯 Botón Menú */
+.menu-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #222;
+  color: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+  transition: transform 0.3s ease;
+  position: absolute;
+  top: 10px;
+  right: 500px;
+}
+.menu-btn:hover {
+  transform: scale(1.1);
+}
+
+/* 🧩 Botones base */
+.btn-engendro {
+  border-radius: 50%;
+  background: linear-gradient(to bottom, #1a1a1a, #333);
+  color: #fff;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s ease;
+  position: absolute;
+  
+}
+.btn-engendro:hover {
+  transform: scale(1.1);
+}
+
+/* 🔴 Botón Play */
+.btn-engendro-play {
+  border-radius: 50%;
+  background: linear-gradient(to right,
+  #ff80b3 0%,     /* rosa suave al inicio */
+  #ff4081 50%,    /* rosa vibrante en el centro */
+  #e60073 100%    /* rosa intenso al final */
+);
+  color: #fff;
+  box-shadow: 0 0 10px rgba(255, 128, 179, 0.8); /* resplandor rosa suave */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s ease;
+  position: absolute;
+}
+
+/* 📍 Posiciones individuales */
+.repeat-btn {
+  width: 45px;
+  height: 45px;
+  bottom: 32px;
+  left: 100px;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.rewind-btn {
+  width: 55px;
+  height: 55px;
+  bottom: 28px;
+  left: 160px;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.rewind-btn:active {
+  transform: scale(1.2);
+}
+
+/* 🌀 Animación de giro simbólico */
+.rewind-btn i.animate-spin {
+  animation: spinOnce 0.6s ease-out;
+}
+@keyframes spinOnce {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(-360deg); }
+}
+
+.play-btn {
+  width: 80px;
+  height: 80px;
+  bottom: 20px;
+  left: 43%;
+  cursor: pointer;
+}
+
+.forward-btn {
+  width: 55px;
+  height: 55px;
+  bottom: 28px;
+  right: 160px;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  user-select: none;
+}
+
+.forward-btn:active {
+  transform: scale(1.2);
+}
+
+/* 🌀 Animación de giro simbólico */
+.forward-btn i.animate-spin {
+  animation: spinOnce 0.6s ease-out;
+}
+
+@keyframes spinOnce {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.shuffle-btn {
+  width: 45px;
+  height: 45px;
+  bottom: 32px;
+  right: 100px;
+  cursor: pointer;
+}
+
+.shuffle-active {
+  background-color: #ff4081;
+  box-shadow: 0 0 12px 4px rgba(255, 0, 0, 0.6);
+  animation: pulse-shuffle 1.2s infinite;
+  border-radius: 50%;
+}
+
+@keyframes pulse-shuffle {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 12px 4px rgba(255, 64, 129, 0.6); /* rosa base suave */
+  }
+  50% {
+    transform: scale(1.1);
+    box-shadow: 0 0 18px 6px rgba(255, 64, 129, 0.8); /* rosa base vibrante */
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 12px 4px rgba(255, 64, 129, 0.6); /* rosa base suave */
+  }
+}
+
+.playlist-btn {
+  width: 40px;
+  height: 40px;
+  bottom: 60px;
+  left: 30px;
+  cursor: pointer;
+}
+
+.playlist-panel {
+  position: absolute;
+  top: auto;
+  right: 350px;
+  width: 280px;
+  background: rgba(0, 0, 0, 0.85);
+  color: white;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 0 12px rgba(0,0,0,0.6);
+  z-index: 10;
+  font-family: 'Arial', sans-serif;
+}
+
+.playlist-panel.hidden {
+  display: none;
+}
+
+.playlist-item {
+  margin: 8px 0;
+  padding: 6px;
+  border-bottom: 1px dashed magenta;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.playlist-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* 🌀 Animación de giro simbólico */
+.playlist-btn i.animate-spin {
+  animation: spinOnce 0.6s ease-out;
+}
+
+@keyframes spinOnce {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* 🔘 Botón flotante de contenido */
+.contenido-btn {
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  bottom: 60px;
+  right: 30px;
+  background-color: #1a1a1a;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  z-index: 1100;
+  cursor: pointer;
+}
+
+.contenido-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 10px #ff4081;
+}
+
+/* 🌀 Animación de giro ritual */
+.contenido-btn i.animate-spin {
+  animation: spinOnce 0.6s ease-out;
+}
+
+@keyframes spinOnce {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* 📜 Panel emergente de contenido */
+#contenido-panel {
+  position: absolute;
+  top: 10px;
+  right: 360px;
+  width: 280px;
+  max-height: 300px;
+  overflow-y: auto;
+  background: rgba(20, 20, 20, 0.95);
+  color: #fff;
+  border-radius: 12px;
+  padding: 15px;
+  box-shadow: 0 0 10px rgba(255, 128, 179, 0.6); /* resplandor rosa suave */
+  z-index: 1000;
+  font-family: 'Courier New', monospace;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* 🕶️ Oculto por defecto */
+#contenido-panel.hidden {
+  display: none;
+}
+
+/* 🎶 Ítems de la playlist */
+.contenido-item {
+  padding: 8px;
+  margin-bottom: 6px;
+  border-bottom: 1px dashed #ffff66;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.contenido-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: translateX(4px);
+}
+
+.emocion-furia    { color: #ff4444; }
+.emocion-nostalgia { color: #44aaff; }
+.emocion-extasis   { color: #ffdd00; }
+.emocion-radiactiva { color: #00ff99; }
+
+/* ✨ Animación activa */
+.repeat-btn:active {
+  transform: scale(1.2);
+}
+
+/* 🔙 Botón Volver a listas */
+.volver-btn {
+  margin-top: 12px;
+  padding: 8px 14px;
+  background-color: #ff4081;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.volver-btn:hover {
+  background-color: rgba(255, 64, 129, 0.31); /* Antes: ff408150 */
+  transform: scale(1.05);
+}
+
+/* 🧃 Scroll suave y estilizado */
+#contenido-panel {
+  scroll-behavior: smooth;
+}
+
+/* 🎨 Scrollbar personalizado (Webkit) */
+#contenido-panel::-webkit-scrollbar {
+  width: 8px;
+}
+
+#contenido-panel::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+}
+
+#contenido-panel::-webkit-scrollbar-thumb {
+  background-color: #ff4081;
+  border-radius: 8px;
+  border: 2px solid rgba(20, 20, 20, 0.95);
+}
+
+/* 🎨 Estados visuales del botón repeat */
+.repeat-track {
+  background: linear-gradient(to bottom,
+  #3688ff 0%,     /* azul base vibrante */
+  #005fa3 50%,    /* azul profundo */
+  #003b66 100%    /* azul noche */
+);
+}
+.repeat-playlist {
+  background: linear-gradient(to bottom, #1a237e, #3949ab); /* Azul profundo */
+}
+
+/* 🌀 Animación de giro simbólico */
+.repeat-btn i.animate-spin {
+  animation: spinOnce 0.6s ease-out;
+}
+@keyframes spinOnce {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* 🌀 Animación de giro simbólico */
+.rewind-btn i.animate-spin {
+  animation: spinOnce 0.6s ease-out;
+}
+@keyframes spinOnce {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(-360deg); }
+}
+
+/*  *************************PARTE 4*************************  */
+/* NOTAS MUSICALES */
+/* Modificación de los contenedores de efectos para limitarlos al reproductor */
+    .music-notes-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
+    overflow: hidden;
+    }
+    
+    /* Corregir las posiciones de inicio de las notas musicales */
+    .music-note {
+    position: absolute;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 24px;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+    animation: floatNote 12s linear infinite;
+    opacity: 0;
+    }
+    
+    .music-note:nth-child(1) { left: 20%; top: -30px; animation-delay: 0s; font-size: 25px; }
+    .music-note:nth-child(2) { left: 40%; top: -30px; animation-delay: 2s; font-size: 18px; }
+    .music-note:nth-child(3) { left: 60%; top: -30px; animation-delay: 4s; font-size: 22px; }
+    .music-note:nth-child(4) { left: 80%; top: -30px; animation-delay: 6s; font-size: 26px; }
+    .music-note:nth-child(5) { left: 10%; top: -30px; animation-delay: 1s; font-size: 20px; }
+    .music-note:nth-child(6) { left: 30%; top: -30px; animation-delay: 3s; font-size: 19px; }
+    .music-note:nth-child(7) { left: 50%; top: -30px; animation-delay: 5s; font-size: 24px; }
+    .music-note:nth-child(8) { left: 70%; top: -30px; animation-delay: 7s; font-size: 21px; }
+    
+    /* Animación modificada para que las notas se muevan solo dentro del contenedor */
+    @keyframes floatNote {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.8;
+    }
+    90% {
+        opacity: 0.6;
+    }
+    100% {
+        transform: translateY(380px) rotate(360deg);
+        opacity: 0;
+    }
+    }
+
+/* ***************************** MÁSCARA ***************************** */
+/* Máscara de capa para ocultar ondas detrás del logo */
+.mask-wrapper {
+  position: absolute;
+  top: 150px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  overflow: visible; /* solo para diagnóstico */
+
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ***************************** LIRYCS ***************************** */
+.right-panel {
+  position: relative;
+}
+
+.lyrics-container {
+    position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 540px;
+  height: 640px;
+  padding: 20px;
+  box-sizing: border-box;
+  /*background-color: rgba(0, 0, 0, 0.6);*/
+  border-radius: 10px;
+  font-family: 'Arial', sans-serif;
+  color: white;
+  overflow-y: hidden;
+}
+
+
+.lyric-line {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: slideUp 0.8s ease-out forwards;
+  animation-delay: var(--line-delay, 0s);
+  margin-bottom: 12px;
+}
+
+@keyframes slideUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.lyric-line span {
+  display: inline-block;
+  opacity: 0;
+  animation-name: fadeInUp, pulseWord;
+  animation-duration: 0.6s, 0.8s;
+  animation-delay: var(--delay), calc(var(--delay) + 0.2s);
+  animation-fill-mode: forwards;
+  margin-right: 4px;
+  color: var(--color, #ffff66);
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulseWord {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+/* ***************************** SKINS ***************************** */
+#skin-splashes {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.splash {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.6;
+  animation: fadeSplash 6s ease-out forwards;
+  mix-blend-mode: screen;
+  background-size: cover;
+  background-repeat: no-repeat;
+  will-change: transform, opacity;
+}
+
+@keyframes fadeSplash {
+  0% {
+    transform: scale(0.8) rotate(0deg);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.2) rotate(180deg);
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(1.5) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* 🎛️ Modal Playlist V3.0 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* Background Modal */
+  .modal::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 540px;
+  height: 650px;
+  transform: translate(-50%, -50%);
+  background-image: url("https://i.ibb.co/7xtPnmJk/Scene.gif");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  clip-path: inset(0 round 20px);
+  z-index: -1;
+  border-radius: 12px;
+  opacity: 0.9;
+}
+
+.modal {
+  position: fixed;
+  top: 42.5%;
+  left: 32.5%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 500px;
+  height: 600px; /* NO SE TOCA */
+  background-color: #01010195;
+  color: #fff;
+  border: 2px solid #ff4081;
+  border-radius: 12px;
+  box-shadow: 0 0 20px #ff4081;
+  z-index: 1000;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* ← elimina scroll horizontal */
+  gap: 12px;
+}
+
+/* Oculto por defecto */
+.modal.hidden {
+  display: none;
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* ← permite que .track-list calcule su espacio */
+  overflow: hidden; /* ← evita scroll doble */
+}
+
+.close-btn {
+  align-self: flex-end; /* ← alinea el botón a la derecha dentro del contenedor */
+  background: none;
+  border: none;
+  color: #ff4081;
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  margin-bottom: 8px;
+}
+
+.close-btn:hover {
+  transform: scale(1.2);
+}
+
+/* Info de pista actual */
+.modal-info {
+  font-size: 0.95em;
+  color: #ccc;
+  margin: 0 0 8px 0;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: unset;
+  max-height: 40px;
+}
+
+/* Lista de pistas */
+.track-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  overflow-y: auto;
+  overflow-x: hidden; /* ← elimina scroll horizontal */
+  flex-grow: 1; /* ← ocupa todo el espacio restante */
+}
+
+/* Cada pista */
+.modal-track-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  border-bottom: 1px solid #333;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+  min-width: 0; /* ← evita desbordamiento horizontal */
+}
+
+.modal-track-item:hover {
+  background-color: #222;
+  transform: scale(1.02);
+}
+
+/* Carátula */
+.track-cover {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 0 6px #ff4081;
+  flex-shrink: 0;
+}
+
+/* Info de la pista */
+.track-info {
+  flex: 1;
+  font-size: 0.9em;
+  line-height: 1.4;
+  color: #ccc;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.track-info strong {
+  color: #fff;
+  display: block;
+  margin-bottom: 4px;
+}
+
+/* 🎚️ Scroll emocional fucsia ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.track-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.track-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.track-list::-webkit-scrollbar-thumb {
+  background-color: #ff4081;
+  border-radius: 3px;
+  border: 1px solid transparent;
+  background-clip: content-box;
+}
+
+/* Firefox */
+.track-list {
+  scrollbar-width: thin;
+  scrollbar-color: #ff4081 transparent;
+}
+
+/* 🎶 Track actual y artista con aura ceremonial ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+#current-track-display {
+  display: inline-block;
+  padding: 4px 12px;
+  margin-left: 6px;
+  background: linear-gradient(90deg, #3688ff, #6aaeff); /* Degradado Azul Tema Actual */
+  border-radius: 8px;
+  color: #fff;
+  font-weight: bold;
+  animation: pulseTrack 1.5s infinite;
+  box-shadow: 0 0 6px rgba(54, 136, 255, 0.4);
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@keyframes pulseTrack {
+  0%   { box-shadow: 0 0 6px rgba(54, 136, 255, 0.4); }
+  50%  { box-shadow: 0 0 12px rgba(106, 174, 255, 0.8); }
+  100% { box-shadow: 0 0 6px rgba(54, 136, 255, 0.4); }
+}
+
+/* Registro de Visitas/Reproducciones */
+.track-info span:last-child {
+  color: #ff4081;
+  font-weight: 500;
+}
+
+/* Canvas */
+#layout-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+#particles {
+  position: absolute;
+  top: 10px;
+  left: 230px; /* ← compensación exacta */
+  width: 1084px; /* ← ancho real del layout */
+  height: 640px; /* ← alto real del layout */
+  overflow: hidden;
+  z-index: 4;
+  pointer-events: none;
+}
+
+#particles {
+  display: block;
+}
