@@ -1,12 +1,10 @@
-/*   ***************************** NUEVO CONTENEDOR *****************************  */
-#main-container::before {
-  content: "";
+/*   ***************************** CONTENEDORES *****************************  */
+#background-layer {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 1080px;
-  height: 640px;
-  transform: translate(-50%, -50%);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background-image: url("https://i.ibb.co/CsVcpscX/BG-Repro-GFX.gif");
   background-size: cover;
   background-position: center;
@@ -14,22 +12,23 @@
   clip-path: inset(0 round 20px);
   z-index: -1;
   opacity: 0.9;
+  pointer-events: none;
 }
 
 /* CONTENEDOR PRINCIPAL */
 #main-container {
+  position: relative;
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: flex-start;
-  width: 100%;  /* 542 + 542 */
-  max-width: 1084px; /* o lo que defina tu layout */
-  height: 640px;
-  margin: auto; /* ← centrado absoluto */
+  width: 100%;
+  max-width: 1084px;
+  margin: auto;
+  padding: 0;
+  gap: 0;
   background-color: transparent;
-  position: relative;
   z-index: 1;
-  gap: 0px; /* ← sin espacio visible */
-  padding: 0px;
 }
 
 /* PANEL IZQUIERDO */
@@ -38,7 +37,8 @@
   border-radius: 10px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
   padding: 56px;
-  width: 430px;
+  width: 100%;
+  max-width: 430px;
   height: 528px;
   text-align: center;
   transform: translateZ(0);
@@ -56,7 +56,8 @@
   border-radius: 10px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
   padding: 56px;
-  width: 430px;
+  width: 100%;
+  max-width: 430px;
   height: 528px;
   text-align: center;
   /*backdrop-filter: blur(2px);*/
@@ -67,6 +68,21 @@
   transform: translateZ(0);
 }
 
+@media (max-width: 768px) {
+  #background-layer {
+    clip-path: none;
+    border-radius: 0;
+  }
+
+  #left-panel,
+  #right-panel {
+    height: auto;
+    max-height: 528px;
+    width: 100%;
+    max-width: 430px;
+    margin-bottom: 24px;
+  }
+}
 
 /* ***************************** Ondas ***************************** */
 /* Ondas posicionadas manualmente */
@@ -200,6 +216,21 @@
   }
 }
 
+@media (max-width: 768px) {
+  .audio-waves {
+    top: 12px;
+    width: 90vw;
+    gap: 2px;
+    padding: 10px 0;
+    transform: translateX(-50%);
+  }
+
+  .wave-bar {
+    width: 6px;
+    height: var(--height, 40px);
+  }
+}
+
 /*  ****************** Estilos para el contenedor de fecha y hora ******************  */
 .datetime-container {
   color: #ffffff;
@@ -208,24 +239,19 @@
   padding: 5px 10px;
   display: flex;
   align-items: center;
-  gap: 18px;
-  justify-content: center;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  position: absolute;
-  bottom: 600px;
-  left: 90px;
-  z-index: 10; /* ← asegura que esté por encima si hay capas */
-}
-
-.datetime-container {
-  display: flex;
-  align-items: center;
   gap: 8px;
+  justify-content: center;
   font-family: 'Segoe UI', sans-serif;
   font-size: 14px;
   white-space: nowrap;
   overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  bottom: 600px;
+  left: 90px;
+  z-index: 10;
 }
+
 .date-separator {
   color: #999;
 }
@@ -250,7 +276,6 @@
   100% { left: -100%; }
 }
 
-/*  *************************PARTE 1*************************  */
     .datetime-container i {
     color: #ff4081;
     font-size: 14px;
@@ -278,22 +303,21 @@
     }
 
 /*  Radioescuchas */
-    .listeners-container {
-        color: white;
-        font-size: 13px;
-        background-color: rgba(0, 0, 0, 0.6);
-        border-radius: 12px;
-        padding: 5px 10px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 5px;
-        position: absolute;
-        top: 55px;
-        left: 10px;
-        z-index: 10;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    }
+.listeners-container {
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 12px;
+  padding: 5px 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #ff4081;
+  position: absolute;
+  top: 55px;
+  left: 10px;
+  z-index: 10;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
     
     .listeners-count {
         font-weight: bold;
@@ -322,10 +346,33 @@
   color: #ffffff; /* tono ritual */
 }
 
+@media (max-width: 768px) {
+  .datetime-container {
+    position: static;
+    margin: 16px auto;
+    flex-wrap: wrap;
+    justify-content: center;
+    font-size: 12px;
+  }
+
+  .listeners-container {
+    position: static;
+    margin: 8px auto;
+    justify-content: center;
+    font-size: 12px;
+  }
+
+  #current-city {
+    max-width: 100px;
+  }
+}
+
 /* ***************************** LOGO ***************************** */
 .radio-logo {
-  width: 220px;
-  height: 220px;
+  width: 100%;
+  max-width: 220px;
+  height: auto;
+  aspect-ratio: 1 / 1;
   margin: 25px auto 20px;
   border: 1px solid rgb(255, 255, 255);
   border-radius: 50%;
@@ -333,10 +380,7 @@
   position: relative;
   animation: vinylSpin 3s linear infinite, glow 3s infinite alternate;
   box-shadow: 0 0 15px rgb(255, 255, 255);
-  top: 0px;
-  left: 0px;
   z-index: 5;
-  position: relative;
   isolation: isolate;
 }
 
@@ -350,7 +394,7 @@
   background-image: url(https://i.ibb.co/nMz9Tyjg/Plato.png);
   background-size: cover;
   background-position: center;
-  opacity: 8.0; /* corregido: valor válido entre 0 y 1 */
+  opacity: 1.0; /* corregido: valor válido entre 0 y 1 */
   z-index: 2;
 }
 
@@ -358,7 +402,6 @@
   box-shadow: 0 0 20px rgba(255, 64, 129, 0.8); /* resplandor rosa intenso */
 }
 
-/* ***************************** Animaciones ***************************** */
 @keyframes vinylSpin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
@@ -372,6 +415,14 @@
   100% {
     box-shadow: 0 0 30px rgba(255, 64, 129, 0.8);   /* resplandor rosa intenso */
     border-color: rgba(255, 64, 129, 0.9);          /* borde vibrante */
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .radio-logo {
+    max-width: 160px;
+    margin: 16px auto;
   }
 }
 
@@ -409,8 +460,6 @@
         outline: none;
         position: relative;
     }
-    
-/*  *************************PARTE 2*************************  */
 
     .volume-slider::-webkit-slider-thumb {
         -webkit-appearance: none;
@@ -459,9 +508,25 @@
         text-align: right;
         font-weight: bold;
     }
+/* Responsive */
+@media (max-width: 768px) {
+  .volume-control {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .volume-slider {
+    width: 100%;
+  }
+
+  .volume-percentage {
+    text-align: center;
+    width: 100%;
+  }
+}
 
 /* ***************************** INFO + EMOCIONES ***************************** */
-/* Contenedor principal */
+/* Contenedor Info + Track */
 .track-display-container {
   display: flex;
   align-items: center;
@@ -592,10 +657,31 @@
 .emotion-default      { color: #ff4081; }
 .emotion-picardia     { color: #ff80b3; }
 
+/* Resposive */
+@media (max-width: 768px) {
+  .track-display-container {
+    position: static;
+    width: 100%;
+    max-width: 360px;
+    margin: 16px auto;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
 
-/*  *************************PARTE 3*************************  */
-/* ***************************** BOTONES ***************************** */
+  .info-track-container {
+    padding-left: 0;
+    align-items: center;
+  }
 
+  #cover-art {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 8px;
+  }
+}
+
+/* ***************************** BOTONES 1 ***************************** */
 /* 🎛️ Controles del reproductor */
 .radio-logo .player-controls {
   position: absolute;
@@ -772,6 +858,38 @@
   cursor: pointer;
 }
 
+/* Responsive */
+@media (max-width: 768px) {
+  .menu-btn {
+    right: 16px;
+    top: 8px;
+  }
+
+  .repeat-btn,
+  .rewind-btn,
+  .play-btn,
+  .forward-btn,
+  .shuffle-btn,
+  .playlist-btn {
+    transform: scale(0.85);
+    bottom: auto;
+    top: 50%;
+    left: auto;
+    right: auto;
+    margin: 4px;
+    position: static;
+  }
+
+  .player-controls {
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    align-items: center;
+    padding: 12px;
+  }
+}
+
+/* ***************************** BOTONES 2 ***************************** */
 .playlist-panel {
   position: absolute;
   top: auto;
@@ -963,8 +1081,25 @@
   100% { transform: rotate(-360deg); }
 }
 
-/*  *************************PARTE 4*************************  */
-/* NOTAS MUSICALES */
+/* Responsive */
+@media (max-width: 768px) {
+  .playlist-panel,
+  #contenido-panel {
+    position: static;
+    width: 100%;
+    max-width: 320px;
+    margin: 16px auto;
+    top: auto;
+    right: auto;
+  }
+
+  .contenido-btn {
+    bottom: 20px;
+    right: 20px;
+  }
+}
+
+/* ************************* NOTAS MUSICALES ************************* */
 /* Modificación de los contenedores de efectos para limitarlos al reproductor */
     .music-notes-container {
     position: absolute;
@@ -1014,7 +1149,7 @@
     }
     }
 
-/* ***************************** MÁSCARA ***************************** */
+/* ***************************** MÁSCARA NOTAS ***************************** */
 /* Máscara de capa para ocultar ondas detrás del logo */
 .mask-wrapper {
   position: absolute;
@@ -1030,6 +1165,26 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .mask-wrapper {
+    top: 120px;
+    width: 160px;
+    height: 160px;
+  }
+
+  .music-note {
+    font-size: 18px;
+  }
+
+  @keyframes floatNote {
+    100% {
+      transform: translateY(280px) rotate(360deg);
+      opacity: 0;
+    }
+  }
 }
 
 /* ***************************** LIRYCS ***************************** */
@@ -1092,6 +1247,23 @@
   50% { transform: scale(1.2); }
   100% { transform: scale(1); }
 }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .lyrics-container {
+    width: 90vw;
+    height: auto;
+    max-height: 480px;
+    padding: 16px;
+    font-size: 14px;
+    overflow-y: auto;
+  }
+
+  .lyric-line span {
+    font-size: 14px;
+  }
+}
+
 /* ***************************** SKINS ***************************** */
 #skin-splashes {
   position: fixed;
@@ -1262,6 +1434,35 @@
   margin-bottom: 4px;
 }
 
+/* Responsive */
+@media (max-width: 768px) {
+  .modal {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 95%;
+    max-width: 360px;
+    height: 560px;
+    padding: 16px;
+  }
+
+  .modal::before {
+    width: 100%;
+    height: 100%;
+    clip-path: none;
+    border-radius: 12px;
+  }
+
+  .track-cover {
+    width: 60px;
+    height: 60px;
+  }
+
+  .track-info {
+    font-size: 0.85em;
+  }
+}
+
 /* 🎚️ Scroll emocional fucsia ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 .track-list::-webkit-scrollbar {
   width: 6px;
@@ -1307,7 +1508,7 @@
   100% { box-shadow: 0 0 6px rgba(54, 136, 255, 0.4); }
 }
 
-/* Registro de Visitas/Reproducciones */
+/* *********************** Registro de Visitas/Reproducciones *********************** */
 .track-info span:last-child {
   color: #ff4081;
   font-weight: 500;
