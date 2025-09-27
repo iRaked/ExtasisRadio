@@ -538,7 +538,7 @@ shuffleBtn.addEventListener('click', () => {
   }
 });
 
-// Botón Playlist━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// MODAL Playlist━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 contenidoBtn.addEventListener("click", () => {
   contenidoIcon?.classList.add("animate-spin");
   setTimeout(() => contenidoIcon?.classList.remove("animate-spin"), 600);
@@ -577,15 +577,26 @@ contenidoBtn.addEventListener("click", () => {
   console.log("🎛️ Modal Playlist abierto desde contenido-btn");
 });
 
+// Cierre por botón ❌
 closePlaylistModal.addEventListener("click", () => {
   modalPlaylist.classList.add("hidden");
   console.log("❌ Modal Playlist cerrado");
 });
 
+// Cierre con tecla ESC
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape" && !modalPlaylist.classList.contains("hidden")) {
     modalPlaylist.classList.add("hidden");
     console.log("❌ Modal Playlist cerrado con ESC");
+  }
+});
+
+// Cierre por clic fuera del modal
+document.addEventListener("click", (e) => {
+  const isClickOutside = !modalPlaylist.contains(e.target) && !contenidoBtn.contains(e.target);
+  if (!modalPlaylist.classList.contains("hidden") && isClickOutside) {
+    modalPlaylist.classList.add("hidden");
+    console.log("❌ Modal Playlist cerrado por clic fuera");
   }
 });
 
