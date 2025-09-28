@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Repro Karaoke</title>
+  <link rel="icon" type="image/x-icon" href="assets/SG.ico" />
+  <!-- Estilos principales -->
+  <link rel="stylesheet" href="Repro15.css" />
+
+  <!-- Font Awesome para iconos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <!-- Scripts funcionales -->
+  <script src="Repro15.js" defer></script>
+
+</head>
+<body>
+
+  <!-- 🧭 CONTENEDOR PRINCIPAL DEL RITUAL -->
+  <div id="main-container" class="main-container">
+      
+      <div id="background-layer"></div>
+
+    <!-- ◀️ PANEL IZQUIERDO: LP -->
+    <div id="left-panel" class="left-panel">
+      <!-- AUDIO -->
+        <section id="block-audio" class="block-audio">
+          <audio id="audio-player" preload="auto"></audio>
+        </section>
+
+        <!-- HEADER  -->
+        <section id="info-dj" class="info-dj">
+
+          <header class="datetime-container">
+            <i class="fas fa-clock"></i>
+            <span id="current-time">00:00:00</span>
+            <span class="date-separator">|</span>
+            <i class="fas fa-calendar-alt"></i>
+            <span id="current-date">21/08/2025</span>
+            <span class="date-separator">|</span>
+            <i class="fas fa-map-marker-alt"></i>
+            <span id="current-city">CDMX</span>
+          </header>
+
+          <aside class="listeners-container">
+            <span><i class="fas fa-headphones"></i></span>
+            <output id="sonic_listeners" class="listeners-count">--</output>
+          </aside>
+
+        </section><!-- CIERRE BLOQUE HEADER -->
+        
+        <!-- EFECTOS -->
+        <section id="visual-effects" class="visual-effects">
+
+          <!-- LOGO -->
+          <figure class="radio-logo"></figure>
+
+          <!-- Pulso detrás del logo -->
+          <div class="pulse-effect-container">
+            <span class="pulse-ring pulse-ring-1"></span>
+            <span class="pulse-ring pulse-ring-2"></span>
+            <span class="pulse-ring pulse-ring-3"></span>
+          </div>
+
+          <!-- MÁSCARA como contenedor -->
+          <div class="mask-wrapper">
+            <div class="mask-center"></div>
+
+            <!-- Ondas Engendro integradas -->
+          <div class="audio-waves">
+            <!-- Solo se muestra una serie representativa -->
+            <div class="wave-bar" style="--delay: 0.1s; --height: 15px;"></div>
+            <div class="wave-bar" style="--delay: 0.2s; --height: 35px;"></div>
+            <div class="wave-bar" style="--delay: 0.3s; --height: 25px;"></div>
+            <div class="wave-bar" style="--delay: 0.4s; --height: 40px;"></div>
+            <div class="wave-bar" style="--delay: 0.5s; --height: 20px;"></div>
+            <div class="wave-bar" style="--delay: 0.6s; --height: 30px;"></div>
+            <div class="wave-bar" style="--delay: 0.7s; --height: 35px;"></div>
+            <div class="wave-bar" style="--delay: 0.8s; --height: 45px;"></div>
+            <div class="wave-bar" style="--delay: 0.9s; --height: 30px;"></div>
+            <div class="wave-bar" style="--delay: 1.0s; --height: 25px;"></div>
+            <div class="wave-bar" style="--delay: 0.1s; --height: 15px;"></div>
+            <div class="wave-bar" style="--delay: 0.2s; --height: 35px;"></div>
+            <div class="wave-bar" style="--delay: 0.3s; --height: 25px;"></div>
+            <div class="wave-bar" style="--delay: 0.4s; --height: 40px;"></div>
+            <div class="wave-bar" style="--delay: 0.5s; --height: 20px;"></div>
+            <div class="wave-bar" style="--delay: 0.6s; --height: 30px;"></div>
+            <div class="wave-bar" style="--delay: 0.7s; --height: 35px;"></div>
+            <div class="wave-bar" style="--delay: 0.8s; --height: 45px;"></div>
+            <div class="wave-bar" style="--delay: 0.9s; --height: 30px;"></div>
+            <div class="wave-bar" style="--delay: 1.0s; --height: 25px;"></div>
+            <div class="wave-bar" style="--delay: 0.4s; --height: 40px;"></div>
+            <div class="wave-bar" style="--delay: 0.5s; --height: 20px;"></div>
+
+            <div class="wave-bar" style="--delay: 0.1s; --height: 15px;"></div>
+            <div class="wave-bar" style="--delay: 0.2s; --height: 35px;"></div>
+            <div class="wave-bar" style="--delay: 0.3s; --height: 25px;"></div>
+            <div class="wave-bar" style="--delay: 0.4s; --height: 40px;"></div>
+            <div class="wave-bar" style="--delay: 0.5s; --height: 20px;"></div>
+            <div class="wave-bar" style="--delay: 0.6s; --height: 30px;"></div>
+            <div class="wave-bar" style="--delay: 0.7s; --height: 35px;"></div>
+            <div class="wave-bar" style="--delay: 0.8s; --height: 45px;"></div>
+            <div class="wave-bar" style="--delay: 0.9s; --height: 30px;"></div>
+            <div class="wave-bar" style="--delay: 1.0s; --height: 25px;"></div>
+            <div class="wave-bar" style="--delay: 0.1s; --height: 15px;"></div>
+            <div class="wave-bar" style="--delay: 0.2s; --height: 35px;"></div>
+            <div class="wave-bar" style="--delay: 0.3s; --height: 25px;"></div>
+            <div class="wave-bar" style="--delay: 0.4s; --height: 40px;"></div>
+            <div class="wave-bar" style="--delay: 0.5s; --height: 20px;"></div>
+            <div class="wave-bar" style="--delay: 0.6s; --height: 30px;"></div>
+            <div class="wave-bar" style="--delay: 0.7s; --height: 35px;"></div>
+            <div class="wave-bar" style="--delay: 0.8s; --height: 45px;"></div>
+            <div class="wave-bar" style="--delay: 0.9s; --height: 30px;"></div>
+            <div class="wave-bar" style="--delay: 1.0s; --height: 25px;"></div>
+            <div class="wave-bar" style="--delay: 0.4s; --height: 40px;"></div>
+            <div class="wave-bar" style="--delay: 0.5s; --height: 20px;"></div>
+              </div>
+            </div>
+
+          <!-- Notas musicales flotantes -->
+          <aside class="music-notes-container">
+            <span class="music-note">♪</span>
+            <span class="music-note">♫</span>
+            <span class="music-note">♩</span>
+            <span class="music-note">♬</span>
+            <span class="music-note">♪</span>
+            <span class="music-note">♫</span>
+            <span class="music-note">♩</span>
+            <span class="music-note">♬</span>
+          </aside>
+
+          <!-- Ondas Sonoras decorativas -->
+          <output class="ondas-sonoras"></output>
+
+          <!-- Efecto de brillo -->
+          <div class="glow-effect"></div>
+
+        </section><!-- CIERRE BLOQUE EFECTOS -->
+        
+        <!-- BLOCK VOLUMEN -->
+        <section id="block-volumen" class="block-volumen">
+
+          <div class="volume-control">
+            <i id="volumeIcon" class="fas fa-volume-down"></i>
+            <input
+              type="range"
+              class="volume-slider"
+              id="volumeSlider"
+              min="0"
+              max="1"
+              step="0.1"
+              value="0.7"
+            />
+            <span id="volumePercentage" class="volume-percentage">70%</span>
+          </div>
+
+        </section><!-- CIERRE BLOQUE VOLUMEN -->
+        
+        <!-- BLOQUE TRACK-INFO -->
+        <section id="track-info" class="track-info">
+
+          <div class="track-display-container">
+
+            <figure class="cover-art-container">
+              <img id="cover-art" src="assets/covers/Cover1.png" alt="Carátula del Track" />
+            </figure>
+
+            <article class="info-track-container">
+              <div class="scroll-wrapper">
+                  <div class="scroll-inner">
+                      <h2 class="scroll-text" id="track-title">Título del Track largo</h2>
+                  </div>
+                </div>
+              <div class="scroll-wrapper">
+                  <div class="scroll-inner">
+                      <h3 class="scroll-text scrollable" id="track-artist">Artista largo con muchos nombres</h3>
+                  </div>
+                </div>
+              <div class="scroll-wrapper">
+                  <div class="scroll-inner">
+                      <p class="scroll-text" id="track-album">Álbum</p>
+                  </div>
+                </div>
+              <div class="scroll-wrapper">
+                  <div class="scroll-inner">
+                      <h4 class="scroll-text" id="track-emotion">picardía</h4>
+                  </div>
+                </div>
+            </article>
+
+          </div>
+
+        </section><!-- CIERRE TRACK-INFO  -->
+        
+        <!-- BOTONERA -->
+        <section id="block-controls" class="block-controls">
+
+          <div class="control-buttons">
+            <!-- Power -->
+            <button class="btn-menu menu-btn">
+              <i class="fas fa-power-off"></i>
+            </button>
+
+            <!-- Repeat -->
+            <button class="btn-engendro repeat-btn">
+              <i class="fas fa-redo"></i>
+            </button>
+
+            <!-- Rewind -->
+            <button class="btn-engendro rewind-btn">
+              <i class="fas fa-backward"></i>
+            </button>
+
+            <!-- Play -->
+            <button id="play-btn" class="btn-engendro btn-engendro-play play-btn">
+              <i class="fas fa-play"></i>
+            </button>
+
+            <!-- Forward -->
+            <button class="btn-engendro forward-btn">
+              <i class="fas fa-forward"></i>
+            </button>
+
+            <!-- Shuffle -->
+            <button class="btn-engendro shuffle-btn">
+              <i class="fas fa-random"></i>
+            </button>
+
+            <!-- Playlist -->
+            <button id="playlist-btn" class="btn-engendro playlist-btn">
+              <i class="fas fa-list-ul"></i>
+            </button>
+
+            <!-- Contenido -->
+            <button class="btn-engendro contenido-btn" id="contenido-btn">
+              <i class="fas fa-music"></i>
+              <!-- Este será el botón Playlist, el anterior es decorativo -->
+            </button>
+          </div>
+
+        </section><!-- CIERRE BOTONERA -->
+
+    </div><!-- ======================== CIERRE LEFT PANEL ======================== -->
+
+    <!-- ▶️ PANEL DERECHO: RP -->
+    <div id="right-panel" class="right-panel">
+      <!-- Aquí vivirá exclusivamente el karaoke (lyrics-container) -->
+        <div class="lyrics-container"></div>
+        
+    </div><!-- ======================== CIERRE RIGHT PANEL ======================== -->
+      
+      <!-- BLOQUE MODAL TRACKS -->
+      <section id="block-modal" class="block-modal">
+
+      <div id="modal-playlist" class="modal hidden">
+        <div class="modal-content">
+          <button id="close-playlist-modal" class="close-btn">❌</button>
+
+          <p class="modal-info">
+            Reproduciendo:
+            <span id="current-track-display">Sin pista seleccionada — Sin artista</span>
+          </p>
+
+          <ul id="modal-playlist-tracks" class="track-list"></ul>
+        </div>
+      </div>
+
+    </section>
+
+  </div><!-- ======================== CIERRE MAIN CONTAINER ======================== -->
+    
+    <!-- PARTICULAS CANVAS -->
+    <canvas id="particles"></canvas>
+    <script src="lyricsRepro14.js"></script>
+    <script>
+        function actualizarFechaHora() {
+          const ahora = new Date();
+
+          // Hora en formato HH:MM:SS
+          const hora = ahora.toLocaleTimeString('es-MX', {
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: false
+          });
+
+          // Fecha en formato DD/MM/YYYY
+          const fecha = ahora.toLocaleDateString('es-MX', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric'
+          });
+
+          document.getElementById('current-time').textContent = hora;
+          document.getElementById('current-date').textContent = fecha;
+        }
+
+        // Inicializa y actualiza cada segundo
+        actualizarFechaHora();
+        setInterval(actualizarFechaHora, 1000);
+    </script>
+
+</body>
+</html>
