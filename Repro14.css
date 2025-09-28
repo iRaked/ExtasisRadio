@@ -68,6 +68,7 @@
   transform: translateZ(0);
 }
 
+/* Responsive */
 @media (max-width: 768px) {
   #left-panel,
   #right-panel {
@@ -211,7 +212,7 @@
 
 @media (max-width: 768px) {
   .audio-waves {
-    top: 12px;
+    top: 90px;
     width: 90vw;
     gap: 2px;
     padding: 10px 0;
@@ -661,10 +662,21 @@
 .emotion-picardia     { color: #ff80b3; }
 
 /* ***************************** BOTONES 1 ***************************** */
+/* Botonera Invisible */
+#block-controls {
+  position: absolute;
+  top: 530px;           /* ← ajusta según tu layout */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300px;         /* ← puedes ajustar según contenido */
+  height: auto;
+  border-radius: 12px;
+  z-index: 10;
+}
 
 /* 🎛️ Controles del reproductor */
 .radio-logo .player-controls {
-  position: absolute;
+  position: relative;
   top: 0;
   left: 0;
   width: 100%;
@@ -685,26 +697,6 @@
   100% { transform: rotate(-360deg); }
 }
 
-/* 🎯 Botón Menú/POWER */
-.menu-btn {
-  position: absolute;
-  width: 32px;
-  height: 32px;
-  top: 10px;
-  right: 500px;
-  background: #222;
-  border-radius: 50%;
-  color: #fff;
-  box-shadow: 0 0 8px rgba(255, 128, 179, 0.8); /* resplandor rosa suave */
-  transition: transform 0.3s ease;
-  align-items: center;
-  justify-content: center;
-  display: flex;
-}
-.menu-btn:hover {
-  transform: scale(1.1);
-}
-
 /* 🧩 Botones base */
 .btn-engendro {
   border-radius: 50%;
@@ -716,50 +708,73 @@
   align-items: center;
   transition: transform 0.3s ease;
   position: absolute;
-  
 }
 .btn-engendro:hover {
   transform: scale(1.1);
 }
 
-/* 🔴 Botón Play */
+/* 🎯 Botón Menú/POWER */
+.menu-btn {
+  position: relative;
+  bottom: 520px;
+  right: 100px;
+  width: 32px;
+  height: 32px;
+  background: #222;
+  border-radius: 50%;
+  color: #fff;
+  box-shadow: 0 0 8px rgba(255, 128, 179, 0.8);
+  transition: transform 0.3s ease;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  z-index: 20;
+}
+
+.menu-btn:hover {
+  transform: scale(1.1);
+}
+
 .btn-engendro-play {
+  position: relative;
+  bottom: 135px; /* ← desplazamiento positivo desde el borde inferior */
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   background: linear-gradient(to right,
-  #ff80b3 0%,     /* rosa suave al inicio */
-  #ff4081 50%,    /* rosa vibrante en el centro */
-  #e60073 100%    /* rosa intenso al final */
-);
+    #ff80b3 0%,     /* rosa suave al inicio */
+    #ff4081 50%,    /* rosa vibrante en el centro */
+    #e60073 100%    /* rosa intenso al final */
+  );
   color: #fff;
   box-shadow: 0 0 10px rgba(255, 128, 179, 0.8); /* resplandor rosa suave */
   display: flex;
   justify-content: center;
   align-items: center;
   transition: transform 0.3s ease;
-  position: absolute;
+  z-index: 20;
 }
-
-/* 📍 Posiciones individuales */
-.repeat-btn {
-  width: 45px;
-  height: 45px;
-  bottom: 32px;
-  left: 100px;
-  cursor: pointer;
-  transition: transform 0.3s ease;
+/* 🔴 Botón Play */
+.play-btn {
+  width: 80px;
+  height: 80px;
+  bottom: 20px;
+  left: 38%;
   border-radius: 50%;
   box-shadow: 0 0 6px rgba(255, 64, 129, 0.3);
   font-size: 1.0em;
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
+  user-select: none;
 }
 
 .rewind-btn {
   width: 55px;
   height: 55px;
   bottom: 28px;
-  left: 160px;
+  left: 50px;
   border-radius: 50%;
   box-shadow: 0 0 6px rgba(255, 64, 129, 0.3);
   font-size: 1.0em;
@@ -783,26 +798,11 @@
   100% { transform: rotate(-360deg); }
 }
 
-.play-btn {
-  width: 80px;
-  height: 80px;
-  bottom: 20px;
-  left: 43%;
-  border-radius: 50%;
-  box-shadow: 0 0 6px rgba(255, 64, 129, 0.3);
-  font-size: 1.0em;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  user-select: none;
-}
-
 .forward-btn {
   width: 55px;
   height: 55px;
   bottom: 28px;
-  right: 160px;
+  left: 205px;
   border-radius: 50%;
   box-shadow: 0 0 6px rgba(255, 64, 129, 0.3);
   font-size: 1.0em;
@@ -827,11 +827,27 @@
   100% { transform: rotate(360deg); }
 }
 
+/* 📍 Posiciones individuales */
+.repeat-btn {
+  width: 45px;
+  height: 45px;
+  bottom: 32px;
+  right: 265px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  border-radius: 50%;
+  box-shadow: 0 0 6px rgba(255, 64, 129, 0.3);
+  font-size: 1.0em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .shuffle-btn {
   width: 45px;
   height: 45px;
   bottom: 32px;
-  right: 100px;
+  left: 270px;
   border-radius: 50%;
   box-shadow: 0 0 6px rgba(255, 64, 129, 0.3);
   font-size: 1.0em;
@@ -868,7 +884,7 @@
   width: 40px;
   height: 40px;
   bottom: 60px;
-  left: 30px;
+  right: 320px;
   border-radius: 50%;
   box-shadow: 0 0 6px rgba(255, 64, 129, 0.3);
   font-size: 1.0em;
@@ -880,56 +896,13 @@
 }
 
 /* ***************************** BOTONES 2 ***************************** */
-.playlist-panel {
-  position: absolute;
-  top: auto;
-  right: 350px;
-  width: 280px;
-  padding: 15px;
-  border-radius: 50%;
-  box-shadow: 0 0 6px rgba(255, 64, 129, 0.3);
-  font-size: 1.0em;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  user-select: none;
-  z-index: 10;
-}
-
-.playlist-panel.hidden {
-  display: none;
-}
-
-.playlist-item {
-  margin: 8px 0;
-  padding: 6px;
-  border-bottom: 1px dashed magenta;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-.playlist-item:hover {
-  background: rgba(255, 255, 255, 0.1);
-}
-
-/* 🌀 Animación de giro simbólico */
-.playlist-btn i.animate-spin {
-  animation: spinOnce 0.6s ease-out;
-}
-
-@keyframes spinOnce {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
 /* 🔘 Botón flotante de contenido */
 .contenido-btn {
   position: fixed;
   width: 40px;
   height: 40px;
   bottom: 60px;
-  right: 30px;
+  left: 325px;
   border-radius: 50%;
   box-shadow: 0 0 6px rgba(255, 64, 129, 0.3);
   font-size: 1.0em;
@@ -1085,7 +1058,7 @@
   }
 
   .contenido-btn {
-    bottom: 20px;
+    bottom: 60px;
     right: 20px;
   }
 }
@@ -1428,12 +1401,12 @@
 /* Responsive */
 @media (max-width: 768px) {
   .modal {
-    top: 50%;
+    top: 42%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 95%;
-    max-width: 360px;
-    height: 560px;
+    max-width: 430px;
+    height: 610px;
     padding: 16px;
   }
 
