@@ -1,4 +1,11 @@
 /*   ***************************** CONTENEDORES *****************************  */
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;         /* ← elimina scroll horizontal interno */
+  overflow-y: auto;           /* ← permite scroll vertical si hay recorrido */
+}
+
 #main-container {
   position: relative;
   display: flex;
