@@ -1,0 +1,134 @@
+[
+  {
+    "id": "i-like-you-mucho",
+    "title": "I like you mucho",
+    "artist": "Daaz",
+    "album": "Single",
+    "emotion": "alegría",
+    "genre": "pop",
+    "duration": 180,
+    "dropbox_url": "https://www.dropbox.com/scl/fi/k9c36b6ntkcyk8kmrbvmj/Daaz-I-like-you-mucho.MP3?rlkey=mjv11davrewdpesloj1pxtdj0&st=1pwzc9jw&dl=0&raw=1",
+    "cover": "assets/covers/Daaz%20-%20I%20like%20you%20mucho.png"
+  },
+  {
+    "id": "adios-melancolia",
+    "title": "Adiós melancolía",
+    "artist": "Ricardo Arjona",
+    "album": "Adentro",
+    "emotion": "melancolía",
+    "genre": "balada",
+    "duration": 210,
+    "dropbox_url": "https://www.dropbox.com/scl/fi/4e5n37a6jkoxz55tty4fg/Ricardo-Arjona-Adi-s-melancol-a.mp3?rlkey=nhkzcvgx24gzybz5f65spy76j&st=9n19hgr6&dl=0&raw=1",
+    "cover": "assets/covers/Ricardo-Arjona-Adentro.jpg"
+  },
+  {
+    "id": "enamorandonos",
+    "title": "Enamorándonos",
+    "artist": "Cabas",
+    "album": "Single",
+    "emotion": "romance",
+    "genre": "pop",
+    "duration": 200,
+    "dropbox_url": "https://www.dropbox.com/scl/fi/gjk7u0q2gdf9f47gzoncd/Cabas-Enamor-ndonos.mp3?rlkey=6cmcj0zhmygytac5c5qbphbrq&st=tqh4r0cb&dl=0&raw=1",
+    "cover": "assets/covers/Cabas-Enamorandonos.jpg"
+  },
+  {
+    "id": "indigo",
+    "title": "Índigo",
+    "artist": "Camilo Evaluna Montaner",
+    "album": "Índigo",
+    "emotion": "ternura",
+    "genre": "balada",
+    "duration": 195,
+    "dropbox_url": "https://www.dropbox.com/scl/fi/1tgteeufiwu134o6xo3um/Camilo-ndigo.mp3?rlkey=h5bkasha8wvngo9o6ndt0bphn&st=36n41rbu&dl=0&raw=1",
+    "cover": "assets/covers/Camilo-Indigo.jpg"
+  },
+  {
+    "id": "aguita-e-coco",
+    "title": "Agüita e coco",
+    "artist": "Kany García",
+    "album": "Single",
+    "emotion": "frescura",
+    "genre": "tropical",
+    "duration": 185,
+    "dropbox_url": "https://www.dropbox.com/scl/fi/vxa3to74rqwytogvm5vn8/Kanny-Garc-a-Ag-ita-e-coco.mp3?rlkey=8ik5ab2cv98ulc9iadgxpdhsd&st=ugyf7qr4&dl=0&raw=1",
+    "cover": "assets/covers/Kanny-Garcia-Aguita-e-coco.jpg"
+  },
+  {
+    "id": "que-haces",
+    "title": "Qué haces",
+    "artist": "Becky G & Manuel Turizo",
+    "album": "Single",
+    "emotion": "curiosidad",
+    "genre": "urbano",
+    "duration": 190,
+    "dropbox_url": "https://www.dropbox.com/scl/fi/t1tt04cs5md7e63intqgn/Becky-G-Manuel-Turizo-Qu-haces.MP3?rlkey=sjh9lerngaj9g9mpnbf0zwkob&st=jxqrvtwr&dl=0&raw=1",
+    "cover": "assets/covers/Becky-G-Manuel-Turizo-Que-haces.png"
+  },
+  {
+    "id": "porfa-no-te-vayas",
+    "title": "Porfa no te vayas",
+    "artist": "Beret & Morat",
+    "album": "Single",
+    "emotion": "despedida",
+    "genre": "pop",
+    "duration": 200,
+    "dropbox_url": "https://www.dropbox.com/scl/fi/xa0dn79gpfwz8j864ieuk/Beret-Morat-Porfa-no-te-vayas.mp3?rlkey=9d2g2p57go9axqjsft56g2bil&st=urpi2ppv&dl=0&raw=1",
+    "cover": "assets/covers/Beret-&-Morat-Porfa-no-te-vayas.jpg"
+  },
+  {
+    "id": "me-enamora",
+    "title": "Me enamora",
+    "artist": "Juanes",
+    "album": "La vida... es un ratico",
+    "emotion": "pasión",
+    "genre": "rock latino",
+    "duration": 188,
+    "dropbox_url": "https://www.dropbox.com/scl/fi/iaz6zrposv0a4a93xcmro/Juanes-Me-enamora.mp3?rlkey=whhk9iyvdqp6cij1kybw7sb4h&st=rnhhhtpq&dl=0&raw=1",
+    "cover": "assets/covers/Juanes-Me-enamora.jpg"
+  },
+  {
+    "id": "eres-tu",
+    "title": "Eres tú",
+    "artist": "Julio García & Jah Love",
+    "album": "Single",
+    "emotion": "devoción",
+    "genre": "reggae",
+    "duration": 205,
+    "dropbox_url": "https://www.dropbox.com/scl/fi/osx3ftwbo0nvmj3k0cstc/Julio-Garc-a-Eres-t-F-Jah-Love.mp3?rlkey=mx2zmzjbah1xdy28puqyotnp7&st=n2z1dlkw&dl=0&raw=1",
+    "cover": "assets/covers/Julio-Garcia-Jah-Love-Eres-tu.jpg"
+  },
+  {
+    "id": "perfecta-rusherking",
+    "title": "Perfecta",
+    "artist": "Rusherking & Dread Mar",
+    "album": "Single",
+    "emotion": "idealismo",
+    "genre": "reggae pop",
+    "duration": 192,
+    "dropbox_url": "https://www.dropbox.com/scl/fi/er0mwwrcqsplqiblz7cjs/Rusherking-Dread-Mar-I-Perfecta.mp3?rlkey=6n11lw0hujz0gdjdeqhmvgjrg&st=c22upzoj&dl=0&raw=1",
+    "cover": "assets/covers/Rusherking-&-Dread-Mar-Perfecta.jpg"
+  },
+  {
+    "id": "perfecta-miranda",
+    "title": "Perfecta",
+    "artist": "Miranda, Maria Becerra & FMK",
+    "album": "Single",
+    "emotion": "complicidad",
+    "genre": "pop urbano",
+    "duration": 198,
+    "dropbox_url": "https://www.dropbox.com/scl/fi/otm7mwgpgcq6mrffochqh/Miranda-Maria-Becerra-FMK-Perfecta.mp3?rlkey=dcp0peupckwketd7m88u95c7z&st=2nf93g5g&dl=0&raw=1",
+    "cover": "assets/covers/Miranda-Maria-Becerra-&-FMK-Perfecta.jpg"
+  },
+  {
+    "id": "princesa",
+    "title": "Princesa",
+    "artist": "Río Roma & CNCO",
+    "album": "Single",
+    "emotion": "fantasía",
+    "genre": "pop latino",
+    "duration": 200,
+    "dropbox_url": "https://www.dropbox.com/scl/fi/34s6b39fa96fqybzs14c6/R-o-Roma-Princesa-F-CNCO.mp3?rlkey=njby7269xli107celq1qzo5a0&st=334evf03&dl=0&raw=1",
+    "cover": "assets/covers/Rio-Roma-CNCO-Princesa.jpg"
+  }
+]
