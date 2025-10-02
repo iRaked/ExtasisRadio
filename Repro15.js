@@ -17,6 +17,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const playlistBtn = document.getElementById("playlist-btn");
   const playlistIcon = document.querySelector("#playlist-btn i");
+    
+  const menuBtn = document.getElementById('menu-btn');
+  const modal = document.getElementById('playlist-modal');
+  const closeBtn = document.getElementById('close-modal-btn');
 
   const container = document.querySelector('.lyrics-container');
   const karaokePalette = ['#ff4081', '#00e5ff', '#ffd740', '#69f0ae', '#f50057'];
@@ -40,15 +44,40 @@ document.addEventListener('DOMContentLoaded', () => {
   let splashIntervalId = null;
   let isMuted = false;
   let lastVolume = volumeSlider.value;
+  let listaActual = ''; // ← se actualiza cada vez que se carga una lista
 
-  // Cargar playlist desde metadata.json ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// Carga de Listas de Reproduccion
+const listas = {
+  actual: 'Repro15.json',
+  hits: 'Hits.json',
+  ruido: 'RuidoDeLata.json'
+};
+    
+function actualizarNombreLista(nombre) {
+  listaActual = nombre;
+  const playlistLabel = document.getElementById('track-playlist');
+  if (playlistLabel) {
+    playlistLabel.textContent = `Lista: ${nombre}`;
+  }
+}
+
+  // Cargar playlist desde metadata.json ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   fetch('Repro15.json')
     .then(res => res.json())
     .then(data => {
       playlist = data;
       loadTrack(currentIndex);
+      actualizarNombreLista('actual'); // ← Aquí se actualiza el nombre visual
+    actualizarModalPlaylist(); // ← sincroniza contenido visual
+    modal.classList.add('hidden');
+    console.log(`🎶 Lista "${listKey}" cargada y sincronizada`);
     })
     .catch(err => console.error('Error al cargar metadata:', err));
+    
+    audio.addEventListener('canplaythrough', () => {
+  console.log("✅ Audio completamente cargado y listo para reproducir");
+  playBtn.disabled = false;
+});
 
   // 🎨 Normalizar emoción para uso como clase CSS
 function normalizarEmocion(emotion) {
@@ -598,6 +627,97 @@ document.addEventListener("click", (e) => {
     modalPlaylist.classList.add("hidden");
     console.log("❌ Modal Playlist cerrado por clic fuera");
   }
+});
+
+// EXTRA
+function actualizarModalPlaylist() {
+  if (!Array.isArray(playlist) || playlist.length === 0) {
+    console.warn("❌ Playlist vacía o no cargada");
+    return;
+  }
+
+  modalPlaylistTracks.innerHTML = "";
+  const visitas = JSON.parse(localStorage.getItem('visitas')) || {};
+
+  playlist.forEach((track, index) => {
+    const li = document.createElement("li");
+    li.classList.add("modal-track-item");
+    li.innerHTML = `
+      <img src="${track.cover}" alt="Carátula" class="track-cover" />
+      <div class="track-info">
+        <strong>${track.title}</strong><br>
+        <span>🎤 ${track.artist}</span><br>
+        <span>💿 ${track.album}</span><br>
+        <span>⏱️ ${track.duration}</span><br>
+        <span>👁️ ${visitas[track.id] || 0}</span>
+      </div>
+    `;
+    li.addEventListener("click", () => {
+      currentIndex = index;
+      loadTrack(currentIndex);
+      audio.play().catch(err => console.error("Error al reproducir:", err));
+      modalPlaylist.classList.add("hidden");
+    });
+    modalPlaylistTracks.appendChild(li);
+  });
+}
+
+// BOTON MENU ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+menuBtn.addEventListener('click', () => {
+    modal.classList.remove('hidden');
+  });
+
+  closeBtn.addEventListener('click', () => {
+    modal.classList.add('hidden');
+  });
+
+  // Cierre al presionar fuera del modal
+  window.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      modal.classList.add('hidden');
+    }
+  });
+
+// ❌ Cierre con tecla ESC
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+    modal.classList.add('hidden');
+    console.log('❌ Modal Listas cerrado con ESC');
+  }
+});
+
+// ❌ Cierre por clic fuera del contenido del modal
+document.addEventListener('click', (e) => {
+  const isClickOutside = !modal.querySelector('.modal-content').contains(e.target) && !menuBtn.contains(e.target);
+  if (!modal.classList.contains('hidden') && isClickOutside) {
+    modal.classList.add('hidden');
+    console.log('❌ Modal Listas cerrado por clic fuera');
+  }
+});
+
+// MODAL MENU =====================================================================
+document.querySelectorAll('#playlist-modal .track-list li').forEach(item => {
+  item.addEventListener('click', () => {
+    const listKey = item.dataset.list;
+    const file = listas[listKey];
+
+    if (!file) {
+      console.warn(`❌ Lista "${listKey}" no tiene archivo asignado`);
+      return;
+    }
+
+    fetch(file)
+      .then(res => res.json())
+      .then(data => {
+        playlist = data;
+        currentIndex = 0;
+        loadTrack(currentIndex);
+actualizarNombreLista(listKey); // ← sincroniza contenido visual
+        modal.classList.add('hidden');
+        console.log(`🎶 Lista "${listKey}" cargada y sincronizada`);
+      })
+      .catch(err => console.error(`Error al cargar lista "${listKey}":`, err));
+  });
 });
 
 // 🌌 PARTÍCULAS ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
