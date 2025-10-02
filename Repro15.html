@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+  <link rel="icon" type="image/x-icon" href="assets/SG.ico" />
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,7 +9,6 @@
   <link rel="icon" type="image/x-icon" href="assets/SG.ico" />
   <!-- Estilos principales -->
   <link rel="stylesheet" href="Repro15.css" />
-
   <!-- Font Awesome para iconos -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <!-- BLOCK RIGHT CLICK -->
@@ -172,6 +172,13 @@
             </figure>
 
             <article class="info-track-container">
+                
+                <div class="scroll-wrapper">
+                  <div class="scroll-inner">
+                    <h5 class="scroll-text scrollable" id="track-playlist">Playlist: Hits</h5>
+                  </div>
+                </div>
+                
               <div class="scroll-wrapper">
                   <div class="scroll-inner">
                       <h2 class="scroll-text" id="track-title">Título del Track largo</h2>
@@ -203,7 +210,7 @@
 
           <div class="control-buttons">
             <!-- Power -->
-            <button class="btn-menu menu-btn">
+            <button class="btn-power">
               <i class="fas fa-power-off"></i>
             </button>
 
@@ -232,12 +239,12 @@
               <i class="fas fa-random"></i>
             </button>
 
-            <!-- Playlist -->
-            <button id="playlist-btn" class="btn-engendro playlist-btn">
+            <!-- Menu -->
+            <button id="menu-btn" class="btn-menu">
               <i class="fas fa-list-ul"></i>
             </button>
 
-            <!-- Contenido -->
+            <!-- Playlist -->
             <button class="btn-engendro contenido-btn" id="contenido-btn">
               <i class="fas fa-music"></i>
               <!-- Este será el botón Playlist, el anterior es decorativo -->
@@ -255,7 +262,7 @@
         
     </div><!-- ======================== CIERRE RIGHT PANEL ======================== -->
       
-      <!-- BLOQUE MODAL TRACKS -->
+      <!-- MODAL TRACKS -->
       <section id="block-modal" class="block-modal">
 
       <div id="modal-playlist" class="modal hidden">
@@ -272,6 +279,19 @@
       </div>
 
     </section>
+      
+      <!-- MODAL PLAYLIST MMENU -->
+    <div id="playlist-modal" class="modal hidden">
+      <div class="modal-content">
+        <button class="close-btn" id="close-modal-btn">❌</button>
+        <h2>Listas de Reproducción</h2>
+        <ul class="track-list">
+          <li data-list="actual">Actual</li>
+          <li data-list="hits">Hits</li>
+          <li data-list="ruido">Ruido de Lata</li>
+        </ul>
+      </div>
+    </div>
 
   </div><!-- ======================== CIERRE MAIN CONTAINER ======================== -->
     
