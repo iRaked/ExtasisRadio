@@ -57,7 +57,7 @@ function actualizarNombreLista(nombre) {
   listaActual = nombre;
   const playlistLabel = document.getElementById('track-playlist');
   if (playlistLabel) {
-    playlistLabel.textContent = `Lista: ${nombre}`;
+    playlistLabel.textContent = `Playlist: ${nombre}`;
   }
 }
 
