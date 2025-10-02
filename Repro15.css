@@ -508,6 +508,15 @@ html, body {
     }
 /* Responsive */
 @media (max-width: 768px) {
+  #block-volumen {
+    position: absolute;
+    bottom: 210px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    z-index: 999;
+  }
+
   .volume-control {
     flex-wrap: wrap;
     gap: 6px;
