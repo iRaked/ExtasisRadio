@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <!-- Font Awesome para iconos -->
+  <link rel="icon" type="image/x-icon" href="assets/SG.ico" />
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Repro 17</title>
+  <!-- Estilos principales -->
+  <link rel="stylesheet" href="Repro17.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <!-- BLOCK RIGHT CLICK 
+  <script type="text/javascript">
+  document.onkeydown = function(){return false};
+  document.oncontextmenu = function(){return false}
+  </script>
+  <script src="https://precios-2025.web.app/gallery.js"></script>-->
+  <!-- Scripts funcionales -->
+  <script src="Repro17.js" defer></script>
+
+</head>
+    
+<body>
+<!-- Reproductor Repro17 -->
+<div id="Repro17" class="reproductor">
+    
+    <!-- Ecualizador miniatura -->
+    <canvas id="miniEQ" width="30" height="20"></canvas>
+    
+    <!-- Volumen -->
+    <div class="volumen">
+      <div class="volumen-barra"></div>
+      <input type="range" min="0" max="100" value="70" class="volumen-slider" id="volumenSlider">
+    </div>
+
+  <!-- Carátula -->
+      <div class="caratula">
+        <img src="assets/covers/Cover1.png" alt="Carátula">
+      </div>
+
+  <!-- Metadata -->
+      <div class="metadata">
+      <div class="radio">Extasis Radio</div>
+
+      <div class="metadatos-contenedor">
+        <div class="scroll-text titulo-container">
+          <span class="titulo"></span>
+        </div>
+
+        <div class="scroll-text artista-container">
+          <span class="artista"></span>
+        </div>
+
+        <div class="scroll-text album-container">
+          <span class="album"></span>
+        </div>
+      </div>
+    </div>
+
+  <!-- Botonera -->
+  <div class="botonera">
+    <button class="prev">
+      <img src="assets/img/btn-rwd.png" alt="Anterior">
+    </button>
+    <button class="play">
+      <img src="assets/img/btn-play.png" alt="Reproducir">
+    </button>
+    <button class="next">
+      <img src="assets/img/btn-fwd.png" alt="Siguiente">
+    </button>
+  </div>
+
+  <!-- Effects -->
+  <div class="effects">
+    <button class="fx">
+      <img src="assets/img/Dance.gif" alt="Efectos">
+    </button>
+  </div>
+
+</div>
+</body>
+</html>
