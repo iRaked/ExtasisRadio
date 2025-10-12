@@ -75,11 +75,11 @@ document.querySelector('.play').addEventListener('click', () => {
   if (!isPlaying) {
     audio.play();
     isPlaying = true;
-    playBtn.src = 'assets/img/btn-pause.png';
+    playBtn.src = 'https://i.ibb.co/Z6d3VxJR/btn-pause.png';
   } else {
     audio.pause();
     isPlaying = false;
-    playBtn.src = 'assets/img/btn-play.png';
+    playBtn.src = 'https://i.ibb.co/G4bpCyPR/btn-play.png';
   }
 });
 
