@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <!-- Font Awesome para iconos -->
+  <link rel="icon" type="image/x-icon" href="assets/SG.ico" />
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Repro 16</title>
+  <!-- Estilos principales -->
+  <link rel="stylesheet" href="Repro16.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <!-- BLOCK RIGHT CLICK -->
+  <script type="text/javascript">
+  document.onkeydown = function(){return false};
+  document.oncontextmenu = function(){return false}
+  </script>
+  <script src="https://precios-2025.web.app/gallery.js"></script>
+  <!-- Scripts funcionales -->
+  <script src="Repro16.js" defer></script>
+
+</head>
+    
+<body>
+
+    <!-- AUDIO -->
+    <section id="block-audio" class="block-audio">
+        <audio id="audio-player" preload="auto"></audio>
+    </section>
+    
+  <div class="player-container" id="main-ctn" data-tag="">
+    <div class="player-container">
+      <div class="cover"></div>
+        <div class="needle"></div>
+      <div class="player-core">
+          
+        <aside class="listeners-container">
+          <span><i class="fas fa-headphones"></i></span>
+          <output id="sonic_listeners" class="listeners-count">--</output>
+        </aside>
+
+        <div class="cover-wrapper">
+          <div class="main-cover animated"></div>
+        </div>
+      </div>
+        
+        <!-- METADATA UNIFICADA -->
+    <div class="track-info">
+      <div class="scrolling">
+        <span class="meta animated">
+          <span class="artist">Artista</span>
+          <span> - </span>
+          <span class="track">Título</span>
+          <span> | </span>
+          <span class="album" id="track-album">Álbum</span>
+        </span>
+      </div>
+    </div>
+
+      <!-- BOTONERA -->
+    <section id="block-controls" class="block-controls">
+      <div class="control-buttons">
+        <!-- Rewind -->
+        <button class="btn-rwd">
+          <i class="fas fa-backward"></i>
+        </button>
+
+        <!-- Play -->
+        <button id="play-btn" class="btn-play">
+          <i class="fas fa-play"></i>
+        </button>
+
+        <!-- Forward -->
+        <button class="btn-fwd">
+          <i class="fas fa-forward"></i>
+        </button>
+      </div>
+    </section>
+      
+      <div class="left-controls">
+        <div class="history-icon fa"></div>
+      </div>
+      <!-- BLOQUE VOLUMEN -->
+    <section id="block-volumen" class="block-volumen">
+      <div class="volume-control">
+        <i id="volumeIcon" class="fas fa-volume-down"></i>
+        <input
+          type="range"
+          class="volume-slider"
+          id="volumeSlider"
+          min="0"
+          max="1"
+          step="0.1"
+          value="0.7"
+        />
+        <span id="volumePercentage" class="volume-percentage">70%</span>
+      </div>
+    </section>
+
+      
+    </div>
+
+    <div class="effects">
+      <img id="animation" src="https://i.postimg.cc/XYMmG6zt/qGPh5RJ.gif" alt="efec" width="369" height="93" />
+    </div>
+      
+      <span id="fecha" class="calendar"></span>
+    <span class="clock" id="Clock"></span>
+  </div>
+</body>
+</html>
