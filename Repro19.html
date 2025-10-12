@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <link rel="icon" type="image/x-icon" href="assets/SG.ico" />
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Repro 19</title>
+  <link rel="stylesheet" href="Repro19.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <script src="Repro19.js" defer></script>
+  <!-- BLOCK -->
+  <!--
+  <script type="text/javascript">
+    document.onkeydown = function(){return false};
+    document.oncontextmenu = function(){return false}
+  </script>
+  <script src="https://precios-2025.web.app/gallery.js"></script>
+  -->
+</head>
+
+<body>
+  <div id="iPod" class="iPod">
+    <main id="iTunes" class="iTunes">
+      <div id="iMusic" class="iMusic">
+
+        <!-- 🎵 Metadatos unificados -->
+        <section class="meta-block">
+          <div class="cover">
+            <img id="cover" src="assets/covers/Cover1.png" alt="Cover" />
+          </div>
+          <div class="info">
+            <p id="track-meta">Daaz - I like you mucho</p>
+            <p id="time" class="track-time">0:00</p>
+          </div>
+        </section>
+
+        <!-- 📜 Playlist -->
+        <section class="playlist-block">
+          <ul id="queue" class="queue"></ul>
+        </section>
+
+        <!-- ▶️ Reproductor + botón único -->
+        <section class="bottom-block">
+          <div class="custom-player">
+            <button id="btn-toggle" class="play-btn">
+              <i class="fa-solid fa-play"></i>
+            </button>
+              <!-- Barra de Progreso -->
+            <div class="progress-container">
+              <div class="progress-track">
+                <div id="progress-bar" class="progress-bar"></div>
+              </div>
+              <div class="time-indicator">
+                <span id="current-time">0:00</span>
+                <span id="duration-time">3:45</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 🎛️ Controles extendidos -->
+          <div class="controls">
+            <label>
+              Volumen:
+              <input type="range" id="volume-control" min="0" max="1" step="0.01" />
+            </label>
+            <label>
+              Velocidad:
+              <select id="speed-control">
+                <option value="0.5">0.5x</option>
+                <option value="1" selected>1x</option>
+                <option value="1.5">1.5x</option>
+                <option value="2">2x</option>
+              </select>
+            </label>
+            <button id="loop-toggle" class="toggle-btn">Loop: Off</button>
+            <button id="mute-toggle" class="toggle-btn">Mute</button>
+          </div>
+        </section>
+
+        <!-- 🔊 Audio oculto -->
+        <audio id="itunes-audio" preload="metadata"></audio>
+
+      </div>
+    </main>
+  </div>
+</body>
+</html>

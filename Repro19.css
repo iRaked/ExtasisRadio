@@ -1,0 +1,332 @@
+/* 🧭 P15 — Centrado vertical sin scroll */
+#iPod.iPod {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100dvh; /* ⬅️ Usa viewport dinámico real */
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+    position: relative;
+    height: 100vh;
+}
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 🧱 P0 — Distribución vertical por secciones                     */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+#iMusic.iMusic {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+}
+
+/* 📦 P0.1 — Sección superior: metadatos (carátula + info) */
+.meta-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 📦 P0.2 — Sección media: playlist */
+.playlist-block {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-top: 1rem;
+}
+
+/* 📦 P0.3 — Sección inferior: reproductor + controles */
+.bottom-block {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  margin-top: 1rem;
+}
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 🍏 P1 — Contenedor principal estilo Apple                       */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+#iTunes.iTunes {
+    margin: 0 auto;
+  max-width: 400px;
+  min-height: 620px; /* ⬅️ Alargamos el contenedor */
+  padding: 2rem;
+  background: linear-gradient(145deg, #1c1c1e, #2c2c2e);
+  border-radius: 1.5rem;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+    height: clamp(540px, 90vh, 620px);
+}
+
+#iMusic.iMusic {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 🖼️ P2 — Carátula y rebote sutil                                 */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.cover {
+  width: 50%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  margin-top: 0;
+}
+
+.cover img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 1rem;
+  transition: transform 0.4s ease;
+  display: block;
+}
+
+.cover img.animate {
+  transform: scale(1.05);
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 🎶 P3 — Información de pista                                    */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 🎶 Metadatos: artista - título + tiempo */
+.info {
+  text-align: center;
+  margin-top: 0.5rem;
+}
+
+#track-meta {
+  font-size: 1.1rem;
+  color: #ccc;
+  margin-bottom: 0.2rem;
+}
+
+.track-time {
+  font-size: 0.9rem;
+  color: #aaa;
+}
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 📜 P4 — Cola visual de pistas                                   */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.queue {
+  list-style: none;
+  padding: 0;
+  margin-top: 0;
+  margin-bottom: -0.2rem;
+  max-height: 200px;
+  overflow-y: auto;
+  border-top: 1px solid #333;
+  scrollbar-width: thin;
+  scrollbar-color: #1db954 #111;
+    /*outline: 2px solid red;*/
+}
+
+.queue::-webkit-scrollbar {
+  width: 6px;
+}
+
+.queue::-webkit-scrollbar-track {
+  background: #111;
+}
+
+.queue::-webkit-scrollbar-thumb {
+  background-color: #1db954;
+  border-radius: 3px;
+  transition: background 0.3s ease;
+}
+
+.queue::-webkit-scrollbar-thumb:hover {
+  background-color: #1ed760;
+}
+
+.queue li {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  color: #ccc;
+  transition: background 0.2s;
+}
+
+.queue li:hover {
+  background: #222;
+}
+
+.queue li.active {
+  background: #444;
+  color: #fff;
+  font-weight: bold;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* ▶️ P5 — Reproductor personalizado                               */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.custom-player {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.play-btn {
+  background: #222;
+  color: white;
+  border-color;
+  padding: 0.2rem 0.6rem;
+  font-size: 1.0rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.play-btn:hover {
+  transform: scale(1.1);
+}
+
+.play-btn i {
+  font-size: 1.4rem;
+  color: #1db954; /* Verde activo */
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.play-btn i.fa-play {
+  color: #1db954; /* Verde para reproducir */
+}
+
+.play-btn i.fa-pause {
+  color: #ff0000; /* Rojo suave para pausar */
+}
+
+.play-btn:hover i {
+  transform: scale(1.2);
+}
+
+/* 📊 P6 — Barra de progreso                                       */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.progress-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  width: 100%;
+}
+
+.progress-track {
+  position: relative;
+  height: 6px;
+  background: #333;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(to right, #1db954, #1ed760);
+  transition: width 0.2s ease;
+}
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* ⬅️➡️ P7 — Navegación entre pistas                               */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 1rem 0;
+  gap: 1rem;
+  min-width: 300px;
+}
+
+.nav-btn {
+  visibility: visible !important;
+  opacity: 1;
+  background: #222;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-size: 1.2rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.nav-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  background: #333;
+  color: #aaa;
+  visibility: visible;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 🎛️ P8 — Controles extendidos                                   */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.controls label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.controls button {
+  background: #222;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+/* 🔁 P9 — Botones de estado activos (loop, mute)                  */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.toggle-btn.active {
+  background: #1db954;
+  color: black;
+  font-weight: bold;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 🎯 P10 — Alineación central de botones rwd/play/fwd             */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.button-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+.button-group .nav-btn,
+.button-group .play-btn {
+  padding: 0.6rem 1.2rem;
+  font-size: 1.4rem;
+  border-radius: 0.6rem;
+}
+
+/* 🕒 P11 — Indicador de tiempo de reproducción */
+.time-indicator {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 0.5rem; /* ⬅️ Reducido desde 0.9rem */
+  color: #aaa;
+  margin-top: 0; /* ⬅️ Más compacto */
+  padding: 0;
+  line-height: 1;
+}
