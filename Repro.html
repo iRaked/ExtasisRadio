@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<link rel="icon" type="image/x-icon" href="assets/SG.ico" />
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reproductor</title>
-    
+    <head>
+        <link rel="icon" type="image/x-icon" href="assets/SG.ico" />
+                <!-- BLOCK RIGHT CLICK -->
+        <script type="text/javascript">
+            document.onkeydown = function(){return false};
+            document.oncontextmenu = function(){return false}
+        </script>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reproductor 1</title>
     <!-- Font Awesome para iconos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/fontawesome.min.css">
@@ -14,14 +19,23 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/regular.min.css">
     <link rel="stylesheet" href="styles.css">
     
-    <!-- Widget script de Antyserv que proporciona información de la canción -->
-    <script id='sonic_js' data-port='8100' src='https://antyserv.in/cp/widgets.js?r=79'></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-   
+    <!-- Reproductor de audio con icast -->
+    <script>
+      $("#stream1").icast({
+        URL: "https://radio.ryn.cl:8132",
+        version: "2"
+      });
+    </script>
+
+    <!-- Widget de metadatos de Antyserv -->
+    <script id='sonic_js' data-port='8132' src='https://antyserv.in/cp/widgets.js?r=79'></script>
+        
 </head>
 <body>
-    <!-- Contenedor del reproductor existente -->
+    <!-- Contenedor del reproductor OLD -->
     <div class="player-container">
+        <!-- Contenedor para el reproductor NEW -->
+        <div id="stream1"></div>
         <!-- Elementos para las notas musicales flotantes (ahora dentro del contenedor) -->
         <div class="music-notes-container">
             <div class="music-note">♪</div>
@@ -76,15 +90,15 @@
         <div class="player-title animated-title">
             <div class="neon-title">
                 <span class="neon-word first-word">
-                    <span class="neon-letter" style="--delay: 0s;">S</span>
-                    <span class="neon-letter" style="--delay: 0.1s;">A</span>
-                    <span class="neon-letter" style="--delay: 0.2s;">N</span>
-                    <span class="neon-letter" style="--delay: 0.3s;">T</span>
-                    <span class="neon-letter" style="--delay: 0.4s;">I</span>
+                    <span class="neon-letter" style="--delay: 0s;">R</span>
+                    <span class="neon-letter" style="--delay: 0.1s;">I</span>
+                    <span class="neon-letter" style="--delay: 0.2s;">C</span>
+                    <span class="neon-letter" style="--delay: 0.3s;">K</span>
+                    <span class="neon-letter" style="--delay: 0.4s;">▪</span>
                     <span class="neon-word second-word">
-                    <span class="neon-letter" style="--delay: 0.5s;">M</span>
-                    <span class="neon-letter" style="--delay: 0.6s;">I</span>
-                    <span class="neon-letter" style="--delay: 0.7s;">X</span>
+                    <span class="neon-letter" style="--delay: 0.5s;"></span>
+                    <span class="neon-letter" style="--delay: 0.6s;"></span>
+                    <span class="neon-letter" style="--delay: 0.7s;"></span>
                     <span class="neon-letter" style="--delay: 0.5s;"></span>
                     <span class="neon-letter" style="--delay: 0.6s;">D</span>
                     <span class="neon-letter" style="--delay: 0.7s;">J</span>
@@ -119,7 +133,6 @@
                 <div class="wave-bar" style="--delay: 1.0s; --height: 25px;"></div>
                 <div class="wave-bar" style="--delay: 0.4s; --height: 40px;"></div>
                 <div class="wave-bar" style="--delay: 0.5s; --height: 20px;"></div>
-              
                 
             </div>
             <div class="glow-effect"></div>
@@ -141,9 +154,9 @@
             <i class="fas fa-calendar-alt"></i>
             <span id="current-date">01/01/2025</span>
         </div>
-        <div>
+        <!--<div>
             <span class="bydev">Developer by RICK</span>
-        </div>
+        </div>-->
         
         <!-- Añadir después del contenedor datetime -->
         <div class="history-button-container">
@@ -160,7 +173,10 @@
             </button>
         </div>
         <div id='sonic_history' class="history-content"></div>
-    </div>  
+    </div>
+    
+<!-- *****************************PARTE 1***************************** -->
+    
     <style>
         /* Estilo del bydev */
 .bydev {
@@ -339,6 +355,8 @@
         z-index: 6;
         pointer-events: auto; /* Permite que el botón sea clickeable */
     }
+        
+/* *****************************PARTE 2***************************** */
     
     /* Ajustar el estilo del botón de reproducción */
     .radio-logo .play-button {
@@ -520,6 +538,8 @@
         animation: reflection-pulse 2s infinite;
     }
     
+/* *****************************PARTE 3***************************** */
+        
     /* Ondas de audio debajo del título */
     .audio-waves {
         display: flex;
@@ -658,6 +678,8 @@
             left: 5%;
         }
     }
+        
+/* *****************************PARTE 4***************************** */
     
     /* Intensificar animaciones cuando el reproductor está activo */
     .player-container.playing .wave-bar {
@@ -799,7 +821,7 @@
         100% { transform: translateX(-100%); }
     }
     
-    
+/* *****************************PARTE 5***************************** */
     
     /* Estilos para el sonic_title tenga un marquee adecuado */
     #sonic_title {
@@ -930,6 +952,8 @@
         opacity: 0;
     }
     }
+        
+/* *****************************PARTE 6***************************** */
     
     /* Ajustar las distancias de movimiento para los brillos */
     .sparkle:nth-child(1) { --x: 40px; --y: -40px; }
@@ -1090,7 +1114,9 @@
     #sonic_history div:hover {
     background-color: rgba(78, 221, 78, 0.1);
     }
-    
+
+/* *****************************PARTE 7***************************** */
+        
     /* Estilo para las imágenes de carátulas */
     #sonic_history img {
     width: 50px;
@@ -1147,7 +1173,7 @@
     #sonic_history div:first-child {
     animation: fadeInSlide 0.5s ease-out;
     }
-    
+        
     /* Estilo para el mensaje de carga */
     .loading-history {
     display: flex;
@@ -1207,7 +1233,9 @@
     }
     
     </style>
-    
+
+<!-- *****************************PARTE 8***************************** -->
+<!-- ━━━━━━━━━━━━━━━ AJUSTAR EL PUERTO PARA PROGRAMACION ACTIVA ━━━━━━━━━━━━━━━ -->
 
     <script>
         // Radio player functionality
@@ -1219,7 +1247,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Create audio element
     const audio = new Audio();
-    audio.src = "https://antyserv.in/8100/stream"; // Radio stream URL
+    audio.src = "https://antyserv.in/8132/stream"; // Radio stream URL
     audio.volume = 0.7;
     audio.crossOrigin = "anonymous"; // Important for some streams
     
@@ -1297,6 +1325,8 @@ document.addEventListener('DOMContentLoaded', function() {
             volumeSlider.style.setProperty('--volume-percent', Math.round(previousVolume * 100) + '%');
         }
     });
+    
+// *****************************PARTE 9*****************************
 
     // Función para actualizar el icono según el nivel de volumen
     function updateVolumeIcon(volume) {
@@ -1365,6 +1395,7 @@ if (sonicDj) {
 }
 }
 
+// *****************************PARTE 10*****************************
 // Ejecutar inmediatamente para establecer el valor inicial
 formatDjText();
 
@@ -1515,4 +1546,3 @@ event.stopPropagation();
     </script>
 </body>
 </html>
-
