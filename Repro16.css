@@ -3,7 +3,7 @@ body{
     background-color: gray;
 }
 .player-container {
-  background: url(assets/img/Tokadiscos.png);
+  background: url(https://i.ibb.co/v6VZsXrb/Tokadiscos.png);
   background-repeat: no-repeat;
   background-position: 0px center;
   background-size: cover;
@@ -41,7 +41,7 @@ body{
   position: absolute;
   width: 600px; /* igual al contenedor */
   height: 400px;
-  background-image: url('assets/img/Needle.png');
+  background-image: url('https://i.ibb.co/8nCzh3PV/Needle.png');
   background-size: cover; /* o 100% 100% si prefieres */
   background-repeat: no-repeat;
   top: 0;
