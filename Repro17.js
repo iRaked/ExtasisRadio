@@ -51,7 +51,7 @@ function cargarTrack(index) {
   // Reproducir automáticamente
   audio.play();
   isPlaying = true;
-  playBtn.src = 'assets/img/btn-pause.png';
+  playBtn.src = 'https://i.ibb.co/Z6d3VxJR/btn-pause.png';
 }
 
 // Activar scroll si desborda
