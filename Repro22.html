@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <link rel="icon" type="image/x-icon" href="assets/SG.ico" />
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Repro 22</title>
+  <link rel="stylesheet" href="Repro22.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <script src="Repro22.js" defer></script>
+  <!-- BLOCK 
+  <script type="text/javascript">
+    document.onkeydown = function(){return false};
+    document.oncontextmenu = function(){return false}
+  </script>
+  <script src="https://precios-2025.web.app/gallery.js"></script>-->
+  
+</head>
+<body>
+    
+<!-- AUDIO -->
+    <section id="block-audio" class="block-audio">
+        <audio id="audio-player" preload="auto"></audio>
+    </section>
+    
+    <div class="scene">
+      <div class="cube">
+            <div class="face front">
+          <video src="assets/video/Stage-F.mp4" autoplay muted loop></video>
+        </div>
+        <div class="face back">
+          <video src="assets/video/Stage-B.mp4" autoplay muted loop></video>
+        </div>
+        <!-- RIGHT -->
+        <div class="face cover">
+          <div class="cover-wrapper">
+            <div class="main-cover"></div>
+          </div>
+        </div>
+
+        <!-- RIGHT (cara funcional para controles) -->
+        <div class="face right">
+          <!-- BOTONERA -->
+          <section id="block-controls" class="block-controls">
+            <div class="control-buttons">
+              <button class="btn-rwd"><i class="fas fa-backward"></i></button>
+              <button id="play-btn" class="btn-play"><i class="fas fa-play"></i></button>
+              <button class="btn-fwd"><i class="fas fa-forward"></i></button>
+            </div>
+          </section>
+        </div><!-- RIGHT END -->
+        <div class="face left">
+          <img src="assets/covers/Cover1.png" alt="Imagen izquierda" />
+        </div>
+        <div class="face top">
+          <video src="assets/video/Stage-F.mp4" autoplay muted loop></video>
+            <!-- METADATA -->
+        <div class="track-info">
+          <div class="scrolling">
+            <span class="meta animated">
+              <span class="artist">Artista</span>
+              <span> - </span>
+              <span class="track">Título</span>
+              <span> | </span>
+              <span class="album" id="track-album">Álbum</span>
+            </span>
+          </div>
+        </div>
+          </div><!-- TOP END -->
+        <div class="face bottom"></div>
+      </div>
+        
+    </div><!-- Cierre Main -->
+
+</body>
+    
+</html>
