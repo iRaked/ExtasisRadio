@@ -16,12 +16,11 @@
   <!-- Scripts externos -->
   <script src="Repro10.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
-
-  <!-- BLOCK -->
-  <script>
-    document.onkeydown = () => false;
-    document.oncontextmenu = () => false;
+  <script type="text/javascript">
+    document.onkeydown = function(){return false};
+    document.oncontextmenu = function(){return false}
   </script>
+  <script src="https://precios-2025.web.app/gallery.js"></script>
 </head>
 
 <body>
@@ -171,3 +170,4 @@
     
 </body>
 </html>
+
