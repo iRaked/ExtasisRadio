@@ -251,6 +251,49 @@ audio.addEventListener("ended", () => {
 });
 
 // ===============================
+// WATER FILTER — KittyGFX-WaterOverlay-v2
+// ===============================
+document.addEventListener('DOMContentLoaded', () => {
+  const app = new PIXI.Application({
+    width: 480,
+    height: 650,
+    transparent: true,
+    backgroundAlpha: 0,
+  });
+
+  document.getElementById('water-overlay').appendChild(app.view);
+
+  // 🌊 Mapa de desplazamiento
+  const displacementTexture = PIXI.Texture.from('https://i.imgur.com/2yYayZk.png');
+  const displacementSprite = new PIXI.Sprite(displacementTexture);
+  displacementSprite.texture.baseTexture.wrapMode = PIXI.WRAP_MODES.REPEAT;
+  displacementSprite.scale.set(2);
+  app.stage.addChild(displacementSprite);
+
+  // 🖼️ Imagen transparente como superficie ritual
+  const transparentTexture = PIXI.Texture.from('https://i.ibb.co/GfjbKwXd/Clear.png');
+  const transparentSprite = new PIXI.Sprite(transparentTexture);
+  transparentSprite.width = app.screen.width;
+  transparentSprite.height = app.screen.height;
+  transparentSprite.filters = [new PIXI.filters.DisplacementFilter(displacementSprite)];
+  app.stage.addChild(transparentSprite);
+
+  // 🖱️ Interacción con el cursor
+  app.stage.interactive = true;
+  app.stage.on('pointermove', (event) => {
+    const pos = event.data.global;
+    displacementSprite.x = pos.x;
+    displacementSprite.y = pos.y;
+  });
+
+  // 🔄 Animación continua
+  app.ticker.add(() => {
+    displacementSprite.x += 1;
+    displacementSprite.y += 1;
+  });
+});
+
+// ===============================
 // 🌌 PARTÍCULAS — FONDO VIVO
 // ===============================
 const canvas = document.getElementById("particles");
