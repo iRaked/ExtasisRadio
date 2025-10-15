@@ -21,7 +21,7 @@ body {
 
 body::before {
   content: "";
-    clip-path: inset(0 round 20px);
+  clip-path: inset(0 round 20px);
   position: absolute;
   top: 50%;
   left: 50%;
@@ -29,10 +29,22 @@ body::before {
   height: 650px;
   transform: translate(-50%, -50%);
   background-image: url("https://i.ibb.co/XZ4YWtck/BG-Kitty-GFX.gif");
+*/
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  z-index: -1; /* ← esto es clave */
+  z-index: -1;
+}
+
+#water-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 480px;
+  height: 650px;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+  overflow: hidden;
 }
 
 #reproductor-rick {
@@ -115,6 +127,7 @@ body::before {
   width: 256px;
   height: 256px;
   border-radius: 50%;
+    border-color: aqua;
   /* ❌ Eliminado box-shadow con color */
   /* transform fijo eliminado para permitir animación */
 }
