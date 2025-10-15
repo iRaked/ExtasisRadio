@@ -28,7 +28,7 @@ body::before {
   width: 480px;
   height: 650px;
   transform: translate(-50%, -50%);
-  background-image: url("https://i.ibb.co/ymvnYJN9/BG-Peque-GFX.gif");
+  background-image: url("https://i.ibb.co/XZ4YWtck/BG-Kitty-GFX.gif");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -224,8 +224,8 @@ body::before {
 
 /* Botón base con transparencia y sombra ceremonial */
 .soft {
-  background-color: rgba(255, 105, 180, 0.9);
-  border: 1px solid #000;
+  background-color: rgba(255, 255, 255, 0.4);
+  border: 1px solid #ff69b4;
   box-shadow:
     8px 8px 16px rgba(0, 0, 0, 0.95),   /* sombra abajo y derecha, muy marcada */
     0 0 12px #ff69b4;
@@ -254,10 +254,10 @@ body::before {
   position: relative;
 }
 
-/* Botón de reproducción central */
+/* Botón de reproducción central background-color: rgba(255, 105, 180, 0.9); */
 .btn-play {
-  background-color: rgba(255, 105, 180, 0.9);
-  border: 2px solid #000; /* Solid Color */
+  background-color: rgba(255, 255, 255, 0.4);
+  border: 2px solid #ff69b4; /* Solid Color */
   box-shadow:
     10px 10px 20px rgba(0, 0, 0, 1),
     0 0 24px #ff69b4;
