@@ -1,0 +1,167 @@
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 🧱 Repro Sphere principal                                       */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.repro-sphere {
+  width: 418px;
+  height: 400px;
+  position: relative;
+  margin: auto;
+  display: flex;
+  flex-direction: row; /* Cambio clave: horizontal para cara lateral */
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 🖼️ Imagen base con carátulas + animación de giro               */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.caratula-container {
+  position: absolute;
+  top: 50%;
+  left: 53%;
+  width: 90%;
+  height: 100%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  display: flex;
+  aspect-ratio: 1/1;
+  overflow: hidden;
+  justify-content: center;
+  align-items: center;
+}
+
+.caratula-img {
+  width: 94%;
+  height: 94%;
+    border-radius: 50%;
+  object-fit: contain; /* Cambio clave para evitar recortes */
+  animation: giro-caratula 12s linear infinite;
+  transform-origin: center center;
+}
+
+@keyframes giro-caratula {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 🧊 Imagen superior con transparencias                           */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.overlay-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.overlay-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 🎧 Contenedor de audio oculto                                   */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.block-audio {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 📜 Playlist como cara lateral izquierda                         */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.playlist-block {
+  position: relative;
+  bottom: 1px;
+  right: 98px;
+  z-index: 3;
+  width: 106px;
+  height: 46%;
+  overflow-y: auto;
+  background: rgba(20, 20, 20, 0.9);
+  border-radius: 10px;
+  padding: 0.5rem;
+  box-sizing: border-box;
+}
+
+.queue {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.queue li {
+  padding: 0.4rem;
+  font-size: 0.9rem;
+  color: #eee;
+  border-bottom: 1px solid #444;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.queue li:hover {
+  background: #00ffff;
+  color: #000;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* ▶️ Sección inferior: reproductor + controles                    */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.bottom-block {
+  position: absolute;
+  bottom: 175px; /* Ajusta según tu layout */
+  right: 173px;
+  z-index: 3;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.play-btn {
+  background: #222;
+  color: white;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  border: none;
+  padding: 0;
+  position: relative; /* Asegura que se mantenga dentro del flujo */
+  z-index: 3;
+}
+
+.play-btn:hover {
+  transform: scale(1.1);
+}
+
+.play-btn i {
+  font-size: 1.2rem;   /* Ícono más pequeño dentro del botón más grande */
+  color: #00ffff;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.play-btn i.fa-play,
+.play-btn i.fa-pause {
+  color: #00ffff;
+}
+
+.play-btn:hover i {
+  transform: scale(1.2);
+}

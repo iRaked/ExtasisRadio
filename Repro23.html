@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <link rel="icon" type="image/x-icon" href="assets/SG.ico" />
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Repro 23</title>
+  <link rel="stylesheet" href="Repro23.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <script src="Repro23.js" defer></script>
+  <!-- BLOCK 
+  <script type="text/javascript">
+    document.onkeydown = function(){return false};
+    document.oncontextmenu = function(){return false}
+  </script>
+  <script src="https://precios-2025.web.app/gallery.js"></script>-->
+  
+</head>
+<body>
+  <main id="repro-sphere" class="repro-sphere">
+    <!-- Contenedor de fondo con carátulas -->
+    <div class="caratula-container">
+      <img src="https://i.ibb.co/n8fpxWGp/Disc-Cover-FX.png" alt="Carátulas" class="caratula-img" />
+    </div>
+
+    <!-- Imagen superior con transparencias -->
+    <div class="overlay-container">
+      <img src="https://i.ibb.co/sJjw1gNf/Repro-Sphere-FX.png" alt="Overlay" class="overlay-img" />
+    </div>
+      
+      <!-- 📜 Playlist -->
+        <section class="playlist-block">
+          <ul id="queue" class="queue"></ul>
+        </section>
+      
+      <!-- ▶️ Reproductor + botón único -->
+        <section class="bottom-block">
+          <div class="custom-player">
+            <button id="btn-toggle" class="play-btn">
+              <i class="fa-solid fa-play"></i>
+            </button>
+          </div>
+        </section>
+
+    <!-- Contenedor de audio -->
+    <section id="block-audio" class="block-audio">
+      <audio id="audio-player" preload="auto" controls></audio>
+    </section>
+  </main>
+
+</body>
+</html>
