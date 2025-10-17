@@ -1,0 +1,284 @@
+@font-face {
+  font-family: 'LedBoard7';
+  src: url('assets/fonts/led-board-7.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  background-color: #e0f7f5;
+  margin: 0;
+  font-family: 'Courier New', Courier, monospace;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.cassette-player {
+  width: 100%;
+    min-width: 280px;
+  max-width: 400px;
+    margin: auto;
+}
+
+.cassette-body {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 731 / 474;
+}
+
+.cassette-base {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+}
+
+/* Marquesina incrustada */
+.marquesina {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: clamp(120px, 260px, 260px);
+    height: 14px;
+    max-height: 14px;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: aquamarine;
+  padding: 0.4em 0.8em;
+  padding-left: 38px;
+  font-family: 'LedBoard7', 'Digital7', monospace;
+  font-size: clamp(0.7em, 0.75em, 1em);
+  font-weight: bold;
+  border-radius: 2px;
+  text-shadow: 0 0 4px #fff;
+  z-index: 2;
+  overflow: hidden;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.marquesina-content {
+  display: inline-block;
+  white-space: nowrap;
+  will-change: transform;
+}
+
+/* Cintas posicionadas sobre el cassette */
+.cinta {
+  position: absolute;
+  width: 40%;
+  aspect-ratio: 1 / 1;
+  background-image: url('assets/img/Spin1.png');
+  background-size: cover;
+  background-position: center;
+  top: 15%;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+.cinta-left {
+    animation: girar 2s linear infinite;
+  left: 10%;
+}
+
+.cinta-right {
+    animation: girar 2s linear infinite;
+  right: 10%;
+  transform: translateY(-50%) rotate(220deg); /* rotación inicial distinta */
+}
+
+.cinta:not(.cinta-activa) {
+  animation-play-state: paused !important;
+}
+
+@keyframes girar {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Botones */
+.controls {
+  position: absolute;
+  bottom: 35%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  gap: 0.9em;
+  z-index: 3;
+}
+
+.play-btn {
+  background: #222;
+  color: white;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  border: none;
+  padding: 0;
+  position: relative;
+  z-index: 3;
+
+  /* Bisel simulado */
+  box-shadow:
+    inset 0 2px 4px rgba(255, 255, 255, 0.2),   /* luz superior interna */
+    inset 0 -2px 4px rgba(0, 0, 0, 0.6),        /* sombra inferior interna */
+    0 2px 4px rgba(0, 0, 0, 0.4);               /* sombra externa */
+}
+
+.play-btn:active {
+  transform: scale(0.95);
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 0.1),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.5),
+    0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.play-btn:hover {
+  transform: scale(1.1);
+}
+
+.play-btn i {
+  font-size: 1.2rem;
+  color: #00ffff;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.play-btn:hover i {
+  transform: scale(1.2);
+}
+
+/* Glow morado cuando está activo */
+.play-btn.active {
+  color: #a259ff !important;
+  box-shadow: 0 0 8px #a259ff, 0 0 16px #a259ff;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+/* Animación de giro al presionar */
+.play-btn.spin {
+  animation: spinOnce 0.4s ease;
+}
+
+@keyframes spinOnce {
+  0% { transform: rotate(0deg); }
+  50% { transform: rotate(180deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Barras de EQ */
+.eq-line {
+  position: absolute;
+  bottom: 6%;
+  width: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 2;
+}
+
+.eq-left {
+  left: 4%;
+}
+
+.eq-right {
+  right: 4%;
+}
+
+.eq-label {
+  font-family: 'Digital7', monospace;
+  font-size: 0.9em;
+  color: aquamarine;
+  margin-top: 6px;
+}
+
+.eq-bars {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 2px;
+  height: 160px;
+  justify-content: flex-start;
+  box-shadow:
+    inset 0 0 6px rgba(0, 255, 255, 0.6), /* brillo interno aqua */
+    0 0 8px rgba(0, 255, 255, 0.6);       /* halo externo suave */
+}
+
+.bar {
+  width: 24px;
+  height: 8px;
+  border-radius: 2px;
+  border: 1px solid #00ffff;
+  animation: eqCeremonialPulse 1.4s infinite ease-in-out;
+  transform-origin: center bottom;
+}
+
+.eq-bars:not(.eq-active) .bar {
+  animation: none !important;
+}
+
+/* Degradado azul rey → aqua */
+.bar[data-index="0"]  { background: linear-gradient(to top, #001f4d, #002b66); }
+.bar[data-index="1"]  { background: linear-gradient(to top, #002b66, #003b80); }
+.bar[data-index="2"]  { background: linear-gradient(to top, #003b80, #004c99); }
+.bar[data-index="3"]  { background: linear-gradient(to top, #004c99, #005db3); }
+.bar[data-index="4"]  { background: linear-gradient(to top, #005db3, #006dcc); }
+.bar[data-index="5"]  { background: linear-gradient(to top, #006dcc, #007ee6); }
+.bar[data-index="6"]  { background: linear-gradient(to top, #007ee6, #008fff); }
+.bar[data-index="7"]  { background: linear-gradient(to top, #008fff, #00aaff); }
+.bar[data-index="8"]  { background: linear-gradient(to top, #00aaff, #00bbff); }
+.bar[data-index="9"]  { background: linear-gradient(to top, #00bbff, #00ccff); }
+.bar[data-index="10"] { background: linear-gradient(to top, #00ccff, #00ddff); }
+.bar[data-index="11"] { background: linear-gradient(to top, #00ddff, #00e6ff); }
+.bar[data-index="12"] { background: linear-gradient(to top, #00e6ff, #00eeff); }
+.bar[data-index="13"] { background: linear-gradient(to top, #00eeff, #00f6ff); }
+.bar[data-index="14"] { background: linear-gradient(to top, #00f6ff, #00fdff); }
+.bar[data-index="15"] { background: linear-gradient(to top, #00fdff, #00ffff); }
+
+@keyframes eqCeremonialPulse {
+  0%   { transform: scaleY(0.3); background-color: aqua; opacity: 0.6; }
+  45%  { transform: scaleY(1.6); background-color: white; opacity: 1; }
+  70%  { transform: scaleY(0.8); background-color: #00ffff; opacity: 0.8; }
+  100% { transform: scaleY(0.3); background-color: aqua; opacity: 0.6; }
+}
+
+.bar[data-index="0"]  { animation-delay: 0s; }
+.bar[data-index="1"]  { animation-delay: 0.1s; }
+.bar[data-index="2"]  { animation-delay: 0.2s; }
+.bar[data-index="3"]  { animation-delay: 0.3s; }
+.bar[data-index="4"]  { animation-delay: 0.4s; }
+.bar[data-index="5"]  { animation-delay: 0.5s; }
+.bar[data-index="6"]  { animation-delay: 0.6s; }
+.bar[data-index="7"]  { animation-delay: 0.7s; }
+.bar[data-index="8"]  { animation-delay: 0.8s; }
+.bar[data-index="9"]  { animation-delay: 0.9s; }
+.bar[data-index="10"] { animation-delay: 1.0s; }
+.bar[data-index="11"] { animation-delay: 1.1s; }
+.bar[data-index="12"] { animation-delay: 1.2s; }
+.bar[data-index="13"] { animation-delay: 1.3s; }
+.bar[data-index="14"] { animation-delay: 1.4s; }
+.bar[data-index="15"] { animation-delay: 1.5s; }
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 🎧 Contenedor de audio oculto                                   */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.block-audio {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+}

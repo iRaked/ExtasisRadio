@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <link rel="icon" type="image/x-icon" href="assets/SG.ico" />
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Repro 24</title>
+  <link rel="stylesheet" href="Repro24.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link href="https://fonts.cdnfonts.com/css/enhanced-led-board-7" rel="stylesheet">
+  <!-- BLOCK 
+  <script type="text/javascript">
+    document.onkeydown = function(){return false};
+    document.oncontextmenu = function(){return false}
+  </script>
+  <script src="https://precios-2025.web.app/gallery.js"></script>-->
+  <script src="Repro24.js" defer></script>
+  
+</head>
+<body>
+
+<div class="cassette-player">
+    <div class="marquesina">
+      <div class="marquesina-content"></div>
+    </div>
+
+    <div class="cassette-body">
+  <img src="assets/img/Cassette-FX.png" alt="Base Cassette" class="cassette-base" />
+
+  <div class="cinta cinta-left"></div>
+  <div class="cinta cinta-right"></div>
+
+      <!-- EQ Izquierda -->
+      <div class="eq-line eq-left">
+      <div class="eq-bars">
+        <div class="bar" data-index="0"></div>
+        <div class="bar" data-index="1"></div>
+        <div class="bar" data-index="2"></div>
+        <div class="bar" data-index="3"></div>
+        <div class="bar" data-index="4"></div>
+        <div class="bar" data-index="5"></div>
+        <div class="bar" data-index="6"></div>
+        <div class="bar" data-index="7"></div>
+        <div class="bar" data-index="8"></div>
+        <div class="bar" data-index="9"></div>
+        <div class="bar" data-index="10"></div>
+        <div class="bar" data-index="11"></div>
+        <div class="bar" data-index="12"></div>
+        <div class="bar" data-index="13"></div>
+        <div class="bar" data-index="14"></div>
+        <div class="bar" data-index="15"></div>
+      </div>
+      <span class="eq-label">L</span>
+    </div>
+
+      <!-- EQ Derecha -->
+      <div class="eq-line eq-right">
+      <div class="eq-bars">
+        <div class="bar" data-index="0"></div>
+        <div class="bar" data-index="1"></div>
+        <div class="bar" data-index="2"></div>
+        <div class="bar" data-index="3"></div>
+        <div class="bar" data-index="4"></div>
+        <div class="bar" data-index="5"></div>
+        <div class="bar" data-index="6"></div>
+        <div class="bar" data-index="7"></div>
+        <div class="bar" data-index="8"></div>
+        <div class="bar" data-index="9"></div>
+        <div class="bar" data-index="10"></div>
+        <div class="bar" data-index="11"></div>
+        <div class="bar" data-index="12"></div>
+        <div class="bar" data-index="13"></div>
+        <div class="bar" data-index="14"></div>
+        <div class="bar" data-index="15"></div>
+      </div>
+      <span class="eq-label">R</span>
+    </div>
+  </div>
+</div>
+
+    <!-- Controles -->
+    <div class="controls">
+      <button id="btn-rwd" class="play-btn"><i class="fa-solid fa-backward"></i></button>
+      <button id="btn-playpause" class="play-btn"><i class="fa-solid fa-play"></i></button>
+      <button id="btn-shuffle" class="play-btn"><i class="fa-solid fa-shuffle"></i></button>
+      <button id="btn-fwd" class="play-btn"><i class="fa-solid fa-forward"></i></button>
+    </div>
+    
+    <!-- Contenedor de audio -->
+    <section id="block-audio" class="block-audio">
+      <audio id="audio-player" preload="auto" controls></audio>
+    </section>
+
+</body>
+</html>
