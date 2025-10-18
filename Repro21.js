@@ -255,59 +255,8 @@ document.addEventListener("keydown", (e) => {
 });
 
 // ===============================
-// WATER FILTER — Activación Crystal Water Adaptado a Video
+// WATER FILTER — Activación automática sobre fondo GIF
 // ===============================
-document.addEventListener('DOMContentLoaded', () => {
-  // 🎥 Crear y configurar el video
-  const videoElement = document.createElement('video');
-  videoElement.src = 'assets/video/Storie.mp4';
-  videoElement.autoplay = true;
-  videoElement.muted = true;
-  videoElement.loop = true;
-  videoElement.playsInline = true;
-  videoElement.crossOrigin = 'anonymous';
-  videoElement.style.display = 'none';
-  document.body.appendChild(videoElement);
-
-  // 🧱 Inicializar Pixi
-  const app = new PIXI.Application({
-    width: 480,
-    height: 650,
-    transparent: true,
-    backgroundAlpha: 0,
-  });
-
-  document.getElementById('water-overlay').appendChild(app.view);
-
-  // 🌊 Mapa de desplazamiento
-  const displacementTexture = PIXI.Texture.from('https://i.imgur.com/2yYayZk.png');
-  const displacementSprite = new PIXI.Sprite(displacementTexture);
-  displacementSprite.texture.baseTexture.wrapMode = PIXI.WRAP_MODES.REPEAT;
-  displacementSprite.scale.set(1);
-  app.stage.addChild(displacementSprite);
-
-  // 🎥 Video como textura Pixi
-  const videoTexture = PIXI.Texture.from(videoElement);
-  const videoSprite = new PIXI.Sprite(videoTexture);
-  videoSprite.width = app.screen.width;
-  videoSprite.height = app.screen.height;
-  videoSprite.filters = [new PIXI.filters.DisplacementFilter(displacementSprite)];
-  app.stage.addChild(videoSprite);
-
-  // 🖱️ Interacción con el cursor
-  app.stage.interactive = true;
-  app.stage.on('pointermove', (event) => {
-    const pos = event.data.global;
-    displacementSprite.x = pos.x;
-    displacementSprite.y = pos.y;
-  });
-
-  // 🔄 Animación continua
-  app.ticker.add(() => {
-    displacementSprite.x += 1;
-    displacementSprite.y += 1;
-  });
-});
 
 // ===============================
 // 🔁 EVENTOS DEL AUDIO
