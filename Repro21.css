@@ -1,7 +1,6 @@
 /* ===================== */
 /* 🎛️ PARTE 1: CONTENEDOR Y FONDO */
 /* ===================== */
-
 * {
   box-sizing: border-box;
 }
@@ -19,32 +18,39 @@ body {
   z-index: 0;
 }
 
-body::before {
-  content: "";
-  clip-path: inset(0 round 20px);
+#water-overlay {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 480px;
-  height: 650px;
-  transform: translate(-50%, -50%);
-  background-image: url("https://i.ibb.co/XZ4YWtck/BG-Kitty-GFX.gif");
-*/
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+}
+
+#water-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+#water-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("https://i.ibb.co/GfjbKwXd/Clear.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  z-index: -1;
-}
-
-#water-overlay {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 480px;
-  height: 650px;
-  transform: translate(-50%, -50%);
-  z-index: 0;
-  overflow: hidden;
+  z-index: 1;
+  pointer-events: auto;
 }
 
 #reproductor-rick {
@@ -57,7 +63,8 @@ body::before {
   border-radius: 20px;
   box-shadow: 0 0 30px rgba(255, 105, 180, 1);
   overflow: hidden;
-  z-index: 1;
+    pointer-events: auto;
+  z-index: 0;
 }
 
 .repro-box {
