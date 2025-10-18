@@ -15,7 +15,7 @@ body {
   position: relative;
   width: 480px;
   height: 650px;
-  background: url('assets/background/BG-Peque-FX.png') no-repeat center center / cover;
+  background: url('https://i.ibb.co/gLrVKL67/BG-Peque-FX.png') no-repeat center center / cover;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -70,6 +70,7 @@ body {
   height: 32px;
   fill: #ff69b4;
   transition: transform 0.3s ease;
+  box-shadow: #000000;
 }
 
 .icon-menu:hover {
