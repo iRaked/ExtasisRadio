@@ -15,7 +15,13 @@ fetch("Repro21.json")
       return;
     }
     trackData = data;
-    inicializarReproductor(); // 🌀 Activación ceremonial
+
+    // 🌀 Inicialización visual sin reproducción automática
+    actualizarCaratula(null, "inicial");
+    generarListaModal();
+
+    // 🔒 Reproducción solo se activa desde el botón Play
+    console.log("✅ Pistas cargadas. Reproductor listo para activación manual.");
   });
 
 // ===============================
@@ -83,6 +89,14 @@ function activarReproduccion(index, modo = "manual") {
   });
 }
 
+document.addEventListener("click", () => {
+  if (audio.paused && currentTrack !== null) {
+    audio.play().catch(err => {
+      console.warn("❌ Error al iniciar audio tras clic:", err);
+    });
+  }
+}, { once: true });
+
 // ===============================
 // 🧭 INICIALIZACIÓN DEL REPRODUCTOR
 // ===============================
@@ -114,10 +128,14 @@ function generarListaModal() {
 // 🎛️ BOTONERA Y EVENTOS
 // ===============================
 playPauseBtn.addEventListener("click", () => {
-  if (!audio.src || currentTrack === null) return;
+  // 🛡️ Protección contra reproducción sin pista cargada
+  if (!audio.src || currentTrack === null) {
+    activarReproduccion(0, "manual"); // Activación inicial desde botón
+    return;
+  }
 
   if (audio.paused || audio.ended) {
-    // 🟢 Si el audio ya está cargado, solo reanudar
+    // 🟢 Reanudar pista actual
     audio.play().then(() => {
       iconPlay.classList.add("hidden");
       iconPause.classList.remove("hidden");
@@ -237,23 +255,21 @@ document.addEventListener("keydown", (e) => {
 });
 
 // ===============================
-// 🔁 EVENTOS DEL AUDIO
-// ===============================
-audio.addEventListener("pause", () => {
-  iconPause.classList.add("hidden");
-  iconPlay.classList.remove("hidden");
-  actualizarCaratula(trackData[currentTrack], "pausado");
-});
-
-audio.addEventListener("ended", () => {
-  const next = (currentTrack + 1) % trackData.length;
-  activarReproduccion(next, "auto");
-});
-
-// ===============================
-// WATER FILTER — KittyGFX-WaterOverlay-v2
+// WATER FILTER — Activación Crystal Water Adaptado a Video
 // ===============================
 document.addEventListener('DOMContentLoaded', () => {
+  // 🎥 Crear y configurar el video
+  const videoElement = document.createElement('video');
+  videoElement.src = 'assets/video/Storie.mp4';
+  videoElement.autoplay = true;
+  videoElement.muted = true;
+  videoElement.loop = true;
+  videoElement.playsInline = true;
+  videoElement.crossOrigin = 'anonymous';
+  videoElement.style.display = 'none';
+  document.body.appendChild(videoElement);
+
+  // 🧱 Inicializar Pixi
   const app = new PIXI.Application({
     width: 480,
     height: 650,
@@ -267,16 +283,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const displacementTexture = PIXI.Texture.from('https://i.imgur.com/2yYayZk.png');
   const displacementSprite = new PIXI.Sprite(displacementTexture);
   displacementSprite.texture.baseTexture.wrapMode = PIXI.WRAP_MODES.REPEAT;
-  displacementSprite.scale.set(2);
+  displacementSprite.scale.set(1);
   app.stage.addChild(displacementSprite);
 
-  // 🖼️ Imagen transparente como superficie ritual
-  const transparentTexture = PIXI.Texture.from('https://i.ibb.co/GfjbKwXd/Clear.png');
-  const transparentSprite = new PIXI.Sprite(transparentTexture);
-  transparentSprite.width = app.screen.width;
-  transparentSprite.height = app.screen.height;
-  transparentSprite.filters = [new PIXI.filters.DisplacementFilter(displacementSprite)];
-  app.stage.addChild(transparentSprite);
+  // 🎥 Video como textura Pixi
+  const videoTexture = PIXI.Texture.from(videoElement);
+  const videoSprite = new PIXI.Sprite(videoTexture);
+  videoSprite.width = app.screen.width;
+  videoSprite.height = app.screen.height;
+  videoSprite.filters = [new PIXI.filters.DisplacementFilter(displacementSprite)];
+  app.stage.addChild(videoSprite);
 
   // 🖱️ Interacción con el cursor
   app.stage.interactive = true;
@@ -291,6 +307,20 @@ document.addEventListener('DOMContentLoaded', () => {
     displacementSprite.x += 1;
     displacementSprite.y += 1;
   });
+});
+
+// ===============================
+// 🔁 EVENTOS DEL AUDIO
+// ===============================
+audio.addEventListener("pause", () => {
+  iconPause.classList.add("hidden");
+  iconPlay.classList.remove("hidden");
+  actualizarCaratula(trackData[currentTrack], "pausado");
+});
+
+audio.addEventListener("ended", () => {
+  const next = (currentTrack + 1) % trackData.length;
+  activarReproduccion(next, "auto");
 });
 
 // ===============================
