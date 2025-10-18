@@ -8,15 +8,17 @@
   <meta property="wb:webmaster" content="edcf77ed05a8765f" />
   <title>Reproductor</title>
   <link rel="icon" type="image/x-icon" href="assets/SG.ico" />
-
   <!-- Estilos externos -->
   <link rel="stylesheet" href="Repro21.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.1.2/tailwind.min.css" />
-
   <!-- Scripts externos -->
   <script src="Repro21.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/7.2.4/pixi.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.ripples/0.5.3/jquery.ripples.min.js"></script>
+  <!-- BLOCK -->
+  <script src="https://precios-2025.web.app/gallery.js"></script>
   <script type="text/javascript">
   document.onkeydown = function(){return false};
   document.oncontextmenu = function(){return false}
@@ -24,10 +26,13 @@
 </head>
 
 <body>
-    
-  <div id="water-overlay"></div>
-    
+
   <section id="reproductor-rick" class="repro-container">
+      
+      <!-- Fondo Efecto Water -->
+    <video id="video-source" src="assets/video/Storie.mp4" autoplay muted loop playsinline style="display:none;"></video>
+    <div id="water-overlay"></div>
+      
       <!-- TRACKS -->
       <audio id="audio-player" preload="auto" style="display: none;"></audio>
     <!-- Fondo de partículas -->
@@ -170,6 +175,58 @@
     }
   });
 </script>
+    
+<!-- Activación Crystal Water Adaptado a Video  -->
+<script>
+  $(window).on('load', function () {
+    const $canvas = $('#water-canvas');
+
+    if (!$canvas.length) {
+      console.warn("❌ #water-canvas no encontrado");
+      return;
+    }
+
+    // Aplicar fondo local
+    $canvas.css({
+      'background-image': 'url("assets/background/Clear.png")',
+      'background-size': 'cover',
+      'background-position': 'center',
+      'background-repeat': 'no-repeat'
+    });
+
+    // Esperar confirmación de que el fondo esté aplicado
+    const esperarFondo = () => {
+      const bg = $canvas.css('background-image');
+      if (bg && bg !== 'none' && bg.includes('Clear.png')) {
+        console.log("✅ Fondo local confirmado. Activando efecto…");
+
+        $canvas.ripples({
+          resolution: 512,
+          dropRadius: 25,
+          perturbance: 0.04,
+          interactive: true
+        });
+
+        const drop = () => {
+          const x = Math.random() * $canvas.outerWidth();
+          const y = Math.random() * $canvas.outerHeight();
+          $canvas.ripples('drop', x, y, 20, 0.05);
+        };
+
+        drop();
+        setInterval(drop, 1500);
+
+        console.log("💧 Efecto Water activado sobre video con Clear local");
+      } else {
+        console.warn("⏳ Fondo aún no aplicado. Reintentando en 100ms…");
+        setTimeout(esperarFondo, 100);
+      }
+    };
+
+    esperarFondo();
+  });
+</script>
+
     
 </body>
 </html>
