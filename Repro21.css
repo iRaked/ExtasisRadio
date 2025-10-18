@@ -1,10 +1,3 @@
-/* ===================== */
-/* 🎛️ PARTE 1: CONTENEDOR Y FONDO */
-/* ===================== */
-* {
-  box-sizing: border-box;
-}
-
 body {
   position: relative;
   overflow: hidden;
@@ -18,52 +11,18 @@ body {
   z-index: 0;
 }
 
-#water-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  z-index: 0;
-  pointer-events: none;
-}
-
-#water-video {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 0;
-}
-
-#water-canvas {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url("https://i.ibb.co/GfjbKwXd/Clear.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  z-index: 1;
-  pointer-events: auto;
-}
-
-#reproductor-rick {
+.bg-water {
   position: relative;
   width: 480px;
   height: 650px;
-  background-color: rgba(0, 0, 0, 0.2);/* Antes 0.4 */
-  /*backdrop-filter: blur(1px);
-  -webkit-backdrop-filter: blur(8px);*/
+  background: url('assets/background/BG-Peque-FX.png') no-repeat center center / cover;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   border-radius: 20px;
-  box-shadow: 0 0 30px rgba(255, 105, 180, 1);
+  box-shadow: 0 0 30px rgba(255, 105, 180, 1); /* sombra rosa ritual */
   overflow: hidden;
-    pointer-events: auto;
+  pointer-events: auto;
   z-index: 0;
 }
 
