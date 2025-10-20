@@ -1,7 +1,4 @@
 /*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━  01  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-body{
-    background-color: gray;
-}
 .player-container {
   background: url(https://i.ibb.co/v6VZsXrb/Tokadiscos.png);
   background-repeat: no-repeat;
@@ -615,3 +612,4 @@ box-shadow:
   font-weight: bold;
   color: #ffffff;
 }
+
