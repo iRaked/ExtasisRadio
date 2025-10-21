@@ -1,0 +1,398 @@
+{
+  "emisora": "Tekileros",
+  "tracks": [
+    {
+      "name": "Daaz - I like you mucho",
+      "album": "I like you mucho",
+      "url": "https://www.dropbox.com/scl/fi/k9c36b6ntkcyk8kmrbvmj/Daaz-I-like-you-mucho.MP3?rlkey=mjv11davrewdpesloj1pxtdj0&raw=1",
+      "cover": "assets/covers/Daaz%20-%20I%20like%20you%20mucho.png",
+      "isPlaying": false
+    },
+    {
+      "name": "La Cizaña - Amiga",
+      "album": "Desconocido",
+      "url": "https://www.dropbox.com/scl/fi/jk7zsct71h10s6ysf8si7/La-Ciza-a-Amiga.mp3?rlkey=6ednkdi2oyaqfametme80otiw&raw=1",
+      "cover": "assets/covers/La%20Ciza%C3%B1a%20-%20Amiga.jpg",
+      "isPlaying": false
+    },
+    {
+      "name": "Los Smirks - Simplemente amigos",
+      "album": "Desconocido",
+      "url": "https://www.dropbox.com/scl/fi/bhtvcyc2y8pingqwvkzof/Los-Smiks-Simplemente-amigos.mp3?rlkey=j6zz1n8hjrxiapg77j11zluyu&raw=1",
+      "cover": "assets/covers/Los%20Smiks%20-%20Simplemente%20amigos.jpg",
+      "isPlaying": false
+    },
+    {
+      "name": "Skalo - Para ti no hay más promesa",
+      "album": "Desconocido",
+      "url": "https://www.dropbox.com/scl/fi/g3flea0wxfdpgazi4k9r0/Skalo-Para-ti-no-hay-m-s-promesa.mp3?rlkey=euum1684ulmblpnsgmat6jugi&raw=1",
+      "cover": "assets/covers/Skalo%20-%20Para%20ti%20no%20hay%20m%C3%A1s%20promesa.jpg",
+      "isPlaying": false
+    },
+    {
+      "name": "Abraham Torres ft. Syanuro - Si una vez",
+      "album": "Desconocido",
+      "url": "https://www.dropbox.com/scl/fi/yc3eka1vuw7fd8zinhr4k/Abraham-Torres-ft.-Syanuro-Si-una-vez.mp3?rlkey=gq5fjm40pvp3xwnbblb7ms8tm&raw=1",
+      "cover": "assets/covers/Abraham%20Torres%20ft.%20Syanuro%20-%20Si%20una%20vez.jpg",
+      "isPlaying": false
+    },
+    {
+      "name": "Nana Pancha - Nada que perder",
+      "album": "Desconocido",
+      "url": "https://www.dropbox.com/scl/fi/3yme682amsc7cp4virskk/Nana-Pancha-Nada-que-perder.mp3?rlkey=vufglmaql73z7h2zm8fhjpbcr&raw=1",
+      "cover": "assets/covers/Nana%20Pancha%20-%20Nada%20que%20perder.jpg",
+      "isPlaying": false
+    },
+    {
+      "name": "Travis Barker & Paulo Londra - Nublado",
+      "album": "Desconocido",
+      "url": "https://www.dropbox.com/scl/fi/f3oti5yblsb451rmtcil8/Travis-Barker-Paulo-Londra-Nublado.mp3?rlkey=6asrc08hfru6w92sbxxsys674&raw=1",
+      "cover": "assets/covers/Travis%20Barker%20&%20Paulo%20Londra%20-%20Nublado.png",
+      "isPlaying": false
+    },
+    {
+      "name": "Miguel Paniagua - Me la suda",
+      "album": "Desconocido",
+      "url": "https://www.dropbox.com/scl/fi/ewj1js7n0zjzm4o2u0plc/Miguel-Paniagua-Me-la-suda.mp3?rlkey=4oe67jeut6snlzgvq8d8gjl5g&st=27arshcj&dl=0&raw=1",
+      "cover": "assets/covers/Miguel-Paniagua-Me-la-suda.png",
+      "isPlaying": false
+    },
+    {
+      "name": "José Madero - Gardenias '87",
+      "album": "Alba",
+      "url": "https://www.dropbox.com/scl/fi/zv03h45i4n8gjunq3geci/Jos-Madero-Gardenias-87.mp3?rlkey=73r3k00uj8jcktvm0m1pskkc1&st=ae7su72p&dl=0&raw=1",
+      "cover": "assets/covers/Jose-Madero-Gardenias-87.jpg",
+      "isPlaying": false
+    },
+    {
+      "name": "Pxndx - Al voluntario",
+      "album": "Desconocido",
+      "url": "https://www.dropbox.com/scl/fi/cs9snwx2h4d6r6p4skv7w/Pxndx.MP3?rlkey=5np4r1slc1jyd8qrini5udwsb&raw=1",
+      "cover": "assets/covers/Pxndx.jpg",
+      "isPlaying": false
+    },
+    
+
+    
+  {
+  "name": "Attaque 77 - No me arrepiento de este amor",
+  "album": "Desconocido",
+  "url": "https://www.dropbox.com/scl/fi/aoiv1zifo0dt75dsbcwyg/Attaque-77-No-me-arrepiento-de-este-amor.mp3?rlkey=7jpefrmj5kqf4azy4opqzedhx&raw=1",
+  "cover": "assets/covers/Attaque%2077%20-%20No%20me%20arrepiento%20de%20este%20amor.webp",
+  "isPlaying": false
+},
+{
+  "name": "Kaotiko - No me haces bien",
+  "album": "Desconocido",
+  "url": "https://www.dropbox.com/scl/fi/6hlz1puoj3wmgtiwqlgeu/Kaotiko.mp3?rlkey=cum4elgzt9qcjnjhzgrezra7o&raw=1",
+  "cover": "assets/covers/Kaotiko.jpg",
+  "isPlaying": false
+},
+{
+  "name": "Panteón Rococó - De luna a sol",
+  "album": "Desconocido",
+  "url": "https://www.dropbox.com/scl/fi/7hd45d0pdqzmw73cian8t/Rococo.mp3?rlkey=4i0hvhjgyu54ry46hy0ocwol4&raw=1",
+  "cover": "assets/covers/Rococo.png",
+  "isPlaying": false
+},
+{
+  "name": "La Vela Puerca - De no olvidar",
+  "album": "Desconocido",
+  "url": "https://www.dropbox.com/scl/fi/knqjc5al0y4b9rpt2kpxo/La-Vela-Puerca-De-no-olvidar.mp3?rlkey=1ach1f2125j2zd5m768ig8pwx&raw=1",
+  "cover": "assets/covers/La%20Vela%20Puerca%20-%20De%20no%20olvidar.jpg",
+  "isPlaying": false
+},
+{
+  "name": "Kurado De Coco - Tus palabras",
+  "album": "Desconocido",
+  "url": "https://www.dropbox.com/scl/fi/kki8aqtclmb247eoajjaw/Kurado.MP3?rlkey=f6v9uldh3skpkbvds08s12m2s&raw=1",
+  "cover": "assets/covers/Kurado.png",
+  "isPlaying": false
+},
+{
+  "name": "Chingadazo de Kung Fu & Barney Gombo - Ay equis, nada que ver",
+  "album": "Desconocido",
+  "url": "https://www.dropbox.com/scl/fi/gvb2ts0xi0v53o5foivw0/Chingadazo-de-Kung-Fu-Barney-Gombo-Ay-equis-nada-que-ver.mp3?rlkey=s8ay1sn529qsrybyzqi52dt45&raw=1",
+  "cover": "assets/covers/Chingadazo%20de%20Kung%20Fu%20&%20Barney%20Gombo%20-%20Ay%20equis,%20nada%20que%20ver.jpg",
+  "isPlaying": false
+},
+{
+  "name": "Los Smirks - Mi historia entre tus dedos",
+  "album": "Desconocido",
+  "url": "https://www.dropbox.com/scl/fi/oetv7lr7swwp8da627k4p/Los-Smiks-Mi-historia-entre-tus-dedos.mp3?rlkey=d2e2nzfz9fhtycr0etnl0zszh&raw=1",
+  "cover": "assets/covers/Los%20Smiks%20-%20Mi%20historia%20entre%20tus%20dedos.jpg",
+  "isPlaying": false
+},
+{
+  "name": "Allison - Frágil",
+  "album": "Desconocido",
+  "url": "https://www.dropbox.com/scl/fi/9d9mt4yasjbokj7h55yvd/Allison-Fr-gil.mp3?rlkey=itoie1l9chkhbmtlmsy05u01b&raw=1",
+  "cover": "assets/covers/Allison%20-%20Fr%C3%A1gil.png",
+  "isPlaying": false
+},
+{
+  "name": "Gufi - Por ella",
+  "album": "Desconocido",
+  "url": "https://www.dropbox.com/scl/fi/3zq4g80rp7vksjtotelz0/Gufi-Por-Ella.mp3?rlkey=3sespj4udiokbime3jd6bmtvc&raw=1",
+  "cover": "assets/covers/Gufi%20-%20Por%20Ella.jpg",
+  "isPlaying": false
+},
+{
+  "name": "Los Pericos - Pupilas lejanas",
+  "album": "Desconocido",
+  "url": "https://www.dropbox.com/scl/fi/ryqj4kd2gvkd6tr4d9apm/Los-Pericos-Pupilas-lejanas.mp3?rlkey=3hlekdwwe2t2mw0blfrvj6ggh&raw=1",
+  "cover": "assets/covers/Los%20Pericos%20-%20Pupilas%20lejanas.png",
+  "isPlaying": false
+},
+
+
+    
+  {
+  "name": "Deluxe - Más de lo que te imaginas",
+  "album": "Desconocido",
+  "url": "https://www.dropbox.com/scl/fi/rixjpqxro33dv3tl9hnpy/Deluxe-M-s-de-lo-que-te-imaginas.mp3?rlkey=8w2lhd7zk85ctw9re1nejt6o7&raw=1",
+  "cover": "assets/covers/Deluxe%20-%20M%C3%A1s%20de%20lo%20que%20te%20imaginas.jpg",
+  "isPlaying": false
+},
+{
+  "name": "Pxndx - Disculpa los malos pensamientos",
+  "album": "Desconocido",
+  "url": "https://www.dropbox.com/scl/fi/x9n3788r52ed0f20p4wz6/Pxndx-Disculpa-los-malos-pensamientos.mp3?rlkey=j7zt5mhlg7e8nepclm6p4y9pw&raw=1",
+  "cover": "assets/covers/Pxndx%20-%20Disculpa%20los%20malos%20pensamientos.webp",
+  "isPlaying": false
+},
+{
+  "name": "2 minutos ft. Mimi Maura - Otra mujer",
+  "album": "Desconocido",
+  "url": "https://www.dropbox.com/scl/fi/dgwqcytxulb05daymdkwr/2-Minutos-ft.-Mimi-Maura-Otra-mujer.mp3?rlkey=lq9k38f3ysfbg4dsi28apc8bc&raw=1",
+  "cover": "assets/covers/2%20Minutos%20ft.%20Mimi%20Maura%20-%20Otra%20mujer.jpg",
+  "isPlaying": false
+},
+{
+  "name": "Kotardo - Fantaxia",
+  "album": "Desconocido",
+  "url": "https://www.dropbox.com/scl/fi/ontaca8l5xkakg5u93z3e/Kotardo.mp3?rlkey=rmvckkfkw47kc5w3jtknlkb5c&raw=1",
+  "cover": "assets/covers/Kotardo.jpg",
+  "isPlaying": false
+},
+{
+  "name": "Nunca Jamás - Al mal paso darle prisa",
+  "album": "Desconocido",
+  "url": "https://www.dropbox.com/scl/fi/5x2l41l45wo5d6gq4v7hn/Nunca-Jam-s-Al-mal-paso-darle-prisa.MP3?rlkey=tmm8dms4qznnnx5c2qucdm75g&raw=1",
+  "cover": "assets/covers/Nunca%20Jam%C3%A1s%20-%20Al%20mal%20paso%20darle%20prisa.jpg",
+  "isPlaying": false
+},
+{
+  "name": "Los Madafakers - Bohemio loco",
+  "album": "Desconocido",
+  "url": "https://www.dropbox.com/scl/fi/wbwz9xtjewhfxhjv7mb98/Los-Madafakers-Bohemio-loco.mp3?rlkey=eroipxr77jqs19dreoh5jq7e4&raw=1",
+  "cover": "assets/covers/Los%20Madafakers%20-%20Bohemio%20loco.jpg",
+  "isPlaying": false
+},
+{
+  "name": "The Locos - La realidad",
+  "album": "Desconocido",
+  "url": "https://www.dropbox.com/scl/fi/zkq0168pu46rp7421uf72/The-Locos-La-realidad.mp3?rlkey=8bosy680cwdezidkuamtarfdr&raw=1",
+  "cover": "assets/covers/The%20Locos%20-%20La%20realidad.jpg",
+  "isPlaying": false
+},
+{
+  "name": "Alademoska",
+  "album": "Desconocido",
+  "url": "https://www.dropbox.com/scl/fi/88qgfncuff1y1w14ril3b/Alademoska-Ni-una-m-s.mp3?rlkey=c0rfsjnritpzhdplndzm0lgl3&st=nc3rpt4l&dl=0&raw=1",
+  "cover": "assets/covers/Alademoska-Ni-una-mas.jpg",
+  "isPlaying": false
+},
+{
+  "name": "La Ska Brass - Postureo del terror",
+  "album": "Desconocido",
+  "url": "https://www.dropbox.com/scl/fi/jyc0j7ge7xzrra0w6nop6/La-Ska-Brass-Postureo-del-terror.mp3?rlkey=1nrrjbui2a03tcpq9d0y6okyb&raw=1",
+  "cover": "assets/covers/La%20Ska%20Brass%20-%20Postureo%20del%20terror.jpg",
+  "isPlaying": false
+},
+{
+  "name": "Rude Boys - Archivos perdidos",
+  "album": "Desconocido",
+  "url": "https://www.dropbox.com/scl/fi/crg17lwpt1ooykbhagcgx/Rude-Boys-Archivos-perdidos.mp3?rlkey=fmwgh4zutoqjrcneko0b57762&raw=1",
+  "cover": "assets/covers/Rude%20Boys%20-%20Archivos%20perdidos.webp",
+  "isPlaying": false
+},
+{
+  "name": "La Royal Club - No hemos muerto",
+  "album": "Desconocido",
+  "url": "https://www.dropbox.com/scl/fi/e9wc8gqj5tgvytll62sn2/La-Royal-Club-No-hemos-muerto.mp3?rlkey=ob5lzi4yl1xk3h1f57gonoazk&raw=1",
+  "cover": "assets/covers/La%20Royal%20Club%20-%20No%20hemos%20muerto.jpg",
+  "isPlaying": false
+},
+    
+    
+
+  {
+  "name": "Los Calzones - Mugre",
+  "album": "Desconocido",
+  "url": "https://www.dropbox.com/scl/fi/81t3i8iuve0wgy3o98yhi/Los-Calzones-Mugre.MP3?rlkey=cjttf4lpumahy8xqrbonohlvm&raw=1",
+  "cover": "assets/covers/Los%20Calzones%20-%20Mugre.jpg",
+  "isPlaying": false
+},
+{
+  "name": "Kurado - SPMF",
+  "album": "Desconocido",
+  "url": "https://www.dropbox.com/scl/fi/hbgehd2l755ek6491zi9d/Kurado-SPMF.mp3?rlkey=fy7e2nzittnk1unhf4xiaqufj&raw=1",
+  "cover": "assets/covers/Kurado%20-%20SPMF.jpg",
+  "isPlaying": false
+},
+{
+  "name": "2 Minutos ft. Ciro Pertusi - Lejos estoy",
+  "album": "Desconocido",
+  "url": "https://www.dropbox.com/scl/fi/zxbnwv35en98ewyn7lee9/2-Minutos-Lejos-estoy-F-Ciro-Pertusi.mp3?rlkey=ku8noydrz4wznks4dctxhx5ny&raw=1",
+  "cover": "assets/covers/2%20Minutos%20-%20Lejos%20estoy%20%5BF%5D%20Ciro%20Pertusi.jpg",
+  "isPlaying": false
+},
+{
+  "name": "Sekta Core - Acción",
+  "album": "Desconocido",
+  "url": "https://www.dropbox.com/scl/fi/6mggjh5rjh15ooio3zu3v/Sekta-Core-Acci-n.mp3?rlkey=y1bqq2rxt4zbi7j6dykoo065b&raw=1",
+  "cover": "assets/covers/Sekta%20Core%20-%20Acci%C3%B3n.jpg",
+  "isPlaying": false
+},
+{
+  "name": "Evaristo - Ellos dicen mierda y nosotros amén",
+  "album": "Desconocido",
+  "url": "https://www.dropbox.com/scl/fi/ei85cmu9lz6a4gcmrq0x5/Evaristo-Ellos-dicen-mierda-y-nosotros-am-n.mp3?rlkey=3gfi17zwc7i8uhgv4hhdghste&raw=1",
+  "cover": "assets/covers/Evaristo%20-%20Ellos%20dicen%20mierda%20y%20nosotros%20am%C3%A9n.jpg",
+  "isPlaying": false
+},
+{
+  "name": "No Konforme - Vallekas",
+  "album": "Desconocido",
+  "url": "https://www.dropbox.com/scl/fi/im2mt1ztldvjlw906znud/No-Konforme-Vallekas.mp3?rlkey=51e6d74urp85jjcaaxoo1aex0&raw=1",
+  "cover": "assets/covers/No%20Konforme%20-%20Vallekas.jpg",
+  "isPlaying": false
+},
+{
+  "name": "Ska-P - Mis colegas",
+  "album": "Desconocido",
+  "url": "https://www.dropbox.com/scl/fi/poepp6icvzjld9cyvvxwb/Ska-P-Mis-colegas.MP3?rlkey=8i8jb359fbqpz0jn2j2dgtwlh&raw=1",
+  "cover": "assets/covers/Ska-P%20-%20Mis%20colegas.jpg",
+  "isPlaying": false
+},
+{
+  "name": "No Relax - Fuego de manantial",
+  "album": "Desconocido",
+  "url": "https://www.dropbox.com/scl/fi/4cszxih1drx0wyb4sxci0/No-Relax-Fuego-de-manantial.mp3?rlkey=pqgueinnij9v0xuf2fqu928xl&raw=1",
+  "cover": "assets/covers/No%20Relax%20-%20Fuego%20de%20manantial.jpg",
+  "isPlaying": false
+},
+{
+  "name": "Evaristo - Rockanrol",
+  "album": "Desconocido",
+  "url": "https://www.dropbox.com/scl/fi/p6nskxq5l4h6l7s7hhrcv/Evaristo-Rockanrol.mp3?rlkey=ogqx1e0lf199ximutuj5zve7d&raw=1",
+  "cover": "assets/covers/Evaristo%20-%20Rockanrol.jpg",
+  "isPlaying": false
+},
+{
+  "name": "Envidia Kotxina - Kon y contra kien",
+  "album": "Desconocido",
+  "url": "https://www.dropbox.com/scl/fi/ha5v07n436hdipyj54ppc/Envidia-Kotxina-Kon-y-kontra-kien.mp3?rlkey=2lhj5oz790p3ng8f922qmy3b4&raw=1",
+  "cover": "assets/covers/Envidia%20Kotxina%20-%20Kon%20y%20kontra%20kien.jpg",
+  "isPlaying": false
+},
+    
+    
+    
+  {
+  "name": "Gatillazo - Basicamente mierda",
+  "album": "Desconocido",
+  "url": "https://www.dropbox.com/scl/fi/28np1dmbrxj21185p3zb1/Gatillazo-Basicamente-mierda.mp3?rlkey=v18iy97ch04bdn2xsbezl4ehj&raw=1",
+  "cover": "assets/covers/Gatillazo%20-%20Basicamente%20mierda.jpg",
+  "isPlaying": false
+},
+{
+  "name": "La Polla Records - A tu lado",
+  "album": "Desconocido",
+  "url": "https://www.dropbox.com/scl/fi/c957bm8yxcbuw0kwng19p/La-Polla-Records-A-tu-lado.mp3?rlkey=ulb75pyqyyiylpm9s14xdcfnu&raw=1",
+  "cover": "assets/covers/La%20Polla%20Records%20-%20A%20tu%20lado.jpg",
+  "isPlaying": false
+},
+{
+  "name": "Envidia Kotxina - Día tras día",
+  "album": "Desconocido",
+  "url": "https://www.dropbox.com/scl/fi/1evi3ttnpb002a51umngt/Envidia-Kotxina-D-a-tras-d-a.mp3?rlkey=z9i4mct577g56mziyt9fnu0l2&raw=1",
+  "cover": "assets/covers/Envidia%20Kotxina%20-%20D%C3%ADa%20tras%20d%C3%ADa.jpg",
+  "isPlaying": false
+},
+{
+  "name": "La Polla Records - Dios",
+  "album": "Desconocido",
+  "url": "https://www.dropbox.com/scl/fi/vaoefqi93xf2hydrryjs3/La-Polla-Records-Dios.mp3?rlkey=i5p2tl0gykf5r67eivy730hqs&raw=1",
+  "cover": "assets/covers/La%20Polla%20Records%20-%20Dios.jpg",
+  "isPlaying": false
+},
+{
+  "name": "Los De Marras - Cuesta abajo",
+  "album": "Desconocido",
+  "url": "https://www.dropbox.com/scl/fi/r96shqq9zyeabhxzkuky3/Los-De-Marras-Cuesta-abajo.mp3?rlkey=u73do6u0layzetvl4bv09aodu&raw=1",
+  "cover": "assets/covers/Los%20De%20Marras%20-%20Cuesta%20abajo.jpg",
+  "isPlaying": false
+},
+{
+  "name": "Señor Diablo - Ser fuertes",
+  "album": "Desconocido",
+  "url": "https://www.dropbox.com/scl/fi/k36cyr01gt6p1f28g70ey/Se-or-Diablo-Con-fuerza.mp3?rlkey=v7v9yu3lgzhl0lhaw6cv7exsp&raw=1",
+  "cover": "assets/covers/Se%C3%B1or%20Diablo%20-%20Con%20fuerza.jpg",
+  "isPlaying": false
+},
+{
+  "name": "Non Servium - Torpedo",
+  "album": "Desconocido",
+  "url": "https://www.dropbox.com/scl/fi/204kgs6zbe36czu3urxaz/Non-Servium-Torpedo.mp3?rlkey=rcz816cqf9f20n8e07llpf7pz&raw=1",
+  "cover": "assets/covers/Non%20Servium%20-%20Torpedo.jpg",
+  "isPlaying": false
+},
+{
+  "name": "Especimen - Total",
+  "album": "Desconocido",
+  "url": "https://www.dropbox.com/scl/fi/tm372zfb75whruc5e38u0/Especimen-Total.mp3?rlkey=nnacupbmvk0vpgpzmsy0bireu&raw=1",
+  "cover": "assets/covers/Especimen%20-%20Total.jpg",
+  "isPlaying": false
+},
+{
+  "name": "Oi! The Arrace - No hay futuro, no hay esperanza",
+  "album": "Desconocido",
+  "url": "https://www.dropbox.com/scl/fi/gkcv5e7zbrvzble6tw92m/Oi-The-Arrace-No-hay-futuro-no-hay-esperanza.mp3?rlkey=jrmmzn6mtemlhqlftlcmafset&raw=1",
+  "cover": "assets/covers/Oi!%20The%20Arrace%20-%20No%20hay%20futuro,%20no%20hay%20esperanza.jpg",
+  "isPlaying": false
+},
+{
+  "name": "Non Servium - Bestia, bestia",
+  "album": "Desconocido",
+  "url": "https://www.dropbox.com/scl/fi/vs5sgz4xvdr2hwgtywstp/Non-Servium.mp3?rlkey=8epgtqbve5781rw9oujddyccv&raw=1",
+  "cover": "assets/covers/Non%20Servium.jpg",
+  "isPlaying": false
+},    
+
+  
+    
+  {
+  "name": "Moscow Death Brigade, Karlos Animal - Adrenalina",
+  "album": "Desconocido",
+  "url": "https://www.dropbox.com/scl/fi/jqv2gj46n2jecsoa59iiy/Karlos-Animal-Moscow-Death-Brigade-Adrenalina.mp3?rlkey=u4ld86k7gtu7k9w2uue2xbwin&raw=1",
+  "cover": "assets/covers/Karlos%20Animal,%20Moscow%20Death%20Brigade%20-%20Adrenalina.jpg",
+  "isPlaying": false
+},
+{
+  "name": "The Holophonics - Skater boy",
+  "album": "Desconocido",
+  "url": "https://www.dropbox.com/scl/fi/5b3txz24vb788w23oye7j/The-Holophonics-Skater-Boy.mp3?rlkey=xalluctf92enhucymyswotu6g&raw=1",
+  "cover": "assets/covers/The%20Holophonics%20-%20Skater%20Boy.jpg",
+  "isPlaying": false
+},
+{
+  "name": "Sekta Core - Energía vs ley",
+  "album": "Desconocido",
+  "url": "https://www.dropbox.com/scl/fi/3bq3jxwrujwj9jk9zdcje/Sekta-Core-Energ-a-vs-ley.MP3?rlkey=4xs8rd7luw8klhcx701v7013p&raw=1",
+  "cover": "assets/covers/Sekta%20Core%20-%20Infierno.jpg",
+  "isPlaying": false
+    }
+  ]
+}

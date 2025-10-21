@@ -1,0 +1,219 @@
+/* Contenedor principal */
+#Repro {
+  width: 650px;
+  height: 328px;
+  position: relative;
+  background-image: url('https://i.ibb.co/VWL8R1rd/Player-Extasis-GFX.png');
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+}
+
+#miniEQ {
+  position: absolute;
+  top: 39px;
+  right: 390px;
+  box-shadow: 0 0 6px rgba(186, 0, 255, 0.8);
+}
+
+/* Volumen - barra superior centrada */
+.volumen {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90px;/* Esta es la barra que visualmente ocupa el 100% */
+  height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Slider estilizado con glow */
+.volumen-slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 20px;
+  background: white;
+  box-shadow: 0 0 8px rgba(186, 0, 255, 0.9);
+  outline: none;
+  cursor: pointer;
+}
+
+/* Pista del slider */
+.volumen-slider::-webkit-slider-runnable-track {
+  background: transparent;
+}
+
+/* Pulgar del slider */
+.volumen-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 0;
+  height: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.radioescuchas {
+  position: absolute;
+  top: 35px;
+  right: 140px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: white;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 4px 8px;
+  border-radius: 6px;
+  box-shadow: 0 0 8px rgba(186, 0, 255, 0.9);
+  z-index: 10;
+}
+
+/* Carátula */
+.caratula {
+  position: absolute;
+  bottom: 25px;
+  left: 26px;
+  width: 17%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.caratula img {
+  max-width: 90%;
+  max-height: 90%;
+  box-shadow: 0 0 12px rgba(186, 0, 255, 0.6);
+  border-radius: 10px;
+}
+
+/* Botón de efecto */
+.effects button {
+    position: absolute;
+    bottom: 135px;
+    right: 25px;
+  background: transparent;
+  border: none;
+    box-shadow: 0 0 12px rgba(186, 0, 255, 0.6);
+}
+
+/* Metadata */
+.metadata {
+  position: absolute;
+  top: 24%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: auto;
+  padding: 10px;
+  color: white;
+  font-family: 'Segoe UI', sans-serif;
+  text-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+  text-align: center;
+}
+
+.metadatos-contenedor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.metadata .titulo {
+  font-size: 18px;
+  font-weight: bold;
+}
+.metadata .artista {
+  font-size: 14px;
+}
+.metadata .album {
+  font-size: 12px;
+}
+
+.metadato:empty {
+  display: none;
+}
+
+.scroll-text {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  max-width: 300px;
+  height: 24px;
+  margin: 0 auto;
+}
+
+.scroll-text span {
+  display: inline-block;
+  white-space: nowrap;
+  transform: translateX(0);
+  animation: none;
+  padding: 0 5px; /* para evitar recortes laterales */
+}
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-100% + 300px)); /* ajustado al contenedor */
+  }
+}
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* Botonera */
+.botonera {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 650px;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px; /* Espaciado uniforme entre botones */
+}
+
+.botonera button {
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.botonera img {
+  height: 80px;
+  width: 80px;
+  filter: drop-shadow(0 0 6px rgba(186, 0, 255, 0.8));
+}
+
+.botonera .menu img,
+.botonera .shuffle img {
+  height: 60px;
+  width: 60px;
+}
+
+.efecto-activo img {
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 12px rgba(186, 0, 255, 1));
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.botonera .shuffle img {
+  transition: filter 0.3s ease;
+}
+
+.botonera .menu img {
+  transition: filter 0.3s ease;
+}

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <!-- Font Awesome para iconos -->
+  <link rel="icon" type="image/x-icon" href="assets/SG.ico" />
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Repro 25 Duo</title>
+  <!-- Estilos principales -->
+  <link rel="stylesheet" href="Repro25.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <!-- BLOCK 
+  <script type="text/javascript">
+  document.onkeydown = function(){return false};
+  document.oncontextmenu = function(){return false}
+  </script>
+  <script src="https://precios-2025.web.app/gallery.js"></script>-->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="Repro25.js" defer></script>
+</head>
+    
+<body>
+<!-- Main -->
+<div id="Repro" class="reproductor">
+<!-- Reproductor Streaming -->
+<audio id="audioStreaming" preload="auto" style="display:none;"></audio>
+    
+    <!-- Ecualizador miniatura -->
+    <canvas id="miniEQ" width="30" height="20"></canvas>
+    
+    <!-- Volumen -->
+    <div class="volumen">
+      <div class="volumen-barra"></div>
+      <input type="range" min="0" max="100" value="70" class="volumen-slider" id="volumenSlider">
+    </div>
+
+    <!-- Contador de radioescuchas -->
+    <div class="radioescuchas">
+      <i class="fas fa-users"></i>
+      <span id="contadorRadio"></span>
+    </div>
+
+    <!-- Carátula -->
+      <div class="caratula">
+        <img src="assets/covers/Cover1.png" alt="Carátula">
+      </div>
+
+    <!-- Metadata -->
+    <div class="metadata">
+      <div class="radio"></div>
+
+      <div class="metadatos-contenedor">
+        <div class="scroll-text titulo-container">
+          <span class="titulo metadato"></span>
+        </div>
+
+        <div class="scroll-text artista-container">
+          <span class="artista metadato"></span>
+        </div>
+
+        <div class="scroll-text album-container">
+          <span class="album metadato"></span>
+        </div>
+      </div>
+    </div>
+
+  <!-- Botonera -->
+      <div class="botonera">
+      <button class="menu">
+        <img src="assets/img/btn-menu.png" alt="Menu">
+      </button>
+      <button class="prev">
+        <img src="https://i.ibb.co/0jFZ9y4p/btn-rwd.png" alt="Anterior">
+      </button>
+      <button class="play">
+        <img src="https://i.ibb.co/G4bpCyPR/btn-play.png" alt="Reproducir">
+      </button>
+      <button class="next">
+        <img src="https://i.ibb.co/C5FNngYv/btn-fwd.png" alt="Siguiente">
+      </button>
+      <button class="shuffle">
+        <img src="assets/img/btn-shuffle.png" alt="Shuffle">
+      </button>
+    </div>
+
+   <!-- Effects -->
+      <div class="effects">
+        <button class="fx">
+          <img src="https://i.ibb.co/1t6JSFxv/Dance.gif" alt="Efectos">
+        </button>
+      </div>
+
+</div>
+</body>
+</html>
