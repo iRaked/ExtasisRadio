@@ -6,30 +6,38 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta property="wb:webmaster" content="edcf77ed05a8765f" />
-  <title>Reproductor</title>
+  <title>Reproductor 11</title>
   <link rel="icon" type="image/x-icon" href="assets/SG.ico" />
-
   <!-- Estilos externos -->
   <link rel="stylesheet" href="Repro11.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.1.2/tailwind.min.css" />
-
   <!-- Scripts externos -->
   <script src="Repro11.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
-
-  <!-- BLOCK RIGHT CLICK -->
-        <script type="text/javascript">
-            document.onkeydown = function(){return false};
-            document.oncontextmenu = function(){return false}
-        </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/7.2.4/pixi.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.ripples/0.5.3/jquery.ripples.min.js"></script>
+  <!-- BLOCK 
+  <script src="https://precios-2025.web.app/gallery.js"></script>
+  <script type="text/javascript">
+  document.onkeydown = function(){return false};
+  document.oncontextmenu = function(){return false}
+  </script>-->
 </head>
 
 <body>
+
   <section id="reproductor-rick" class="repro-container">
+      
+      <!-- Fondo Efecto Water -->
+    <video id="video-source" src="assets/video/Skull.mp4" autoplay muted loop playsinline style="display:none;"></video>
+    <div id="water-overlay"></div>
+      
       <!-- TRACKS -->
       <audio id="audio-player" preload="auto" style="display: none;"></audio>
     <!-- Fondo de partículas -->
     <canvas id="particles"></canvas>
+      <canvas id="water-canvas"></canvas>
 
     <!-- Contenedor principal -->
     <div class="repro-box">
@@ -40,12 +48,19 @@
             <path d="M492 236H20c-11.046 0-20 8.954-20 20s8.954 20 20 20h472c11.046 0 20-8.954 20-20s-8.954-20-20-20zM492 76H20C8.954 76 0 84.954 0 96s8.954 20 20 20h472c11.046 0 20-8.954 20-20s-8.954-20-20-20zM492 396H20c-11.046 0-20 8.954-20 20s8.954 20 20 20h472c11.046 0 20-8.954 20-20s-8.954-20-20-20z"/>
           </svg>
         </button>
-        <h1 class="repro-title">En Directo Desde Ciudad de México</h1>
+          
+        <button class="btn-video" id="menu-video">
+          <svg viewBox="0 0 512 512" class="icon-menu">
+            <path d="M464 128h-80V96c0-17.7-14.3-32-32-32H160c-17.7 0-32 14.3-32 32v32H48c-26.5 0-48 21.5-48 48v192c0 26.5 21.5 48 48 48h416c26.5 0 48-21.5 48-48V176c0-26.5-21.5-48-48-48zm-304-32h192v32H160v-32zm320 272c0 8.8-7.2 16-16 16H48c-8.8 0-16-7.2-16-16V176c0-8.8 7.2-16 16-16h416c8.8 0 16 7.2 16 16v192z"/>
+            <circle cx="256" cy="256" r="64"/>
+          </svg>
+        </button>
+        <h1 class="repro-title">🏁 Ciudad de México 🏁</h1>
       </div>
 
       <!-- 🎧 Imagen Tipo Disco -->
     <div class="repro-disc">
-      <img src="assets/covers/Plato.png" alt="Speaker Disc" class="disc-img" />
+      <img src="assets/covers/Cover-Vinyl-Disc-FX1.png" alt="Speaker Disc" class="disc-img" />
     </div>
 
       <!-- Nombre e ID -->
@@ -138,18 +153,29 @@
   </section>
     
     <!-- 🎶 MODAL DE TRACKS -->
-<div id="modal-tracks" class="modal hidden">
-  <div class="modal-content">
-    <button id="close-modal" class="modal-x">✕</button>
-    <h2 class="modal-title">Tracks disponibles</h2>
-    <p class="modal-info">
-      Reproduciendo: <span id="current-track-name">Cargando...</span>
-    </p>
-    <ul class="track-list">
-      <!-- Los <li> se generan dinámicamente desde metadata.json -->
-    </ul>
-  </div>
-</div>
+    <div id="modal-tracks" class="modal hidden">
+      <div class="modal-content">
+        <button id="close-modal" class="modal-x">✕</button>
+        <h2 class="modal-title">Tracks disponibles</h2>
+        <p class="modal-info">
+          Reproduciendo: <span id="current-track-name">Cargando...</span>
+        </p>
+        <ul class="track-list">
+          <!-- Los <li> se generan dinámicamente desde metadata.json -->
+        </ul>
+      </div>
+    </div>
+    
+    <!-- 🎶 MODAL DE VIDEO -->
+    <div id="video-modal" class="modal-video">
+      <div class="modal-MTV">
+        <button class="close-modal" id="close-video">&times;</button>
+        <video id="ritual-video" controls preload="auto">
+          <source src="assets/video/DAAZ-Chance.mp4" type="video/mp4" />
+          Tu navegador no soporta video HTML5.
+        </video>
+      </div>
+    </div>
     
     <script>
   new Vue({
@@ -168,6 +194,58 @@
     }
   });
 </script>
+    
+<!-- Activación Crystal Water Adaptado a Video  -->
+<script>
+  $(window).on('load', function () {
+    const $canvas = $('#water-canvas');
+
+    if (!$canvas.length) {
+      console.warn("❌ #water-canvas no encontrado");
+      return;
+    }
+
+    // Aplicar fondo local
+    $canvas.css({
+      'background-image': 'url("assets/background/Clear.png")',
+      'background-size': 'cover',
+      'background-position': 'center',
+      'background-repeat': 'no-repeat'
+    });
+
+    // Esperar confirmación de que el fondo esté aplicado
+    const esperarFondo = () => {
+      const bg = $canvas.css('background-image');
+      if (bg && bg !== 'none' && bg.includes('Clear.png')) {
+        console.log("✅ Fondo local confirmado. Activando efecto…");
+
+        $canvas.ripples({
+          resolution: 512,
+          dropRadius: 25,
+          perturbance: 0.04,
+          interactive: true
+        });
+
+        const drop = () => {
+          const x = Math.random() * $canvas.outerWidth();
+          const y = Math.random() * $canvas.outerHeight();
+          $canvas.ripples('drop', x, y, 20, 0.05);
+        };
+
+        drop();
+        setInterval(drop, 1500);
+
+        console.log("💧 Efecto Water activado sobre video con Clear local");
+      } else {
+        console.warn("⏳ Fondo aún no aplicado. Reintentando en 100ms…");
+        setTimeout(esperarFondo, 100);
+      }
+    };
+
+    esperarFondo();
+  });
+</script>
+
     
 </body>
 </html>
