@@ -18,22 +18,98 @@ const shuffleBtn = document.querySelector('.shuffle');
 const btnMenu = document.querySelector('.menu');
 const streamDiv = document.getElementById('Streaming');
 
+// 🔓 Desbloqueo ceremonial por gesto humano (una sola vez)
+function desbloquearMutePorGesto() {
+  if (audio && audio.muted) {
+    audio.muted = false;
+    audio.play().then(() => {
+      console.log('[ALEXIA] Reproducción activada tras gesto humano');
+    }).catch(err => {
+      console.warn('[ALEXIA] Error al reproducir tras gesto humano:', err);
+    });
+  }
+
+  document.removeEventListener('click', desbloquearMutePorGesto);
+  document.removeEventListener('touchstart', desbloquearMutePorGesto);
+  document.removeEventListener('mousemove', desbloquearMutePorGesto);
+  document.removeEventListener('scroll', desbloquearMutePorGesto);
+}
+
+// 🪄 Invocación simbólica al gesto humano
+document.addEventListener('click', desbloquearMutePorGesto, { once: true });
+document.addEventListener('touchstart', desbloquearMutePorGesto, { once: true });
+document.addEventListener('mousemove', desbloquearMutePorGesto, { once: true });
+document.addEventListener('scroll', desbloquearMutePorGesto, { once: true });
+
 // Guardar estados al recargar - Inicio
 modo = localStorage.getItem('modoRepro') || 'local';
 
 // Cargar JSON y primer track
-fetch('Repro25.json')
+fetch('https://radio-tekileros.vercel.app/Repro25.json')
   .then(res => res.json())
   .then(data => {
     playlist = data.tracks;
     emisora = data.emisora;
     cargarTrack(currentTrack);
+
+    // 🪄 Activar modo streaming automáticamente (sin reproducción directa)
+    if (btnMenu) {
+      btnMenu.click();
+      console.log('[ALEXIA2] Modo streaming activado por invocación simbólica');
+    }
+
+    // 🔓 Paso 2: desbloqueo ceremonial por gesto humano
+    document.addEventListener('touchstart', () => {
+      btnPlay.click();
+    }, { once: true });
   });
 
-// Reproducción continua
+// 🧠 Ritual simbólico para activar reproducción tras gesto humano (solo si aún estás en modo local)
+function activarReproduccionSimbolica() {
+  if (modo === 'local') {
+    if (btnMenu) {
+      btnMenu.click();
+      console.log('[ALEXIA] Modo streaming activado por gesto humano');
+    }
+
+    setTimeout(() => {
+      if (btnPlay && audio.paused) {
+        btnPlay.click();
+        console.log('[ALEXIA] Reproducción activada por gesto humano');
+      }
+    }, 300);
+  }
+
+  document.removeEventListener('mousemove', activarReproduccionSimbolica);
+  document.removeEventListener('touchstart', activarReproduccionSimbolica);
+  document.removeEventListener('scroll', activarReproduccionSimbolica);
+}
+
+function desbloqueoAutoplay() {
+  if (audio && audio.muted) {
+    audio.muted = false;
+  }
+
+  audio.play().then(() => {
+    isPlaying = true;
+    playBtn.src = 'assets/img/btn-pause.png';
+    console.log('[ALEXIA] Reproducción desbloqueada por gesto humano');
+  }).catch(err => {
+    console.warn('[ALEXIA] Autoplay aún bloqueado:', err);
+  });
+}
+
+// 🎯 Gesto humano directo (solo uno será suficiente)
+['click', 'touchstart', 'keydown'].forEach(evento => {
+  window.addEventListener(evento, desbloqueoAutoplay, { once: true });
+});
+
+// 🔁 Reproducción continua en modo local
 audio.addEventListener('ended', () => {
-  currentTrack = (currentTrack + 1) % playlist.length;
-  cargarTrack(currentTrack);
+  if (modo === 'local') {
+    currentTrack = (currentTrack + 1) % playlist.length;
+    cargarTrack(currentTrack);
+  }
 });
 
 // Cargar track y actualizar visuales ***********************************************
@@ -77,11 +153,11 @@ function cargarTrack(index) {
 
   audio.play().then(() => {
     isPlaying = true;
-    playBtn.src = 'https://i.ibb.co/Z6d3VxJR/btn-pause.png';
+    playBtn.src = 'assets/img/btn-pause.png';
     console.log('[LEGADO] Reproducción local activada');
   }).catch(err => {
     isPlaying = false;
-    playBtn.src = 'https://i.ibb.co/G4bpCyPR/btn-play.png';
+    playBtn.src = 'assets/img/btn-play.png';
     console.warn('[LEGADO] Reproducción bloqueada por el navegador:', err);
   });
 }
@@ -125,7 +201,7 @@ async function actualizarMetadatos(modo) {
       const trackSpotify = dataSpotify.tracks?.items?.[0];
 
       if (trackSpotify) {
-        caratula.src = trackSpotify.album?.images?.[0]?.url || 'assets/covers/Cover1.png';
+        caratula.src = trackSpotify.album?.images?.[0]?.url || 'https://i.postimg.cc/3w29QFHs/Cover1.png';
         radio.textContent = emisora;
         titulo.textContent = trackSpotify.name || 'Título desconocido';
         artista.textContent = trackSpotify.artists?.[0]?.name || 'Artista desconocido';
@@ -190,7 +266,7 @@ function activarScroll(selector) {
 // Botón Play/Pause *************************************************************
 btnPlay.addEventListener('click', () => {
   if (!audio) {
-    console.warn('[LEGADO] Nodo #audioStreaming no encontrado');
+    console.warn('[ALEXIA2] Nodo #audioStreaming no encontrado');
     return;
   }
 
@@ -204,48 +280,37 @@ btnPlay.addEventListener('click', () => {
     if (audio.paused) {
       audio.play().then(() => {
         isPlaying = true;
-        playBtn.src = 'https://i.ibb.co/Z6d3VxJR/btn-pause.png';
-      
+        playBtn.src = 'assets/img/btn-pause.png';
         actualizarMetadatos(modo);
-      
-        console.log('[LEGADO] Reproducción local activada');
+        console.log('[ALEXIA2] Reproducción local activada');
       }).catch(err => {
-        console.warn('[LEGADO] Error al reproducir audio local:', err);
+        console.warn('[ALEXIA2] Error al reproducir audio local:', err);
       });
     } else {
       audio.pause();
       isPlaying = false;
-      playBtn.src = 'https://i.ibb.co/G4bpCyPR/btn-play.png';
-      console.log('[LEGADO] Reproducción local pausada');
+      playBtn.src = 'assets/img/btn-play.png';
+      console.log('[ALEXIA2] Reproducción local pausada');
     }
   }
 
   if (modo === 'streaming') {
-  if (!audio.src || audio.src === '') {
-    audio.src = "https://technoplayerserver.net:8018/stream?icy=http";
-    audio.load();
+    // No reasignar src si ya está en el HTML
+    if (audio.paused) {
+      audio.play().then(() => {
+        isPlaying = true;
+        playBtn.src = 'assets/img/btn-pause.png';
+        console.log('[ALEXIA2] Stream activado por botón Play');
+      }).catch(err => {
+        console.warn('[ALEXIA2] Error al reproducir stream:', err);
+      });
+    } else {
+      audio.pause();
+      isPlaying = false;
+      playBtn.src = 'assets/img/btn-play.png';
+      console.log('[ALEXIA2] Stream detenido por botón Play');
+    }
   }
-
-  if (audio.readyState < 3) {
-    console.warn('[LEGADO] Stream aún no está listo para reproducirse');
-    return;
-  }
-
-  if (audio.paused) {
-    audio.play().then(() => {
-      isPlaying = true;
-      playBtn.src = 'https://i.ibb.co/Z6d3VxJR/btn-pause.png';
-      console.log('[LEGADO] Stream activado por botón Play');
-    }).catch(err => {
-      console.warn('[LEGADO] Error al reproducir stream:', err);
-    });
-  } else {
-    audio.pause();
-    isPlaying = false;
-    playBtn.src = 'https://i.ibb.co/G4bpCyPR/btn-play.png';
-    console.log('[LEGADO] Stream detenido por botón Play');
-  }
-}
 });
 
 // Botones Rewind & Forward
@@ -342,7 +407,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!audio.paused && audio.src) {
         audio.pause();
         isPlaying = false;
-        playBtn.src = 'https://i.ibb.co/G4bpCyPR/btn-play.png';
+        playBtn.src = 'assets/img/btn-play.png';
       }
 
       audio.src = "https://technoplayerserver.net:8018/stream?icy=http";
@@ -350,7 +415,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       audio.play().then(() => {
         isPlaying = true;
-        playBtn.src = 'https://i.ibb.co/Z6d3VxJR/btn-pause.png';
+        playBtn.src = 'assets/img/btn-pause.png';
         console.log('[LEGADO] Stream activado directamente');
       }).catch(err => {
         console.warn('[LEGADO] Reproducción bloqueada por navegador:', err);
@@ -373,7 +438,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       audio.pause();
       isPlaying = false;
-      playBtn.src = 'https://i.ibb.co/G4bpCyPR/btn-play.png';
+      playBtn.src = 'assets/img/btn-play.png';
 
       const track = playlist[currentTrack];
       if (track && track.url) {
