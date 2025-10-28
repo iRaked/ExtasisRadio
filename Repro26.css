@@ -1,0 +1,592 @@
+#main-container {
+  width: 722px;
+  height: 402px;
+  display: flex;
+  flex-direction: column;
+  background-color: #000; /* fondo base defensivo */
+  overflow: hidden;
+  border: 1px solid #000;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Header ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.header {
+  width: 722px;
+  height: 67px;
+  background: linear-gradient(to top, #28313f 0%, #28313f 70%, #404958 70%, #404958 100%);
+  box-shadow:
+    inset 0 0 0 1px #3f434e,         /* contorno interior negro */
+    inset 0 0 12px #000;       /* resplandor interior sólido */
+}
+
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 28px;
+  padding: 0 8px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.brand-icon {
+  width: 24px;
+  height: 24px;
+  transition: transform 0.6s ease;
+}
+
+.brand-icon:hover {
+  transform: rotate(360deg);
+}
+
+.radio-title {
+  font-family: 'Impact', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  color: #ebeff8;
+}
+
+.btn-online {
+  width: 104px;
+  height: 24px;
+  background: linear-gradient(to bottom, #ebeff8 0%, #ebeff8 50%, #9c9faf 50%, #9c9faf 100%);
+  border: none;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  font-family: 'Impact', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  color: #3f434e;
+  text-transform: uppercase;
+  box-shadow: inset 0 0 0 1px #3f434e;
+}
+
+.header-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 0 4px;
+  height: 36px;
+  margin-top: 3px;
+}
+
+.btn-social {
+  display: flex;
+  flex-direction: row; /* horizontal layout */
+  align-items: center; /* vertical centering */
+  justify-content: flex-start; /* alineación izquierda */
+  gap: 6px; /* espacio entre ícono y texto */
+  width: 114px;
+  height: 36px;
+  padding-left: 8px;
+  background: linear-gradient(to bottom, #292d38 0%, #292d38 25%, #444c5b 75%, #343a46 100%);
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  box-shadow:
+    inset 0 0 0 1px #000,
+    inset 0 -4px 4px #575e6d;
+  border: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-social i {
+  font-size: 16px;
+  color: #ebeff8;
+}
+
+.btn-social span {
+  font-size: 12px;
+  color: #ebeff8;
+  text-align: left;
+  line-height: 1;
+}
+
+/* Barra inferior extendida */
+.btn-social::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: -1px;
+  width: 120px;
+  height: 6px;
+  background-color: #6c6c6c;
+  box-shadow: inset 0 0 0 1px #000;
+}
+
+/* Animación para el botón ONLINE */
+.btn-online {
+  transition: all 0.3s ease;
+}
+
+.btn-online:hover {
+  background: linear-gradient(to bottom, #f5f8ff 0%, #b0b3c2 100%);
+  box-shadow:
+    inset 0 0 0 1px #3f434e,
+    0 0 6px rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+/* Animación para los botones sociales */
+.btn-social {
+  transition: all 0.3s ease;
+}
+
+.btn-social:hover {
+  background: linear-gradient(to bottom, #343a46 0%, #444c5b 50%, #292d38 100%);
+  box-shadow:
+    inset 0 0 0 1px #000,
+    inset 0 -4px 4px #6b7382,
+    0 0 6px rgba(255, 255, 255, 0.1);
+  transform: translateY(-1px);
+}
+
+/* Animación para la barra inferior del botón social */
+.btn-social::after {
+  transition: background-color 0.3s ease;
+}
+
+.btn-social:hover::after {
+  background-color: #7a7a7a;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Panel Superior ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.panel-top {
+  width: 722px;
+  height: 28px;
+  background-color: #171c20;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 8px;
+  box-shadow: inset 0 -2px 4px #000;
+  font-family: sans-serif;
+}
+
+/* Sección izquierda con ícono y texto */
+.panel-top-left {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #d4af37;
+  font-size: 13px;
+}
+
+.panel-top-left i {
+  font-size: 14px;
+  color: #d4af37;
+}
+
+/* Contenedor central para metadatos */
+.panel-top-meta {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.meta-container {
+  width: 80%;
+  height: 18px;
+  background-color: rgba(212, 175, 55, 0.1); /* dorado semitransparente */
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding: 0 8px;
+}
+
+.meta-text {
+  color: #d4af37;
+  font-size: 12px;
+  white-space: nowrap;
+  animation: scroll-left 12s linear infinite;
+}
+
+/* Animación tipo marquesina */
+@keyframes scroll-left {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* ================= Panel Medio con Panel Izquierdo y Derecho ================= */
+.panel-middle {
+  display: flex;
+  width: 722px;
+  height: 218px;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Cover ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.panel-left {
+  width: 297px;
+  height: 218px;
+  background-color: #121416;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Contenedor horizontal con superposición */
+.cover-cd-wrapper {
+  position: relative;
+  width: 260px;
+  height: 170px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* CD giratorio a la derecha, parcialmente cubierto por la portada */
+.cd-img {
+  width: 170px;
+  height: 170px;
+  animation: spin-cd 6s linear infinite;
+  z-index: 1;
+  position: relative;
+  left: 40px; /* empuja el CD hacia la derecha */
+}
+
+/* Portada a la izquierda, superpuesta parcialmente sobre el CD */
+.cover-img {
+  width: 170px;
+  height: 170px;
+  object-fit: cover;
+  box-shadow: 0 0 6px #000;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 2;
+}
+
+/* Animación de giro */
+@keyframes spin-cd {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Panel Derecho ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.panel-right {
+  width: 421px;
+  height: 218px;
+  max-height: 218px;
+  background-color: transparent;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  overflow-x: hidden; /* elimina scroll horizontal */
+
+  /* Scroll vertical estilizado */
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: #444c5b transparent;
+}
+
+/* Scroll vertical estilizado para WebKit (Chrome, Edge, Safari) */
+.panel-right::-webkit-scrollbar {
+  width: 6px;
+}
+
+.panel-right::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.panel-right::-webkit-scrollbar-thumb {
+  background-color: #444c5b;
+  border-radius: 0;
+  box-shadow: inset 0 0 2px #000;
+}
+
+/* Bloque individual de track */
+.track-block {
+  min-height: 50px;
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  background-color: #171c20;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 0 4px #000;
+  transition: box-shadow 0.3s ease, transform 0.3s ease, border 0.3s ease;
+  position: relative;
+  border: 2px solid transparent;
+}
+
+/* Hover ceremonial */
+.track-block:hover {
+  box-shadow: 0 0 8px #d4af37;
+  transform: translateY(-2px);
+}
+
+/* Track activo con borde dorado */
+.track-block.active {
+  border: 2px solid #d4af37;
+}
+
+/* Carátula */
+.track-cover {
+  width: 40px;
+  height: 40px;
+  margin-left: 6px;
+  border-radius: 4px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.track-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Metadatos centrales */
+.track-meta {
+  flex: 1;
+  padding: 4px 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #d4af37;
+  font-size: 12px;
+}
+
+/* Título del track */
+.track-title {
+  font-weight: bold;
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Artista y duración */
+.track-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  opacity: 0.85;
+}
+
+/* Número del track */
+.track-number {
+  width: 50px;
+  height: 100%;
+  background-color: #000;
+  color: #d4af37;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 13px;
+  flex-shrink: 0;
+  animation: fade-in 0.6s ease;
+}
+
+/* Animación de entrada */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Footer ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.footer {
+  width: 722px;
+  height: 89px;
+  background: linear-gradient(to top, #9598ab 0%, #9598ab 50%, #eceff9 50%, #eceff9 100%);
+  box-shadow: inset 0 0 16px #000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 12px;
+  box-sizing: border-box;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Botonera ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.footer-left {
+  width: 298px;
+  height: 89px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+}
+
+.btn-control {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(to top, #6c6f80 0%, #8a8da0 40%, #eceff9 60%, #ffffff 100%);
+  border: none;
+  box-shadow:
+    inset 0 0 0 2px #fff,
+    inset 0 -4px 6px #000,
+    0 0 4px rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #000;
+  font-size: 18px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-control:hover {
+  transform: scale(1.05);
+  box-shadow:
+    inset 0 0 0 2px #fff,
+    inset 0 -4px 6px #000,
+    0 0 8px #d4af37;
+}
+
+.btn-repeat.active,
+.btn-shuffle.active {
+  box-shadow:
+    inset 0 0 0 2px #fff,
+    inset 0 -4px 6px #000,
+    0 0 12px #ffd700,
+    0 0 20px #ffd700;
+}
+
+/* Botón central Play/Pause */
+.btn-play {
+  width: 74px;
+  height: 74px;
+  font-size: 24px;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Estado y tiempo ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.footer-center {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  margin-right: 30px; /* acercamiento hacia la botonera */
+}
+
+.status-block {
+  width: 100px;
+  height: 28px;
+  background: linear-gradient(to bottom, #292d38 0%, #444c5b 100%);
+  box-shadow:
+    inset 0 0 0 1px #ccc,
+    inset 0 -4px 4px #575e6d;
+  color: #eceff9;
+  font-size: 12px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Volumen ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.footer-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.volume-icon {
+  color: #000;
+  font-size: 16px;
+}
+
+/* Orificio para la barra de volumen */
+.volume-track {
+  width: 220px;
+  height: 16px;
+  background: #292d38;
+  border-radius: 8px;
+  box-shadow:
+    inset 0 0 0 1px #ccc,
+    inset 0 2px 4px #000;
+  display: flex;
+  align-items: center;
+  padding: 0 4px;
+}
+
+.volume-bar {
+  width: 100%;
+  height: 4px;
+  border-radius: 4px;
+  appearance: none;
+  background: linear-gradient(to right, #d4af37 0%, #d4af37 70%, #292d38 70%, #292d38 100%);
+  outline: none;
+  cursor: pointer;
+}
+
+.volume-bar::-webkit-slider-thumb {
+  width: 12px;
+  height: 12px;
+  background: #d4af37;
+  border-radius: 50%;
+  cursor: pointer;
+  appearance: none;
+  box-shadow: 0 0 2px #000;
+  margin-top: -4px;
+}
+
+/* Informacion de Contacto */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal.hidden {
+  display: none;
+}
+
+.modal-content {
+  background: linear-gradient(to bottom, #ebeff8 0%, #ebeff8 30%, #9c9faf 60%, #9c9faf 100%);
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: 0 0 12px #000;
+  text-align: center;
+}
+
+.contact-img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin: 12px auto;
+  box-shadow: 0 0 8px #d4af37;
+}
+
+.close-modal {
+  position: absolute;
+  top: 16px;
+  right: 24px;
+  font-size: 24px;
+  cursor: pointer;
+}

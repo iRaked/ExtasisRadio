@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <link rel="icon" type="image/x-icon" href="assets/SG.ico" />
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="author" content="Rick">
+  <title>Reproductor 26</title>
+  <!-- Estilos externos -->
+  <link rel="stylesheet" href="Repro26.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <!-- Scripts externos -->
+  <script src="Repro26.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/7.2.4/pixi.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.ripples/0.5.3/jquery.ripples.min.js"></script>
+  <!-- BLOCK 
+  <script type="text/javascript">
+  document.onkeydown = function(){return false};
+  document.oncontextmenu = function(){return false}
+  </script>-->
+</head>
+<body>
+
+
+<div id="main-container">
+    
+<audio id="audioStreaming" autoplay muted></audio>
+
+  <header class="header">
+
+  <div class="header-top">
+    <div class="brand">
+      <img src="assets/SG.ico" alt="Logo de la marca" class="brand-icon" />
+      <span class="radio-title">Casino Digital Radio</span>
+    </div>
+    <button class="btn-online">STREAMING</button>
+  </div>
+
+  <div class="header-bottom">
+  <a href="https://discord.com/invite/tu-servidor" target="_blank" class="btn-social">
+    <i class="fab fa-discord"></i>
+    <span>Discord</span>
+  </a>
+  <a href="https://facebook.com" target="_blank" class="btn-social">
+    <i class="fab fa-facebook-f"></i>
+    <span>Facebook</span>
+  </a>
+  <a href="https://instagram.com" target="_blank" class="btn-social">
+    <i class="fab fa-instagram"></i>
+    <span>Instagram</span>
+  </a>
+  <a href="https://youtube.com" target="_blank" class="btn-social">
+    <i class="fab fa-youtube"></i>
+    <span>YouTube</span>
+  </a>
+  <a href="https://tiktok.com" target="_blank" class="btn-social">
+    <i class="fab fa-tiktok"></i>
+    <span>TikTok</span>
+  </a>
+  <div class="btn-social" id="btnContacto">
+    <i class="fas fa-envelope"></i>
+    <span>Contacto</span>
+  </div>
+</div>
+
+<!-- 📨 Modal de Contacto -->
+<div id="modalContacto" class="modal hidden">
+  <div class="modal-content">
+    <span class="close-modal">&times;</span>
+    <h2>Contacto</h2>
+    <img src="assets/img/Avatar.png" alt="Avatar" class="contact-img" />
+    <p><strong>Nick:</strong> RICK</p>
+    <p><strong>ID:</strong> 1548724149</p>
+  </div>
+</div>
+
+</header>
+
+  <div class="panel-top">
+  <div class="panel-top-left">
+    <i class="fas fa-microphone"></i>
+    <span>REPRODUCIENDO:</span>
+  </div>
+  <div class="panel-top-meta">
+    <div class="meta-container">
+      <span class="meta-text">Nombre del artista - Título de la canción</span>
+    </div>
+  </div>
+</div>
+
+  <div class="panel-middle">
+
+    <div class="panel-left">
+      <div class="cover-cd-wrapper">
+        <img src="assets/covers/CD.png" alt="CD" class="cd-img" />
+        <img src="assets/covers/Cover1.png" alt="Carátula" class="cover-img" />
+      </div>
+    </div>
+
+    <div class="panel-right">
+      <div class="track-block">
+      <div class="track-cover"><img src="..." /></div>
+      <div class="track-meta">
+        <div class="track-title">Título</div>
+        <div class="track-info">
+          <span class="track-artist">Artista</span>
+          <span class="track-duration">Duración</span>
+        </div>
+      </div>
+      <div class="track-number">01</div>
+    </div>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+      <div class="footer-left">
+        <button class="btn-control btn-repeat" id="btnRepeat"><i class="fas fa-redo"></i></button>
+        <button class="btn-control btn-play"><i class="fas fa-play"></i></button>
+        <button class="btn-control btn-shuffle" id="btnShuffle"><i class="fas fa-random"></i></button>
+      </div>
+
+      <div class="footer-center">
+      <div class="status-block">TIME TRACK</div>
+      <div class="status-block" id="timeDisplay">00:00</div>
+    </div>
+
+      <div class="footer-right">
+        <i class="fas fa-volume-down volume-icon" id="volumeIcon"></i>
+        <div class="volume-track">
+          <input type="range" min="0" max="100" value="50" class="volume-bar" />
+        </div>
+        <i class="fas fa-volume-up volume-icon"></i>
+      </div>
+    </footer>
+
+</div>
+
+
+</body>
+</html>
