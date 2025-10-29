@@ -181,7 +181,7 @@ function fondoPorGenero(genero) {
   const normalizado = genero?.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
   const fondos = {
     "pop rock": "linear-gradient(135deg, #4e54c8, #8f94fb)",
-    "reggae": "linear-gradient(135deg, #f7b733, #fc4a1a)",
+    "reggae": "linear-gradient(135deg, #00ff00, #ffff00, #ff0000)",
     "regional mexicano": "linear-gradient(135deg, #8e44ad, #c0392b)",
     "corrido tumbado": "linear-gradient(135deg, #2c3e50, #bdc3c7)",
     "corrido belico": "linear-gradient(135deg, #1e1e1e, #ff0000)",
@@ -190,6 +190,8 @@ function fondoPorGenero(genero) {
     "tropi pop": "linear-gradient(135deg, #f39c12, #d35400)",
     "pop latino": "linear-gradient(135deg, #ff6b81, #ffe66d)",
     "salsa": "linear-gradient(135deg, #e74c3c, #f1c40f)",
+    "regueton": "linear-gradient(135deg, #1e1e1e, #ff0000)", // 🔥 agregado
+    "trap": "linear-gradient(135deg, #0f2027, #203a43, #2c5364)",
     "rumba": "linear-gradient(135deg, #ff6f61, #f7c59f)",
     "rock en español": "linear-gradient(135deg, #2c3e50, #3498db)",
     "ska": "linear-gradient(135deg, #000000, #ffffff)",
