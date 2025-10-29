@@ -1,99 +1,85 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+  <link rel="icon" type="image/x-icon" href="assets/SG.ico" />
   <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Repro9</title>
-
-  <!-- GlenThemes Music Player -->
-  <script src="//glen-players.gitlab.io/03/core.js"></script>
-  <link href="//glen-players.gitlab.io/03/main.css" rel="stylesheet" />
-
-  <style>
-    [glenplayer03] {
-      --MusicPlayer-Screen-Gap: 20px;
-      --MusicPlayer-Width: 230px;
-      z-index: 699;
-
-      --MusicPlayer-Always-Show: "no";
-      --MusicPlayer-Start-State: "hide";
-      --MusicPlayer-Interaction-Trigger: "hover";
-      --MusicPlayer-Animation-Speed: 0.7s;
-
-      --Autoplay-First-Song: "no";
-      --Autoplay-Next-Song: "yes";
-      --Loop-Playlist: "no";
-
-      --MusicPlayer-Title-Size: 0.7rem;
-      --MusicPlayer-Title-Color: #e0e0d7;
-      --MusicPlayer-Title-BG: #ff0000;
-      --MusicPlayer-Title-Padding: 12px;
-      --MusicPlayer-Title-Rounded-Corners: 8px;
-
-      --MusicPlayer-List-Padding: 14px;
-      --MusicPlayer-List-BG: #ff0000;
-      --MusicPlayer-List-Borders-Size: 1px;
-      --MusicPlayer-List-Borders-Color: #a03c52;
-      --MusicPlayer-List-Row-Spacing: 9px;
-
-      --MusicPlayer-Album-Image-Size: 32px;
-      --MusicPlayer-Album-Image-Rounded-Corners: 3px;
-      --MusicPlayer-Album-Gap-Right: 10px;
-
-      --MusicPlayer-Song-Name-Size: 0.65rem;
-      --MusicPlayer-Song-Name-Color: #ffffff;
-
-      --MusicPlayer-Artist-Name-Size: 0.7rem;
-      --MusicPlayer-Artist-Name-Color: #ffffff;
-
-      --MusicPlayer-Details-Row-Gap: 2px;
-      --MusicPlayer-Scrollbar-Color: #5e1f2f;
-
-      --MusicPlayer-Icon-Style: "fill";
-      --MusicPlayer-Buttons-Touch-Padding: 4px;
-      --MusicPlayer-Buttons-Size: 12px;
-    }
-  </style>
+  <meta name="author" content="Rick">
+  <title>Reproductor 9</title>
+  <!-- Estilos externos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="Repro9.css" />
+  <!-- Scripts Externos -->
+  <script src="Repro9.js" defer></script>
+  <!-- BLOCK 
+  <script type="text/javascript">
+  document.onkeydown = function(){return false};
+  document.oncontextmenu = function(){return false}
+  </script>
+<script src="https://precios-2025.web.app/gallery.js"></script>-->
 </head>
 
 <body>
-  <section glenplayer03 position="left">
-    <button player-title>
-      <h3>music</h3>
-    </button>
 
-    <div music-list>
-      <!-- SONG #1 -->
-      <figure song-row>
-        <img album-image src="https://i.postimg.cc/HnRZ4jZp/HNKG.png" />
-        <figcaption song-details>
-          <span song-name>Happy Now</span>
-          <span artist-name>Kygo</span>
-        </figcaption>
-        <audio src="https://www.dropbox.com/scl/fi/znj5iyi65vo8gt0etwdl3/HappyNow.mp3?rlkey=swrdlv78efrxg2wkepvze4q6r&st=aln1o378&dl=1" volume="98%"></audio>
-      </figure>
-
-      <!-- SONG #2 -->
-      <figure song-row>
-        <img album-image src="https://i.postimg.cc/KcH8SJXV/BoH.png" />
-        <figcaption song-details>
-          <span song-name>The Funeral</span>
-          <span artist-name>Band of Horses</span>
-        </figcaption>
-        <audio src="https://www.dropbox.com/scl/fi/q9opbe5fnvpovujpaj2q8/BoH.mp3?rlkey=x7zmm6eopjpapc5c9i0aagw7d&st=v1spgq8p&dl=1" volume="96%"></audio>
-      </figure>
-
-      <!-- SONG #3 -->
-      <figure song-row>
-        <img album-image src="https://i.postimg.cc/FKVHMvmg/YDI.png" />
-        <figcaption song-details>
-          <span song-name>Yellow</span>
-          <span artist-name>Downer Inc.</span>
-        </figcaption>
-        <audio src="https://www.dropbox.com/scl/fi/3bc9u0yguqooe4kiek544/Yllow.mp3?rlkey=6qh4eqz8ry3edgmhc3xwj4gk0&st=zsepcfkx&dl=1" volume="90%"></audio>
-      </figure>
+<!-- 🎧 Reproductor ocultable -->
+<section id="panel">
+  <div id="iFone" class="ifone-ctn">
+    
+    <!-- 🔼 Cabecera con botones -->
+    <div class="header">
+      <button id="btn-plus" class="btn-plus">＋</button>
+      <button id="btn-modo" class="btn-modo"><i class="fa-solid fa-music"></i></button>
     </div>
-  </section>
+
+    <!-- 🎵 Audio -->
+    <audio id="audioStreaming" src="https://technoplayerserver.net:8018/stream?icy=http"></audio>
+
+    <!-- 📀 Carátula por defecto -->
+    <div id="default-cover" class="default-cover">
+      <img src="assets/covers/Cover1.png" alt="Carátula por defecto" />
+    </div>
+
+    <!-- 🎼 Metadatos -->
+    <div class="info">
+      <h2 id="modal-artist">Daaz</h2>
+      <p id="modal-title">I like you mucho</p>
+    </div>
+
+    <!-- 📜 Playlist visual -->
+    <ul id="modal-queue" class="modal-queue"></ul>
+
+    <!-- ▶️ Reproductor personalizado -->
+    <div class="custom-player">
+      <button id="btn-toggle" class="play-btn">
+        <i class="fa-solid fa-play"></i>
+      </button>
+      <div class="progress-container">
+        <div id="progress-bar" class="progress-bar"></div>
+      </div>
+    </div>
+
+    <!-- 🎛️ Controles extendidos -->
+    <div class="controls">
+      <label>
+        Volumen:
+        <input type="range" id="volume-control" min="0" max="1" step="0.01" />
+      </label>
+      <label>
+        Speed:
+        <select id="speed-control">
+          <option value="0.5">0.5x</option>
+          <option value="1" selected>1x</option>
+          <option value="1.5">1.5x</option>
+          <option value="2">2x</option>
+        </select>
+      </label>
+      <button id="loop-toggle">Loop: Off</button>
+      <button id="shuffle-toggle">Shuffle</button>
+    </div>
+
+  </div>
+</section>
+
 </body>
 </html>
