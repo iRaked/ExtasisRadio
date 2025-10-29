@@ -1,100 +1,85 @@
-<script type="text/javascript">
-      document.onkeydown = function(){return false};
-        document.oncontextmenu = function(){return false}
-    </script>
-<script src="//cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script>
-<link href="//fonts.googleapis.com/css?family=Public+Sans|Karla" rel="stylesheet">
-<link href="glenplayer06.css" rel="stylesheet">
-<script src="glenplayer06.js"></script>
-<style element="glenplayer06">
-:root {
-    --MusicBox-Left-Or-Right:left;
-    --MusicBox-Edge-Distance:30px;
-    --MusicBox-Width:239px; 
-    --MusicBox-Title-Padding:15px;
-    --MusicBox-Title-Background:#000;
-    --MusicBox-Title-Size:10px;
-    --MusicBox-Title-Color:#fff;
-    --MusicBox-Title-Corner-Roundness:8px;
-    --MusicBox-Main-Background:rgba(176, 174, 174, 0.2);
-    --MusicBox-Main-Padding:14px;
-    --MusicBox-Side-Borders:#000;
-    --Album-Art-Size:32px;
-    --Album-Art-Corner-Roundness:3px;
-    --Album-Art-Gap:10px;
-    --Song-Name-Size:9px;
-    --Song-Name-Color:#999;
-    --Artist-Name-Size:10px;
-    --Artist-Name-Color:#fff;
-    --Music-Buttons-Size:11px;
-    --Music-Buttons-Color:#000;
-    --Track-Spacing:9px;
-    --Autoplay-First-Song:no;
-    --Autoplay-Next-Song:yes;
-    --Loop-Playlist-Infinitely:no;
-}
-</style>
-<!-- PARA VISUALIZACION PARCIAL = glenplayer03 -->
-<div glenplayer03 style="max-height: 300px; overflow-y: auto;">
-<div musicbox-title>canciones</div>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <link rel="icon" type="image/x-icon" href="assets/SG.ico" />
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="author" content="Rick">
+  <title>Reproductor 6</title>
+  <!-- Estilos externos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="Repro6.css" />
+  <!-- Scripts Externos -->
+  <script src="Repro6.js" defer></script>
+  <!-- BLOCK 
+  <script type="text/javascript">
+  document.onkeydown = function(){return false};
+  document.oncontextmenu = function(){return false}
+  </script>
+<script src="https://precios-2025.web.app/gallery.js"></script>-->
+</head>
+
+<body>
+
+<!-- 🎧 Reproductor ocultable -->
+<section id="panel">
+  <div id="iFone" class="ifone-ctn">
     
-<img album-art src="assets/covers/YiyoSarante.jpg">
-<div song-name>Manos de tijera</div>
-<div artist-name>Yiyo Sarante</div>
-<audio src="https://www.dropbox.com/scl/fi/8t2f8wdmn5njni224pbpm/Yiyo-Sarante-Manos-de-tijera.MP3?rlkey=6g3j4r2j0ig553pdmptd2ki9v&st=2psz72wq&dl=0" volume="100%"></audio>
-    
-<img album-art src="assets/covers/AdolescentesOrquesta.jpg">
-<div song-name>Anhelo</div>
-<div artist-name>Adolescentes Orquesta</div>
-<audio src="https://www.dropbox.com/scl/fi/jsv8bhid51gsuaq2203rs/Adolescentes-Orquesta-Anhelo.mp3?rlkey=65sbye8iot2lk06kxjs0j15e3&st=w12ftoi6&dl=0" volume="100%"></audio>
+    <!-- 🔼 Cabecera con botones -->
+    <div class="header">
+      <button id="btn-plus" class="btn-plus">＋</button>
+      <button id="btn-modo" class="btn-modo"><i class="fa-solid fa-music"></i></button>
+    </div>
 
-<img album-art src="assets/covers/AngelesAzules.jpg">
-<div song-name>Amor a primera vista</div>
-<div artist-name>Los Ángeles Azules ft. Belinda</div>
-<audio src="https://www.dropbox.com/scl/fi/rw6c47pawxtmeis35sjvr/Amor-a-primera-vista.mp3?rlkey=3nkx92vxtje51k5czhclddehy&st=s81hn589&dl=0" volume="100%"></audio>
+    <!-- 🎵 Audio -->
+    <audio id="audioStreaming" src="https://technoplayerserver.net:8018/stream?icy=http"></audio>
 
-<img album-art src="assets/covers/KarolGEddyLover.png">
-<div song-name>Dile luna</div>
-<div artist-name>Karol G, Eddy Lover</div>
-<audio src="https://www.dropbox.com/scl/fi/hrnnsmx6a3rw70h7zk0ar/Karol-G-Eddy-Lover-Dile-luna.MP3?rlkey=au7bi0aeksu57l21o462vebl9&st=oh0wtiev&dl=0" volume="99%"></audio>
+    <!-- 📀 Carátula por defecto -->
+    <div id="default-cover" class="default-cover">
+      <img src="assets/covers/Cover1.png" alt="Carátula por defecto" />
+    </div>
 
-<img album-art src="assets/covers/Greeicy.png">
-<div song-name>Los besos</div>
-<div artist-name>Greeicy</div>
-<audio src="https://www.dropbox.com/scl/fi/06fviqk7h7s9xhsm1q95e/Greeicy-Los-besos.MP3?rlkey=8u73slilxo7vzdiydjgxcnulp&st=792mgekr&dl=0" volume="100%"></audio>
+    <!-- 🎼 Metadatos -->
+    <div class="info">
+      <h2 id="modal-artist">Artista</h2>
+      <p id="modal-title">Título</p>
+    </div>
 
-<!-- 5x5 -->
+    <!-- 📜 Playlist visual -->
+    <ul id="modal-queue" class="modal-queue"></ul>
 
-<img album-art src="assets/covers/KarolG.jpg">
-<div song-name>En la playa</div>
-<div artist-name>Karol G</div>
-<audio src="https://www.dropbox.com/scl/fi/7jacddowy9lvazyu20c1i/Karol-G-En-la-playa.MP3?rlkey=4zq2eecav7xfbz1zq922lbro4&st=bat7s5wo&dl=0" volume="100%"></audio>
+    <!-- ▶️ Reproductor personalizado -->
+    <div class="custom-player">
+      <button id="btn-toggle" class="play-btn">
+        <i class="fa-solid fa-play"></i>
+      </button>
+      <div class="progress-container">
+        <div id="progress-bar" class="progress-bar"></div>
+      </div>
+    </div>
 
-<img album-art src="assets/covers/Be%C3%A9leWestcolOvyOnTheDrums.jpg">
-<div song-name>La plena</div>
-<div artist-name>Beéle, Westcol, Ovy On The Drums</div>
-<audio src="https://www.dropbox.com/scl/fi/verkcyqvrrdldpnyivyzf/Be-le-Westcol-Ovy-On-The-Drums-La-plena.MP3?rlkey=8ftxg0zkl6xkj9y9uofm4vp6q&st=x7lw8kx4&dl=0" volume="100%"></audio>
+    <!-- 🎛️ Controles extendidos -->
+    <div class="controls">
+      <label>
+        Volumen:
+        <input type="range" id="volume-control" min="0" max="1" step="0.01" />
+      </label>
+      <label>
+        Speed:
+        <select id="speed-control">
+          <option value="0.5">0.5x</option>
+          <option value="1" selected>1x</option>
+          <option value="1.5">1.5x</option>
+          <option value="2">2x</option>
+        </select>
+      </label>
+      <button id="loop-toggle">Loop: Off</button>
+      <button id="shuffle-toggle">Shuffle</button>
+    </div>
 
-<img album-art src="assets/covers/Alleh&Yorghaki.jpg">
-<div song-name>Capaz</div>
-<div artist-name>Alleh & Yorghaki</div>
-<audio src="https://www.dropbox.com/scl/fi/xl28tklydda2nas9t6hhk/Alleh-Yorghaki-Capaz.MP3?rlkey=n6swtu8qhuebj7l8xhcgac48l&st=4zoze7hs&dl=0" volume="100%"></audio>
+  </div>
+</section>
 
-<img album-art src="assets/covers/FeidATLJacob.jpg">
-<div song-name>Luna</div>
-<div artist-name>Feid, ATL Jacob</div>
-<audio src="https://www.dropbox.com/scl/fi/bda9pzmlbbwxcwpmurpwa/Feid-ATL-Jacob-Luna.MP3?rlkey=z8um6d1eufbqjswkqrl497s1b&st=ol4vyqkk&dl=0" volume="100%"></audio>
-
-<img album-art src="assets/covers/Cosculluela.jpg">
-<div song-name>Manicomio</div>
-<div artist-name>Cosculluela</div>
-<audio src="https://www.dropbox.com/scl/fi/9tajmag82n48h7vkua46p/Cosculluela-Manicomio.MP3?rlkey=5zuejohila8szk82z4i8bwmdh&st=61r395wn&dl=0" volume="100%"></audio>
-
-<!-- 5x5 -->
-
-<img album-art src="assets/covers/DonOmar.jpg">
-<div song-name>Ojitos chiquitos</div>
-<div artist-name>Don Omar</div>
-<audio src="https://www.dropbox.com/scl/fi/d8ujxpulpq4tpycuoi2yk/Don-Omar-Ojitos-chiquitos.MP3?rlkey=k9n0l9ch80m8usa7zn0r1ya2d&st=91qph266&dl=0" volume="100%"></audio>
-
-</div>
+</body>
+</html>
