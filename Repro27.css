@@ -1,0 +1,141 @@
+.main-container {
+  width: 100%;
+  max-width: 681px;
+  aspect-ratio: 681 / 388;
+  position: relative;
+  overflow: hidden;
+  background-image: url('assets/img/Fussion.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.cover-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 25%;
+  width: 275px;
+  height: 275px;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cover-art {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 1px solid #000;
+}
+
+.metadata-marquee {
+  position: absolute;
+  top: 95px;
+  left: 320px;
+  right: 30px;
+  height: 28px;
+  overflow: hidden;
+  white-space: nowrap;
+  box-sizing: border-box;
+  padding: 4px 8px;
+  /*border-bottom: 1px solid #ccc;*/
+  font-weight: bold;
+  font-size: 1.2em;
+  color: #000;
+}
+
+.info-marquee {
+  position: absolute;
+  top: 175px;
+  left: 340px;
+  right: 60px;
+  height: 24px;
+  overflow: hidden;
+  white-space: nowrap;
+  box-sizing: border-box;
+  padding: 4px 8px;
+  /*border-bottom: 1px solid #ccc;*/
+  font-size: 1em;
+  color: #000;
+  opacity: 0.9;
+}
+
+.marquee span {
+  display: inline-block;
+  padding-left: 100%;
+  animation: scroll-left 12s linear infinite;
+}
+
+@keyframes scroll-left {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+
+.controls-wrapper {
+  position: absolute;
+  bottom: 60px;
+  right: 180px;
+  display: flex;
+  gap: 2px;
+}
+
+.controls-wrapper button {
+  width: 90px;
+  height: 90px;
+  border: none;
+  border-radius: 50%;
+  background-color: transparent;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  transition: transform 0.2s ease;
+}
+
+.controls-wrapper button:hover {
+  transform: scale(1.05);
+}
+
+.controls-wrapper button img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.decorative-wrapper {
+  position: absolute;
+  bottom: 55px;
+  right: 25px;
+  width: 200px;
+  height: 110px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none; /* evita interferencias con botones */
+}
+
+.turbine-img {
+  position: absolute;
+  width: 120px;
+  height: 100px;
+  object-fit: contain;
+  animation: spin 6s linear infinite;
+  z-index: 1;
+}
+
+.decorative-overlay {
+  position: absolute;
+  width: 200px; /* tamaño original de la decorativa */
+  height: 110px;
+  object-fit: contain;
+  z-index: 2;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(720deg); }
+}
