@@ -1,0 +1,49 @@
+{
+  "hits": [
+    {
+      "caratula": "assets/covers/Axel.jpg",
+      "artista": "Axel",
+      "nombre": "Yo te voy amar",
+      "enlace": "https://www.dropbox.com/scl/fi/hacpgrn8qy1plb1isq2v8/Axel.mp3?rlkey=dfioggxkzwu4j30typdrpjjh4&st=uir6ckyc&dl=0&raw=1",
+      "seccion": "hits",
+      "genero": "balada pop",
+      "duracion": "3:55"
+    },
+    {
+      "caratula": "assets/covers/Eden Muñoz.jpg",
+      "artista": "Eden Muñoz",
+      "nombre": "Mi lugar favorito",
+      "enlace": "https://www.dropbox.com/scl/fi/qz5afksxt1l3o7ifpykl4/Eden-Mu-oz.MP3?rlkey=arttuju07gcymvob1a6oire8h&st=71ja7l6v&dl=0&raw=1",
+      "seccion": "hits",
+      "genero": "regional mexicano",
+      "duracion": "3:42"
+    },
+    {
+      "caratula": "assets/covers/Banda MS.jpg",
+      "artista": "Banda MS",
+      "nombre": "El color de tus ojos",
+      "enlace": "https://www.dropbox.com/scl/fi/hkdy5i5008ij29kfk32rl/Banda-MS.MP3?rlkey=mcefiqnno34lqc0kigba87vt6&st=pk03womo&dl=0&raw=1",
+      "seccion": "hits",
+      "genero": "regional mexicano",
+      "duracion": "3:50"
+    },
+    {
+      "caratula": "assets/covers/Duelo.jpg",
+      "artista": "Duelo",
+      "nombre": "Mi realidad",
+      "enlace": "https://www.dropbox.com/scl/fi/adjjpgc4qxqhx0mqnuje0/Duelo.MP3?rlkey=fbf54ihbndv1p6s2kc8zdujqe&st=sfolts4v&dl=0&raw=1",
+      "seccion": "hits",
+      "genero": "norteño",
+      "duracion": "3:48"
+    },
+    {
+      "caratula": "assets/covers/Santa Fe Klan.jpg",
+      "artista": "Santa Fe Klan",
+      "nombre": "Amor",
+      "enlace": "https://www.dropbox.com/scl/fi/gm431grsy76u0l2hd3cjz/Santa-Fe-Klan.MP3?rlkey=18oqmyrwdvo4tithje1yc3sfj&st=esl4sk0y&dl=0&raw=1",
+      "seccion": "hits",
+      "genero": "rap",
+      "duracion": "3:35"
+    }
+  ]
+}

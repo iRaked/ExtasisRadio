@@ -1,74 +1,85 @@
-<script type="text/javascript">
-      document.onkeydown = function(){return false};
-        document.oncontextmenu = function(){return false}
-    </script>
-<script src="//cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script>
-<link href="//fonts.googleapis.com/css?family=Public+Sans|Karla" rel="stylesheet">
-<link href="glenplayer05.css" rel="stylesheet">
-<script src="glenplayer05.js"></script>
-<style element="glenplayer05">
-:root {
-    --MusicBox-Left-Or-Right:left;
-    --MusicBox-Edge-Distance:30px;
-    --MusicBox-Width:239px; 
-    --MusicBox-Title-Padding:15px;
-    --MusicBox-Title-Background:#000;
-    --MusicBox-Title-Size:10px;
-    --MusicBox-Title-Color:#fff;
-    --MusicBox-Title-Corner-Roundness:8px;
-    --MusicBox-Main-Background:rgba(176, 174, 174, 0.2);
-    --MusicBox-Main-Padding:14px;
-    --MusicBox-Side-Borders:#000;
-    --Album-Art-Size:32px;
-    --Album-Art-Corner-Roundness:3px;
-    --Album-Art-Gap:10px;
-    --Song-Name-Size:9px;
-    --Song-Name-Color:#999;
-    --Artist-Name-Size:10px;
-    --Artist-Name-Color:#fff;
-    --Music-Buttons-Size:11px;
-    --Music-Buttons-Color:#000;
-    --Track-Spacing:9px;
-    --Autoplay-First-Song:no;
-    --Autoplay-Next-Song:yes;
-    --Loop-Playlist-Infinitely:no;
-}
-</style>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <link rel="icon" type="image/x-icon" href="assets/SG.ico" />
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="author" content="Rick">
+  <title>Reproductor 6</title>
+  <!-- Estilos externos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="Repro5.css" />
+  <!-- Scripts Externos -->
+  <script src="Repro5.js" defer></script>
+  <!-- BLOCK 
+  <script type="text/javascript">
+  document.onkeydown = function(){return false};
+  document.oncontextmenu = function(){return false}
+  </script>
+<script src="https://precios-2025.web.app/gallery.js"></script>-->
+</head>
 
-<div glenplayer03 style="max-height: 300px; overflow-y: auto;">
-<div musicbox-title>canciones</div>
-    
-<img album-art src="assets/covers/Axel.jpg">
-<div song-name>Yo te voy amar</div>
-<div artist-name>Axel</div>
-<audio src="https://www.dropbox.com/scl/fi/hacpgrn8qy1plb1isq2v8/Axel.mp3?rlkey=dfioggxkzwu4j30typdrpjjh4&st=uir6ckyc&dl=0" volume="100%"></audio>
-    
-<img album-art src="assets/covers/Eden%20Mu%C3%B1oz.jpg">
-<div song-name>Mi lugar favorito</div>
-<div artist-name>Eden Muñoz</div>
-<audio src="https://www.dropbox.com/scl/fi/qz5afksxt1l3o7ifpykl4/Eden-Mu-oz.MP3?rlkey=arttuju07gcymvob1a6oire8h&st=71ja7l6v&dl=0" volume="100%"></audio>
-    
+<body>
 
-<img album-art src="assets/covers/Banda%20MS.jpg">
-<div song-name>Elcolor de tus ojos</div>
-<div artist-name>Banda MS</div>
-<audio src="https://www.dropbox.com/scl/fi/hkdy5i5008ij29kfk32rl/Banda-MS.MP3?rlkey=mcefiqnno34lqc0kigba87vt6&st=pk03womo&dl=0" volume="100%"></audio>
+<!-- 🎧 Reproductor ocultable -->
+<section id="panel">
+  <div id="iFone" class="ifone-ctn">
     
+    <!-- 🔼 Cabecera con botones -->
+    <div class="header">
+      <button id="btn-plus" class="btn-plus">＋</button>
+      <button id="btn-modo" class="btn-modo"><i class="fa-solid fa-music"></i></button>
+    </div>
 
-<img album-art src="assets/covers/Duelo.jpg">
-<div song-name>Mi realidad</div>
-<div artist-name>Duelo</div>
-<audio src="https://www.dropbox.com/scl/fi/adjjpgc4qxqhx0mqnuje0/Duelo.MP3?rlkey=fbf54ihbndv1p6s2kc8zdujqe&st=sfolts4v&dl=0" volume="99%"></audio>
-    
+    <!-- 🎵 Audio -->
+    <audio id="audioStreaming" src="https://technoplayerserver.net:8018/stream?icy=http"></audio>
 
-<img album-art src="assets/covers/Santa%20Fe%20Klan.jpg">
-<div song-name>Amor</div>
-<div artist-name>Santa Fe Klan</div>
-<audio src="https://www.dropbox.com/scl/fi/gm431grsy76u0l2hd3cjz/Santa-Fe-Klan.MP3?rlkey=18oqmyrwdvo4tithje1yc3sfj&st=esl4sk0y&dl=0" volume="100%"></audio>
-<!--  
-<img album-art src="assets/covers/Non%20Servium.jpg">
-<div song-name>Bestia, bestia</div>
-<div artist-name>Non Servium</div>
-<audio src="https://www.dropbox.com/scl/fi/vs5sgz4xvdr2hwgtywstp/Non-Servium.mp3?rlkey=8epgtqbve5781rw9oujddyccv&st=zi2gqapw&dl=0" volume="100%"></audio>
--->
-</div>
+    <!-- 📀 Carátula por defecto -->
+    <div id="default-cover" class="default-cover">
+      <img src="assets/covers/Cover1.png" alt="Carátula por defecto" />
+    </div>
+
+    <!-- 🎼 Metadatos -->
+    <div class="info">
+      <h2 id="modal-artist">Artista</h2>
+      <p id="modal-title">Título</p>
+    </div>
+
+    <!-- 📜 Playlist visual -->
+    <ul id="modal-queue" class="modal-queue"></ul>
+
+    <!-- ▶️ Reproductor personalizado -->
+    <div class="custom-player">
+      <button id="btn-toggle" class="play-btn">
+        <i class="fa-solid fa-play"></i>
+      </button>
+      <div class="progress-container">
+        <div id="progress-bar" class="progress-bar"></div>
+      </div>
+    </div>
+
+    <!-- 🎛️ Controles extendidos -->
+    <div class="controls">
+      <label>
+        Volumen:
+        <input type="range" id="volume-control" min="0" max="1" step="0.01" />
+      </label>
+      <label>
+        Speed:
+        <select id="speed-control">
+          <option value="0.5">0.5x</option>
+          <option value="1" selected>1x</option>
+          <option value="1.5">1.5x</option>
+          <option value="2">2x</option>
+        </select>
+      </label>
+      <button id="loop-toggle">Loop: Off</button>
+      <button id="shuffle-toggle">Shuffle</button>
+    </div>
+
+  </div>
+</section>
+
+</body>
+</html>
