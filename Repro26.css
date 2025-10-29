@@ -93,6 +93,7 @@
     inset 0 0 0 1px #000,
     inset 0 -4px 4px #575e6d;
   border: none;
+  text-decoration: none;
   position: relative;
   overflow: hidden;
 }
