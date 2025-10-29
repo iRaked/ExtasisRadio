@@ -1,116 +1,85 @@
-<script type="text/javascript">
-      document.onkeydown = function(){return false};
-        document.oncontextmenu = function(){return false}
-    </script>
-<script src="//cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script>
-<link href="//fonts.googleapis.com/css?family=Public+Sans|Karla" rel="stylesheet">
-<link href="glenplayer06.css" rel="stylesheet">
-<script src="glenplayer07.js"></script>
-<style element="glenplayer07">
-:root {
-    --MusicBox-Left-Or-Right:left;
-    --MusicBox-Edge-Distance:30px;
-    --MusicBox-Width:239px; 
-    --MusicBox-Title-Padding:15px;
-    --MusicBox-Title-Background:#000;
-    --MusicBox-Title-Size:10px;
-    --MusicBox-Title-Color:#fff;
-    --MusicBox-Title-Corner-Roundness:8px;
-    --MusicBox-Main-Background:rgba(176, 174, 174, 0.2);
-    --MusicBox-Main-Padding:14px;
-    --MusicBox-Side-Borders:#000;
-    --Album-Art-Size:32px;
-    --Album-Art-Corner-Roundness:3px;
-    --Album-Art-Gap:10px;
-    --Song-Name-Size:9px;
-    --Song-Name-Color:#999;
-    --Artist-Name-Size:10px;
-    --Artist-Name-Color:#fff;
-    --Music-Buttons-Size:11px;
-    --Music-Buttons-Color:#000;
-    --Track-Spacing:9px;
-    --Autoplay-First-Song:no;
-    --Autoplay-Next-Song:yes;
-    --Loop-Playlist-Infinitely:no;
-}
-</style>
-<!-- PARA VISUALIZACION PARCIAL = glenplayer03 -->
-<div glenplayer03 style="max-height: 300px; overflow-y: auto;">
-<div musicbox-title>canciones</div>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <link rel="icon" type="image/x-icon" href="assets/SG.ico" />
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="author" content="Rick">
+  <title>Reproductor 7</title>
+  <!-- Estilos externos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="Repro7.css" />
+  <!-- Scripts Externos -->
+  <script src="Repro7.js" defer></script>
+  <!-- BLOCK 
+  <script type="text/javascript">
+  document.onkeydown = function(){return false};
+  document.oncontextmenu = function(){return false}
+  </script>
+<script src="https://precios-2025.web.app/gallery.js"></script>-->
+</head>
+
+<body>
+
+<!-- 🎧 Reproductor ocultable -->
+<section id="panel">
+  <div id="iFone" class="ifone-ctn">
     
-<img album-art src="assets/covers/Xavi.png">
-<div song-name>La diabla</div>
-<div artist-name>Xavi</div>
-<audio src="https://www.dropbox.com/scl/fi/ulyq8kahghft3vqykjts1/Xavi-La-diabla.mp3?rlkey=8rqyvbmdxgj247n4nmav08uco&st=ipz2k964&dl=0" volume="100%"></audio>
+    <!-- 🔼 Cabecera con botones -->
+    <div class="header">
+      <button id="btn-plus" class="btn-plus">＋</button>
+      <button id="btn-modo" class="btn-modo"><i class="fa-solid fa-music"></i></button>
+    </div>
 
-<img album-art src="assets/covers/XaviLosDareyes.png">
-<div song-name>Poco a poco</div>
-<div artist-name>Xavi, Los Dareyes De La Sierra</div>
-<audio src="https://www.dropbox.com/scl/fi/6xnpqobkrfw6hmrjpy8qj/Xavi-Los-Dareyes-De-La-Sierra-Poco-a-poco.MP3?rlkey=gvxyl9i92oskstmurbrfdfu5f&st=mf0r8fjv&dl=0" volume="100%"></audio>
+    <!-- 🎵 Audio -->
+    <audio id="audioStreaming" src="https://technoplayerserver.net:8018/stream?icy=http"></audio>
 
-<img album-art src="assets/covers/XaviTonyAguirre.jpg">
-<div song-name>Modo DND</div>
-<div artist-name>Xavi, Tony Aguirre</div>
-<audio src="https://www.dropbox.com/scl/fi/iebjy5ix6eydvgg1j86jt/Xavi-Tony-Aguirre-Modo-DND.mp3?rlkey=ir7h7ycy3yuz66ej0cjf38te1&st=a8pp9mj2&dl=0" volume="100%"></audio>
+    <!-- 📀 Carátula por defecto -->
+    <div id="default-cover" class="default-cover">
+      <img src="assets/covers/Cover1.png" alt="Carátula por defecto" />
+    </div>
 
-<img album-art src="assets/covers/Global%20Deejays.jpg">
-<div song-name>The sound of San Francisco</div>
-<div artist-name>Global Deejays</div>
-<audio src="https://www.dropbox.com/scl/fi/rtzunb33g9rbmnqmmyr1k/Global-Deejays-The-Sound-Of-San-Francisco.MP3?rlkey=4q8fyg9r1fpkhh6ghcgdlxus3&st=t1q6mjxp&dl=0"></audio>
+    <!-- 🎼 Metadatos -->
+    <div class="info">
+      <h2 id="modal-artist">Artista</h2>
+      <p id="modal-title">Título</p>
+    </div>
 
-<img album-art src="assets/covers/Los%20Cafres%20-%20Hombre%20Simple.png">
-<div song-name>So please</div>
-<div artist-name>Los Cafres</div>
-<audio src="https://www.dropbox.com/scl/fi/zgt8zjmq8hh9avik0xnrp/Los-Cafres-So-please.mp3?rlkey=ow8nwil9ynyvc08b272bvadne&st=gzrv2io7&dl=0"></audio>
-    
-<img album-art src="assets/covers/Los%20Cafres%20-%20El%20Paso%20Gigante.jpg">
-<div song-name>Casi que me pierdo</div>
-<div artist-name>Los Cafres</div>
-<audio src="https://www.dropbox.com/scl/fi/3o50vh8hk85xdyp1sruxf/Los-Cafres-Casi-que-me-pierdo.MP3?rlkey=5tz44yeb7uwfqjq5wia107dp7&st=c5vhz2ce&dl=0"></audio>
+    <!-- 📜 Playlist visual -->
+    <ul id="modal-queue" class="modal-queue"></ul>
 
-<img album-art src="assets/covers/Los%20Cafres%20-%20Espejitos.jpg">
-<div song-name>De mi mente</div>
-<div artist-name>Los Cafres</div>
-<audio src="https://www.dropbox.com/scl/fi/zexqxbxyvckk2lreocrd7/Los-Cafres-De-mi-mente.mp3?rlkey=95fko561b0pwxksgjm4ujmsvu&st=qiv1slbq&dl=0"></audio>
+    <!-- ▶️ Reproductor personalizado -->
+    <div class="custom-player">
+      <button id="btn-toggle" class="play-btn">
+        <i class="fa-solid fa-play"></i>
+      </button>
+      <div class="progress-container">
+        <div id="progress-bar" class="progress-bar"></div>
+      </div>
+    </div>
 
-<img album-art src="assets/covers/Los%20Cafres%20-%20Suena%20La%20Alarma.png">
-<div song-name>Tus ojos</div>
-<div artist-name>Los Cafres</div>
-<audio src="https://www.dropbox.com/scl/fi/6bq4ravamobl9f0glaotp/Los-Cafres-Tus-ojos.MP3?rlkey=k33rd4egyawbqr9yic6lp4ztz&st=wvm52ekg&dl=0"></audio>
+    <!-- 🎛️ Controles extendidos -->
+    <div class="controls">
+      <label>
+        Volumen:
+        <input type="range" id="volume-control" min="0" max="1" step="0.01" />
+      </label>
+      <label>
+        Speed:
+        <select id="speed-control">
+          <option value="0.5">0.5x</option>
+          <option value="1" selected>1x</option>
+          <option value="1.5">1.5x</option>
+          <option value="2">2x</option>
+        </select>
+      </label>
+      <button id="loop-toggle">Loop: Off</button>
+      <button id="shuffle-toggle">Shuffle</button>
+    </div>
 
-<img album-art src="assets/covers/Los%20Cafres%20-%20Frecuencia%20Cafre.jpg">
-<div song-name>Si el amor se cae</div>
-<div artist-name>Los Cafres</div>
-<audio src="https://www.dropbox.com/scl/fi/5x39iqxv4qbtxladnplpz/Los-Cafres-Si-el-amor-se-cae.MP3?rlkey=no29bdvnfvxnsy4kr4sy9b46u&st=krhleabl&dl=0"></audio>
+  </div>
+</section>
 
-<img album-art src="assets/covers/Los%20Cafres%20-%20Barrilete.jpg">
-<div song-name>Momento</div>
-<div artist-name>Los Cafres</div>
-<audio src="https://www.dropbox.com/scl/fi/j5kyr6dgc1qvtdhnryoox/Los-Cafres-Momento.MP3?rlkey=cmzkjy5dczejibwb3c9lcj74z&st=0mc9iq3j&dl=0"></audio>
-
-<img album-art src="assets/covers/Los%20Cafres%20-%20Espejitos.jpg">
-<div song-name>Aire</div>
-<div artist-name>Los Cafres</div>
-<audio src="https://www.dropbox.com/scl/fi/7cv821m70noc83hges6r6/Los-Cafres-Aire.mp3?rlkey=fi459khkgltb5qfy1ac5syhml&st=ap9lhmcb&dl=0"></audio>
-
-<img album-art src="assets/covers/Los%20Cafres%20-%20El%20Paso%20Gigante.jpg">
-<div song-name>Una perla en mi vida</div>
-<div artist-name>Los Cafres</div>
-<audio src="https://www.dropbox.com/scl/fi/4vt145wd9rfjkdxv5sbx6/Los-Cafres-Una-perla-en-mi-vida.MP3?rlkey=iup1kh03jr035exz7caxfl5hy&st=cbsdnk4y&dl=0"></audio>
-
-<img album-art src="assets/covers/Los%20Cafres%20-%20Suena%20La%20Alarma.jpg">
-<div song-name>Suena la alarma</div>
-<div artist-name>Los Cafres</div>
-<audio src="https://www.dropbox.com/scl/fi/mrrxmmejlt43tkpygri2v/Los-Cafres-Suena-la-alarma.MP3?rlkey=seisiqlxl1k45ro2s6f387kvh&st=1t0bqqag&dl=0"></audio>
-
-<img album-art src="assets/covers/Nonpalidece%20-%20La%20flor.png">
-<div song-name>La flor</div>
-<div artist-name>Nompalidece</div>
-<audio src="https://www.dropbox.com/scl/fi/xuucwawresec4qlgpz3w4/Nonpalidece-La-flor.MP3?rlkey=0m9qpq2p6z5d2lve6rafwqxru&st=d6w2ss5c&dl=0"></audio>
-
-<img album-art src="assets/covers/Nonpalidece%20-%20Love%20song.jpg">
-<div song-name>Love song</div>
-<div artist-name>Nompalidece</div>
-<audio src="https://www.dropbox.com/scl/fi/xuucwawresec4qlgpz3w4/Nonpalidece-La-flor.MP3?rlkey=0m9qpq2p6z5d2lve6rafwqxru&st=d6w2ss5c&dl=0"></audio>
-
-</div>
+</body>
+</html>
