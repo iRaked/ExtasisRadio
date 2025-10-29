@@ -181,7 +181,7 @@ function fondoPorGenero(genero) {
   const normalizado = genero?.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
   const fondos = {
     "pop rock": "linear-gradient(135deg, #4e54c8, #8f94fb)",
-    "reggae": "linear-gradient(135deg, #f7b733, #fc4a1a)",
+    "reggae": "linear-gradient(135deg, #00ff00, #ffff00, #ff0000)",
     "regional mexicano": "linear-gradient(135deg, #8e44ad, #c0392b)",
     "corrido tumbado": "linear-gradient(135deg, #2c3e50, #bdc3c7)",
     "corrido belico": "linear-gradient(135deg, #1e1e1e, #ff0000)",
