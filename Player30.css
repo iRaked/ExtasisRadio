@@ -56,47 +56,57 @@
   background: transparent !important; /* ← fuerza la limpieza del fondo fijo */
 }
 
-/* 🔼 Header */
-.header {
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: 0.5rem;
-}
-
-.btn-plus {
+/* *********************** Header Botones PLUS y MODO *********************** */
+.header-buttons {
   position: absolute;
-  top: 3%;
-  left: 40%;
-  transform: translate(-50%, -50%);
-  background: none;
-  border: none;
-  font-size: 2rem;
-  color: white;
-  cursor: pointer;
+  top: 0; /* mismo que el header */
+  left: 400px;
+  display: flex;
+  gap: 10px;
   z-index: 1000;
-  transition: transform 0.2s ease;
 }
 
-.btn-plus:hover {
-  transform: translate(-50%, -50%) scale(1.2);
+#btn-plus {
+  position: absolute;
+  left: 195px;
+  top: 20px;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), var(--base-color);/*linear-gradient(rgba(0, 0, 0, 0.2), valor menor color solido, mayor degradado oscuro */
+  border-radius: 6px 0 0 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  cursor: pointer;
+  border-left: 2px solid #fff;
 }
 
-/* Botón cambio de Modo */
 .btn-modo {
   position: absolute;
-  top: 3.5%;
-  left: 60%;
-  transform: translate(-50%, -50%);
-  background: none;
-  border: none;
-  font-size: 1.2rem;
-  color: white;
+  left: 280px;
+  top: 20px;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), var(--base-color);/*linear-gradient(rgba(0, 0, 0, 0.2), valor menor color solido, mayor degradado oscuro */
+  border-radius: 6px 0 0 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
   cursor: pointer;
-  margin-left: 0.5rem;
-  transition: transform 0.2s ease;
+  border-left: 2px solid #fff;
 }
 
+#btn-plus,
+#btn-modo i {
+  color: #fff;
+  font-size: 1.2rem;
+}
+
+/* ================================================================================== */
 /* ℹ️ Metadatos */
 .info {
   font-size: 1rem;
