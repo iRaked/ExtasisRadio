@@ -145,7 +145,7 @@ body {
   position: absolute;
   top: calc(50px + 139px);
   left: -5px;
-  width: 49px;
+  width: 45px;
   height: 248px;
   background: var(--base-color);
   border-top-left-radius: 0;
@@ -549,6 +549,7 @@ body {
 #iFone {
   position: absolute;
   bottom: -540px;
+    left: 1px;
   transition: bottom 0.4s ease;
 }
 
@@ -621,4 +622,3 @@ body {
     text-shadow: 0 0 5px #4e8ef7, 0 0 10px #00FFFF;
   }
 }
-
