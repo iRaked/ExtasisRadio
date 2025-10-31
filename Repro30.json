@@ -1,0 +1,964 @@
+{
+  "hits": [
+    {
+      "caratula": "assets/covers/Daaz-Chance.jpg",
+      "artista": "Daaz",
+      "nombre": "Chance",
+      "enlace": "https://www.dropbox.com/scl/fi/ytqdod3x3nidxnpl3cc8l/DAAZ-Chance.mp3?rlkey=ouzx6xsvuhdk19x4x5rrdfiii&st=auejxpv2&dl=0&raw=1",
+      "seccion": "hits",
+      "duracion": "2:33",
+      "genero": "rap"
+    },
+    {
+      "caratula": "assets/covers/Cabas-Enamorandonos.jpg",
+      "artista": "Cabas",
+      "nombre": "Enamorándonos",
+      "enlace": "https://www.dropbox.com/scl/fi/gjk7u0q2gdf9f47gzoncd/Cabas-Enamor-ndonos.mp3?rlkey=6cmcj0zhmygytac5c5qbphbrq&st=tqh4r0cb&dl=0&raw=1",
+      "seccion": "hits",
+      "genero": "tropi pop"
+    },
+    {
+      "caratula": "assets/covers/Camilo-Indigo.jpg",
+      "artista": "Camilo Evaluna Montaner",
+      "nombre": "Índigo",
+      "enlace": "https://www.dropbox.com/scl/fi/1tgteeufiwu134o6xo3um/Camilo-ndigo.mp3?rlkey=h5bkasha8wvngo9o6ndt0bphn&st=36n41rbu&dl=0&raw=1",
+      "seccion": "hits",
+      "genero": "pop latino"
+    },
+    {
+      "caratula": "assets/covers/Kanny-Garcia-Aguita-e-coco.jpg",
+      "artista": "Kany García",
+      "nombre": "Agüita e coco",
+      "enlace": "https://www.dropbox.com/scl/fi/vxa3to74rqwytogvm5vn8/Kanny-Garc-a-Ag-ita-e-coco.mp3?rlkey=8ik5ab2cv98ulc9iadgxpdhsd&st=ugyf7qr4&dl=0&raw=1",
+      "seccion": "hits",
+      "genero": "balada pop"
+    },
+    {
+      "caratula": "assets/covers/Becky-G-Manuel-Turizo-Que-haces.png",
+      "artista": "Becky G & Manuel Turizo",
+      "nombre": "Qué haces",
+      "enlace": "https://www.dropbox.com/scl/fi/t1tt04cs5md7e63intqgn/Becky-G-Manuel-Turizo-Qu-haces.MP3?rlkey=sjh9lerngaj9g9mpnbf0zwkob&st=jxqrvtwr&dl=0&raw=1",
+      "seccion": "hits",
+      "genero": "pop latino"
+    },
+    {
+      "caratula": "assets/covers/Beret-&-Morat-Porfa-no-te-vayas.jpg",
+      "artista": "Beret & Morat",
+      "nombre": "Porfa no te vayas",
+      "enlace": "https://www.dropbox.com/scl/fi/xa0dn79gpfwz8j864ieuk/Beret-Morat-Porfa-no-te-vayas.mp3?rlkey=9d2g2p57go9axqjsft56g2bil&st=urpi2ppv&dl=0&raw=1",
+      "seccion": "hits",
+      "genero": "balada pop"
+    },
+    {
+      "caratula": "assets/covers/Juanes-Me-enamora.jpg",
+      "artista": "Juanes",
+      "nombre": "Me enamora",
+      "enlace": "https://www.dropbox.com/scl/fi/iaz6zrposv0a4a93xcmro/Juanes-Me-enamora.mp3?rlkey=whhk9iyvdqp6cij1kybw7sb4h&st=rnhhhtpq&dl=0&raw=1",
+      "seccion": "hits",
+      "genero": "pop rock"
+    },
+    {
+      "caratula": "assets/covers/Julio-Garcia-Jah-Love-Eres-tu.jpg",
+      "artista": "Julio García & Jah Love",
+      "nombre": "Eres tú",
+      "enlace": "https://www.dropbox.com/scl/fi/osx3ftwbo0nvmj3k0cstc/Julio-Garc-a-Eres-t-F-Jah-Love.mp3?rlkey=mx2zmzjbah1xdy28puqyotnp7&st=n2z1dlkw&dl=0&raw=1",
+      "seccion": "hits",
+      "genero": "reggae"
+    },
+    {
+      "caratula": "assets/covers/Rusherking-&-Dread-Mar-Perfecta.jpg",
+      "artista": "Rusherking & Dread Mar",
+      "nombre": "Perfecta",
+      "enlace": "https://www.dropbox.com/scl/fi/er0mwwrcqsplqiblz7cjs/Rusherking-Dread-Mar-I-Perfecta.mp3?rlkey=6n11lw0hujz0gdjdeqhmvgjrg&st=c22upzoj&dl=0&raw=1",
+      "seccion": "hits",
+      "genero": "reggae"
+    },
+    {
+      "caratula": "assets/covers/Miranda-Maria-Becerra-&-FMK-Perfecta.jpg",
+      "artista": "Miranda, Maria Becerra & FMK",
+      "nombre": "Perfecta",
+      "enlace": "https://www.dropbox.com/scl/fi/otm7mwgpgcq6mrffochqh/Miranda-Maria-Becerra-FMK-Perfecta.mp3?rlkey=dcp0peupckwketd7m88u95c7z&st=2nf93g5g&dl=0&raw=1",
+      "seccion": "hits",
+      "genero": "pop electronico"
+    },
+    {
+      "caratula": "assets/covers/Rio-Roma-CNCO-Princesa.jpg",
+      "artista": "Río Roma & CNCO",
+      "nombre": "Princesa",
+      "enlace": "https://www.dropbox.com/scl/fi/34s6b39fa96fqybzs14c6/R-o-Roma-Princesa-F-CNCO.mp3?rlkey=njby7269xli107celq1qzo5a0&st=334evf03&dl=0&raw=1",
+      "seccion": "hits",
+      "genero": "pop latino"
+    }
+
+
+],
+"regional_mexicano": [
+  {
+    "caratula": "assets/covers/Grupo-Frontera-Carín-León-Mutuo.jpg",
+    "artista": "Grupo Frontera & Carín León",
+    "nombre": "Mutuo",
+    "enlace": "https://www.dropbox.com/scl/fi/bwgou27pnnx3oh5h86bl0/Grupo-Frontera-Car-n-Le-n-Mutuo.MP3?rlkey=ul5h33npoik52kvfxupnmlvd8&st=v1p2o2sc&dl=0&raw=1",
+    "seccion": "regional_mexicano",
+    "genero": "regional mexicano"
+  },
+  {
+    "caratula": "assets/covers/Freddo-Lucky-Bossi-&-Espinoza-Paz-Llevame.jpg",
+    "artista": "Freddo Lucky Bossi & Espinoza Paz",
+    "nombre": "Llévame",
+    "enlace": "https://www.dropbox.com/scl/fi/qomd53zq10n8kzm4uqncc/Freddo-Lucky-Bossi-Espinoza-Paz-Ll-vame.mp3?rlkey=ekot7j74l58i85o62t964xtbg&st=ytvbkmmu&dl=0&raw=1",
+    "seccion": "regional_mexicano",
+    "genero": "regional mexicano"
+  },
+  {
+    "caratula": "assets/covers/Grupo-Frontera-Ke-Personajes-Sencillamente-bonita.jpg",
+    "artista": "Grupo Frontera & Ke Personajes",
+    "nombre": "Sencillamente bonita",
+    "enlace": "https://www.dropbox.com/scl/fi/zfl1aho22z7rvkpsdohhq/Grupo-Frontera-Ke-Personaje-Sencillamente-bonita.MP3?rlkey=o68ydwlkqz51fyperra25jz1n&st=4gk5zucf&dl=0&raw=1",
+    "seccion": "regional_mexicano",
+    "genero": "cumbia norteña"
+  },
+  {
+    "caratula": "assets/covers/Xavi-Manuel-Turizo-En-privado.jpg",
+    "artista": "Xavi, Manuel Turizo",
+    "nombre": "En privado",
+    "enlace": "https://www.dropbox.com/scl/fi/lx1w2sjjfgo9z713k994w/Xavi-Manuel-Turizo-En-privado.MP3?rlkey=hhcn5nwnebjndd7eox1bp73er&st=q7v3ctgc&dl=0&raw=1",
+    "seccion": "regional_mexicano",
+    "genero": "regional mexicano"
+  },
+  {
+    "caratula": "assets/covers/Michelle-Maciel-Eden-Muñoz-CCC.jpg",
+    "artista": "Michelle Maciel & Eden Muñoz",
+    "nombre": "CCC",
+    "enlace": "https://www.dropbox.com/scl/fi/ie339m4toxhgm19lkpwdy/CCC-Michelle-Maciel-x-Eden-Mu-oz.mp3?rlkey=odqvqrqdxyf37h70plfhhy4s8&st=1qufa3qq&dl=0&raw=1",
+    "seccion": "regional_mexicano",
+    "genero": "regional mexicano"
+  },
+  {
+    "caratula": "assets/covers/Michelle-Maciel-Me-todo.jpg",
+    "artista": "Michelle Maciel",
+    "nombre": "Me todo",
+    "enlace": "https://www.dropbox.com/scl/fi/7row555uvtjrfqorgwfoi/Michelle-Maciel-Me-todo.mp3?rlkey=j8yex0agtnv2vtwt76jd6ixm2&st=d46b1ltc&dl=0&raw=1",
+    "seccion": "regional_mexicano",
+    "genero": "regional mexicano"
+  },
+  {
+    "caratula": "assets/covers/Christian-Nodal-Estevie-Un-besito-mas.png",
+    "artista": "Christian Nodal & Estevie",
+    "nombre": "Un besito más",
+    "enlace": "https://www.dropbox.com/scl/fi/yllabcmknveqh43qfzjt7/Christian-Nodal-Estevie-Un-besito-m-s.MP3?rlkey=0oj50tqxhx7z8gxwmcl2rcxwy&st=c6s0i8ky&dl=0&raw=1",
+    "seccion": "regional_mexicano",
+    "genero": "regional mexicano"
+  },
+  {
+    "caratula": "assets/covers/Milla-22-Me-gustas-curiosa.jpg",
+    "artista": "Milla 22",
+    "nombre": "Me gustas curiosa",
+    "enlace": "https://www.dropbox.com/scl/fi/hwrr0ag58xjzc5jdwlg2z/Milla-22-Me-gustas-curiosa.mp3?rlkey=z4q6vc6pnep9449kk4ne24b9f&st=4zg04z68&dl=0&raw=1",
+    "seccion": "regional_mexicano",
+    "genero": "regional mexicano"
+  },
+  {
+    "caratula": "assets/covers/Los-Elegantes-De-Jerez-&-Distinto-Norte-Estas-bien-bonita.jpg",
+    "artista": "Los Elegantes De Jerez & Distinto Norte",
+    "nombre": "Estás bien bonita",
+    "enlace": "https://www.dropbox.com/scl/fi/li4m1oyrxva5kxa1b0psh/Los-Elegantes-De-Jerez-Distinto-Norte-Est-s-bien-bonita.mp3?rlkey=t2pg4mkphrahd5ya424ls73lz&st=4sqz5312&dl=0&raw=1",
+    "seccion": "regional_mexicano",
+    "genero": "norteño"
+  },
+  {
+    "caratula": "assets/covers/La-Maquinaria-Nortena-Con-ese-corazon.jpg",
+    "artista": "La Maquinaria Norteña",
+    "nombre": "Con ese corazón",
+    "enlace": "https://www.dropbox.com/scl/fi/455zzmvpwlwqaenoj3uci/La-Maquinaria-Norte-a-Con-ese-coraz-n.mp3?rlkey=1dwhp23wp9exx7ldsaoquzpwe&st=1j5j9vcc&dl=0&raw=1",
+    "seccion": "regional_mexicano",
+    "genero": "norteño"
+  },
+
+
+
+  {
+    "caratula": "assets/covers/Conjunto-Rienda-Real-Contigo-quiero.jpg",
+    "artista": "Conjunto Rienda Real",
+    "nombre": "Contigo quiero",
+    "enlace": "https://www.dropbox.com/scl/fi/0y6wqea3zebswg6m45dai/Conjunto-Rienda-Real-Contigo-quiero.mp3?rlkey=i4b1d704k610lh1zdr3hp6tid&st=vbdkll9h&dl=0&raw=1",
+    "seccion": "regional_mexicano",
+    "genero": "norteño"
+  },
+  {
+    "caratula": "assets/covers/Rodrigo-Guerrero-Contigo.jpg",
+    "artista": "Rodrigo Guerrero",
+    "nombre": "Contigo",
+    "enlace": "https://www.dropbox.com/scl/fi/9878n9bls33nxqjsrqf26/Rodrigo-Guerrero-Contigo.mp3?rlkey=tipduqd4ca6bz1j67rgw5v75i&st=83iuskxu&dl=0&raw=1",
+    "seccion": "regional_mexicano",
+    "genero": "regional mexicano"
+  },
+  {
+    "caratula": "assets/covers/ElArturo-Cada-dia-mas.png",
+    "artista": "ElArturo",
+    "nombre": "Cada día más",
+    "enlace": "https://www.dropbox.com/scl/fi/j6bk7n5k3z4e0wvvl3tw9/ElArturo-Cada-d-a-m-s.mp3?rlkey=qbofmetls8zz6nsksuxmvn3e0&st=yqfg6yid&dl=0&raw=1",
+    "seccion": "regional_mexicano",
+    "genero": "regional mexicano"
+  },
+  {
+    "caratula": "assets/covers/Calibre-50-Un-imposible-a-tu-medida.png",
+    "artista": "Calibre 50",
+    "nombre": "Un imposible a tu medida",
+    "enlace": "https://www.dropbox.com/scl/fi/evux540mdcrwypsovddpq/Calibre-50-Un-imposible-a-tu-medida.mp3?rlkey=lwvh13pqta65rrzoaesmlj5hf&st=njsb3d96&dl=0&raw=1",
+    "seccion": "regional_mexicano",
+    "genero": "regional mexicano"
+  },
+  {
+    "caratula": "assets/covers/Grupo-Firme-Me-gustas.png",
+    "artista": "Grupo Firme",
+    "nombre": "Me gustas",
+    "enlace": "https://www.dropbox.com/scl/fi/jwc8oqm67txmmr9tylfpz/Grupo-Firme-Me-gustas.mp3?rlkey=jx8lofvs1kd21e1kd9u38x27p&st=8v5c40m2&dl=0&raw=1",
+    "seccion": "regional_mexicano",
+    "genero": "regional mexicano"
+  }
+],
+
+
+
+"viva_latino": [
+  {
+    "caratula": "assets/covers/Becky-G-Manuel-Turizo-Que-haces.png",
+    "artista": "Becky G & Manuel Turizo",
+    "nombre": "Qué haces",
+    "enlace": "https://www.dropbox.com/scl/fi/t1tt04cs5md7e63intqgn/Becky-G-Manuel-Turizo-Qu-haces.MP3?rlkey=sjh9lerngaj9g9mpnbf0zwkob&st=wfyq40qh&dl=0&raw=1",
+    "seccion": "viva_latino",
+    "genero": "pop latino"
+  },
+  {
+    "caratula": "assets/covers/Ilegales-&-Manny-Cruz-Sabes-enamorarme.jpg",
+    "artista": "Ilegales & Manny Cruz",
+    "nombre": "Sabes enamorarme",
+    "enlace": "https://www.dropbox.com/scl/fi/fn5u4cjvi88yes7ok074p/Ilegales-Manny-Cruz-Sabes-enamorarme-R.mp3?rlkey=unzyrke27em7yvrizvtgbk68l&st=flp2ydqy&dl=0&raw=1",
+    "seccion": "viva_latino",
+    "genero": "rumba"
+  },
+  {
+    "caratula": "assets/covers/Ricky-Martin-&-Carlos-Vives-Cancion-bonita.jpg",
+    "artista": "Ricky Martin & Carlos Vives",
+    "nombre": "Canción bonita",
+    "enlace": "https://www.dropbox.com/scl/fi/rhtqrm3lxzvxgut6ixy9d/Ricky-Martin-Carlos-Vives-Canci-n-bonita.mp3?rlkey=o20mzf1da6qk5bepgwi65ie21&st=0koielt1&dl=0&raw=1",
+    "seccion": "viva_latino",
+    "genero": "tropi pop"
+  },
+  {
+    "caratula": "assets/covers/Luciano-Pereyra-Eres-perfecta.jpg",
+    "artista": "Luciano Pererya",
+    "nombre": "Eres perfecta",
+    "enlace": "https://www.dropbox.com/scl/fi/6ag9wwf17rfuhd4fs2ka4/Luciano-Pereyra-Eres-perfecta.MP3?rlkey=mkrdmlknnvnqqwoaf3ib43baw&st=vbdehjcq&dl=0&raw=1",
+    "seccion": "viva_latino",
+    "genero": "balada pop"
+  },
+  {
+    "caratula": "assets/covers/Marc-Anthony-Felices-los-4.jpg",
+    "artista": "Marc Anthony & Maluma",
+    "nombre": "Felices los 4",
+    "enlace": "https://www.dropbox.com/scl/fi/oh494unl9icpwfmck7abh/Marc-Anthony-Felices-los-4-F.mp3?rlkey=mp5ghcjmef347wep0kafikd2h&st=jv058tt8&dl=0&raw=1",
+    "seccion": "viva_latino",
+    "genero": "salsa"
+  },
+  {
+    "caratula": "assets/covers/Karol-G-Si-antes-te-hubiera-conocido.jpg",
+    "artista": "Karol G",
+    "nombre": "Si antes te hubiera conocido",
+    "enlace": "https://www.dropbox.com/scl/fi/ggzw4c73ppdumrgepc2jv/Karol-G-Si-antes-te-hubiera-conocido.MP3?rlkey=p9fja12smkfv17zddq12f8sx7&st=ic5bq99m&dl=0&raw=1",
+    "seccion": "viva_latino",
+    "genero": "tropi pop"
+  },
+  {
+    "caratula": "assets/covers/Malu-Prince-Royce-Contigo.jpg",
+    "artista": "Malú & Prince Royce",
+    "nombre": "Contigo",
+    "enlace": "https://www.dropbox.com/scl/fi/qkow805z310cc11o19n8u/Mal-Prince-Royce-Contigo.MP3?rlkey=5o3d9d9ff4zk1byx7zocevuun&st=i3b0f5hw&dl=0&raw=1",
+    "seccion": "viva_latino",
+    "genero": "balada pop"
+  },
+  {
+    "caratula": "assets/covers/Los-Rumberos-&-Tony-Succar-Si-te-animas.jpg",
+    "artista": "Los Rumberos & Tony Succar",
+    "nombre": "Si te animas",
+    "enlace": "https://www.dropbox.com/scl/fi/q31d3pz9xhcv9i8bd1uas/Los-Rumberos-Tony-Succar-Si-te-animas.mp3?rlkey=ngrqvouuouj1e6ft6un0ymjml&st=cczgo3au&dl=0&raw=1",
+    "seccion": "viva_latino",
+    "genero": "rumba"
+  },
+  {
+    "caratula": "assets/covers/Sebastian-Yatra-&-Carlos-Vives-Robarte-un-beso.jpg",
+    "artista": "Sebastián Yatra & Carlos Vives",
+    "nombre": "Robarte un beso",
+    "enlace": "https://www.dropbox.com/scl/fi/xsfs8jgx62wk86xrpzc5t/Sebasti-n-Yatra-Carlos-Vives-Robarte-un-beso.mp3?rlkey=u53c4ae914y560d3jsgt6s7nw&st=p9wlxagj&dl=0&raw=1",
+    "seccion": "viva_latino",
+    "genero": "tropi pop"
+  },
+  {
+    "caratula": "assets/covers/Nigga-Ricky-Rick-Cerquita-de-mi.jpg",
+    "artista": "Nigga & Ricky Rick",
+    "nombre": "Cerquita de mi",
+    "enlace": "https://www.dropbox.com/scl/fi/1l1yr85ghnlbyup66rbl6/Nigga-F-Ricky-Rick-Cerquita-de-mi.MP3?rlkey=g3pm8fhccbqy3uhqlj0sfd6oy&st=0vnxi1ba&dl=0&raw=1",
+    "seccion": "viva_latino",
+    "genero": "tropi pop"
+  }
+],
+
+
+
+"rock_en_español": [
+  {
+    "caratula": "assets/covers/Enrique-Bunbury-Miren-Iza-Frente-a-frente.jpg",
+    "artista": "Enrique Bunbury & Miren Iza",
+    "nombre": "Frente a frente",
+    "enlace": "https://www.dropbox.com/scl/fi/2bhzqvy141z106gzz4l3k/Enrique-Bunbury-F-Miren-Iza-Frente-a-frente.MP3?rlkey=ml8pzlshd85xigmn0iiqa7sad&st=q5y6p5ek&dl=0&raw=1",
+    "seccion": "rock_espanol",
+    "genero": "rock en español"
+  },
+  {
+    "caratula": "assets/covers/Melendi-Tu-jardin.jpg",
+    "artista": "Melendi",
+    "nombre": "Tu jardín",
+    "enlace": "https://www.dropbox.com/scl/fi/pvzadz7hl8zrku16v26ic/Melendi-Tu-jard-n.mp3?rlkey=ltnql21weas2y3x1elfjc56qn&st=0jqvrsok&dl=0&raw=1",
+    "seccion": "rock_espanol",
+    "genero": "rock en español"
+  },
+  {
+    "caratula": "assets/covers/Los-Enanitos-Verdes-Y-ahora-te-vas.jpg",
+    "artista": "Los Enanitos Verdes",
+    "nombre": "Y ahora te vas",
+    "enlace": "https://www.dropbox.com/scl/fi/mc8vdq9iprzybtgvck6p9/Los-Enanitos-Verdes-Y-ahora-te-vas.mp3?rlkey=jbdbjcs54yecu695hzngsjxmr&st=dk30xded&dl=0&raw=1",
+    "seccion": "rock_espanol",
+    "genero": "rock en español"
+  },
+  {
+    "caratula": "assets/covers/Hombres-G-Lo-noto.jpg",
+    "artista": "Hombres G",
+    "nombre": "Lo noto",
+    "enlace": "https://www.dropbox.com/scl/fi/42segn0274mnolo1cusee/Hombres-G-Lo-noto.mp3?rlkey=3ty3cxar8bk0j1eobicz9ez4b&st=blncs9mu&dl=0&raw=1",
+    "seccion": "rock_espanol",
+    "genero": "rock en español"
+  },
+  {
+    "caratula": "assets/covers/Moderato-Queremos-Rock.png",
+    "artista": "Moderatto",
+    "nombre": "Ya lo veía venir",
+    "enlace": "https://www.dropbox.com/scl/fi/ujmh5zblwbh9ybm1737th/Moderato-Ya-lo-venia-venir.mp3?rlkey=4yif4sainjje3icbeqcaahe8e&st=s7unbyhb&dl=0&raw=1",
+    "seccion": "rock_espanol",
+    "genero": "rock en español"
+  },
+  {
+    "caratula": "assets/covers/La-Vela-Puerca-Fragil.jpg",
+    "artista": "La Vela Puerca",
+    "nombre": "Frágil",
+    "enlace": "https://www.dropbox.com/scl/fi/4jyx1zvj437g5dbvw8l43/La-Vela-Puerca-Fr-gil.mp3?rlkey=pxpdtracxk8pirjixaebtnxvb&st=ugnm4jok&dl=0&raw=1",
+    "seccion": "rock_espanol",
+    "genero": "rock en español"
+  },
+  {
+    "caratula": "assets/covers/Mana-Rayando-el-sol.jpg",
+    "artista": "Maná",
+    "nombre": "Rayando el sol",
+    "enlace": "https://www.dropbox.com/scl/fi/ujkxxjwclq4gpgbw13b3u/Man-Rayando-el-sol.MP3?rlkey=8dxmk0q8e26rvogug08x8jlgp&st=c37lakxu&dl=0&raw=1",
+    "seccion": "rock_espanol",
+    "genero": "pop rock"
+  },
+  {
+    "caratula": "assets/covers/Genitallica-Lo-que-nunca-vas-a-ser.jpg",
+    "artista": "Genitallica",
+    "nombre": "Lo que nunca vas a ser",
+    "enlace": "https://www.dropbox.com/scl/fi/yaf9of6kmdpgpchkzncd7/Genitallica-Lo-que-nunca-vas-a-ser.MP3?rlkey=g9lhvasl17bqauslbt2rigmrq&st=nt1aaqu0&dl=0&raw=1",
+    "seccion": "rock_espanol",
+    "genero": "rock en español"
+  },
+  {
+    "caratula": "assets/covers/Los-Rabanes-Perfidia.jpg",
+    "artista": "Los Rabanes",
+    "nombre": "Perfidia",
+    "enlace": "https://www.dropbox.com/scl/fi/uijnw67b07h4pgycff8pe/Los-Rabanes-Perfidia.mp3?rlkey=gueprpc1te6neo3kxzicbd7hz&st=20omtmc9&dl=0&raw=1",
+    "seccion": "rock_espanol",
+    "genero": "ska"
+  },
+  {
+    "caratula": "assets/covers/Los-Autenticos-Decadentes-Somos.jpg",
+    "artista": "Los Auténticos Decadentes",
+    "nombre": "Somos",
+    "enlace": "https://www.dropbox.com/scl/fi/sooyovujooddui6hm4tzq/Los-Autt-nticos-Decadentes-Somos.mp3?rlkey=vj9wkixktuyb8yj9p94o6vrdu&st=wfdse3lb&dl=0&raw=1",
+    "seccion": "rock_espanol",
+    "genero": "rock en español"
+  },
+
+
+
+  {
+    "caratula": "assets/covers/Bersuit-Espiritu-de-esta-selva.jpg",
+    "artista": "Bersuit Vergarabat",
+    "nombre": "Espíritu de esta selva",
+    "enlace": "https://www.dropbox.com/scl/fi/zrs7jjgqphai21m5m97xl/Bersuit-Vergarabat-Esp-ritu-de-esta-selva.mp3?rlkey=bwoepjv4jif1lmhx8tcr9ea2q&st=2ekbn2lm&dl=0&raw=1",
+    "seccion": "rock_espanol",
+    "genero": "rock en español"
+  },
+  {
+    "caratula": "assets/covers/Vilma-Palma-e-Vampiros-Auto-rojo-(PercuMix).jpg",
+    "artista": "Vilma Plama e Vampiros",
+    "nombre": "Auto rojo",
+    "enlace": "https://www.dropbox.com/scl/fi/lyssxt8qhhxhdxwgm0ydh/Vilma-Palma-e-Vampiros-Auto-Rojo-Percu-Mix.mp3?rlkey=urcrr296aaf4zmvna4pmh6ube&st=n8eq2k9d&dl=0&raw=1",
+    "seccion": "rock_espanol",
+    "genero": "pop rock"
+  },
+  {
+    "caratula": "assets/covers/La-Mosca-Ts%C3%A9-Ts%C3%A9-Baila-para-mi.jpg",
+    "artista": "La Mosca Tse Tse",
+    "nombre": "Baila para mi",
+    "enlace": "https://www.dropbox.com/scl/fi/ac6ni0m5dv0des9xrw6jx/La-Mosca-Ts-Ts-Baila-para-mi.mp3?rlkey=2hapt3hnspa6y89si7wfacgtw&st=45to6ka0&dl=0&raw=1",
+    "seccion": "rock_espanol",
+    "genero": "ska"
+  },
+  {
+    "caratula": "assets/covers/Los-Autenticos-Decadentes-La-ladrona.png",
+    "artista": "Los Auténticos Decadentes",
+    "nombre": "La ladrona",
+    "enlace": "https://www.dropbox.com/scl/fi/ufgs28rfj4urily77a6k7/Los-Aut-nticos-Decadentes-La-ladrona-F.mp3?rlkey=jc976itxuv8xm0e85401f76wu&st=pr1nyg00&dl=0&raw=1",
+    "seccion": "rock_espanol",
+    "genero": "rock en español"
+  },
+  {
+    "caratula": "assets/covers/Alex-Lora-&-Diego-Verdaguer-Usted-que-haria.jpg",
+    "artista": "Diego Verdaguer & Alex Lora",
+    "nombre": "Usted que haría",
+    "enlace": "https://www.dropbox.com/scl/fi/ezk399dn0qvi145vk00t4/lex-Lora-Diego-Verdaguer-Usted-qu-har-a-F.mp3?rlkey=9glnqalf4cltohzb48v0pia71&st=l8xfxi5s&dl=0&raw=1",
+    "seccion": "rock_espanol",
+    "genero": "rock en español"
+  },
+  {
+    "caratula": "assets/covers/Sangre-Avandaro-Dejame-verte-sonreir.jpg",
+    "artista": "Sangre Avandaro",
+    "nombre": "Déjame verte sonreír",
+    "enlace": "https://www.dropbox.com/scl/fi/p2zzo4jjp58j0wiic9hrn/Sangre-Avandaro-D-jame-verte-sonre-r.mp3?rlkey=49mriehle130y4cwqp0uh8gyb&st=1ocnib5u&dl=0&raw=1",
+    "seccion": "rock_espanol",
+    "genero": "rock en español"
+  },
+  {
+    "caratula": "assets/covers/Baby-Batiz-Se-mi-baby.jpg",
+    "artista": "Baby Batiz",
+    "nombre": "Se mi baby",
+    "enlace": "https://www.dropbox.com/scl/fi/2lddl0tc7ye2gi0z2380o/Baby-B-tiz-Se-mi-baby.mp3?rlkey=ybhywsil7jvg1nyh85kyplbhl&st=e2j05wk5&dl=0&raw=1",
+    "seccion": "rock_espanol",
+    "genero": "rock en español"
+  },
+  {
+    "caratula": "assets/covers/El-Tri-Claro-que-se-puede.jpg",
+    "artista": "El Tri",
+    "nombre": "Claro que se puede",
+    "enlace": "https://www.dropbox.com/scl/fi/yc66942saozlo3xpunbms/El-Tri-Claro-que-se-puede.mp3?rlkey=0gc7oyaqsznlwhmynb6b21igg&st=mb8lfrh1&dl=0&raw=1",
+    "seccion": "rock_espanol",
+    "genero": "rock urbano"
+  },
+  {
+    "caratula": "assets/covers/Mago-De-Oz-Hoy-toca-ser-feliz.jpg",
+    "artista": "Mago De Oz",
+    "nombre": "Hoy toca ser feliz",
+    "enlace": "https://www.dropbox.com/scl/fi/5awwxrsm1n90pwia3vnuv/Mago-De-Oz-Hoy-toca-ser-feliz.mp3?rlkey=1wpilezb5ywrpsf34fto7kvxd&st=iu6m8khe&dl=0&raw=1",
+    "seccion": "rock_espanol",
+    "genero": "rock en español"
+  },
+  {
+    "caratula": "assets/covers/Rod-Levario-Sola-una-vez.jpg",
+    "artista": "Rod Levario",
+    "nombre": "Solo una vez",
+    "enlace": "https://www.dropbox.com/scl/fi/hw6otrltiln6qy98tkupo/Rod-Levario-Sola-una-vez.MP3?rlkey=bfhtrh1cspzghvy1bkt4q3k0p&st=9i23dj4j&dl=0&raw=1",
+    "seccion": "rock_espanol",
+    "genero": "rock en español"
+  },
+
+
+
+  {
+    "caratula": "assets/covers/Bravaje-Extraño-Amiga.png",
+    "artista": "Brebaje Extraño",
+    "nombre": "Amiga",
+    "enlace": "https://www.dropbox.com/scl/fi/6v1dv2b34igx4e30kdty0/Brebaje-Extra-o-Amiga.mp3?rlkey=zpqff72xt4v5zg9eiuv1p8ttw&st=9oobki5k&dl=0&raw=1",
+    "seccion": "rock_espanol",
+    "genero": "rock urbano"
+  },
+  {
+    "caratula": "assets/covers/Sur-16-Dime.jpg",
+    "artista": "Sur 16",
+    "nombre": "Dime",
+    "enlace": "https://www.dropbox.com/scl/fi/ljfwgohpxm4ilp38ygpdq/Sur-16-Dime.mp3?rlkey=fruuan2n1hna6qihct6ktfec6&st=kfbze62o&dl=0&raw=1",
+    "seccion": "rock_espanol",
+    "genero": "rock urbano"
+  },
+  {
+    "caratula": "assets/covers/Toma-II-Que-seas-muy-feliz.jpg",
+    "artista": "Toma II",
+    "nombre": "Que seas muy feliz",
+    "enlace": "https://www.dropbox.com/scl/fi/bnh5ybtwo2ukto09wd7c6/Toma-II-Que-seas-muy-feliz.mp3?rlkey=lut0hsf2xzrrbttxthl6y6tv7&st=6hrl3g5j&dl=0&raw=1",
+    "seccion": "rock_espanol",
+    "genero": "rock urbano"
+  },
+  {
+    "caratula": "assets/covers/Vallejo-3-Yo-te-necesito.jpg",
+    "artista": "3 Vallejo",
+    "nombre": "Yo te necesito",
+    "enlace": "https://www.dropbox.com/scl/fi/g2wy7zbmc1gn8ohvjx0mu/3-Vallejo-Yo-te-necesito.mp3?rlkey=x15yhr7hn8e76m5eev3vmlmcq&st=3sexnmrq&dl=0&raw=1",
+    "seccion": "rock_espanol",
+    "genero": "rock urbano"
+  },
+  {
+    "caratula": "assets/covers/Hazel-Me-haces-sentir-bien.jpg",
+    "artista": "Hazel",
+    "nombre": "Me haces sentir tan bien",
+    "enlace": "https://www.dropbox.com/scl/fi/r5498t466p41meygsvewr/Hazel-Me-haces-sentir-bien.mp3?rlkey=bi7onnujth5z867ot0t8d1zp5&st=hyibczqa&dl=0&raw=1",
+    "seccion": "rock_espanol",
+    "genero": "rock urbano"
+  }
+],
+
+
+
+"mega_mix": [
+  {
+    "caratula": "assets/covers/Shakira-Papatinho-Estoy-aqui-[R].jpg",
+    "artista": "Shakira & Papatinho",
+    "nombre": "Estoy aquí",
+    "enlace": "https://www.dropbox.com/scl/fi/s8vzy0yb7kxg2p7wxl8n7/Shakira-Papatinho-Estoy-aqu-Remix.MP3?rlkey=megaay5wkx8uanpqhi6qp97ag&st=n7vcpwtj&dl=0&raw=1",
+    "seccion": "mega_mix",
+    "genero": "pop latino"
+  },
+  {
+    "caratula": "assets/covers/Tranzas-Guepa-Mori.jpg",
+    "artista": "Tranzas & Güepa",
+    "nombre": "Morí",
+    "enlace": "https://www.dropbox.com/scl/fi/h8eke4aff2prqmtysijo7/Tranzas-x-G-epa-Mor.mp3?rlkey=3mzvoc4zy0q31jorkujcqlck4&st=wyce3c44&dl=0&raw=1",
+    "seccion": "mega_mix",
+    "genero": "pop rock"
+  },
+  {
+    "caratula": "assets/covers/Julieta-Venegas-Eres-para-mi-[R].jpg",
+    "artista": "Julieta Venegas",
+    "nombre": "Eres para mi",
+    "enlace": "https://www.dropbox.com/scl/fi/68z6cza7x299bs6a8qkgm/Julieta-Venegas-Eres-para-mi-R.mp3?rlkey=qflvc4v7y2g3f1fsnotpxc0zh&st=s3vf50ac&dl=0&raw=1",
+    "seccion": "mega_mix",
+    "genero": "pop latino"
+  },
+  {
+    "caratula": "assets/covers/Fanny-Lu-JKing- Maximan-Celos.jpg",
+    "artista": "Fanny Lu, King & Maximan",
+    "nombre": "Celos",
+    "enlace": "https://www.dropbox.com/scl/fi/1zkwmdn5dwc51nyhbxrw4/Fanny-Lu-Celos-F-J-King-Maximan.mp3?rlkey=4e3jedy5zf2sf6wy8sy9ogv90&st=izxmlbvw&dl=0&raw=1",
+    "seccion": "mega_mix",
+    "genero": "pop latino"
+  },
+  {
+    "caratula": "assets/covers/Becky-G-Sin-pijama-[R].jpg",
+    "artista": "Becky G & Natty Natasha",
+    "nombre": "Sin pijama",
+    "enlace": "https://www.dropbox.com/scl/fi/g4hgd8gsycdywq81c6tcb/Becky-G-Natty-Natasha-Sin-pijama-R.mp3?rlkey=gaqatj3axj7um4v9klil2x4xz&st=9l72sxrc&dl=0&raw=1",
+    "seccion": "mega_mix",
+    "genero": "pop latino"
+  },
+  {
+    "caratula": "assets/covers/Los-Angeles-Azules-Pepe-Aguilar-Amigos-nada-mas.jpg",
+    "artista": "Los Ánegeles Azules & Pepé Aguilar",
+    "nombre": "Amigos nada más",
+    "enlace": "https://www.dropbox.com/scl/fi/z9zn6bts8gvfoavawyugp/Los-ngeles-Azules-Amigos-nada-m-s-F-Pepe-Aguilar-R.mp3?rlkey=8wythjwfado0tzd98ofqxlycf&st=33rq6oqd&dl=0&raw=1",
+    "seccion": "mega_mix",
+    "genero": "cumbia"
+  },
+  {
+    "caratula": "assets/covers/Los-Angeles-Azules-Santa-Fe-Klan-Cazzu-Tu-y-tu.jpg",
+    "artista": "Los Ánegeles Azules, Santa Fe Klan & Cazzu",
+    "nombre": "Tú y tú",
+    "enlace": "https://www.dropbox.com/scl/fi/9shjrl5vx5qnxjrk8g2sa/ngeles-Azules-T-y-t-F-Santa-Fe-Klan-x-Cazzu.mp3?rlkey=hqzhmcd8h2xf7wcdc79cg4nqd&st=tcod6xp9&dl=0&raw=1",
+    "seccion": "mega_mix",
+    "genero": "cumbia"
+  },
+  {
+    "caratula": "assets/covers/ICC-Aleks-Syntek-Donde-estaras.jpg",
+    "artista": "ICC & Aleks Syntek",
+    "nombre": "Dónde estarás",
+    "enlace": "https://www.dropbox.com/scl/fi/3bp7dklf4zn6g9nfdw4v5/ICC-D-nde-estar-s-F-Aleks-Syntek.MP3?rlkey=ltqwb0zvwjztnglws9uckrdp2&st=cdsb8661&dl=0&raw=1",
+    "seccion": "mega_mix",
+    "genero": "pop latino"
+  },
+  {
+    "caratula": "assets/covers/Grupo-Frontera-No-se-va-[R].jpg",
+    "artista": "Grupo Frontera",
+    "nombre": "No se va",
+    "enlace": "https://www.dropbox.com/scl/fi/s708cwuzb0yngvt9cml8y/Grupo-Frontera-No-se-va-R.mp3?rlkey=o7yu1ooyh9p7zppvi8zzi19tk&st=fc053szp&dl=0&raw=1",
+    "seccion": "mega_mix",
+    "genero": "regional mexicano"
+  },
+  {
+    "caratula": "assets/covers/Marama-Emanero-&-Rafaga-Todo-comenzo-bailando.jpg",
+    "artista": "Marama, Emanero & Ráfaga",
+    "nombre": "Todo comenzó bailando",
+    "enlace": "https://www.dropbox.com/scl/fi/bzn96s9l1h0nnf9futa64/Marama-Emanero-R-faga-Todo-comenz-bailando-R.mp3?rlkey=57pwd2tdcirmloc1bnrignh8d&st=0o6anfhr&dl=0&raw=1",
+    "seccion": "mega_mix",
+    "genero": "cuarteto"
+  },
+
+
+
+  {
+    "caratula": "assets/covers/Pijama-Party-Cande-Buasso-Comerte-a-besos.jpg",
+    "artista": "Pijama Party & Cande Buasso",
+    "nombre": "Comerte a besos",
+    "enlace": "https://www.dropbox.com/scl/fi/6om986uq3uz5vte4h1ta2/Pijama-Party-F-Cande-Buasso-Comerte-a-besos.mp3?rlkey=lzqbujhk0u6nutj8vuox8gvyz&st=43qpjhvd&dl=0&raw=1",
+    "seccion": "mega_mix",
+    "genero": "pop latino"
+  },
+  {
+    "caratula": "assets/covers/Meri-Deal-Marka-Akme-Lil-Cake-Solo-necesito.jpg",
+    "artista": "Meri Deal, Marka Akme & Lil Cake",
+    "nombre": "Sólo necesito",
+    "enlace": "https://www.dropbox.com/scl/fi/7a4g5cq6z3yq7enebs68q/Meri-Deal-Marka-Akme-Lil-Cake-Solo-necesito-R.mp3?rlkey=7hghpr5mou7gz84x95z82j8qr&st=8w6qc7hr&dl=0&raw=1",
+    "seccion": "mega_mix",
+    "genero": "pop latino"
+  },
+  {
+    "caratula": "assets/covers/Rusherking-&-Marama-Besos-con-fernet.webp",
+    "artista": "Rusherking & Marama",
+    "nombre": "Besos con fernet",
+    "enlace": "https://www.dropbox.com/scl/fi/chx2lrsjknnufmx31qoog/Rusherking-Marama-Besos-con-fernet.mp3?rlkey=104v4wgby5n3fkmj7y3mut0lj&st=j0tams9j&dl=0&raw=1",
+    "seccion": "mega_mix",
+    "genero": "cuarteto"
+  },
+  {
+    "caratula": "assets/covers/Vi-Em-Nicolas-Mayorca-Corazon-de-carton.jpg",
+    "artista": "Vi-Em & Nicolas Mayorca",
+    "nombre": "Corazón de cartón",
+    "enlace": "https://www.dropbox.com/scl/fi/ldnvnfd0mrg5us3041dj8/Vi-Em-x-Nicolas-Mayorca-Coraz-n-de-cart-n-R.MP3?rlkey=kvv801nmlugfxiesqgqd746ri&st=aoecdlna&dl=0&raw=1",
+    "seccion": "mega_mix",
+    "genero": "pop latino"
+  },
+  {
+    "caratula": "assets/covers/Luck-Ra-Nicki-Nicole-Rusherking-&-FMK-Culpable.jpg",
+    "artista": "Luck Ra, Nicki Nicole, Rusherking & FMK",
+    "nombre": "Culpable",
+    "enlace": "https://www.dropbox.com/scl/fi/noy4e0bzduq3dt9ufcwty/Luck-Ra-Nicki-Nicole-Rusherking-FMK-Culpable.mp3?rlkey=nr8u2cosw67pikpbcahc1cmc8&st=oy58kawr&dl=0&raw=1",
+    "seccion": "mega_mix",
+    "genero": "pop latino"
+  },
+  {
+    "caratula": "assets/covers/Luck-Ra-Maluma-&-Khea-Hola-perdida.jpg",
+    "artista": "Luck Ra, Maluma & Khea",
+    "nombre": "Hola perdida",
+    "enlace": "https://www.dropbox.com/scl/fi/xr8smz9gqqht4u05xojj5/Luck-Ra-Maluma-Khea-Hola-perdida-R.mp3?rlkey=fgq6kad9wfqpy7qj0e1tn41nv&st=4ccvlu54&dl=0&raw=1",
+    "seccion": "mega_mix",
+    "genero": "pop latino"
+  },
+  {
+    "caratula": "assets/covers/Nene-Malo-Bailan -rochas-y-chetas.jpg",
+    "artista": "Nene Malo",
+    "nombre": "Bailan rochas y chetas",
+    "enlace": "https://www.dropbox.com/scl/fi/6rp98jnot2ebkt19wehvs/Bailan-rochas-y-chetas.mp3?rlkey=akjfh7k3bn1re3gmeaffj8toz&st=5djbe2de&dl=0&raw=1",
+    "seccion": "mega_mix",
+    "genero": "cheta"
+  },
+  {
+    "caratula": "assets/covers/Mesa-que-mas-aplauda-(Fem-Version).jpg",
+    "artista": "Clímax, Bellakat",
+    "nombre": "Mesa que mas aplauda (Za, za, za)",
+    "enlace": "https://www.dropbox.com/scl/fi/6a9efv7do67mpumfo4yot/Mesa-que-mas-aplauda-Remix-Fem-Version.MP3?rlkey=lz9e34vz9cb64ylbigchdrc3n&st=d16kw5wr&dl=0&raw=1",
+    "seccion": "mega_mix",
+    "genero": "cheta"
+  }
+],
+
+
+
+"after_party": [
+  {
+    "caratula": "assets/covers/Daaz-&-ElArturo-La-plebada.jpg",
+    "artista": "Daaz & ElArturo",
+    "nombre": "La plebada",
+    "enlace": "https://www.dropbox.com/scl/fi/yw4yewktoxd2oveqqmhvk/Daaz-ElArturo-La-plebada.mp3?rlkey=78tafwgkt5hkp1gpne2w53mjk&st=352jvvit&dl=0&raw=1",
+    "seccion": "after_party",
+    "genero": "corrido tumbado"
+  },
+  {
+    "caratula": "assets/covers/C-Kan-Guapa-esta-noche.jpg",
+    "artista": "C-Kan",
+    "nombre": "Guapa esta noche",
+    "enlace": "https://www.dropbox.com/scl/fi/dinqy0e4oncqb7jhts9zb/C-Kan-Guapa-esta-noche.mp3?rlkey=rie4u0jd40dtu6i54ndjk6gy5&st=qkdlgc7l&dl=0&raw=1",
+    "seccion": "after_party",
+    "genero": "rap"
+  },
+  {
+    "caratula": "assets/covers/MC-Davo-Los-Esquivel-&-Joaquin-Medina-Se-armo-la-peda.jpg",
+    "artista": "MC Davo, Los Esquivel & Joaquin Medina",
+    "nombre": "Se armó la peda",
+    "enlace": "https://www.dropbox.com/scl/fi/srx2jcyjcuxtl0v0019vb/MC-Davo-Los-Esquivel-Joaquin-Medina-Se-arm-la-peda.mp3?rlkey=bgb7uz7i8h8jai2jf3h6hti4i&st=dz7lir56&dl=0&raw=1",
+    "seccion": "after_party",
+    "genero": "corrido tumbado"
+  },
+  {
+    "caratula": "assets/covers/Hector-Del-Norte-W-Corona-Tumbado-style.jpg",
+    "artista": "Hector Del Norte & W. Corona",
+    "nombre": "Tumbado style",
+    "enlace": "https://www.dropbox.com/scl/fi/thzluchasltjjiixk2me4/Hector-Del-Norte-Ft.-W-Corona-Tumbado-Style.mp3?rlkey=0ow1j0te9dgj82nlobqprqehg&st=ldjbks7f&dl=0&raw=1",
+    "seccion": "after_party",
+    "genero": "corrido tumbado"
+  },
+  {
+    "caratula": "assets/covers/Deorro-Eslabon-Armado-Peso-Pluma-Ella-baila-sola.jpg",
+    "artista": "Peso Pluma, Deodorro & Eslabón Armado",
+    "nombre": "Ella baila sola",
+    "enlace": "https://www.dropbox.com/scl/fi/q04a51agcx5f7kxuk5wam/Deorro-x-Eslabon-Armado-x-Peso-Pluma-Ella-baila-sola-R.mp3?rlkey=w8r1arwkxnsi9jnpbwowcr0ud&st=dwzavu2a&dl=0&raw=1",
+    "seccion": "after_party",
+    "genero": "corrido tumbado"
+  },
+  {
+    "caratula": "assets/covers/Alex-Favela-Grupo-Marca-Registrada-Joaquin-Medina-Elovrga.jpg",
+    "artista": "Alex Favela, Grupo Marca Registrada & Joaquin Medina",
+    "nombre": "Elovrga",
+    "enlace": "https://www.dropbox.com/scl/fi/h2dhn16mk2p9liz04d28m/Alex-Favela-Grupo-Marca-Registrada-Joaquin-Medina-Elovrga.mp3?rlkey=d4jp3t4gis38x1k6iuuopddvd&st=m29ll4jw&dl=0&raw=1",
+    "seccion": "after_party",
+    "genero": "corrido tumbado"
+  },
+  {
+    "caratula": "assets/covers/El-Emcut-Y-Los-Primos-Fresita.webp",
+    "artista": "El Emcut & Los Primos",
+    "nombre": "Fresita",
+    "enlace": "https://www.dropbox.com/scl/fi/s2md6f1v8e67yueerxhcb/El-Emcut-Y-Los-Primos-Fresita.mp3?rlkey=1ehb8ktev6zphw74yxmu0tt75&st=hlvp74b8&dl=0&raw=1",
+    "seccion": "after_party",
+    "genero": "corrido tumbado"
+  },
+  {
+    "caratula": "assets/covers/Gabito-Gomez-Ya-es-de-madrugada.jpg",
+    "artista": "Gabito Gomez",
+    "nombre": "Ya es de madrugada",
+    "enlace": "https://www.dropbox.com/scl/fi/0ldg22t5v5i0fqm7drvab/Gabito-Gomez-Ya-es-de-madrugada.mp3?rlkey=1fevcjgs8i6o2lmdj3sthoynw&st=x67cdidx&dl=0&raw=1",
+    "seccion": "after_party",
+    "genero": "corrido tumbado"
+  },
+  {
+    "caratula": "assets/covers/Grupo-Firme-&-Demi-Lovato-Chula.jpg",
+    "artista": "Grupo Firme & Demi Lovato",
+    "nombre": "Chula",
+    "enlace": "https://www.dropbox.com/scl/fi/js5o046wcs08z4odasitu/Grupo-Firme-Demi-Lovato-Chula.mp3?rlkey=j15v3phg1gh2fh753us4qguo3&st=9ojqgppi&dl=0&raw=1",
+    "seccion": "after_party",
+    "genero": "regional mexicano"
+  },
+  {
+    "caratula": "assets/covers/Sebastian-Esquivel-Blessd-&-Eugenio-Esquivel-Exceso.jpg",
+    "artista": "Sebastian Esquivel, Blessd & Eugenio Esquivel",
+    "nombre": "Exceso",
+    "enlace": "https://www.dropbox.com/scl/fi/zi3f8lp55uzesdbirhxjb/Sebastian-Esquivel-Blessd-Eugenio-Esquivel-Exceso.mp3?rlkey=wx7553k05hocdxo1irqqv9xq6&st=y5u50mft&dl=0&raw=1",
+    "seccion": "after_party",
+    "genero": "rap"
+  },
+
+
+
+  {
+    "caratula": "assets/covers/DJ-Snake-&-Peso-Pluma-Teka.jpg",
+    "artista": "DJ Snake & Peso Pluma",
+    "nombre": "Teka",
+    "enlace": "https://www.dropbox.com/scl/fi/nhhgbrl1qvqt0y5r0v27y/DJ-Snake-Peso-Pluma-Teka.mp3?rlkey=m5a0q2xq4hsaircdvvhu4z3cy&st=bebjomnn&dl=0&raw=1",
+    "seccion": "after_party",
+    "genero": "corrido tumbado"
+  },
+  {
+    "caratula": "assets/covers/Esau-Ortiz-Larry-Hernandez-Los-Dareyes-De-La-Sierra-C-armo.jpg",
+    "artista": "Esau Ortiz, Larry Hernández & Los Dareyes De La Sierra",
+    "nombre": "C armó",
+    "enlace": "https://www.dropbox.com/scl/fi/7puom3bl7dws62du0akj7/Esau-Ortiz-x-Larry-Hern-ndez-x-Los-Dareyes-De-La-Sierra-C-arm.mp3?rlkey=gha25aqotyqnoocb0cb8o9rpk&st=nwl2yhi3&dl=0&raw=1",
+    "seccion": "after_party",
+    "genero": "regional mexicano"
+  },
+  {
+    "caratula": "assets/covers/Beto-Sierra-Diferente-Nivel-Merca-Xin-El-fieston.jpg",
+    "artista": "Beto Sierra, Diferente Nivel & Merca Xin",
+    "nombre": "El fieston",
+    "enlace": "https://www.dropbox.com/scl/fi/6fpndfio80owvrc8nhteh/Beto-Sierra-x-Diferente-Nivel-x-Merca-Xin-El-fieston.mp3?rlkey=y2oxbah9rvmd5jk1ub1nchkyq&st=2pu6fe0w&dl=0&raw=1",
+    "seccion": "after_party",
+    "genero": "corrido tumbado"
+  },
+  {
+    "caratula": "assets/covers/Dik-Lewis-Arriba-arriba.jpg",
+    "artista": "Dik Lewis",
+    "nombre": "Arriba arriba",
+    "enlace": "https://www.dropbox.com/scl/fi/gtonc8j1n0d3xwjn3x080/Dik-Lewis-Arriba-arriba.mp3?rlkey=3keoeinlycq7hompswbegwzjc&st=2n6btjbd&dl=0&raw=1",
+    "seccion": "after_party",
+    "genero": "pop latino"
+  },
+  {
+    "caratula": "assets/covers/Herly-RG-Nenuka.jpg",
+    "artista": "Herly RG",
+    "nombre": "Nenuka",
+    "enlace": "https://www.dropbox.com/scl/fi/yf438y9leg6uk8dpxk7hv/Herly-RG-Nenuka.mp3?rlkey=ds0yivrtdy9kj4znan6xshhf9&st=1z83mtn3&dl=0&raw=1",
+    "seccion": "after_party",
+    "genero": "pop latino"
+  }
+],
+
+
+
+"pop_electrónico": [
+  {
+  "caratula": "assets/covers/Miranda-&-Lali-Yo-Te-Dire.jpg",
+  "artista": "Miranda & Lali",
+  "nombre": "Yo te diré",
+  "enlace": "https://www.dropbox.com/scl/fi/yweaklf9q75f30aroovf4/Miranda-Yo-te-dir-F-Lali.MP3?rlkey=xe9jnc8vh48lhp14nrv47qptg&st=txkzbkqk&dl=0&raw=1",
+  "seccion": "pop_electronico",
+  "genero": "pop electrónico"
+},
+{
+  "caratula": "assets/covers/Cotti-Julieta-Venegas-&-Paulina-Rubio-Nada-fue-un-error.jpg",
+  "artista": "Cotti, Julieta Venegas & Paulina Rubio",
+  "nombre": "Nada fue un error",
+  "enlace": "https://www.dropbox.com/scl/fi/zk65alft4rbsevc0tapas/Cotti-Julieta-Venegas-Paulina-Rubio-Nada-fue-un-error-R.mp3?rlkey=qm6x6hku3cn1skz9euzwx3n98&st=o3vsc04c&dl=0&raw=1",
+  "seccion": "pop_electronico",
+  "genero": "pop"
+},
+{
+  "caratula": "assets/covers/Belinda-Dopamina.jpg",
+  "artista": "Belinda",
+  "nombre": "Dopamina",
+  "enlace": "https://www.dropbox.com/scl/fi/xuuu4qm5weqlcq216eomw/Belinda-Dopamina.mp3?rlkey=xlccpwdf6srf7dmrr5uffkfcz&st=0yd4cu10&dl=0&raw=1",
+  "seccion": "pop_electronico",
+  "genero": "pop electrónico"
+},
+{
+  "caratula": "assets/covers/Belanova-Baila-mi-corazon.jpg",
+  "artista": "Belanova",
+  "nombre": "Baila mi corazón",
+  "enlace": "https://www.dropbox.com/scl/fi/yxi5tmgi3ahxipbddndq3/Belanova-Baila-mi-coraz-n-R.mp3?rlkey=91bw55blwjimk13eurobh6d04&st=wq66dr0u&dl=0&raw=1",
+  "seccion": "pop_electronico",
+  "genero": "pop electrónico"
+},
+{
+  "caratula": "assets/covers/Sentidos-Opuestos-Donde-estan.jpg",
+  "artista": "Sentidos Opuestos",
+  "nombre": "Dónde están",
+  "enlace": "https://www.dropbox.com/scl/fi/gjsyugppqz5mjryektx62/Sentidos-Opuestos-D-nde-est-n-R.mp3?rlkey=gm4u8f3jjxjxrngi1t0jolvsp&st=sehqovnp&dl=0&raw=1",
+  "seccion": "pop_electronico",
+  "genero": "pop"
+},
+{
+  "caratula": "assets/covers/Laura-Pausini-Se-fue.jpg",
+  "artista": "Laura Pausini",
+  "nombre": "Se fue",
+  "enlace": "https://www.dropbox.com/scl/fi/psayo1zlckve0wp1kk5z8/Laura-Pausini-Se-fue-R.mp3?rlkey=0obi3v68jcqupyfmui5m1dtry&st=dhgqyavd&dl=0&raw=1",
+  "seccion": "pop_electronico",
+  "genero": "pop"
+},
+{
+  "caratula": "assets/covers/Jeans-Entre-azul-y-buenas-noches.jpg",
+  "artista": "Jeans",
+  "nombre": "Entre azul y buenas noches",
+  "enlace": "https://www.dropbox.com/scl/fi/8k399kf93hq19vkzhwzbm/Jeans-Entre-azul-y-buenas-noches.mp3?rlkey=gxecl0dxmjcspxg36t8rpcz4s&st=ksh90av4&dl=0&raw=1",
+  "seccion": "pop_electronico",
+  "genero": "pop"
+},
+{
+  "caratula": "assets/covers/Lynda-Dile.jpg",
+  "artista": "Lynda",
+  "nombre": "Dile",
+  "enlace": "https://www.dropbox.com/scl/fi/qi72dzos5llf97hq9tb71/Lynda-Dile.mp3?rlkey=imolz57b8liqhu1qa19veo7ib&st=mpjbr12b&dl=0&raw=1",
+  "seccion": "pop_electronico",
+  "genero": "pop"
+},
+{
+  "caratula": "assets/covers/Litzy-No-te-extra%C3%B1o.jpg",
+  "artista": "Litzy",
+  "nombre": "No te extraño",
+  "enlace": "https://www.dropbox.com/scl/fi/xas16k3cux6oiwc06j5r1/Litzy-No-te-extra-o.mp3?rlkey=coxtimaoqe5rvrzhpfjo21sgj&st=vfwhs294&dl=0&raw=1",
+  "seccion": "pop_electronico",
+  "genero": "pop"
+},
+{
+  "caratula": "assets/covers/Kabah-Amigas-y-rivales.jpg",
+  "artista": "Kabah",
+  "nombre": "Amigas y rivales",
+  "enlace": "https://www.dropbox.com/scl/fi/w5veakjus65anuekck22l/Kabah-Amigas-y-rivales.mp3?rlkey=79o0gfh7t6mqjix2jwn2pixew&st=ym6pbk4b&dl=0&raw=1",
+  "seccion": "pop_electronico",
+  "genero": "pop"
+},
+
+
+
+  {
+  "caratula": "assets/covers/Miranda-Kenia-OS-Siempre-que-lo-beso.jpg",
+  "artista": "Miranda & Kenia Os",
+  "nombre": "Siempre que lo beso",
+  "enlace": "https://www.dropbox.com/scl/fi/wgabuyzf7e3ay5f6al2ro/Miranda-x-Kenia-OS-Siempre-que-lo-beso.mp3?rlkey=hcggkp21o8lfk5se9bqcw8r6q&st=1ka3tdks&dl=0&raw=1",
+  "seccion": "pop_electronico",
+  "genero": "pop electrónico"
+},
+{
+  "caratula": "assets/covers/Maria-Daniela-Y-Su-Sonido-Lasser-Cielo-rojo.jpg",
+  "artista": "María Daniela Y Su Sonido Laser",
+  "nombre": "Cielo rojo",
+  "enlace": "https://www.dropbox.com/scl/fi/ib4wswjcn2jw0qs5ldlgf/Mar-a-Daniela-Y-Su-Sonido-Lasser-Cielo-rojo.mp3?rlkey=u63aqzseupbasxhthtwknnhnx&st=wda6sipl&dl=0&raw=1",
+  "seccion": "pop_electronico",
+  "genero": "pop electrónico"
+},
+{
+  "caratula": "assets/covers/Paty-Cantu-Denisse-Guerrero-Al-mismo-kbrn-(DeSiempre).jpg",
+  "artista": "Patty Cantú & Denisse Guerrero",
+  "nombre": "Al mismo kbrn (De siempre)",
+  "enlace": "https://www.dropbox.com/scl/fi/6brrmq70z3kcocrzo795i/Paty-Cant-Denisse-Guerrero-Al-mismo-kbrn-De-siempre.MP3?rlkey=80blvyf1k7qa6o3qznujz2rec&st=ljog6s27&dl=0&raw=1",
+  "seccion": "pop_electronico",
+  "genero": "pop electrónico"
+},
+{
+  "caratula": "assets/covers/Gloria-Trevi-Me-rio-de-ti.jpg",
+  "artista": "Gloria Trevi",
+  "nombre": "Me rió de ti",
+  "enlace": "https://www.dropbox.com/scl/fi/hx4xkti2ieop9r4x2zmz5/Gloria-Trevi-Me-ri-de-ti.mp3?rlkey=zffx6wx4g6q5udj15s2mqu0ds&st=rsnqi6wo&dl=0&raw=1",
+  "seccion": "pop_electronico",
+  "genero": "pop"
+},
+{
+  "caratula": "assets/covers/Maria-Jose-Prefiero-ser-su-amante.jpg",
+  "artista": "María José",
+  "nombre": "Prefiero ser su amante",
+  "enlace": "https://www.dropbox.com/scl/fi/lb1aiyual6x22tmhcn51k/Mar-a-Jos-Prefiero-ser-su-amante.mp3?rlkey=gzofaqfg0qpphqx3ne0wv90ld&st=ecm4kley&dl=0&raw=1",
+  "seccion": "pop_electronico",
+  "genero": "pop"
+},
+{
+  "caratula": "assets/covers/Lorena-Herrera-Yo-vivire.jpg",
+  "artista": "Lorena Herrera",
+  "nombre": "Yo viviré",
+  "enlace": "https://www.dropbox.com/scl/fi/rn89k2j560c39zgi002z0/Lorena-Herrera-Yo-vivir.MP3?rlkey=x0v5srj7t1he2w4ljzufyzqz5&st=um8gko52&dl=0&raw=1",
+  "seccion": "pop_electronico",
+  "genero": "pop"
+},
+{
+  "caratula": "assets/covers/Jeanette-Porque-te-vas.jpg",
+  "artista": "Jeanette",
+  "nombre": "Porque te vas",
+  "enlace": "https://www.dropbox.com/scl/fi/mtzzuf0l52bhqnivf0fi2/Jeanette-Porque-te-vas-R.mp3?rlkey=i8vvp4igv0o6068mxpvfcvtsr&st=t1gxt84p&dl=0&raw=1",
+  "seccion": "pop_electronico",
+  "genero": "pop"
+},
+{
+  "caratula": "assets/covers/RBD-Solo-quedate-en-silencio.jpg",
+  "artista": "RBD",
+  "nombre": "Solo quédate en silencio",
+  "enlace": "https://www.dropbox.com/scl/fi/dfgb14otvxqav68oq6lfq/RBD-Solo-qu-date-en-silencio-R.MP3?rlkey=80507322q72btckopytrnzql1&st=7d076goo&dl=0&raw=1",
+  "seccion": "pop_electronico",
+  "genero": "pop"
+},
+{
+  "caratula": "assets/covers/Fey-Marta-Sánchez-Azúcar-amargo.jpg",
+  "artista": "Fey & Marta Sánchez",
+  "nombre": "Azúcar amargo",
+  "enlace": "https://www.dropbox.com/scl/fi/a0q5vvod6v5xdgufrqrba/Fey-Az-car-amargo-F-Marta-S-nchez.MP3?rlkey=idb7aku13vrk0h2f2haim5gff&st=2wo5m3e7&dl=0&raw=1",
+  "seccion": "pop_electronico",
+  "genero": "pop"
+},
+{
+  "caratula": "https://iraked.github.io/Project/assets/covers/Playa-Limbo-Asi-fue.jpg",
+  "artista": "Playa Limbo",
+  "nombre": "Así fue",
+  "enlace": "https://www.dropbox.com/scl/fi/9vewg0dcf3cejp17fhk2k/Playa-Limbo-As-fue-R.mp3?rlkey=exrg970di89tf5esj0gi71hvt&st=1moyce73&dl=0&raw=1",
+  "seccion": "pop_electronico",
+  "genero": "pop"
+}
+]
+}

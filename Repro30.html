@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <!-- Font Awesome -->
+  <link rel="icon" type="image/x-icon" href="assets/SG.ico" />
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="author" content="Rick - xat.comn/CasinoDigital">
+  <title>Repro 30</title>
+  <!-- Estilos principales -->
+  <link rel="stylesheet" href="Repro30.css">
+  <link rel="stylesheet" href="Player30.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <!-- Scripts Principales
+  <script type="text/javascript">
+  document.onkeydown = function(){return false};
+  document.oncontextmenu = function(){return false}
+  </script>-->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="Repro30.js" defer></script>
+  <script src="Player30.js" defer></script>
+</head>
+
+<body>
+  <!-- 🎧 Audio principal -->
+  <audio id="player" autoplay muted>
+    <source src="https://technoplayerserver.net:8018/stream?icy=http" type="audio/mpeg" />
+  </audio>
+
+  <main id="main-container">
+    <!-- 🎥 Video de fondo -->
+    <video autoplay muted loop id="bg-video">
+      <source src="assets/video/StageCD.mp4" type="video/mp4" />
+    </video>
+
+    <!-- 🎛️ Header reducido -->
+    <header id="radio-header">
+      <div class="title-deluxe">
+        <span>C</span><span>A</span><span>S</span><span>I</span><span>N</span><span>O</span>
+        <span>D</span><span>I</span><span>G</span><span>I</span><span>T</span><span>A</span><span>L</span>
+        <span>R</span><span>A</span><span>D</span><span>I</span><span>O</span>
+      </div>
+
+      <div id="playback-status" class="playback-status">
+        <span id="mode-label">Modo: —</span>
+        <span id="playlist-label">Playlist: —</span>
+      </div>
+    </header>
+
+    <!-- 🧱 Contenedor lateral izquierdo -->
+    <aside id="ctn-apps"></aside>
+
+    <!-- 🎛️ Panel lateral de menú -->
+    <div id="menu-panel">
+      <div id="menu-switch">
+        <div class="menu-list">
+          <button class="menu-item" id="radioMode">Radio</button>
+          <button class="menu-item" id="musicMode">Música</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 🎨 Activadores laterales -->
+    <div id="background-trigger"><i class="fas fa-image"></i></div>
+    <div id="paint-trigger"><i class="fas fa-paint-brush"></i></div>
+    <div id="playlist-trigger"><i class="fas fa-headphones-alt"></i></div>
+
+    <!-- 🎨 Panel de fondos -->
+    <section id="background-panel">
+      <aside id="background-switch">
+        <header class="switch-header"><h2>Fondos</h2></header>
+        <section class="background-list">
+          <div class="bg-option" data-bg="assets/bg/bg1.png" style="background-image:url('assets/bg/bg1.png')"></div>
+              <div class="bg-option" data-bg="assets/bg/bg2.png" style="background-image:url('assets/bg/bg2.png')"></div>
+              <div class="bg-option" data-bg="assets/bg/bg3.png" style="background-image:url('assets/bg/bg3.png')"></div>
+              <div class="bg-option" data-bg="assets/bg/bg4.png" style="background-image:url('assets/bg/bg4.png')"></div>
+              <div class="bg-option" data-bg="assets/bg/bg5.png" style="background-image:url('assets/bg/bg5.png')"></div>
+              <div class="bg-option" data-bg="assets/bg/bg6.png" style="background-image:url('assets/bg/bg6.png')"></div>
+              <div class="bg-option" data-bg="assets/bg/bg7.png" style="background-image:url('assets/bg/bg7.png')"></div>
+              <div class="bg-option" data-bg="assets/bg/bg8.png" style="background-image:url('assets/bg/bg8.png')"></div>
+              <div class="bg-option" data-bg="assets/bg/bg9.png" style="background-image:url('assets/bg/bg9.png')"></div>
+              <div class="bg-option" data-bg="assets/bg/bg10.png" style="background-image:url('assets/bg/bg10.png')"></div>
+        </section>
+      </aside>
+    </section>
+
+    <!-- 🎨 Panel de colores -->
+    <section id="switch-panel">
+      <aside id="color-switch">
+        <header class="switch-header"><h2>Tu Estilo</h2></header>
+        <!-- PALETA DE COLORES CON TRANSPARENCIA -->
+        <section class="palette">
+          <div class="color-option solid" style="background-color:#ff000050" data-color="#ff000050" title="Rojo"></div>
+          <div class="color-option solid" style="background-color:#39ff1450" data-color="#39ff1450" title="Verde Neon"></div>
+          <div class="color-option solid" style="background-color:#ffff0050" data-color="#ffff0050" title="Amarillo"></div>
+          <div class="color-option solid" style="background-color:#8000ff50" data-color="#8000ff50" title="Púrpura"></div>
+          <div class="color-option solid" style="background-color:#ff69b450" data-color="#ff69b450" title="Rosa"></div>
+          <div class="color-option solid" style="background-color:#ff800050" data-color="#ff800050" title="Naranja"></div>
+          <div class="color-option gradient gold" title="Degradado Dorado"></div>
+          <div class="color-option gradient unicorn" title="Degradado Unicornio"></div>
+          <div class="color-option gradient turquoise" title="Degradado Turquesa"></div>
+          <div class="color-option restore" id="restore-default" title="Restaurar Azul"></div>
+        </section>
+      </aside>
+    </section>
+
+    <!-- 🎵 Panel de playlists -->
+    <section id="playlist-panel">
+      <aside id="playlist-switch">
+        <header class="switch-header"><h2>Listas de Reproducción</h2></header>
+        <section class="playlist-list">
+          <div class="playlist-item">Hits</div>
+          <div class="playlist-item">Regional Mexicano</div>
+          <div class="playlist-item">Viva Latino</div>
+          <div class="playlist-item">Rock En Español</div>
+          <div class="playlist-item">Mega Mix</div>
+          <div class="playlist-item">After Party</div>
+          <div class="playlist-item">Pop Electrónico</div>
+        </section>
+      </aside>
+    </section>
+
+    <!-- 🎧 Reproductor ocultable -->
+    <section id="panel">
+      <div id="iFone" class="ifone-ctn">
+        <div class="header">
+          <button id="btn-plus" class="btn-plus">＋</button>
+          <button id="btn-modo" class="btn-modo"><i class="fa-solid fa-music"></i></button>
+        </div>
+
+        <audio id="audioStreaming" src="https://technoplayerserver.net:8018/stream?icy=http"></audio>
+
+        <div id="default-cover" class="default-cover">
+          <img src="assets/covers/Cover1.png" alt="Carátula por defecto" />
+        </div>
+
+        <div class="info">
+          <h2 id="modal-artist">Artista</h2>
+          <p id="modal-title">Título</p>
+        </div>
+
+        <ul id="modal-queue" class="modal-queue"></ul>
+
+        <div class="custom-player">
+          <button id="btn-toggle" class="play-btn">
+            <i class="fa-solid fa-play"></i>
+          </button>
+          <div class="progress-container">
+            <div id="progress-bar" class="progress-bar"></div>
+          </div>
+        </div>
+
+        <div class="controls">
+          <label>Volumen:
+            <input type="range" id="volume-control" min="0" max="1" step="0.01" />
+          </label>
+          <label>Speed:
+            <select id="speed-control">
+              <option value="0.5">0.5x</option>
+              <option value="1" selected>1x</option>
+              <option value="1.5">1.5x</option>
+              <option value="2">2x</option>
+            </select>
+          </label>
+          <button id="loop-toggle">Loop: Off</button>
+          <button id="shuffle-toggle">Shuffle</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+      <!-- Footer -->
+    <footer id="custom-footer">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <div class="footer-inner">
+            <a href="https://linktr.ee/XatSpace" target="_blank" rel="noreferrer" class="footer-link">
+              <img src="assets/SG.ico" alt="icono" class="footer-icon">
+              <h5 class="footer-year">©2025</h5>
+            </a>
+          </div> <!-- cierre de .footer-inner -->
+        </div> <!-- cierre de .footer-logo -->
+      </div> <!-- cierre de .footer-content -->
+    </footer>
+
+</body>
+</html>

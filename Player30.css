@@ -1,0 +1,301 @@
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 🎛️ Repro Ocultable y Ajustable */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+#panel {
+  position: fixed;
+  bottom: 50px;
+  left: 63px;
+  width: 342px;
+  height: 540px; /* altura completa del reproductor */
+  pointer-events: auto;
+  z-index: 50;
+}
+
+#iFone {
+  position: absolute;
+  bottom: -540px; /* oculto fuera de vista */
+  transition: bottom 0.4s ease;
+}
+
+#iFone.visible {
+  bottom: 0; /* visible en pantalla */
+}
+
+#ifone .header {
+  flex: 0 0 200px;
+  padding: 8px 12px;
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  color: white;
+}
+
+/* 🎛️ Repro base */
+.ifone-ctn {
+  position: relative;
+  width: 300px;
+  max-width: 100%;
+  height: 540px;
+  border-radius: 70px;
+  overflow: hidden;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 1.5rem;.controls label {
+  position: relative;
+  top: 4px; /* Ajusta según tu validación visual */
+}
+  transition: background 0.6s ease;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.6);
+  color: white;
+  text-align: center;
+  display: flex;
+  flex-direction: column;  
+  /* 🎨 Fondo dinámico por JS */
+  background: transparent !important; /* ← fuerza la limpieza del fondo fijo */
+}
+
+/* 🔼 Header */
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0.5rem;
+}
+
+.btn-plus {
+  position: absolute;
+  top: 3%;
+  left: 40%;
+  transform: translate(-50%, -50%);
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: white;
+  cursor: pointer;
+  z-index: 1000;
+  transition: transform 0.2s ease;
+}
+
+.btn-plus:hover {
+  transform: translate(-50%, -50%) scale(1.2);
+}
+
+/* Botón cambio de Modo */
+.btn-modo {
+  position: absolute;
+  top: 3.5%;
+  left: 60%;
+  transform: translate(-50%, -50%);
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  color: white;
+  cursor: pointer;
+  margin-left: 0.5rem;
+  transition: transform 0.2s ease;
+}
+
+/* ℹ️ Metadatos */
+.info {
+  font-size: 1rem;
+}
+
+/* 📜 Playlist */
+.modal-queue {
+  list-style: none;
+  padding: 0;
+  margin: 0.3rem 0;
+  height: 360px; /* ← altura fija real */
+  overflow-y: auto;
+  border-top: 1px solid #333;
+  scrollbar-width: thin;
+  scrollbar-color: #1db954 #111;
+  width: 100%;
+}
+
+/* 🎶 Ítems individuales */
+.modal-queue-item {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease;
+  color: #ccc;
+  font-size: 0.9rem;
+  border-bottom: 1px solid #222;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* 🌟 Hover ceremonial */
+.modal-queue-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+}
+
+/* 🔊 Track activo */
+.modal-queue-item.active {
+  background: linear-gradient(90deg, #1db954 0%, #111 100%);
+  color: white;
+  font-weight: bold;
+  border-left: 4px solid #1db954;
+}
+
+/* Caratulas y Metadatos */
+.modal-queue-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease;
+  color: #ccc;
+  font-size: 0.85rem;
+  border-bottom: 1px solid #222;
+}
+
+.queue-cover {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 6px;
+  box-shadow: 0 0 4px rgba(0,0,0,0.4);
+}
+
+.queue-meta {
+  display: block;
+    text-align: left;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  line-height: 1.4;
+}
+
+/* ▶️ Reproductor */
+.custom-player {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+    transform: translateY(15px);
+  width: 100%;
+}
+
+.play-btn {
+  position: relative;
+  top: -14px;
+  background: #222;
+  color: white;
+  border: none;
+  padding: 0.4rem 0.6rem;
+  font-size: 1rem;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.play-btn:hover {
+  transform: scale(1.1);
+}
+
+.play-btn i {
+  font-size: 1.0rem;
+  color: white;
+  transition: transform 0.2s ease;
+}
+
+.play-btn:hover i {
+  transform: scale(1.2);
+}
+
+#shuffle-toggle {
+  background: #222;
+  color: white;
+  border: none;
+  font-size: 0.9rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+#shuffle-toggle.active {
+  background: #1db954;
+  color: white;
+}
+
+/* 📊 Barra de progreso */
+.progress-container {
+  flex: 1;
+    bottom: 10px;
+  height: 6px;
+    cursor: pointer;
+  background: #333;
+  border-radius: 3px;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0%;
+  background: #1db954;
+  transition: width 0.2s ease;
+}
+
+/* 🎛️ Controles extendidos */
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+/* Volumen */
+#volume-control {
+    position: relative;
+    top: 6px;
+  width: 200px;
+  z-index: 10;
+  pointer-events: auto;
+}
+
+/* Skin Modo Streaming */
+.streaming-mode {
+  background: #2a2a2a !important; /* gris oscuro, neutral */
+  color: #ccc;
+}
+
+.streaming-mode .modal-queue-item {
+  background: #333;
+  color: #ccc;
+}
+
+.streaming-mode .modal-queue-item.active {
+  background: linear-gradient(90deg, #555 0%, #222 100%);
+  color: white;
+  border-left: 4px solid #888;
+}
+
+.streaming-mode .custom-player,
+.streaming-mode .controls {
+  background: transparent;
+  color: #ccc;
+}
+
+/* Cover Modo Streaming */
+.default-cover {
+  display: none; /* ← solo se muestra en modo streaming sin datos */
+  justify-content: center;
+  align-items: center;
+  margin: 1rem 0;
+  width: 100%;
+}
+
+.default-cover img {
+  width: 180px;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(0,0,0,0.6);
+}

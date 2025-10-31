@@ -1,0 +1,646 @@
+#audio {
+  position: absolute;
+  opacity: 0;
+}
+/* ===================== */
+/* VARIABLES Y COLOR BASE */
+/* ===================== */
+:root {
+  --base-color: #3688ff;
+  --bg: #01010110;
+  --theme: var(--base-color);
+}
+
+/* ===================== */
+/* RESET GENERAL */
+/* ===================== */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-image: var(--background-image);
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+/* ===================== */
+/* CONTENEDOR PRINCIPAL */
+/* ===================== */
+#main-container {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 1.3cm); /* altura total menos el footer */
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-image: var(--background-image);
+  background-size: cover;
+  background-position: center;
+}
+
+/* ===================== */
+/* VIDEO DE FONDO */
+/* ===================== */
+#bg-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+
+/* ===================== */
+/* HEADER PRINCIPAL */
+/* ===================== */
+#radio-header {
+  height: 38px !important;
+  background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.3)), var(--base-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 10;
+}
+
+/* ===================== */
+/* TITULO DELUXE */
+/* ===================== */
+.title-deluxe {
+    position: absolute;
+    left: 370px;
+    top: 50%;
+    transform: translateY(-50%);
+  font-size: 22px;
+  text-shadow: -2px 7px 5px rgba(50, 150, 250, 0.477);
+  font-weight: bold;
+  word-spacing:
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.title-deluxe span {
+  display: inline-block;
+  /*color: var(--base-color);*/
+  color: #3688dd;
+  transform: translate(-150px, 0) scale(.3);
+  animation: leftRight 1s forwards;
+}
+
+.title-deluxe span:hover {
+  color: #00e6e6;
+  text-shadow: -2px 7px 5px rgb(0, 230, 230);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+/* Delays ritualizados */
+.title-deluxe span:nth-of-type(2) { animation-delay: .05s; }
+.title-deluxe span:nth-of-type(3) { animation-delay: .1s; }
+.title-deluxe span:nth-of-type(4) { animation-delay: .15s; }
+.title-deluxe span:nth-of-type(5) { animation-delay: .2s; }
+.title-deluxe span:nth-of-type(6) { animation-delay: .25s; }
+.title-deluxe span:nth-of-type(7) { animation-delay: .3s; }
+.title-deluxe span:nth-of-type(8) { animation-delay: .35s; }
+.title-deluxe span:nth-of-type(9) { animation-delay: .4s; }
+.title-deluxe span:nth-of-type(10) { animation-delay: .45s; }
+.title-deluxe span:nth-of-type(11) { animation-delay: .5s; }
+.title-deluxe span:nth-of-type(12) { animation-delay: .55s; }
+.title-deluxe span:nth-of-type(13) { animation-delay: .6s; }
+.title-deluxe span:nth-of-type(14) { animation-delay: .65s; }
+.title-deluxe span:nth-of-type(15) { animation-delay: .7s; }
+.title-deluxe span:nth-of-type(16) { animation-delay: .75s; }
+.title-deluxe span:nth-of-type(17) { animation-delay: .8s; }
+.title-deluxe span:nth-of-type(18) { animation-delay: .85s; }
+.title-deluxe span:nth-of-type(19) { animation-delay: .9s; }
+.title-deluxe span:nth-of-type(20) { animation-delay: .95s; }
+
+/* Animación heredada */
+@keyframes leftRight {
+  40% {
+    transform: translate(50px, 0) scale(.7);
+    opacity: 1;
+    color: #743dc0;
+  }
+  60% {
+    color: #743dc0;
+  }
+  80% {
+    transform: translate(0) scale(2);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(0) scale(1);
+    opacity: 1;
+  }
+}
+
+/* ===================== */
+/* BOTÓN DE MENÚ HEADER */
+/* ===================== */
+/* Contenedor del botón menú */
+#menu-trigger {
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+  margin-left: auto;
+  width: 50px;
+  height: 50px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 30;
+  cursor: pointer;
+  border: 2px solid #fff;
+}
+
+#menu-trigger i {
+  color: #fff;
+  font-size: 1.2rem;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 🧱 CONTENEDOR LATERAL IZQUIERDO (ctn-apps) */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+#ctn-apps {
+  position: absolute;
+  top: calc(38px + 137px);
+  left: 0;
+  width: 49px;
+  height: 288px;
+  background: var(--base-color);
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  z-index: 40;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.3);
+}
+
+/* ===================== */
+/* PANEL LATERAL MENÚ */
+/* ===================== */
+#menu-panel {
+  position: absolute;
+  top: 2.2cm; /* justo debajo del header */
+  right: 0;
+  width: 260px;
+  height: calc(100vh - 2.2cm);
+  z-index: 20;
+  pointer-events: none;
+}
+
+#menu-switch {
+  position: absolute;
+  top: 0; /* altura exacta del header */
+  right: 70px;
+  width: 180px;
+  max-height: 300px;
+  background-color: rgba(0, 0, 0, 0.85);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+  z-index: 25;
+}
+
+#menu-switch.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Opciones internas */
+.menu-list {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  gap: 0.8rem;
+}
+
+.menu-item {
+  background: var(--base-color);
+  color: #fff;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  text-align: center;
+}
+
+.menu-item:hover {
+  background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.4)), var(--base-color);
+  background-blend-mode: multiply;
+}
+
+/* ===================== */
+/* INDICADOR MODO PLAYLIST - HEADER END */
+/* ===================== */
+.playback-status {
+  position: absolute;
+  top: 5px;
+  right: 130px; /* Ajusta según tu layout */
+  z-index: 10;
+  display: flex;
+  gap: 1em;
+  font-size: 0.9em;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 6px 12px;
+  border-radius: 6px;
+}
+#mode-label, #playlist-label {
+  font-weight: bold;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* ACTIVADOR DE FONDOS */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+#background-trigger {
+  position: absolute;
+  right: 0;
+  top: 80px;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), var(--base-color);/*linear-gradient(rgba(0, 0, 0, 0.2), valor menor color solido, mayor degradado oscuro */
+  border-radius: 6px 0 0 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 30;
+  cursor: pointer;
+  border-left: 2px solid #fff;
+}
+
+#background-trigger i {
+  color: #fff;
+  font-size: 1.2rem;
+}
+
+/* ===================== */
+/* PANEL BACKGROUND SWITCH */
+/* ===================== */
+#background-panel {
+  position: absolute;
+  top: 190px;
+  right: 0;
+  width: 260px;
+  height: calc(100vh - 2cm);
+  z-index: 20;
+  pointer-events: none;
+}
+
+#background-switch {
+  position: absolute;
+  top: 20px;
+  right: -260px;
+  width: 260px;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  transition: right 0.5s ease;
+  pointer-events: auto;
+}
+
+#background-switch.visible {
+  right: 0;
+}
+
+/* ===================== */
+/* LISTA DE FONDOS */
+/* ===================== */
+.background-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.8rem;
+  padding: 1rem;
+}
+
+.bg-option {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background-size: cover;
+  background-position: center;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 2px solid #fff;
+  transition: transform 0.3s ease;
+}
+
+.bg-option:hover {
+  transform: scale(1.05);
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* ACTIVADOR DE SWITCH */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+#paint-trigger {
+  position: absolute;
+  right: 0;
+  top: 132px;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), var(--base-color);/*linear-gradient(rgba(0, 0, 0, 0.2), valor menor color solido, mayor degradado oscuro */
+  border-radius: 6px 0 0 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 30;
+  cursor: pointer;
+  border-left: 2px solid #fff;
+}
+
+#paint-trigger i {
+  color: #fff;
+  font-size: 1.2rem;
+}
+
+/* ===================== */
+/* PANEL SWITCH GENERAL */
+/* ===================== */
+#switch-panel {
+  position: absolute;
+  top: 190px; /* siempre debajo del activador */
+  right: 0;
+  width: 260px;
+  height: calc(100vh - 2cm);
+  z-index: 20;
+  pointer-events: none; /* bloquea interacción directa */
+}
+
+/* ===================== */
+/* CONTENEDOR COLOR SWITCH */
+/* ===================== */
+#color-switch {
+  position: absolute;
+  top: 20px;
+  right: -260px;
+  width: 260px;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  transition: right 0.5s ease;
+  pointer-events: auto;
+}
+
+#color-switch.visible {
+  right: 0;
+}
+
+/* ===================== */
+/* HEADER COLOR SWITCH */
+/* ===================== */
+.switch-header {
+  background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.1)), var(--base-color);/*linear-gradient(rgba(0, 0, 0, 0.2), valor menor color solido, mayor degradado oscuro */
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.switch-header h2 {
+  margin: 0;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+/* ===================== */
+/* PALETA DE COLORES */
+/* ===================== */
+.palette {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.color-option {
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 2px solid #fff;
+}
+
+/* ===================== */
+/* COLORES SÓLIDOS */
+/* ===================== */
+.color-option.solid {
+  /* color aplicado inline con style="background-color:#xxxxxx" */
+}
+
+/* ===================== */
+/* DEGRADADO DORADO */
+/* ===================== */
+.color-option.gradient.gold {
+  background: linear-gradient(45deg, #fbe8a6, #f6d365, #d4af37);
+}
+
+/* ===================== */
+/* DEGRADADO UNICORNIO */
+/* ===================== */
+.color-option.gradient.unicorn {
+  background: linear-gradient(45deg, #ffb6f9, #ffb6f9, #b2f7ef, #f9f871, #d0a2ff, #d0a2ff);
+}
+
+/* ===================== */
+/* DEGRADADO TURQUESA */
+/* ===================== */
+.color-option.gradient.turquoise {
+  background: linear-gradient(45deg, #00c9a7, #00e6e6, #00ffff, #00bfff);
+}
+
+/* ===================== */
+/* BOTÓN RESTAURAR COLOR BASE */
+/* ===================== */
+.color-option.restore {
+  background-color: var(--base-color);
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 2px solid #fff;
+  transition: background-color 0.3s ease;
+}
+
+.color-option.restore:hover {
+  background-color: #000;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* ACTIVADOR DE PLAYLIST */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+#playlist-trigger {
+  position: absolute;
+  right: 0;
+  top: 184px;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), var(--base-color);/*linear-gradient(rgba(0, 0, 0, 0.2), valor menor color solido, mayor degradado oscuro */
+  border-radius: 6px 0 0 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 30;
+  cursor: pointer;
+  border-left: 2px solid #fff;
+}
+
+#playlist-trigger i {
+  color: #fff;
+  font-size: 1.2rem;
+}
+
+/* ===================== */
+/* PANEL PLAYLIST SWITCH */
+/* ===================== */
+#playlist-panel {
+  position: absolute;
+  top: 190px;;
+  right: 0;
+  width: 260px;
+  height: calc(100vh - 2cm);
+  z-index: 20;
+  pointer-events: none;
+}
+
+#playlist-switch {
+  position: absolute;
+  top: 20px;
+  right: -260px;
+  width: 260px;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  transition: right 0.5s ease;
+  pointer-events: auto;
+}
+
+#playlist-switch.visible {
+  right: 0;
+}
+
+/* ===================== */
+/* LISTA DE PLAYLISTS */
+/* ===================== */
+.playlist-list {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  gap: 0.8rem;
+}
+
+.playlist-item {
+  background: var(--base-color);
+  color: #fff;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  text-align: center;
+}
+
+.playlist-item:hover {
+  background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.4)), var(--base-color);
+  background-blend-mode: multiply;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 🎧 POSICIONAMIENTO DEL NUEVO REPRODUCTOR */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+#panel {
+  position: fixed;
+  left: 63px;
+  bottom: 71px;
+  width: 342px;
+  height: 540px;
+  pointer-events: auto;
+  z-index: 50;
+}
+
+#iFone {
+  position: absolute;
+  bottom: -540px;
+  transition: bottom 0.4s ease;
+}
+
+#iFone.visible {
+  bottom: 0;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* FOOTER LOGO */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+#custom-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1.3cm;
+  background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.3)), var(--base-color);/*linear-gradient(rgba(0, 0, 0, 0.2), valor menor color solido, mayor degradado oscuro */
+  backdrop-filter: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  color: #fff;
+  font-size: 0.9rem;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.footer-inner {
+  text-align: center;
+  padding: 30px;
+}
+
+.footer-link {
+  text-decoration: none;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.footer-icon {
+  width: 20px;
+  height: 20px;
+  ext-shadow: 0 0 10px #00FFFF;
+  transition: 0.3s;
+  filter: drop-shadow(4 4 8px #00FFFF);
+}
+
+.footer-year {
+  all: unset;
+  display: block;
+  font-size: 0.9rem;
+  font-weight: bold;
+  background: linear-gradient(135deg, #3688ff, #00FFFF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 10px #4e8ef7, 0 0 20px #00FFFF;
+  animation: glowFade 5s ease-in-out infinite alternate;
+  text-align: center;
+}
+
+/* Animación */
+@keyframes glowFade {
+  0% {
+    opacity: 1;
+    text-shadow: 0 0 10px #4e8ef7, 0 0 20px #00FFFF;
+  }
+  100% {
+    opacity: 0.6;
+    text-shadow: 0 0 5px #4e8ef7, 0 0 10px #00FFFF;
+  }
+}
