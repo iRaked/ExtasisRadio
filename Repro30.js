@@ -129,6 +129,16 @@ document.addEventListener("DOMContentLoaded", () => {
   if (Array.isArray(tracks) && tracks.length > 0) {
     updateModeAndPlaylist("Música", playlistName);
 
+
+  // BOTÓN PRUEBA ZONA CLIC
+  const testBtn = document.getElementById("test-click");
+  if (testBtn) {
+    testBtn.addEventListener("click", () => {
+      alert("✅ Zona clickeable confirmada");
+    });
+  }
+
+
     // 🔗 Sincronizar con Player30.js
     if (typeof window.activarPlaylistPlayer30 === "function") {
       window.activarPlaylistPlayer30(tracks, playlistName);
