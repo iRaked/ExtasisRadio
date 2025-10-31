@@ -55,7 +55,7 @@ body {
 /* ===================== */
 #radio-header {
   position: fixed;
-  top: 56px;
+  top: 55px;
   left: 0;
   right: 0;
   height: 38px;
@@ -71,7 +71,7 @@ body {
 /* ===================== */
 .title-deluxe {
     position: absolute;
-    left: 370px;
+    left: 10px;
     top: 50%;
     transform: translateY(-50%);
   font-size: 22px;
@@ -138,41 +138,15 @@ body {
   }
 }
 
-/* ===================== */
-/* BOTÓN DE MENÚ HEADER */
-/* ===================== */
-/* Contenedor del botón menú */
-#menu-trigger {
-  position: absolute;
-  top: 50%;
-  right: 20px;
-  transform: translateY(-50%);
-  margin-left: auto;
-  width: 50px;
-  height: 50px;
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 30;
-  cursor: pointer;
-  border: 2px solid #fff;
-}
-
-#menu-trigger i {
-  color: #fff;
-  font-size: 1.2rem;
-}
-
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 /* 🧱 CONTENEDOR LATERAL IZQUIERDO (ctn-apps) */
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 #ctn-apps {
   position: absolute;
-  top: calc(38px + 137px);
-  left: 0;
+  top: calc(50px + 145px);
+  left: -5px;
   width: 49px;
-  height: 288px;
+  height: 248px;
   background: var(--base-color);
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
@@ -248,7 +222,7 @@ body {
 /* ===================== */
 .playback-status {
   position: absolute;
-  top: 5px;
+  top: 7px;
   right: 130px; /* Ajusta según tu layout */
   z-index: 10;
   display: flex;
@@ -268,17 +242,17 @@ body {
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 #background-trigger {
   position: absolute;
-  right: 0;
-  top: 120px;
+  left: 850px;
+  top: 74px;
   transform: translateY(-50%);
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), var(--base-color);/*linear-gradient(rgba(0, 0, 0, 0.2), valor menor color solido, mayor degradado oscuro */
   border-radius: 6px 0 0 6px;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 30;
+  z-index: 999;
   cursor: pointer;
   border-left: 2px solid #fff;
 }
@@ -293,7 +267,7 @@ body {
 /* ===================== */
 #background-panel {
   position: absolute;
-  top: 190px;
+  top: 145px;
   right: 0;
   width: 260px;
   height: calc(100vh - 2cm);
@@ -346,17 +320,17 @@ body {
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 #paint-trigger {
   position: absolute;
-  right: 0;
-  top: 172px;
+  left: 935px;
+  top: 74px;
   transform: translateY(-50%);
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), var(--base-color);/*linear-gradient(rgba(0, 0, 0, 0.2), valor menor color solido, mayor degradado oscuro */
   border-radius: 6px 0 0 6px;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 30;
+  z-index: 999;
   cursor: pointer;
   border-left: 2px solid #fff;
 }
@@ -371,7 +345,7 @@ body {
 /* ===================== */
 #switch-panel {
   position: absolute;
-  top: 190px; /* siempre debajo del activador */
+  top: 202px; /* siempre debajo del activador */
   right: 0;
   width: 260px;
   height: calc(100vh - 2cm);
@@ -483,17 +457,17 @@ body {
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 #playlist-trigger {
   position: absolute;
-  right: 0;
-  top: 224px;
+  left: 765px;
+  top: 74px;
   transform: translateY(-50%);
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), var(--base-color);/*linear-gradient(rgba(0, 0, 0, 0.2), valor menor color solido, mayor degradado oscuro */
   border-radius: 6px 0 0 6px;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 30;
+  z-index: 999;
   cursor: pointer;
   border-left: 2px solid #fff;
 }
@@ -508,7 +482,7 @@ body {
 /* ===================== */
 #playlist-panel {
   position: absolute;
-  top: 190px;;
+  top: 70px;;
   right: 0;
   width: 260px;
   height: calc(100vh - 2cm);
