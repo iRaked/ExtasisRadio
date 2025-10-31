@@ -8,18 +8,52 @@ document.addEventListener("DOMContentLoaded", () => {
   const colorOptions = document.querySelectorAll(".color-option");
   const bgOptions = document.querySelectorAll(".bg-option");
 
-  let currentMode = "Radio";
-  let isStreaming = false; // Modo local por defecto
+  // 🎧 Activadores y paneles con cabecera modular
+  const togglePairs = [
+    {
+      triggerId: "background-trigger",
+      panelId: "background-switch",
+      headerClass: "background-switch-header"
+    },
+    {
+      triggerId: "paint-trigger",
+      panelId: "color-switch",
+      headerClass: "color-switch-header"
+    },
+    {
+      triggerId: "playlist-trigger",
+      panelId: "playlist-switch",
+      headerClass: "playlist-switch-header"
+    }
+  ];
 
-  // 🔁 Switchs laterales
-  const toggleMap = {
-    "menu-trigger": "menu-switch",
-    "paint-trigger": "color-switch",
-    "playlist-trigger": "playlist-switch",
-    "background-trigger": "background-switch"
+  togglePairs.forEach(({ triggerId, panelId, headerClass }) => {
+    const trigger = document.getElementById(triggerId);
+    const panel = document.getElementById(panelId);
+    const header = document.querySelector(`.${headerClass}`);
+
+    if (trigger && panel && header) {
+      trigger.addEventListener("click", () => {
+        const isVisible = panel.classList.contains("visible");
+        if (isVisible) {
+          panel.classList.remove("visible", "drop-in");
+          header.classList.remove("visible");
+        } else {
+          panel.classList.remove("drop-in");
+          void panel.offsetWidth;
+          panel.classList.add("visible", "drop-in");
+          header.classList.add("visible");
+        }
+      });
+    }
+  });
+
+  // 🔁 Activadores simples sin cabecera (ej. menú lateral)
+  const simpleToggleMap = {
+    "menu-trigger": "menu-switch"
   };
 
-  Object.entries(toggleMap).forEach(([triggerId, targetId]) => {
+  Object.entries(simpleToggleMap).forEach(([triggerId, targetId]) => {
     const trigger = document.getElementById(triggerId);
     const target = document.getElementById(targetId);
     if (trigger && target) {
@@ -29,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // 🎨 Aplicar fondo (sin guardar)
+  // 🎨 Aplicar fondo
   function applyBackground(bgPath) {
     root.style.setProperty("--background-image", `url('${bgPath}')`);
     if (videoElement) videoElement.style.display = "none";
@@ -47,7 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (videoElement) videoElement.style.display = "block";
   document.body.classList.add("video-active");
 
-  // 🎨 Aplicar color base o degradado (sin guardar)
+  // 🎨 Aplicar color base o degradado
   function applyGradient(type) {
     const gradients = {
       gold: "linear-gradient(45deg, #fbe8a6, #f6d365, #d4af37)",
@@ -82,7 +116,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // 🎧 Estado visual
   function updateModeAndPlaylist(mode, playlistName = null) {
-    currentMode = mode;
     modeLabel.textContent = `Modo: ${mode}`;
     if (mode === "Radio") {
       playlistLabel.textContent = "";
@@ -115,8 +148,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (Array.isArray(tracks) && tracks.length > 0) {
       updateModeAndPlaylist("Música", playlistName);
-
-      // 🔗 Sincronizar con Player30.js
       if (typeof window.activarPlaylistPlayer30 === "function") {
         window.activarPlaylistPlayer30(tracks, playlistName);
       }
