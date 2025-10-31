@@ -143,7 +143,7 @@ body {
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 #ctn-apps {
   position: absolute;
-  top: calc(50px + 139px);
+  top: calc(42px + 142px);
   left: -5px;
   width: 45px;
   height: 248px;
@@ -538,7 +538,7 @@ body {
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 #panel {
   position: fixed;
-  left: 63px;
+  left: 57px !important; /* fuerza el desplazamiento */
   bottom: 71px;
   width: 342px;
   height: 540px;
@@ -549,7 +549,7 @@ body {
 #iFone {
   position: absolute;
   bottom: -540px;
-    left: 1px;
+    left: -2px;
   transition: bottom 0.4s ease;
 }
 
