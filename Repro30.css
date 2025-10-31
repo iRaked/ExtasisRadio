@@ -549,7 +549,7 @@ body {
 #iFone {
   position: absolute;
   bottom: -540px;
-    left: -2px;
+    left: -4px;
   transition: bottom 0.4s ease;
 }
 
@@ -622,3 +622,4 @@ body {
     text-shadow: 0 0 5px #4e8ef7, 0 0 10px #00FFFF;
   }
 }
+
