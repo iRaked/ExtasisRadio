@@ -54,13 +54,16 @@ body {
 /* HEADER PRINCIPAL */
 /* ===================== */
 #radio-header {
-  height: 38px !important;
+  position: fixed;
+  top: 56px;
+  left: 0;
+  right: 0;
+  height: 38px;
   background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.3)), var(--base-color);
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
-  z-index: 10;
+  z-index: 100; /* Asegura que esté por encima del chat */
 }
 
 /* ===================== */
@@ -266,7 +269,7 @@ body {
 #background-trigger {
   position: absolute;
   right: 0;
-  top: 80px;
+  top: 120px;
   transform: translateY(-50%);
   width: 50px;
   height: 50px;
@@ -344,7 +347,7 @@ body {
 #paint-trigger {
   position: absolute;
   right: 0;
-  top: 132px;
+  top: 172px;
   transform: translateY(-50%);
   width: 50px;
   height: 50px;
@@ -481,7 +484,7 @@ body {
 #playlist-trigger {
   position: absolute;
   right: 0;
-  top: 184px;
+  top: 224px;
   transform: translateY(-50%);
   width: 50px;
   height: 50px;
