@@ -268,7 +268,7 @@ body {
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 #background-panel {
   position: absolute;
-  top: -10px;
+  top: -43px;
   right: 130px;
   width: 260px;
   height: calc(100vh - 2cm);
@@ -411,7 +411,7 @@ body {
 /* ===================== */
 #color-switch {
   position: absolute;
-  top: 60px;
+  top: 30px;
   right: -10px;
   width: 400px;
   height: 162px;
@@ -618,7 +618,7 @@ body {
 
 #playlist-switch {
   position: absolute;
-  top: 60px;
+  top: 30px;
   right: -10px;
   width: 400px;
   height: 162px;
