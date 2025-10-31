@@ -107,29 +107,9 @@
       </aside>
     </section>
 
-<button id="test-click" style="
-  position: fixed;
-  top: 62px;;
-  right: 600px;
-  z-index: 999;
-  padding: 6px 12px;
-  background: #ff0066;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  font-weight: bold;
-  cursor: pointer;
-">
-  Test Click
-</button>
-
     <!-- 🎧 Reproductor ocultable -->
     <section id="panel">
       <div id="iFone" class="ifone-ctn">
-        <div class="header">
-          <button id="btn-plus" class="btn-plus">＋</button>
-          <button id="btn-modo" class="btn-modo"><i class="fa-solid fa-music"></i></button>
-        </div>
 
         <audio id="audioStreaming" src="https://technoplayerserver.net:8018/stream?icy=http"></audio>
 
@@ -183,6 +163,11 @@
         <span id="mode-label">Modo: —</span>
         <span id="playlist-label">Playlist: —</span>
       </div>
+        
+        <div class="header-buttons">
+          <button id="btn-plus" class="btn-plus">＋</button>
+          <button id="btn-modo" class="btn-modo"><i class="fa-solid fa-music"></i></button>
+        </div>
     </header>
 
   </main>
