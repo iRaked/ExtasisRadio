@@ -267,7 +267,7 @@ body {
 /* ===================== */
 #background-panel {
   position: absolute;
-  top: 145px;
+  top: 70px;
   right: 0;
   width: 260px;
   height: calc(100vh - 2cm);
@@ -345,7 +345,7 @@ body {
 /* ===================== */
 #switch-panel {
   position: absolute;
-  top: 202px; /* siempre debajo del activador */
+  top: 130px; /* siempre debajo del activador */
   right: 0;
   width: 260px;
   height: calc(100vh - 2cm);
