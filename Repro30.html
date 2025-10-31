@@ -12,11 +12,11 @@
   <link rel="stylesheet" href="Repro30.css">
   <link rel="stylesheet" href="Player30.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <!-- Scripts Principales -->
+  <!-- Scripts Principales
   <script type="text/javascript">
   document.onkeydown = function(){return false};
   document.oncontextmenu = function(){return false}
-  </script>
+  </script>-->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="Repro30.js" defer></script>
   <script src="Player30.js" defer></script>
@@ -55,7 +55,7 @@
     <!-- 🎨 Panel de fondos -->
     <section id="background-panel">
       <aside id="background-switch">
-        <header class="switch-header"><h2>Fondos</h2></header>
+        <header class="background-switch-header"><h2>Fondos</h2></header>
         <section class="background-list">
           <div class="bg-option" data-bg="assets/bg/bg1.png" style="background-image:url('assets/bg/bg1.png')"></div>
               <div class="bg-option" data-bg="assets/bg/bg2.png" style="background-image:url('assets/bg/bg2.png')"></div>
@@ -74,7 +74,7 @@
     <!-- 🎨 Panel de colores -->
     <section id="switch-panel">
       <aside id="color-switch">
-        <header class="switch-header"><h2>Tu Estilo</h2></header>
+        <header class="color-switch-header"><h2>Tu Estilo</h2></header>
         <!-- PALETA DE COLORES CON TRANSPARENCIA -->
         <section class="palette">
           <div class="color-option solid" style="background-color:#ff000050" data-color="#ff000050" title="Rojo"></div>
@@ -94,16 +94,22 @@
     <!-- 🎵 Panel de playlists -->
     <section id="playlist-panel">
       <aside id="playlist-switch">
-        <header class="switch-header"><h2>Listas de Reproducción</h2></header>
-        <section class="playlist-list">
-          <div class="playlist-item">Hits</div>
-          <div class="playlist-item">Regional Mexicano</div>
-          <div class="playlist-item">Viva Latino</div>
-          <div class="playlist-item">Rock En Español</div>
-          <div class="playlist-item">Mega Mix</div>
-          <div class="playlist-item">After Party</div>
-          <div class="playlist-item">Pop Electrónico</div>
-        </section>
+        <header class="playlist-switch-header">
+          <h2>Listas de Reproducción</h2>
+        </header>
+        <div class="playlist-wrapper">
+          <div class="playlist-inner">
+            <section class="playlist-list">
+              <div class="playlist-item">Hits</div>
+              <div class="playlist-item">Regional Mexicano</div>
+              <div class="playlist-item">Viva Latino</div>
+              <div class="playlist-item">Rock En Español</div>
+              <div class="playlist-item">Mega Mix</div>
+              <div class="playlist-item">After Party</div>
+              <div class="playlist-item">Pop Electrónico</div>
+            </section>
+          </div>
+        </div>
       </aside>
     </section>
 
@@ -188,4 +194,3 @@
 
 </body>
 </html>
-
