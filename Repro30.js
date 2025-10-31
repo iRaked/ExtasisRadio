@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const bgOptions = document.querySelectorAll(".bg-option");
 
   let currentMode = "Radio";
+  let isStreaming = false; // Modo local por defecto
 
   // 🔁 Switchs laterales
   const toggleMap = {
@@ -28,10 +29,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // 🎨 Aplicar fondo
+  // 🎨 Aplicar fondo (sin guardar)
   function applyBackground(bgPath) {
     root.style.setProperty("--background-image", `url('${bgPath}')`);
-    localStorage.setItem("backgroundImage", bgPath);
     if (videoElement) videoElement.style.display = "none";
     document.body.classList.remove("video-active");
   }
@@ -43,15 +43,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  const savedBg = localStorage.getItem("backgroundImage");
-  if (savedBg) {
-    applyBackground(savedBg);
-  } else {
-    if (videoElement) videoElement.style.display = "block";
-    document.body.classList.add("video-active");
-  }
+  // Fondo por defecto: video activo
+  if (videoElement) videoElement.style.display = "block";
+  document.body.classList.add("video-active");
 
-  // 🎨 Aplicar color base o degradado
+  // 🎨 Aplicar color base o degradado (sin guardar)
   function applyGradient(type) {
     const gradients = {
       gold: "linear-gradient(45deg, #fbe8a6, #f6d365, #d4af37)",
@@ -60,7 +56,6 @@ document.addEventListener("DOMContentLoaded", () => {
     };
     const gradient = gradients[type] || "#3688ff50";
     root.style.setProperty("--base-color", gradient);
-    localStorage.setItem("baseColor", gradient);
   }
 
   colorOptions.forEach(option => {
@@ -68,7 +63,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const solidColor = option.dataset.color;
       if (solidColor) {
         root.style.setProperty("--base-color", solidColor);
-        localStorage.setItem("baseColor", solidColor);
       } else {
         const gradientClass = [...option.classList].find(cls =>
           ["gold", "unicorn", "turquoise"].includes(cls)
@@ -81,19 +75,12 @@ document.addEventListener("DOMContentLoaded", () => {
   restoreBtn.addEventListener("click", () => {
     const defaultColor = "#3688ff50";
     root.style.setProperty("--base-color", defaultColor);
-    localStorage.setItem("baseColor", defaultColor);
-    localStorage.removeItem("backgroundImage");
     root.style.setProperty("--background-image", "none");
     if (videoElement) videoElement.style.display = "block";
     document.body.classList.add("video-active");
   });
 
-  const savedColor = localStorage.getItem("baseColor");
-  if (savedColor) {
-    root.style.setProperty("--base-color", savedColor);
-  }
-
-  // 🔁 Sincronización de estado visual
+  // 🎧 Estado visual
   function updateModeAndPlaylist(mode, playlistName = null) {
     currentMode = mode;
     modeLabel.textContent = `Modo: ${mode}`;
@@ -118,35 +105,25 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function activatePlaylist(playlistName, fullData) {
-  const normalizedTarget = normalizeKey(playlistName);
-  const keyMap = Object.keys(fullData).reduce((acc, key) => {
-    acc[normalizeKey(key)] = key;
-    return acc;
-  }, {});
-  const realKey = keyMap[normalizedTarget];
-  const tracks = fullData[realKey];
+    const normalizedTarget = normalizeKey(playlistName);
+    const keyMap = Object.keys(fullData).reduce((acc, key) => {
+      acc[normalizeKey(key)] = key;
+      return acc;
+    }, {});
+    const realKey = keyMap[normalizedTarget];
+    const tracks = fullData[realKey];
 
-  if (Array.isArray(tracks) && tracks.length > 0) {
-    updateModeAndPlaylist("Música", playlistName);
+    if (Array.isArray(tracks) && tracks.length > 0) {
+      updateModeAndPlaylist("Música", playlistName);
 
-
-  // BOTÓN PRUEBA ZONA CLIC
-  const testBtn = document.getElementById("test-click");
-  if (testBtn) {
-    testBtn.addEventListener("click", () => {
-      alert("✅ Zona clickeable confirmada");
-    });
-  }
-
-
-    // 🔗 Sincronizar con Player30.js
-    if (typeof window.activarPlaylistPlayer30 === "function") {
-      window.activarPlaylistPlayer30(tracks, playlistName);
+      // 🔗 Sincronizar con Player30.js
+      if (typeof window.activarPlaylistPlayer30 === "function") {
+        window.activarPlaylistPlayer30(tracks, playlistName);
+      }
+    } else {
+      console.warn("Playlist vacía o no encontrada:", realKey);
     }
-  } else {
-    console.warn("Playlist vacía o no encontrada:", realKey);
   }
-}
 
   function loadAndActivatePlaylist(name) {
     fetch("Repro30.json")
