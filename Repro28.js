@@ -64,17 +64,17 @@ btnPlay.addEventListener('click', () => {
 
   // 🔁 Cambiar imagen inmediatamente según estado actual
   if (!isPlaying) {
-    playImg.src = 'assets/img/btn-pause.png';
+    playImg.src = 'assets/img/pause-btn.png';
     isPlaying = true;
     audio.play().then(() => {
       console.log('[ALEXIA] Reproducción iniciada');
     }).catch(err => {
       console.warn('[ALEXIA] Error al reproducir:', err);
-      playImg.src = 'assets/img/btn-play.png'; // revertir si falla
+      playImg.src = 'assets/img/play-btn.png'; // revertir si falla
       isPlaying = false;
     });
   } else {
-    playImg.src = 'assets/img/btn-play.png';
+    playImg.src = 'assets/img/play-btn.png';
     isPlaying = false;
     audio.pause();
     console.log('[ALEXIA] Reproducción pausada');
