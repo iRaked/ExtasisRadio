@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <link rel="icon" type="image/x-icon" href="assets/SG.ico" />
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="author" content="Rick">
+  <title>Reproductor 28</title>
+  <!-- Estilos externos -->
+  <link rel="stylesheet" href="Repro28.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <!-- Scripts externos -->
+  <script src="Repro28.js" defer></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  
+  <!-- BLOCK 
+  <script type="text/javascript">
+  document.onkeydown = function(){return false};
+  document.oncontextmenu = function(){return false}
+  </script>
+<script src="https://precios-2025.web.app/gallery.js"></script>-->
+</head>
+
+<body>
+
+
+<div class="main-container">
+
+  <!-- Disco -->
+  <div class="ctn-disc">
+    <img src="assets/img/Disc-Power.png" alt="Disco de vinil" class="disc-img" />
+  </div>
+
+  <!-- Portada sobre el disco -->
+  <div class="wrapper">
+    <img src="assets/covers/Cover1.png" alt="Portada" class="cover-art" />
+  </div>
+
+  <!-- Imagen Fussion2 más alta jerárquicamente -->
+  <div class="ctn-base">
+    <img src="assets/img/Fussion2.png" alt="Imagen Base" class="stage-fussion" />
+  </div>
+
+  <!-- Audio -->
+  <audio id="audioStreaming" autoplay muted></audio>
+
+  <!-- Metadatos -->
+  <div class="metadata-marquee marquee">
+    <span>[1] Título del Track — Artista - Género - 0:00</span>
+  </div>
+
+  <div class="info-marquee marquee">
+    <span>Día: Martes • Mes: Octubre • Año: 2025 • Hora: 00:00</span>
+  </div>
+
+  <!-- Controles -->
+  <div class="controls-wrapper">
+    <button id="playPause">
+      <img src="assets/img/btn-play.png" alt="Play/Pause" />
+    </button>
+    <button id="plus">
+      <img src="assets/img/btn-plus.png" alt="Plus" />
+    </button>
+  </div>
+
+    <!-- Botón invisible retroceso -->
+    <button id="btn-rwd" class="btn-rwd"></button>
+
+    <!-- Botón invisible avance -->
+    <button id="btn-fwd" class="btn-fwd"></button>
+
+  <!-- Decorativos -->
+  <div class="decorative-wrapper">
+    <img src="assets/img/Turbina-Red.png" alt="Turbina giratoria" class="turbine-img" />
+    <img src="assets/img/Button2.png" alt="Botón decorativo" class="decorative-overlay" />
+  </div>
+
+</div>
+
+
+</body>
+</html>
