@@ -1,0 +1,439 @@
+/* === ESTRUCTURA BASE === */
+:root {
+  --icon-color: #ffffff; /* valor por defecto */
+  --main-button-color: #ffffff; /* valor por defecto */
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #000;
+  font-family: 'Segoe UI', sans-serif;
+  overflow: hidden;
+}
+
+.psp-main-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background-image: url('assets/bg/BG-PSP.jpg');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.psp-background {
+  display: none;
+}
+
+/* === MENÚ HORIZONTAL PSP/XMB === */
+.psp-horizontal-menu {
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 100px;
+  z-index: 10;
+}
+
+.psp-icon-wrapper {
+  position: relative;
+  z-index: 10;
+}
+
+.psp-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.psp-icon i {
+  font-size: 40px;
+  color: #ffffff90;
+  margin-bottom: 6px;
+  text-shadow: 0 0 4px #000;
+    color: var(--icon-color);
+  transition: color 0.3s ease;
+}
+
+.psp-icon span {
+  font-size: 14px;
+  color: #ccc;
+  text-shadow: 0 0 2px #000;
+  margin-top: 4px;
+}
+
+.psp-icon:hover {
+  transform: scale(1.15);
+}
+
+/* === CAPA FLOTANTE DE SUBMENÚS === */
+.psp-submenu-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+  pointer-events: none;
+}
+
+/* === SUBMENÚ BASE === */
+.psp-submenu {
+  position: absolute;
+  top: calc(25% + 80px); /* justo debajo del ícono Música */
+  left: 900px;
+  transform: translateX(-50%);
+  width: 360px;
+  max-height: calc(6 * 72px + 36px); /* 4 subbotones visibles */
+  overflow: hidden;
+  z-index: 6;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: auto;
+}
+
+.psp-submenu:not(.hidden) {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  opacity: 1;
+}
+
+/* === SCROLL INVISIBLE + MÁSCARA CEREMONIAL === */
+.psp-subbutton-scroll {
+  height: 100%;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  mask-image: linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%);
+}
+
+.psp-subbutton-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.psp-subbutton-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 0;
+}
+
+/* === SUBBOTONES === */
+.psp-subbutton {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  min-width: 280px;
+  max-width: 360px;
+  transition: background 0.3s ease;
+}
+
+.psp-subbutton:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.psp-subbutton i {
+  font-size: 28px;
+  color: #ffffffcc;
+  margin-top: 4px;
+  flex-shrink: 0;
+}
+
+.psp-subtext {
+  display: flex;
+  flex-direction: column;
+  color: #ccc;
+  font-size: 14px;
+  width: 100%;
+}
+
+.psp-subtext .title {
+  font-weight: bold;
+  font-size: 15px;
+  color: #fff;
+}
+
+.psp-subtext hr {
+  border: none;
+  border-top: 1px solid #ffffff22;
+  margin: 4px 0;
+}
+
+.psp-subtext .desc {
+  font-size: 13px;
+  color: #aaa;
+  line-height: 1.3;
+}
+
+.psp-subbutton.active {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid #fff;
+}
+
+/* === ANIMACIÓN OPCIONAL === */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* === POSICIONES ESPECÍFICAS DE SUBMENÚS === */
+#submenu-ajustes    { top: 280px; left: 600px; }
+#submenu-multimedia { top: 280px; left: 750px; }
+#submenu-musica     { left: 900px; } /* top ya definido arriba */
+#submenu-video      { top: 280px; left: 1050px; }
+#submenu-juegos     { top: 280px; left: 1200px; }
+
+
+/* METADATOS */
+.video-track {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+.video-cover {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.video-info {
+  color: #ccc;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+#submenu-video .psp-subbutton-scroll {
+  height: 100%;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  mask-image: linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%);
+}
+
+#submenu-video .psp-subbutton-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.video-track-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 0;
+}
+
+.video-track {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.video-cover {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.video-info {
+  color: #ccc;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.video-track.active {
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid #fff;
+  border-radius: 8px;
+  padding: 4px;
+}
+
+.music-track.active {
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid #fff;
+  border-radius: 8px;
+  padding: 4px;
+}
+
+/* MULTIMEDIA */
+/* Skin 1: Blanco sobre negro */
+body.skin1 {
+  --icon-color: #fff;
+  --text-color: #fff;
+  --bg-color: #000;
+}
+
+/* Skin 2: Neón violeta */
+body.skin2 {
+  --icon-color: #d0aaff;
+  --text-color: #d0aaff;
+  --bg-color: #1a001f;
+}
+
+/* Skin 3: Azul eléctrico */
+body.skin3 {
+  --icon-color: #00ffff;
+  --text-color: #00ffff;
+  --bg-color: #001f2f;
+}
+
+/* Skin 4: Verde ácido */
+body.skin4 {
+  --icon-color: #aaff00;
+  --text-color: #aaff00;
+  --bg-color: #0f1f00;
+}
+
+/* Skin 5: Rojo ritual */
+body.skin5 {
+  --icon-color: #ff4444;
+  --text-color: #ff4444;
+  --bg-color: #1f0000;
+}
+
+/* Aplicación universal */
+.psp-subbutton i {
+  color: var(--icon-color);
+}
+.psp-subtext {
+  color: var(--text-color);
+}
+.psp-submenu {
+  /*background-color: var(--bg-color);*/
+}
+
+/* Miniaturas */
+.theme-thumb {
+  width: 100%;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-bottom: 6px;
+}
+
+.psp-subbutton .skin-preview,
+.psp-subbutton img {
+  width: 100%;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-bottom: 6px;
+  box-shadow: 0 0 4px rgba(0,0,0,0.3);
+}
+
+.skin-preview {
+  width: 100%;
+  height: 40px;
+  border-radius: 6px;
+  margin-bottom: 6px;
+  box-shadow: 0 0 4px rgba(0,0,0,0.3);
+}
+
+/* Barra de Información */
+/* 🧭 Estilo para contenedor de tiempo y metadatos */
+.info-tiempo-track {
+  position: absolute;
+  top: 40px; /* ~2cm visualmente */
+  right: 20px;
+  text-align: right;
+  z-index: 999;
+  font-family: 'Orbitron', sans-serif;
+  color: white;
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid #fff;
+  padding: 10px 15px;
+  border-radius: 8px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.5);
+}
+
+.fecha-hora {
+  font-size: 1.1em;
+  margin-bottom: 6px;
+}
+
+.track-actual {
+  font-size: 0.95em;
+  opacity: 0.85;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 🌌 Estelas Playstation */
+.estela-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* 🌌 Estela base */
+/* 🌌 Estela base sincronizada con skin */
+.estela-luz {
+  position: absolute;
+  left: -60%;
+  width: 220%;
+  height: 20px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--icon-color) 40%,
+    white 60%,
+    transparent 100%
+  );
+  filter: blur(20px);
+  opacity: 0.8;
+  mix-blend-mode: screen;
+  animation: estelaMovimiento 6s ease-in-out infinite;
+}
+
+/* 🌌 Variaciones para simular curvatura */
+.curva1 {
+  top: 45%;
+  transform: rotate(-10deg) scaleX(1.1);
+}
+.curva2 {
+  top: 50%;
+  transform: rotate(5deg) scaleX(1.2);
+  opacity: 0.6;
+}
+.curva3 {
+  top: 65%;
+  transform: rotate(-5deg) scaleX(1.3);
+  opacity: 0.4;
+}
+.curva4 {
+  top: 25%;
+  transform: rotate(-5deg) scaleX(1.3);
+  opacity: 0.4;
+}
+
+/* 🌌 Animación de desplazamiento */
+@keyframes estelaMovimiento {
+  0%   { left: -50%; opacity: 0.6; }
+  50%  { left: 0%; opacity: 1; }
+  100% { left: -50%; opacity: 0.6; }
+}

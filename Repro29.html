@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <!-- Font Awesome -->
+  <link rel="icon" type="image/x-icon" href="assets/SG.ico" />
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="author" content="Rick - xat.comn/CasinoDigital">
+  <title>Repro 29</title>
+  <!-- Estilos principales -->
+  <link rel="stylesheet" href="Repro29.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <!-- Scripts Principales
+  <script type="text/javascript">
+  document.onkeydown = function(){return false};
+  document.oncontextmenu = function(){return false}
+  </script>-->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="Repro29.js" defer></script>
+
+</head>
+
+<body>
+  <!-- 🎧 Audio principal -->
+  <audio id="player" autoplay muted>
+    <source src="https://technoplayerserver.net:8018/stream?icy=http" type="audio/mpeg" />
+  </audio>
+    
+    <!-- 🌌 Estela luminosa ceremonial -->
+    <div class="estela-container">
+      <div class="estela-luz curva1"></div>
+      <div class="estela-luz curva2"></div>
+      <div class="estela-luz curva3"></div>
+      <div class="estela-luz curva4"></div>
+    </div>
+
+  <main class="psp-main-container">
+    <div class="psp-background"></div>
+
+    <!-- Menú horizontal tipo PSP/XMB -->
+    <section class="psp-horizontal-menu">
+      <div class="psp-icon-wrapper">
+        <div class="psp-icon" data-submenu="ajustes">
+          <i class="fas fa-cog"></i>
+          <span>Ajustes</span>
+        </div>
+      </div>
+      <div class="psp-icon-wrapper">
+        <div class="psp-icon" data-submenu="multimedia">
+          <i class="fas fa-photo-video"></i>
+          <span>Multimedia</span>
+        </div>
+      </div>
+      <div class="psp-icon-wrapper">
+        <div class="psp-icon" id="icon-musica" data-submenu="musica">
+          <i class="fas fa-music"></i>
+          <span>Música</span>
+        </div>
+      </div>
+      <div class="psp-icon-wrapper">
+        <div class="psp-icon" data-submenu="video">
+          <i class="fas fa-film"></i>
+          <span>Video</span>
+        </div>
+      </div>
+      <div class="psp-icon-wrapper">
+        <div class="psp-icon" data-submenu="juegos">
+          <i class="fas fa-gamepad"></i>
+          <span>Juegos</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Submenú Ajustes -->
+    <section id="submenu-ajustes" class="psp-submenu hidden">
+      <div class="psp-subbutton-wrapper">
+        <div class="psp-subbutton">
+          <i class="fas fa-wrench"></i>
+          <div class="psp-subtext">
+            <span class="title">Configuración</span>
+            <hr>
+            <span class="desc">Ajustes del sistema y preferencias generales</span>
+          </div>
+        </div>
+        <div class="psp-subbutton" id="btn-local">
+          <i class="fas fa-folder-open"></i>
+          <div class="psp-subtext">
+            <span class="title">Local</span>
+            <hr>
+            <span class="desc">Reproducir desde playlist local</span>
+          </div>
+        </div>
+        <div class="psp-subbutton" id="btn-radio">
+          <i class="fas fa-broadcast-tower"></i>
+          <div class="psp-subtext">
+            <span class="title">Radio</span>
+            <hr>
+            <span class="desc">Reproducir desde streaming en vivo</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Submenú Juegos -->
+    <section id="submenu-juegos" class="psp-submenu hidden">
+      <div class="psp-subbutton-wrapper">
+        <!-- Botonera -->
+        <!-- Play -->
+        <div class="psp-subbutton" id="btn-play">
+          <i class="fas fa-play"></i>
+          <div class="psp-subtext">
+            <span class="title">Play</span>
+            <hr>
+            <span class="desc">Iniciar reproducción local</span>
+          </div>
+        </div>
+        <!-- Pause -->
+        <div class="psp-subbutton" id="btn-pause">
+          <i class="fas fa-pause"></i>
+          <div class="psp-subtext">
+            <span class="title">Pause</span>
+            <hr>
+            <span class="desc">Detener reproducción local</span>
+          </div>
+        </div>
+        <!-- Shuffle -->
+        <div class="psp-subbutton" id="btn-shuffle">
+          <i class="fas fa-random"></i>
+          <div class="psp-subtext">
+            <span class="title">Shuffle</span>
+            <hr>
+            <span class="desc">Reproducción aleatoria</span>
+          </div>
+        </div>
+
+        <!-- Repeat -->
+        <div class="psp-subbutton" id="btn-repeat">
+          <i class="fas fa-redo"></i>
+          <div class="psp-subtext">
+            <span class="title">Repeat</span>
+            <hr>
+            <span class="desc">Repetir pista actual</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Submenú Música con scroll invisible -->
+    <div class="psp-submenu-layer">
+      <section id="submenu-musica" class="psp-submenu hidden">
+        <div class="psp-subbutton-scroll">
+          <div class="psp-subbutton-wrapper">
+            <!-- Toda La Música (activa todas las secciones) -->
+            <div class="psp-subbutton playlist-item" id="btn-toda-musica">
+              <i class="fas fa-infinity"></i>
+              <div class="psp-subtext">
+                <span class="title">Toda La Música</span>
+                <hr>
+                <span class="desc">Explora todas las playlists disponibles</span>
+              </div>
+            </div>
+
+            <!-- Subbotones sincronizados por sección -->
+            <div class="psp-subbutton playlist-item" data-seccion="hits">
+              <i class="fas fa-star"></i>
+              <div class="psp-subtext">
+                <span class="title">Hits</span>
+                <hr>
+                <span class="desc">Lo más popular del momento</span>
+              </div>
+            </div>
+
+            <div class="psp-subbutton playlist-item" data-seccion="regional_mexicano">
+              <i class="fas fa-hat-cowboy"></i>
+              <div class="psp-subtext">
+                <span class="title">Regional Mexicano</span>
+                <hr>
+                <span class="desc">Cultura, raíces y fuerza sonora</span>
+              </div>
+            </div>
+
+            <div class="psp-subbutton playlist-item" data-seccion="viva_latino">
+              <i class="fas fa-fire"></i>
+              <div class="psp-subtext">
+                <span class="title">Viva Latino</span>
+                <hr>
+                <span class="desc">Ritmos latinos que encienden</span>
+              </div>
+            </div>
+
+            <div class="psp-subbutton playlist-item" data-seccion="rock_espanol">
+              <i class="fas fa-guitar"></i>
+              <div class="psp-subtext">
+                <span class="title">Rock en Español</span>
+                <hr>
+                <span class="desc">Clásicos y nuevas distorsiones</span>
+              </div>
+            </div>
+
+            <div class="psp-subbutton playlist-item" data-seccion="mega_mix">
+              <i class="fas fa-magic"></i>
+              <div class="psp-subtext">
+                <span class="title">Mega Mix</span>
+                <hr>
+                <span class="desc">Fusión de géneros y energía</span>
+              </div>
+            </div>
+
+            <div class="psp-subbutton playlist-item" data-seccion="after_party">
+              <i class="fas fa-glass-cheers"></i>
+              <div class="psp-subtext">
+                <span class="title">After Party</span>
+                <hr>
+                <span class="desc">Lo que suena después del caos</span>
+              </div>
+            </div>
+
+            <div class="psp-subbutton playlist-item" data-seccion="pop_electronico">
+              <i class="fas fa-bolt"></i>
+              <div class="psp-subtext">
+                <span class="title">Pop Electrónico</span>
+                <hr>
+                <span class="desc">Sintetizadores y melodías modernas</span>
+              </div>
+            </div>
+
+            <div class="psp-subbutton playlist-item" data-seccion="baladas">
+              <i class="fas fa-heart"></i>
+              <div class="psp-subtext">
+                <span class="title">Baladas</span>
+                <hr>
+                <span class="desc">Emoción pura en cada nota</span>
+              </div>
+            </div>
+
+            <div class="psp-subbutton playlist-item" data-seccion="essentials">
+              <i class="fas fa-gem"></i>
+              <div class="psp-subtext">
+                <span class="title">Essentials</span>
+                <hr>
+                <span class="desc">Selección esencial para cualquier momento</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <!-- Submenú Video (Metadatos) -->
+    <section id="submenu-video" class="psp-submenu hidden">
+      <div class="psp-subbutton-scroll">
+        <div class="video-track-wrapper">
+          <!-- Aquí se insertan los metadatos dinámicamente -->
+        </div>
+      </div>
+    </section>
+    <!-- Submenú Multimedia (Fondos) -->
+    <section id="submenu-multimedia" class="psp-submenu hidden">
+      <div class="psp-subbutton-scroll">
+        <div class="psp-subbutton-wrapper">
+
+          <!-- Temas (Fondos) -->
+            <div class="psp-subtitle">Temas</div>
+
+            <div class="psp-subbutton theme-option" data-bg="assets/bg/BG1.png">
+              <img src="assets/bg/BG1.png" class="theme-thumb" alt="Tema 1">
+              <div class="psp-subtext">
+                <span class="title">Tema 1</span>
+                <hr>
+                <span class="desc">Fondo clásico</span>
+              </div>
+            </div>
+
+            <div class="psp-subbutton theme-option" data-bg="assets/bg/BG2.png">
+              <img src="assets/bg/BG2.png" class="theme-thumb" alt="Tema 2">
+              <div class="psp-subtext">
+                <span class="title">Tema 2</span>
+                <hr>
+                <span class="desc">Fondo neón</span>
+              </div>
+            </div>
+
+            <div class="psp-subbutton theme-option" data-bg="assets/bg/BG3.png">
+              <img src="assets/bg/BG3.png" class="theme-thumb" alt="Tema 3">
+              <div class="psp-subtext">
+                <span class="title">Tema 3</span>
+                <hr>
+                <span class="desc">Fondo glitch</span>
+              </div>
+            </div>
+
+            <div class="psp-subbutton theme-option" data-bg="assets/bg/BG4.png">
+              <img src="assets/bg/BG4.png" class="theme-thumb" alt="Tema 4">
+              <div class="psp-subtext">
+                <span class="title">Tema 4</span>
+                <hr>
+                <span class="desc">Fondo retro</span>
+              </div>
+            </div>
+
+            <div class="psp-subbutton theme-option" data-bg="assets/bg/BG5.png">
+              <img src="assets/bg/BG5.png" class="theme-thumb" alt="Tema 5">
+              <div class="psp-subtext">
+                <span class="title">Tema 5</span>
+                <hr>
+                <span class="desc">Fondo oscuro</span>
+              </div>
+            </div>
+            
+            <div class="psp-subbutton restore-default" id="btn-restore-bg">
+              <div class="skin-preview" style="background-color: #000;"></div>
+                <img src="assets/bg/BG-PSP.jpg">
+              <div class="psp-subtext">
+                <span class="title">Restaurar fondo <i class="fas fa-sync-alt"></i></span>
+                <hr>
+                <span class="desc">Volver a Background Classic</span>
+              </div>
+            </div>
+
+          <!-- Skins (Colores universales) -->
+            <div class="psp-subtitle">Skins</div>
+
+            <div class="psp-subbutton skin-option" data-skin="skin1" data-color="#ffffff">
+              <div class="skin-preview" style="background-color: #ffffff;"></div>
+              <div class="psp-subtext">
+                <span class="title">Skin 1 <i class="fas fa-palette"></i></span>
+                <hr>
+                <span class="desc">Blanco sobre negro</span>
+              </div>
+            </div>
+
+            <div class="psp-subbutton skin-option" data-skin="skin2" data-color="#d0aaff">
+              <div class="skin-preview" style="background-color: #d0aaff;"></div>
+              <div class="psp-subtext">
+                <span class="title">Skin 2 <i class="fas fa-palette"></i></span>
+                <hr>
+                <span class="desc">Neón violeta</span>
+              </div>
+            </div>
+
+            <div class="psp-subbutton skin-option" data-skin="skin3" data-color="#00ffff">
+              <div class="skin-preview" style="background-color: #00ffff;"></div>
+              <div class="psp-subtext">
+                <span class="title">Skin 3 <i class="fas fa-palette"></i></span>
+                <hr>
+                <span class="desc">Azul eléctrico</span>
+              </div>
+            </div>
+
+            <div class="psp-subbutton skin-option" data-skin="skin4" data-color="#aaff00">
+              <div class="skin-preview" style="background-color: #aaff00;"></div>
+              <div class="psp-subtext">
+                <span class="title">Skin 4 <i class="fas fa-palette"></i></span>
+                <hr>
+                <span class="desc">Verde ácido</span>
+              </div>
+            </div>
+
+            <div class="psp-subbutton skin-option" data-skin="skin5" data-color="#ff4444">
+              <div class="skin-preview" style="background-color: #ff4444;"></div>
+              <div class="psp-subtext">
+                <span class="title">Skin 5 <i class="fas fa-palette"></i></span>
+                <hr>
+                <span class="desc">Rojo ritual</span>
+              </div>
+            </div>
+
+        </div>
+      </div>
+    </section>
+      
+      <!-- 🧭 Contenedor de Fecha/Hora + Metadatos -->
+    <div id="info-tiempo-track" class="info-tiempo-track">
+      <div id="fecha-hora" class="fecha-hora">Cargando fecha y hora...</div>
+      <div id="track-actual" class="track-actual">Cargando metadatos...</div>
+    </div>
+
+  </main>
+
+</body>
+</html>
