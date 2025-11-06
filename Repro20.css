@@ -1,0 +1,729 @@
+body {
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  z-index: 0;
+}
+
+.repro-box {
+  position: relative;
+  z-index: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  background: transparent;
+}
+
+/* ===================== */
+/* 💿 PARTE 2: DISCO, ENCABEZADO Y TEXTOS */
+/* ===================== */
+.repro-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.btn-menu {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.icon-menu {
+  width: 32px;
+  height: 32px;
+  fill: #fff;
+  transition: transform 0.3s ease;
+}
+
+.icon-menu:hover {
+  transform: scale(1.1);
+}
+
+.btn-radio {
+  width: 40px;
+  height: 40px;
+  background-color: rgba(148, 0, 211, 0.9); /* violeta translúcido */
+  border: 2px solid #9400D3; /* Solid Color */
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.btn-radio:hover {
+  transform: translateY(-2px);
+}
+
+.btn-radio svg {
+  width: 60%;
+  height: 60%;
+  fill: #000000;
+  pointer-events: none;
+}
+
+
+/* ***************************** LOGO ***************************** */
+.logo-waves-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  transform: scale(0.85); /* reducción proporcional */
+}
+
+.radio-logo {
+  width: 100%;
+  max-width: 220px;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  margin: 25px auto 20px;
+  border: 1px solid rgb(255, 255, 255);
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  animation: vinylSpin 3s linear infinite, glow 3s infinite alternate;
+  box-shadow: 0 0 15px rgb(255, 255, 255);
+  z-index: 5;
+  isolation: isolate;
+}
+
+.radio-logo::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 1.0; /* 0.2 o quítalo si ya no quieres Plato.png como fondo */
+  z-index: 2;
+}
+
+.radio-logo:hover {
+  box-shadow: 0 0 20px rgba(148, 0, 211, 0.8); /* Violeta #9400D3 */
+}
+
+@keyframes vinylSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 25px rgba(148, 0, 211, 0.5);   /* Morado suave */
+    border-color: rgba(148, 0, 211, 0.6);          /* borde morado tenue */
+  }
+  100% {
+    box-shadow: 0 0 30px rgba(148, 0, 211, 0.8);   /* resplandor morado intenso */
+    border-color: rgba(148, 0, 211, 0.9);          /* borde vibrante */
+  }
+}
+
+/* ===================== */
+/* 🎶 Ecualizador dinámico */
+/* ===================== */
+/* ***************************** Ondas ***************************** */
+.audio-waves {
+  position: absolute;
+  top: 100px; /* Ajusta según la posición del logo */
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  gap: 3px;
+  padding: 15px 0;
+  width: 300px; /* Más grande que el logo */
+  z-index: 2;
+
+  -webkit-mask-image: radial-gradient(circle at center, transparent 40%, black 100%);
+  mask-image: radial-gradient(circle at center, transparent 40%, black 100%);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: cover;
+  mask-size: cover;
+}
+
+.wave-bar {
+  width: 10px;
+  height: var(--height, 60px); /* Valor por defecto si no se define */
+  background-color: #8B008B; /* Validación emocional */
+  border-radius: 2px;
+  animation: barDance 1s infinite cubic-bezier(0.4, 0, 0.2, 1);
+  animation-delay: var(--delay, 0s);
+  opacity: 1; /* Opacidad fija, sin transparencia */
+}
+
+/* Animaciones */
+@keyframes wave-animation {
+  0%, 100% {
+    transform: scaleY(0.5);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes letterPulse {
+  0% {
+    text-shadow:
+      0 0 6px rgba(148, 0, 211, 0.9),   /* Morado base vibrante */
+      0 0 12px rgba(180, 0, 255, 0.6),   /* Morado más claro */
+      0 0 24px rgba(200, 162, 200, 0.4); /* Gris/Morado suave */
+    color: rgba(148, 0, 211, 0.9);      /* Morado base */
+  }
+  100% {
+    text-shadow:
+      0 0 10px rgba(148, 0, 211, 1),    /* Morado intenso */
+      0 0 20px rgba(180, 0, 255, 0.8),   /* Morado más fuerte */
+      0 0 30px rgba(200, 162, 200, 0.6), /* Gris/Morado más brillante */
+      0 0 40px rgba(255, 255, 255, 0.4); /* halo blanco suave */
+    color: rgba(148, 0, 211, 1);        /* Morado puro */
+  }
+}
+
+@keyframes letterFloat {
+  0% { transform: translateY(0px) translateZ(0); }
+  30% { transform: translateY(-3px) translateZ(10px); }
+  70% { transform: translateY(2px) translateZ(5px); }
+  100% { transform: translateY(-1px) translateZ(0); }
+}
+
+@keyframes reflectionPulse {
+  0% { opacity: 0.2; transform: scale(0.8); }
+  100% { opacity: 0.6; transform: scale(1.2); }
+}
+
+@keyframes barDance {
+  0% { height: calc(var(--height) * 0.6); }
+  100% { height: var(--height); }
+}
+
+@keyframes glowPulse {
+  0% { opacity: 0.4; filter: blur(20px); }
+  100% { opacity: 0.8; filter: blur(25px); }
+}
+
+@keyframes wordRotate {
+  0%, 100% { transform: rotateX(0deg); }
+  25% { transform: rotateX(2deg); }
+  75% { transform: rotateX(-2deg); }
+}
+
+@keyframes wordFloat {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+  100% { transform: translateY(1px); }
+}
+
+@keyframes neonFlicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+    opacity: 1;
+    text-shadow:
+      0 0 10px #9400D3,   /* Morado base vibrante */
+      0 0 15px #C8A2C8,   /* Color de texto claro */
+      0 0 25px #D8BFD8,   /* Color más claro */
+      0 0 40px #ffffff;   /* halo blanco */
+    color: #9400D3;
+  }
+  20%, 22%, 24%, 55% {
+    opacity: 0.8;
+    text-shadow:
+      0 0 5px #9400D3,
+      0 0 10px #C8A2C8,
+      0 0 15px #D8BFD8;
+    color: #9400D3;
+  }
+}
+
+@keyframes neon-pulse {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.5); }
+}
+
+@keyframes reflection-pulse {
+  0%, 100% {
+    opacity: 0.3;
+    width: 80%;
+    left: 10%;
+  }
+  50% {
+    opacity: 0.6;
+    width: 90%;
+    left: 5%;
+  }
+}
+
+@media (max-width: 768px) {
+  .audio-waves {
+    top: 12px;
+    width: 90vw;
+    gap: 2px;
+    padding: 10px 0;
+    transform: translateX(-50%);
+  }
+
+  .wave-bar {
+    width: 6px;
+    height: var(--height, 40px);
+  }
+}
+
+/* ===================== */
+/* FOOTER */
+/* ===================== */
+.footer-2_5d {
+    position: absolute;
+    top: 365px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 750px;
+    max-width: 750px;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /*background: linear-gradient(to bottom, #4a4a4a, #2e2e2e);*/
+  box-shadow:
+    inset 0 2px 4px rgba(255, 255, 255, 0.2),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.4),
+    0 4px 8px rgba(0, 0, 0, 0.6);
+  padding: 0 20px;
+  border-top: 1px solid #5a5a5a;
+  z-index: 10;
+}
+
+.left-zone,
+.botonera,
+.right-zone {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.footer-label,
+.footer-info {
+  color: #ccc;
+  font-size: 14px;
+  text-shadow: 1px 1px 0 #000;
+}
+
+.footer-btn {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(to bottom, #5a5a5a, #3a3a3a);
+  border: none;
+  border-radius: 8px;
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 0.2),
+    0 2px 4px rgba(0, 0, 0, 0.5);
+  color: #fff;
+  font-size: 18px;
+  transition: transform 0.2s ease;
+}
+
+.footer-btn:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 0.3),
+    0 4px 6px rgba(0, 0, 0, 0.6);
+}
+
+/* ===================== */
+/* METADATOS */
+/* ===================== */
+.meta-marquee {
+  position: relative;
+  overflow: hidden;
+  width: 220px;
+  height: 24px;
+  padding-left: 10px;
+  border-left: 2px solid #9400D3;
+  border-radius: 6px;
+  background-color: rgba(20, 0, 30, 0.4); /* fondo violeta oscuro translúcido */
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 0.2), /* luz interna superior */
+    inset 0 -1px 2px rgba(0, 0, 0, 0.4),      /* sombra interna inferior */
+    0 4px 8px rgba(0, 0, 0, 0.6),             /* sombra externa */
+    0 0 12px rgba(148, 0, 211, 0.3);          /* halo violeta */
+  backdrop-filter: blur(2px); /* profundidad atmosférica */
+  display: flex;
+  align-items: center;
+}
+
+.meta-track {
+  position: absolute;
+  white-space: nowrap;
+  animation: scrollMeta 12s linear infinite;
+  color: #C8A2C8;
+  font-size: 13px;
+  text-shadow: 1px 1px 0 #000;
+}
+
+
+@keyframes scrollMeta {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+/* ===================== */
+/* BOTONERA */
+/* ===================== */
+#buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1px;
+}
+
+/* Botón base con transparencia y sombra ceremonial */
+.soft {
+  background-color: rgba(148, 0, 211, 0.6); /* violeta translúcido */
+  border: 1px solid #9400D3;
+  box-shadow:
+    8px 8px 16px rgba(0, 0, 0, 0.95),   /* sombra abajo y derecha, muy marcada */
+    0 0 12px #C8A2C8;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+
+.soft:hover {
+  transform: scale(1.08);
+  box-shadow:
+    10px 10px 20px rgba(0, 0, 0, 6),    /* sombra más intensa al hover */
+    0 0 24px #9400D3;
+}
+
+.repro-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: .5rem;
+  z-index: 10;
+  position: relative;
+}
+
+/* ===================== */
+/* 🎯 Tamaños individuales para cada botón */
+/* ===================== */
+#repeat-button {
+  width: 32px;
+  height: 32px;
+}
+
+#prev-button {
+  width: 40px;
+  height: 40px;
+}
+
+#btn-play-pause {
+  width: 54px;
+  height: 54px;
+}
+
+#next-button {
+  width: 40px;
+  height: 40px;
+}
+
+#shuffle-button {
+  width: 32px;
+  height: 32px;
+}
+
+/* Iconos */
+.btn-play svg {
+  width: 50%;
+  height: 50%;
+}
+
+.btn-repeat svg,
+.btn-shuffle svg {
+  width: 70%;
+  height: 70%;
+}
+
+/* Botón de reproducción */
+.btn-play {
+  background-color: rgba(148, 0, 211, 0.6); /* violeta translúcido */
+  border: 2px solid #9400D3; /* Solid Color */
+  box-shadow:
+    10px 10px 20px rgba(0, 0, 0, 1),
+    0 0 24px #C8A2C8;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+
+.btn-play:hover {
+  transform: scale(1.08);
+  box-shadow:
+    12px 12px 24px rgba(0, 0, 0, 1),
+    0 0 32px #9400D3;
+}
+
+/* SVG dentro de botones */
+button svg {
+  width: 50%;
+  height: 50%;
+  fill: #000;
+  pointer-events: none;
+}
+
+.btn-play svg path {
+  filter: url(#inset-shadow);
+  fill: #17191e;
+}
+
+.icon-pause,
+.icon-play {
+  transition: opacity 0.3s ease;
+}
+
+/* ===================== */
+/* ESTILOS DE ESTADO (ACTIVE) */
+/* ===================== */
+
+/* Aplica a Shuffle (.active) y Repeat (.active-one) */
+.soft.active,
+.soft.active-one {
+    /* Mantiene la transformación base al hover, pero lo aplica de forma fija */
+    transform: scale(1.08); 
+
+    /* Fondo que indica el estado activo (usando el color rosa del modal, ff69b4) */
+    background-color: rgba(255, 105, 180, 0.8); /* Rosa vibrante translúcido */
+    border: 1px solid #ff69b4; /* Borde rosa más fuerte */
+    
+    /* Efecto de resplandor para indicar que está "encendido" */
+    box-shadow: 
+        10px 10px 20px rgba(0, 0, 0, 0.8), /* Sombra fuerte */
+        0 0 15px #ff69b4, /* Resplandor rosa */
+        0 0 25px rgba(255, 255, 255, 0.4); /* Halo blanco sutil */
+}
+
+/* Ajuste de color del SVG para que el icono se vea mejor sobre el fondo rosa activo */
+.soft.active-one svg,
+.soft.active svg {
+    /* Usamos un violeta oscuro (casi negro) para un buen contraste */
+    fill: #17191e; 
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Volumen ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.volume-icon {
+  color: #000;
+  font-size: 16px;
+}
+
+/* Orificio para la barra de volumen */
+.volume-track {
+  width: 150px;
+  height: 16px;
+  background: #010101;
+  border-radius: 8px;
+  box-shadow:
+    inset 0 0 0 1px #C8A2C8,
+    inset 0 2px 4px #000;
+  display: flex;
+  align-items: center;
+  padding: 0 4px;
+}
+
+.volume-bar {
+  width: 100%;
+  height: 4px;
+  border-radius: 4px;
+  appearance: none;
+  background: linear-gradient(to right, #9400D3 0%, #9400D3 70%, #4B0082 70%, #4B0082 100%);
+  outline: none;
+  cursor: pointer;
+}
+
+.volume-bar::-webkit-slider-thumb {
+  width: 12px;
+  height: 12px;
+  background: #800080;
+  border-radius: 50%;
+  cursor: pointer;
+  appearance: none;
+  box-shadow: 0 0 2px #000;
+  margin-top: -4px;
+}
+
+/* ===================== */
+/* 🪟 Modal de Tracks (NUEVA POSICIÓN) */
+/* ===================== */
+.hidden {
+  display: none;
+}
+
+.modal {
+  position: absolute; 
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 750px;
+  height: 440px;
+  background-color: rgba(0, 0, 0, 0.1); 
+  backdrop-filter: blur(4px);
+  border-radius: 12px;
+  overflow: hidden; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.modal-content {
+  position: relative;
+  width: 100%; 
+  height: 100%; 
+  background-color: rgba(20, 20, 20, 0.95);
+  border: 2px solid #9400D3;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 0 24px #9400D3;
+  color: #fff;
+  text-align: left;
+  overflow-y: auto;
+  z-index: 10000;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  scrollbar-width: thin;
+  scrollbar-color: #9400D3 #202020; 
+}
+
+.modal:not(.hidden) .modal-content {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.modal-x {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  background: none;
+  border: none;
+  font-size: 1.5em;
+  color: #9400D3;
+  cursor: pointer;
+  text-shadow: 0 0 8px #9400D3;
+  z-index: 10001;
+}
+
+.modal-title {
+  font-size: 1.2em; /* Título más pequeño */
+  margin-bottom: 10px;
+  color: #9400D3;
+  text-shadow: 0 0 8px #C8A2C8;
+  text-align: center; /* Centramos el título */
+}
+
+.modal-info {
+  font-size: 0.95em;
+  color: #ccc;
+  margin-bottom: 12px;
+}
+
+#current-track-name {
+  display: inline-block;
+  padding: 4px 12px;
+  margin-left: 6px;
+  background: linear-gradient(
+  90deg,
+  #9400D3,
+  #C8A2C8
+); /* degradado */
+  border-radius: 8px;
+  color: #fff;
+  font-weight: bold;
+  animation: pulseTrack 1.5s infinite;
+  box-shadow: 0 0 6px rgba(148, 0, 211, 0.4);
+}
+
+@keyframes pulseTrack {
+  0% {
+    box-shadow: 0 0 6px rgba(148, 0, 211, 0.4); /* Morado suave (Base: #9400D3) */
+  }
+  50% {
+    box-shadow: 0 0 12px rgba(178, 102, 255, 0.8); /* Morado claro vibrante (#B266FF) */
+  }
+  100% {
+    box-shadow: 0 0 6px rgba(148, 0, 211, 0.4); /* Morado suave */
+  }
+}
+
+.track-list {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+.track-list li {
+  margin: 8px 0;
+  font-size: 1em;
+  color: #ccc;
+  cursor: pointer;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.track-list li:hover {
+  color: #9400D3;
+  text-shadow: 0 0 8px #9400D3;
+}
+
+#track-name.active {
+  color: #3688ff;
+  font-weight: bold;
+  text-shadow: 0 0 6px rgba(255, 105, 180, 0.5);
+  transition: all 300ms ease;
+}
+
+/* Nuevo selector para la pista activa en la lista */
+.track-list li.active-track {
+  color: #9400D3; /* Color principal de tu diseño */
+  font-weight: bold;
+  text-shadow: 0 0 8px #C8A2C8;
+  background-color: rgba(148, 0, 211, 0.1); /* Fondo sutil */
+  border-radius: 4px;
+  padding: 2px 4px;
+}
+
+/* ===================== */
+/* BURBUJAS */
+/* ===================== */
+#pixi-container canvas {
+  background-color: transparent !important;
+}
