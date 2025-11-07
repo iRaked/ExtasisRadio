@@ -84,214 +84,173 @@ body {
   pointer-events: none;
 }
 
-
-/* ***************************** LOGO ***************************** */
-.logo-waves-wrapper {
+.radioescuchas {
+  position: absolute;
+  top: 80px;
+  left: 20px;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 12px;
-  margin-bottom: 20px;
-  transform: scale(0.85); /* reducción proporcional */
+  gap: 6px;
+  font-size: 14px;
+  color: white;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 4px 8px;
+  border-radius: 6px;
+  box-shadow: 0 0 8px rgba(186, 0, 255, 0.9);
+  z-index: 10;
+}
+
+/* ===================== */
+/* ESTRUCTURA BASE Y LOGO */
+/* ===================== */
+.logo-waves-wrapper {
+    position: relative; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 250px;
+    height: 250px;
+    gap: 12px;
+    margin: 20px auto;
+    transform: scale(0.85);
 }
 
 .radio-logo {
-  width: 100%;
-  max-width: 220px;
-  height: auto;
-  aspect-ratio: 1 / 1;
-  margin: 25px auto 20px;
-  border: 1px solid rgb(255, 255, 255);
-  border-radius: 50%;
-  overflow: hidden;
-  position: relative;
-  animation: vinylSpin 3s linear infinite, glow 3s infinite alternate;
-  box-shadow: 0 0 15px rgb(255, 255, 255);
-  z-index: 5;
-  isolation: isolate;
+    width: 100%;
+    max-width: 220px;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    margin: 0; 
+    border: 1px solid rgb(255, 255, 255);
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    animation: vinylSpin 3s linear infinite, glow 3s infinite alternate;
+    box-shadow: 0 0 15px rgb(255, 255, 255);
+    z-index: 6; 
+    isolation: isolate;
 }
 
 .radio-logo::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-  background-position: center;
-  opacity: 1.0; /* 0.2 o quítalo si ya no quieres Plato.png como fondo */
-  z-index: 2;
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 1.0;
+    z-index: 2;
 }
 
 .radio-logo:hover {
-  box-shadow: 0 0 20px rgba(148, 0, 211, 0.8); /* Violeta #9400D3 */
+    box-shadow: 0 0 20px rgba(148, 0, 211, 0.8);
 }
 
+/* CAPA DE EFECTOS */
+.effects-layer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+    pointer-events: none;
+}
+
+/* ===================== */
+/* PULSO MEDIA LUNA */
+/* ===================== */
+.orbital_container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.avatar-glow {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+}
+
+.avatar-glow::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 280px;
+    height: 280px;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: conic-gradient(from 90deg, #a020f0, #00ffff, #a020f0);
+    filter: blur(25px);
+    opacity: 0.6;
+    z-index: 0;
+    animation: glowPulse 6s ease-in-out infinite;
+}
+
+.orbital_arc {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 260px;
+    height: 260px;
+    transform: translate(-50%, -50%);
+    transform-origin: 50% 50%;
+    border-radius: 50%;
+    z-index: 1;
+    background: conic-gradient(from 90deg, transparent 0deg, #a020f0 60deg, #00ffff 120deg, transparent 180deg);
+    mask: radial-gradient(circle at center, transparent 100px, black 128px);
+    animation: arcSpin 6s linear infinite;
+    opacity: 0.9;
+}
+
+.arc2 {
+    animation-delay: -3s;
+    background: conic-gradient(from 270deg, transparent 0deg, #00ffff 60deg, #a020f0 120deg, transparent 180deg);
+}
+
+/* ===================== */
+/* ANIMACIONES Y MEDIA QUERIES */
+/* ===================== */
 @keyframes vinylSpin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 @keyframes glow {
-  0% {
-    box-shadow: 0 0 25px rgba(148, 0, 211, 0.5);   /* Morado suave */
-    border-color: rgba(148, 0, 211, 0.6);          /* borde morado tenue */
-  }
-  100% {
-    box-shadow: 0 0 30px rgba(148, 0, 211, 0.8);   /* resplandor morado intenso */
-    border-color: rgba(148, 0, 211, 0.9);          /* borde vibrante */
-  }
-}
-
-/* ===================== */
-/* 🎶 Ecualizador dinámico */
-/* ===================== */
-/* ***************************** Ondas ***************************** */
-.audio-waves {
-  position: absolute;
-  top: 100px; /* Ajusta según la posición del logo */
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  justify-content: center;
-  gap: 3px;
-  padding: 15px 0;
-  width: 300px; /* Más grande que el logo */
-  z-index: 2;
-
-  -webkit-mask-image: radial-gradient(circle at center, transparent 40%, black 100%);
-  mask-image: radial-gradient(circle at center, transparent 40%, black 100%);
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-size: cover;
-  mask-size: cover;
-}
-
-.wave-bar {
-  width: 10px;
-  height: var(--height, 60px); /* Valor por defecto si no se define */
-  background-color: #8B008B; /* Validación emocional */
-  border-radius: 2px;
-  animation: barDance 1s infinite cubic-bezier(0.4, 0, 0.2, 1);
-  animation-delay: var(--delay, 0s);
-  opacity: 1; /* Opacidad fija, sin transparencia */
-}
-
-/* Animaciones */
-@keyframes wave-animation {
-  0%, 100% {
-    transform: scaleY(0.5);
-  }
-  50% {
-    transform: scaleY(1);
-  }
-}
-
-@keyframes letterPulse {
-  0% {
-    text-shadow:
-      0 0 6px rgba(148, 0, 211, 0.9),   /* Morado base vibrante */
-      0 0 12px rgba(180, 0, 255, 0.6),   /* Morado más claro */
-      0 0 24px rgba(200, 162, 200, 0.4); /* Gris/Morado suave */
-    color: rgba(148, 0, 211, 0.9);      /* Morado base */
-  }
-  100% {
-    text-shadow:
-      0 0 10px rgba(148, 0, 211, 1),    /* Morado intenso */
-      0 0 20px rgba(180, 0, 255, 0.8),   /* Morado más fuerte */
-      0 0 30px rgba(200, 162, 200, 0.6), /* Gris/Morado más brillante */
-      0 0 40px rgba(255, 255, 255, 0.4); /* halo blanco suave */
-    color: rgba(148, 0, 211, 1);        /* Morado puro */
-  }
-}
-
-@keyframes letterFloat {
-  0% { transform: translateY(0px) translateZ(0); }
-  30% { transform: translateY(-3px) translateZ(10px); }
-  70% { transform: translateY(2px) translateZ(5px); }
-  100% { transform: translateY(-1px) translateZ(0); }
-}
-
-@keyframes reflectionPulse {
-  0% { opacity: 0.2; transform: scale(0.8); }
-  100% { opacity: 0.6; transform: scale(1.2); }
-}
-
-@keyframes barDance {
-  0% { height: calc(var(--height) * 0.6); }
-  100% { height: var(--height); }
+    0% {
+        box-shadow: 0 0 25px rgba(148, 0, 211, 0.5);
+        border-color: rgba(148, 0, 211, 0.6);
+    }
+    100% {
+        box-shadow: 0 0 30px rgba(148, 0, 211, 0.8);
+        border-color: rgba(148, 0, 211, 0.9);
+    }
 }
 
 @keyframes glowPulse {
-  0% { opacity: 0.4; filter: blur(20px); }
-  100% { opacity: 0.8; filter: blur(25px); }
+    0% { opacity: 0.4; filter: blur(20px); }
+    100% { opacity: 0.8; filter: blur(25px); }
 }
 
-@keyframes wordRotate {
-  0%, 100% { transform: rotateX(0deg); }
-  25% { transform: rotateX(2deg); }
-  75% { transform: rotateX(-2deg); }
+@keyframes arcSpin {
+    0%   { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
-@keyframes wordFloat {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-3px); }
-  100% { transform: translateY(1px); }
-}
-
-@keyframes neonFlicker {
-  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
-    opacity: 1;
-    text-shadow:
-      0 0 10px #9400D3,   /* Morado base vibrante */
-      0 0 15px #C8A2C8,   /* Color de texto claro */
-      0 0 25px #D8BFD8,   /* Color más claro */
-      0 0 40px #ffffff;   /* halo blanco */
-    color: #9400D3;
-  }
-  20%, 22%, 24%, 55% {
-    opacity: 0.8;
-    text-shadow:
-      0 0 5px #9400D3,
-      0 0 10px #C8A2C8,
-      0 0 15px #D8BFD8;
-    color: #9400D3;
-  }
-}
-
-@keyframes neon-pulse {
-  0%, 100% { filter: brightness(1); }
-  50% { filter: brightness(1.5); }
-}
-
-@keyframes reflection-pulse {
-  0%, 100% {
-    opacity: 0.3;
-    width: 80%;
-    left: 10%;
-  }
-  50% {
-    opacity: 0.6;
-    width: 90%;
-    left: 5%;
-  }
-}
-
-@media (max-width: 768px) {
-  .audio-waves {
-    top: 12px;
-    width: 90vw;
-    gap: 2px;
-    padding: 10px 0;
-    transform: translateX(-50%);
-  }
-
-  .wave-bar {
-    width: 6px;
-    height: var(--height, 40px);
-  }
+@keyframes wave-animation {
+    0%, 100% { transform: scaleY(0.5); }
+    50% { transform: scaleY(1); }
 }
 
 /* ===================== */
