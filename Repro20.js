@@ -230,74 +230,95 @@ function obtenerCaratulaDesdeiTunes(artist, title) {
 
 
 // ===============================
-// 📻 MODO RADIO - LÓGICA DE ACTUALIZACIÓN (Historial y Metadatos)
+// 📻 MODO RADIO - LÓGICA DE ACTUALIZACIÓN (JSONP para Metadatos)
 // ===============================
+
+// NOTA: La función detenerActualizacionRadio debe estar definida
+// ANTES que esta función, lo cual ya la tienes arriba, ¡excelente!
+// function detenerActualizacionRadio() { ... }
+
 function iniciarActualizacionRadio() {
     detenerActualizacionRadio();
 
-    const radioUrl = "https://technoplayerserver.net:8018/currentsong?sid=1";
-    const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(radioUrl)}`;
+    // 🛑 GUARDIÁN CRÍTICO: Asegurarse de que jQuery exista antes de intentar usarlo
+    if (typeof $ === 'undefined' || typeof $.ajax === 'undefined') {
+         console.error("❌ CRÍTICO: jQuery no está cargado. La actualización de radio no puede usar JSONP.");
+         if (currentArtistName) currentArtistName.textContent = "Error JQ";
+         return;
+    }
 
-    async function actualizarDesdeServidor() {
-        try {
-            const response = await fetch(proxyUrl, { cache: 'no-cache' });
-            const newSongTitleRaw = await response.text();
-            
-            const cleanedTitle = newSongTitleRaw.trim().replace(/SANTI MIX DJ/gi, '').replace(/\|\s*$/g, '').trim();
+    // 🔑 CLAVE: Usamos el endpoint STATS JSON (el mismo del contador)
+    const radioUrl = "https://technoplayerserver.net:8018/stats?json=1&sid=1";
 
-            if (!cleanedTitle || cleanedTitle.toLowerCase().includes('offline') || cleanedTitle === lastTrackTitle) {
-                 if (cleanedTitle && cleanedTitle.toLowerCase().includes('offline')) {
-                     if (currentArtistName) currentArtistName.textContent = "¡Música sí!";
-                     if (currentTrackName) currentTrackName.textContent = "Datos bloqueados";
-                 }
-                 return;
-            }
-            
-            lastTrackTitle = cleanedTitle;
-            
-            const songtitleSplit = cleanedTitle.split(/ - | – /);
-            let artist = "Radio";
-            let title = cleanedTitle; 
-
-            if (songtitleSplit.length >= 2) {
-                artist = songtitleSplit[0].trim();
-                title = songtitleSplit.slice(1).join(' - ').trim(); 
-            }
-            
-            // 🛑 CRÍTICO: ALIMENTAR EL HISTORIAL DE RADIO
-            const currentTrackTime = new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
-            const newHistoryEntry = {
-                artist: artist,
-                title: title,
-                time: currentTrackTime
-            };
-
-            // Asegura que no se añada la misma pista dos veces seguidas
-            if (trackHistory.length === 0 || trackHistory[0].title !== title) {
-                trackHistory.unshift(newHistoryEntry); // Añadir al inicio
-                // Limitar el historial a 20 entradas
-                if (trackHistory.length > 20) {
-                    trackHistory.pop();
-                }
-            }
-            // ---------------------------------------------
-            
-            const fullTrackInfo = `${artist} - ${title}`;
-
-            // Actualización Visual (Controles principales)
-            if (currentArtistName) currentArtistName.textContent = artist;
-            if (currentTrackName) currentTrackName.textContent = title;
-            if (metaTrack) metaTrack.textContent = fullTrackInfo;
-            
-            // ... (Lógica de marquesina y carátula) ...
-
-            obtenerCaratulaDesdeiTunes(artist, title);
-
-        } catch (error) {
-            console.error("❌ Error CRÍTICO en la actualización de Radio:", error);
-            if (currentArtistName) currentArtistName.textContent = "Error";
-            if (currentTrackName) currentTrackName.textContent = "al cargar metadatos";
+    function actualizarDesdeServidor() {
+        // Guardián para detener la ejecución si el modo cambia
+        if (modoActual !== "radio") {
+            detenerActualizacionRadio();
+            return;
         }
+
+        $.ajax({
+            dataType: 'jsonp', // <-- Esto EVITA EL ERROR CORS/PROXY
+            url: radioUrl,
+            success: function(data) {
+                // Leemos el campo 'songtitle' del JSON de Shoutcast
+                const newSongTitleRaw = data.songtitle || ""; 
+                
+                const cleanedTitle = newSongTitleRaw.trim().replace(/SANTI MIX DJ/gi, '').replace(/\|\s*$/g, '').trim();
+
+                // Si no hay título válido o es el mismo, salimos
+                if (!cleanedTitle || cleanedTitle.toLowerCase().includes('offline') || cleanedTitle === lastTrackTitle) {
+                     // Caso especial si se detecta 'offline' para dar feedback
+                     if (cleanedTitle && cleanedTitle.toLowerCase().includes('offline')) {
+                         if (currentArtistName) currentArtistName.textContent = "¡Música sí!";
+                         if (currentTrackName) currentTrackName.textContent = "Datos bloqueados";
+                     }
+                     return;
+                }
+                
+                lastTrackTitle = cleanedTitle;
+                
+                // Dividimos el título (ej: "Artista - Título")
+                const songtitleSplit = cleanedTitle.split(/ - | – /);
+                let artist = "Radio";
+                let title = cleanedTitle; 
+
+                if (songtitleSplit.length >= 2) {
+                    artist = songtitleSplit[0].trim();
+                    title = songtitleSplit.slice(1).join(' - ').trim(); 
+                }
+                
+                // 🛑 CRÍTICO: ALIMENTAR EL HISTORIAL DE RADIO (Manteniendo tu lógica)
+                const currentTrackTime = new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+                const newHistoryEntry = { artist: artist, title: title, time: currentTrackTime };
+
+                // Asegura que no se añada la misma pista dos veces seguidas
+                if (trackHistory.length === 0 || trackHistory[0].title !== title) {
+                    trackHistory.unshift(newHistoryEntry); // Añadir al inicio
+                    if (trackHistory.length > 20) {
+                        trackHistory.pop();
+                    }
+                }
+                // ---------------------------------------------
+
+                const fullTrackInfo = `${artist} - ${title}`;
+
+                // 🟢 Actualización Visual
+                if (currentArtistName) currentArtistName.textContent = artist;
+                if (currentTrackName) currentTrackName.textContent = title;
+                if (metaTrack) metaTrack.textContent = fullTrackInfo;
+                
+                // 💿 Actualiza la carátula
+                obtenerCaratulaDesdeiTunes(artist, title);
+
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error("❌ Fallo JSONP al obtener metadatos:", textStatus, errorThrown);
+                if (currentArtistName) currentArtistName.textContent = "Error";
+                if (currentTrackName) currentTrackName.textContent = "al cargar metadatos";
+            },
+            timeout: 10000
+        });
     }
 
     actualizarDesdeServidor();
@@ -784,36 +805,70 @@ function inicializarVolumen() {
 }
 
 // ===============================
-// 👥 CONTADOR DE RADIOESCUCHAS (NEW) - (VERSIÓN DEPURADA)
+// 👥 CONTADOR DE RADIOESCUCHAS (SHOUTCAST JSONP - FINAL)
 // ===============================
-function iniciarContadorRadioescuchas() {
-    // ... (código anterior)
 
-    async function actualizarContador() {
-        // ... (código anterior)
-
-        try {
-            const response = await fetch(proxyUrl, { cache: 'no-cache' });
-            const oyentesRaw = await response.text(); 
-            
-            // 🛑 LÍNEA DE DEPURACIÓN CLAVE 🛑
-            console.log("Respuesta cruda del servidor de oyentes:", oyentesRaw);
-            
-            const oyentes = parseInt(oyentesRaw.trim(), 10);
-
-            if (!isNaN(oyentes) && oyentes >= 0) { // Añadimos oyentes >= 0 por seguridad
-                contadorElemento.textContent = oyentes;
-                console.log("Oyentes convertidos:", oyentes);
-            } else {
-                console.error("❌ El texto devuelto no es un número válido:", oyentesRaw);
-                contadorElemento.textContent = "0"; 
-            }
-
-        } catch (error) {
-            // ... (código anterior)
-        }
+/**
+ * Detiene el intervalo de actualización del contador de oyentes.
+ */
+function detenerContadorRadioescuchas() {
+    // Asegúrate de que 'contadorIntervalId' esté declarado globalmente
+    if (contadorIntervalId !== null) {
+        clearInterval(contadorIntervalId);
+        contadorIntervalId = null;
     }
-    // ... (código anterior)
+}
+
+/**
+ * Inicia la búsqueda periódica del número de oyentes desde el servidor usando JSONP (Requiere jQuery).
+ */
+function iniciarContadorRadioescuchas() {
+    // 1. Limpiamos cualquier intervalo anterior
+    detenerContadorRadioescuchas();
+
+    // Guardián para asegurar que jQuery exista antes de intentar usarlo
+    if (typeof $ === 'undefined' || typeof $.ajax === 'undefined') {
+        console.error("❌ CRÍTICO: La función de contador no puede usar JSONP (jQuery no disponible).");
+        if (contadorElemento) contadorElemento.textContent = "Error JQ"; 
+        return;
+    }
+
+    // Usamos el endpoint STATS que devuelve JSON para oyentes y metadatos
+    const contadorUrl = "https://technoplayerserver.net:8018/stats?json=1&sid=1"; 
+    
+    function actualizarContador() {
+        // Guardián para detener la ejecución si el modo cambia o el elemento no existe
+        if (modoActual !== "radio" || !contadorElemento) {
+            detenerContadorRadioescuchas();
+            return;
+        }
+
+        $.ajax({
+            dataType: 'jsonp', // Esto evade el bloqueo CORS/Proxy
+            url: contadorUrl,
+            success: function(data) {
+                // Leemos el campo 'currentlisteners' del JSON
+                if (data && data.currentlisteners) {
+                    const oyentes = parseInt(data.currentlisteners, 10);
+                    if (!isNaN(oyentes)) {
+                        contadorElemento.textContent = oyentes;
+                    } else {
+                        contadorElemento.textContent = "0"; 
+                    }
+                } else {
+                    contadorElemento.textContent = "0";
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error("❌ Fallo JSONP al obtener el contador:", textStatus, errorThrown);
+                contadorElemento.textContent = "0"; 
+            },
+            timeout: 5000
+        });
+    }
+
+    actualizarContador(); 
+    contadorIntervalId = setInterval(actualizarContador, 15000); 
 }
 
 // ===============================
