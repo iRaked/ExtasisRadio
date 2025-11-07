@@ -10,18 +10,19 @@
   <!-- Estilos externos -->
   <link href="Repro20.css" rel="stylesheet" type="text/css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.1.2/tailwind.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <!-- Scripts externos -->
   <script src="Repro20.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/7.2.4/pixi.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.ripples/0.5.3/jquery.ripples.min.js"></script>
-  <!-- BLOCK -->
+  <!-- BLOCK 
   <script type="text/javascript">
   document.onkeydown = function(){return false};
   document.oncontextmenu = function(){return false}
   </script>
-  <script src="https://precios-2025.web.app/gallery.js"></script>
+  <script src="https://precios-2025.web.app/gallery.js"></script>-->
   <style>.jquery-ripples { position: relative; z-index: 0; }</style>
   <style>.bg-water {
   position: relative;
@@ -60,6 +61,12 @@
                 <path d="M492 236H20c-11.046 0-20 8.954-20 20s8.954 20 20 20h472c11.046 0 20-8.954 20-20s-8.954-20-20-20zM492 76H20C8.954 76 0 84.954 0 96s8.954 20 20 20h472c11.046 0 20-8.954 20-20s-8.954-20-20-20zM492 396H20c-11.046 0-20 8.954-20 20s8.954 20 20 20h472c11.046 0 20-8.954 20-20s-8.954-20-20-20z"/>
               </svg>
             </button>
+            
+        <!-- Contador de radioescuchas -->
+        <div class="radioescuchas">
+          <i class="fas fa-users"></i>
+          <span id="contadorRadio"></span>
+        </div>
 
         <button class="btn-radio" id="btn-radio" aria-label="Icono de Nota Musical">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
@@ -68,76 +75,20 @@
         </button>
         </div>
 
-        <!-- EFECTOS -->
         <section id="visual-effects" class="visual-effects">
+            <div class="logo-waves-wrapper">
+                <figure class="radio-logo">
+                    <img id="disc-img" src="assets/covers/Cover1.png" alt="Carátula" />
+                </figure>
 
-        <div class="logo-waves-wrapper">
-        <!-- LOGO -->
-        <figure class="radio-logo">
-          <img id="disc-img" src="assets/covers/Cover1.png" alt="Carátula" />
-        </figure>
-
-        <!-- Pulso detrás del logo -->
-        <div class="pulse-effect-container">
-            <span class="pulse-ring pulse-ring-1"></span>
-            <span class="pulse-ring pulse-ring-2"></span>
-            <span class="pulse-ring pulse-ring-3"></span>
-        </div>
-
-        <!-- MÁSCARA como contenedor -->
-        <div class="mask-wrapper">
-        <div class="mask-center"></div>
-
-        <!-- Ondas integradas -->
-        <div class="audio-waves">
-            <div class="wave-bar" style="--delay: 0.1s; --height: 15px;"></div>
-            <div class="wave-bar" style="--delay: 0.2s; --height: 35px;"></div>
-            <div class="wave-bar" style="--delay: 0.3s; --height: 25px;"></div>
-            <div class="wave-bar" style="--delay: 0.4s; --height: 40px;"></div>
-            <div class="wave-bar" style="--delay: 0.5s; --height: 20px;"></div>
-            <div class="wave-bar" style="--delay: 0.6s; --height: 30px;"></div>
-            <div class="wave-bar" style="--delay: 0.7s; --height: 35px;"></div>
-            <div class="wave-bar" style="--delay: 0.8s; --height: 45px;"></div>
-            <div class="wave-bar" style="--delay: 0.9s; --height: 30px;"></div>
-            <div class="wave-bar" style="--delay: 1.0s; --height: 25px;"></div>
-            <div class="wave-bar" style="--delay: 0.1s; --height: 15px;"></div>
-            <div class="wave-bar" style="--delay: 0.2s; --height: 35px;"></div>
-            <div class="wave-bar" style="--delay: 0.3s; --height: 25px;"></div>
-            <div class="wave-bar" style="--delay: 0.4s; --height: 40px;"></div>
-            <div class="wave-bar" style="--delay: 0.5s; --height: 20px;"></div>
-            <div class="wave-bar" style="--delay: 0.6s; --height: 30px;"></div>
-            <div class="wave-bar" style="--delay: 0.7s; --height: 35px;"></div>
-            <div class="wave-bar" style="--delay: 0.8s; --height: 45px;"></div>
-            <div class="wave-bar" style="--delay: 0.9s; --height: 30px;"></div>
-            <div class="wave-bar" style="--delay: 1.0s; --height: 25px;"></div>
-            <div class="wave-bar" style="--delay: 0.4s; --height: 40px;"></div>
-            <div class="wave-bar" style="--delay: 0.5s; --height: 20px;"></div>
-
-            <div class="wave-bar" style="--delay: 0.1s; --height: 15px;"></div>
-            <div class="wave-bar" style="--delay: 0.2s; --height: 35px;"></div>
-            <div class="wave-bar" style="--delay: 0.3s; --height: 25px;"></div>
-            <div class="wave-bar" style="--delay: 0.4s; --height: 40px;"></div>
-            <div class="wave-bar" style="--delay: 0.5s; --height: 20px;"></div>
-            <div class="wave-bar" style="--delay: 0.6s; --height: 30px;"></div>
-            <div class="wave-bar" style="--delay: 0.7s; --height: 35px;"></div>
-            <div class="wave-bar" style="--delay: 0.8s; --height: 45px;"></div>
-            <div class="wave-bar" style="--delay: 0.9s; --height: 30px;"></div>
-            <div class="wave-bar" style="--delay: 1.0s; --height: 25px;"></div>
-            <div class="wave-bar" style="--delay: 0.1s; --height: 15px;"></div>
-            <div class="wave-bar" style="--delay: 0.2s; --height: 35px;"></div>
-            <div class="wave-bar" style="--delay: 0.3s; --height: 25px;"></div>
-            <div class="wave-bar" style="--delay: 0.4s; --height: 40px;"></div>
-            <div class="wave-bar" style="--delay: 0.5s; --height: 20px;"></div>
-            <div class="wave-bar" style="--delay: 0.6s; --height: 30px;"></div>
-            <div class="wave-bar" style="--delay: 0.7s; --height: 35px;"></div>
-            <div class="wave-bar" style="--delay: 0.8s; --height: 45px;"></div>
-            <div class="wave-bar" style="--delay: 0.9s; --height: 30px;"></div>
-            <div class="wave-bar" style="--delay: 1.0s; --height: 25px;"></div>
-            <div class="wave-bar" style="--delay: 0.4s; --height: 40px;"></div>
-            <div class="wave-bar" style="--delay: 0.5s; --height: 20px;"></div>
-        </div>
-        </div>
-    </div>
+            <div class="effects-layer">
+                <div class="orbital_container">
+                    <div class="orbital_arc arc2"></div>
+                    <div class="avatar-glow"></div>
+                </div>
+            </div>
+            </div>
+        </section>
     
         <footer class="footer-2_5d">
           <div class="left-zone">
@@ -316,5 +267,4 @@ document.addEventListener("DOMContentLoaded", initPixiBubbles);
 </script>
 
 </body>
-
 </html>
