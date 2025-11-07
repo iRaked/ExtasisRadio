@@ -11,6 +11,7 @@ let isShuffling = false;
 let trackHistory = [];
 let radioIntervalId = null; 
 let lastTrackTitle = "";
+let contadorIntervalId = null;
 
 // ===============================
 // 🎯 ELEMENTOS CLAVE DEL DOM
@@ -39,6 +40,8 @@ const menuBtn = document.getElementById("btn-menu-tracks");
 const closeModalBtn = document.getElementById("close-modal");
 const trackList = document.querySelector(".track-list"); 
 const currentTrackNameModal = document.getElementById('current-track-name-modal');
+
+const contadorElemento = document.getElementById("contadorRadio");
 
 // ===============================
 // 🖼️ FUNCIONES AUXILIARES (Carátulas)
@@ -328,6 +331,7 @@ function activarModoRadio() {
     modoActual = "radio";
     
     detenerActualizacionRadio();
+    iniciarContadorRadioescuchas();
     
     // 🛑 LIMPIEZA VISUAL INMEDIATA
     if (currentArtistName) currentArtistName.textContent = "Conectando...";
@@ -371,6 +375,7 @@ function activarModoRadio() {
 function activarModoLocal() {
     modoActual = "local";
     detenerActualizacionRadio();
+    detenerContadorRadioescuchas();
     
     // Pausamos explícitamente
     audio.pause(); 
@@ -776,6 +781,39 @@ function inicializarVolumen() {
             }
         });
     }
+}
+
+// ===============================
+// 👥 CONTADOR DE RADIOESCUCHAS (NEW) - (VERSIÓN DEPURADA)
+// ===============================
+function iniciarContadorRadioescuchas() {
+    // ... (código anterior)
+
+    async function actualizarContador() {
+        // ... (código anterior)
+
+        try {
+            const response = await fetch(proxyUrl, { cache: 'no-cache' });
+            const oyentesRaw = await response.text(); 
+            
+            // 🛑 LÍNEA DE DEPURACIÓN CLAVE 🛑
+            console.log("Respuesta cruda del servidor de oyentes:", oyentesRaw);
+            
+            const oyentes = parseInt(oyentesRaw.trim(), 10);
+
+            if (!isNaN(oyentes) && oyentes >= 0) { // Añadimos oyentes >= 0 por seguridad
+                contadorElemento.textContent = oyentes;
+                console.log("Oyentes convertidos:", oyentes);
+            } else {
+                console.error("❌ El texto devuelto no es un número válido:", oyentesRaw);
+                contadorElemento.textContent = "0"; 
+            }
+
+        } catch (error) {
+            // ... (código anterior)
+        }
+    }
+    // ... (código anterior)
 }
 
 // ===============================
