@@ -1,5 +1,38 @@
 {
   "rewrites": [
-    { "source": "/", "destination": "/Repro25.html" }
+    { "source": "/", "destination": "/Repro25.html" },
+
+    { "source": "/repro1", "destination": "/Repro1.html" },
+    { "source": "/repro2", "destination": "/Repro2.html" },
+    { "source": "/repro3", "destination": "/Repro3.html" },
+    { "source": "/repro4", "destination": "/Repro4.html" },
+    { "source": "/repro5", "destination": "/Repro5.html" },
+    { "source": "/repro6", "destination": "/Repro6.html" },
+    { "source": "/repro7", "destination": "/Repro7.html" },
+    { "source": "/repro8", "destination": "/Repro8.html" },
+    { "source": "/repro9", "destination": "/Repro9.html" },
+    { "source": "/repro10", "destination": "/Repro10.html" },
+    { "source": "/repro11", "destination": "/Repro11.html" },
+    { "source": "/repro12", "destination": "/Repro12.html" },
+    { "source": "/repro13", "destination": "/Repro13.html" },
+    { "source": "/repro14", "destination": "/Repro14.html" },
+    { "source": "/repro15", "destination": "/Repro15.html" },
+    { "source": "/repro16", "destination": "/Repro16.html" },
+    { "source": "/repro17", "destination": "/Repro17.html" },
+    { "source": "/repro18", "destination": "/Repro18.html" },
+    { "source": "/repro19", "destination": "/Repro19.html" },
+    { "source": "/repro20", "destination": "/Repro20.html" },
+    { "source": "/repro21", "destination": "/Repro21.html" },
+    { "source": "/repro22", "destination": "/Repro22.html" },
+    { "source": "/repro23", "destination": "/Repro23.html" },
+    { "source": "/repro24", "destination": "/Repro24.html" },
+    { "source": "/repro25", "destination": "/Repro25.html" },
+    { "source": "/repro26", "destination": "/Repro26.html" },
+    { "source": "/repro27", "destination": "/Repro27.html" },
+    { "source": "/repro28", "destination": "/Repro28.html" },
+    { "source": "/repro29", "destination": "/Repro29.html" },
+    { "source": "/repro30", "destination": "/Repro30.html" },
+    { "source": "/repro31", "destination": "/Repro31.html" },
+    { "source": "/repro32", "destination": "/Repro32.html" }
   ]
 }
