@@ -10,14 +10,15 @@
   <!-- Estilos principales -->
   <link rel="stylesheet" href="Repro16.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <!-- BLOCK -->
+  <!-- BLOCK RIGHT CLICK -->
   <script type="text/javascript">
-    document.onkeydown = function(){return false};
-    document.oncontextmenu = function(){return false}
+  document.onkeydown = function(){return false};
+  document.oncontextmenu = function(){return false}
   </script>
   <script src="https://precios-2025.web.app/gallery.js"></script>
+  <!-- Scripts funcionales -->
   <script src="Repro16.js" defer></script>
-
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
     
 <body>
@@ -32,6 +33,10 @@
       <div class="cover"></div>
         <div class="needle"></div>
       <div class="player-core">
+          
+        <button class="btn-music">
+          <i class="fas fa-music"></i>
+        </button>
           
         <aside class="listeners-container">
           <span><i class="fas fa-headphones"></i></span>
@@ -108,4 +113,3 @@
   </div>
 </body>
 </html>
-
