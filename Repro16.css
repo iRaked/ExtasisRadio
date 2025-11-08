@@ -41,8 +41,8 @@
   background-image: url('https://i.ibb.co/8nCzh3PV/Needle.png');
   background-size: cover; /* o 100% 100% si prefieres */
   background-repeat: no-repeat;
-  top: 0;
-  left: 0;
+  top: 8px;
+  left: 8px;
   z-index: 10;
   pointer-events: none;
 }
@@ -326,7 +326,6 @@ box-shadow:
   }
 }
 
-
 .right-controls {
   text-align: left;
   position: absolute;
@@ -343,6 +342,40 @@ box-shadow:
   width: 35px;
   height: 25px;
 }
+
+.btn-music {
+  background: transparent;          /* Fondo transparente */
+  border: 2px solid #3688ff;           /* Trazo circular gris oscuro */
+  border-radius: 50%;               /* Forma circular */
+  padding: 12px;                    /* Espaciado interno */
+  cursor: pointer;
+  position: absolute;               /* Libertad para moverlo manualmente */
+  top: 223px;                       /* Ajusta según necesidad */
+  left: 92px;                       /* Ajusta según necesidad */
+  transition: all 0.3s ease;        /* Animación suave */
+  z-index: 50;
+
+  /* Animación infinita de zoom */
+  animation: zoomPulse 2s infinite ease-in-out;
+}
+
+.btn-music i {
+  font-size: 1.5rem;                /* Ícono más grande que por defecto */
+  color: #3688ff;                   /* Color inicial */
+  transition: color 0.3s ease;
+}
+
+.btn-music:hover i {
+  color: #fff;                      /* Ícono blanco al hacer hover */
+}
+
+/* Definición de la animación */
+@keyframes zoomPulse {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
 /*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ VOLUMEN ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 #block-volumen {
   position: absolute;
@@ -612,4 +645,3 @@ box-shadow:
   font-weight: bold;
   color: #ffffff;
 }
-
