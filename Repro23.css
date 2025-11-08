@@ -1,5 +1,5 @@
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-/* 🧱 Repro Sphere principal                                       */
+/* 🧱 Repro Sphere principal                                       */
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 .repro-sphere {
   width: 418px;
@@ -14,7 +14,7 @@
 }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-/* 🖼️ Imagen base con carátulas + animación de giro               */
+/* 🖼️ Imagen base con carátulas + animación de giro               */
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 .caratula-container {
   position: absolute;
@@ -50,7 +50,7 @@
 }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-/* 🧊 Imagen superior con transparencias                           */
+/* 🧊 Imagen superior con transparencias                           */
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 .overlay-container {
   position: absolute;
@@ -69,7 +69,7 @@
 }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-/* 🎧 Contenedor de audio oculto                                   */
+/* 🎧 Contenedor de audio oculto                                   */
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 .block-audio {
   position: absolute;
@@ -81,7 +81,7 @@
 }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-/* 📜 Playlist como cara lateral izquierda                         */
+/* 📜 Playlist como cara lateral izquierda                         */
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 .playlist-block {
   position: relative;
@@ -118,7 +118,133 @@
 }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-/* ▶️ Sección inferior: reproductor + controles                    */
+/* 🌊 Scrollbars personalizados en tono aqua                      */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.playlist-block::-webkit-scrollbar {
+  width: 8px; /* Grosor del scroll */
+}
+
+.playlist-block::-webkit-scrollbar-track {
+  background: #111; /* Fondo oscuro para contraste */
+  border-radius: 10px;
+}
+
+.playlist-block::-webkit-scrollbar-thumb {
+  background: #00ffff; /* Aqua principal */
+  border-radius: 10px;
+  box-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff;
+}
+
+.playlist-block::-webkit-scrollbar-thumb:hover {
+  background: #00cccc; /* Aqua más intenso al hover */
+  box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
+}
+
+/* Firefox */
+.playlist-block {
+  scrollbar-width: thin; /* Scroll delgado */
+  scrollbar-color: #00ffff #111; /* Pulgar aqua sobre fondo oscuro */
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Volumen Vertical (Corregido) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+.volumen-option {
+  position: absolute;
+  bottom: 120px; /* Ajusta según layout */
+  left: 12px;
+  height: 150px; /* Altura total del bloque */
+  display: flex;
+  flex-direction: column; /* Vertical */
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  z-index: 5;
+}
+
+.volume-icon {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+  text-shadow:
+    0 0 4px rgba(0, 255, 255, 0.8),
+    0 0 8px rgba(0, 255, 255, 0.6),
+    0 0 1px rgba(0, 200, 200, 0.9);
+  cursor: pointer;
+}
+
+/* Contenedor de la barra */
+.volume-track {
+  width: 16px;
+  height: 200px; /* Altura de la barra */
+  background: #444;
+  border-radius: 8px;
+  box-shadow:
+    inset 0 0 0 1px rgba(0, 0, 0, 0.2),
+    inset 0 2px 4px rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4px 0;
+}
+
+/* Barra vertical (el input range) */
+.volume-bar {
+  writing-mode: bt-lr;
+  -webkit-appearance: slider-vertical;
+  width: 12px;
+  height: 100%;
+  border-radius: 6px;
+  /* CAMBIO: Fondo transparente para que el relleno del track sea visible */
+  background: transparent;
+  outline: none;
+  cursor: pointer;
+  margin: 0;
+  /* Variable CSS para controlar el nivel de llenado */
+  --value: 50%;
+}
+
+/* Track completo y Parte llena en WebKit (Chrome, Edge, Safari) */
+.volume-bar::-webkit-slider-runnable-track {
+  width: 12px;
+  height: 100%;
+  border-radius: 6px;
+  /* CAMBIO: Usa la variable --value para el relleno (turquesa) */
+  background: linear-gradient(to top, #00ffd5 var(--value), #111 var(--value));
+}
+
+/* Thumb centrado y turquesa (WebKit) */
+.volume-bar::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  background: #00CED1; /* Turquesa oscuro */
+  border-radius: 50%; /* CIRCULAR */
+  cursor: pointer;
+  /* Sombra turquesa para que se vea SOBRE el nivel */
+  box-shadow: 0 0 6px #00CED1, 0 0 12px #00CED1;
+  border: none;
+  transform: translateX(2px); /* Centrado horizontal (16px thumb en 12px track) */
+}
+
+/* Parte llena en Firefox */
+.volume-bar::-moz-range-progress {
+  background: #00ffd5;
+  border-radius: 6px;
+}
+
+/* Thumb turquesa en Firefox (Consolidado y corregido) */
+.volume-bar::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  background: #00CED1; /* Turquesa oscuro */
+  border-radius: 50%; /* CIRCULAR */
+  cursor: pointer;
+  /* Sombra turquesa para que se vea SOBRE el nivel */
+  box-shadow: 0 0 6px #00CED1, 0 0 12px #00CED1;
+  border: none;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* ▶️ Sección inferior: reproductor + controles                    */
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 .bottom-block {
   position: absolute;
@@ -152,7 +278,7 @@
 }
 
 .play-btn i {
-  font-size: 1.2rem;   /* Ícono más pequeño dentro del botón más grande */
+  font-size: 1.2rem; /* Ícono más pequeño dentro del botón más grande */
   color: #00ffff;
   transition: transform 0.2s ease, color 0.2s ease;
 }
@@ -164,4 +290,31 @@
 
 .play-btn:hover i {
   transform: scale(1.2);
+}
+
+.online-btn {
+  position: absolute;
+  top: 78px;
+  left: 50px;
+  background: #222; /* Fondo oscuro para contraste */
+  color: #00ffff; /* Texto aqua */
+  font-weight: bold;
+  border: 2px solid #00ffff; /* Borde aqua */
+  padding: 5px 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 20px #00ffff;
+  transition: transform 0.2s ease-in-out;
+  z-index: 10;
+}
+
+.online-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 40px #00ffff;
+}
+
+.online-btn.active {
+  background: #00ffff; /* Fondo aqua encendido */
+  color: #000; /* Texto negro para contraste */
+  box-shadow: 0 0 20px #00ffff, 0 0 40px #00ffff;
 }
