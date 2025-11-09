@@ -1,6 +1,6 @@
 {
   "rewrites": [
-    
+    { "source": "/", "destination": "/copyright.html" },
     { "source": "/", "destination": "/Repro25.html" },
 
     { "source": "/repro1", "destination": "/Repro1.html" },
