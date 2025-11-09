@@ -1,5 +1,7 @@
 {
   "rewrites": [
+    { "source": "/licencia", "destination": "/copyright.txt" },
+    
     { "source": "/", "destination": "/Repro25.html" },
 
     { "source": "/repro1", "destination": "/Repro1.html" },
@@ -36,3 +38,4 @@
     { "source": "/repro32", "destination": "/Repro32.html" }
   ]
 }
+
