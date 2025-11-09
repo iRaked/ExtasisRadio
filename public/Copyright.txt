@@ -1,0 +1,17 @@
+© 2025 Santi Graphics. Todos los derechos reservados.
+
+Fecha de creación: 01 de noviembre de 2025
+Última actualización: 08 de noviembre de 2025
+
+Este código HTML está protegido por derechos de autor y no puede ser reproducido,
+distribuido, modificado ni utilizado sin autorización expresa y por escrito del
+titular de los derechos.
+
+Licencia: Uso exclusivo bajo licencia propietaria.
+Para información sobre licencias alternativas o permisos, contacte a:
+santigraphicsgames@gmail.com
+
+Los derechos aquí indicados están protegidos conforme a la Ley Federal del Derecho
+de Autor (México) y tratados internacionales de propiedad intelectual.
+
+Propósito: Código fuente para la estructura básica de la página web corporativa.
