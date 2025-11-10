@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // 🎼 Cargar JSON local
-  fetch('Repro4.json')
+  fetch('https://radio-tekileros.vercel.app/Repro4.json')
     .then(res => res.json())
     .then(data => {
       playlist = data.hits || [];
