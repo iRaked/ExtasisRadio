@@ -1,0 +1,57 @@
+ <!DOCTYPE html>
+<html lang="es">
+<head>
+  <link rel="icon" type="image/x-icon" href="assets/SG.ico" />
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="author" content="Rick">
+  <title>Reproductor 4</title>
+  <!-- Estilos externos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="Repro4.css" />
+  <link rel="author" href="https://santi-graphics.vercel.app/copyright.txt">
+  <!-- Scripts Externos -->
+  <script src="Repro4.js" defer></script>
+  <!-- BLOCK 
+  <script type="text/javascript">
+  document.onkeydown = function(){return false};
+  document.oncontextmenu = function(){return false}
+  </script>
+<script src="https://precios-2025.web.app/gallery.js"></script>-->
+</head>
+
+<body>
+
+<!-- Activador inferior izquierdo -->
+<section id="panel">
+    
+  <audio id="player" autoplay muted></audio>
+    
+  <aside id="switch">
+      
+    <div class="contenedor-metadatos" style="position: relative;">
+      <button id="btn-plus"></button>
+      <div class="metadatos">
+        <div class="meta-item">Título: <span>Track</span></div>
+        <div class="meta-item">Artista: <span>Autor</span></div>
+        <div class="meta-item">Duración: <span>03:45</span></div>
+      </div>
+    </div>
+
+    <div class="botonera">
+      <img src="assets/img/btn-ipod.png" alt="Botonera" class="botonera-img" />
+      <div class="control-btn play" id="btnPlay"><i class="fas fa-play"></i></div>
+      <div class="control-btn norte" id="btnPause"><i class="fas fa-pause"></i></div>
+      <div class="control-btn sur"><i class="fas fa-random"></i></div>
+      <div class="control-btn este"><i class="fas fa-forward"></i></div>
+      <div class="control-btn oeste"><i class="fas fa-backward"></i></div>
+
+      <!-- Zona activa invisible para toggle -->
+      <div class="zona-centro" id="activador"></div>
+    </div>
+  </aside>
+</section>
+
+</body>
+</html>
