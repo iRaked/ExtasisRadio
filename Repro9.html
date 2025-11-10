@@ -10,14 +10,16 @@
   <!-- Estilos externos -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="Repro9.css" />
+  <link rel="author" href="https://santi-graphics.vercel.app/copyright.html">
   <!-- Scripts Externos -->
   <script src="Repro9.js" defer></script>
-  <!-- BLOCK -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <!-- BLOCK 
   <script type="text/javascript">
   document.onkeydown = function(){return false};
   document.oncontextmenu = function(){return false}
   </script>
-  <!--<script src="https://precios-2025.web.app/gallery.js"></script>-->
+<script src="https://precios-2025.web.app/gallery.js"></script>-->
 </head>
 
 <body>
@@ -33,7 +35,7 @@
     </div>
 
     <!-- 🎵 Audio -->
-    <audio id="audioStreaming" src="https://technoplayerserver.net:8018/stream?icy=http"></audio>
+    <audio id="player" autoplay muted></audio>
 
     <!-- 📀 Carátula por defecto -->
     <div id="default-cover" class="default-cover">
@@ -42,8 +44,8 @@
 
     <!-- 🎼 Metadatos -->
     <div class="info">
-      <h2 id="modal-artist">Daaz</h2>
-      <p id="modal-title">I like you mucho</p>
+      <h2 id="modal-artist">Artista</h2>
+      <p id="modal-title">Título</p>
     </div>
 
     <!-- 📜 Playlist visual -->
@@ -82,5 +84,4 @@
 </section>
 
 </body>
-
 </html>
