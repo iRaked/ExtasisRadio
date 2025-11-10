@@ -49,7 +49,7 @@ audio.muted = false;
 // ===============================
 // 📦 CARGA DE PLAYLIST
 // ===============================
-fetch("Repro9.json")
+fetch("https://radio-tekileros.vercel.app/Repro9.json")
   .then(res => res.json())
   .then(data => {
     playlist = data.hits || [];
@@ -465,4 +465,5 @@ shuffleToggle.addEventListener("click", () => {
     currentIndex = nextIndex;
     renderTrack(currentIndex);
   }
+
 });
