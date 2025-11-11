@@ -118,7 +118,7 @@ function playTrack(index) {
 }
 
 function cargarLocalJSON() {
-  fetch("Repro23.json")
+  fetch("https://radio-tekileros.vercel.app/Repro23.json")
     .then(res => res.json())
     .then(data => {
       const hits = Array.isArray(data.hits) ? data.hits : [];
