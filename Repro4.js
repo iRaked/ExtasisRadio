@@ -5,6 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
   let playlist = [];
   let aleatorioActivo = false;
   let radioMetaIntervalId = null;
+  let radioHistory = [];
+  let lastRadioTitle = "";
 
   const audio = document.getElementById('player');
   const btnPlay = document.getElementById('btnPlay');     // toggle panel
@@ -93,15 +95,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 🎧 Cargar track local
   function cargarTrack(index) {
+    detenerMetaRadio();
+    audio.pause();
+    audio.src = "";
+
     const track = playlist[index];
     if (!track || !track.enlace) return;
-
-    detenerMetaRadio();
 
     audio.src = track.enlace;
     audio.load();
 
-    // Metadatos: Título, Artista, Duración
+    // Reset visual inmediato
     if (metaItems.length >= 3) {
       metaItems[0].textContent = track.nombre || 'Track';
       metaItems[1].textContent = track.artista || 'Autor';
@@ -111,12 +115,23 @@ document.addEventListener('DOMContentLoaded', () => {
     audio.play().then(() => { isPlaying = true; }).catch(() => {});
   }
 
-  // 🔴 Activar modo streaming (servidor de pruebas)
+  // 🔴 Activar modo streaming
   function activarStreaming() {
+    detenerMetaRadio();
+    audio.pause();
+    audio.src = "";
+
+    // Reset visual inmediato
+    if (metaItems.length >= 3) {
+      metaItems[0].textContent = "Conectando...";
+      metaItems[1].textContent = "Esperando datos...";
+      metaItems[2].textContent = "Streaming";
+    }
+
     audio.src = 'https://laradiossl.online:12000/stream';
     audio.load();
 
-    iniciarActualizacionRadio(); // metadatos vivos
+    iniciarActualizacionRadio();
 
     audio.play().then(() => { isPlaying = true; }).catch(() => {});
   }
@@ -129,59 +144,61 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // 📻 Actualizar Radio (currentsong) con limpieza y separación robusta
+  // 📻 Actualizar Radio (solo texto, sin carátulas)
   function iniciarActualizacionRadio() {
     detenerMetaRadio();
 
-    const radioUrl = "https://laradiossl.online:12000/stats?json=1&sid=1";
-    // Usa proxy si hay CORS. Para desactivar proxy: const proxyUrl = radioUrl;
+    const radioUrl = "https://laradiossl.online:12000/currentsong?sid=1";
     const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(radioUrl)}`;
-    const emisoraNombre = "";
 
-    const parsearTitulo = (texto) => {
-      if (!texto) return { artist: "Desconocido", title: "Transmisión" };
+    async function actualizarDesdeServidor() {
+      try {
+        const response = await fetch(proxyUrl, { cache: "no-cache" });
+        const rawTitle = await response.text();
+        const cleanedTitle = rawTitle.trim()
+          .replace(/AUTODJ/gi, "")
+          .replace(/OFFLINE/gi, "")
+          .replace(/\|\s*$/g, "")
+          .trim();
 
-      // Limpieza: remover tags conocidos y espacios
-      let cleaned = texto
-        .replace(/AUTODJ/gi, '')
-        .replace(/OFFLINE/gi, '')
-        .replace(/\|\s*$/g, '')
-        .trim();
+        if (!cleanedTitle || cleanedTitle === lastRadioTitle) return;
+        lastRadioTitle = cleanedTitle;
 
-      // Separadores posibles: " - ", " – ", " — "
-      const parts = cleaned.split(/\s[-–—]\s/);
-      if (parts.length >= 2) {
-        const artist = parts[0].trim();
-        const title = parts.slice(1).join(' - ').trim();
-        return { artist, title };
+        const parts = cleanedTitle.split(/ - | – | — /);
+        let artist = "Radio";
+        let title = cleanedTitle;
+        if (parts.length >= 2) {
+          artist = parts[0].trim();
+          title = parts.slice(1).join(" - ").trim();
+        }
+
+        // Historial con hora
+        const currentTime = new Date().toLocaleTimeString("es-ES", { hour: "2-digit", minute: "2-digit" });
+        const newEntry = { artist, title, time: currentTime };
+        if (radioHistory.length === 0 || radioHistory[0].title !== title) {
+          radioHistory.unshift(newEntry);
+          if (radioHistory.length > 20) radioHistory.pop();
+        }
+
+        // Actualización visual
+        if (metaItems.length >= 3) {
+          metaItems[0].textContent = title;
+          metaItems[1].textContent = artist;
+          metaItems[2].textContent = "Streaming";
+        }
+
+      } catch (err) {
+        console.error("❌ Error en actualización Radio:", err);
+        if (metaItems.length >= 3) {
+          metaItems[0].textContent = "Error";
+          metaItems[1].textContent = "Radio";
+          metaItems[2].textContent = "Streaming";
+        }
       }
-      return { artist: "Desconocido", title: cleaned || "Transmisión" };
-    };
+    }
 
-    const actualizarUnaVez = () => {
-      fetch(proxyUrl, { cache: 'no-cache' })
-        .then(res => res.text())
-        .then(raw => {
-          const { artist, title } = parsearTitulo(raw);
-
-          // Metadatos: Título, Artista, Nombre de la emisora
-          if (metaItems.length >= 3) {
-            metaItems[0].textContent = title || "Track";
-            metaItems[1].textContent = artist || "Autor";
-            metaItems[2].textContent = emisoraNombre;
-          }
-        })
-        .catch(() => {
-          if (metaItems.length >= 3) {
-            metaItems[0].textContent = "Error";
-            metaItems[1].textContent = "Radio";
-            metaItems[2].textContent = emisoraNombre;
-          }
-        });
-    };
-
-    actualizarUnaVez();
-    radioMetaIntervalId = setInterval(actualizarUnaVez, 12000);
+    actualizarDesdeServidor();
+    radioMetaIntervalId = setInterval(actualizarDesdeServidor, 12000);
   }
 
   // ⏭ Avanzar track (centralizado)
