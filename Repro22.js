@@ -201,7 +201,7 @@ function aplicarMarquesina(element) {
 // 📦 METADATOS LOCAL
 // =======================================================
 function cargarTracksDesdeJSON() {
-  fetch("Repro22.json")
+  fetch("https://radio-tekileros.vercel.app/Repro22.json")
     .then(res => res.ok ? res.json() : Promise.reject(`HTTP error ${res.status}`))
     .then(data => {
       const tracks = Array.isArray(data?.hits) ? data.hits : Array.isArray(data) ? data : [];
@@ -437,4 +437,5 @@ document.addEventListener("DOMContentLoaded", () => {
       activarReproduccion(nextIndex, "next");
     };
   }
+
 });
