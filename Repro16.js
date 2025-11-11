@@ -91,7 +91,7 @@ function activarModoLocal() {
     radioIntervalId = null;
   }
 
-  fetch('Repro16.json')
+  fetch('https://radio-tekileros.vercel.app/Repro16.json')
     .then(res => res.json())
     .then(data => {
       playlist = data;
