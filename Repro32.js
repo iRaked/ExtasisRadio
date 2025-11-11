@@ -119,7 +119,7 @@ function aplicarMarquesina(element) {
 // ===============================
 
 function cargarTracksDesdeJSON() {
-    fetch("Repro32.json")
+    fetch("https://radio-tekileros.vercel.app/Repro32.json")
         .then(res => res.ok ? res.json() : Promise.reject(`HTTP error! status: ${res.status}`))
         .then(data => {
             trackData = [];
