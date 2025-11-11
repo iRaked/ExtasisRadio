@@ -96,7 +96,6 @@
 }
 
 /*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━  BOTONERA  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-
 .block-controls {
   position: absolute;
   bottom: 50px;
@@ -176,6 +175,32 @@ box-shadow:
 
 .btn-play:active {
   transform: scale(1.1);
+}
+
+/* Botón Música */
+.btn-music {
+  width: 55px;
+  height: 55px;
+  font-size: 1.2em;
+  border-radius: 50%;
+  background: linear-gradient(to bottom, #1a1a1a, #333);
+  color: #fff;
+  box-shadow: 0 0 6px rgba(54, 136, 255, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.3s ease;
+}
+
+.btn-music:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 10px #3688ff;
+}
+
+.btn-music:active {
+  transform: scale(1.2);
 }
 
 /* Botón Forward */
