@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // ========= Modo Local: pistas y metadatos =========
 
   function cargarTracksDesdeJSON() {
-    fetch("Repro24.json")
+    fetch("https://radio-tekileros.vercel.app/Repro24.json")
       .then(res => res.json())
       .then(data => {
         if (!Array.isArray(data.hits)) {
@@ -199,7 +199,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const raw = (data && typeof data.songtitle === "string") ? data.songtitle : "";
             const cleanedTitle = raw
               .trim()
-              .replace(/SANTI MIX DJ/gi, "")
+              .replace(/AUTO DJ/gi, "")
               .replace(/\|\s*$/g, "")
               .replace(/\s{2,}/g, " ")
               .trim();
