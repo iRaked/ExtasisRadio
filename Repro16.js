@@ -193,6 +193,32 @@ function activarModoRadio() {
   actualizarMetadatosStreaming();
   radioIntervalId = setInterval(actualizarMetadatosStreaming, 12000);
   lastStreamTitle = ""; // fuerza a refrescar metadatos
+
+  iniciarContadorRadioescuchas(); // ← NUEVO
+}
+
+function activarModoLocal() {
+  modoActual = "local";
+  limpiarMetadatos();
+
+  if (radioIntervalId) {
+    clearInterval(radioIntervalId);
+    radioIntervalId = null;
+  }
+
+  detenerContadorRadioescuchas(); // ← NUEVO
+
+  fetch('https://radio-tekileros.vercel.app/Repro16.json')
+    .then(res => res.json())
+    .then(data => {
+      playlist = data;
+      currentIndex = 0;
+      loadTrack(currentIndex);
+      if (primerGesto) {
+        audio.play().catch(err => console.warn("⚠️ Error al iniciar reproducción local:", err));
+      }
+    })
+    .catch(err => console.error('❌ Error al cargar playlist local:', err));
 }
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 06 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -301,13 +327,42 @@ volumeSlider.addEventListener("input", () => {
 });
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 08 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 👥 LISTENERS
-function actualizarListeners() {
-  const nuevoValor = Math.floor(Math.random() * 100) + 1;
-  if (listenersOutput) listenersOutput.textContent = nuevoValor;
+// 👥 LISTENERS (Radioescuchas reales desde servidor)
+let contadorIntervalId = null;
+
+function detenerContadorRadioescuchas() {
+  if (contadorIntervalId !== null) clearInterval(contadorIntervalId);
+  contadorIntervalId = null;
+  if (listenersOutput) listenersOutput.textContent = "--";
 }
-setInterval(actualizarListeners,120000);
-actualizarListeners();
+
+function iniciarContadorRadioescuchas() {
+  detenerContadorRadioescuchas();
+  if (typeof $ === 'undefined' || typeof $.ajax === 'undefined' || !listenersOutput) return;
+
+  const contadorUrl = "https://technoplayerserver.net:8018/stats?json=1&sid=1";
+
+  function actualizarContador() {
+    if (modoActual !== "radio") { 
+      detenerContadorRadioescuchas(); 
+      return; 
+    }
+    $.ajax({
+      dataType: 'jsonp',
+      url: contadorUrl,
+      success: function(data) {
+        listenersOutput.textContent = data.currentlisteners || "0";
+      },
+      error: function() {
+        listenersOutput.textContent = "0";
+      },
+      timeout: 5000
+    });
+  }
+
+  actualizarContador();
+  contadorIntervalId = setInterval(actualizarContador, 15000);
+}
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 09 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // 🎶 BOTÓN MUSIC PARA ALTERNAR MODOS
