@@ -33,6 +33,14 @@
     { "source": "/repro29", "destination": "/Repro29.html" },
     { "source": "/repro30", "destination": "/Repro30.html" },
     { "source": "/repro31", "destination": "/Repro31.html" },
-    { "source": "/repro32", "destination": "/Repro32.html" }
+    { "source": "/repro32", "destination": "/Repro32.html" },
+    { "source": "/repro33", "destination": "/Repro33.html" },
+    { "source": "/repro34", "destination": "/Repro34.html" },
+    { "source": "/repro35", "destination": "/Repro35.html" },
+    { "source": "/repro36", "destination": "/Repro36.html" },
+    { "source": "/repro37", "destination": "/Repro37.html" },
+    { "source": "/repro38", "destination": "/Repro38.html" },
+    { "source": "/repro39", "destination": "/Repro39.html" },
+    { "source": "/repro40", "destination": "/Repro40.html" }
   ]
 }
