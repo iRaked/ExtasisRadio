@@ -27,7 +27,7 @@ function setDefaultMetadata() {
   if (TRACK_TITLE_EL)  TRACK_TITLE_EL.textContent  = "Transmisión en vivo";
   if (TRACK_ARTIST_EL) TRACK_ARTIST_EL.textContent = "AutoDJ";
   if (TRACK_ALBUM_EL)  TRACK_ALBUM_EL.textContent  = "Stream";
-  if (COVER_ART_EL)    COVER_ART_EL.src            = "assets/covers/DalePlay.png";
+  if (COVER_ART_EL)    COVER_ART_EL.src            = "https://santi-graphics.vercel.app/assets/covers/DalePlay.png";
   if (CURRENT_TRACK_DISPLAY_EL) CURRENT_TRACK_DISPLAY_EL.textContent = "Transmisión en vivo — Radio Dale Play";
 }
 setDefaultMetadata();
@@ -84,7 +84,7 @@ if (contenidoBtn && historyModal && historyList) {
         const li = document.createElement("li");
         li.classList.add("modal-track-item");
         li.innerHTML = `
-          <img src="${entry.cover || 'assets/covers/DalePlay.png'}" alt="Carátula" class="track-cover" />
+          <img src="${entry.cover || 'https://santi-graphics.vercel.app/assets/covers/DalePlay.png'}" alt="Carátula" class="track-cover" />
           <div class="track-info">
             <strong>${entry.title || ""}</strong><br>
             <span>🎤 ${entry.artist || ""}</span><br>
