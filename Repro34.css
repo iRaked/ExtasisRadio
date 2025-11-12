@@ -26,7 +26,7 @@ html, body {
   margin: auto;
   padding: 0;
   gap: 0;
-  background-image: url("assets/bg/BG-DalePlay.png");
+  background-image: url("https://santi-graphics.vercel.app/assets/bg/BG-DalePlay.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -377,7 +377,7 @@ html, body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url(assets/covers/Plato.png);
+  background-image: url(https://santi-graphics.vercel.app/assets/covers/Plato.png);
   background-size: cover;
   background-position: center;
   opacity: 1.0;
@@ -1154,7 +1154,7 @@ html, body {
   width: 540px;
   height: 650px;
   transform: translate(-50%, -50%);
-  background-image: url("assets/background/Scene-Grey.gif");
+  background-image: url("https://santi-graphics.vercel.app/assets/background/Scene-Grey.gif");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
