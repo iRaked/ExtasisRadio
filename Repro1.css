@@ -1,0 +1,1283 @@
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 01 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+body {
+    font-family: 'Arial', sans-serif;
+    background-image: url('');
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url(assets/bg/bg5.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Contenedor principal más grande */
+.player-container {
+    background-color: rgb(0 0 0 / 47%);
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    padding: 56px;
+    width: 430px;
+    height: 33em;
+    text-align: center;
+    backdrop-filter: blur(2px);
+    position: relative;
+    overflow: hidden;
+    margin-top: 50px;
+    margin-bottom: 20px;
+    transition: all 0.5s ease, filter 0.5s ease;
+}
+
+@keyframes pulse {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Modificar el estilo del radio-logo para posicionar el botón correctamente */
+.radio-logo {
+    width: 120px;
+    height: 120px;
+    margin: 25px auto 20px;
+    border: 3px solid rgb(255, 255, 255);
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    animation: vinylSpin 3s linear infinite, glow 3s infinite alternate;
+    box-shadow: 0 0 15px rgb(255, 255, 255);
+    z-index: 3;
+}
+
+/* Crear un pseudo-elemento para la imagen de fondo con opacidad */
+.radio-logo::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url(assets/img/Cover-Vinyl-Disc-FX1.png);
+    background-size: cover;
+    background-position: center;
+    opacity: 0.8; /* Ajusta la opacidad aquí */
+    z-index: 1;
+}
+
+/* Mejorar la animación de giro del vinilo */
+@keyframes vinylSpin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Mejorar el efecto de brillo */
+@keyframes glow {
+    0% { 
+        box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+        border-color: rgba(255, 0, 0, 0.6);
+    }
+    100% { 
+        box-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
+        border-color: rgba(255, 0, 0, 0.9);
+    }
+}
+
+/* Animación que contrarresta la rotación del disco */
+@keyframes counterRotation {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(-360deg); }
+}
+        
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 02 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+/* Ajustar posición de los elementos flotantes */
+.listeners-container {
+    color: white;
+    font-size: 13px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
+    padding: 5px 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    z-index: 10;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.listeners-count {
+    font-weight: bold;
+    color: #ff5e5e;
+    animation: countPulse 2s infinite;
+}
+
+@keyframes countPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.dj-wrapper {
+    color: white;
+    font-size: 13px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+    position: absolute;
+    top: 50px; /* Aumentado para dar más espacio entre elementos */
+    left: 15px;
+    z-index: 10;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+#dj {
+    color: white;
+    font-size: 13px;
+    background-color: transparent;
+    border-radius: 0;
+    padding: 0;
+    font-weight: bold;
+    display: inline;
+    animation: djPulse 3s infinite alternate;
+}
+
+@keyframes djPulse {
+    0% { text-shadow: 0 0 5px rgba(221, 78, 78, 0.5); }
+    100% { text-shadow: 0 0 10px rgba(221, 78, 78, 1); }
+}
+
+#art {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 100px;
+    height: 100px;
+    border-radius: 5px;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.3);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    z-index: 10;
+    animation: fadeIn 1s;
+    background-image: url('assets/covers/Cover1.png');
+    background-size: cover;
+    background-position: center;
+    border: 2px solid rgba(127, 122, 131, 0);
+    transition: transform 0.3s ease-in-out;
+}
+
+#art:hover {
+    transform: scale(1.25);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Mejorar el espaciado de otros elementos */
+.player-title.animated-title {
+    margin-bottom: 35px;
+    text-align: center;
+    position: relative;
+    overflow: visible;
+    background: transparent;
+}
+
+/* Contenedor de título con neón */
+.neon-title {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.7));
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Estilo para las palabras */
+.neon-word {
+    display: flex;
+}
+
+/* Estilo para cada letra con neón */
+.neon-letter {
+    display: inline-block;
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+    font-size: 3.2rem;
+    text-transform: uppercase;
+    color: white;
+    text-shadow: 0 0 10px #ff0000, 0 0 15px #ff0000, 0 0 25px #ff0000, 0 0 40px #ff0000;
+    animation: neon-flicker 3s infinite alternate-reverse, neon-pulse 2s infinite;
+    animation-delay: var(--delay);
+    transform-style: preserve-3d;
+}
+
+/* Efecto de reflejo para las letras */
+.neon-letter::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -15px;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(90deg, rgba(221, 78, 78, 0.3), rgba(78, 221, 78, 0.3));
+    border-radius: 50%;
+    filter: blur(3px);
+    animation: reflectionPulse 3s infinite alternate var(--delay);
+}
+
+.neon-reflection {
+    position: absolute;
+    bottom: -15px;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(
+        to bottom, 
+        rgba(255, 0, 0, 0.5), 
+        rgba(255, 0, 0, 0.1)
+    );
+    filter: blur(3px);
+    border-radius: 50%;
+    transform: scaleX(0.8);
+    opacity: 0.6;
+    animation: reflection-pulse 2s infinite;
+}
+    
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 03 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+        
+/* Ondas de audio debajo del título */
+.audio-waves {
+    display: flex;
+    justify-content: center;
+    gap: 3px;
+    padding: 15px 0;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    width: 100%;
+    max-width: 380px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.wave-bar {
+    width: 4px;
+    height: var(--height);
+    background: linear-gradient(to top, #ffffff, #ffffff);
+    border-radius: 2px;
+    animation: wave-animation 1.2s infinite ease-in-out;
+    animation-delay: var(--delay);
+}
+
+@keyframes wave-animation {
+    0%, 100% {
+        transform: scaleY(0.5);
+    }
+    50% {
+        transform: scaleY(1);
+    }
+}
+
+/* Efecto de brillo en el fondo */
+.glow-effect {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 120%;
+    height: 140%;
+    background: radial-gradient(
+        ellipse at center,
+        rgba(236, 1, 1, 0.2) 0%,
+        rgba(78, 221, 78, 0.1) 40%,
+        transparent 70%
+    );
+    filter: blur(20px);
+    z-index: 0;
+    opacity: 0.6;
+    animation: glowPulse 5s infinite alternate;
+    pointer-events: none;
+}
+
+/* Animaciones */
+@keyframes letterPulse {
+    0% {
+        text-shadow:
+            0 0 6px rgba(255, 255, 255, 0.9),
+            0 0 12px rgba(221, 78, 78, 0.7),
+            0 0 24px rgba(78, 221, 78, 0.5);
+        color: rgba(255, 255, 255, 0.9);
+    }
+    100% {
+        text-shadow:
+            0 0 10px rgba(255, 255, 255, 1),
+            0 0 20px rgba(221, 78, 78, 0.9),
+            0 0 30px rgba(221, 78, 78, 0.7),
+            0 0 40px rgba(78, 221, 78, 0.5);
+        color: rgba(255, 255, 255, 1);
+    }
+}
+
+@keyframes letterFloat {
+    0% { transform: translateY(0px) translateZ(0); }
+    30% { transform: translateY(-3px) translateZ(10px); }
+    70% { transform: translateY(2px) translateZ(5px); }
+    100% { transform: translateY(-1px) translateZ(0); }
+}
+
+@keyframes reflectionPulse {
+    0% { opacity: 0.2; transform: scale(0.8); }
+    100% { opacity: 0.6; transform: scale(1.2); }
+}
+
+@keyframes barDance {
+    0% { height: calc(var(--height) * 0.6); opacity: 0.6; }
+    100% { height: var(--height); opacity: 0.9; }
+}
+
+@keyframes glowPulse {
+    0% { opacity: 0.4; filter: blur(20px); }
+    100% { opacity: 0.8; filter: blur(25px); }
+}
+
+@keyframes wordRotate {
+    0%, 100% { transform: rotateX(0deg); }
+    25% { transform: rotateX(2deg); }
+    75% { transform: rotateX(-2deg); }
+}
+
+@keyframes wordFloat {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+    100% { transform: translateY(1px); }
+}
+
+@keyframes neon-flicker {
+    0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+        opacity: 1;
+        text-shadow: 0 0 10px #ff0000, 0 0 15px #ff0000, 0 0 25px #ff0000, 0 0 40px #ff0000;
+    }
+    20%, 22%, 24%, 55% {
+        opacity: 0.8;
+        text-shadow: 0 0 5px #ff0000, 0 0 10px #ff0000, 0 0 15px #ff0000;
+    }
+}
+
+@keyframes neon-pulse {
+    0%, 100% {
+        filter: brightness(1);
+    }
+    50% {
+        filter: brightness(1.5);
+    }
+}
+
+@keyframes reflection-pulse {
+    0%, 100% {
+        opacity: 0.3;
+        width: 80%;
+        left: 10%;
+    }
+    50% {
+        opacity: 0.6;
+        width: 90%;
+        left: 5%;
+    }
+}
+        
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 04 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+    
+/* Intensificar animaciones cuando el reproductor está activo */
+.player-container.playing .wave-bar {
+    animation-duration: 0.8s;
+}
+
+.player-container.playing .neon-letter {
+    animation: 
+        letterPulse 2s infinite ease-in-out alternate var(--delay),
+        letterFloat 4s infinite ease-in-out alternate var(--delay);
+}
+
+.player-container.playing .glow-effect {
+    opacity: 0.8;
+}
+
+/* Interactividad al pasar el cursor */
+.neon-letter:hover {
+    animation-play-state: paused;
+    color: #fff;
+    text-shadow:
+        0 0 15px #ff0000, 0 0 25px #ff0000, 0 0 35px #ff0000, 0 0 50px #ff3333;
+    transform: scale(1.1);
+    transition: all 0.2s ease;
+}
+
+/* Estilos para el control de volumen */
+.volume-control {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 0 5px; /* Agregar un poco de padding en los extremos */
+}
+
+.volume-control i {
+    color: #ffffff;
+    font-size: 16px;
+    width: 20px; /* Ancho fijo para evitar saltos */
+    transition: color 0.3s;
+}
+
+.volume-control i:hover {
+    color: #ff0000;
+}
+
+.volume-slider {
+    width: 60%;
+    -webkit-appearance: none;
+    height: 6px;
+    background: linear-gradient(to right, 
+        #dd4e4e 0%, 
+        #dd4e4e var(--volume-percent, 70%), 
+        rgba(255, 255, 255, 0.3) var(--volume-percent, 70%)
+    );
+    border-radius: 5px;
+    outline: none;
+    position: relative;
+}
+
+.volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    background: #ff0000;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 10px rgba(103, 207, 117, 0.6);
+    transition: all 0.2s;
+}
+
+.volume-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+    background: #dd4e4e;
+    box-shadow: 0 0 15px rgba(78, 221, 78, 0.8);
+}
+
+.volume-slider:active::-webkit-slider-thumb {
+    transform: scale(1.3);
+    background: #ff7d7d;
+}
+
+.volume-slider::-moz-range-progress {
+    background-color: #dd4e4e;
+    height: 6px;
+    border-radius: 5px;
+}
+
+.volume-slider::-moz-range-thumb {
+    width: 15px;
+    height: 15px;
+    background: #4edd4e;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 10px rgba(221, 78, 78, 0.6);
+}
+
+.volume-percentage {
+    color: #ffffff;
+    font-size: 12px;
+    min-width: 32px; /* Ancho fijo para evitar saltos de diseño */
+    text-align: right;
+    font-weight: bold;
+}
+
+.now-playing {
+    color: white;
+    font-size: 14px;
+    margin-top: 20px; /* Aumentado de 15px a 20px */
+    padding: 10px 2px 8px; /* Aumentado el padding vertical */
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    height: 22px; /* Aumentado de 20px a 22px */
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.song-title {
+    color: #ffffff;
+    font-weight: bold;
+    display: block;
+    margin-top: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    animation: marquee 15s linear infinite;
+}
+
+@keyframes marquee {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+}
+    
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 05 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+#title {
+    color: #ffffff;
+    font-weight: bold;
+    display: inline-block;
+    white-space: nowrap;
+    position: relative;
+    padding-right: 285px;
+    animation: marquee-contained 12s linear infinite;
+    width: max-content;
+    font-size: 1.5em;
+}
+
+@keyframes marquee-contained {
+    0% { transform: translateX(100%); } /* Comienza fuera del contenedor a la derecha */
+    100% { transform: translateX(-100%); } /* Termina fuera del contenedor a la izquierda */
+}
+
+/* Estilos para que el sonic_listeners tenga la animación de pulso */
+#sonic_listeners {
+    color: #ffffff;
+    animation: countPulse 2s infinite;
+    display: inline-block; /* Para que el elemento mantenga el pulso adecuadamente */
+}
+
+/* Estilo para el icono de audífonos */
+.fa-headphones {
+    margin-right: 5px;
+    color: #ffffff; /* Mismo color que los números de oyentes */
+    animation: headphonesPulse 3s infinite alternate;
+}
+
+@keyframes headphonesPulse {
+    0% { transform: scale(1); opacity: 0.7; }
+    100% { transform: scale(1.1); opacity: 1; }
+}
+
+/* Modificación de los contenedores de efectos para limitarlos al reproductor */
+.music-notes-container, .sparkles-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
+    overflow: hidden;
+}
+
+/* Corregir las posiciones de inicio de las notas musicales */
+.music-note {
+    position: absolute;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 24px;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+    animation: floatNote 12s linear infinite;
+    opacity: 0;
+}
+
+.music-note:nth-child(1) { left: 20%; top: -30px; animation-delay: 0s; font-size: 25px; }
+.music-note:nth-child(2) { left: 40%; top: -30px; animation-delay: 2s; font-size: 18px; }
+.music-note:nth-child(3) { left: 60%; top: -30px; animation-delay: 4s; font-size: 22px; }
+.music-note:nth-child(4) { left: 80%; top: -30px; animation-delay: 6s; font-size: 26px; }
+.music-note:nth-child(5) { left: 10%; top: -30px; animation-delay: 1s; font-size: 20px; }
+.music-note:nth-child(6) { left: 30%; top: -30px; animation-delay: 3s; font-size: 19px; }
+.music-note:nth-child(7) { left: 50%; top: -30px; animation-delay: 5s; font-size: 24px; }
+.music-note:nth-child(8) { left: 70%; top: -30px; animation-delay: 7s; font-size: 21px; }
+
+/* Animación modificada para que las notas se muevan solo dentro del contenedor */
+@keyframes floatNote {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.8;
+    }
+    90% {
+        opacity: 0.6;
+    }
+    100% {
+        transform: translateY(380px) rotate(360deg);
+        opacity: 0;
+    }
+}
+       
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 06 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+/* Efecto de brillo al pasar el cursor sobre el reproductor */
+.player-container {
+    transition: all 0.5s ease;
+}
+
+/* Modificar el funcionamiento del difuminado solo para el reproductor */
+.player-container.blur-background {
+    filter: blur(6px) brightness(0.5);
+    pointer-events: none;
+}
+
+/* Estilos para el contenedor de fecha y hora */
+.datetime-container {
+    color: white;
+    background-color: rgb(0 0 0 / 26%);
+    border-radius: 12px;
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 7px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.datetime-container i {
+    color: #ff0000;
+    font-size: 14px;
+}
+
+#current-time, #current-date {
+    font-weight: bold;
+}
+
+.date-separator {
+    margin: 0 5px;
+    opacity: 0.6;
+}
+
+/* Animación sutil para el reloj */
+.datetime-container .fa-clock {
+    animation: clockPulse 2s infinite linear;
+}
+
+@keyframes clockPulse {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(3deg); }
+    75% { transform: rotate(-3deg); }
+    100% { transform: rotate(0deg); }
+}
+
+/* ======================================= */
+/* Estilos para el botón de historial */
+/* ======================================= */
+.history-button-container {
+    position: absolute;
+    top: 125px; /* Justo debajo del art (100px de alto + 15px de margen superior + 10px de espacio) */
+    right: 15px; /* Alineado con el borde derecho del art */
+    z-index: 10;
+    width: 100px; /* Mismo ancho que art */
+    display: flex;
+    justify-content: center;
+}
+
+/* Asegurar que el botón de cierre esté por encima */
+.close-history {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.close-history:hover {
+    color: rgba(221, 78, 78, 1);
+    transform: scale(1.1);
+}
+
+.history-button {
+    background-color: rgba(221, 78, 78, 0.7);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 6px 12px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    width: 90%; /* Para que quede un poco más estrecho que el contenedor */
+}
+
+.history-button:hover {
+    background-color: rgba(221, 78, 78, 0.9);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+.history-button i {
+    font-size: 12px;
+}
+
+.history-button.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 07 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+/* ********************************* BOTONERA ************************************* */
+/* Contenedor general */
+#block-controls {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 420px;
+  height: auto;
+  border-radius: 12px;
+  z-index: 10;
+  background: transparent;
+  box-shadow: none;
+  border: none;
+}
+
+.control-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Estilo Black Classic 
+.control-buttons button {
+  border-radius: 50%;
+  background: linear-gradient(to bottom, #1a1a1a, #444);
+  color: #f5f5f5;
+  box-shadow: 0 4px 8px rgba(160,160,160,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  user-select: none;
+}
+
+.control-buttons button:hover {
+  transform: scale(1.1);
+}*/
+
+/* Estilos base con efecto burbuja */
+.control-buttons button {
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15); /* semi-transparente */
+  backdrop-filter: blur(6px);             /* efecto vidrio/burbuja */
+  -webkit-backdrop-filter: blur(6px);     /* soporte Safari */
+  color: #f5f5f5;
+  box-shadow: 0 4px 8px rgba(160,160,160,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  user-select: none;
+  border: 1px solid rgba(255, 255, 255, 0.2); /* borde sutil */
+}
+
+/* Hover generalizado */
+.control-buttons button:hover {
+  transform: scale(1.1);
+  background: rgba(255, 255, 255, 0.25); /* más luminosa al hover */
+  box-shadow: 0 0 12px rgba(255, 0, 0, 0.6); /* glow rojo suave */
+}
+
+
+/* 🔄 Botón Repeat */
+.btn-repeat {
+  width: 45px;
+  height: 45px;
+  box-shadow: 0 0 6px rgba(180,180,180,0.4);
+  transition: all 0.3s ease;
+}
+.btn-repeat:active {
+  transform: scale(1.2);
+}
+
+/* Estado activo persistente con degradado dorado y pulso */
+.btn-repeat.active-one {
+  background: linear-gradient(45deg, #ffcc00, #ff9900);
+  color: #fff;
+  box-shadow: 0 0 12px rgba(255,153,0,0.7);
+  animation: pulse-repeat 1.2s infinite;
+}
+
+@keyframes pulse-repeat {
+  0%   { transform: scale(1);   box-shadow: 0 0 12px rgba(255,153,0,0.7); }
+  50%  { transform: scale(1.1); box-shadow: 0 0 18px rgba(255,180,0,0.9); }
+  100% { transform: scale(1);   box-shadow: 0 0 12px rgba(255,153,0,0.7); }
+}
+
+/* ⏪ Botón Rewind */
+.btn-rewind {
+  width: 55px;
+  height: 55px;
+  box-shadow: 0 0 6px rgba(180,180,180,0.4);
+}
+
+.btn-rewind:active {
+  transform: scale(1.2);
+}
+
+/* ▶️ Botón Play (estado normal) */
+.btn-play {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(to right, #2a2a2a 0%, #555 50%, #777 100%);
+  color: #fff;
+  box-shadow: 0 0 6px rgba(180,180,180,0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+/* ▶️ Botón Play activo (degradado rojo) */
+.btn-play.active-play {
+  background: linear-gradient(to right,
+    #8b0000 0%,   /* rojo oscuro */
+    #dd4e4e 50%,  /* rojo medio */
+    #ff3333 100%  /* rojo vivo */
+  );
+  box-shadow: 0 0 12px rgba(255,0,0,0.7);
+}
+
+/* ⏩ Botón Forward */
+.btn-forward {
+  width: 55px;
+  height: 55px;
+  box-shadow: 0 0 6px rgba(180,180,180,0.4);
+}
+.btn-forward:active {
+  transform: scale(1.2);
+}
+
+/* 🔀 Botón Shuffle */
+.btn-shuffle {
+  width: 45px;
+  height: 45px;
+  box-shadow: 0 0 6px rgba(180,180,180,0.4);
+  transition: all 0.3s ease;
+}
+
+/* Estado activo persistente con degradado azul/verde y pulso */
+.btn-shuffle.shuffle-active {
+  background: linear-gradient(45deg, #00ccff, #00ff99);
+  color: #fff;
+  box-shadow: 0 0 12px rgba(0,204,255,0.7);
+  animation: pulse-shuffle 1.2s infinite;
+}
+
+@keyframes pulse-shuffle {
+  0%   { transform: scale(1);   box-shadow: 0 0 12px rgba(0,204,255,0.7); }
+  50%  { transform: scale(1.1); box-shadow: 0 0 18px rgba(0,255,153,0.8); }
+  100% { transform: scale(1);   box-shadow: 0 0 12px rgba(0,204,255,0.7); }
+}
+
+/* 📋 Botón Menu */
+.btn-menu {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(to bottom, #1a1a1a, #333);
+  box-shadow: 0 0 6px rgba(180,180,180,0.4);
+}
+.btn-menu:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 10px rgba(200,200,200,0.8);
+}
+
+/* 🎵 Botón Music/Playlist */
+.btn-music {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(to bottom, #1a1a1a, #444);
+  box-shadow: 0 0 6px rgba(160,160,160,0.4);
+}
+.btn-music:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 10px rgba(200,200,200,0.8);
+}
+
+/* ================ */
+/* ANIMACIONES */
+/* ================ */
+/* Animación generalizada: girar icono tras clic */
+.btn-menu i,
+.btn-repeat i,
+.btn-rewind i,
+.btn-play i,
+.btn-forward i,
+.btn-shuffle i,
+.btn-music i {
+  transition: transform 0.4s ease, color 0.4s ease;
+}
+
+button:active i {
+  transform: rotate(360deg);
+}
+
+/* Cambio de color en botones específicos */
+.btn-repeat.active-one {
+  background-color: #ffcc00; /* amarillo para repeat one */
+}
+
+.btn-play.active {
+  background: linear-gradient(45deg, #ff0000, #990000);
+  color: #fff;
+}
+
+.btn-shuffle.active {
+  background-color: #00ccff; /* azul brillante para shuffle */
+  color: #fff;
+}
+
+/* Glow rojo tras clic en menu y music */
+.btn-menu.glow,
+.btn-music.glow {
+  box-shadow: 0 0 15px 3px rgba(255, 0, 0, 0.8);
+  border-color: #ff0000;
+}
+
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 08 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+/* 📋 Modal Playlist */
+#modalPlaylist {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 420px;
+  height: 540px;
+  background-color: rgba(10, 10, 10, 0.85); /* semi-transparente */
+  border: 2px solid #ff0000;
+  border-radius: 14px;
+  box-shadow: 0 0 20px #ff0000;
+  z-index: 1000;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  gap: 12px;
+  backdrop-filter: blur(8px); /* efecto burbuja/vidrio */
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* Oculto por defecto */
+#modalPlaylist.hidden {
+  display: none;
+}
+
+/* Fondo animado opcional */
+#modalPlaylist::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 540px;
+  height: 650px;
+  transform: translate(-50%, -50%);
+  background-image: url("https://i.ibb.co/7xtPnmJk/Scene.gif");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  clip-path: inset(0 round 20px);
+  z-index: -1;
+  border-radius: 12px;
+  opacity: 0.9;
+}
+
+/* Contenido interno */
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Encabezado con título y botón cerrar centrados */
+.modal-header {
+  display: flex;
+  justify-content: center;   /* centra horizontalmente */
+  align-items: center;       /* centra verticalmente */
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+/* Encabezado Playlist en rojo */
+#playlistTitle {
+  font-size: 1.2em;
+  font-weight: bold;
+  text-align: center;
+  margin: 0;
+  background: linear-gradient(90deg, #8b0000, #ff0000); /* rojo oscuro → rojo vivo */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: pulseTitle 2s infinite;
+}
+
+/* Pulso rojo */
+@keyframes pulseTitle {
+  0%   { text-shadow: 0 0 6px rgba(255,0,0,0.4); }
+  50%  { text-shadow: 0 0 12px rgba(255,50,50,0.8); }
+  100% { text-shadow: 0 0 6px rgba(255,0,0,0.4); }
+}
+
+/* Botón cerrar con icono X */
+.close-btn {
+  background: rgba(255, 255, 255, 0.08); /* burbuja semi-transparente */
+  border: 1px solid rgba(255, 0, 0, 0.6);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 8px rgba(255,0,0,0.5);
+}
+
+/* Icono X dentro del botón */
+.close-btn i {
+  color: #ff0000;
+  font-size: 1.2em;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+/* Hover: glow y rotación */
+.close-btn:hover {
+  transform: scale(1.15);
+  background: rgba(255, 0, 0, 0.15);
+  box-shadow: 0 0 14px rgba(255,0,0,0.8);
+}
+.close-btn:hover i {
+  transform: rotate(90deg);
+  color: #ff3333;
+}
+
+/* Lista de pistas (scroll vertical rojo, sin horizontal) */
+.track-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  overflow-y: auto;     /* solo scroll vertical */
+  overflow-x: hidden;   /* elimina scroll horizontal */
+  flex-grow: 1;
+}
+
+/* Cada pista */
+.modal-track-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  border-bottom: 1px solid #333;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+.modal-track-item:hover {
+  background-color: #222;
+  transform: scale(1.02);
+}
+
+/* Carátula */
+.track-cover {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 0 6px #ff0000;
+  flex-shrink: 0;
+}
+
+/* Info de la pista */
+.track-info {
+  flex: 1;
+  font-size: 0.9em;
+  line-height: 1.4;
+  color: #ccc;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.track-info strong {
+  color: #fff;
+  display: block;
+  margin-bottom: 4px;
+}
+
+/* Estilo del scrollbar (WebKit: Chrome, Edge, Safari) */
+.track-list::-webkit-scrollbar {
+  width: 8px; /* ancho del scroll vertical */
+}
+.track-list::-webkit-scrollbar-track {
+  background: rgba(50, 50, 50, 0.6); /* fondo oscuro */
+  border-radius: 4px;
+}
+.track-list::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #8b0000, #ff0000); /* degradado rojo */
+  border-radius: 4px;
+  box-shadow: 0 0 6px rgba(255,0,0,0.6);
+}
+.track-list::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #ff3333, #dd0000); /* rojo más vivo al hover */
+}
+
+/* Firefox */
+.track-list {
+  scrollbar-width: thin;
+  scrollbar-color: #ff0000 rgba(50, 50, 50, 0.6);
+}
+
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 09 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+/* 📋 Modal Historial */
+#modalHistory {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 420px;
+  height: 540px;
+  background-color: rgba(10, 10, 10, 0.85); /* semi-transparente */
+  border: 2px solid #00ff99; /* verde para diferenciar del Playlist */
+  border-radius: 14px;
+  box-shadow: 0 0 20px #00ff99;
+  z-index: 1000;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  gap: 12px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* Oculto por defecto */
+#modalHistory.hidden {
+  display: none;
+}
+
+/* Fondo animado opcional */
+#modalHistory::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 540px;
+  height: 650px;
+  transform: translate(-50%, -50%);
+  background-image: url("https://i.ibb.co/7xtPnmJk/Scene.gif");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  clip-path: inset(0 round 20px);
+  z-index: -1;
+  border-radius: 12px;
+  opacity: 0.9;
+}
+
+/* Contenido interno */
+#modalHistory .modal-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Encabezado con título y botón cerrar */
+#modalHistory .modal-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+/* Título Historial en verde */
+#historyTitle {
+  font-size: 1.2em;
+  font-weight: bold;
+  text-align: center;
+  margin: 0;
+  background: linear-gradient(90deg, #006600, #00ff99);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: pulseHistoryTitle 2s infinite;
+}
+
+@keyframes pulseHistoryTitle {
+  0%   { text-shadow: 0 0 6px rgba(0,255,153,0.4); }
+  50%  { text-shadow: 0 0 12px rgba(0,255,153,0.8); }
+  100% { text-shadow: 0 0 6px rgba(0,255,153,0.4); }
+}
+
+/* Lista de historial */
+#modalHistory .track-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  flex-grow: 1;
+}
+
+/* Cada entrada del historial */
+#modalHistory .modal-history-track-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  border-bottom: 1px solid #333;
+  transition: background 0.3s, transform 0.2s;
+}
+#modalHistory .modal-history-track-item:hover {
+  background-color: #222;
+  transform: scale(1.02);
+}
+
+/* Carátula */
+#modalHistory .track-cover {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 0 6px #00ff99;
+  flex-shrink: 0;
+}
+
+/* Info de la pista */
+#modalHistory .track-info {
+  flex: 1;
+  font-size: 0.9em;
+  line-height: 1.4;
+  color: #ccc;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+#modalHistory .track-info strong {
+  color: #fff;
+  display: block;
+  margin-bottom: 4px;
+}
+#modalHistory .track-info span {
+  font-size: 0.85em;
+  color: #00ff99;
+}

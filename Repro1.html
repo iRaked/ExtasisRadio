@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <link rel="icon" type="image/x-icon" href="assets/SG.ico" />
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="author" content="Rick">
+  <title>Repro 1</title>
+  <!-- Estilos funcionales -->
+  <link rel="stylesheet" href="Repro1.css" />
+  <link rel="author" href="https://santi-graphics.vercel.app/copyright.txt">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <!-- Scripts funcionales -->
+  
+  <script src="Repro1.js" defer></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <!-- BLOCK 
+  <script type="text/javascript">
+    document.onkeydown = function(){return false};
+    document.oncontextmenu = function(){return false}
+  </script>
+  <script src="https://precios-2025.web.app/gallery.js"></script>-->
+
+</head>
+
+<body>
+
+    <!-- Contenedor del reproductor -->
+    <div class="player-container">
+        <!-- Audio Principal -->
+        <audio id="player" autoplay muted></audio>
+        <!-- Elementos para las notas musicales flotantes (ahora dentro del contenedor) -->
+        <div class="music-notes-container">
+            <div class="music-note">♪</div>
+            <div class="music-note">♫</div>
+            <div class="music-note">♩</div>
+            <div class="music-note">♬</div>
+            <div class="music-note">♪</div>
+            <div class="music-note">♫</div>
+            <div class="music-note">♩</div>
+            <div class="music-note">♬</div>
+        </div>
+        
+        <div class="listeners-container">
+            <span><i class="fas fa-headset dj-icon"></i></span>
+            <div id='listeners' class="listeners-count">--</div>
+        </div>
+        
+        <div id='art' class="song-art"></div>
+        <!-- Modificar la estructura del radio-logo para incluir el botón dentro -->
+        <div class="radio-logo">
+            <!-- Agregar el efecto de pulso detrás del logo -->
+            <div class="pulse-effect-container">
+                <div class="pulse-ring pulse-ring-1"></div>
+                <div class="pulse-ring pulse-ring-2"></div>
+                <div class="pulse-ring pulse-ring-3"></div>
+            </div>
+            
+            <img src="assets/covers/Cover1.png" alt="Logo">
+
+        </div>
+        <div class="player-title animated-title">
+            <div class="neon-title">
+                <span class="neon-word first-word">
+                    <span class="neon-letter" style="--delay: 0s;">R</span>
+                    <span class="neon-letter" style="--delay: 0.1s;">I</span>
+                    <span class="neon-letter" style="--delay: 0.2s;">C</span>
+                    <span class="neon-letter" style="--delay: 0.3s;">K</span>
+                    <span class="neon-letter" style="--delay: 0.4s;">▪</span>
+                    <span class="neon-word second-word">
+                    <span class="neon-letter" style="--delay: 0.5s;"></span>
+                    <span class="neon-letter" style="--delay: 0.6s;"></span>
+                    <span class="neon-letter" style="--delay: 0.7s;"></span>
+                    <span class="neon-letter" style="--delay: 0.5s;"></span>
+                    <span class="neon-letter" style="--delay: 0.6s;">D</span>
+                    <span class="neon-letter" style="--delay: 0.7s;">J</span>
+                    <span class="neon-letter" style="--delay: 0.8s;"></span>
+                    <span class="neon-letter" style="--delay: 0.9s;"></span>
+                    <span class="neon-letter" style="--delay: 1.0s;"></span>
+                    <span class="neon-letter" style="--delay: 1.1s;"></span>
+                    <span class="neon-letter" style="--delay: 1.2s;"></span>
+                    <span class="neon-letter" style="--delay: 1.3s;"></span>
+                    <span class="neon-letter" style="--delay: 1.4s;"></span>
+					</span></span></div>
+            <div class="audio-waves">
+                <div class="wave-bar" style="--delay: 0.1s; --height: 15px;"></div>
+                <div class="wave-bar" style="--delay: 0.2s; --height: 35px;"></div>
+                <div class="wave-bar" style="--delay: 0.3s; --height: 25px;"></div>
+                <div class="wave-bar" style="--delay: 0.4s; --height: 40px;"></div>
+                <div class="wave-bar" style="--delay: 0.5s; --height: 20px;"></div>
+                <div class="wave-bar" style="--delay: 0.6s; --height: 30px;"></div>
+                <div class="wave-bar" style="--delay: 0.7s; --height: 35px;"></div>
+                <div class="wave-bar" style="--delay: 0.8s; --height: 45px;"></div>
+                <div class="wave-bar" style="--delay: 0.9s; --height: 30px;"></div>
+                <div class="wave-bar" style="--delay: 1.0s; --height: 25px;"></div>
+                <div class="wave-bar" style="--delay: 0.1s; --height: 15px;"></div>
+                <div class="wave-bar" style="--delay: 0.2s; --height: 35px;"></div>
+                <div class="wave-bar" style="--delay: 0.3s; --height: 25px;"></div>
+                <div class="wave-bar" style="--delay: 0.4s; --height: 40px;"></div>
+                <div class="wave-bar" style="--delay: 0.5s; --height: 20px;"></div>
+                <div class="wave-bar" style="--delay: 0.6s; --height: 30px;"></div>
+                <div class="wave-bar" style="--delay: 0.7s; --height: 35px;"></div>
+                <div class="wave-bar" style="--delay: 0.8s; --height: 45px;"></div>
+                <div class="wave-bar" style="--delay: 0.9s; --height: 30px;"></div>
+                <div class="wave-bar" style="--delay: 1.0s; --height: 25px;"></div>
+                <div class="wave-bar" style="--delay: 0.4s; --height: 40px;"></div>
+                <div class="wave-bar" style="--delay: 0.5s; --height: 20px;"></div>
+                
+            </div>
+            <div class="glow-effect"></div>
+        </div>
+        
+        <div class="volume-control">
+            <i id="volumeIcon" class="fas fa-volume-down"></i>
+            <input type="range" class="volume-slider" id="volumeSlider" min="0" max="1" step="0.1" value="0.7">
+            <span id="volumePercentage" class="volume-percentage">70%</span>
+        </div>
+        <div class="now-playing" id="nowPlaying">
+            <div id=title>En vivo...</div>
+        </div>
+        <!-- Agregar después de la sección now-playing -->
+        <div class="datetime-container">
+            <i class="fas fa-clock"></i>
+            <span id="current-time">00:00:00</span>
+            <span class="date-separator">|</span>
+            <i class="fas fa-calendar-alt"></i>
+            <span id="current-date">01/01/2025</span>
+        </div>
+        
+        <!-- Añadir después del contenedor datetime -->
+        <div class="history-button-container">
+            <button id="historyButton" class="history-button">
+                <i class="fas fa-history"></i> Historial
+            </button>
+        </div>
+
+        <!-- BOTONERA -->
+        <section id="block-controls" class="block-controls">
+
+          <div class="control-buttons">
+              
+            <!-- Menu -->
+            <button id="menu-btn" class="btn-menu">
+              <i class="fas fa-list-ul"></i>
+            </button>
+
+            <!-- Repeat -->
+            <button id="repeat-btn" class="btn-repeat">
+              <i class="fas fa-redo"></i>
+            </button>
+
+            <!-- Rewind -->
+            <button id="rewind-btn" class="btn-rewind">
+              <i class="fas fa-backward"></i>
+            </button>
+
+            <!-- Play -->
+            <button id="play-btn" class="btn-play">
+              <i class="fas fa-play"></i>
+            </button>
+
+            <!-- Forward -->
+            <button id="forward-btn" class="btn-forward">
+              <i class="fas fa-forward"></i>
+            </button>
+
+            <!-- Shuffle -->
+            <button id="shuffle-btn" class="btn-shuffle">
+              <i class="fas fa-random"></i>
+            </button>
+
+            <!-- Music/Radio -->
+            <button id="music-btn" class="btn-music">
+              <i class="fas fa-music"></i>
+            </button>
+          </div>
+
+        </section><!-- CIERRE BOTONERA -->
+    </div><!-- Cierre del player-container -->
+    
+    <!-- Modal Playlist Botón Menú -->
+    <div id="modalPlaylist" class="modal hidden">
+      <div class="modal-content">
+
+        <!-- Encabezado con título y botón cerrar centrados -->
+        <div class="modal-header">
+          <h2 id="playlistTitle">Playlist</h2>
+          <button id="closePlaylistModal" class="close-btn">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <!-- Lista de pistas -->
+        <ul id="modalPlaylistTracks" class="track-list"></ul>
+      </div>
+    </div>
+
+    <!-- Modal Historial -->
+    <div id="modalHistory" class="modal hidden">
+      <div class="modal-content">
+
+        <!-- Encabezado con título y botón cerrar -->
+        <div class="modal-header">
+          <h2 id="historyTitle">Historial de Radio</h2>
+          <button id="closeHistory" class="close-btn">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <!-- Lista de historial -->
+        <ul id="modalHistoryTracks" class="track-list"></ul>
+      </div>
+    </div>
+
+</body>
+</html>
