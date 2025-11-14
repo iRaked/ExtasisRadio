@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <link rel="icon" type="image/x-icon" href="assets/SG.ico" />
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="author" content="Rick">
+  <title>Repro 35</title>
+  <link rel="stylesheet" href="Repro35.css" />
+  <link rel="author" href="https://santi-graphics.vercel.app/copyright.txt">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <!-- Font Awesome para iconos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="Repro35.js" defer></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <!-- BLOCK 
+  <script type="text/javascript">
+    document.onkeydown = function(){return false};
+    document.oncontextmenu = function(){return false}
+  </script>
+  <script src="https://precios-2025.web.app/gallery.js"></script>-->
+
+</head>
+
+<body>
+
+  <!-- Reproductor -->
+  <div class="music-player">
+  
+  <!-- Marco decorativo -->
+  <div class="player-frame"></div>
+  
+  <!-- Contenido -->
+  <div class="player-content">
+    
+    <!-- Metadatos a la izquierda -->
+    <div class="metadata-container">
+      <div class="track-title">El mosquito</div>
+      <div class="track-artist">Los Estrambóticos</div>
+      <div class="track-album">Álbum desconocido</div>
+    </div>
+    
+    <!-- Controles a la derecha -->
+    <div class="controls-container">
+      
+      <!-- Carátula (extremo derecho) -->
+      <div class="cover-container">
+        <img src="assets/covers/Cover1.png" alt="Carátula del álbum" class="cover-art">
+      </div>
+      
+      <!-- Botón Play/Pause (antes de la carátula) -->
+      <div class="control-button play-pause">
+        <div class="icon-play"></div>
+        <div class="icon-pause"></div>
+      </div>
+      
+    </div>
+    
+  </div>
+  
+  <!-- Audio principal -->
+  <audio id="player" autoplay muted></audio>
+      
+  <!-- Mensaje personalizado para el clic derecho -->
+<div id="custom-message" class="custom-message">Santi Graphics</div>
+
+  
+</div>
+
+</body>
+</html>
