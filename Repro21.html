@@ -17,12 +17,12 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/7.2.4/pixi.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.ripples/0.5.3/jquery.ripples.min.js"></script>
-  <!-- BLOCK -->
+  <!-- BLOCK 
   <script src="https://precios-2025.web.app/gallery.js"></script>
   <script type="text/javascript">
   document.onkeydown = function(){return false};
   document.oncontextmenu = function(){return false}
-  </script>
+  </script>-->
   <style>.jquery-ripples { position: relative; z-index: 0; }</style>
   
 </head>
@@ -30,8 +30,10 @@
 <body>
 <!-- Fondo Efecto Water -->
 <section class="bg-water ripples jquery-ripples" id="stream1" data-tag="" style="">
-    <!-- TRACKS -->
-      <audio id="audio-player" preload="auto" style="display: none;"></audio>
+    <!-- Audio principal -->
+    <audio id="player" autoplay muted></audio>
+    <!-- Mensaje personalizado para el clic derecho -->
+    <div id="custom-message" class="custom-message">Santi Graphics</div>
     <!-- Fondo de partículas -->
     <canvas id="particles"></canvas>
 
@@ -44,7 +46,16 @@
             <path d="M492 236H20c-11.046 0-20 8.954-20 20s8.954 20 20 20h472c11.046 0 20-8.954 20-20s-8.954-20-20-20zM492 76H20C8.954 76 0 84.954 0 96s8.954 20 20 20h472c11.046 0 20-8.954 20-20s-8.954-20-20-20zM492 396H20c-11.046 0-20 8.954-20 20s8.954 20 20 20h472c11.046 0 20-8.954 20-20s-8.954-20-20-20z"/>
           </svg>
         </button>
-        <h1 class="repro-title">Solo los mejores éxitos</h1>
+          
+        <div class="repro-marquee" id="track-metadata">
+          <span>Solo los mejores éxitos</span>
+        </div>
+          
+          <button class="btn-music" id="music-btn">
+          <svg viewBox="0 0 512 512" class="icon-menu">
+            <path d="M320 96v256c0 35.3-28.7 64-64 64s-64-28.7-64-64 28.7-64 64-64c11.8 0 22.8 3.2 32.3 8.7V96h128V64H320z"/>
+          </svg>
+        </button>
       </div>
 
       <!-- 🎧 Imagen Tipo Disco -->

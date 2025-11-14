@@ -15,7 +15,7 @@ body {
   position: relative;
   width: 480px;
   height: 650px;
-  background: url('https://i.ibb.co/gLrVKL67/BG-Peque-FX.png') no-repeat center center / cover;
+  background: url('assets/background/BG-Peque-FX.png') no-repeat center center / cover;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -68,13 +68,45 @@ body {
 .icon-menu {
   width: 32px;
   height: 32px;
-  fill: #ff69b4;
+  fill: #fff;
   transition: transform 0.3s ease;
-  box-shadow: #000000;
 }
 
 .icon-menu:hover {
   transform: scale(1.1);
+}
+
+/* MARQUESINA METADATOS con marco semitransparente */
+.repro-marquee {
+  position: absolute;
+    left: 20%;
+  width: 60%; /* un poco más estrecho para que se vea el marco */
+  overflow: hidden;
+  white-space: nowrap;
+  box-sizing: border-box;
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 1.2em;
+  color: #fff;
+  text-align: center;
+  /* marco estilo btn-music */
+  background-color: rgba(255, 105, 180, 0.4); /* semitransparente rosa */
+  border: 2px solid #ff69b4;
+  border-radius: 12px;
+  padding: 6px 12px;
+  box-shadow:
+    6px 6px 12px rgba(0, 0, 0, 0.9),
+    0 0 16px #3688ff;
+}
+
+.repro-marquee span {
+  display: inline-block;
+  padding-left: 100%;
+  animation: marquee 12s linear infinite;
+}
+
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
 }
 
 .repro-title {
@@ -273,6 +305,42 @@ button svg {
   transition: opacity 0.3s ease;
 }
 
+.btn-music {
+    position: absolute;
+    right: 30px;
+  background-color: rgba(255, 105, 180, 0.4);
+  border: 2px solid #ff69b4;
+  box-shadow:
+    10px 10px 20px rgba(0, 0, 0, 1),
+    0 0 24px #3688ff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+}
+
+.btn-music:hover {
+  transform: scale(1.08);
+  box-shadow:
+    12px 12px 24px rgba(0, 0, 0, 1),
+    0 0 32px #3688ff;
+}
+
+/* SVG dentro de botones */
+.btn-music svg {
+  width:60%;
+  height: 60%;
+  pointer-events: none;
+}
+
+.btn-music svg path {
+  filter: url(#inset-shadow);
+  fill: #17191e;
+}
+
 /* ===================== */
 /* 🪟 Modal de Tracks */
 /* ===================== */
@@ -397,4 +465,26 @@ button svg {
   font-weight: bold;
   text-shadow: 0 0 6px rgba(255, 105, 180, 0.5);
   transition: all 300ms ease;
+}
+
+.custom-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 15px 25px;
+    background: rgba(0, 0, 0, 0.9);
+    border: 2px solid #c2a044;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 1.1em;
+    text-shadow: 0 0 8px #c2a044;
+    box-shadow: 0 0 20px #d4af37b3; /* b3 ≈ 70% de opacidad */
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease-in-out;
+}
+.custom-message.show {
+    opacity: 1;
 }
