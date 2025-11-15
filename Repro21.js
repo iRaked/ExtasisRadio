@@ -70,7 +70,7 @@ function actualizarCaratula(track) {
 // 📦 CARGA DE PISTAS (LOCAL)
 // ===============================
 function cargarTracksDesdeJSON() {
-    fetch("Repro21.json")
+    fetch("https://radio-tekileros.vercel.app/Repro21.json")
         .then(res => res.json())
         .then(data => {
             trackData = data;
@@ -671,4 +671,5 @@ document.addEventListener("contextmenu", (e) => {
   if (!msg) return;
   msg.classList.add("show");
   setTimeout(() => msg.classList.remove("show"), 2000);
+
 });
