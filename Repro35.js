@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
   audio.preload = "auto";
 
   // Cargar JSON
-  fetch("Repro35.json")
+  fetch("https://radio-tekileros.vercel.app/Repro35.json")
     .then(res => res.json())
     .then(data => {
       playlist = data.hits || [];
@@ -159,4 +159,5 @@ document.addEventListener("contextmenu", (e) => {
   setTimeout(() => {
     msg.classList.remove("show");
   }, 2000);
+
 });
