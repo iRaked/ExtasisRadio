@@ -74,7 +74,7 @@ async function cargarPlaylist(nombre) {
   return;
 }
 
-    const res = await fetch(`./${file}`, { cache: "no-cache" });
+    const res = await fetch(file, { cache: "no-cache" });
     if (!res.ok) {
       console.error(`❌ No se pudo cargar el archivo ${file} (status ${res.status})`);
       return;
