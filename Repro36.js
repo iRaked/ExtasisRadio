@@ -58,21 +58,21 @@ async function cargarPlaylist(nombre) {
     let file, clave, etiqueta;
 
     if (nombre === "Repro36") {
-      file = "Repro36.json";
-      clave = "actual";
-      etiqueta = "Actual";
-    } else if (nombre === "exitos") {
-      file = "Exitos.json";
-      clave = "exitos";
-      etiqueta = "Éxitos";
-    } else if (nombre === "hardcore") {
-      file = "HardCore.json";
-      clave = "hardcore";
-      etiqueta = "HardCore";
-    } else {
-      console.warn(`❌ Playlist desconocida: ${nombre}`);
-      return;
-    }
+  file = "https://radio-tekileros.vercel.app/Repro36.json";
+  clave = "actual";
+  etiqueta = "Actual";
+} else if (nombre === "exitos") {
+  file = "https://radio-tekileros.vercel.app/Exitos.json";
+  clave = "exitos";
+  etiqueta = "Éxitos";
+} else if (nombre === "hardcore") {
+  file = "https://radio-tekileros.vercel.app/HardCore.json";
+  clave = "hardcore";
+  etiqueta = "HardCore";
+} else {
+  console.warn(`❌ Playlist desconocida: ${nombre}`);
+  return;
+}
 
     const res = await fetch(`./${file}`, { cache: "no-cache" });
     if (!res.ok) {
@@ -1131,4 +1131,5 @@ document.addEventListener("click", () => {
       console.log("📻 Radio desbloqueada");
     }
   }
+
 }, { once: true });
