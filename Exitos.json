@@ -1,0 +1,131 @@
+{
+  "exitos": [
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Ricardo-Arjona-Adentro.jpg",
+      "id": "adios-melancolia",
+      "emotion": "nostalgia",
+      "artista": "Ricardo Arjona",
+      "nombre": "Adiós melancolía",
+      "dropbox_url": "https://www.dropbox.com/scl/fi/4e5n37a6jkoxz55tty4fg/Ricardo-Arjona-Adi-s-melancol-a.mp3?rlkey=nhkzcvgx24gzybz5f65spy76j&st=9n19hgr6&dl=0&raw=1",
+      "seccion": "hits",
+      "duracion": "04:55",
+      "genero": "pop latino"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Cabas-Enamorandonos.jpg",
+      "id": "enamorandonos",
+      "emotion": "fiesta",
+      "artista": "Cabas",
+      "nombre": "Enamorándonos",
+      "dropbox_url": "https://www.dropbox.com/scl/fi/gjk7u0q2gdf9f47gzoncd/Cabas-Enamor-ndonos.mp3?rlkey=6cmcj0zhmygytac5c5qbphbrq&st=tqh4r0cb&dl=0&raw=1",
+      "seccion": "hits",
+      "duracion": "03:00",
+      "genero": "tropi pop"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Camilo-Indigo.jpg",
+      "id": "indigo",
+      "emotion": "nostalgia",
+      "artista": "Camilo Evaluna Montaner",
+      "nombre": "Índigo",
+      "dropbox_url": "https://www.dropbox.com/scl/fi/1tgteeufiwu134o6xo3um/Camilo-ndigo.mp3?rlkey=h5bkasha8wvngo9o6ndt0bphn&st=36n41rbu&dl=0&raw=1",
+      "seccion": "hits",
+      "duracion": "03:31",
+      "genero": "pop latino"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Kanny-Garcia-Aguita-e-coco.jpg",
+      "id": "aguita-e-coco",
+      "emotion": "fiesta",
+      "artista": "Kany García",
+      "nombre": "Agüita e coco",
+      "dropbox_url": "https://www.dropbox.com/scl/fi/vxa3to74rqwytogvm5vn8/Kanny-Garc-a-Ag-ita-e-coco.mp3?rlkey=8ik5ab2cv98ulc9iadgxpdhsd&st=ugyf7qr4&dl=0&raw=1",
+      "seccion": "hits",
+      "duracion": "02:56",
+      "genero": "tropi pop"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Becky-G-Manuel-Turizo-Que-haces.png",
+      "id": "que-haces",
+      "emotion": "picardía",
+      "artista": "Becky G & Manuel Turizo",
+      "nombre": "Qué haces",
+      "dropbox_url": "https://www.dropbox.com/scl/fi/t1tt04cs5md7e63intqgn/Becky-G-Manuel-Turizo-Qu-haces.MP3?rlkey=sjh9lerngaj9g9mpnbf0zwkob&st=jxqrvtwr&dl=0&raw=1",
+      "seccion": "hits",
+      "duracion": "02:19",
+      "genero": "pop latino"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Beret-&-Morat-Porfa-no-te-vayas.jpg",
+      "id": "porfa-no-te-vayas",
+      "emotion": "nostalgia",
+      "artista": "Beret & Morat",
+      "nombre": "Porfa no te vayas",
+      "dropbox_url": "https://www.dropbox.com/scl/fi/xa0dn79gpfwz8j864ieuk/Beret-Morat-Porfa-no-te-vayas.mp3?rlkey=9d2g2p57go9axqjsft56g2bil&st=urpi2ppv&dl=0&raw=1",
+      "seccion": "hits",
+      "duracion": "03:23",
+      "genero": "pop latino"
+    },
+
+
+
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Juanes-Me-enamora.jpg",
+      "id": "me-enamora",
+      "emotion": "energía",
+      "artista": "Juanes",
+      "nombre": "Me enamora",
+      "dropbox_url": "https://www.dropbox.com/scl/fi/iaz6zrposv0a4a93xcmro/Juanes-Me-enamora.mp3?rlkey=whhk9iyvdqp6cij1kybw7sb4h&st=rnhhhtpq&dl=0&raw=1",
+      "seccion": "hits",
+      "duracion": "03:05",
+      "genero": "pop rock"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Julio-Garcia-Jah-Love-Eres-tu.jpg",
+      "id": "eres-tu",
+      "emotion": "nostalgia",
+      "artista": "Julio García & Jah Love",
+      "nombre": "Eres tú",
+      "dropbox_url": "https://www.dropbox.com/scl/fi/osx3ftwbo0nvmj3k0cstc/Julio-Garc-a-Eres-t-F-Jah-Love.mp3?rlkey=mx2zmzjbah1xdy28puqyotnp7&st=n2z1dlkw&dl=0&raw=1",
+      "seccion": "hits",
+      "duracion": "03:30",
+      "genero": "reggae"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Rusherking-&-Dread-Mar-Perfecta.jpg",
+      "id": "perfecta-rusherking-dreadmar",
+      "emotion": "picardía",
+      "artista": "Rusherking & Dread Mar",
+      "nombre": "Perfecta",
+      "dropbox_url": "https://www.dropbox.com/scl/fi/er0mwwrcqsplqiblz7cjs/Rusherking-Dread-Mar-I-Perfecta.mp3?rlkey=6n11lw0hujz0gdjdeqhmvgjrg&st=c22upzoj&dl=0&raw=1",
+      "seccion": "hits",
+      "duracion": "02:49",
+      "genero": "reggae"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Miranda-Maria-Becerra-&-FMK-Perfecta.jpg",
+      "id": "perfecta-miranda-becerra-fmk",
+      "emotion": "fiesta",
+      "artista": "Miranda, Maria Becerra & FMK",
+      "nombre": "Perfecta",
+      "dropbox_url": "https://www.dropbox.com/scl/fi/otm7mwgpgcq6mrffochqh/Miranda-Maria-Becerra-FMK-Perfecta.mp3?rlkey=dcp0peupckwketd7m88u95c7z&st=2nf93g5g&dl=0&raw=1",
+      "seccion": "hits",
+      "duracion": "03:44",
+      "genero": "pop electronico"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Rio-Roma-CNCO-Princesa.jpg",
+      "id": "princesa",
+      "emotion": "nostalgia",
+      "artista": "Río Roma & CNCO",
+      "nombre": "Princesa",
+      "dropbox_url": "https://www.dropbox.com/scl/fi/34s6b39fa96fqybzs14c6/R-o-Roma-Princesa-F-CNCO.mp3?rlkey=njby7269xli107celq1qzo5a0&st=334evf03&dl=0&raw=1",
+      "seccion": "hits",
+      "duracion": "03:43",
+      "genero": "pop latino"
+    }
+
+
+
+  ]
+}
