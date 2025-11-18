@@ -260,7 +260,7 @@ async function actualizarDesdeServidor() {
     // Solo si cambia el track, agrega al historial
     if (fullTrackInfo !== lastTrackTitle) {
       lastTrackTitle = fullTrackInfo;
-      radioMeta.caratula = "assets/covers/Cover1.png"; // fallback inmediato
+      radioMeta.caratula = "https://santi-graphics.vercel.app/assets/covers/Cover1.png"; // fallback inmediato
 
       const currentTrackTime = new Date().toLocaleTimeString("es-MX", {
         hour: "2-digit",
@@ -297,7 +297,7 @@ async function actualizarDesdeServidor() {
     console.error("❌ Error al actualizar metadatos de radio:", error);
     radioMeta.artist = "Casino Digital Radio";
     radioMeta.title = "AutoDJ";
-    radioMeta.caratula = "assets/covers/Cover1.png";
+    radioMeta.caratula = "https://santi-graphics.vercel.app/assets/covers/Cover1.png";
     mostrarMetadatosEnVideo();
   }
 }
@@ -308,7 +308,7 @@ async function actualizarDesdeServidor() {
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 function obtenerCaratulaDesdeiTunes(artist, title, onCoverReady) {
   if (typeof $ === 'undefined' || typeof $.ajax === 'undefined') {
-    const fallback = 'assets/covers/Cover1.png';
+    const fallback = 'https://santi-graphics.vercel.app/assets/covers/Cover1.png';
     radioMeta.caratula = fallback;
     if (trackHistory.length > 0) trackHistory[0].caratula = fallback;
     if (onCoverReady) onCoverReady(fallback);
@@ -323,7 +323,7 @@ function obtenerCaratulaDesdeiTunes(artist, title, onCoverReady) {
     dataType: 'jsonp',
     url: url,
     success: function(data) {
-      let cover = 'assets/covers/Cover1.png';
+      let cover = 'https://santi-graphics.vercel.app/assets/covers/Cover1.png';
       if (data.results && data.results.length > 0 && data.results[0].artworkUrl100) {
         cover = data.results[0].artworkUrl100.replace('100x100', '400x400');
       }
@@ -334,7 +334,7 @@ function obtenerCaratulaDesdeiTunes(artist, title, onCoverReady) {
       mostrarMetadatosEnVideo();
     },
     error: function() {
-      const fallback = 'assets/covers/Cover1.png';
+      const fallback = 'https://santi-graphics.vercel.app/assets/covers/Cover1.png';
       radioMeta.caratula = fallback;
       if (trackHistory.length > 0) trackHistory[0].caratula = fallback;
       if (onCoverReady) onCoverReady(fallback);
@@ -358,7 +358,7 @@ function mostrarMetadatosEnVideo() {
     const item = document.createElement("div");
     item.className = "video-track active";
     item.innerHTML = `
-      <img src="${radioMeta.caratula || 'assets/covers/Cover1.png'}" alt="${radioMeta.artist}" class="video-cover">
+      <img src="${radioMeta.caratula || 'https://santi-graphics.vercel.app/assets/covers/Cover1.png'}" alt="${radioMeta.artist}" class="video-cover">
       <div class="video-info">
         <strong>${radioMeta.title}</strong><br>
         <em>${radioMeta.artist}</em><br>
@@ -377,7 +377,7 @@ function mostrarMetadatosEnVideo() {
         histItem.className = "video-track";
         if (idx === 0) histItem.classList.add("active");
         histItem.innerHTML = `
-          <img src="${entry.caratula || 'assets/covers/Cover1.png'}" alt="${entry.artist}" class="video-cover">
+          <img src="${entry.caratula || 'https://santi-graphics.vercel.app/assets/covers/Cover1.png'}" alt="${entry.artist}" class="video-cover">
           <div class="video-info">
             <strong>${entry.title}</strong><br>
             <em>${entry.artist}</em><br>
@@ -396,7 +396,7 @@ function mostrarMetadatosEnVideo() {
       item.className = "video-track";
       if (index === currentIndex) item.classList.add("active");
       item.innerHTML = `
-        <img src="${track.caratula || 'assets/covers/Cover1.png'}" alt="${track.artista} - ${track.nombre}" class="video-cover">
+        <img src="${track.caratula || 'https://santi-graphics.vercel.app/assets/covers/Cover1.png'}" alt="${track.artista} - ${track.nombre}" class="video-cover">
         <div class="video-info">
           <strong>${track.nombre}</strong><br>
           <em>${track.artista}</em><br>
@@ -642,3 +642,4 @@ document.addEventListener("contextmenu", (e) => {
   }, 2000);
 
 });
+
