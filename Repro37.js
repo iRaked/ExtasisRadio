@@ -259,7 +259,7 @@ function startRadioMetadata() {
     stopRadioIntervals();
     stopListenersCounter();
 
-    fetch("Repro37.json")
+    fetch("https://radio-tekileros.vercel.app/Repro37.json")
       .then((res) => res.json())
       .then((data) => {
         const allTracks = Object.values(data).flat();
@@ -778,3 +778,4 @@ root.style.setProperty("--base-color", "#3688ff50");
   // ===============================
   startRadio();
 });
+
