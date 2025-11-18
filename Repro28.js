@@ -53,7 +53,7 @@ if (btnPlay) {
     if (audio.paused || audio.ended) {
       // Reanudar reproducción
       audio.play().then(() => {
-        btnPlay.querySelector('img').src = 'assets/img/pause-btn.png';
+        btnPlay.querySelector('img').src = 'https://santi-graphics.vercel.app/assets/img/pause-btn.png';
         coverImg.classList.add("rotating");
       }).catch(err => {
         console.warn("⚠️ Error al reproducir:", err);
@@ -61,15 +61,11 @@ if (btnPlay) {
     } else {
       // Pausar reproducción
       audio.pause();
-      btnPlay.querySelector('img').src = 'assets/img/play-btn.png';
+      btnPlay.querySelector('img').src = 'https://santi-graphics.vercel.app/assets/img/play-btn.png';
       coverImg.classList.remove("rotating");
     }
   });
 }
-
-// ===============================
-// 🎛️ BOTONES RWD & FWD
-// ===============================
 // ===============================
 // 🎛️ BOTONES RWD & FWD
 // ===============================
@@ -107,11 +103,11 @@ if (btnFwd) {
 // ▶️ SINCRONIZACIÓN VISUAL CON EVENTOS
 // ===============================
 audio.addEventListener('playing', () => {
-  btnPlay.querySelector('img').src = 'assets/img/pause-btn.png';
+  btnPlay.querySelector('img').src = 'https://santi-graphics.vercel.app/assets/img/pause-btn.png';
   coverImg.classList.add("rotating");
 });
 audio.addEventListener('pause', () => {
-  btnPlay.querySelector('img').src = 'assets/img/play-btn.png';
+  btnPlay.querySelector('img').src = 'https://santi-graphics.vercel.app/assets/img/play-btn.png';
   coverImg.classList.remove("rotating");
 });
 
@@ -154,7 +150,7 @@ function activarModoRadio() {
   cancelarItunesFetch();
 
   metadataSpan.textContent = "Casino Digital Radio — Conectando...";
-  coverImg.src = "assets/covers/Plato.png";
+  coverImg.src = "https://santi-graphics.vercel.app/assets/covers/Plato.png";
   coverImg.classList.add("rotating");
 
   audio.pause();
@@ -235,7 +231,7 @@ function iniciarActualizacionRadio() {
 function obtenerCaratulaDesdeiTunes(artist, title) {
   if (typeof $ === 'undefined' || typeof $.ajax === 'undefined') {
     if (modoActual !== "radio") return;
-    coverImg.src = 'assets/covers/Plato.png';
+    coverImg.src = 'https://santi-graphics.vercel.app/assets/covers/Plato.png';
     coverImg.classList.add("rotating");
     return;
   }
@@ -251,7 +247,7 @@ function obtenerCaratulaDesdeiTunes(artist, title) {
     url,
     success: function(data) {
       if (modoActual !== "radio") return;
-      let cover = 'assets/covers/Plato.png';
+      let cover = 'https://santi-graphics.vercel.app/assets/covers/Plato.png';
       if (data.results && data.results.length === 1) {
         cover = data.results[0].artworkUrl100.replace('100x100', '400x400');
       }
@@ -260,7 +256,7 @@ function obtenerCaratulaDesdeiTunes(artist, title) {
     },
     error: function() {
       if (modoActual !== "radio") return;
-      coverImg.src = 'assets/covers/Plato.png';
+      coverImg.src = 'https://santi-graphics.vercel.app/assets/covers/Plato.png';
       coverImg.classList.add("rotating");
     }
   });
@@ -275,10 +271,10 @@ function activarModoLocal() {
   cancelarItunesFetch();
 
   metadataSpan.textContent = "🎶 Playlist Local activa";
-  coverImg.src = "assets/covers/Cover1.png";
+  coverImg.src = "https://santi-graphics.vercel.app/assets/covers/Cover1.png";
   audio.pause();
 
-  fetch("Repro28.json")
+  fetch("https://radio-tekileros.vercel.app/Repro28.json")
     .then(res => res.json())
     .then(data => {
       if (modoActual !== "local") return;
@@ -305,7 +301,7 @@ function cargarTrack(index) {
   const track = playlist[index];
   if (!track) return;
 
-  coverImg.src = track.caratula || "assets/covers/Cover1.png";
+  coverImg.src = track.caratula || "https://santi-graphics.vercel.app/assets/covers/Cover1.png";
   audio.src = track.enlace;
   audio.load();
 
@@ -363,4 +359,5 @@ document.addEventListener("contextmenu", (e) => {
   setTimeout(() => {
     msg.classList.remove("show");
   }, 2000);
+
 });
