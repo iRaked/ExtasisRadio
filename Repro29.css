@@ -49,7 +49,7 @@ body {
   position: relative;
   width: 100vw;
   height: 100vh;
-  background-image: url('assets/bg/BG-PSP.jpg');
+  background-image: url('https://santi-graphics.vercel.app/assets/bg/BG-PSP.jpg');
   background-size: cover;
   background-position: center;
   display: flex;
