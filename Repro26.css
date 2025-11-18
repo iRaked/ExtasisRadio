@@ -478,6 +478,11 @@
   font-size: 24px;
 }
 
+.btn-control.active-glow {
+  box-shadow: 0 0 10px 2px #d4af37; /* Glow dorado */
+  color: #d4af37;                   /* Ícono dorado */
+}
+
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Estado y tiempo ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 .footer-center {
   display: flex;
