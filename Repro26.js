@@ -150,7 +150,7 @@ function iniciarPollingRadio() {
 }
 
 // ======== INICIALIZACIÓN DE PLAYLIST LOCAL ========
-fetch('Repro26.json')
+fetch('https://radio-tekileros.vercel.app/Repro26.json')
   .then(res => res.json())
   .then(data => {
     playlist = data.hits || [];
@@ -479,4 +479,5 @@ document.addEventListener('click', () => {
       }).catch(err => console.warn('[ALEXIA] Error al reproducir tras gesto:', err));
     }
   }
+
 }, { once: true });
