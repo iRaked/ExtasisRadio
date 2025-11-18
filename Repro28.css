@@ -146,30 +146,57 @@
 .btn-rwd,
 .btn-fwd {
   position: absolute;
-  width: 120px;
-  height: 120px;
-  background-color: transparent;
-  border: none;
-  z-index: 9999;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: rgba(255, 0, 0, 0.15); /* rojo transparente */
+  border: 2px solid rgba(255, 0, 0, 0.6);
+  color: #ff0000;
+  font-size: 2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
+  z-index: 9999;
   pointer-events: auto;
-
-  /* Visualización temporal (activar para ubicar manualmente)
-  background-color: rgba(255, 0, 0, 0.2);
-  border: 1px dashed red;
-*/
+  transition: transform 0.2s ease;
+  animation: pulseGlow 2s infinite;
 }
 
 .btn-rwd {
   left: 15%;
-  top: 20%;
+  top: 15%;
   transform: translateY(-50%);
 }
 
 .btn-fwd {
-  right: 20%;
-  top: 20%;
+  right: 25%;
+  top: 15%;
   transform: translateY(-50%);
+}
+
+.btn-rwd i,
+.btn-fwd i {
+  pointer-events: none;
+}
+
+/* Animación pulsante con glow */
+@keyframes pulseGlow {
+  0% {
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.6),
+                0 0 20px rgba(255, 0, 0, 0.4);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.9),
+                0 0 40px rgba(255, 0, 0, 0.7);
+    transform: scale(1.1);
+  }
+  100% {
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.6),
+                0 0 20px rgba(255, 0, 0, 0.4);
+    transform: scale(1);
+  }
 }
 
 /* Decorativos */
@@ -206,4 +233,26 @@
 @keyframes spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(720deg); }
+}
+
+.custom-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 15px 25px;
+    background: rgba(0, 0, 0, 0.9);
+    border: 2px solid #ff0000;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 1.1em;
+    text-shadow: 0 0 8px #c2a044;
+    box-shadow: 0 0 20px #ff0000b3; /* b3 ≈ 70% de opacidad */
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease-in-out;
+}
+.custom-message.show {
+    opacity: 1;
 }

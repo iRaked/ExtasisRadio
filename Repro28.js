@@ -1,301 +1,366 @@
-let currentTrack = 0;
-let isPlaying = false;
-let modo = localStorage.getItem('modoRepro') || 'local';
+// ===============================
+// 🎧 INICIALIZACIÓN GLOBAL
+// ===============================
+let modoActual = "radio"; // inicia siempre en radio
+let gestureDetected = false;
 let playlist = [];
-let emisora = 'Casino Digital Radio';
-let repeatTrack = false;
-let shuffleMode = false;
-let ultimoTituloStreaming = '';
-let ultimoArtistaStreaming = '';
+let currentTrack = 0;
+let radioIntervalId = null;
+let iTunesAbortController = null;
 
-const audio = document.getElementById('audioStreaming');
-const btnPlay = document.getElementById('playPause');
-const btnRwd = document.getElementById('btn-rwd');
-const btnFwd = document.getElementById('btn-fwd');
-const btnOnline = document.getElementById('plus');
-const metadataSpan = document.querySelector('.metadata-marquee span');
-const infoSpan = document.querySelector('.info-marquee span');
-const coverImg = document.querySelector('.cover-art');
+const audio = document.getElementById("player");
 
-audio.muted = false;
-audio.autoplay = false;
+// ===============================
+// 🎯 ELEMENTOS DEL DOM
+// ===============================
+const btnPlay = document.getElementById("playPause");
+const btnOnline = document.getElementById("plus");
+const btnRwd = document.getElementById("btn-rwd");
+const btnFwd = document.getElementById("btn-fwd");
+const metadataSpan = document.querySelector(".metadata-marquee span");
+const infoSpan = document.querySelector(".info-marquee span");
+const coverImg = document.querySelector(".cover-art");
 
-// 🔓 Desbloqueo ceremonial por gesto humano
-['click', 'touchstart', 'keydown'].forEach(evento => {
-  window.addEventListener(evento, () => {
-    if (audio.muted) audio.muted = false;
-    audio.play().catch(() => {});
-  }, { once: true });
-});
+// ===============================
+// 🕓 FORMATO SIMPLE DE FECHA/HORA
+// ===============================
+function actualizarFechaHoraSimple() {
+  const ahora = new Date();
+  const opciones = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+  const fecha = ahora.toLocaleDateString('es-MX', opciones);
+  const hora = ahora.toLocaleTimeString('es-MX', { hour: 'numeric', minute: '2-digit' });
+  infoSpan.textContent = `${fecha} ${hora}`;
+}
+setInterval(actualizarFechaHoraSimple, 60000);
+actualizarFechaHoraSimple();
 
-// 🎼 Cargar JSON y preparar playlist
-fetch('Repro28.json')
-  .then(res => res.json())
-  .then(data => {
-    playlist = data.hits;
+// ===============================
+// ▶️ BOTÓN PLAY/PAUSE UNIVERSAL
+// ===============================
+if (btnPlay) {
+  btnPlay.addEventListener("click", () => {
+    if (!audio.src) {
+      console.warn("⚠️ No hay fuente de audio definida.");
+      return;
+    }
 
-    if (modo === 'streaming') {
-      activarStreaming();
+    // Si aún no hay gesto humano, lo capturamos aquí
+    if (!gestureDetected) {
+      gestureDetected = true;
+      audio.muted = false;
+    }
+
+    if (audio.paused || audio.ended) {
+      // Reanudar reproducción
+      audio.play().then(() => {
+        btnPlay.querySelector('img').src = 'assets/img/pause-btn.png';
+        coverImg.classList.add("rotating");
+      }).catch(err => {
+        console.warn("⚠️ Error al reproducir:", err);
+      });
     } else {
-      cargarTrack(currentTrack);
+      // Pausar reproducción
+      audio.pause();
+      btnPlay.querySelector('img').src = 'assets/img/play-btn.png';
+      coverImg.classList.remove("rotating");
     }
   });
+}
 
-// 🔁 BOTÓN STREAMING - Alternar modo STREAMING / LOCAL
-btnOnline.addEventListener('click', () => {
-  modo = modo === 'local' ? 'streaming' : 'local';
-  localStorage.setItem('modoRepro', modo);
+// ===============================
+// 🎛️ BOTONES RWD & FWD
+// ===============================
+// ===============================
+// 🎛️ BOTONES RWD & FWD
+// ===============================
+if (btnRwd) {
+  btnRwd.addEventListener("click", () => {
+    if (modoActual === "local") {
+      // Retrocede al track anterior
+      currentTrack--;
+      if (currentTrack < 0) {
+        currentTrack = playlist.length - 1; // vuelve al último si está en el primero
+      }
+      cargarTrack(currentTrack);
+    } else {
+      console.log("⏪ Retroceso no disponible en modo radio");
+    }
+  });
+}
 
-  repeatTrack = false;
-  shuffleMode = false;
+if (btnFwd) {
+  btnFwd.addEventListener("click", () => {
+    if (modoActual === "local") {
+      // Avanza al siguiente track
+      currentTrack++;
+      if (currentTrack >= playlist.length) {
+        currentTrack = 0; // vuelve al primero si está en el último
+      }
+      cargarTrack(currentTrack);
+    } else {
+      console.log("⏩ Avance no disponible en modo radio");
+    }
+  });
+}
 
-  if (modo === 'streaming') {
-    activarStreaming();
-  } else {
-    cargarTrack(currentTrack);
-  }
-
-  console.log(`[ALEXIA] Modo cambiado a: ${modo}`);
+// ===============================
+// ▶️ SINCRONIZACIÓN VISUAL CON EVENTOS
+// ===============================
+audio.addEventListener('playing', () => {
+  btnPlay.querySelector('img').src = 'assets/img/pause-btn.png';
+  coverImg.classList.add("rotating");
+});
+audio.addEventListener('pause', () => {
+  btnPlay.querySelector('img').src = 'assets/img/play-btn.png';
+  coverImg.classList.remove("rotating");
 });
 
-// ▶️ BOTÓN PLAY/PAUSE universal
-btnPlay.addEventListener('click', () => {
-  const playImg = btnPlay.querySelector('img');
 
-  // 🔁 Cambiar imagen inmediatamente según estado actual
-  if (!isPlaying) {
-    playImg.src = 'assets/img/pause-btn.png';
-    isPlaying = true;
-    audio.play().then(() => {
-      console.log('[ALEXIA] Reproducción iniciada');
-    }).catch(err => {
-      console.warn('[ALEXIA] Error al reproducir:', err);
-      playImg.src = 'assets/img/play-btn.png'; // revertir si falla
-      isPlaying = false;
+// ===============================
+// 🖱️ GESTO HUMANO PARA DESBLOQUEO
+// ===============================
+document.addEventListener("click", () => {
+  if (!gestureDetected) {
+    gestureDetected = true;
+    audio.muted = false;
+    if (audio.src && audio.paused) {
+      audio.play().catch(err => console.warn("⚠️ Error al iniciar tras gesto:", err));
+    }
+  }
+}, { once: true });
+
+// ===============================
+// 🧹 LIMPIEZAS Y CANCELACIONES
+// ===============================
+function detenerActualizacionRadio() {
+  if (radioIntervalId) {
+    clearInterval(radioIntervalId);
+    radioIntervalId = null;
+  }
+}
+function cancelarItunesFetch() {
+  if (iTunesAbortController) {
+    iTunesAbortController.abort();
+    iTunesAbortController = null;
+  }
+}
+
+// ===============================
+// 📻 ACTIVAR MODO RADIO
+// ===============================
+function activarModoRadio() {
+  modoActual = "radio";
+  detenerActualizacionRadio();
+  cancelarItunesFetch();
+
+  metadataSpan.textContent = "Casino Digital Radio — Conectando...";
+  coverImg.src = "assets/covers/Plato.png";
+  coverImg.classList.add("rotating");
+
+  audio.pause();
+  audio.src = "https://technoplayerserver.net:8018/stream?icy=http";
+  audio.load();
+
+  audio.muted = !gestureDetected;
+  if (gestureDetected) {
+    audio.play().catch(err => console.warn("🔒 Error al iniciar Radio:", err));
+  }
+
+  iniciarActualizacionRadio();
+}
+
+// ===============================
+// 📻 ACTUALIZACIÓN DE METADATOS RADIO
+// ===============================
+let lastTrackTitle = "";
+
+function iniciarActualizacionRadio() {
+  detenerActualizacionRadio();
+
+  const radioUrl = "https://technoplayerserver.net:8018/currentsong?sid=1";
+  const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(radioUrl)}`;
+
+  async function actualizarDesdeServidor() {
+    if (modoActual !== "radio") return;
+
+    try {
+      const response = await fetch(proxyUrl, { cache: 'no-cache' });
+      const rawTitle = await response.text();
+
+      const cleanedTitle = rawTitle.trim()
+        .replace(/AUTODJ/gi, '')
+        .replace(/\|\s*$/g, '')
+        .trim();
+
+      if (!cleanedTitle || cleanedTitle.toLowerCase().includes('offline')) {
+        metadataSpan.textContent = "Casino Digital Radio — Offline";
+        return;
+      }
+
+      // Evitar repeticiones innecesarias
+      if (cleanedTitle === lastTrackTitle) return;
+      lastTrackTitle = cleanedTitle;
+
+      // Separar artista y título
+      const partes = cleanedTitle.split(/ - | – /);
+      let artista = "Artista desconocido";
+      let titulo = cleanedTitle;
+      if (partes.length >= 2) {
+        artista = partes[0].trim();
+        titulo = partes.slice(1).join(' - ').trim();
+      }
+
+      // ✅ Mostrar inmediatamente en formato solicitado
+      metadataSpan.textContent = `Casino Digital Radio — ${titulo} — ${artista}`;
+
+      // 🖼️ Actualizar carátula
+      obtenerCaratulaDesdeiTunes(artista, titulo);
+
+    } catch (error) {
+      console.error("❌ Error al actualizar metadatos de Radio:", error);
+      metadataSpan.textContent = "Casino Digital Radio — Error al cargar metadatos";
+    }
+  }
+
+  // ⚡ Primera actualización inmediata
+  actualizarDesdeServidor();
+
+  // 🔄 Intervalo cada 5 segundos para mayor frescura
+  radioIntervalId = setInterval(actualizarDesdeServidor, 5000);
+}
+
+// ===============================
+// 🖼️ CARÁTULA DESDE ITUNES
+// ===============================
+function obtenerCaratulaDesdeiTunes(artist, title) {
+  if (typeof $ === 'undefined' || typeof $.ajax === 'undefined') {
+    if (modoActual !== "radio") return;
+    coverImg.src = 'assets/covers/Plato.png';
+    coverImg.classList.add("rotating");
+    return;
+  }
+
+  cancelarItunesFetch();
+  iTunesAbortController = new AbortController();
+
+  const query = encodeURIComponent(`${artist} ${title}`);
+  const url = `https://itunes.apple.com/search?term=${query}&media=music&limit=1`;
+
+  $.ajax({
+    dataType: 'jsonp',
+    url,
+    success: function(data) {
+      if (modoActual !== "radio") return;
+      let cover = 'assets/covers/Plato.png';
+      if (data.results && data.results.length === 1) {
+        cover = data.results[0].artworkUrl100.replace('100x100', '400x400');
+      }
+      coverImg.src = cover;
+      coverImg.classList.add("rotating");
+    },
+    error: function() {
+      if (modoActual !== "radio") return;
+      coverImg.src = 'assets/covers/Plato.png';
+      coverImg.classList.add("rotating");
+    }
+  });
+}
+
+// ===============================
+// 🎶 ACTIVAR MODO LOCAL
+// ===============================
+function activarModoLocal() {
+  modoActual = "local";
+  detenerActualizacionRadio();
+  cancelarItunesFetch();
+
+  metadataSpan.textContent = "🎶 Playlist Local activa";
+  coverImg.src = "assets/covers/Cover1.png";
+  audio.pause();
+
+  fetch("Repro28.json")
+    .then(res => res.json())
+    .then(data => {
+      if (modoActual !== "local") return;
+      playlist = data.hits || [];
+      currentTrack = 0;
+      if (playlist.length > 0) {
+        cargarTrack(currentTrack);
+      } else {
+        metadataSpan.textContent = "⚠️ No hay pistas locales";
+      }
+    })
+    .catch(err => {
+      if (modoActual !== "local") return;
+      console.error("❌ Error al cargar playlist local:", err);
+      metadataSpan.textContent = "⚠️ Error al cargar pistas locales";
     });
-  } else {
-    playImg.src = 'assets/img/play-btn.png';
-    isPlaying = false;
-    audio.pause();
-    console.log('[ALEXIA] Reproducción pausada');
-  }
-});
+}
 
-// Botones Reward & Forward
-// ⏪ Retroceder 1 pista
-btnRwd.addEventListener('click', () => {
-  if (modo !== 'local') return;
-
-  currentTrack = currentTrack > 0 ? currentTrack - 1 : playlist.length - 1;
-  cargarTrack(currentTrack);
-  console.log(`[ALEXIA] Retroceso a pista ${currentTrack}`);
-});
-
-// ⏩ Avanzar 1 pista
-btnFwd.addEventListener('click', () => {
-  if (modo !== 'local') return;
-
-  currentTrack = (currentTrack + 1) % playlist.length;
-  cargarTrack(currentTrack);
-  console.log(`[ALEXIA] Avance a pista ${currentTrack}`);
-});
-
-// 🎧 Cargar track local
+// ===============================
+// 🎧 CARGAR TRACK LOCAL
+// ===============================
 function cargarTrack(index) {
+  if (modoActual !== "local") return;
   const track = playlist[index];
-  if (!track || !track.enlace) return;
+  if (!track) return;
 
-  actualizarCaratula(track.caratula);
+  coverImg.src = track.caratula || "assets/covers/Cover1.png";
   audio.src = track.enlace;
   audio.load();
 
   metadataSpan.textContent = `[${index + 1}] ${track.nombre} — ${track.artista} - ${track.genero || 'Sin género'} - ${track.duracion || '0:00'}`;
-  infoSpan.textContent = `Día: ${track.dia || 'Martes'} • Mes: ${track.mes || 'Octubre'} • Año: ${track.anio || '2025'} • Hora: ${track.hora || '00:00'}`;
+  actualizarFechaHoraSimple();
 
-  audio.play().then(() => {
-    isPlaying = true;
-  }).catch(err => {
-    console.warn('[ALEXIA] Autoplay bloqueado:', err);
-  });
-}
-
-// 🔴 Activar modo streaming = https://laradiossl.online:12000/stream
-function activarStreaming() {
-  audio.src = 'https://technoplayerserver.net:8018/stream?icy=http';
-  audio.load();
-  actualizarMetadatosStreaming(emisora);
-
-  metadataSpan.textContent = `🔴 Transmisión en vivo — ${emisora}`;
-  infoSpan.textContent = `Día: ${getDia()} • Mes: ${getMes()} • Año: ${getAnio()} • Hora: ${getHora()}`;
-  actualizarCaratula('assets/covers/Cover1.png');
-
-  audio.play().then(() => {
-    isPlaying = true;
-    console.log('[ALEXIA] Streaming activado');
-  }).catch(err => {
-    console.warn('[ALEXIA] Streaming bloqueado:', err);
-  });
-}
-
-setInterval(() => {
-  if (modo === 'streaming') {
-    actualizarMetadatosStreaming(emisora);
+  if (gestureDetected) {
+    audio.play().catch(err => console.warn("⚠️ Error al reproducir pista local:", err));
   }
-}, 15000); // cada 15 segundos
-
-// 🖼️ Actualizar carátula Local
-function actualizarCaratula(caratulaURL) {
-  if (!coverImg) return;
-  const urlValida = typeof caratulaURL === 'string' && caratulaURL.trim() !== '';
-  coverImg.src = urlValida ? caratulaURL : 'assets/covers/Cover1.png';
 }
 
-// 🕓 Funciones de fecha/hora
-setInterval(() => {
-  if (modo === 'local' || modo === 'streaming') {
-    actualizarFechaHora();
-  }
-}, 1000);
-
-function actualizarFechaHora() {
-  const ahora = new Date();
-  const dia = ahora.toLocaleDateString('es-MX', { weekday: 'long' });
-  const mes = ahora.toLocaleDateString('es-MX', { month: 'long' });
-  const anio = ahora.getFullYear();
-  const hora = ahora.toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit' });
-
-  infoSpan.textContent = `Día: ${dia} • Mes: ${mes} • Año: ${anio} • Hora: ${hora}`;
-}
-
-// 🔁 Reproducción continua
-audio.addEventListener('ended', () => {
-  if (modo === 'local') {
-    if (repeatTrack) {
-      cargarTrack(currentTrack);
-    } else if (shuffleMode) {
-      let nextTrack;
-      do {
-        nextTrack = Math.floor(Math.random() * playlist.length);
-      } while (nextTrack === currentTrack && playlist.length > 1);
-      currentTrack = nextTrack;
+// ===============================
+// 🔁 REPRODUCCIÓN CONTINUA LOCAL
+// ===============================
+audio.addEventListener("ended", () => {
+  if (modoActual === "local") {
+    currentTrack++;
+    if (currentTrack < playlist.length) {
       cargarTrack(currentTrack);
     } else {
-      currentTrack++;
-      if (currentTrack < playlist.length) {
-        cargarTrack(currentTrack);
-      } else {
-        console.log('[ALEXIA] Playlist finalizada sin repetición');
-      }
+      metadataSpan.textContent = "🎶 Playlist finalizada";
     }
   }
 });
 
-// METADATOS STREAMING
-let spotifyToken = null;
-
-// Activación
-actualizarMetadatosStreaming('Casino Digital Radio');
-// Datos del Servidor
-// if (modo === 'streaming') {actualizarMetadatosStreaming(`${tituloServidor} ${artistaServidor}`); }
-
-
-async function obtenerTokenSpotify() {
-  const clientId = 'TU_CLIENT_ID';
-  const clientSecret = 'TU_CLIENT_SECRET';
-  const credenciales = btoa(`${clientId}:${clientSecret}`);
-
-  const res = await fetch('https://accounts.spotify.com/api/token', {
-    method: 'POST',
-    headers: {
-      'Authorization': `Basic ${credenciales}`,
-      'Content-Type': 'application/x-www-form-urlencoded'
-    },
-    body: 'grant_type=client_credentials'
-  });
-
-  const data = await res.json();
-  spotifyToken = data.access_token;
-}
-
-// Buscar en Spotify
-async function buscarMetadatosSpotify(query) {
-  if (!spotifyToken) await obtenerTokenSpotify();
-
-  const res = await fetch(`https://api.spotify.com/v1/search?q=${encodeURIComponent(query)}&type=track&limit=1`, {
-    headers: { Authorization: `Bearer ${spotifyToken}` }
-  });
-
-  const data = await res.json();
-  const track = data.tracks?.items?.[0];
-
-  if (track) {
-    return {
-      titulo: track.name,
-      artista: track.artists.map(a => a.name).join(', '),
-      album: track.album.name,
-      caratula: track.album.images[0]?.url || null
-    };
+// ===============================
+// 🎛️ BOTÓN PLUS (ALTERNANCIA)
+// ===============================
+btnOnline.addEventListener("click", () => {
+  if (!gestureDetected) {
+    gestureDetected = true;
+    audio.muted = false;
   }
-
-  return null;
-}
-
-// Buscar en iTunes
-async function buscarMetadatosiTunes(query) {
-  const res = await fetch(`https://itunes.apple.com/search?term=${encodeURIComponent(query)}&entity=song&limit=1`);
-  const data = await res.json();
-  const track = data.results?.[0];
-
-  if (track) {
-    return {
-      titulo: track.trackName,
-      artista: track.artistName,
-      album: track.collectionName,
-      caratula: track.artworkUrl100?.replace('100x100bb', '600x600bb') || null
-    };
-  }
-
-  return null;
-}
-
-// Aplicar Datos
-function aplicarMetadatos({ titulo, artista, album, caratula }) {
-  document.querySelector('.cover-art').src = caratula || 'assets/covers/Cover1.png';
-  document.querySelector('.metadata-marquee span').textContent = `🔴 ${titulo} — ${artista}`;
-  document.querySelector('.info-marquee span').textContent = `Álbum: ${album || 'Desconocido'} • Fuente: Streaming`;
-}
-
-// 🔁 Lógica Principal: actualizar metadatos solo si hay cambios
-async function actualizarMetadatosStreaming(nombreBusqueda) {
-  let resultado = await buscarMetadatosSpotify(nombreBusqueda);
-
-  if (!resultado) {
-    console.warn('[LEGADO] Spotify no encontró resultados, intentando iTunes...');
-    resultado = await buscarMetadatosiTunes(nombreBusqueda);
-  }
-
-  if (!resultado) {
-    console.warn('[LEGADO] iTunes tampoco encontró resultados, usando portada local...');
-    resultado = {
-      titulo: 'Transmisión en vivo',
-      artista: 'Casino Digital Radio',
-      album: 'Sin datos',
-      caratula: null
-    };
-  }
-
-  const tituloNuevo = resultado.titulo?.trim() || '';
-  const artistaNuevo = resultado.artista?.trim() || '';
-
-  if (
-    tituloNuevo !== ultimoTituloStreaming ||
-    artistaNuevo !== ultimoArtistaStreaming
-  ) {
-    aplicarMetadatos(resultado);
-    ultimoTituloStreaming = tituloNuevo;
-    ultimoArtistaStreaming = artistaNuevo;
-    console.log(`[ALEXIA] Metadatos actualizados: ${tituloNuevo} — ${artistaNuevo}`);
+  if (modoActual === "radio") {
+    activarModoLocal();
   } else {
-    console.log('[ALEXIA] Sin cambios en metadatos de streaming');
+    activarModoRadio();
   }
-}
+});
+
+// ===============================
+// 🚀 INICIALIZACIÓN
+// ===============================
+document.addEventListener("DOMContentLoaded", () => {
+  activarModoRadio();
+});
+
+// Mostrar mensaje al hacer clic derecho
+document.addEventListener("contextmenu", (e) => {
+  e.preventDefault(); // evitar menú contextual
+  const msg = document.getElementById("custom-message");
+  msg.classList.add("show");
+
+  // Ocultar automáticamente después de unos segundos
+  setTimeout(() => {
+    msg.classList.remove("show");
+  }, 2000);
+});

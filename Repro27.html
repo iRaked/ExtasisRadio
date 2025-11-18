@@ -8,17 +8,18 @@
   <meta name="author" content="Rick">
   <title>Reproductor 27</title>
   <!-- Estilos externos -->
+  <link rel="author" href="https://santi-graphics.vercel.app/copyright.txt">
   <link rel="stylesheet" href="Repro27.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <!-- Scripts externos -->
   <script src="Repro27.js" defer></script>
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <!-- BLOCK -->
+  <!-- BLOCK 
   <script type="text/javascript">
   document.onkeydown = function(){return false};
   document.oncontextmenu = function(){return false}
   </script>
-  <script src="https://precios-2025.web.app/gallery.js"></script>
+  <script src="https://precios-2025.web.app/gallery.js"></script>-->
 </head>
 
 <body>
@@ -26,7 +27,8 @@
 
 <div class="main-container">
 
-    <audio id="audioStreaming" autoplay muted></audio>
+    <!-- Audio principal -->
+    <audio id="player" autoplay muted></audio>
     
     <div class="cover-wrapper">
       <img src="assets/covers/Cover1.png" alt="Portada" class="cover-art" />
@@ -53,6 +55,10 @@
       <img src="assets/img/Turbina-Red.png" alt="Turbina giratoria" class="turbine-img" />
       <img src="assets/img/Button2.png" alt="Botón decorativo" class="decorative-overlay" />
     </div>
+
+    <!-- Mensaje personalizado para el clic derecho -->
+    <div id="custom-message" class="custom-message">Santi Graphics</div>
+
   </div>
 
 

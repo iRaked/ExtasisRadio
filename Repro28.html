@@ -8,24 +8,28 @@
   <meta name="author" content="Rick">
   <title>Reproductor 28</title>
   <!-- Estilos externos -->
+  <link rel="author" href="https://santi-graphics.vercel.app/copyright.txt">
   <link rel="stylesheet" href="Repro28.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <!-- Scripts externos -->
   <script src="Repro28.js" defer></script>
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   
-  <!-- BLOCK -->
+  <!-- BLOCK 
   <script type="text/javascript">
   document.onkeydown = function(){return false};
   document.oncontextmenu = function(){return false}
   </script>
-<script src="https://precios-2025.web.app/gallery.js"></script>
+<script src="https://precios-2025.web.app/gallery.js"></script>-->
 </head>
 
 <body>
 
 
 <div class="main-container">
+    
+  <!-- Audio principal -->
+  <audio id="player" autoplay muted></audio>
 
   <!-- Disco -->
   <div class="ctn-disc">
@@ -41,9 +45,6 @@
   <div class="ctn-base">
     <img src="assets/img/Fussion2.png" alt="Imagen Base" class="stage-fussion" />
   </div>
-
-  <!-- Audio -->
-  <audio id="audioStreaming" autoplay muted></audio>
 
   <!-- Metadatos -->
   <div class="metadata-marquee marquee">
@@ -64,17 +65,24 @@
     </button>
   </div>
 
-    <!-- Botón invisible retroceso -->
-    <button id="btn-rwd" class="btn-rwd"></button>
+    <!-- Botón retroceso -->
+    <button id="btn-rwd" class="btn-rwd">
+      <i class="fas fa-bolt"></i>
+    </button>
 
-    <!-- Botón invisible avance -->
-    <button id="btn-fwd" class="btn-fwd"></button>
+    <!-- Botón avance -->
+    <button id="btn-fwd" class="btn-fwd">
+      <i class="fas fa-bolt"></i>
+    </button>
 
   <!-- Decorativos -->
   <div class="decorative-wrapper">
     <img src="assets/img/Turbina-Red.png" alt="Turbina giratoria" class="turbine-img" />
     <img src="assets/img/Button2.png" alt="Botón decorativo" class="decorative-overlay" />
   </div>
+    
+    <!-- Mensaje personalizado para el clic derecho -->
+    <div id="custom-message" class="custom-message">Santi Graphics</div>
 
 </div>
 
