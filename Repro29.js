@@ -524,7 +524,7 @@ document.querySelectorAll('.theme-option').forEach(btn => {
 
 // Restaurar fondo por defecto (sin guardar)
 document.getElementById("btn-restore-bg").addEventListener("click", () => {
-  const defaultBG = "assets/bg/BG-PSP.jpg";
+  const defaultBG = "https://santi-graphics.vercel.app/assets/bg/BG-PSP.jpg";
   mainContainer.style.backgroundImage = `url('${defaultBG}')`;
   mainContainer.style.backgroundSize = "cover";
   mainContainer.style.backgroundPosition = "center";
@@ -642,4 +642,5 @@ document.addEventListener("contextmenu", (e) => {
   }, 2000);
 
 });
+
 
