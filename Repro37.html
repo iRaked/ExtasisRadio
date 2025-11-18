@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <!-- Font Awesome -->
+  <link rel="icon" type="image/x-icon" href="assets/SG.ico" />
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="author" content="Rick - xat.comn/CasinoDigital">
+  <title>Repro 12</title>
+  <!-- Estilos principales -->
+  <link rel="stylesheet" href="Repro37.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <!-- Scripts Principales
+  <script type="text/javascript">
+  document.onkeydown = function(){return false};
+  document.oncontextmenu = function(){return false}
+  </script>
+  <script src="https://precios-2025.web.app/gallery.js"></script>-->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="Repro37.js" defer></script>
+
+</head>
+
+<body>
+    
+  <audio id="player" autoplay muted>
+  <source src="https://technoplayerserver.net:8018/stream?icy=http" type="audio/mpeg">
+</audio>
+    
+  <main id="main-container">
+      
+      <video autoplay muted loop id="bg-video">
+      <source src="assets/video/StageCD.mp4" type="video/mp4" />
+      Tu navegador no soporta video HTML5.
+      </video>
+
+      <header id="radio-header">
+          <div class="title-deluxe">
+            <span>C</span><span>A</span><span>S</span><span>I</span><span>N</span><span>O</span><span></span>
+            <span>D</span><span>I</span><span>G</span><span>I</span><span>T</span><span>A</span><span>L</span><span></span>
+            <span>R</span><span>A</span><span>D</span><span>I</span><span>O</span>
+          </div>
+
+          <!-- Indicador de modo y playlist -->
+        <div id="playback-status" class="playback-status">
+          <span id="mode-label">Modo: —</span>
+          <span id="playlist-label">Playlist: —</span>
+        </div>
+          <!-- Botón Menú fijo en el header -->
+          <div id="menu-trigger" title="Menú">
+            <i class="fas fa-bars"></i>
+          </div>
+        </header>
+
+        <!-- Panel lateral con opciones -->
+        <div id="menu-panel">
+          <div id="menu-switch">
+            <div class="menu-list">
+              <button class="menu-item" id="radioMode">Radio</button>
+              <button class="menu-item" id="musicMode">Música</button>
+            </div>
+          </div>
+        </div>
+
+      <section class="content-overlay">
+
+      <!-- Redes Sociales -->
+      <section class="social-buttons">
+      <a href="https://discord.com" class="social-btn" target="_blank">
+        <i class="fab fa-discord"></i>
+        <span>Discord</span>
+      </a>
+      <a href="https://facebook.com" class="social-btn" target="_blank">
+        <i class="fab fa-facebook-f"></i>
+        <span>Facebook</span>
+      </a>
+      <a href="https://instagram.com" class="social-btn" target="_blank">
+        <i class="fab fa-instagram"></i>
+        <span>Instagram</span>
+      </a>
+      <a href="https://tiktok.com" class="social-btn" target="_blank">
+        <i class="fab fa-tiktok"></i>
+        <span>TikTok</span>
+      </a>
+      <a href="https://twitch.tv" class="social-btn" target="_blank">
+        <i class="fab fa-twitch"></i>
+        <span>Twitch</span>
+      </a>
+    </section>
+        
+        <!-- Modulo Informacion -->
+        <section id="info" class="info">
+          <header class="datetime-container">
+            <i class="fas fa-clock"></i>
+            <span id="current-time">00:00:00</span>
+            <span class="date-separator">|</span>
+            <i class="fas fa-calendar-alt"></i>
+            <span id="current-date">21/08/2025</span>
+            <span class="date-separator">|</span>
+            <i class="fas fa-map-marker-alt"></i>
+            <span id="current-city">Latinoamérica</span>
+            <span class="date-separator">|</span>
+            <i class="fas fa-headphones"></i>
+            <output id="sonic_listeners" class="listeners-count">--</output>
+          </header>
+        </section>
+          
+        <!-- Activador lateral de fondos -->
+        <div id="background-trigger">
+          <i class="fas fa-image"></i>
+        </div>
+
+        <!-- CONTENEDOR BACKGROUND SWITCH -->
+        <section id="background-panel">
+          <aside id="background-switch">
+            <header class="switch-header">
+              <div class="header-content">
+                <h2>Fondos</h2>
+              </div>
+            </header>
+
+            <section class="background-list">
+              <div class="bg-option" data-bg="assets/bg/bg1.png" style="background-image:url('assets/bg/bg1.png')"></div>
+              <div class="bg-option" data-bg="assets/bg/bg2.png" style="background-image:url('assets/bg/bg2.png')"></div>
+              <div class="bg-option" data-bg="assets/bg/bg3.png" style="background-image:url('assets/bg/bg3.png')"></div>
+              <div class="bg-option" data-bg="assets/bg/bg4.png" style="background-image:url('assets/bg/bg4.png')"></div>
+              <div class="bg-option" data-bg="assets/bg/bg5.png" style="background-image:url('assets/bg/bg5.png')"></div>
+              <div class="bg-option" data-bg="assets/bg/bg6.png" style="background-image:url('assets/bg/bg6.png')"></div>
+              <div class="bg-option" data-bg="assets/bg/bg7.png" style="background-image:url('assets/bg/bg7.png')"></div>
+              <div class="bg-option" data-bg="assets/bg/bg8.png" style="background-image:url('assets/bg/bg8.png')"></div>
+              <div class="bg-option" data-bg="assets/bg/bg9.png" style="background-image:url('assets/bg/bg9.png')"></div>
+              <div class="bg-option" data-bg="assets/bg/bg10.png" style="background-image:url('assets/bg/bg10.png')"></div>
+            </section>
+          </aside>
+        </section>
+
+    <!-- Activador lateral -->
+    <div id="paint-trigger">
+      <i class="fas fa-paint-brush"></i>
+    </div>
+
+      <!-- CONTENEDOR SWITCH -->
+      <section id="switch-panel">
+        <aside id="color-switch">
+          <header class="switch-header">
+            <div class="header-content">
+              <h2>Tu Estilo</h2>
+            </div>
+          </header>
+
+          <!-- PALETA DE COLORES CON TRANSPARENCIA -->
+        <section class="palette">
+          <div class="color-option solid" style="background-color:#ff000050" data-color="#ff000050" title="Rojo"></div>
+          <div class="color-option solid" style="background-color:#39ff1450" data-color="#39ff1450" title="Verde Neon"></div>
+          <div class="color-option solid" style="background-color:#ffff0050" data-color="#ffff0050" title="Amarillo"></div>
+          <div class="color-option solid" style="background-color:#8000ff50" data-color="#8000ff50" title="Púrpura"></div>
+          <div class="color-option solid" style="background-color:#ff69b450" data-color="#ff69b450" title="Rosa"></div>
+          <div class="color-option solid" style="background-color:#ff800050" data-color="#ff800050" title="Naranja"></div>
+          <div class="color-option gradient gold" title="Degradado Dorado"></div>
+          <div class="color-option gradient unicorn" title="Degradado Unicornio"></div>
+          <div class="color-option gradient turquoise" title="Degradado Turquesa"></div>
+          <div class="color-option restore" id="restore-default" title="Restaurar Azul"></div>
+        </section>
+        </aside>
+      </section>
+          
+        <!-- Activador lateral de playlists -->
+        <div id="playlist-trigger">
+          <i class="fas fa-headphones-alt"></i>
+        </div>
+
+        <!-- CONTENEDOR PLAYLIST SWITCH -->
+        <section id="playlist-panel">
+          <aside id="playlist-switch">
+            <header class="switch-header">
+              <div class="header-content">
+                <h2>Listas de Reproducción</h2>
+              </div>
+            </header>
+
+            <section class="playlist-list">
+              <div class="playlist-item" data-key="hits">Hits</div>
+              <div class="playlist-item" data-key="regional_mexicano">Regional Mexicano</div>
+              <div class="playlist-item" data-key="viva_latino">Viva Latino</div>
+              <div class="playlist-item" data-key="rock_espanol">Rock En Español</div>
+              <div class="playlist-item" data-key="mega_mix">Mega Mix</div>
+              <div class="playlist-item" data-key="after_party">After Party</div>
+              <div class="playlist-item" data-key="pop_electronico">Pop Electrónico</div>
+              <div class="playlist-item" data-key="baladas">Baladas</div>
+              <div class="playlist-item" data-key="essentials">Essentials</div>
+            </section>
+          </aside>
+        </section>
+          
+          
+        <!-- REPRODUCTOR -->
+        <section id="repro-container" class="repro-container">
+
+          <!-- Zona 1: Carátula -->
+          <div class="cover-zone">
+              <div class="cover-art-border"></div> <!-- Halo externo -->
+              <div class="cover-art-wrapper">
+                <img src="assets/covers/Cover1.png" alt="Carátula actual" class="cover-art">
+              </div>
+            </div>
+
+          <!-- Zona 2: Reproductor principal -->
+          <div class="player-zone">
+
+        <!-- Metadatos -->
+        <div class="track-info">
+          <h2 id="track-title" class="track-title">CASINO DIGITAL RADIO</h2>
+          <h3 id="track-artist" class="track-artist">AUTO DJ</h3>
+          <h4 id="track-album" class="track-album">MIX 1</h4>
+        </div>
+
+        <!-- Barra de volumen -->
+        <section id="block-volumen" class="block-volumen">
+
+          <div class="volume-control">
+            <i id="volumeIcon" class="fas fa-volume-down"></i>
+            <input
+              type="range"
+              class="volume-slider"
+              id="volumeSlider"
+              min="0"
+              max="1"
+              step="0.1"
+              value="0.7"
+            />
+            <span id="volumePercentage" class="volume-percentage">70%</span>
+          </div>
+
+        </section><!-- Cierre Bloque Volumen -->
+
+            <!-- Botonera -->
+            <section id="block-controls" class="block-controls">
+              <div class="control-buttons">
+
+                <!-- Repeat -->
+                <button id="btn-rep" class="btn-repeat">
+                  <i class="fas fa-redo"></i>
+                </button>
+
+                <!-- Rewind -->
+                <button id="btn-rwd" class="btn-rewind">
+                  <i class="fas fa-backward"></i>
+                </button>
+
+                <!-- Play/Pause -->
+                <button id="btn-play" class="btn-play">
+                  <i class="fas fa-play"></i>
+                </button>
+
+                <!-- Forward -->
+                <button id="btn-fwd" class="btn-forward">
+                  <i class="fas fa-forward"></i>
+                </button>
+
+                <!-- Shuffle -->
+                <button id="btn-shuffle" class="btn-shuffle">
+                  <i class="fas fa-random"></i>
+                </button>
+
+              </div>
+            </section>
+
+        <!-- Barra de progreso -->
+        <section id="block-progreso" class="block-progreso">
+          <div class="progress-bar">
+            <input
+              type="range"
+              id="time-bar"
+              class="time-bar"
+              min="0"
+              max="100"
+              value="0"
+            />
+          </div>
+        </section><!-- Cierre de barra progreso -->
+
+          </div><!-- Cierre player-zone -->
+
+        </section><!-- Cierre repro-container -->
+
+      </section><!-- Cierre de content overlay -->
+
+    </main>
+    
+    <!-- Footer -->
+    <footer id="custom-footer">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <footer class="footer-inner">
+            <a href="#" target="_blank" rel="noreferrer" class="footer-link">
+              <img src="assets/SG.ico" alt="icono" class="footer-icon">
+              <h5 class="footer-year">©2025</h5>
+            </a>
+          </footer>
+        </div>
+      </div>
+    </footer>
+
+</body>
+</html>
