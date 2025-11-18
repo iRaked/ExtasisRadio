@@ -59,7 +59,7 @@ if (btnPlay) {
     } else {
       // Pausar reproducción
       audio.pause();
-      btnPlay.querySelector('img').src = 'assets/img/play-btn.png';
+      btnPlay.querySelector('img').src = 'https://santi-graphics.vercel.app/assets/img/play-btn.png';
       coverImg.classList.remove("rotating");
     }
   });
@@ -69,11 +69,11 @@ if (btnPlay) {
 // ▶️ SINCRONIZACIÓN VISUAL CON EVENTOS
 // ===============================
 audio.addEventListener('playing', () => {
-  btnPlay.querySelector('img').src = 'assets/img/pause-btn.png';
+  btnPlay.querySelector('img').src = 'https://santi-graphics.vercel.app/assets/img/pause-btn.png';
   coverImg.classList.add("rotating");
 });
 audio.addEventListener('pause', () => {
-  btnPlay.querySelector('img').src = 'assets/img/play-btn.png';
+  btnPlay.querySelector('img').src = 'https://santi-graphics.vercel.app/assets/img/play-btn.png';
   coverImg.classList.remove("rotating");
 });
 
@@ -116,7 +116,7 @@ function activarModoRadio() {
   cancelarItunesFetch();
 
   metadataSpan.textContent = "Casino Digital Radio — Conectando...";
-  coverImg.src = "assets/covers/Plato.png";
+  coverImg.src = "https://santi-graphics.vercel.app/assets/covers/Plato.png";
   coverImg.classList.add("rotating");
 
   audio.pause();
@@ -237,10 +237,10 @@ function activarModoLocal() {
   cancelarItunesFetch();
 
   metadataSpan.textContent = "🎶 Playlist Local activa";
-  coverImg.src = "assets/covers/Cover1.png";
+  coverImg.src = "https://santi-graphics.vercel.app/assets/covers/Cover1.png";
   audio.pause();
 
-  fetch("Repro27.json")
+  fetch("https://radio-tekileros.vercel.app/Repro27.json")
     .then(res => res.json())
     .then(data => {
       if (modoActual !== "local") return;
@@ -267,7 +267,7 @@ function cargarTrack(index) {
   const track = playlist[index];
   if (!track) return;
 
-  coverImg.src = track.caratula || "assets/covers/Cover1.png";
+  coverImg.src = track.caratula || "https://santi-graphics.vercel.app/assets/covers/Cover1.png";
   audio.src = track.enlace;
   audio.load();
 
@@ -325,4 +325,5 @@ document.addEventListener("contextmenu", (e) => {
   setTimeout(() => {
     msg.classList.remove("show");
   }, 2000);
+
 });
