@@ -150,7 +150,7 @@ function activarModoRadio() {
   cancelarItunesFetch();
 
   metadataSpan.textContent = "Casino Digital Radio — Conectando...";
-  coverImg.src = "https://santi-graphics.vercel.app/assets/covers/Plato.png";
+  coverImg.src = "https://santi-graphics.vercel.app/assets/img/Plato.png";
   coverImg.classList.add("rotating");
 
   audio.pause();
@@ -231,7 +231,7 @@ function iniciarActualizacionRadio() {
 function obtenerCaratulaDesdeiTunes(artist, title) {
   if (typeof $ === 'undefined' || typeof $.ajax === 'undefined') {
     if (modoActual !== "radio") return;
-    coverImg.src = 'https://santi-graphics.vercel.app/assets/covers/Plato.png';
+    coverImg.src = 'https://santi-graphics.vercel.app/assets/img/Plato.png';
     coverImg.classList.add("rotating");
     return;
   }
@@ -247,7 +247,7 @@ function obtenerCaratulaDesdeiTunes(artist, title) {
     url,
     success: function(data) {
       if (modoActual !== "radio") return;
-      let cover = 'https://santi-graphics.vercel.app/assets/covers/Plato.png';
+      let cover = 'https://santi-graphics.vercel.app/assets/img/Plato.png';
       if (data.results && data.results.length === 1) {
         cover = data.results[0].artworkUrl100.replace('100x100', '400x400');
       }
@@ -256,7 +256,7 @@ function obtenerCaratulaDesdeiTunes(artist, title) {
     },
     error: function() {
       if (modoActual !== "radio") return;
-      coverImg.src = 'https://santi-graphics.vercel.app/assets/covers/Plato.png';
+      coverImg.src = 'https://santi-graphics.vercel.app/assets/img/Plato.png';
       coverImg.classList.add("rotating");
     }
   });
@@ -361,3 +361,4 @@ document.addEventListener("contextmenu", (e) => {
   }, 2000);
 
 });
+
