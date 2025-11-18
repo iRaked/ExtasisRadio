@@ -51,7 +51,7 @@ if (btnPlay) {
     if (audio.paused || audio.ended) {
       // Reanudar reproducción
       audio.play().then(() => {
-        btnPlay.querySelector('img').src = 'assets/img/pause-btn.png';
+        btnPlay.querySelector('img').src = 'https://santi-graphics.vercel.app/assets/img/pause-btn.png';
         coverImg.classList.add("rotating");
       }).catch(err => {
         console.warn("⚠️ Error al reproducir:", err);
@@ -197,7 +197,7 @@ function iniciarActualizacionRadio() {
 function obtenerCaratulaDesdeiTunes(artist, title) {
   if (typeof $ === 'undefined' || typeof $.ajax === 'undefined') {
     if (modoActual !== "radio") return;
-    coverImg.src = 'assets/covers/Plato.png';
+    coverImg.src = 'https://santi-graphics.vercel.app/assets/covers/Plato.png';
     coverImg.classList.add("rotating");
     return;
   }
@@ -213,7 +213,7 @@ function obtenerCaratulaDesdeiTunes(artist, title) {
     url,
     success: function(data) {
       if (modoActual !== "radio") return;
-      let cover = 'assets/covers/Plato.png';
+      let cover = 'https://santi-graphics.vercel.app/assets/covers/Plato.png';
       if (data.results && data.results.length === 1) {
         cover = data.results[0].artworkUrl100.replace('100x100', '400x400');
       }
@@ -222,7 +222,7 @@ function obtenerCaratulaDesdeiTunes(artist, title) {
     },
     error: function() {
       if (modoActual !== "radio") return;
-      coverImg.src = 'assets/covers/Plato.png';
+      coverImg.src = 'https://santi-graphics.vercel.app/assets/covers/Plato.png';
       coverImg.classList.add("rotating");
     }
   });
@@ -327,3 +327,4 @@ document.addEventListener("contextmenu", (e) => {
   }, 2000);
 
 });
+
