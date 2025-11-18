@@ -31,7 +31,7 @@ document.body.classList.add("skin3");
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 
 // CARGA DE JSON
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 
-fetch("Repro29.json")
+fetch("https://radio-tekileros.vercel.app/Repro29.json")
   .then(res => res.json())
   .then(data => {
     fullPlaylistData = data;
@@ -640,4 +640,5 @@ document.addEventListener("contextmenu", (e) => {
   setTimeout(() => {
     msg.classList.remove("show");
   }, 2000);
+
 });
