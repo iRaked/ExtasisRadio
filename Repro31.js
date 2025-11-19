@@ -194,7 +194,7 @@ function avanzarCarruselConCover(coverUrl) {
 // ----------------------------------------------------------
 function cargarPlaylistLocal() {
   // Estructura esperada: objeto con secciones (hits, regional_mexicano, etc.)
-  return fetch("Repro31.json")
+  return fetch("https://radio-tekileros.vercel.app/Repro31.json")
     .then(res => {
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       return res.json();
@@ -646,3 +646,4 @@ document.addEventListener("contextmenu", (e) => {
     msg.classList.remove("show");
   }, 2000);
 });
+
