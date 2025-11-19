@@ -357,6 +357,34 @@ header {
     color: #fff;
 }
 
+/* ----------------------------------------------------------
+   🔁 Repeat y 🔀 Shuffle — estilos visuales
+   ---------------------------------------------------------- */
+
+/* Estado normal de los botones */
+#btn-repeat,
+#btn-shuffle {
+  color: #ccc;              /* color base apagado */
+  transition: all 0.3s ease;
+}
+
+/* Glow blanco cuando están activos */
+.glow-white {
+  color: #fff !important;   /* texto/icono blanco */
+  text-shadow: 0 0 8px #fff,
+               0 0 12px #fff,
+               0 0 16px #fff; /* efecto glow */
+  filter: drop-shadow(0 0 6px rgba(255,255,255,0.8));
+}
+
+/* Hover para dar feedback adicional */
+#btn-repeat:hover,
+#btn-shuffle:hover {
+  color: #eee;
+  cursor: pointer;
+}
+
+
 /* ===================== */
 /* Barra de Volumen */
 /* ===================== */
@@ -380,4 +408,26 @@ header {
   accent-color: #888;
   background: transparent;
   cursor: pointer;
+}
+
+.custom-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 15px 25px;
+    background: rgba(0, 0, 0, 0.9);
+    border: 2px solid #ff0000;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 1.1em;
+    text-shadow: 0 0 8px #c2a044;
+    box-shadow: 0 0 20px #ff0000b3; /* b3 ≈ 70% de opacidad */
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease-in-out;
+}
+.custom-message.show {
+    opacity: 1;
 }

@@ -9,15 +9,16 @@
   <meta name="author" content="Rick">
   <title>Repro 31</title>
   <!-- Estilos principales -->
+  <link rel="author" href="https://santi-graphics.vercel.app/copyright.html">
   <link rel="stylesheet" href="Repro31.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
-  <!-- Scripts Principales -->
+  <!-- Scripts Principales
   <script type="text/javascript">
   document.onkeydown = function(){return false};
   document.oncontextmenu = function(){return false}
   </script>
-  <script src="https://precios-2025.web.app/gallery.js"></script>
+  <script src="https://precios-2025.web.app/gallery.js"></script>-->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.min.js"></script>
@@ -25,12 +26,12 @@
 </head>
 
 <body>
-  <!-- 🎧 Audio principal -->
-  <audio id="player" autoplay muted>
-    <source src="https://technoplayerserver.net:8018/stream?icy=http" type="audio/mpeg" />
-  </audio>
+  <!-- Audio principal -->
+  <audio id="player" autoplay muted></audio>
+
 
   <div id="main-container">
+
     <header>
       <button id="btn-online" class="btn-online">ONLINE</button>
     </header>
@@ -48,6 +49,12 @@
             <button class="btn-left" id="btn-prev"><i class="fa-solid fa-chevron-left"></i></button>
             <button class="btn-right" id="btn-next"><i class="fa-solid fa-chevron-right"></i></button>
         </div>
+        
+        
+    <!-- Mensaje personalizado para el clic derecho -->
+    <div id="custom-message" class="custom-message">Santi Graphics</div>
+        
+        
     </section>
 
     <div class="bottom-zone">
@@ -87,11 +94,12 @@
       <!-- Barra de Volumen -->
       <div class="right-bottom">
       <i class="fa-solid fa-volume-low"></i>
-      <input type="range" min="0" max="100" value="50" />
+      <input id="volume-slider" type="range" min="0" max="100" />
       <i class="fa-solid fa-volume-high"></i>
     </div>
 
     </div>
+
   </div>
     
 <script>
