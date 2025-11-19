@@ -255,7 +255,7 @@ function activarModoLocal() {
 }
 
 // ----------------------------------------------------------
-// ▶️ Reproducir pista local con avance cronológico
+// ▶️ Reproducir pista local (orden simétrico correcto)
 // ----------------------------------------------------------
 function reproducirLocal(index) {
   if (modo !== "local" || !playlist.length) return;
@@ -274,10 +274,9 @@ function reproducirLocal(index) {
   actualizarInformacion({ nombre: pista.nombre, artista: pista.artista, genero: pista.genero });
   colorOndasPorGenero(pista.genero);
 
-  // 👉 En vez de recalcular simétricamente, empujamos el carrusel como historial
-  moverCarruselIzquierda(pista.caratula, currentIndex);
+  // ✅ En local usamos el orden simétrico, no el avance cronológico
+  actualizarPortadasLocal();
 }
-
 
 // ----------------------------------------------------------
 // 📡 Modo radio — limpieza, iTunes cover y avance cronológico real
@@ -646,5 +645,6 @@ document.addEventListener("contextmenu", (e) => {
     msg.classList.remove("show");
   }, 2000);
 });
+
 
 
