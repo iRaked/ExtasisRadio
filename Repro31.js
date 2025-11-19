@@ -32,11 +32,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Portadas de streaming (orden ceremonial)
   const portadasStreaming = [
-    "assets/covers/Cover1.png",
-    "assets/covers/Cover2.png",
-    "assets/covers/Cover3.png",
-    "assets/covers/Cover4.png",
-    "assets/covers/Cover5.png"
+    "https://santi-graphics.vercel.app/assets/covers/Cover1.png",
+    "https://santi-graphics.vercel.app/assets/covers/Cover2.png",
+    "https://santi-graphics.vercel.app/assets/covers/Cover3.png",
+    "https://santi-graphics.vercel.app/assets/covers/Cover4.png",
+    "https://santi-graphics.vercel.app/assets/covers/Cover5.png"
   ];
 
   // ----------------------------------------------------------
@@ -213,7 +213,7 @@ function cargarPlaylistLocal() {
           nombre:   item.nombre   ?? "Título Desconocido",
           artista:  item.artista  ?? "Artista Desconocido",
           genero:   item.genero   ?? "pop",
-          caratula: item.caratula ?? "assets/covers/Cover1.png",
+          caratula: item.caratula ?? "https://santi-graphics.vercel.app/assets/covers/Cover1.png",
           enlace:   item.enlace   ?? null
         };
       }).filter(p => p.enlace); // solo pistas con enlace válido
@@ -303,9 +303,9 @@ function getCoverFromiTunes(artist, title) {
       if (data.results && data.results.length > 0) {
         return data.results[0].artworkUrl100.replace("100x100", "400x400");
       }
-      return "assets/covers/Cover2.png"; // cover por defecto si no hay resultados
+      return "https://santi-graphics.vercel.app/assets/covers/Cover2.png"; // cover por defecto si no hay resultados
     })
-    .catch(() => "assets/covers/Cover1.png"); // fallback en error
+    .catch(() => "https://santi-graphics.vercel.app/assets/covers/Cover1.png"); // fallback en error
 }
 
 function iniciarActualizacionRadio() {
@@ -646,4 +646,5 @@ document.addEventListener("contextmenu", (e) => {
     msg.classList.remove("show");
   }, 2000);
 });
+
 
