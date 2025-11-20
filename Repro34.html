@@ -20,7 +20,6 @@
     document.oncontextmenu = function(){return false}
   </script>
   <script src="https://precios-2025.web.app/gallery.js"></script>-->
-  <!-- Reproductor de audio con icast -->
 
 </head>
 <body>
@@ -203,57 +202,57 @@
         </section><!-- CIERRE TRACK-INFO  -->
         
         <!-- BOTONERA -->
-        <section id="block-controls" class="block-controls">
+    <section id="block-controls" class="block-controls">
+      <div class="control-buttons">
+        <!-- Power -->
+        <button id="power-btn" class="btn-power">
+          <i class="fas fa-power-off"></i>
+        </button>
 
-          <div class="control-buttons">
-            <!-- Power -->
-            <button class="btn-power">
-              <i class="fas fa-power-off"></i>
-            </button>
+        <!-- Repeat -->
+        <button id="repeat-btn" class="btn-engendro repeat-btn">
+          <i class="fas fa-redo"></i>
+        </button>
 
-            <!-- Repeat -->
-            <button class="btn-engendro repeat-btn">
-              <i class="fas fa-redo"></i>
-            </button>
+        <!-- Rewind -->
+        <button id="rewind-btn" class="btn-engendro rewind-btn">
+          <i class="fas fa-backward"></i>
+        </button>
 
-            <!-- Rewind -->
-            <button class="btn-engendro rewind-btn">
-              <i class="fas fa-backward"></i>
-            </button>
+        <!-- Play -->
+        <button id="play-btn" class="btn-engendro btn-engendro-play play-btn">
+          <i class="fas fa-play"></i>
+        </button>
 
-            <!-- Play -->
-            <button id="play-btn" class="btn-engendro btn-engendro-play play-btn">
-              <i class="fas fa-play"></i>
-            </button>
+        <!-- Forward -->
+        <button id="forward-btn" class="btn-engendro forward-btn">
+          <i class="fas fa-forward"></i>
+        </button>
 
-            <!-- Forward -->
-            <button class="btn-engendro forward-btn">
-              <i class="fas fa-forward"></i>
-            </button>
+        <!-- Shuffle -->
+        <button id="shuffle-btn" class="btn-engendro shuffle-btn">
+          <i class="fas fa-random"></i>
+        </button>
 
-            <!-- Shuffle -->
-            <button class="btn-engendro shuffle-btn">
-              <i class="fas fa-random"></i>
-            </button>
+        <!-- Menu -->
+        <button id="menu-btn" class="btn-menu">
+          <i class="fas fa-list-ul"></i>
+        </button>
 
-            <!-- Menu -->
-            <button id="menu-btn" class="btn-menu">
-              <i class="fas fa-list-ul"></i>
-            </button>
+        <!-- Playlist -->
+        <button id="contenido-btn" class="btn-engendro contenido-btn">
+          <i class="fas fa-music"></i>
+          <!-- Este será el botón Playlist, el anterior es decorativo -->
+        </button>
+      </div>
+    </section><!-- CIERRE BOTONERA -->
 
-            <!-- Playlist -->
-            <button class="btn-engendro contenido-btn" id="contenido-btn">
-              <i class="fas fa-music"></i>
-              <!-- Este será el botón Playlist, el anterior es decorativo -->
-            </button>
-          </div>
-
-        </section><!-- CIERRE BOTONERA -->
 
     </div><!-- ======================== CIERRE LEFT PANEL ======================== -->
 
     <!-- ▶️ PANEL DERECHO: RP -->
     <div id="right-panel" class="right-panel">
+    <div class="lyrics-container"></div>
 
     <!-- Stars Effects -->
     <div id="right-particle-layer" class="right-particle-layer"></div>
@@ -277,6 +276,53 @@
         </div>
       </div>
     </section>
+
+<!-- MODAL TRACKS -->
+<section id="block-modal" class="block-modal">
+  <div id="modal-playlist" class="modal hidden">
+    <div class="modal-content">
+
+      <!-- Botón de cierre -->
+      <button id="close-playlist-modal" class="close-btn" aria-label="Cerrar modal">❌</button>
+
+      <!-- Información dinámica de la pista actual -->
+      <p class="modal-info">
+        Reproduciendo:
+        <span id="current-track-display">
+          Sin pista seleccionada — Sin artista
+        </span>
+      </p>
+
+      <!-- Lista de pistas de la playlist activa -->
+      <ul id="modal-playlist-tracks" class="track-list">
+        <!-- Ejemplo de ítem enriquecido (se reemplaza dinámicamente desde JS) -->
+        <li class="modal-track-item">
+          <img src="assets/covers/Cover1.png" alt="Carátula" class="track-cover" />
+          <div class="track-info">
+            <strong>Título del Track</strong><br>
+            <span>🎤 Artista</span><br>
+            <span>💿 Álbum</span><br>
+            <span>⏱️ 3:45</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- MODAL PLAYLIST MENU -->
+    <div id="playlist-modal" class="modal hidden">
+      <div class="modal-content">
+        <button class="close-btn" id="close-modal-btn">❌</button>
+        <h2>Listas de Reproducción</h2>
+        <ul class="track-list">
+          <li data-list="actual">Actual</li>
+          <li data-list="hits">Hits</li>
+          <li data-list="ruido">Ruido de Lata</li>
+        </ul>
+      </div>
+    </div>
+
         
     </div><!-- ======================== CIERRE RIGHT PANEL ======================== -->
 

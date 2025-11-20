@@ -845,6 +845,18 @@ html, body {
   color: #f5f5f5;
 }
 
+/* Glow blanco cuando Repeat está activo */
+.repeat-active {
+  box-shadow: 0 0 12px 4px rgba(255, 255, 255, 0.85);
+  outline: 1px solid rgba(255, 255, 255, 0.6);
+  transition: box-shadow 200ms ease, outline 200ms ease;
+}
+
+.repeat-active i {
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.9));
+}
+
+
 .shuffle-btn {
   width: 45px;
   height: 45px;
@@ -1407,6 +1419,312 @@ html, body {
   100% { box-shadow: 0 0 6px rgba(180, 180, 180, 0.4); }
 }
 
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+/* 🎛️ Modal Playlist de Tracks */
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+
+#modal-playlist {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 420px;
+  height: 540px;
+  background-color: rgba(20, 20, 20, 0.9); /* fondo gris oscuro translúcido */
+  color: #f5f5f5;
+  border: 2px solid #777;                  /* borde gris */
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(180, 180, 180, 0.6);
+  z-index: 1000;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+#modal-playlist.hidden {
+  display: none;
+}
+
+#modal-playlist .modal-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Botón de cierre */
+#close-playlist-modal {
+  align-self: flex-end;
+  background: none;
+  border: none;
+  color: #ccc;
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.2s ease;
+  margin-bottom: 8px;
+}
+#close-playlist-modal:hover {
+  transform: scale(1.2);
+  color: #f5f5f5;
+}
+
+/* Info de pista actual */
+#current-track-display {
+  font-size: 0.95em;
+  color: #ccc;
+  margin: 0 0 12px 0;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: unset;
+}
+
+/* Lista de pistas */
+#modal-playlist-tracks {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  overflow-y: auto;
+  flex-grow: 1;
+}
+
+/* Cada pista */
+.modal-track-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  border-bottom: 1px solid #333;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+.modal-track-item:hover {
+  background-color: #222;
+  transform: scale(1.02);
+}
+
+/* Carátula */
+.track-cover {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 6px;
+  box-shadow: 0 0 6px #999;
+  flex-shrink: 0;
+}
+
+/* Info de la pista */
+.track-info {
+  flex: 1;
+  font-size: 0.9em;
+  color: #f5f5f5;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  #modal-playlist {
+    width: 95%;
+    max-width: 360px;
+    height: 480px;
+    padding: 16px;
+  }
+  .track-cover {
+    width: 50px;
+    height: 50px;
+  }
+  .track-info {
+    font-size: 0.85em;
+  }
+}
+
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+/* 🎛️ Modal Playlist Menu adaptado a escala de grises */
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+
+/* Fondo animado detrás del modal */
+.modal::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 540px;
+  height: 650px;
+  transform: translate(-50%, -50%);
+  background-image: url("https://santi-graphics.vercel.app/assets/background/Scene-Grey.gif");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  clip-path: inset(0 round 20px);
+  z-index: -1;
+  border-radius: 12px;
+  opacity: 0.9;
+}
+
+/* Contenedor principal del modal */
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 398px;
+  height: 534px; /* NO se toca */
+  background-color: rgba(20, 20, 20, 0.85); /* gris translúcido */
+  color: #f5f5f5;
+  border: 2px solid #777;                  /* borde gris */
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(180, 180, 180, 0.6); /* sombra gris */
+  z-index: 1000;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  gap: 12px;
+}
+
+/* Oculto por defecto */
+.modal.hidden {
+  display: none;
+}
+
+/* Contenido interno */
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Botón de cierre */
+.close-btn {
+  align-self: flex-end;
+  background: none;
+  border: none;
+  color: #ccc;          /* gris claro */
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.2s ease;
+  margin-bottom: 8px;
+}
+.close-btn:hover {
+  transform: scale(1.2);
+  color: #f5f5f5;       /* gris más claro al hover */
+}
+
+/* Título del modal */
+.modal-content h2 {
+  font-size: 1.2em;
+  margin: 0 0 12px 0;
+  text-align: center;
+  color: #e0e0e0;
+}
+
+/* Lista de playlists */
+.track-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  overflow-y: auto;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Cada playlist */
+.track-list li {
+  padding: 8px 12px;
+  background-color: #1a1a1a; /* gris oscuro */
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+  color: #e0e0e0; /* texto gris claro */
+}
+
+.track-list li:hover {
+  background-color: #333; /* gris medio al hover */
+  color: #f5f5f5;         /* texto gris claro */
+}
+
+/* ***************************** LIRYCS ***************************** */
+.right-panel {
+  position: relative;
+}
+
+.lyrics-container {
+    position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 540px;
+  height: 640px;
+  padding: 20px;
+  box-sizing: border-box;
+  /*background-color: rgba(0, 0, 0, 0.6);*/
+  border-radius: 10px;
+  font-family: 'Arial', sans-serif;
+  color: white;
+  overflow-y: hidden;
+    z-index: 999;
+}
+
+
+.lyric-line {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: slideUp 0.8s ease-out forwards;
+  animation-delay: var(--line-delay, 0s);
+  margin-bottom: 12px;
+}
+
+@keyframes slideUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.lyric-line span {
+  display: inline-block;
+  opacity: 0;
+  animation-name: fadeInUp, pulseWord;
+  animation-duration: 0.6s, 0.8s;
+  animation-delay: var(--delay), calc(var(--delay) + 0.2s);
+  animation-fill-mode: forwards;
+  margin-right: 4px;
+  color: var(--color, #ffff66);
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulseWord {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .lyrics-container {
+    width: 90vw;
+    height: auto;
+    max-height: 480px;
+    padding: 16px;
+    font-size: 14px;
+    overflow-y: auto;
+  }
+
+  .lyric-line span {
+    font-size: 14px;
+  }
+}
+
+
 /* *********************** Registro de Visitas/Reproducciones *********************** */
 .track-info span:last-child {
   color: #aaa; /* gris medio */
@@ -1445,4 +1763,3 @@ html, body {
   from { transform: translateY(-20px) translateX(var(--x-start)); opacity: 1; }
   to   { transform: translateY(480px) translateX(var(--x-end)); opacity: 0; }
 }
-
