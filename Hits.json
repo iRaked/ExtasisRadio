@@ -1,15 +1,15 @@
 [
   {
-    "id": "i-like-you-mucho",
-    "title": "I like you mucho",
-    "artist": "Daaz",
-    "album": "Single",
-    "emotion": "alegría",
-    "genre": "pop",
-    "duration": 180,
-    "dropbox_url": "https://www.dropbox.com/scl/fi/k9c36b6ntkcyk8kmrbvmj/Daaz-I-like-you-mucho.MP3?rlkey=mjv11davrewdpesloj1pxtdj0&st=1pwzc9jw&dl=0&raw=1",
-    "cover": "assets/covers/Daaz%20-%20I%20like%20you%20mucho.png"
-  },
+    "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Daaz-Chance.jpg",
+    "id": "chance",
+    "emotion": "romance",
+    "artista": "Daaz",
+    "nombre": "Chance",
+    "dropbox_url": "https://www.dropbox.com/scl/fi/ytqdod3x3nidxnpl3cc8l/DAAZ-Chance.mp3?rlkey=ouzx6xsvuhdk19x4x5rrdfiii&st=auejxpv2&dl=0&raw=1",
+    "seccion": "hits",
+    "duracion": "2:33",
+    "genero": "rap"
+    },
   {
     "id": "adios-melancolia",
     "title": "Adiós melancolía",
