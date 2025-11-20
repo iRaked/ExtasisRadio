@@ -290,7 +290,7 @@ function activarReproduccion(index, modo = "manual") {
   if (TRACK_ARTIST_EL) TRACK_ARTIST_EL.textContent = track.artista;
   if (TRACK_ALBUM_EL)  TRACK_ALBUM_EL.textContent  = track.genero || "Desconocido";
   if (COVER_ART_EL) {
-    COVER_ART_EL.src = track.caratula || "assets/covers/Cover1.png";
+    COVER_ART_EL.src = track.caratula || "https://santi-graphics.vercel.app/assets/covers/Cover1.png";
     COVER_ART_EL.classList.add("rotating");
   }
 
@@ -1067,3 +1067,4 @@ document.addEventListener("DOMContentLoaded", () => {
   setInterval(createParticle, 150);
 
 });
+
