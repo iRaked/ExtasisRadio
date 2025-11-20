@@ -3192,6 +3192,109 @@ window.lyricsLibrary = {
 
 ],
 
+"chance": [
+  { "time": 3.0, "text": "Es DAAZ, directamente desde Cancún" },
+  { "time": 9.0, "text": "Quería, quería hablar contigo porque" },
+  { "time": 11.0, "text": "Chance no te estoy entendiendo" },
+  { "time": 13.0, "text": "Quería preguntarte" },
+  { "time": 14.5, "text": "¿Qué somos? Si parecemos novios" },
+  { "time": 17.0, "text": "Pero no somos novios por tratar de ocultar" },
+  { "time": 20.0, "text": "Sentimientos obvios" },
+  { "time": 21.5, "text": "Dices que soy tu tesoro y me tratas como accesorio" },
+  { "time": 24.5, "text": "Me haces sentir más random que playlist en aleatorio" },
+
+  { "time": 27.0, "text": "¡Y es estúpido nuestro miedo al compromiso! Ya parecemos chiste local" },
+  { "time": 31.0, "text": "Porque ya es público, y ya todos nos han visto" },
+  { "time": 34.0, "text": "Preguntan ¿cuándo vamos a andar?" },
+
+  { "time": 40.0, "text": "Chance en unos días" },
+  { "time": 42.0, "text": "Chance un año más" },
+  { "time": 44.0, "text": "Chance un par de hijos" },
+  { "time": 46.0, "text": "Chance un perro y ya" },
+  { "time": 48.0, "text": "Chance toma tiempo que pueda funcionar" },
+  { "time": 50.0, "text": "Chance si es contigo" },
+  { "time": 52.0, "text": "Chance es alguien más" },
+  { "time": 54.0, "text": "De que se da, se da, lo sé" },
+  { "time": 56.0, "text": "Si toca avanzar, avanzaré" },
+  { "time": 58.0, "text": "Y yo apuesto todo a que eres tú" },
+  { "time": 60.0, "text": "Y hoy me siento con suerte" },
+
+  { "time": 68.0, "text": "Dormir contigo es cómodo, no hay silencios incómodos" },
+  { "time": 71.0, "text": "Conectamos mental y físicamente, mi corazón siente que coronó" },
+  { "time": 74.0, "text": "¿Y cómo no? Si nosotros conectamos perfecto" },
+  { "time": 76.0, "text": "En el sin respeto perfecto" },
+  { "time": 78.0, "text": "Hablamos directo" },
+  { "time": 79.5, "text": "De que se da, se da, yo sé que sí cuatrocientos por ciento" },
+
+  { "time": 82.0, "text": "¡Y es estúpido nuestro miedo al compromiso! Ya parecemos chiste local" },
+  { "time": 86.0, "text": "Porque ya es público, y ya todos nos han visto" },
+  { "time": 89.0, "text": "Preguntan ¿cuándo vamos a andar?" },
+
+  { "time": 95.0, "text": "Chance en unos días" },
+  { "time": 97.0, "text": "Chance un año más" },
+  { "time": 99.0, "text": "Chance un par de hijos" },
+  { "time": 101.0, "text": "Chance un perro y ya" },
+  { "time": 103.0, "text": "Chance toma tiempo que pueda funcionar" },
+  { "time": 105.0, "text": "Chance si es contigo" },
+  { "time": 107.0, "text": "Chance es alguien más" },
+  { "time": 109.0, "text": "De que se da, se da, lo sé" },
+  { "time": 111.0, "text": "Si toca avanzar, avanzaré" },
+  { "time": 113.0, "text": "Y yo apuesto todo a que eres tú" },
+  { "time": 115.0, "text": "Y hoy me siento con suerte" }
+
+],
+
+"la-cizania-amiga": [
+  { "time": 12.0, "text": "No importa si no te puedo dar" },
+  { "time": 16.0, "text": "lo que quieres porque yo sé que me comprendes" },
+  { "time": 21.0, "text": "sabes por qué y no está mal" },
+
+  { "time": 31.0, "text": "no importa si no tengo alguien más" },
+  { "time": 34.0, "text": "me importa que tengas lo que yo necesito" },
+  { "time": 39.0, "text": "sabes que y no está mal" },
+  { "time": 44.0, "text": "pero por dentro estoy que exploto" },
+  { "time": 48.0, "text": "y no sabes por qué o tal vez sí, no lo sé" },
+
+  { "time": 71.0, "text": "si tomas mi mano ya no sé qué hacer (y solo sudo,)" },
+  { "time": 77.0, "text": "me abrazas tan cerca y no puedo creer" },
+  { "time": 82.0, "text": "(me quedo mudo,)" },
+
+  { "time": 83.0, "text": "si te toco me estremezco," },
+  { "time": 85.0, "text": "si me paso me regreso si preguntas" },
+  { "time": 87.0, "text": "te contesto te digo (eres amiga)" },
+
+  { "time": 89.0, "text": "si te toco me estremezco," },
+  { "time": 91.0, "text": "si me paso me regreso si preguntas" },
+  { "time": 93.0, "text": "te contesto te digo (eres amiga)" },
+
+  { "time": 96.0, "text": "beso tu mejilla y te quiero comer, (pero no puedo)" },
+  { "time": 102.0, "text": "si lo hago no sé qué pueda suceder" },
+  { "time": 106.0, "text": "(no sé qué espero, uooooh.)" },
+
+  { "time": 124.0, "text": "Te odio cuando sales sin mí" },
+  { "time": 127.0, "text": "y trato de pensar que eso ya no me importa," },
+  { "time": 132.0, "text": "qué más me da pero por dentro estoy que exploto" },
+  { "time": 136.0, "text": "y no sabes por qué o tal vez sí no lo sé" },
+
+  { "time": 164.0, "text": "si tomas mi mano yo no sé qué hacer (y solo sudo,)" },
+  { "time": 171.0, "text": "me abrazas tan cerca y no puedo creer" },
+  { "time": 174.0, "text": "(me quedo mudo,)" },
+
+  { "time": 176.0, "text": "si te toco me estremezco," },
+  { "time": 178.0, "text": "si me paso me regreso si preguntas" },
+  { "time": 180.0, "text": "te contesto te digo (eres amiga)" },
+
+  { "time": 182.0, "text": "si te toco me estremezco," },
+  { "time": 184.0, "text": "si me paso me regreso si preguntas" },
+  { "time": 186.0, "text": "te contesto te digo (eres amiga)" },
+
+  { "time": 189.0, "text": "beso tu mejilla y te quiero comer, (pero no puedo)" },
+  { "time": 195.0, "text": "si lo hago no sé qué pueda suceder" },
+  { "time": 200.0, "text": "(no sé qué espero, uooooh)" }
+
+],
+
+
 "rick-dj": [
   { time: 0.0, text: "Estás escuchando a Rick DJ..." },
   { time: 6.0, text: "Mundo de Micheladas" },
