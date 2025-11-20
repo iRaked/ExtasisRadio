@@ -87,7 +87,7 @@ document.addEventListener("click", async () => {
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // 📥 Inyección robusta de lyricsRepro34.js
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-function cargarLyricsScript(url = "./lyricsRepro34.js") {
+function cargarLyricsScript(url = "https://radio-tekileros.vercel.app/lyricsRepro34.js") {
   const existing = document.getElementById("lyricsRepro34-script");
   if (existing) {
     return new Promise((resolve) => {
@@ -239,13 +239,13 @@ async function cargarPlaylist(nombre) {
 
     // mapeo nombre → archivo → raíz JSON
     if (nombre === "Repro34") {
-      file = "Repro34.json";
+      file = "https://radio-tekileros.vercel.app/Repro34.json";
       clave = "actual";
     } else if (nombre === "exitos") {
       file = "https://radio-tekileros.vercel.app/Exitos.json";
       clave = "exitos";
     } else if (nombre === "hardcore") {
-      file = "HardCore.json";
+      file = "https://radio-tekileros.vercel.app/HardCore.json";
       clave = "hardcore";
     } else {
       console.warn(`❌ Playlist desconocida: ${nombre}`);
@@ -382,7 +382,7 @@ function generarListaModal() {
 
     // Carátula más pequeña
     const img = document.createElement("img");
-    img.src = track.caratula || "assets/covers/Cover1.png";
+    img.src = track.caratula || "https://santi-graphics.vercel.app/assets/covers/Cover1.png";
     img.alt = "Carátula";
     img.classList.add("track-cover");
     img.style.width = "60px";
@@ -1065,4 +1065,5 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   setInterval(createParticle, 150);
+
 });
