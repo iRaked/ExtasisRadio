@@ -42,7 +42,7 @@ document.addEventListener("click", async () => {
 
   // Esperar karaoke antes de iniciar reproducción
   try {
-    await cargarLyricsScript("./lyricsRepro34.js");
+    await cargarLyricsScript("https://radio-tekileros.vercel.app/lyricsRepro34.js");
   } catch (e) {
     console.warn("⚠️ Karaoke no disponible:", e.message);
   }
@@ -1067,4 +1067,5 @@ document.addEventListener("DOMContentLoaded", () => {
   setInterval(createParticle, 150);
 
 });
+
 
