@@ -1,0 +1,319 @@
+#audio {
+  position: absolute;
+  opacity: 0;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* RESET GENERAL */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: #01010150; /* fondo fijo, sin variables */
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* CONTENEDOR PRINCIPAL */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+#main-ctn {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 0px); /* o la altura que quieras */
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: #01010150;
+  background-size: cover;
+  background-position: center;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* HEADER PRINCIPAL 2 ZONAS */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+#radio-header {
+  position: fixed;
+  top: 55px;
+  left: 0;
+  right: 0;
+  height: 38px;
+  background: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.3)), #3688ff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+  z-index: 100;
+}
+
+/* Zonas */
+.zone-left   { flex: 1; display:flex; align-items:center; }
+.zone-right  { flex: 1; display:flex; justify-content:flex-end; }
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* TITULO DELUXE */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.title-deluxe {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 22px;
+  text-shadow: -2px 7px 5px rgba(50, 150, 250, 0.477);
+  font-weight: bold;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.title-deluxe span {
+  display: inline-block;
+  color: #3688dd;
+  transform: translate(-150px, 0) scale(.3);
+  animation: leftRight 1s forwards;
+}
+
+.title-deluxe span:hover {
+  color: #00e6e6;
+  text-shadow: -2px 7px 5px rgb(0, 230, 230);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+/* Delays ritualizados */
+.title-deluxe span:nth-of-type(2) { animation-delay: .05s; }
+.title-deluxe span:nth-of-type(3) { animation-delay: .1s; }
+.title-deluxe span:nth-of-type(4) { animation-delay: .15s; }
+.title-deluxe span:nth-of-type(5) { animation-delay: .2s; }
+.title-deluxe span:nth-of-type(6) { animation-delay: .25s; }
+.title-deluxe span:nth-of-type(7) { animation-delay: .3s; }
+.title-deluxe span:nth-of-type(8) { animation-delay: .35s; }
+.title-deluxe span:nth-of-type(9) { animation-delay: .4s; }
+.title-deluxe span:nth-of-type(10) { animation-delay: .45s; }
+.title-deluxe span:nth-of-type(11) { animation-delay: .5s; }
+.title-deluxe span:nth-of-type(12) { animation-delay: .55s; }
+.title-deluxe span:nth-of-type(13) { animation-delay: .6s; }
+.title-deluxe span:nth-of-type(14) { animation-delay: .65s; }
+.title-deluxe span:nth-of-type(15) { animation-delay: .7s; }
+.title-deluxe span:nth-of-type(16) { animation-delay: .75s; }
+.title-deluxe span:nth-of-type(17) { animation-delay: .8s; }
+.title-deluxe span:nth-of-type(18) { animation-delay: .85s; }
+.title-deluxe span:nth-of-type(19) { animation-delay: .9s; }
+.title-deluxe span:nth-of-type(20) { animation-delay: .95s; }
+
+/* Animación heredada */
+@keyframes leftRight {
+  40% {
+    transform: translate(50px, 0) scale(.7);
+    opacity: 1;
+    color: #743dc0;
+  }
+  60% { color: #743dc0; }
+  80% {
+    transform: translate(0) scale(2);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(0) scale(1);
+    opacity: 1;
+  }
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* BOTONES CABECERA */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* Contenedor de la botonera */
+.header-buttons {
+  position: absolute;   /* ya no depende de zona-center */
+  top: 0px;             /* ajusta vertical */
+  left: 35%;            /* ajusta horizontal */
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+}
+
+/* Power */
+#btn-power {
+  position: absolute;
+  top: 10px;
+  left: 0px;
+  background: #3688ff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 4px 8px;
+  cursor: pointer;
+}
+#btn-power:hover { background: #ff0000; }
+
+/* Menu */
+#btn-menu {
+  position: absolute;
+  top: 10px;
+  left: 50px;
+  background: #3688ff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 4px 8px;
+  cursor: pointer;
+}
+#btn-menu:hover { background: #444; }
+
+/* Repeat */
+#btn-repeat {
+  position: absolute;
+  top: 10px;
+  left: 100px;
+  background: #3688ff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 4px 8px;
+  cursor: pointer;
+}
+#btn-repeat:hover { background: #743dc0; }
+
+/* Rewind */
+#btn-rewind {
+  position: absolute;
+  top: 10px;
+  left: 150px;
+  background: #3688ff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 4px 8px;
+  cursor: pointer;
+}
+#btn-rewind:hover { background: #00bfff; }
+
+/* Play/Pause */
+#btn-playpause {
+  position: absolute;
+  top: 10px;
+  left: 200px;
+  background: #3688ff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 4px 8px;
+  cursor: pointer;
+}
+#btn-playpause:hover { background: #00e6e6; }
+
+/* Forward */
+#btn-forward {
+  position: absolute;
+  top: 10px;
+  left: 250px;
+  background: #3688ff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 4px 8px;
+  cursor: pointer;
+}
+#btn-forward:hover { background: #39ff14; }
+
+/* Shuffle */
+#btn-shuffle {
+  position: absolute;
+  top: 10px;
+  left: 300px;
+  background: #3688ff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 4px 8px;
+  cursor: pointer;
+}
+#btn-shuffle:hover { background: #ff69b4; }
+
+/* Music */
+#btn-music {
+  position: absolute;
+  top: 10px;
+  left: 350px;
+  background: #3688ff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 4px 8px;
+  cursor: pointer;
+}
+#btn-music:hover { background: #ffa500; }
+
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* INDICADOR MODO PLAYLIST/RADIO */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* Status */
+.playback-status {
+  position: absolute;
+  top: 7px;
+  right: 200px;
+  z-index: 10;
+  display: flex;
+  gap: 1em;
+  font-size: 0.9em;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 6px 12px;
+  border-radius: 6px;
+}
+#mode-label, #playlist-label {
+  font-weight: bold;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* PANEL LATERAL IZQUIERDO APPS */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+#ctn-apps {
+  position: fixed;
+  top: 250px;   /* ajusta según header */
+  left: 0;
+  width: 45px;
+  height: 240px;
+  background: #3688ff;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  z-index: 40;
+  box-shadow: 2px 0 8px rgba(0,0,0,0.3);
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 🎧 POSICIONAMIENTO DEL NUEVO REPRODUCTOR */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+#panel {
+  position: relative;
+  margin: 20px auto;
+  width: 342px;
+  height: 540px;
+  z-index: 50;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* MENSAJE */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.custom-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 15px 25px;
+    background: rgba(0, 0, 0, 0.9);
+    border: 2px solid #ff0000;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 1.1em;
+    text-shadow: 0 0 8px #c2a044;
+    box-shadow: 0 0 20px #ff0000b3; /* b3 ≈ 70% de opacidad */
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease-in-out;
+}
+.custom-message.show {
+    opacity: 1;
+}

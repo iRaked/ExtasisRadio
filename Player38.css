@@ -1,0 +1,1758 @@
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 01 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+/* Solo en pantallas pequeñas activar scroll horizontal */
+@media (max-width: 768px) {
+  html, body {
+    overflow-x: auto;   /* permite scroll horizontal */
+    overflow-y: hidden; /* opcional: bloquea scroll vertical si no lo quieres */
+  }
+}
+
+#main-container {
+  position: absolute;
+    bottom: 10px;
+    left: 25%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  width: 880px;
+  margin: auto;
+  padding: 0;
+  gap: 0;
+  background-image: url("https://santi-graphics.vercel.app/assets/bg/BG-DalePlay.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 20px;
+  overflow-x: auto;           /* ← activa scroll horizontal */
+  scroll-behavior: smooth;    /* ← desplazamiento suave */
+  z-index: 1;
+}
+
+#main-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+#main-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#main-container::-webkit-scrollbar-thumb {
+  background-color: #666666;   /* gris medio */
+  border-radius: 4px;
+  border: 2px solid #aaaaaa;   /* gris claro */
+}
+
+#main-container::-webkit-scrollbar-thumb:hover {
+  background-color: #444444;   /* gris más oscuro al hover */
+}
+
+/* Scroll activo en pantallas pequeñas */
+@media (max-width: 768px) {
+  #main-container {
+    flex-direction: row;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+}
+
+#left-panel,
+#right-panel {
+  background-color: rgba(30, 30, 30, 0.4); /* gris oscuro semi-transparente */
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  padding: 48px;
+  width: 400px;
+  height: 480px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  z-index: 3;
+  transform: translateZ(0);
+}
+
+/* ***************************** Ondas ***************************** */
+.audio-waves {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  gap: 3px;
+  padding: 15px 0;
+  width: 300px;
+  z-index: 2;
+
+  -webkit-mask-image: radial-gradient(circle at center, transparent 40%, black 100%);
+  mask-image: radial-gradient(circle at center, transparent 40%, black 100%);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: cover;
+  mask-size: cover;
+}
+
+.wave-bar {
+  width: 10px;
+  height: var(--height, 60px);
+  background-color: #9e9e9e; /* gris medio para las barras */
+  border-radius: 2px;
+  animation: barDance 1s infinite cubic-bezier(0.4, 0, 0.2, 1);
+  animation-delay: var(--delay, 0s);
+  opacity: 1;
+}
+
+/* Animaciones */
+@keyframes wave-animation {
+  0%, 100% { transform: scaleY(0.5); }
+  50% { transform: scaleY(1); }
+}
+
+@keyframes letterPulse {
+  0% {
+    text-shadow:
+      0 0 6px rgba(200, 200, 200, 0.9),
+      0 0 12px rgba(150, 150, 150, 0.6),
+      0 0 24px rgba(100, 100, 100, 0.4);
+    color: #d0d0d0;
+  }
+  100% {
+    text-shadow:
+      0 0 10px rgba(220, 220, 220, 1),
+      0 0 20px rgba(180, 180, 180, 0.8),
+      0 0 30px rgba(140, 140, 140, 0.6),
+      0 0 40px rgba(255, 255, 255, 0.4);
+    color: #f0f0f0;
+  }
+}
+
+@keyframes letterFloat {
+  0% { transform: translateY(0px) translateZ(0); }
+  30% { transform: translateY(-3px) translateZ(10px); }
+  70% { transform: translateY(2px) translateZ(5px); }
+  100% { transform: translateY(-1px) translateZ(0); }
+}
+
+@keyframes reflectionPulse {
+  0% { opacity: 0.2; transform: scale(0.8); }
+  100% { opacity: 0.6; transform: scale(1.2); }
+}
+
+@keyframes barDance {
+  0% { height: calc(var(--height) * 0.6); }
+  100% { height: var(--height); }
+}
+
+@keyframes glowPulse {
+  0% { opacity: 0.4; filter: blur(20px); }
+  100% { opacity: 0.8; filter: blur(25px); }
+}
+
+@keyframes wordRotate {
+  0%, 100% { transform: rotateX(0deg); }
+  25% { transform: rotateX(2deg); }
+  75% { transform: rotateX(-2deg); }
+}
+
+@keyframes wordFloat {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+  100% { transform: translateY(1px); }
+}
+
+@keyframes neonFlicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+    opacity: 1;
+    text-shadow:
+      0 0 10px #d0d0d0,
+      0 0 15px #a0a0a0,
+      0 0 25px #707070,
+      0 0 40px #ffffff;
+    color: #e0e0e0;
+  }
+  20%, 22%, 24%, 55% {
+    opacity: 0.8;
+    text-shadow:
+      0 0 5px #b0b0b0,
+      0 0 10px #808080,
+      0 0 15px #606060;
+    color: #c0c0c0;
+  }
+}
+
+@keyframes neon-pulse {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.5); }
+}
+
+@keyframes reflection-pulse {
+  0%, 100% {
+    opacity: 0.3;
+    width: 80%;
+    left: 10%;
+  }
+  50% {
+    opacity: 0.6;
+    width: 90%;
+    left: 5%;
+  }
+}
+
+@media (max-width: 768px) {
+  .audio-waves {
+    top: 12px;
+    width: 90vw;
+    gap: 2px;
+    padding: 10px 0;
+    transform: translateX(-50%);
+  }
+
+  .wave-bar {
+    width: 6px;
+    height: var(--height, 40px);
+  }
+}
+
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 02 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+/*  ****************** Estilos para el contenedor de fecha y hora ******************  */
+.datetime-container {
+  color: #e0e0e0;
+  background-color: rgba(30, 30, 30, 0.7);
+  border-radius: 12px;
+  padding: 5px 10px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  justify-content: center;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+  position: absolute;
+  bottom: 535px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .datetime-container {
+    position: static;
+    margin: 16px auto;
+    flex-wrap: wrap;
+    justify-content: center;
+    font-size: 12px;
+    transform: none;
+  }
+}
+
+.date-separator {
+  color: #999;
+  margin: 0 5px;
+  opacity: 0.6;
+}
+
+/* Marquesina Ubicacion */
+#current-city {
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 120px;
+  position: relative;
+}
+
+#current-city::before {
+  content: attr(data-text);
+  position: absolute;
+  animation: deslizar 8s linear infinite;
+}
+
+@keyframes deslizar {
+  0% { left: 100%; }
+  100% { left: -100%; }
+}
+
+.datetime-container i {
+  color: #bdbdbd; /* gris medio para iconos */
+  font-size: 14px;
+}
+
+#current-time, #current-date {
+  font-weight: bold;
+}
+
+/* Animación sutil para el reloj */
+.datetime-container .fa-clock {
+  animation: clockPulse 2s infinite linear;
+}
+
+@keyframes clockPulse {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(3deg); }
+  75% { transform: rotate(-3deg); }
+  100% { transform: rotate(0deg); }
+}
+
+/*  Radioescuchas */
+.listeners-container {
+  background-color: rgba(40, 40, 40, 0.8);
+  border-radius: 12px;
+  padding: 5px 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #d0d0d0;
+  position: absolute;
+  top: 55px;
+  left: 10px;
+  z-index: 10;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+.listeners-count {
+  font-weight: bold;
+  color: #f5f5f5;
+  animation: countPulse 2s infinite;
+}
+
+@keyframes countPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .datetime-container {
+    position: static;
+    margin: 16px auto;
+    flex-wrap: wrap;
+    justify-content: center;
+    font-size: 12px;
+  }
+
+  .listeners-container {
+    position: static;
+    margin: 8px auto;
+    justify-content: center;
+    font-size: 12px;
+  }
+
+  #current-city {
+    max-width: 100px;
+  }
+}
+
+/* ***************************** LOGO ***************************** */
+.radio-logo {
+  width: 100%;
+  max-width: 220px;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  margin: 25px auto 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  animation: vinylSpin 3s linear infinite, glow 3s infinite alternate;
+  box-shadow: 0 0 15px #bdbdbd;
+  z-index: 5;
+  isolation: isolate;
+}
+
+.radio-logo::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url(https://santi-graphics.vercel.app/assets/img/Plato.png);
+  background-size: cover;
+  background-position: center;
+  opacity: 1.0;
+  z-index: 2;
+}
+
+.radio-logo:hover {
+  box-shadow: 0 0 20px rgba(200, 200, 200, 0.8); /* resplandor gris claro */
+}
+
+@keyframes vinylSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 25px rgba(180, 180, 180, 0.5);
+    border-color: rgba(160, 160, 160, 0.6);
+  }
+  100% {
+    box-shadow: 0 0 30px rgba(220, 220, 220, 0.8);
+    border-color: rgba(200, 200, 200, 0.9);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .radio-logo {
+    max-width: 160px;
+    margin: 16px auto;
+  }
+}
+
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 03 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+/*  *******************Estilos para el control de volumen (escala de grises)***************  */
+.volume-control {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 0 5px;
+}
+
+.volume-control i {
+    color: #e0e0e0;
+    font-size: 16px;
+    width: 20px; /* ancho fijo para evitar saltos */
+    transition: color 0.3s;
+    cursor: pointer;
+}
+
+.volume-control i:hover {
+    color: #9e9e9e;
+}
+
+.volume-slider {
+    width: 70%;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none; /* 🔑 asegura que el control sea nativo y clicable */
+    height: 6px;
+    cursor: pointer; /* 🔑 permite hacer clic en cualquier parte del track */
+    background: linear-gradient(
+      to right,
+      #9e9e9e var(--volume-percent, 70%),
+      #3a3a3a var(--volume-percent, 70%)
+    );
+    border-radius: 5px;
+    outline: none;
+    position: relative;
+    transition: background 0.15s linear;
+}
+
+/* Thumb WebKit */
+.volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    background: #f5f5f5;
+    border-radius: 50%;
+    cursor: pointer; /* 🔑 asegura que el pivote responda al clic */
+    border: 2px solid #9e9e9e;
+    box-shadow: 0 0 6px rgba(0,0,0,0.4);
+    transition: all 0.2s;
+}
+
+.volume-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+    background: #bdbdbd;
+    box-shadow: 0 0 8px rgba(0,0,0,0.5);
+}
+
+.volume-slider:active::-webkit-slider-thumb {
+    transform: scale(1.3);
+    background: #9e9e9e;
+}
+
+/* Firefox track */
+.volume-slider::-moz-range-track {
+    background: linear-gradient(
+      to right,
+      #9e9e9e var(--volume-percent, 70%),
+      #3a3a3a var(--volume-percent, 70%)
+    );
+    height: 6px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.volume-slider::-moz-range-thumb {
+    width: 15px;
+    height: 15px;
+    background: #f5f5f5;
+    border-radius: 50%;
+    cursor: pointer; /* 🔑 asegura que el pivote responda en Firefox */
+    border: 2px solid #9e9e9e;
+    box-shadow: 0 0 6px rgba(0,0,0,0.4);
+}
+
+/* Porcentaje */
+.volume-percentage {
+    color: #e0e0e0;
+    font-size: 12px;
+    min-width: 32px;
+    text-align: right;
+    font-weight: bold;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  #block-volumen {
+    position: absolute;
+    bottom: 210px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    z-index: 999;
+  }
+
+  .volume-control {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .volume-slider {
+    width: 100%;
+  }
+
+  .volume-percentage {
+    text-align: center;
+    width: 100%;
+  }
+}
+
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 04 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+/* ***************************** INFO + EMOCIONES ***************************** */
+/* Contenedor Info + Track */
+.track-display-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: rgba(30, 30, 30, 0.7); /* gris oscuro */
+  border-radius: 12px;
+  padding: 12px 18px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 340px;
+  left: 8px;
+  width: 400px;
+  min-height: 120px;
+  max-height: 180px;
+  overflow: hidden;
+  z-index: 9;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .track-display-container {
+    right: 250px;
+  }
+}
+
+/* Carátula */
+.cover-art-container {
+  flex-shrink: 0;
+}
+
+#cover-art {
+  width: 100px;
+  height: 100px;
+  border-radius: 10px;
+  box-shadow:
+    0 0 12px 4px rgba(180, 180, 180, 0.6),  /* gris claro cercano */
+    0 0 24px 6px rgba(120, 120, 120, 0.4),  /* gris medio */
+    0 0 36px 8px rgba(255, 255, 255, 0.2);  /* halo blanco lejano */
+  object-fit: cover;
+}
+
+/* Información */
+.info-track-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  padding-left: 12px;
+  color: #e0e0e0; /* texto gris claro */
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+/* Iconos */
+.info-track-container i {
+  color: #bdbdbd; /* gris medio para iconos */
+  font-size: 15px;
+}
+
+/* Contenedor por línea */
+.scroll-wrapper {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  height: 1.4em;
+  mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+}
+
+.scroll-text {
+  display: inline-block;
+  white-space: nowrap;
+  font-size: 16px;
+  line-height: 1.4;
+  color: #f5f5f5; /* gris muy claro */
+  transform: translateX(0%);
+  will-change: transform;
+  margin: 0;
+}
+
+/* Activación forzada para prueba */
+.scrollable {
+  animation: scroll-left 10s linear infinite;
+}
+
+/* Animación */
+@keyframes scroll-left {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+/* Playlist Actual */
+#track-playlist {
+  font-size: 0.85em;
+  font-style: italic;
+  color: #9e9e9e; /* gris medio como acento */
+  margin-top: 4px;
+}
+
+/* Base Colores Para Emociones en Info Track */
+#track-emotion[class^="emotion-"] {
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: color 0.4s ease;
+  animation: emotionPulse 3s ease-in-out infinite;
+  display: inline-block;
+  overflow: visible;
+}
+
+@keyframes emotionPulse {
+  0%, 100% {
+    transform: scale(0.90);
+    box-shadow: 0 0 6px currentColor;
+  }
+  50% {
+    transform: scale(1.00);
+    box-shadow: 0 0 12px currentColor;
+  }
+}
+
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 05 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+/* ***************************** BOTONES 1 ***************************** */
+/* Botonera Invisible */
+#block-controls {
+  position: absolute;
+  top: 480px;           /* ← ajusta según tu layout */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300px;         /* ← puedes ajustar según contenido */
+  height: auto;
+  border-radius: 12px;
+  z-index: 10;
+  background: transparent;   /* invisible */
+  box-shadow: none;          /* sin sombra */
+  border: none;              /* sin borde */
+}
+
+/* 🎛️ Controles del reproductor */
+.radio-logo .player-controls {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent; /* invisible */
+  z-index: 5;
+  opacity: 1;
+  pointer-events: none;
+  animation: counterRotation 3s linear infinite;
+}
+
+/* 🔄 Contrarresta rotación del disco */
+@keyframes counterRotation {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(-360deg); }
+}
+
+/* 🧩 Botones base */
+.btn-engendro {
+  border-radius: 50%;
+  background: linear-gradient(to bottom, #1a1a1a, #444); /* gris oscuro */
+  color: #f5f5f5;
+  box-shadow: 0 4px 8px rgba(160,160,160,0.6);          /* sombra gris */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s ease;
+  position: absolute;
+}
+.btn-engendro:hover {
+  transform: scale(1.1);
+}
+
+/* 🎯 Botón POWER */
+.btn-power {
+  position: relative;
+  bottom: 470px;
+  right: 60px;
+  width: 32px;
+  height: 32px;
+  background: #2a2a2a; /* gris oscuro */
+  border-radius: 50%;
+  color: #f5f5f5;
+  box-shadow: 0 0 8px rgba(180,180,180,0.8); /* sombra gris clara */
+  transition: transform 0.3s ease;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  z-index: 20;
+}
+.btn-power:hover {
+  transform: scale(1.1);
+}
+
+/* 🔘 Botón PLAY */
+.btn-engendro-play {
+  position: relative;
+  bottom: 135px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(to right,
+    #2a2a2a 0%,   /* gris oscuro */
+    #555 50%,     /* gris medio */
+    #777 100%     /* gris claro */
+  );
+  color: #f5f5f5;
+  box-shadow: 0 0 10px rgba(180,180,180,0.6); /* resplandor gris */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s ease;
+  z-index: 20;
+}
+
+/* 🔴 Botón Play */
+.play-btn {
+  width: 80px;
+  height: 80px;
+  bottom: 20px;
+  left: 38%;
+  border-radius: 50%;
+  box-shadow: 0 0 6px rgba(180,180,180,0.4); /* sombra gris */
+  font-size: 1.0em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  background: linear-gradient(to bottom, #1a1a1a, #444); /* gris */
+  color: #f5f5f5;
+}
+
+.rewind-btn {
+  width: 55px;
+  height: 55px;
+  bottom: 28px;
+  left: 50px;
+  border-radius: 50%;
+  box-shadow: 0 0 6px rgba(180,180,180,0.4); /* sombra gris */
+  font-size: 1.0em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  background: linear-gradient(to bottom, #1a1a1a, #444);
+  color: #f5f5f5;
+}
+
+.rewind-btn:active {
+  transform: scale(1.2);
+}
+
+/* 🌀 Animación de giro simbólico */
+.rewind-btn i.animate-spin {
+  animation: spinOnce 0.6s ease-out;
+}
+
+.forward-btn {
+  width: 55px;
+  height: 55px;
+  bottom: 28px;
+  left: 205px;
+  border-radius: 50%;
+  box-shadow: 0 0 6px rgba(180,180,180,0.4);
+  font-size: 1.0em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  background: linear-gradient(to bottom, #1a1a1a, #444);
+  color: #f5f5f5;
+}
+
+.forward-btn:active {
+  transform: scale(1.2);
+}
+
+/* 🌀 Animación de giro simbólico */
+.forward-btn i.animate-spin {
+  animation: spinOnce 0.6s ease-out;
+}
+
+/* 📍 Posiciones individuales */
+.repeat-btn {
+  width: 45px;
+  height: 45px;
+  bottom: 32px;
+  right: 265px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  border-radius: 50%;
+  box-shadow: 0 0 6px rgba(180,180,180,0.4);
+  font-size: 1.0em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to bottom, #1a1a1a, #444);
+  color: #f5f5f5;
+}
+
+/* Glow blanco cuando Repeat está activo */
+.repeat-active {
+  box-shadow: 0 0 12px 4px rgba(255, 255, 255, 0.85);
+  outline: 1px solid rgba(255, 255, 255, 0.6);
+  transition: box-shadow 200ms ease, outline 200ms ease;
+}
+
+.repeat-active i {
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.9));
+}
+
+
+.shuffle-btn {
+  width: 45px;
+  height: 45px;
+  bottom: 32px;
+  left: 270px;
+  border-radius: 50%;
+  box-shadow: 0 0 6px rgba(180,180,180,0.4);
+  font-size: 1.0em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  background: linear-gradient(to bottom, #1a1a1a, #444);
+  color: #f5f5f5;
+}
+
+.shuffle-active {
+  background-color: #777;
+  box-shadow: 0 0 12px 4px rgba(200,200,200,0.6);
+  animation: pulse-shuffle 1.2s infinite;
+  border-radius: 50%;
+}
+
+@keyframes pulse-shuffle {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 12px 4px rgba(200,200,200,0.6);
+  }
+  50% {
+    transform: scale(1.1);
+    box-shadow: 0 0 18px 6px rgba(220,220,220,0.8);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 12px 4px rgba(200,200,200,0.6);
+  }
+}
+
+.btn-menu {
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  bottom: 60px;
+  right: 320px;
+  border-radius: 50%;
+  background: linear-gradient(to bottom, #1a1a1a, #333);
+  color: #f5f5f5;
+  box-shadow: 0 0 6px rgba(180,180,180,0.4);
+  font-size: 1.0em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+.btn-menu:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 10px rgba(200,200,200,0.8);
+}
+
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 06 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+/* ***************************** BOTONES 2 ***************************** */
+/* 🔘 Botón flotante de contenido */
+.contenido-btn {
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  bottom: 60px;
+  left: 325px;
+  border-radius: 50%;
+  background: linear-gradient(to bottom, #1a1a1a, #444); /* gris oscuro */
+  color: #f5f5f5;
+  box-shadow: 0 0 6px rgba(160, 160, 160, 0.4);          /* sombra gris */
+  font-size: 1.0em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.contenido-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 10px rgba(200, 200, 200, 0.8);         /* hover gris claro */
+}
+
+/* 🌀 Animación de giro ritual */
+.contenido-btn i.animate-spin {
+  animation: spinOnce 0.6s ease-out;
+}
+
+/* ✨ Animación activa */
+.repeat-btn:active {
+  transform: scale(1.2);
+}
+
+/* 🔙 Botón Volver a listas */
+.volver-btn {
+  margin-top: 12px;
+  padding: 8px 14px;
+  background-color: #555;     /* gris medio */
+  color: #f5f5f5;             /* texto gris claro */
+  border: none;
+  border-radius: 8px;
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.volver-btn:hover {
+  background-color: #777;     /* gris más claro al hover */
+  transform: scale(1.05);
+}
+
+/* 🌀 Animación de giro simbólico */
+.repeat-btn i.animate-spin {
+  animation: spinOnce 0.6s ease-out;
+}
+
+/* 🌀 Animación de giro simbólico */
+.rewind-btn i.animate-spin {
+  animation: spinOnce 0.6s ease-out;
+}
+
+@keyframes spinOnce {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(-360deg); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .playlist-panel,
+  #contenido-panel {
+    position: static;
+    width: 100%;
+    max-width: 320px;
+    margin: 16px auto;
+    top: auto;
+    right: auto;
+  }
+
+  .contenido-btn {
+    bottom: 60px;
+    right: 20px;
+  }
+}
+
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 07 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+/* ************************* NOTAS MUSICALES ************************* */
+/* Modificación de los contenedores de efectos para limitarlos al reproductor */
+    .music-notes-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
+    overflow: hidden;
+    }
+    
+    /* Corregir las posiciones de inicio de las notas musicales */
+    .music-note {
+    position: absolute;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 24px;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+    animation: floatNote 12s linear infinite;
+    opacity: 0;
+    }
+    
+    .music-note:nth-child(1) { left: 20%; top: -30px; animation-delay: 0s; font-size: 25px; }
+    .music-note:nth-child(2) { left: 40%; top: -30px; animation-delay: 2s; font-size: 18px; }
+    .music-note:nth-child(3) { left: 60%; top: -30px; animation-delay: 4s; font-size: 22px; }
+    .music-note:nth-child(4) { left: 80%; top: -30px; animation-delay: 6s; font-size: 26px; }
+    .music-note:nth-child(5) { left: 10%; top: -30px; animation-delay: 1s; font-size: 20px; }
+    .music-note:nth-child(6) { left: 30%; top: -30px; animation-delay: 3s; font-size: 19px; }
+    .music-note:nth-child(7) { left: 50%; top: -30px; animation-delay: 5s; font-size: 24px; }
+    .music-note:nth-child(8) { left: 70%; top: -30px; animation-delay: 7s; font-size: 21px; }
+    
+    /* Animación modificada para que las notas se muevan solo dentro del contenedor */
+    @keyframes floatNote {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.8;
+    }
+    90% {
+        opacity: 0.6;
+    }
+    100% {
+        transform: translateY(380px) rotate(360deg);
+        opacity: 0;
+    }
+    }
+
+/* ***************************** MÁSCARA NOTAS ***************************** */
+/* Máscara de capa para ocultar ondas detrás del logo */
+.mask-wrapper {
+  position: absolute;
+  top: 150px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  overflow: visible; /* solo para diagnóstico */
+
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .mask-wrapper {
+    top: 200px;
+    width: 160px;
+    height: 160px;
+  }
+
+  .music-note {
+    font-size: 18px;
+  }
+
+  @keyframes floatNote {
+    100% {
+      transform: translateY(280px) rotate(360deg);
+      opacity: 0;
+    }
+  }
+}
+
+.logo-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;          /* ocupa el 80% del ancho del panel derecho */
+  height: auto;        /* se ajusta proporcionalmente */
+  max-width: 400px;    /* límite según el ancho del panel */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: visible;   /* sin recorte */
+}
+
+.logo-base {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  animation: auto-zoom 6s ease-in-out infinite; /* pulso automático */
+  transition: transform 0.6s ease;
+}
+
+/* Hover intensifica el zoom */
+.logo-container:hover .logo-base {
+  transform: scale(1.15);
+}
+
+/* Animación automática de zoom */
+@keyframes auto-zoom {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.08); } /* pulso suave respetando el ancho */
+}
+
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 08 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+/* Modal MENU */
+.track-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 1.1em;
+}
+
+.track-list li {
+  padding: 6px 12px;
+  background-color: #1a1a1a; /* gris oscuro */
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+  color: #e0e0e0; /* texto gris claro */
+}
+
+.track-list li:hover {
+  background-color: #333; /* gris medio al hover */
+  color: #f5f5f5;         /* texto gris claro */
+}
+
+/* ======================== */
+/* 🎛️ Modal Playlist/History */
+/* ======================== */
+/* Background Modal */
+.modal::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 540px;
+  height: 650px;
+  transform: translate(-50%, -50%);
+  background-image: url("https://santi-graphics.vercel.app/assets/background/Scene-Grey.gif");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  clip-path: inset(0 round 20px);
+  z-index: -1;
+  border-radius: 12px;
+  opacity: 0.9;
+}
+
+.modal {
+  position: fixed;
+  top: 37.1%;
+  left: 35.5%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 398px;
+  height: 534px; /* NO SE TOCA */
+  background-color: rgba(10, 10, 10, 0.6); /* gris translúcido */
+  color: #f5f5f5;
+  border: 2px solid #777;                  /* borde gris */
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(180, 180, 180, 0.6); /* sombra gris */
+  z-index: 1000;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  gap: 12px;
+}
+
+/* Oculto por defecto */
+.modal.hidden {
+  display: none;
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: #ccc;          /* gris claro */
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.2s ease;
+  margin-bottom: 8px;
+}
+.close-btn:hover {
+  transform: scale(1.2);
+  color: #f5f5f5;       /* gris más claro al hover */
+}
+
+/* Info de pista actual */
+.modal-info {
+  font-size: 0.95em;
+  color: #bdbdbd; /* gris medio */
+  margin: 0 0 8px 0;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: unset;
+  max-height: 40px;
+}
+
+/* Lista de pistas */
+.track-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  flex-grow: 1;
+}
+
+/* Cada pista */
+.modal-track-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  border-bottom: 1px solid #444; /* gris medio */
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+  min-width: 0;
+  color: #e0e0e0;
+}
+.modal-track-item:hover {
+  background-color: #2a2a2a; /* gris oscuro al hover */
+  transform: scale(1.02);
+}
+
+/* Carátula */
+.track-cover {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 0 6px rgba(180, 180, 180, 0.6); /* sombra gris */
+  flex-shrink: 0;
+}
+
+/* Info de la pista */
+.track-info {
+  flex: 1;
+  font-size: 0.9em;
+  line-height: 1.4;
+  color: #ccc;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.track-info strong {
+  color: #f5f5f5; /* gris claro */
+  display: block;
+  margin-bottom: 4px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .modal {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 95%;
+    max-width: 360px;
+    height: 560px;
+    padding: 16px;
+  }
+
+  .modal::before {
+    width: 100%;
+    height: 100%;
+    clip-path: none;
+    border-radius: 12px;
+  }
+
+  .track-cover {
+    width: 60px;
+    height: 60px;
+  }
+
+  .track-info {
+    font-size: 0.85em;
+  }
+}
+
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 09 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+/* Modal de historial dentro del panel derecho */
+#history-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* mantiene el centrado */
+  width: 100%;
+  max-width: 440px;
+  height: 100%;
+  background: rgba(20, 20, 20, 0.95); /* gris oscuro translúcido */
+  border-radius: 10px;
+  padding: 20px;
+  box-sizing: border-box;
+  z-index: 100;
+  display: none;
+}
+
+/* Cuando se abre */
+#history-modal:not(.hidden) {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+/* Contenido interno centrado y expandido */
+#history-modal .modal-content {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+}
+
+/* Lista de historial ocupa todo el espacio */
+#history-list {
+  flex: 1;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+#history-list li {
+  padding: 8px;
+  margin-bottom: 6px;
+  border-bottom: 1px dashed #777; /* gris medio */
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  color: #e0e0e0; /* texto gris claro */
+}
+
+#history-list li:hover {
+  background-color: rgba(255, 255, 255, 0.08); /* gris claro translúcido */
+}
+
+/* 🎚️ Scroll en escala de grises */
+.track-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.track-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.track-list::-webkit-scrollbar-thumb {
+  background-color: #888; /* gris medio */
+  border-radius: 3px;
+  border: 1px solid transparent;
+  background-clip: content-box;
+}
+
+/* Firefox */
+.track-list {
+  scrollbar-width: thin;
+  scrollbar-color: #888 transparent;
+}
+
+/* 🎶 Track actual y artista con aura gris */
+#current-track-display {
+  display: inline-block;
+  padding: 4px 12px;
+  margin-left: 6px;
+  background: linear-gradient(90deg, #444, #777); /* degradado gris */
+  border-radius: 8px;
+  color: #f5f5f5;
+  font-weight: bold;
+  animation: pulseTrack 1.5s infinite;
+  box-shadow: 0 0 6px rgba(180, 180, 180, 0.4);
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@keyframes pulseTrack {
+  0%   { box-shadow: 0 0 6px rgba(180, 180, 180, 0.4); }
+  50%  { box-shadow: 0 0 12px rgba(200, 200, 200, 0.8); }
+  100% { box-shadow: 0 0 6px rgba(180, 180, 180, 0.4); }
+}
+
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+/* 🎛️ Modal Playlist de Tracks */
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+
+#modal-playlist {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 420px;
+  height: 540px;
+  background-color: rgba(20, 20, 20, 0.9); /* fondo gris oscuro translúcido */
+  color: #f5f5f5;
+  border: 2px solid #777;                  /* borde gris */
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(180, 180, 180, 0.6);
+  z-index: 1000;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+#modal-playlist.hidden {
+  display: none;
+}
+
+#modal-playlist .modal-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Botón de cierre */
+#close-playlist-modal {
+  align-self: flex-end;
+  background: none;
+  border: none;
+  color: #ccc;
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.2s ease;
+  margin-bottom: 8px;
+}
+#close-playlist-modal:hover {
+  transform: scale(1.2);
+  color: #f5f5f5;
+}
+
+/* Info de pista actual */
+#current-track-display {
+  font-size: 0.95em;
+  color: #ccc;
+  margin: 0 0 12px 0;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: unset;
+}
+
+/* Lista de pistas */
+#modal-playlist-tracks {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  overflow-y: auto;
+  flex-grow: 1;
+}
+
+/* Cada pista */
+.modal-track-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  border-bottom: 1px solid #333;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+.modal-track-item:hover {
+  background-color: #222;
+  transform: scale(1.02);
+}
+
+/* Carátula */
+.track-cover {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 6px;
+  box-shadow: 0 0 6px #999;
+  flex-shrink: 0;
+}
+
+/* Info de la pista */
+.track-info {
+  flex: 1;
+  font-size: 0.9em;
+  color: #f5f5f5;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  #modal-playlist {
+    width: 95%;
+    max-width: 360px;
+    height: 480px;
+    padding: 16px;
+  }
+  .track-cover {
+    width: 50px;
+    height: 50px;
+  }
+  .track-info {
+    font-size: 0.85em;
+  }
+}
+
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+/* 🎛️ Modal Playlist Menu adaptado a escala de grises */
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+
+/* Fondo animado detrás del modal */
+.modal::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 540px;
+  height: 650px;
+  transform: translate(-50%, -50%);
+  background-image: url("https://santi-graphics.vercel.app/assets/background/Scene-Grey.gif");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  clip-path: inset(0 round 20px);
+  z-index: -1;
+  border-radius: 12px;
+  opacity: 0.9;
+}
+
+/* Contenedor principal del modal */
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 398px;
+  height: 534px; /* NO se toca */
+  background-color: rgba(20, 20, 20, 0.85); /* gris translúcido */
+  color: #f5f5f5;
+  border: 2px solid #777;                  /* borde gris */
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(180, 180, 180, 0.6); /* sombra gris */
+  z-index: 1000;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  gap: 12px;
+}
+
+/* Oculto por defecto */
+.modal.hidden {
+  display: none;
+}
+
+/* Contenido interno */
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Botón de cierre */
+.close-btn {
+  align-self: flex-end;
+  background: none;
+  border: none;
+  color: #ccc;          /* gris claro */
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.2s ease;
+  margin-bottom: 8px;
+}
+.close-btn:hover {
+  transform: scale(1.2);
+  color: #f5f5f5;       /* gris más claro al hover */
+}
+
+/* Título del modal */
+.modal-content h2 {
+  font-size: 1.2em;
+  margin: 0 0 12px 0;
+  text-align: center;
+  color: #e0e0e0;
+}
+
+/* Lista de playlists */
+.track-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  overflow-y: auto;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Cada playlist */
+.track-list li {
+  padding: 8px 12px;
+  background-color: #1a1a1a; /* gris oscuro */
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+  color: #e0e0e0; /* texto gris claro */
+}
+
+.track-list li:hover {
+  background-color: #333; /* gris medio al hover */
+  color: #f5f5f5;         /* texto gris claro */
+}
+
+/* ***************************** LIRYCS ***************************** */
+.right-panel {
+  position: relative;
+}
+
+.lyrics-container {
+    position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 540px;
+  height: 640px;
+  padding: 20px;
+  box-sizing: border-box;
+  /*background-color: rgba(0, 0, 0, 0.6);*/
+  border-radius: 10px;
+  font-family: 'Arial', sans-serif;
+  color: white;
+  overflow-y: hidden;
+    z-index: 999;
+}
+
+
+.lyric-line {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: slideUp 0.8s ease-out forwards;
+  animation-delay: var(--line-delay, 0s);
+  margin-bottom: 12px;
+}
+
+@keyframes slideUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.lyric-line span {
+  display: inline-block;
+  opacity: 0;
+  animation-name: fadeInUp, pulseWord;
+  animation-duration: 0.6s, 0.8s;
+  animation-delay: var(--delay), calc(var(--delay) + 0.2s);
+  animation-fill-mode: forwards;
+  margin-right: 4px;
+  color: var(--color, #ffff66);
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulseWord {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .lyrics-container {
+    width: 90vw;
+    height: auto;
+    max-height: 480px;
+    padding: 16px;
+    font-size: 14px;
+    overflow-y: auto;
+  }
+
+  .lyric-line span {
+    font-size: 14px;
+  }
+}
+
+
+/* *********************** Registro de Visitas/Reproducciones *********************** */
+.track-info span:last-child {
+  color: #aaa; /* gris medio */
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  #particles {
+    left: 0px;
+    transform: translateX(-100px);
+  }
+}
+
+/* Capa de partículas en el panel derecho */
+.right-particle-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 2; /* debajo de modales, encima del fondo */
+}
+
+/* Partícula individual */
+.right-particle-layer .particle {
+  position: absolute;
+  width: var(--size, 4px);
+  height: var(--size, 4px);
+  border-radius: 50%;
+  background: #f5f5f5;   /* gris claro */
+  box-shadow: 0 0 6px rgba(200,200,200,0.7);
+  animation: fall linear forwards;
+}
+
+/* Animación de caída */
+@keyframes fall {
+  from { transform: translateY(-20px) translateX(var(--x-start)); opacity: 1; }
+  to   { transform: translateY(480px) translateX(var(--x-end)); opacity: 0; }
+}
