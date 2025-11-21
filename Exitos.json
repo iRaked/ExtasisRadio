@@ -1,6 +1,17 @@
 {
   "exitos": [
     {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Daaz-Chance.jpg",
+      "id": "chance",
+      "emotion": "romance",
+      "artista": "Daaz",
+      "nombre": "Chance",
+      "dropbox_url": "https://www.dropbox.com/scl/fi/ytqdod3x3nidxnpl3cc8l/DAAZ-Chance.mp3?rlkey=ouzx6xsvuhdk19x4x5rrdfiii&st=auejxpv2&dl=0&raw=1",
+      "seccion": "hits",
+      "duracion": "2:33",
+      "genero": "rap"
+    },
+    {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Ricardo-Arjona-Adentro.jpg",
       "id": "adios-melancolia",
       "emotion": "nostalgia",
@@ -128,4 +139,5 @@
 
 
   ]
+
 }
