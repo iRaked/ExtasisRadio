@@ -10,10 +10,6 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Segoe UI', sans-serif;
-  background: #01010150; /* fondo fijo, sin variables */
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
 }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
@@ -25,9 +21,6 @@ body {
   height: calc(100vh - 0px); /* o la altura que quieras */
   overflow-y: auto;
   overflow-x: hidden;
-  background: #01010150;
-  background-size: cover;
-  background-position: center;
 }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
@@ -39,7 +32,7 @@ body {
   left: 0;
   right: 0;
   height: 38px;
-  background: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.3)), #3688ff;
+  background: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.3)), #888;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -60,7 +53,7 @@ body {
   top: 50%;
   transform: translateY(-50%);
   font-size: 22px;
-  text-shadow: -2px 7px 5px rgba(50, 150, 250, 0.477);
+  text-shadow: -2px 7px 5px rgba(255, 255, 255, 0.5); /* sombra gris */
   font-weight: bold;
   display: flex;
   flex-wrap: wrap;
@@ -68,14 +61,14 @@ body {
 
 .title-deluxe span {
   display: inline-block;
-  color: #3688dd;
+  color: #fff; /* gris medio */
   transform: translate(-150px, 0) scale(.3);
   animation: leftRight 1s forwards;
 }
 
 .title-deluxe span:hover {
-  color: #00e6e6;
-  text-shadow: -2px 7px 5px rgb(0, 230, 230);
+  color: #aaaaaa; /* gris más claro al hover */
+  text-shadow: -2px 7px 5px rgb(255, 255, 255);
   transition: all 0.3s ease;
   cursor: pointer;
 }
@@ -122,24 +115,40 @@ body {
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 /* BOTONES CABECERA */
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
 /* Contenedor de la botonera */
 .header-buttons {
-  position: absolute;   /* ya no depende de zona-center */
-  top: 0px;             /* ajusta vertical */
-  left: 35%;            /* ajusta horizontal */
+  position: absolute;
+  top: 0px;
+  left: 35%;
   transform: translateX(-50%);
   display: flex;
   gap: 6px;
 }
+
+/* Plus */
+#btn-plus {
+  position: absolute;
+  top: 10px;
+  left: -50px; /* 👉 ajusta este valor para que quede justo antes del Power */
+  background: #000;
+  color: #fff;
+  border-color: #fff;
+  border-radius: 6px;
+  padding: 4px 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+#btn-plus:hover { background: #00cc66; } /* verde al hover para diferenciarlo */
 
 /* Power */
 #btn-power {
   position: absolute;
   top: 10px;
   left: 0px;
-  background: #3688ff;
+  background: #000;
   color: #fff;
-  border: none;
+  border-color: #fff;
   border-radius: 6px;
   padding: 4px 8px;
   cursor: pointer;
@@ -151,23 +160,23 @@ body {
   position: absolute;
   top: 10px;
   left: 50px;
-  background: #3688ff;
+  background: #000;
   color: #fff;
-  border: none;
+  border-color: #fff;
   border-radius: 6px;
   padding: 4px 8px;
   cursor: pointer;
 }
-#btn-menu:hover { background: #444; }
+#btn-menu:hover { background: #ffff00; }
 
 /* Repeat */
 #btn-repeat {
   position: absolute;
   top: 10px;
   left: 100px;
-  background: #3688ff;
+  background: #000;
   color: #fff;
-  border: none;
+  border-color: #fff;
   border-radius: 6px;
   padding: 4px 8px;
   cursor: pointer;
@@ -179,9 +188,9 @@ body {
   position: absolute;
   top: 10px;
   left: 150px;
-  background: #3688ff;
+  background: #000;
   color: #fff;
-  border: none;
+  border-color: #fff;
   border-radius: 6px;
   padding: 4px 8px;
   cursor: pointer;
@@ -193,9 +202,9 @@ body {
   position: absolute;
   top: 10px;
   left: 200px;
-  background: #3688ff;
+  background: #000;
   color: #fff;
-  border: none;
+  border-color: #fff;
   border-radius: 6px;
   padding: 4px 8px;
   cursor: pointer;
@@ -207,9 +216,9 @@ body {
   position: absolute;
   top: 10px;
   left: 250px;
-  background: #3688ff;
+  background: #000;
   color: #fff;
-  border: none;
+  border-color: #fff;
   border-radius: 6px;
   padding: 4px 8px;
   cursor: pointer;
@@ -221,9 +230,9 @@ body {
   position: absolute;
   top: 10px;
   left: 300px;
-  background: #3688ff;
+  background: #000;
   color: #fff;
-  border: none;
+  border-color: #fff;
   border-radius: 6px;
   padding: 4px 8px;
   cursor: pointer;
@@ -235,14 +244,42 @@ body {
   position: absolute;
   top: 10px;
   left: 350px;
-  background: #3688ff;
+  background: #000;
   color: #fff;
-  border: none;
+  border-color: #fff;
   border-radius: 6px;
   padding: 4px 8px;
   cursor: pointer;
 }
 #btn-music:hover { background: #ffa500; }
+
+/* Top (Arriba) */
+#btn-top {
+  position: absolute;
+  top: 10px;
+  left: 400px;
+  background: #000;
+  color: #fff;
+  border-color: #fff;
+  border-radius: 6px;
+  padding: 4px 8px;
+  cursor: pointer;
+}
+#btn-top:hover { background: #A020F0; }
+
+/* Bottom (Abajo) */
+#btn-bottom {
+  position: absolute;
+  top: 10px;
+  left: 450px;
+  background: #000;
+  color: #fff;
+  border-color: #fff;
+  border-radius: 6px;
+  padding: 4px 8px;
+  cursor: pointer;
+}
+#btn-bottom:hover { background: #ff4081; }
 
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
@@ -251,8 +288,8 @@ body {
 /* Status */
 .playback-status {
   position: absolute;
-  top: 7px;
-  right: 200px;
+  top: 5px;
+  right: 100px;
   z-index: 10;
   display: flex;
   gap: 1em;
@@ -271,11 +308,11 @@ body {
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 #ctn-apps {
   position: fixed;
-  top: 250px;   /* ajusta según header */
-  left: 0;
+  top: 190px;   /* ajusta según header */
+  left: -5;
   width: 45px;
   height: 240px;
-  background: #3688ff;
+  background: #888;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
   z-index: 40;

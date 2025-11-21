@@ -11,6 +11,7 @@
   position: absolute;
     bottom: 10px;
     left: 25%;
+    transition: all 0.4s ease;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -27,6 +28,12 @@
   overflow-x: auto;           /* ← activa scroll horizontal */
   scroll-behavior: smooth;    /* ← desplazamiento suave */
   z-index: 1;
+}
+
+/* Estado escondido */
+#main-container.hidden-repro {
+  transform: translateY(calc(100% - 10px)); /* deja solo 10px visible */
+  opacity: 0.8; /* opcional: un poco translúcido */
 }
 
 #main-container::-webkit-scrollbar {
@@ -1279,6 +1286,14 @@
   margin-bottom: 4px;
 }
 
+.modal-track-item.selected {
+  background-color: rgba(255, 255, 255, 0.15);
+  outline: 2px solid #ff4081;
+  border-radius: 6px;
+  transition: background-color 0.2s ease, outline 0.2s ease;
+}
+
+
 /* Responsive */
 @media (max-width: 768px) {
   .modal {
@@ -1528,6 +1543,26 @@
   .track-info {
     font-size: 0.85em;
   }
+}
+
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+/* 🎯 Estado seleccionado en modal de Playlist (escala de grises) */
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+#playlist-modal .track-list li.selected {
+  background-color: rgba(200, 200, 200, 0.25); /* gris claro translúcido */
+  color: #f5f5f5;                              /* texto gris muy claro */
+  outline: 2px solid #e0e0e0;                  /* borde gris claro */
+  border-radius: 8px;
+  box-shadow: 0 0 12px rgba(180, 180, 180, 0.6); /* sombra gris */
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  animation: playlistSelectedPulseGrey 1.2s infinite;
+}
+
+/* Pulso animado para resaltar la playlist activa en gris */
+@keyframes playlistSelectedPulseGrey {
+  0%   { transform: scale(1);   box-shadow: 0 0 8px rgba(160,160,160,0.4); }
+  50%  { transform: scale(1.03); box-shadow: 0 0 16px rgba(220,220,220,0.8); }
+  100% { transform: scale(1);   box-shadow: 0 0 8px rgba(160,160,160,0.4); }
 }
 
 /*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
