@@ -77,10 +77,10 @@ window.addEventListener("click", async () => {
 // 📚 Registro de raíces JSON
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 const PLAYLIST_SOURCES = {
-  actual:      "Repro38.json",
-  exitos:      "Exitos.json",
-  hardcore:    "HardCore.json",
-  baladasrock: "BaladasRock.json"
+  actual:      "https://radio-tekileros.vercel.app/Repro38.json",
+  exitos:      "https://radio-tekileros.vercel.app/Exitos.json",
+  hardcore:    "https://radio-tekileros.vercel.app/HardCore.json",
+  baladasrock: "https://radio-tekileros.vercel.app/BaladasRock.json"
 };
 
 // playlists ya está declarado globalmente, aquí solo inicializamos si está vacío
@@ -938,7 +938,7 @@ document.addEventListener("click", (e) => {
 
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// BOTONERAS SINCRONIZADAS (patrón simple)
+// BOTONERAS SINCRONIZADAS
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 //======================================
 // 🔌 BOTÓN POWER (cabecera + panel)
