@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <link rel="icon" type="image/x-icon" href="https://santi-graphics.vercel.app/assets/SG.ico" />
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="author" content="Rick">
+  <title>BG Karaoke</title>
+  <!-- Estilos principales -->
+  <link rel="author" href="https://santi-graphics.vercel.app/copyright.html">
+  <link rel="stylesheet" href="https://radio-tekileros.vercel.app/Repro38.css">
+  <link rel="stylesheet" href="https://radio-tekileros.vercel.app/Player38.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <!-- Scripts Principales -->
+  <script type="text/javascript">
+  document.onkeydown = function(){return false};
+  document.oncontextmenu = function(){return false}
+  </script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://radio-tekileros.vercel.app/Repro38.js" defer></script>
+
+</head>
+
+<body>
+
+    <!-- Audio principal -->
+    <audio id="player" autoplay muted></audio>
+
+    <!-- 🧱 Contenedor lateral izquierdo -->
+    <aside id="ctn-apps"></aside>
+
+  <main id="main-ctn">
+      
+    <!-- Mensaje personalizado para el clic derecho -->
+    <div id="custom-message" class="custom-message">Santi Graphics</div>
+      
+    <!-- 🎛️ Header -->
+    <header id="radio-header">
+      <!-- Zona izquierda: título -->
+      <div class="zone-left">
+        <div class="title-deluxe">
+          <span>R</span><span>A</span><span>D</span><span>I</span><span>O</span><span>ㅤ</span>
+          <span>D</span><span>A</span><span>L</span><span>E</span><span>ㅤ</span>
+          <span>P</span><span>L</span><span>A</span><span>Y</span>
+        </div>
+      </div>
+
+      <!-- Botonera Cabecera -->
+      <div class="header-buttons">
+        <button id="btn-plus" title="Esconder/Revelar"><i class="fa-solid fa-plus"></i></button>
+        <button id="btn-power" title="Power"><i class="fa-solid fa-power-off"></i></button>
+        <button id="btn-menu" title="Menu"><i class="fa-solid fa-bars"></i></button>
+        <button id="btn-repeat" title="Repeat"><i class="fa-solid fa-repeat"></i></button>
+        <button id="btn-rewind" title="Rewind"><i class="fa-solid fa-backward"></i></button>
+        <button id="btn-playpause" title="Play/Pause"><i class="fa-solid fa-play"></i></button>
+        <button id="btn-forward" title="Forward"><i class="fa-solid fa-forward"></i></button>
+        <button id="btn-shuffle" title="Shuffle"><i class="fa-solid fa-shuffle"></i></button>
+        <button id="btn-music" title="Music"><i class="fa-solid fa-music"></i></button>
+        <button id="btn-top" title="Arriba"><i class="fa-solid fa-chevron-up"></i></button>
+        <button id="btn-bottom" title="Abajo"><i class="fa-solid fa-chevron-down"></i></button>
+      </div>
+
+      <!-- Zona derecha: status -->
+      <div class="zone-right">
+        <div id="playback-status" class="playback-status">
+          <span id="mode-label">Modo: —</span>
+          <span id="playlist-label">Playlist: —</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Reproductor Karaoke ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+    <div id="main-container" class="main-container">
+
+    <!-- ◀️ PANEL IZQUIERDO: LP -->
+    <div id="left-panel" class="left-panel">
+
+        <!-- HEADER  -->
+        <section id="info-dj" class="info-dj">
+
+          <header class="datetime-container">
+            <i class="fas fa-clock"></i>
+            <span id="current-time">00:00:00</span>
+            <span class="date-separator">|</span>
+            <i class="fas fa-calendar-alt"></i>
+            <span id="current-date">21/08/2025</span>
+            <span class="date-separator">|</span>
+            <i class="fas fa-map-marker-alt"></i>
+            <span id="current-city">CDMX</span>
+          </header>
+
+          <aside class="listeners-container">
+            <span><i class="fas fa-headphones"></i></span>
+            <output id="contadorRadio" class="listeners-count">--</output>
+          </aside>
+
+        </section><!-- CIERRE BLOQUE HEADER -->
+        
+        <!-- EFECTOS -->
+        <section id="visual-effects" class="visual-effects">
+
+          <!-- LOGO -->
+          <figure class="radio-logo"></figure>
+
+          <!-- Pulso detrás del logo -->
+          <div class="pulse-effect-container">
+            <span class="pulse-ring pulse-ring-1"></span>
+            <span class="pulse-ring pulse-ring-2"></span>
+            <span class="pulse-ring pulse-ring-3"></span>
+          </div>
+
+          <!-- MÁSCARA como contenedor -->
+          <div class="mask-wrapper">
+            <div class="mask-center"></div>
+
+            <!-- Ondas Engendro integradas -->
+          <div class="audio-waves">
+            <!-- Solo se muestra una serie representativa -->
+            <div class="wave-bar" style="--delay: 0.1s; --height: 15px;"></div>
+            <div class="wave-bar" style="--delay: 0.2s; --height: 35px;"></div>
+            <div class="wave-bar" style="--delay: 0.3s; --height: 25px;"></div>
+            <div class="wave-bar" style="--delay: 0.4s; --height: 40px;"></div>
+            <div class="wave-bar" style="--delay: 0.5s; --height: 20px;"></div>
+            <div class="wave-bar" style="--delay: 0.6s; --height: 30px;"></div>
+            <div class="wave-bar" style="--delay: 0.7s; --height: 35px;"></div>
+            <div class="wave-bar" style="--delay: 0.8s; --height: 45px;"></div>
+            <div class="wave-bar" style="--delay: 0.9s; --height: 30px;"></div>
+            <div class="wave-bar" style="--delay: 1.0s; --height: 25px;"></div>
+            <div class="wave-bar" style="--delay: 0.1s; --height: 15px;"></div>
+            <div class="wave-bar" style="--delay: 0.2s; --height: 35px;"></div>
+            <div class="wave-bar" style="--delay: 0.3s; --height: 25px;"></div>
+            <div class="wave-bar" style="--delay: 0.4s; --height: 40px;"></div>
+            <div class="wave-bar" style="--delay: 0.5s; --height: 20px;"></div>
+            <div class="wave-bar" style="--delay: 0.6s; --height: 30px;"></div>
+            <div class="wave-bar" style="--delay: 0.7s; --height: 35px;"></div>
+            <div class="wave-bar" style="--delay: 0.8s; --height: 45px;"></div>
+            <div class="wave-bar" style="--delay: 0.9s; --height: 30px;"></div>
+            <div class="wave-bar" style="--delay: 1.0s; --height: 25px;"></div>
+            <div class="wave-bar" style="--delay: 0.4s; --height: 40px;"></div>
+            <div class="wave-bar" style="--delay: 0.5s; --height: 20px;"></div>
+
+            <div class="wave-bar" style="--delay: 0.1s; --height: 15px;"></div>
+            <div class="wave-bar" style="--delay: 0.2s; --height: 35px;"></div>
+            <div class="wave-bar" style="--delay: 0.3s; --height: 25px;"></div>
+            <div class="wave-bar" style="--delay: 0.4s; --height: 40px;"></div>
+            <div class="wave-bar" style="--delay: 0.5s; --height: 20px;"></div>
+            <div class="wave-bar" style="--delay: 0.6s; --height: 30px;"></div>
+            <div class="wave-bar" style="--delay: 0.7s; --height: 35px;"></div>
+            <div class="wave-bar" style="--delay: 0.8s; --height: 45px;"></div>
+            <div class="wave-bar" style="--delay: 0.9s; --height: 30px;"></div>
+            <div class="wave-bar" style="--delay: 1.0s; --height: 25px;"></div>
+            <div class="wave-bar" style="--delay: 0.1s; --height: 15px;"></div>
+            <div class="wave-bar" style="--delay: 0.2s; --height: 35px;"></div>
+            <div class="wave-bar" style="--delay: 0.3s; --height: 25px;"></div>
+            <div class="wave-bar" style="--delay: 0.4s; --height: 40px;"></div>
+            <div class="wave-bar" style="--delay: 0.5s; --height: 20px;"></div>
+            <div class="wave-bar" style="--delay: 0.6s; --height: 30px;"></div>
+            <div class="wave-bar" style="--delay: 0.7s; --height: 35px;"></div>
+            <div class="wave-bar" style="--delay: 0.8s; --height: 45px;"></div>
+            <div class="wave-bar" style="--delay: 0.9s; --height: 30px;"></div>
+            <div class="wave-bar" style="--delay: 1.0s; --height: 25px;"></div>
+            <div class="wave-bar" style="--delay: 0.4s; --height: 40px;"></div>
+            <div class="wave-bar" style="--delay: 0.5s; --height: 20px;"></div>
+              </div>
+            </div>
+
+          <!-- Notas musicales flotantes -->
+          <aside class="music-notes-container">
+            <span class="music-note">♪</span>
+            <span class="music-note">♫</span>
+            <span class="music-note">♩</span>
+            <span class="music-note">♬</span>
+            <span class="music-note">♪</span>
+            <span class="music-note">♫</span>
+            <span class="music-note">♩</span>
+            <span class="music-note">♬</span>
+          </aside>
+
+          <!-- Ondas Sonoras decorativas -->
+          <output class="ondas-sonoras"></output>
+
+          <!-- Efecto de brillo -->
+          <div class="glow-effect"></div>
+
+        </section><!-- CIERRE BLOQUE EFECTOS -->
+        
+        <!-- BLOCK VOLUMEN -->
+        <section id="block-volumen" class="block-volumen">
+
+          <div class="volume-control">
+            <i id="volumeIcon" class="fas fa-volume-down"></i>
+            <input
+              type="range"
+              class="volume-slider"
+              id="volumeSlider"
+              min="0"
+              max="1"
+              step="0.1"
+              value="0.7"
+            />
+            <span id="volumePercentage" class="volume-percentage">70%</span>
+          </div>
+
+        </section><!-- CIERRE BLOQUE VOLUMEN -->
+        
+        <!-- BLOQUE TRACK-INFO -->
+        <section id="track-info" class="track-info">
+
+          <div class="track-display-container">
+
+            <figure class="cover-art-container">
+              <img id="cover-art" src="https://santi-graphics.vercel.app/assets/covers/DalePlay.png" alt="Carátula del Track" />
+            </figure>
+
+            <article class="info-track-container">
+                <div class="scroll-wrapper">
+                  <div class="scroll-inner">
+                    <h5 class="scroll-text scrollable" id="track-playlist">Radio Dale Play</h5>
+                  </div>
+                </div>
+                
+              <div class="scroll-wrapper">
+                  <div class="scroll-inner">
+                      <h2 class="scroll-text" id="track-title">Título del Track largo</h2>
+                  </div>
+                </div>
+              <div class="scroll-wrapper">
+                  <div class="scroll-inner">
+                      <h3 class="scroll-text scrollable" id="track-artist">Artista largo con muchos nombres</h3>
+                  </div>
+                </div>
+              <div class="scroll-wrapper">
+                  <div class="scroll-inner">
+                      <p class="scroll-text" id="track-album">Álbum</p>
+                  </div>
+                </div>
+            </article>
+
+          </div>
+
+        </section><!-- CIERRE TRACK-INFO  -->
+        
+        <!-- BOTONERA PANEL -->
+    <section id="block-controls" class="block-controls">
+      <div class="control-buttons">
+        <!-- Power -->
+        <button id="power-btn" class="btn-power">
+          <i class="fas fa-power-off"></i>
+        </button>
+
+        <!-- Repeat -->
+        <button id="repeat-btn" class="btn-engendro repeat-btn">
+          <i class="fas fa-redo"></i>
+        </button>
+
+        <!-- Rewind -->
+        <button id="rewind-btn" class="btn-engendro rewind-btn">
+          <i class="fas fa-backward"></i>
+        </button>
+
+        <!-- Play -->
+        <button id="play-btn" class="btn-engendro btn-engendro-play play-btn">
+          <i class="fas fa-play"></i>
+        </button>
+
+        <!-- Forward -->
+        <button id="forward-btn" class="btn-engendro forward-btn">
+          <i class="fas fa-forward"></i>
+        </button>
+
+        <!-- Shuffle -->
+        <button id="shuffle-btn" class="btn-engendro shuffle-btn">
+          <i class="fas fa-random"></i>
+        </button>
+
+        <!-- Menu Historial/Playlists -->
+        <button id="menu-btn" class="btn-menu">
+          <i class="fas fa-list-ul"></i>
+        </button>
+
+        <!-- Tracks -->
+        <button id="contenido-btn" class="btn-engendro contenido-btn">
+          <i class="fas fa-music"></i>
+          <!-- Este será el botón Playlist, el anterior es decorativo -->
+        </button>
+
+      </div>
+    </section><!-- CIERRE BOTONERA -->
+
+
+    </div><!-- ======================== CIERRE LEFT PANEL ======================== -->
+
+    <!-- ▶️ PANEL DERECHO: RP -->
+    <div id="right-panel" class="right-panel">
+    <div class="lyrics-container"></div>
+
+    <!-- Stars Effects -->
+    <div id="right-particle-layer" class="right-particle-layer"></div>
+        
+    <!-- Imagen animada centrada en el panel derecho -->
+    <div class="logo-container">
+      <img src="https://santi-graphics.vercel.app/assets/img/Logo-DP.png" alt="Logo" class="logo-base">
+      <div class="logo-effect"></div>
+    </div>
+
+    <!-- MODAL HISTORIAL en Panel Derecho -->
+    <section id="block-history" class="block-modal">
+      <div id="history-modal" class="modal hidden">
+        <div class="modal-content">
+          <span id="close-history-modal" class="close-btn">
+          <i class="fas fa-times"></i>
+        </span>
+
+          <h2>Historial de reproducción</h2>
+          <ul id="history-list" class="track-list"></ul>
+        </div>
+      </div>
+    </section>
+
+<!-- MODAL TRACKS -->
+<section id="block-modal" class="block-modal">
+  <div id="tracks-modal" class="modal hidden"><!-- ⚠️ nuevo id -->
+    <div class="modal-content">
+
+      <!-- Botón de cierre -->
+      <button id="close-tracks-modal" class="close-btn" aria-label="Cerrar modal">❌</button>
+
+      <!-- Información dinámica de la pista actual -->
+      <p class="modal-info">
+        Reproduciendo:
+        <span id="current-track-display">
+          Sin pista seleccionada — Sin artista
+        </span>
+      </p>
+
+      <!-- Lista de pistas de la playlist activa -->
+      <ul id="modal-tracks-list" class="track-list"><!-- ⚠️ nuevo id -->
+        <!-- Ejemplo de ítem enriquecido (se reemplaza dinámicamente desde JS) -->
+        <li class="modal-track-item">
+          <img src="https://santi-graphics.vercel.app/assets/covers/Cover1.png" alt="Carátula" class="track-cover" />
+          <div class="track-info">
+            <strong>Título del Track</strong><br>
+            <span>🎤 Artista</span><br>
+            <span>💿 Álbum</span><br>
+            <span>⏱️ 3:45</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- MODAL PLAYLIST MENU -->
+<div id="playlist-modal" class="modal hidden">
+  <div class="modal-content">
+    <button class="close-btn" id="close-playlist-modal">❌</button>
+    <h2>Listas de Reproducción</h2>
+    <ul class="track-list">
+      <li data-list="actual">Actual</li>
+      <li data-list="exitos">Hits</li>
+      <li data-list="hardcore">Ruido de Lata</li>
+      <li data-list="baladasrock">Baladas Rock</li>
+    </ul>
+  </div>
+</div>
+
+        
+    </div><!-- ======================== CIERRE RIGHT PANEL ======================== -->
+
+
+  </div><!-- ======================== CIERRE MAIN CONTAINER ======================== -->
+    
+
+  </main>
+    
+  <script src="https://radio-tekileros.vercel.app/lyricsRepro38.js"></script>
+
+</body>
+</html>
