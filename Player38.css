@@ -988,6 +988,25 @@
   100% { transform: rotate(-360deg); }
 }
 
+/* Solo panel: glow blanco cuando Repeat está activo */
+#repeat-btn.repeat-active {
+  box-shadow: 0 0 12px 4px rgba(255, 255, 255, 0.85);
+  outline: 1px solid rgba(255, 255, 255, 0.6);
+  transition: box-shadow 200ms ease, outline 200ms ease;
+}
+
+/* Rotación del ícono solo en panel cuando activo */
+#repeat-btn.repeat-active i {
+  animation: spinRepeat 1.2s linear infinite;
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.9));
+}
+
+@keyframes spinRepeat {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+
 /* Responsive */
 @media (max-width: 768px) {
   .playlist-panel,

@@ -1,0 +1,570 @@
+{
+  "baladasrock": [
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Adele-Someone-like-you.jpg",
+      "id": "adele-like",
+      "emotion": "nostalgia",
+      "artista": "adele",
+      "nombre": "Someone like you",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Adele-Someone-like-you.mp3",
+      "seccion": "Baladas Rock",
+      "duracion": "04:38",
+      "genero": "rock alternativo"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Ed-Sheeran-Perfect.jpg",
+      "id": "sheeran-perfect",
+      "emotion": "romanticismo",
+      "artista": "ed sheeran",
+      "nombre": "Perfect",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Ed-Sheeran-Perfect.mp3",
+      "seccion": "Baladas Rock",
+      "duracion": "4:21",
+      "genero": "rock alternativo"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Benson-Boone-Beautiful-things.jpg",
+      "id": "boone-beautiful",
+      "emotion": "melancolia",
+      "artista": "benson boone",
+      "nombre": "Beautiful things",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Benson-Boone-Beautiful-things.mp3",
+      "seccion": "Baladas Rock",
+      "duracion": "2:56",
+      "genero": "rock alternativo"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Coldplay-Fix-you.jpg",
+      "id": "coldplay-fix",
+      "emotion": "esperanza",
+      "artista": "coldplay",
+      "nombre": "Fix you",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Coldplay-Fix-you.mp3",
+      "seccion": "Baladas Rock",
+      "duracion": "4:25",
+      "genero": "rock alternativo"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Bryan-Adams-Please-forgive-me.jpg",
+      "id": "adams-forgive",
+      "emotion": "arrepentimiento",
+      "artista": "bryan adams",
+      "nombre": "Please forgive me",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Bryan-Adams-Please-forgive-me.mp3",
+      "seccion": "Baladas Rock",
+      "duracion": "5:31",
+      "genero": "rock alternativo"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/James-Blunt-Youre-beautiful.jpg",
+      "id": "blunt-beautiful",
+      "emotion": "ternura",
+      "artista": "james blunt",
+      "nombre": "You're beautiful",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/James-Blunt-Youre-beautiful.mp3",
+      "seccion": "Baladas Rock",
+      "duracion": "",
+      "genero": "rock alternativo"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/The-Beatles-Let-it-be.jpg",
+      "id": "beatles-letitbe",
+      "emotion": "resignacion",
+      "artista": "the beatles",
+      "nombre": "Let it be",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/The-Beatles-Let-it-be.mp3",
+      "seccion": "Baladas Rock",
+      "duracion": "4:03",
+      "genero": "rock alternativo"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Lady-Gaga-Always-remember-us-this-way.jpg",
+      "id": "gaga-remember",
+      "emotion": "nostalgia",
+      "artista": "lady gaga",
+      "nombre": "Always remember us this way",
+      "dropbox_url": "",
+      "seccion": "Baladas Rock",
+      "duracion": "",
+      "genero": "rock alternativo"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Coldplay-Yellow.jpg",
+      "id": "coldplay-yellow",
+      "emotion": "devocion",
+      "artista": "coldplay",
+      "nombre": "Yellow",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Coldplay-Yellow.mp3",
+      "seccion": "Baladas Rock",
+      "duracion": "4:25",
+      "genero": "rock alternativo"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Guns-N-Roses-Patience.webp",
+      "id": "gnr-patience",
+      "emotion": "espera",
+      "artista": "guns n' roses",
+      "nombre": "Patience",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Guns-N-Roses-Patience.mp3",
+      "seccion": "Baladas Rock",
+      "duracion": "6:05",
+      "genero": "rock alternativo"
+    },
+
+
+
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Simple-Plan-Perfect.jpg",
+      "id": "simple-perfect",
+      "emotion": "incomprension",
+      "artista": "simple plan",
+      "nombre": "Perfect",
+      "dropbox_url": "",
+      "seccion": "Baladas Rock",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Simple-Plan-Perfect.mp3",
+      "duracion": "4:31",
+      "genero": "rock alternativo"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Kurado-Movin-on.jpg",
+      "id": "kurado-movinon",
+      "emotion": "superacion",
+      "artista": "kurado",
+      "nombre": "Movin on",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Kurado-Movin-on.mp3",
+      "seccion": "Baladas Rock",
+      "duracion": "3:11",
+      "genero": "rock alternativo"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Lewis-Capaldi-Someone-you-loved.jpg",
+      "id": "capaldi-someone",
+      "emotion": "perdida",
+      "artista": "lewis capaldi",
+      "nombre": "Someone you loved",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Lewis-Capaldi-Someone-you-loved.mp3",
+      "seccion": "Baladas Rock",
+      "duracion": "2:57",
+      "genero": "rock alternativo"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Dean-Lewis-With-you.jpg",
+      "id": "dean-withyou",
+      "emotion": "anhelo",
+      "artista": "dean lewis",
+      "nombre": "With you",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Dean-Lewis-With-you.mp3",
+      "seccion": "Baladas Rock",
+      "duracion": "3:05",
+      "genero": "rock alternativo"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Lady-Gaga-Ill-never-love-again.jpg",
+      "id": "gaga-neverlove",
+      "emotion": "duelo",
+      "artista": "lady gaga",
+      "nombre": "I'll never love again",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Lady-Gaga-Ill-never-love-again.mp3",
+      "seccion": "Baladas Rock",
+      "duracion": "4:34",
+      "genero": "rock alternativo"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Evanescence-My-immortal.png",
+      "id": "evanescence-immortal",
+      "emotion": "tristeza",
+      "artista": "evanescence",
+      "nombre": "My immortal",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Evanescence-My-immortal.mp3",
+      "seccion": "Baladas Rock",
+      "duracion": "4:18",
+      "genero": "rock alternativo"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Sting-Shape-of-my-heart.jpg",
+      "id": "sting-shape",
+      "emotion": "reflexion",
+      "artista": "sting",
+      "nombre": "Shape of my heart",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Sting-Shape-of-my-heart.mp3",
+      "seccion": "Baladas Rock",
+      "duracion": "4:29",
+      "genero": "rock alternativo"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Aerosmith-Fly-away-from-here.jpg",
+      "id": "aerosmith-flyaway",
+      "emotion": "escape",
+      "artista": "aerosmith",
+      "nombre": "Fly away from here",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Aerosmith-Fly-away-from-here.mp3",
+      "seccion": "Baladas Rock",
+      "duracion": "4:19",
+      "genero": "rock alternativo"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Scorpions-Still-loving-you.jpg",
+      "id": "scorpions-stillloving",
+      "emotion": "devocion",
+      "artista": "scorpions",
+      "nombre": "Still loving you",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Scorpions-Still-loving-you.mp3",
+      "seccion": "Baladas Rock",
+      "duracion": "4:41",
+      "genero": "rock alternativo"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Scorpions-No-one-like-you.jpg",
+      "id": "scorpions-noone",
+      "emotion": "fascinacion",
+      "artista": "scorpions",
+      "nombre": "No one like you",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Scorpions-No-one-like-you.mp3",
+      "seccion": "Baladas Rock",
+      "duracion": "2:35",
+      "genero": "rock alternativo"
+    },
+
+
+
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Jose-Madero-The-unforgiven.jpg",
+      "id": "madero-unforgiven",
+      "emotion": "culpa",
+      "artista": "jose madero",
+      "nombre": "The unforgiven",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Jose-Madero-The-unforgiven.mp3",
+      "seccion": "Baladas Rock",
+      "duracion": "4:00",
+      "genero": "rock alternativo"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/The-Eagles-Hotel-California.jpg",
+      "id": "eagles-hotel",
+      "emotion": "misterio",
+      "artista": "the eagles",
+      "nombre": "Hotel California",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/The-Eagles-Hotel-California.mp3",
+      "seccion": "Baladas Rock",
+      "duracion": "6:22",
+      "genero": "rock alternativo"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Scorpions-Send-me-an-angel.jpg",
+      "id": "scorpions-angel",
+      "emotion": "esperanza",
+      "artista": "scorpions",
+      "nombre": "Send me an angel",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Scorpions-Send-me-an-angel.mp3",
+      "seccion": "Baladas Rock",
+      "duracion": "4:26",
+      "genero": "rock alternativo"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Led-Zeppelin-Stairway-to-heaven.jpg",
+      "id": "zeppelin-stairway",
+      "emotion": "trascendencia",
+      "artista": "led zeppelin",
+      "nombre": "Stairway to heaven",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Led-Zeppelin-Stairway-to-heaven.mp3",
+      "seccion": "Baladas Rock",
+      "duracion": "",
+      "genero": "rock alternativo"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Metallica-One.jpg",
+      "id": "metallica-one",
+      "emotion": "desesperacion",
+      "artista": "metallica",
+      "nombre": "One",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Metallica-One.mp3",
+      "seccion": "Baladas Rock",
+      "duracion": "7:04",
+      "genero": "rock alternativo"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/System-Of-A-Down-Toxicity.jpg",
+      "id": "soad-toxicity",
+      "emotion": "caos",
+      "artista": "system of a down",
+      "nombre": "Toxicity",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/System-Of-A-Down-Toxicity.mp3",
+      "seccion": "Baladas Rock",
+      "duracion": "3:43",
+      "genero": "rock alternativo"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Radiohead-Creep.webp",
+      "id": "radiohead-creep",
+      "emotion": "autoexclusion",
+      "artista": "radiohead",
+      "nombre": "Creep",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Radiohead-Creep.mp3",
+      "seccion": "Baladas Rock",
+      "duracion": "3:53",
+      "genero": "rock alternativo"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Remy-Zero-Save-me.jpg",
+      "id": "remy-saveme",
+      "emotion": "rescate",
+      "artista": "remy zero",
+      "nombre": "Save me",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Remy-Zero-Save-me.mp3",
+      "seccion": "Baladas Rock",
+      "duracion": "4:27",
+      "genero": "rock alternativo"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/The-Rasmus-In-the-shadows.jpg",
+      "id": "rasmus-shadows",
+      "emotion": "oscuridad",
+      "artista": "the rasmus",
+      "nombre": "In the shadows",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/The-Rasmus-In-the-shadows.mp3",
+      "seccion": "Baladas Rock",
+      "duracion": "3:37",
+      "genero": "rock alternativo"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Imagine-Dragons-Believer.jpg",
+      "id": "dragons-believer",
+      "emotion": "fuerza",
+      "artista": "imagine dragons",
+      "nombre": "Believer",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Imagine-Dragons-Believer.mp3",
+      "seccion": "Baladas Rock",
+      "duracion": "3:21",
+      "genero": "rock alternativo"
+    },
+
+
+
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Teddy-Swims-Lose-control.jpg",
+      "id": "swims-losecontrol",
+      "emotion": "desborde",
+      "artista": "teddy swims",
+      "nombre": "Lose control",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Teddy-Swims-Lose-control.mp3",
+      "seccion": "Baladas Rock",
+      "duracion": "3:26",
+      "genero": "rock alternativo"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/RagnBone-Man-Human.jpg",
+      "id": "ragbone-human",
+      "emotion": "fragilidad",
+      "artista": "rag'n'bone man",
+      "nombre": "Human",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/RagnBone-Man-Human.mp3",
+      "seccion": "Baladas Rock",
+      "duracion": "3:14",
+      "genero": "rock alternativo"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Linkin-Park-In-the-end.png",
+      "id": "linkin-end",
+      "emotion": "rendicion",
+      "artista": "linkin park",
+      "nombre": "In the end",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Linkin-Park-In-the-end.MP3",
+      "seccion": "Baladas Rock",
+      "duracion": "3:36",
+      "genero": "rock alternativo"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Eminem-Stan.png",
+      "id": "eminem-stan",
+      "emotion": "obsesion",
+      "artista": "eminem",
+      "nombre": "Stan",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Eminem-Stan.MP3",
+      "seccion": "Baladas Rock",
+      "duracion": "6:14",
+      "genero": "rap"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Bob-Marley-Buffalo-soldier.jpg",
+      "id": "marley-buffalo",
+      "emotion": "resistencia",
+      "artista": "bob marley",
+      "nombre": "Buffalo soldier",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Bob-Marley-Buffalo-soldier.mp3",
+      "seccion": "Baladas Rock",
+      "duracion": "4:17",
+      "genero": "reggae"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Big-Mountain-Baby-I-love-your-way.jpg",
+      "id": "bigmountain-baby",
+      "emotion": "ternura",
+      "artista": "big mountain",
+      "nombre": "Baby I love your way",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Big-Mountain-Baby-I-love-your-way.mp3",
+      "seccion": "Baladas Rock",
+      "duracion": "4:15",
+      "genero": "reggae"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Inspector-Big-Mountain-Como-un-sol.jpg",
+      "id": "inspector-comosol",
+      "emotion": "calidez",
+      "artista": "inspector ft big mountain",
+      "nombre": "Como un sol",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Inspector-Big-Mountain-Como-un-sol.mp3",
+      "seccion": "Baladas Rock",
+      "duracion": "4:48",
+      "genero": "ska"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/UB-40-Red-red-wine.jpg",
+      "id": "ub40-redwine",
+      "emotion": "relajacion",
+      "artista": "ub 40",
+      "nombre": "Red red wine",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/UB-40-Red-red-wine.mp3",
+      "seccion": "Baladas Rock",
+      "duracion": "5:12",
+      "genero": "reggae"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Teddy-Swims-Funeral.jpg",
+      "id": "swims-funeral",
+      "emotion": "duelo",
+      "artista": "teddy swims",
+      "nombre": "Funeral",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Teddy-Swims-Funeral.mp3",
+      "seccion": "Baladas Rock",
+      "duracion": "3:49",
+      "genero": "rock alternativo"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Blink-182-One-more-time.jpg",
+      "id": "blink-onemore",
+      "emotion": "reencuentro",
+      "artista": "blink-182",
+      "nombre": "One more time",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Blink-182-One-more-time.mp3",
+      "seccion": "Baladas Rock",
+      "duracion": "3:23",
+      "genero": "rock alternativo"
+    },
+
+
+
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Blink-182-I-miss-you.jpg",
+      "id": "blink-missyou",
+      "emotion": "soledad",
+      "artista": "blink-182",
+      "nombre": "I miss you",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Blink-182-I-miss-you.mp3",
+      "seccion": "Baladas Rock",
+      "duracion": "3:44",
+      "genero": "rock alternativo"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Simple-Plan-Welcome-to-my-life.jpg",
+      "id": "simple-welcome",
+      "emotion": "frustracion",
+      "artista": "simple plan",
+      "nombre": "Welcome to my life",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Simple-Plan-Welcome-to-my-life.mp3",
+      "seccion": "Baladas Rock",
+      "duracion": "3:19",
+      "genero": "rock alternativo"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Guns-N-Roses-Patience.webp",
+      "id": "gnr-patience",
+      "emotion": "espera",
+      "artista": "guns n' roses",
+      "nombre": "Patience",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Guns-N-Roses-Patience.mp3",
+      "seccion": "Baladas Rock",
+      "duracion": "6:05",
+      "genero": "rock alternativo"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Guns-N-Roses-Dont-cry.jpg",
+      "id": "gnr-dontcry",
+      "emotion": "desconsuelo",
+      "artista": "guns n' roses",
+      "nombre": "Don't cry",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Guns-N-Roses-Dont-cry.mp3",
+      "seccion": "Baladas Rock",
+      "duracion": "4:41",
+      "genero": "rock alternativo"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/The-Cranberries-Dreams.jpg",
+      "id": "cranberries-dreams",
+      "emotion": "ilusion",
+      "artista": "the cranberries",
+      "nombre": "Dreams",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/The-Cranberries-Dreams.mp3",
+      "seccion": "Baladas Rock",
+      "duracion": "4:05",
+      "genero": "rock alternativo"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/U2-Beautiful-day.jpg",
+      "id": "u2-beautifulday",
+      "emotion": "optimismo",
+      "artista": "u2",
+      "nombre": "Beautiful day",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/U2-Beautiful-day.MP3",
+      "seccion": "Baladas Rock",
+      "duracion": "3:52",
+      "genero": "rock alternativo"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Nirvana-Smells-like-teen-spirit.jpg",
+      "id": "nirvana-teen",
+      "emotion": "rebeldia",
+      "artista": "nirvana",
+      "nombre": "Smells like teen spirit",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Nirvana-Smells-like-teen-spirit.mp3",
+      "seccion": "Baladas Rock",
+      "duracion": "4:32",
+      "genero": "rock alternativo"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Drake-Bell-Makes-me-happy.jpg",
+      "id": "bell-happy",
+      "emotion": "alegria",
+      "artista": "drake bell",
+      "nombre": "Makes me happy",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Drake-Bell-Makes-me-happy.mp3",
+      "seccion": "Baladas Rock",
+      "duracion": "2:07",
+      "genero": "rock alternativo"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Savage-Garden-Truly-madly-deeply.jpg",
+      "id": "savage-truly",
+      "emotion": "entrega",
+      "artista": "savage garden",
+      "nombre": "Truly madly deeply",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Savage-Garden-Truly-madly-deeply.mp3",
+      "seccion": "Baladas Rock",
+      "duracion": "4:10",
+      "genero": "rock alternativo"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Celine-Dion-My-heart-will-go-on.png",
+      "id": "dion-heart",
+      "emotion": "eternidad",
+      "artista": "celine dion",
+      "nombre": "My heart will go on",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Celine-Dion-My-heart-will-go-on.mp3",
+      "seccion": "Baladas Rock",
+      "duracion": "4:32",
+      "genero": "balada romantica"
+    }
+
+
+
+  ]
+}

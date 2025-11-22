@@ -27,6 +27,9 @@
     <!-- Audio principal -->
     <audio id="player" autoplay muted></audio>
 
+    <!-- 🧱 Contenedor lateral izquierdo -->
+    <aside id="ctn-apps"></aside>
+
   <main id="main-ctn">
       
     <!-- Mensaje personalizado para el clic derecho -->
@@ -43,7 +46,7 @@
         </div>
       </div>
 
-      <!-- Botonera absoluta -->
+      <!-- Botonera Cabecera -->
       <div class="header-buttons">
         <button id="btn-plus" title="Esconder/Revelar"><i class="fa-solid fa-plus"></i></button>
         <button id="btn-power" title="Power"><i class="fa-solid fa-power-off"></i></button>
@@ -66,9 +69,6 @@
         </div>
       </div>
     </header>
-
-    <!-- 🧱 Contenedor lateral izquierdo -->
-    <aside id="ctn-apps"></aside>
 
     <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Reproductor Karaoke ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
     <div id="main-container" class="main-container">
@@ -241,7 +241,7 @@
 
         </section><!-- CIERRE TRACK-INFO  -->
         
-        <!-- BOTONERA -->
+        <!-- BOTONERA PANEL -->
     <section id="block-controls" class="block-controls">
       <div class="control-buttons">
         <!-- Power -->
@@ -274,12 +274,12 @@
           <i class="fas fa-random"></i>
         </button>
 
-        <!-- Menu -->
+        <!-- Menu Historial/Playlists -->
         <button id="menu-btn" class="btn-menu">
           <i class="fas fa-list-ul"></i>
         </button>
 
-        <!-- Playlist -->
+        <!-- Tracks -->
         <button id="contenido-btn" class="btn-engendro contenido-btn">
           <i class="fas fa-music"></i>
           <!-- Este será el botón Playlist, el anterior es decorativo -->
@@ -320,11 +320,11 @@
 
 <!-- MODAL TRACKS -->
 <section id="block-modal" class="block-modal">
-  <div id="modal-playlist" class="modal hidden">
+  <div id="tracks-modal" class="modal hidden"><!-- ⚠️ nuevo id -->
     <div class="modal-content">
 
       <!-- Botón de cierre -->
-      <button id="close-playlist-modal" class="close-btn" aria-label="Cerrar modal">❌</button>
+      <button id="close-tracks-modal" class="close-btn" aria-label="Cerrar modal">❌</button>
 
       <!-- Información dinámica de la pista actual -->
       <p class="modal-info">
@@ -335,7 +335,7 @@
       </p>
 
       <!-- Lista de pistas de la playlist activa -->
-      <ul id="modal-playlist-tracks" class="track-list">
+      <ul id="modal-tracks-list" class="track-list"><!-- ⚠️ nuevo id -->
         <!-- Ejemplo de ítem enriquecido (se reemplaza dinámicamente desde JS) -->
         <li class="modal-track-item">
           <img src="https://santi-graphics.vercel.app/assets/covers/Cover1.png" alt="Carátula" class="track-cover" />
@@ -352,17 +352,18 @@
 </section>
 
 <!-- MODAL PLAYLIST MENU -->
-    <div id="playlist-modal" class="modal hidden">
-      <div class="modal-content">
-        <button class="close-btn" id="close-modal-btn">❌</button>
-        <h2>Listas de Reproducción</h2>
-        <ul class="track-list">
-          <li data-list="actual">Actual</li>
-          <li data-list="hits">Hits</li>
-          <li data-list="ruido">Ruido de Lata</li>
-        </ul>
-      </div>
-    </div>
+<div id="playlist-modal" class="modal hidden">
+  <div class="modal-content">
+    <button class="close-btn" id="close-playlist-modal">❌</button>
+    <h2>Listas de Reproducción</h2>
+    <ul class="track-list">
+      <li data-list="actual">Actual</li>
+      <li data-list="exitos">Hits</li>
+      <li data-list="hardcore">Ruido de Lata</li>
+      <li data-list="baladasrock">Baladas Rock</li>
+    </ul>
+  </div>
+</div>
 
         
     </div><!-- ======================== CIERRE RIGHT PANEL ======================== -->
@@ -372,6 +373,8 @@
     
 
   </main>
+    
+  <script src="lyricsRepro38.js"></script>
 
 </body>
 </html>

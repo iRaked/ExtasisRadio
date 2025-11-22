@@ -6,12 +6,26 @@ let lastTrackTitle = "";
 let trackHistory = [];
 let radioIntervalId = null;
 let contadorIntervalId = null;
-let modoActual = "local";
+let modoActual = "local";   // "local" o "radio"
 
+// Estado del reproductor
+let playlists = {};
+let playlistActual = "actual";
+let trackData = [];
+let currentTrack = 0;
+let isPlaying = false;
+let modoRepeat = false;
+let modoShuffle = false;
+
+// Elemento de audio principal
 const audio = document.getElementById("player");
-const playBtn = document.getElementById("play-btn");
-const playIcon = playBtn.querySelector("i");
 
+// Botón Play/Pause principal
+const playBtn  = document.getElementById("play-btn");
+const playIcon = playBtn ? playBtn.querySelector("i") : null;
+const iconPlayPause = document.getElementById("icon-play-pause");
+
+// Elementos de información del track
 const TRACK_TITLE_EL   = document.getElementById("track-title");
 const TRACK_ARTIST_EL  = document.getElementById("track-artist");
 const TRACK_ALBUM_EL   = document.getElementById("track-album");
@@ -19,124 +33,180 @@ const COVER_ART_EL     = document.getElementById("cover-art");
 const CURRENT_TRACK_DISPLAY_EL = document.getElementById("current-track-display");
 const contadorElemento = document.getElementById("contadorRadio");
 
-const rightPanel = document.querySelector(".right-panel");
-const contenidoBtn = document.getElementById("contenido-btn");
+// Alias para consistencia (opcional)
+const currentArtistName = TRACK_ARTIST_EL;
+const currentTrackName  = TRACK_TITLE_EL;
+const metaTrack         = CURRENT_TRACK_DISPLAY_EL;
+const discImg           = COVER_ART_EL;
 
+// Labels de estado
 const modeLabel     = document.getElementById("mode-label");
 const playlistLabel = document.getElementById("playlist-label");
 
-// Valores por defecto
-function setDefaultMetadata() {
-  if (TRACK_TITLE_EL)  TRACK_TITLE_EL.textContent  = "Transmisión en vivo";
-  if (TRACK_ARTIST_EL) TRACK_ARTIST_EL.textContent = "AutoDJ";
-  if (TRACK_ALBUM_EL)  TRACK_ALBUM_EL.textContent  = "Stream";
-  if (COVER_ART_EL)    COVER_ART_EL.src            = "https://santi-graphics.vercel.app/assets/covers/DalePlay.png";
-  if (CURRENT_TRACK_DISPLAY_EL) CURRENT_TRACK_DISPLAY_EL.textContent = "Transmisión en vivo — Radio Dale Play";
-}
-setDefaultMetadata();
+// Modales y Menú
+const menuBtn    = document.getElementById("menu-btn");
+const menuIcon   = menuBtn ? menuBtn.querySelector("i") : null;
+const rightPanel = document.querySelector(".right-panel");
+
+const historyModal      = document.getElementById("history-modal");
+const closeHistoryModal = document.getElementById("close-history-modal");
+const historyList       = document.getElementById("history-list");
+
+const playlistModal   = document.getElementById("playlist-modal");
+const closeMenuModal  = document.getElementById("close-modal-btn");
+
+// Navegación
+const btnTop    = document.getElementById("btn-top");
+const btnBottom = document.getElementById("btn-bottom");
+
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// ▶️ Forzar modo inicial explícito (cuando todo ya está definido)
+// 🖐️ Gesto humano: desbloquea audio y arranca
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-window.addEventListener("DOMContentLoaded", () => {
-  activarModoLocal();
+window.addEventListener("click", async () => {
+  if (!gestureDetected) {
+    gestureDetected = true;
+    console.log("🖐️ Primer gesto detectado: desbloqueando audio y arrancando playlist local…");
+    await loadAllPlaylists();
+    activarModoLocal("actual", 0);
+  }
 });
 
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// ▶️ Inicialización del stream y gesto humano
+// 📚 Registro de raíces JSON
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-document.addEventListener("click", async () => {
-  if (gestureDetected) return;
-  gestureDetected = true;
-  audio.muted = false;
+const PLAYLIST_SOURCES = {
+  actual:      "Repro38.json",
+  exitos:      "Exitos.json",
+  hardcore:    "HardCore.json",
+  baladasrock: "BaladasRock.json"
+};
 
-  // Esperar karaoke antes de iniciar reproducción
-  try {
-    await cargarLyricsScript("https://radio-tekileros.vercel.app/lyricsRepro34.js");
-  } catch (e) {
-    console.warn("⚠️ Karaoke no disponible:", e.message);
+// playlists ya está declarado globalmente, aquí solo inicializamos si está vacío
+if (!playlists || Object.keys(playlists).length === 0) {
+  playlists = {
+    actual: [],
+    exitos: [],
+    hardcore: [],
+    baladasrock: []
+  };
+}
+
+// Normalizador
+function normalizeTrack(raw) {
+  return {
+    id:       raw.id,
+    title:    raw.title      ?? raw.nombre,
+    artist:   raw.artist     ?? raw.artista,
+    album:    raw.album      ?? raw.seccion,
+    emotion:  raw.emotion,
+    genre:    raw.genre      ?? raw.genero,
+    duration: raw.duration   ?? raw.duracion,
+    url:      raw.dropbox_url,
+    cover:    raw.cover      ?? raw.caratula
+  };
+}
+
+async function loadPlaylist(rootKey) {
+  const src = PLAYLIST_SOURCES[rootKey];
+  if (!src) return;
+  const res = await fetch(src);
+  const data = await res.json();
+  const items = Array.isArray(data[rootKey]) ? data[rootKey] : [];
+  playlists[rootKey] = items.map(normalizeTrack);
+  console.log(`✅ Playlist cargada: ${rootKey} (${playlists[rootKey].length} tracks)`);
+}
+
+async function loadAllPlaylists() {
+  const keys = Object.keys(PLAYLIST_SOURCES);
+  for (const k of keys) {
+    try { await loadPlaylist(k); } catch (e) { console.warn(`⚠️ Error cargando ${k}:`, e.message); }
   }
-
-  if (modoActual === "radio") {
-    try {
-      if (!audio.src) {
-        audio.src = "https://technoplayerserver.net/8240/stream";
-        audio.load();
-      }
-      await audio.play();
-      playIcon.classList.replace("fa-play", "fa-pause");
-      if (iconPlayPause) {
-        iconPlayPause.classList.remove("fa-play");
-        iconPlayPause.classList.add("fa-pause");
-      }
-
-      iniciarActualizacionRadio();
-      iniciarContadorRadioescuchas();
-
-      console.log("🟢 Primer gesto: radio iniciado.");
-    } catch (err) {
-      console.warn("⚠️ Error al iniciar stream en gesto:", err);
-      playIcon.classList.replace("fa-pause", "fa-play");
-      if (iconPlayPause) {
-        iconPlayPause.classList.remove("fa-pause");
-        iconPlayPause.classList.add("fa-play");
-      }
-    }
-  } else {
-    try {
-      const necesitaCargar = !Array.isArray(trackData) || trackData.length === 0;
-      if (necesitaCargar) {
-        await cargarPlaylist("Repro34");
-      }
-
-      if (Array.isArray(trackData) && trackData.length > 0) {
-        activarReproduccion(0, "initial-gesture");
-        console.log("🟢 Primer gesto: local iniciado.");
-      } else {
-        console.warn("⚠️ No hay pistas disponibles en modo local tras gesto.");
-      }
-    } catch (err) {
-      console.error("❌ Error al iniciar modo local tras gesto:", err);
-    }
-  }
-}, { once: true });
-
-
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 📥 Inyección robusta de lyricsRepro34.js
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-function cargarLyricsScript(url = "https://radio-tekileros.vercel.app/lyricsRepro34.js") {
-  const existing = document.getElementById("lyricsRepro34-script");
-  if (existing) {
-    return new Promise((resolve) => {
-      if (window.lyricsLibrary) resolve();
-      else existing.addEventListener("load", () => resolve());
-    });
-  }
-
-  return new Promise((resolve, reject) => {
-    const script = document.createElement("script");
-    script.src = url; // ajusta la ruta si está en otra carpeta
-    script.id = "lyricsRepro34-script";
-    script.async = true;
-
-    script.onload = () => {
-      console.log("✅ Script lyricsRepro34.js cargado y listo para karaoke.");
-      resolve();
-    };
-    script.onerror = (e) => {
-      console.error("❌ Error al cargar lyricsRepro34.js", e);
-      reject(new Error("lyricsRepro34.js no disponible"));
-    };
-
-    document.body.appendChild(script);
-  });
 }
 
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 🎤 KARAOKE SINCRONIZADO (usando window.lyricsLibrary)
+// ▶️ INICIALIZAR MODO LOCAL
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function setDefaultMetadataLocal() {
+  modoActual = "local";
+  modeLabel.textContent     = "Modo: Local";
+  playlistLabel.textContent = "Playlist: Actual";
+
+  const track = playlists.actual[0];
+  if (track) {
+    TRACK_TITLE_EL.textContent  = track.title;
+    TRACK_ARTIST_EL.textContent = track.artist;
+    TRACK_ALBUM_EL.textContent  = track.genre;
+    COVER_ART_EL.src            = track.cover;
+    CURRENT_TRACK_DISPLAY_EL.textContent = track.album || "";
+  } else {
+    TRACK_TITLE_EL.textContent  = "Esperando pista…";
+    TRACK_ARTIST_EL.textContent = "—";
+    TRACK_ALBUM_EL.textContent  = "—";
+    COVER_ART_EL.src            = "https://santi-graphics.vercel.app/assets/covers/DalePlay.png";
+    CURRENT_TRACK_DISPLAY_EL.textContent = "—";
+  }
+}
+
+window.addEventListener("DOMContentLoaded", async () => {
+  await loadAllPlaylists();
+  setDefaultMetadataLocal();
+});
+
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// ▶️ ACTIVAR MODO LOCAL
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function activarModoLocal(lista = "actual", index = 0) {
+  modoActual = "local";
+
+  // sincronizar estado global
+  playlistActual = lista;
+  trackData = playlists[lista] || [];
+  currentTrack = index;
+
+  const track = trackData[currentTrack];
+  if (track) {
+    audio.src = track.url;
+    audio.muted = false;
+    audio.play();
+
+    playlistLabel.textContent = `Playlist: ${lista}`;
+    TRACK_TITLE_EL.textContent  = track.title;
+    TRACK_ARTIST_EL.textContent = track.artist;
+    TRACK_ALBUM_EL.textContent  = track.genre;
+    COVER_ART_EL.src            = track.cover;
+    CURRENT_TRACK_DISPLAY_EL.textContent = track.album || "";
+    modeLabel.textContent = "Modo: Local";
+
+    console.log("🎧 Reproducción local iniciada:", track.title);
+
+    // 🎤 Karaoke activado por ID del JSON
+    if (track.id) {
+      cargarKaraoke(track.id);
+    } else {
+      detenerKaraoke();
+    }
+
+    audio.onended = () => {
+      detenerKaraoke(); // limpiar karaoke al terminar
+      const siguiente = currentTrack + 1;
+      if (siguiente < trackData.length) {
+        activarModoLocal(lista, siguiente);
+      } else {
+        console.log("🏁 Playlist terminada:", lista);
+        // Opcional: reiniciar desde el inicio
+        // activarModoLocal(lista, 0);
+      }
+    };
+  } else {
+    console.warn("⚠️ No se encontró track en índice:", index, "de playlist:", lista);
+  }
+}
+
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// 🎤 KARAOKE SINCRONIZADO
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 const karaokePalette = ['#ff4081', '#00e5ff', '#ffd740', '#69f0ae', '#f50057'];
@@ -152,12 +222,6 @@ function detenerKaraoke() {
   lyricsIndex = 0;
   karaokeStarted = false;
   animationActive = false;
-}
-
-function getCurrentSongId(trackId) {
-  if (trackId) return trackId;
-  if (trackData[currentTrack]?.id) return trackData[currentTrack].id;
-  return "default";
 }
 
 function cargarKaraoke(trackId) {
@@ -218,1032 +282,1024 @@ function syncLyrics() {
   }
 }
 
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 🎵 Eventos de audio para iniciar karaoke
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-audio.addEventListener("play", () => {
-  // Karaoke: iniciar o detener según modo
-  if (modoActual !== "local") {
+//======================================
+// 🔄 CAMBIO DE MODO (con limpieza de karaoke)
+//======================================
+function cambiarModo(nuevoModo) {
+  modoActual = nuevoModo;
+
+  // 🔥 Ajuste: limpiar karaoke al cambiar de modo
+  if (nuevoModo !== "local") {
     detenerKaraoke();
-  } else {
-    const trackId = getCurrentSongId(trackData[currentTrack]?.id);
-    cargarKaraoke(trackId);
+    console.log("🎤 Karaoke limpiado al cambiar de modo");
   }
 
-  // Sincronizar iconos de ambos botones
-  playIcon.classList.replace("fa-play", "fa-pause");
-  if (iconPlayPause) {
-    iconPlayPause.classList.remove("fa-play");
-    iconPlayPause.classList.add("fa-pause");
-  }
-});
-
-audio.addEventListener("pause", () => {
-  // Karaoke: detener animación sin borrar líneas
-  animationActive = false;
-
-  // Sincronizar iconos de ambos botones
-  playIcon.classList.replace("fa-pause", "fa-play");
-  if (iconPlayPause) {
-    iconPlayPause.classList.remove("fa-pause");
-    iconPlayPause.classList.add("fa-play");
-  }
-});
-
-audio.addEventListener("ended", () => {
-  // Karaoke: limpiar al terminar la pista
-  detenerKaraoke();
-
-  // Sincronizar iconos de ambos botones
-  playIcon.classList.replace("fa-pause", "fa-play");
-  if (iconPlayPause) {
-    iconPlayPause.classList.remove("fa-pause");
-    iconPlayPause.classList.add("fa-play");
-  }
-});
-
-
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// Función global para registrar historial
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-function pushHistoryEntry(artist, title, cover) {
-  const time = new Date().toLocaleTimeString("es-MX", { hour: "2-digit", minute: "2-digit" });
-  const entry = { artist, title, time, cover };
-  if (trackHistory.length === 0 || trackHistory[0].title !== title) {
-    trackHistory.unshift(entry);
-    if (trackHistory.length > 20) trackHistory.pop();
+  // Aquí puedes añadir la lógica específica de cada modo
+  switch (nuevoModo) {
+    case "local":
+      console.log("🎶 Modo LOCAL activado");
+      break;
+    case "radio":
+      console.log("📻 Modo RADIO activado");
+      break;
+    case "playlist":
+      console.log("📂 Modo PLAYLIST activado");
+      break;
+    default:
+      console.warn(`⚠️ Modo desconocido: ${nuevoModo}`);
+      break;
   }
 }
 
+
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// Cargar playlist según nombre y raíz
+// ▶️ ACTIVAR MODO STREAMING/RADIO
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-async function cargarPlaylist(nombre) {
-  try {
-    let file, clave;
+function activarModoStreaming() {
+  detenerKaraoke();// 🔥 Ajuste: limpiar karaoke al entrar en radio
+  modoActual = "radio"; // 👈 importante: usar "radio" para coherencia con contador
+  audio.src = "https://technoplayerserver.net/8240/stream";
+  audio.muted = false;
+  audio.play();
 
-    // mapeo nombre → archivo → raíz JSON
-    if (nombre === "Repro34") {
-      file = "https://radio-tekileros.vercel.app/Repro34.json";
-      clave = "actual";
-    } else if (nombre === "exitos") {
-      file = "https://radio-tekileros.vercel.app/Exitos.json";
-      clave = "exitos";
-    } else if (nombre === "hardcore") {
-      file = "https://radio-tekileros.vercel.app/HardCore.json";
-      clave = "hardcore";
-    } else {
-      console.warn(`❌ Playlist desconocida: ${nombre}`);
-      return;
-    }
+  // Metadatos iniciales
+  playlistLabel.textContent = "Radio Dale Play";
+  TRACK_TITLE_EL.textContent  = "Conectando…";
+  TRACK_ARTIST_EL.textContent = "—";
+  TRACK_ALBUM_EL.textContent  = "AutoDJ";
+  COVER_ART_EL.src            = "https://santi-graphics.vercel.app/assets/covers/DalePlay.png";
+  CURRENT_TRACK_DISPLAY_EL.textContent = "Radio Dale Play";
 
-    const res = await fetch(file, { cache: "no-cache" });
-    const data = await res.json();
+  modeLabel.textContent = "Modo: Radio";
 
-    // tomar la raíz correcta
-    trackData = Array.isArray(data[clave]) ? data[clave] : [];
-    console.log("🎶 Pistas cargadas:", trackData.length);
+  // Iniciar actualización periódica desde servidor
+  iniciarActualizacionRadio();
 
-    // activar primera pista automáticamente
-    if (trackData.length > 0) {
-      activarReproduccion(0, "initial-load");
-    }
-  } catch (err) {
-    console.error("❌ Error al cargar playlist:", err);
-  }
+  console.log("📡 Streaming activado (Radio Dale Play)");
 }
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// Variables de estado de playlist
+// METADATOS
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-let trackData = [];
-let currentTrack = null;
+// 📻 Utilidades: formateo y control de intervalos
 
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// ▶️ Activar reproducción local equilibrado
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-function activarReproduccion(index, modo = "manual") {
-  if (modoActual !== "local" || index < 0 || index >= trackData.length) return;
-
-  const track = trackData[index];
-  if (!track?.dropbox_url) return;
-
-  const esMismoTrack = (currentTrack === index);
-  currentTrack = index;
-
-  // pintar metadatos
-  TRACK_TITLE_EL.textContent  = track.nombre;
-  TRACK_ARTIST_EL.textContent = track.artista;
-  TRACK_ALBUM_EL.textContent  = track.genero || "Desconocido";
-  COVER_ART_EL.src = track.caratula || "https://santi-graphics.vercel.app/assets/covers/Cover1.png";
-  COVER_ART_EL.classList.add("rotating");
-
-  // cargar fuente si es distinta
-  if (audio.src !== track.dropbox_url) {
-    audio.src = track.dropbox_url;
-    audio.load();
-  }
-
-  // reproducir solo si es nuevo track o selección explícita
-  const modosQueFuerzanPlay = ["modal-click","botonera-play","playlist-select","initial-load","initial-gesture"];
-  if (!esMismoTrack || modosQueFuerzanPlay.includes(modo)) {
-    audio.play().catch(err => console.warn("⚠️ Error al reproducir pista local:", err));
-  }
+function formatArtist(artist) { 
+  if (!artist) return "";
+  artist = artist.toLowerCase().trim();
+  if (artist.includes(" &"))      artist = artist.substr(0, artist.indexOf(" &"));
+  else if (artist.includes("feat")) artist = artist.substr(0, artist.indexOf(" feat"));
+  else if (artist.includes("ft."))  artist = artist.substr(0, artist.indexOf(" ft."));
+  return artist;
 }
 
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 🔘 Modal de Tracks en modo local
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-const playlistBtn = document.getElementById("contenido-btn"); // botón con icono 🎵
-const modalTracks = document.getElementById("modal-playlist");
-const closePlaylistModal = document.getElementById("close-playlist-modal");
-
-if (playlistBtn && modalTracks) {
-  playlistBtn.addEventListener("click", () => {
-    if (modoActual === "local") {
-      modalTracks.classList.remove("hidden");
-      generarListaModal(); // 🔑 aquí se crean los bloques con info de los tracks
-      console.log("🎵 Modal de tracks abierto en modo local");
-    } else {
-      console.log("ℹ️ Botón Playlist deshabilitado en modo radio");
-    }
-  });
+function formatTitle(title) { 
+  if (!title) return "";
+  title = title.toLowerCase().trim();
+  if (title.includes("&"))    title = title.replace("&", "and");
+  else if (title.includes("(")) title = title.substr(0, title.indexOf(" ("));
+  else if (title.includes("ft")) title = title.substr(0, title.indexOf(" ft"));
+  return title;
 }
 
-// Cierre del modal
-if (closePlaylistModal) {
-  closePlaylistModal.addEventListener("click", () => {
-    modalTracks.classList.add("hidden");
-    console.log("❌ Modal de tracks cerrado");
-  });
-}
-
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape" && !modalTracks.classList.contains("hidden")) {
-    modalTracks.classList.add("hidden");
-    console.log("❌ Modal de tracks cerrado con ESC");
-  }
-});
-
-modalTracks.addEventListener("click", (e) => {
-  if (e.target === modalTracks) {
-    modalTracks.classList.add("hidden");
-    console.log("❌ Modal de tracks cerrado por clic fuera");
-  }
-});
-
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// Función para generar bloques de pistas
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-function generarListaModal() {
-  const trackListEl = document.getElementById("modal-playlist-tracks");
-  const headerEl = document.getElementById("current-track-display");
-  if (!trackListEl) return;
-
-  trackListEl.innerHTML = "";
-  if (modoActual !== "local") return;
-
-  // Actualizar cabecera con la pista actual
-  if (headerEl) {
-    if (trackData && trackData.length > 0 && trackData[currentTrack]) {
-      const track = trackData[currentTrack];
-      headerEl.textContent = `${track.nombre || "Sin título"} — ${track.artista || "Sin artista"}`;
-    } else {
-      headerEl.textContent = "Sin pista seleccionada — Sin artista";
-    }
-  }
-
-  if (!Array.isArray(trackData) || trackData.length === 0) {
-    const li = document.createElement("li");
-    li.textContent = "No hay pistas cargadas.";
-    trackListEl.appendChild(li);
-    return;
-  }
-
-  // 🔑 Generar un bloque por cada pista
-  trackData.forEach((track, index) => {
-    const li = document.createElement("li");
-    li.classList.add("modal-track-item");
-    li.dataset.index = index; // 👉 guardamos el índice para navegación con Top/Bottom + Play
-
-    // Carátula más pequeña
-    const img = document.createElement("img");
-    img.src = track.caratula || "https://santi-graphics.vercel.app/assets/covers/Cover1.png";
-    img.alt = "Carátula";
-    img.classList.add("track-cover");
-    img.style.width = "60px";
-    img.style.height = "60px";
-
-    // Información completa
-    const info = document.createElement("div");
-    info.classList.add("track-info");
-    info.innerHTML = `
-      <strong>${track.nombre || "Sin título"}</strong><br>
-      <span>🎤 ${track.artista || "Desconocido"}</span><br>
-      <span>💿 ${track.album || "Álbum desconocido"}</span><br>
-      <span>⏱️ ${track.duracion || "--:--"}</span>
-    `;
-
-    // Al hacer clic, reproducir la pista seleccionada
-    li.addEventListener("click", () => {
-      activarReproduccion(index, "modal-click");
-      if (headerEl) {
-        headerEl.textContent = `${track.nombre || "Sin título"} — ${track.artista || "Sin artista"}`;
-      }
-      modalTracks.classList.add("hidden");
-    });
-
-    li.appendChild(img);
-    li.appendChild(info);
-    trackListEl.appendChild(li);
-  });
-}
-
-
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 🔘 Modal Historial en panel derecho (solo en modo radio)
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-const historyModal = document.getElementById("history-modal");
-const closeHistoryModal = document.getElementById("close-history-modal");
-const historyList = document.getElementById("history-list");
-const contenidoIcon = contenidoBtn ? contenidoBtn.querySelector("i") : null;
-
-if (contenidoBtn && historyModal && historyList) {
-  contenidoBtn.addEventListener("click", () => {
-    if (modoActual !== "radio") {
-      console.log("ℹ️ Historial deshabilitado en modo local");
-      return;
-    }
-
-    contenidoIcon && contenidoIcon.classList.add("animate-spin");
-    setTimeout(() => contenidoIcon && contenidoIcon.classList.remove("animate-spin"), 600);
-
-    // Renderizar historial
-    historyList.innerHTML = "";
-    const list = Array.isArray(trackHistory) ? trackHistory : [];
-
-    if (list.length === 0) {
-      const li = document.createElement("li");
-      li.textContent = "Sin pistas registradas aún…";
-      historyList.appendChild(li);
-    } else {
-      list.forEach(entry => {
-        const li = document.createElement("li");
-        li.classList.add("modal-track-item");
-        li.innerHTML = `
-          <img src="${entry.cover || 'https://santi-graphics.vercel.app/assets/covers/DalePlay.png'}" alt="Carátula" class="track-cover" />
-          <div class="track-info">
-            <strong>${entry.title || ""}</strong><br>
-            <span>🎤 ${entry.artist || ""}</span><br>
-            <span>🕒 ${entry.time || ""}</span>
-          </div>
-        `;
-        historyList.appendChild(li);
-      });
-    }
-
-    historyModal.classList.remove("hidden");
-    rightPanel && rightPanel.classList.add("show");
-    console.log("📜 Modal Historial abierto en modo radio");
-  });
-
-  // Cierre por botón ❌
-  closeHistoryModal && closeHistoryModal.addEventListener("click", () => {
-    historyModal.classList.add("hidden");
-    console.log("❌ Modal Historial cerrado");
-  });
-
-  // Cierre con tecla ESC
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && !historyModal.classList.contains("hidden")) {
-      historyModal.classList.add("hidden");
-      console.log("❌ Modal Historial cerrado con ESC");
-    }
-  });
-
-  // Cierre por clic fuera del modal
-  document.addEventListener("click", (e) => {
-    const isClickOutside = !historyModal.contains(e.target) && !contenidoBtn.contains(e.target);
-    if (!historyModal.classList.contains("hidden") && isClickOutside) {
-      historyModal.classList.add("hidden");
-      console.log("❌ Modal Historial cerrado por clic fuera");
-    }
-  });
-}
-
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 📜 Generar el selector del modal de playlists (con status)
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-function generarSelectorPlaylists() {
-  const selector = document.querySelector("#playlist-modal .track-list");
-  if (!selector) return;
-
-  // limpiar listeners previos
-  selector.querySelectorAll("li[data-list]").forEach(li => {
-    li.replaceWith(li.cloneNode(true));
-  });
-
-  // volver a enlazar
-  const items = selector.querySelectorAll("li[data-list]");
-  items.forEach(li => {
-    const key = li.dataset.list; // "actual" | "hits" | "ruido"
-
-    li.addEventListener("click", () => {
-      switch (key) {
-        case "actual":
-          cargarPlaylist("Repro34");   // raíz: "actual"
-          syncStatus("Actual");
-          break;
-        case "hits":
-          cargarPlaylist("exitos");    // raíz: "exitos"
-          syncStatus("Hits");
-          break;
-        case "ruido":
-          cargarPlaylist("hardcore");  // raíz: "hardcore"
-          syncStatus("Ruido de Lata");
-          break;
-        default:
-          console.warn(`❌ Playlist desconocida en modal: ${key}`);
-          return;
-      }
-
-      document.getElementById("playlist-modal").classList.add("hidden");
-
-      // actualizar etiqueta en UI (scroll marquee)
-      const playlistDisplay = document.getElementById("track-playlist");
-      if (playlistDisplay) {
-        playlistDisplay.textContent = `Playlist: ${li.textContent}`;
-      }
-
-      console.log(`📂 Playlist seleccionada desde modal: ${key}`);
-    });
-  });
-}
-
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 🔘 Modal de Playlist con navegación
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-const playlistModal = document.getElementById("playlist-modal");
-const closeMenuModal = document.getElementById("close-modal-btn");
-
-if (playlistModal) {
-  // Cierre con botón ❌
-  if (closeMenuModal) {
-    closeMenuModal.addEventListener("click", () => {
-      playlistModal.classList.add("hidden");
-      console.log("❌ Modal Playlist cerrado con botón");
-    });
-  }
-
-  // Cierre con tecla ESC
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && !playlistModal.classList.contains("hidden")) {
-      playlistModal.classList.add("hidden");
-      console.log("❌ Modal Playlist cerrado con ESC");
-    }
-  });
-
-  // Cierre por clic fuera del contenido
-  playlistModal.addEventListener("click", (e) => {
-    if (e.target === playlistModal) {
-      playlistModal.classList.add("hidden");
-      console.log("❌ Modal Playlist cerrado por clic fuera");
-    }
-  });
-}
-
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// Inicializar navegación al abrir modal de Playlist
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-function abrirPlaylistModal() {
-  if (!playlistModal) return;
-  playlistModal.classList.remove("hidden");
-
-  // 🔑 regenerar y enlazar ítems de playlists
-  generarSelectorPlaylists();
-
-  // preparar navegación
-  currentModalList = playlistModal.querySelector(".track-list");
-  modalIndex = 0;
-  actualizarSeleccionModal();
-
-  console.log("📂 Navegación inicializada en modal de Playlist");
-}
-
-
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 🔽 Navegación en modales con Top/Bottom + Play
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-// Índice actual y referencia a la lista activa
-let modalIndex = 0;
-let currentModalList = null;
-
-// Función para actualizar la selección visual y el scroll
-function actualizarSeleccionModal() {
-  if (!currentModalList) return;
-  const items = currentModalList.querySelectorAll("li");
-  items.forEach((item, i) => {
-    item.classList.toggle("selected", i === modalIndex);
-  });
-
-  // 🔑 Asegurar que el ítem seleccionado sea visible en el scroll
-  const selectedItem = items[modalIndex];
-  if (selectedItem) {
-    selectedItem.scrollIntoView({
-      behavior: "smooth",
-      block: "nearest"
-    });
-  }
-}
-
-// Botón Top (Arriba)
-const btnTop = document.getElementById("btn-top");
-if (btnTop) {
-  btnTop.addEventListener("click", () => {
-    if (!currentModalList) return;
-    const items = currentModalList.querySelectorAll("li");
-    if (items.length === 0) return;
-    modalIndex = (modalIndex - 1 + items.length) % items.length;
-    actualizarSeleccionModal();
-  });
-}
-
-// Botón Bottom (Abajo)
-const btnBottom = document.getElementById("btn-bottom");
-if (btnBottom) {
-  btnBottom.addEventListener("click", () => {
-    if (!currentModalList) return;
-    const items = currentModalList.querySelectorAll("li");
-    if (items.length === 0) return;
-    modalIndex = (modalIndex + 1) % items.length;
-    actualizarSeleccionModal();
-  });
-}
-
-// Botón Play como activador de selección
-if (playBtn) {
-  playBtn.addEventListener("click", () => {
-    if (!currentModalList) return;
-    const items = currentModalList.querySelectorAll("li");
-    const selectedItem = items[modalIndex];
-    if (selectedItem) {
-      selectedItem.click(); // dispara el mismo evento que un clic manual
-    }
-  });
-}
-
-
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// Inicializar navegación al abrir modales
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-// Tracks
-if (playlistBtn && modalTracks) {
-  playlistBtn.addEventListener("click", () => {
-    if (modoActual === "local") {
-      modalTracks.classList.remove("hidden");
-      generarListaModal();
-      currentModalList = document.getElementById("modal-playlist-tracks");
-      modalIndex = 0;
-      actualizarSeleccionModal();
-    }
-  });
-}
-
-// Playlists
-if (playlistModal) {
-  playlistModal.addEventListener("click", () => {
-    currentModalList = playlistModal.querySelector(".track-list");
-    modalIndex = 0;
-    actualizarSeleccionModal();
-  });
-}
-
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 🛈 Sincronización de status (Modo y Playlist)
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-function syncStatus(nombrePlaylist = "") {
-  // Actualizar etiqueta de modo
-  if (modeLabel) {
-    modeLabel.textContent = `Modo: ${modoActual === "local" ? "Música" : "Radio"}`;
-  }
-
-  // Actualizar etiqueta de playlist
-  if (playlistLabel) {
-    if (modoActual === "local") {
-      playlistLabel.textContent = nombrePlaylist
-        ? `Playlist: ${nombrePlaylist}`
-        : "Playlist: Actual";
-      playlistLabel.style.display = "inline";
-    } else {
-      playlistLabel.textContent = "";
-      playlistLabel.style.display = "none";
-    }
-  }
-}
-
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 🔁 Ciclo de actualización del servidor (METADATOS)
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-function iniciarActualizacionRadio() {
-  // si no estamos en modo radio, no iniciar nada
-  if (modoActual !== "radio") return;
-
-  // limpiar intervalos previos
-  if (radioIntervalId) {
+function detenerActualizacionRadio() {
+  if (radioIntervalId !== null) {
     clearInterval(radioIntervalId);
     radioIntervalId = null;
   }
-
-  const radioUrl = "https://technoplayerserver.net/8240/currentsong";
-  const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(radioUrl)}`;
-
-  async function actualizarDesdeServidor() {
-    try {
-      const res = await fetch(proxyUrl, { cache: "no-cache" });
-      const raw = await res.text();
-      console.log("📡 Respuesta cruda metadatos:", raw);
-
-      // Normalización fuerte
-      let cleaned = raw
-        .replace(/AUTODJ/gi, "")
-        .replace(/Radio\s*Dale\s*Play/gi, "")
-        .replace(/\|+/g, "|")
-        .replace(/^\s*\|+|\|+\s*$/g, "")
-        .replace(/\s{2,}/g, " ")
-        .trim();
-
-      console.log("🧹 Metadatos limpiados:", cleaned);
-
-      // Si está vacío u offline
-      if (!cleaned || /offline/i.test(cleaned)) {
-        TRACK_ARTIST_EL.textContent = "¡Música sí!";
-        TRACK_TITLE_EL.textContent  = "Datos bloqueados";
-        if (CURRENT_TRACK_DISPLAY_EL) {
-          CURRENT_TRACK_DISPLAY_EL.textContent = "Datos bloqueados — ¡Música sí!";
-        }
-        return;
-      }
-
-      // Evitar bloqueo por repetición exacta
-      if (cleaned.toLowerCase() === (lastTrackTitle || "").toLowerCase()) {
-        console.log("⏭️ Metadatos sin cambios sustantivos, se mantiene UI.");
-        return;
-      }
-
-      lastTrackTitle = cleaned;
-
-      // Separadores flexibles: -, –, —, |, /
-      const split = cleaned.split(/\s*(?:[-–—\|\/])\s*/);
-      let artist = "Radio Dale Play";
-      let title  = cleaned;
-
-      if (split.length >= 2) {
-        artist = split[0].trim();
-        title  = split.slice(1).join(" - ").trim();
-      } else {
-        artist = "Mix / DJ";
-        title  = cleaned.trim();
-      }
-
-      console.log("🎼 Artist asignado:", artist);
-      console.log("🎼 Title asignado:", title);
-
-      // 🎨 Pintar en UI
-      if (TRACK_ARTIST_EL) TRACK_ARTIST_EL.textContent = artist;
-      if (TRACK_TITLE_EL)  TRACK_TITLE_EL.textContent  = title;
-      if (TRACK_ALBUM_EL)  TRACK_ALBUM_EL.textContent  = "Stream";
-      if (CURRENT_TRACK_DISPLAY_EL) {
-        CURRENT_TRACK_DISPLAY_EL.textContent = `${title} — ${artist}`;
-      }
-
-      // 📝 Historial
-      pushHistoryEntry(artist, title, COVER_ART_EL.src);
-
-      // 🖼 Carátula
-      if (typeof obtenerCaratulaDesdeiTunes === "function") {
-        obtenerCaratulaDesdeiTunes(artist, title);
-      }
-
-    } catch (err) {
-      console.error("❌ Error CRÍTICO en metadatos radio:", err);
-      setDefaultMetadata();
-    }
-  }
-
-  // primera actualización inmediata
-  actualizarDesdeServidor();
-  // intervalo cada 10 segundos
-  radioIntervalId = setInterval(actualizarDesdeServidor, 10000);
 }
 
-
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 👥 Contador de radioescuchas (XML)
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 function detenerContadorRadioescuchas() {
-  if (contadorIntervalId !== null) clearInterval(contadorIntervalId);
-  contadorIntervalId = null;
+  if (contadorIntervalId !== null) {
+    clearInterval(contadorIntervalId);
+    contadorIntervalId = null;
+  }
   if (contadorElemento) contadorElemento.textContent = "";
 }
 
-function iniciarContadorRadioescuchas() {
-  if (modoActual !== "radio") return;        // solo vive en radio
-  detenerContadorRadioescuchas();
-  if (!contadorElemento) return;
+//======================================
+// 📻 Carátula dinámica via iTunes (fallback a Plato)
+//======================================
+function obtenerCaratulaDesdeiTunes(artist, title) {
+  if (!discImg) return;
 
-  const statsUrl = "https://technoplayerserver.net/8240/stats"; // ✅ sin ?json=1
-  const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(statsUrl)}`;
+  // Si no hay jQuery, usa fallback inmediato
+  if (typeof $ === "undefined" || typeof $.ajax === "undefined") {
+    discImg.src = "https://santi-graphics.vercel.app/assets/covers/DalePlay.png";
+    discImg.classList.add("rotating");
+    return;
+  }
 
-  async function actualizarContador() {
-    try {
-      const res = await fetch(proxyUrl, { cache: "no-cache" });
-      const raw = await res.text();
+  const formattedArtist = formatArtist(artist);
+  const formattedTitle  = formatTitle(title);
+  const query = encodeURIComponent(`${formattedArtist} ${formattedTitle}`);
+  const url = `https://itunes.apple.com/search?term=${query}&media=music&limit=1`;
 
-      // Parsear XML
-      const parser = new DOMParser();
-      const xmlDoc = parser.parseFromString(raw, "application/xml");
-      const currentListenersNode = xmlDoc.querySelector("CURRENTLISTENERS");
-
-      if (currentListenersNode) {
-        contadorElemento.textContent = currentListenersNode.textContent;
-      } else {
-        contadorElemento.textContent = "0";
+  $.ajax({
+    dataType: "jsonp",
+    url,
+    success: function(data) {
+      let cover = "https://santi-graphics.vercel.app/assets/covers/DalePlay.png";
+      if (data.results && data.results.length === 1) {
+        cover = data.results[0].artworkUrl100.replace("100x100", "400x400");
       }
-      console.log("👥 Oyentes actuales:", contadorElemento.textContent);
-    } catch (err) {
-      console.error("❌ Error contador:", err);
-      contadorElemento.textContent = "0";
-    }
-  }
-
-  actualizarContador();                       // primera actualización inmediata
-  contadorIntervalId = setInterval(actualizarContador, 10000); // cada 10s
-}
-
-
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 🔘 BOTONERA Y BTNS EN CABECERA
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// Cabecera
-// Botones de cabecera
-const headerPlayBtn   = document.getElementById("btn-playpause");
-const headerForward   = document.getElementById("btn-forward");
-const headerRewind    = document.getElementById("btn-rewind");
-const headerRepeat    = document.getElementById("btn-repeat");
-const headerShuffle   = document.getElementById("btn-shuffle");
-const headerPower     = document.getElementById("btn-power");
-const headerMenu      = document.getElementById("btn-menu");
-const headerMusic     = document.getElementById("btn-music");
-
-// Enlazar cabecera → reproductor
-if (headerPlayBtn)   headerPlayBtn.addEventListener("click", () => playBtn.click());
-if (headerForward)   headerForward.addEventListener("click", () => forwardBtn.click());
-if (headerRewind)    headerRewind.addEventListener("click", () => rewindBtn.click());
-if (headerRepeat)    headerRepeat.addEventListener("click", () => repeatBtn.click());
-if (headerShuffle)   headerShuffle.addEventListener("click", () => shuffleBtn.click());
-if (headerPower)     headerPower.addEventListener("click", () => powerBtn.click());
-if (headerMenu)      headerMenu.addEventListener("click", () => menuBtn.click());
-if (headerMusic)     headerMusic.addEventListener("click", () => contenidoBtn.click());
-
-
-// Referencias a botones
-const powerBtn   = document.getElementById("power-btn");
-const powerIcon  = powerBtn.querySelector("i");
-const menuBtn    = document.getElementById("menu-btn");
-const menuIcon   = menuBtn ? menuBtn.querySelector("i") : null;
-const rewindBtn  = document.getElementById("rewind-btn");
-const forwardBtn = document.getElementById("forward-btn");
-const repeatBtn  = document.getElementById("repeat-btn");
-const repeatIcon = repeatBtn ? repeatBtn.querySelector("i") : null;
-const shuffleBtn = document.getElementById("shuffle-btn");
-const shuffleIcon= shuffleBtn ? shuffleBtn.querySelector("i") : null;
-
-
-
-// Estados globales
-let repeatActive = false;
-let shuffleActive = false;
-
-// ✅ Power: alternancia de modo
-if (powerBtn) {
-  powerBtn.addEventListener("click", () => {
-    powerIcon.classList.add("animate-spin");
-    setTimeout(() => powerIcon.classList.remove("animate-spin"), 600);
-
-    if (!gestureDetected) { 
-      gestureDetected = true; 
-      audio.muted = false; 
-    }
-
-    if (modoActual === "radio") {
-      activarModoLocal();
-    } else {
-      activarModoRadio();
-    }
-
-    actualizarBotonRadio();
-    console.log("🔀 Alternancia de modo:", modoActual);
-  });
-}
-
-
-// MENU
-if (menuBtn) {
-  menuBtn.addEventListener("click", () => {
-    if (menuIcon) {
-      menuIcon.classList.add("animate-spin");
-      setTimeout(() => menuIcon.classList.remove("animate-spin"), 600);
-    }
-    if (playlistModal) {
-      playlistModal.classList.remove("hidden");
-
-      // 🔑 regenerar y enlazar ítems de playlists
-      generarSelectorPlaylists();
-
-      // preparar navegación
-      currentModalList = playlistModal.querySelector(".track-list");
-      modalIndex = 0;
-      actualizarSeleccionModal(); // marca el primer ítem como seleccionado
-
-      console.log("📂 Modal playlists abierto con navegación inicializada");
+      discImg.src = cover;
+      discImg.classList.add("rotating");
+    },
+    error: function() {
+      discImg.src = "https://santi-graphics.vercel.app/assets/covers/DalePlay.png";
+      discImg.classList.add("rotating");
     }
   });
 }
 
+//======================================
+// 📻 Actualización periódica de metadatos de radio
+//======================================
+function iniciarActualizacionRadio() {
+  detenerActualizacionRadio();
+  iniciarContadorRadioescuchas();
 
-// ⏪ Rewind
-if (rewindBtn) {
-  rewindBtn.addEventListener("click", () => {
-    if (modoActual === "local" && currentTrack > 0) {
-      activarReproduccion(currentTrack - 1, "rewind");
-      console.log("⏪ Retrocediendo a pista anterior");
-    }
-  });
-}
+  const radioUrl = "https://technoplayerserver.net:8240/currentsong?sid=1";
+  const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(radioUrl)}`;
 
-// ⏩ Forward
-if (forwardBtn) {
-  forwardBtn.addEventListener("click", () => {
-    if (modoActual === "local" && currentTrack < trackData.length - 1) {
-      activarReproduccion(currentTrack + 1, "forward");
-      console.log("⏩ Avanzando a siguiente pista");
-    } else if (modoActual === "local" && repeatActive) {
-      activarReproduccion(0, "repeat-loop");
-      console.log("🔁 Reiniciando playlist desde el inicio");
-    }
-  });
-}
+  async function actualizarDesdeServidor() {
+    if (modoActual !== "radio") return; // coherencia de modo
 
-// 🔁 Repeat toggle con glow blanco
-if (repeatBtn) {
-  repeatBtn.addEventListener("click", () => {
-    repeatActive = !repeatActive;
-    repeatBtn.classList.toggle("repeat-active", repeatActive);
+    try {
+      const response = await fetch(proxyUrl, { cache: "no-cache" });
+      const newSongTitleRaw = await response.text();
 
-    if (repeatIcon) {
-      repeatIcon.classList.add("animate-spin");
-      setTimeout(() => repeatIcon.classList.remove("animate-spin"), 600);
-    }
+      // Limpieza y supresión de AUTODJ
+      const cleanedTitle = newSongTitleRaw.trim()
+        .replace(/AUTODJ/gi, "")
+        .replace(/\|\s*$/g, "")
+        .trim();
 
-    console.log(repeatActive ? "🔁 Repeat ACTIVADO" : "🔁 Repeat DESACTIVADO");
-  });
-}
-
-// 🔀 Shuffle toggle con acción inmediata
-if (shuffleBtn) {
-  shuffleBtn.addEventListener("click", () => {
-    shuffleActive = !shuffleActive;
-    shuffleBtn.classList.toggle("shuffle-active", shuffleActive);
-
-    if (shuffleIcon) {
-      shuffleIcon.classList.add("animate-spin");
-      setTimeout(() => shuffleIcon.classList.remove("animate-spin"), 600);
-    }
-
-    if (shuffleActive && modoActual === "local" && Array.isArray(trackData) && trackData.length > 0) {
-      let nextIndex;
-      do {
-        nextIndex = Math.floor(Math.random() * trackData.length);
-      } while (nextIndex === currentTrack && trackData.length > 1);
-
-      activarReproduccion(nextIndex, "shuffle-immediate");
-      console.log(`🔀 Shuffle activado → cambiando inmediatamente a pista ${nextIndex + 1}`);
-    } else {
-      console.log("🔀 Shuffle desactivado");
-    }
-  });
-}
-
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// ▶️ Botonera: Panel izquierdo + Cabecera
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-// Función centralizada de Play/Pause
-function togglePlayPause() {
-  if (audio.paused) {
-    audio.play().catch(err => console.warn("⚠️ Error al reproducir:", err));
-  } else {
-    audio.pause();
-  }
-}
-
-// Botón Play del panel izquierdo
-if (playBtn) {
-  playBtn.addEventListener("click", () => {
-    if (currentModalList) {
-      const items = currentModalList.querySelectorAll("li");
-      const selectedItem = items[modalIndex];
-      if (selectedItem?.dataset.index !== undefined) {
-        const idx = parseInt(selectedItem.dataset.index, 10);
-        if (currentTrack === idx) {
-          togglePlayPause(); // mismo track → pausa/play
-        } else {
-          activarReproduccion(idx, "botonera-play"); // nuevo track → reproducir
-          document.getElementById("modal-playlist")?.classList.add("hidden");
+      // Estados no válidos u offline
+      if (!cleanedTitle || cleanedTitle.toLowerCase().includes("offline") || cleanedTitle === lastTrackTitle) {
+        if (cleanedTitle && cleanedTitle.toLowerCase().includes("offline")) {
+          if (currentArtistName) currentArtistName.textContent = "¡Música sí!";
+          if (currentTrackName)  currentTrackName.textContent  = "Datos bloqueados";
+          if (metaTrack)         metaTrack.textContent         = "Radio Dale Play";
         }
         return;
       }
+
+      lastTrackTitle = cleanedTitle;
+
+      // Parseo en formato "Artista - Título"
+      const songtitleSplit = cleanedTitle.split(/ - | – /);
+      let artist = "Radio";
+      let title  = cleanedTitle;
+      if (songtitleSplit.length >= 2) {
+        artist = songtitleSplit[0].trim();
+        title  = songtitleSplit.slice(1).join(" - ").trim();
+      }
+
+      // Historial
+      const currentTrackTime = new Date().toLocaleTimeString("es-ES", { hour: "2-digit", minute: "2-digit" });
+      const newHistoryEntry = { artist, title, time: currentTrackTime };
+      if (trackHistory.length === 0 || trackHistory[0].title !== title) {
+        trackHistory.unshift(newHistoryEntry);
+        if (trackHistory.length > 20) trackHistory.pop();
+      }
+
+      // Metadatos en UI según tu HTML
+      // Carátula
+      obtenerCaratulaDesdeiTunes(artist, title);
+
+      // Radio Dale Play
+      playlistLabel.textContent = "Radio Dale Play";
+
+      // Título
+      if (currentTrackName)  currentTrackName.textContent  = title;
+
+      // Artista
+      if (currentArtistName) currentArtistName.textContent = artist;
+
+      // AutoDJ (origen en álbum/campo secundario)
+      TRACK_ALBUM_EL.textContent = "AutoDJ";
+
+      // Texto combinado
+      if (metaTrack) metaTrack.textContent = `${artist} — ${title}`;
+
+      // Modo (visualmente)
+      modeLabel.textContent = "Modo: Radio";
+    } catch (error) {
+      console.error("❌ Error CRÍTICO en la actualización de Radio:", error);
+      if (currentArtistName) currentArtistName.textContent = "Error";
+      if (currentTrackName)  currentTrackName.textContent  = "al cargar metadatos";
+      if (metaTrack)         metaTrack.textContent         = "Radio Dale Play";
     }
-    togglePlayPause(); // sin modal → pausa/play
-  });
+  }
+
+  // Primera actualización inmediata y luego cada 10s
+  actualizarDesdeServidor();
+  radioIntervalId = setInterval(actualizarDesdeServidor, 10000);
 }
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// ▶️ Botón Play/Pause de la cabecera (con karaoke activado)
+// 📻 Contador de radioescuchas
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-const btnPlayPause = document.getElementById("btn-playpause");
-const iconPlayPause = btnPlayPause ? btnPlayPause.querySelector("i") : null;
+function iniciarContadorRadioescuchas() {
+  detenerContadorRadioescuchas();
 
-if (btnPlayPause && iconPlayPause) {
-  btnPlayPause.addEventListener("click", () => {
-    if (audio.paused) {
-      audio.play().then(() => {
-        console.log("▶️ Cabecera: reproducción iniciada");
+  if (typeof $ === "undefined" || typeof $.ajax === "undefined" || !contadorElemento) return;
 
-        // 👉 Activar karaoke si corresponde
-        if (modoActual === "local" && !karaokeStarted) {
-          iniciarKaraoke();        // inicializa variables y estado
-          requestAnimationFrame(syncLyrics); // arranca animación
-          karaokeStarted = true;
-          animationActive = true;
-        }
-      }).catch(err => console.warn("⚠️ Error al reproducir:", err));
-    } else {
-      audio.pause();
-      console.log("⏸️ Cabecera: reproducción pausada");
-      animationActive = false; // detener animación sin reiniciar letras
-    }
-  });
+  const contadorUrl = "https://technoplayerserver.net:8240/stats?json=1&sid=1";
 
-  // Sincronización de iconos y carátula
-  audio.addEventListener("play", () => {
-    iconPlayPause.classList.remove("fa-play");
-    iconPlayPause.classList.add("fa-pause");
-    COVER_ART_EL.classList.add("rotating");
-  });
+  function actualizarContador() {
+    if (modoActual !== "radio") { detenerContadorRadioescuchas(); return; }
+    $.ajax({
+      dataType: "jsonp",
+      url: contadorUrl,
+      success: function(data) {
+        contadorElemento.textContent = data.currentlisteners || "0";
+      },
+      error: function() {
+        contadorElemento.textContent = "0";
+      },
+      timeout: 5000
+    });
+  }
 
-  audio.addEventListener("pause", () => {
-    iconPlayPause.classList.remove("fa-pause");
-    iconPlayPause.classList.add("fa-play");
-    COVER_ART_EL.classList.remove("rotating");
-  });
-
-  audio.addEventListener("ended", () => {
-    iconPlayPause.classList.remove("fa-pause");
-    iconPlayPause.classList.add("fa-play");
-    COVER_ART_EL.classList.remove("rotating");
-    detenerKaraoke(); // limpiar karaoke al terminar
-  });
+  actualizarContador();
+  contadorIntervalId = setInterval(actualizarContador, 15000);
 }
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 🔁 Integración con reproducción continua
+// 🔘 MODAL HISTORIAL (modo radio)
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-audio.addEventListener("ended", () => {
-  if (modoActual !== "local") return;
+function renderHistoryModal() {
+  if (!historyList) return;
+  historyList.innerHTML = "";
 
-  if (shuffleActive) {
-    let nextIndex;
-    do {
-      nextIndex = Math.floor(Math.random() * trackData.length);
-    } while (nextIndex === currentTrack && trackData.length > 1);
-    activarReproduccion(nextIndex, "shuffle-next");
-    console.log(`🔀 Shuffle → pista ${nextIndex + 1}`);
+  const list = Array.isArray(trackHistory) ? trackHistory : [];
+
+  if (list.length === 0) {
+    const li = document.createElement("li");
+    li.textContent = "Sin pistas registradas aún…";
+    historyList.appendChild(li);
   } else {
-    const nextIndex = currentTrack + 1;
-    if (nextIndex < trackData.length) {
-      activarReproduccion(nextIndex, "auto-next");
-      console.log(`⏭️ Avanzando automáticamente a pista ${nextIndex + 1}`);
-    } else if (repeatActive) {
-      activarReproduccion(0, "auto-loop");
-      console.log("🔁 Playlist terminada, reiniciando desde el inicio");
-    } else {
-      console.log("⏹️ Playlist terminada, sin repeat activo");
-    }
+    list.forEach(entry => {
+      const li = document.createElement("li");
+      li.classList.add("modal-track-item");
+      li.innerHTML = `
+        <img src="${entry.cover || 'https://santi-graphics.vercel.app/assets/covers/DalePlay.png'}" 
+             alt="Carátula" class="track-cover" />
+        <div class="track-info">
+          <strong>${entry.title || ""}</strong><br>
+          <span>🎤 ${entry.artist || ""}</span><br>
+          <span>🕒 ${entry.time || ""}</span>
+        </div>
+      `;
+      historyList.appendChild(li);
+    });
+  }
+}
+
+// Cierre por botón ❌
+if (closeHistoryModal) {
+  closeHistoryModal.addEventListener("click", () => {
+    historyModal.classList.add("hidden");
+    console.log("❌ Modal Historial cerrado con botón interno");
+  });
+}
+
+// Cierre con tecla ESC
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && historyModal && !historyModal.classList.contains("hidden")) {
+    historyModal.classList.add("hidden");
+    console.log("❌ Modal Historial cerrado con ESC");
   }
 });
 
+// Cierre por clic fuera del modal
+document.addEventListener("click", (e) => {
+  if (!historyModal || !menuBtn) return;
+  const isClickOutside = !historyModal.contains(e.target) && !menuBtn.contains(e.target);
+  if (!historyModal.classList.contains("hidden") && isClickOutside) {
+    historyModal.classList.add("hidden");
+    console.log("❌ Modal Historial cerrado por clic fuera");
+  }
+});
+
+
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// SWITCH PARA REPRODUCTOR
+// 📂 MODAL PLAYLIST (modo local)
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+// Variables de estado del modal Playlist (¡NO USAR para Modal Tracks!)
+// NOTA: 'modalIndex' y 'currentModalList' son usadas por el Modal Playlist.
+
+// 🛑 Abrir modal Playlist
+function abrirPlaylistModal(origen) {
+  if (!playlistModal) return;
+  playlistModal.classList.remove("hidden");
+
+  // sincronizar estado visual
+  document.getElementById("btn-menu")?.classList.add("active");
+  document.getElementById("menu-btn")?.classList.add("active");
+
+  // regenerar lista y listeners
+  generarSelectorPlaylists();
+  currentModalList = playlistModal.querySelector(".track-list");
+  modalIndex = 0;
+  actualizarSeleccionModal();
+
+  console.log(`📂 Playlist abierto (${origen})`);
+}
+
+// 🛑 Cerrar modal Playlist
+function cerrarPlaylistModal(origen) {
+  if (!playlistModal) return;
+  playlistModal.classList.add("hidden");
+
+  document.getElementById("btn-menu")?.classList.remove("active");
+  document.getElementById("menu-btn")?.classList.remove("active");
+
+  console.log(`❌ Playlist cerrado (${origen})`);
+}
+
+// 🎶 Generar lista de playlists en modal
+function generarSelectorPlaylists() {
+  const selector = playlistModal?.querySelector(".track-list");
+  if (!selector) return;
+
+  // limpiar listeners previos
+  selector.querySelectorAll("li[data-list]").forEach(li => {
+    li.replaceWith(li.cloneNode(true));
+  });
+
+  // volver a enlazar
+  const items = selector.querySelectorAll("li[data-list]");
+  items.forEach((li, i) => {
+    const key = li.dataset.list;
+
+    li.addEventListener("mouseenter", () => {
+      modalIndex = i;
+      actualizarSeleccionModal();
+    });
+
+    li.addEventListener("click", async (e) => {
+      e.stopPropagation();
+      await loadPlaylist(key);
+      activarModoLocal(key, 0);
+      audio.play();
+
+      playIcon.classList.replace("fa-play", "fa-pause");
+      iconPlayPause?.classList.replace("fa-play", "fa-pause");
+
+      cerrarPlaylistModal("clic en playlist");
+      console.log(`📂 Playlist seleccionada y reproduciendo: ${key}`);
+    });
+  });
+}
+
+// 🎯 Actualizar selección visual y scroll (¡USADA POR MODAL PLAYLIST!)
+function actualizarSeleccionModal() {
+  if (!currentModalList) return;
+  const items = currentModalList.querySelectorAll("li");
+  items.forEach((item, i) => item.classList.toggle("selected", i === modalIndex));
+  items[modalIndex]?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+
+//======================================
+// ⬆️⬇️ NAVEGACIÓN EN MODAL PLAYLIST
+//======================================
+
+function navegarPlaylistModal(direccion) {
+  if (!currentModalList || playlistModal.classList.contains("hidden")) return;
+  const items = currentModalList.querySelectorAll("li[data-list]");
+  if (!items.length) return;
+
+  modalIndex = direccion === "arriba"
+    ? (modalIndex - 1 + items.length) % items.length
+    : (modalIndex + 1) % items.length;
+
+  // La selección y scroll se manejan con la función de playlist
+  actualizarSeleccionModal(); 
+}
+
+//======================================
+// 🚪 CIERRES DEL MODAL
+//======================================
+
+// Botón interno ❌
+closeMenuModal?.addEventListener("click", e => {
+  e.stopPropagation();
+  cerrarPlaylistModal("botón interno");
+});
+
+// Tecla ESC
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape" && playlistModal && !playlistModal.classList.contains("hidden")) {
+    cerrarPlaylistModal("ESC");
+  }
+});
+
+// Clic fuera del modal
+document.addEventListener("click", e => {
+  if (!playlistModal) return;
+  const isOpen = !playlistModal.classList.contains("hidden");
+  if (!isOpen) return;
+
+  const clickedOutside = !playlistModal.contains(e.target) &&
+                         !document.getElementById("menu-btn")?.contains(e.target) &&
+                         !document.getElementById("btn-menu")?.contains(e.target);
+
+  if (clickedOutside) {
+    cerrarPlaylistModal("clic fuera");
+  }
+});
+
+
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// 🔘 MODAL DE TRACKS (Completo, Sincronizado y Navegable)
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+// Referencias principales
+const tracksBtn        = document.getElementById("contenido-btn");
+const modalTracks      = document.getElementById("tracks-modal");
+const closeTracksModal = document.getElementById("close-tracks-modal");
+
+// Referencia a la lista <ul> dentro del modal de tracks
+const modalTracksList = document.getElementById("modal-tracks-list"); 
+// (modalIndex se define globalmente arriba y se usa aquí)
+
+// Utilidad para formatear duración
+function mmss(value) {
+  // Si ya viene como string "MM:SS", lo devolvemos tal cual
+  if (typeof value === "string") return value;
+
+  // Si viene como número en segundos, lo convertimos
+  if (typeof value === "number" && isFinite(value)) {
+    const m = Math.floor(value / 60);
+    const s = Math.floor(value % 60);
+    return `${m}:${String(s).padStart(2, "0")}`;
+  }
+
+  // Fallback
+  return "--:--";
+}
+
+
+// 🛑 FUNCIÓN DE CIERRE SINCRONIZADA
+function cerrarModalTracks(origen) {
+  if (!modalTracks) return;
+
+  const btnMusic = document.getElementById("btn-music");
+  const contenidoBtn = document.getElementById("contenido-btn");
+  
+  if (btnMusic) btnMusic.classList.remove("active"); 
+  if (contenidoBtn) contenidoBtn.classList.remove("active");
+
+  modalTracks.classList.add("hidden");
+  console.log(`❌ Tracks cerrado (${origen})`);
+}
+
+// Obtener playlist activa
+function getActiveTrackData() {
+  if (typeof playlistActual === "undefined") playlistActual = "actual";
+  const data = playlists[playlistActual];
+  if (!Array.isArray(data)) {
+    console.error(`playlists['${playlistActual}'] no es arreglo:`, data);
+    return [];
+  }
+  return data;
+}
+
+// Asegurar índice válido
+function clampIndex(idx, len) {
+  if (typeof idx !== "number" || !isFinite(idx)) return 0;
+  if (len === 0) return 0;
+  return Math.max(0, Math.min(idx, len - 1));
+}
+
+// Pintar cabecera con track actual
+function pintarCabecera(list, index) {
+  const headerEl = document.getElementById("current-track-display");
+  if (!headerEl) return;
+  const t = list[index];
+  headerEl.textContent = t
+    ? `${t.title || "Sin título"} — ${t.artist || "Sin artista"}`
+    : "Sin pista seleccionada — Sin artista";
+}
+
+// 🎯 FUNCIÓN DE SELECCIÓN VISUAL Y SCROLL (¡USADA POR MODAL TRACKS!)
+function actualizarSeleccionTracksModal() {
+  if (!modalTracksList) return;
+  const items = modalTracksList.querySelectorAll(".modal-track-item");
+  items.forEach((item, i) => {
+    item.classList.toggle("selected", i === modalIndex);
+  });
+
+  const selectedItem = items[modalIndex];
+  if (selectedItem) {
+    selectedItem.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
+}
+
+
+// Generar lista dentro del modal
+function generarListaModal(list, index) {
+  const listEl = modalTracksList;
+  if (!listEl) return;
+
+  listEl.innerHTML = "";
+  if (list.length === 0) {
+    const li = document.createElement("li");
+    li.textContent = "No hay pistas cargadas.";
+    listEl.appendChild(li);
+    return;
+  }
+
+  list.forEach((track, i) => {
+    const li = document.createElement("li");
+    li.classList.add("modal-track-item");
+    if (i === index) li.classList.add("selected");
+
+    li.innerHTML = `
+      <img src="${track.cover || 'https://santi-graphics.vercel.app/assets/covers/Cover1.png'}"
+           alt="Carátula" class="track-cover" />
+      <div class="track-info">
+        <strong>${track.title || "Sin título"}</strong><br>
+        <span>🎤 ${track.artist || "Desconocido"}</span><br>
+        <span>💿 ${track.album || "Álbum desconocido"}</span><br>
+        <span>⏱️ ${mmss(track.duration)}</span>
+      </div>
+    `;
+
+    // Al hacer clic en un track: reproducir y cerrar modal
+    li.addEventListener("click", () => {
+      currentTrack = i;
+      modalIndex = i; // Sincroniza el índice para la navegación posterior
+      pintarCabecera(list, i);
+      activarModoLocal(playlistActual, currentTrack);
+      cerrarModalTracks("clic en track");
+    });
+
+    listEl.appendChild(li);
+  });
+  
+  actualizarSeleccionTracksModal();
+}
+
+
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// ⬆️⬇️ NAVEGACIÓN EN MODAL TRACKS (Funcional)
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+function navegarTracksModal(direccion) {
+  // Verifica que el modal de tracks esté abierto y tenga lista
+  if (!modalTracksList || modalTracks.classList.contains("hidden")) return;
+
+  const items = modalTracksList.querySelectorAll(".modal-track-item");
+  if (!items.length) return;
+
+  // 1. Calcular el nuevo índice (circular)
+  if (direccion === "arriba") {
+    modalIndex = (modalIndex - 1 + items.length) % items.length;
+  } else { // "abajo"
+    modalIndex = (modalIndex + 1) % items.length;
+  }
+  
+  // 2. Actualizar la selección visual y el scroll
+  actualizarSeleccionTracksModal();
+
+  // 3. Autoreproducción
+  currentTrack = modalIndex;
+  const list = getActiveTrackData(); 
+  
+  if (list[currentTrack]) {
+    pintarCabecera(list, currentTrack); // Pinta la cabecera al navegar
+    activarModoLocal(playlistActual, currentTrack);
+    console.log(`🎶 Track reproducido desde navegación: ${list[currentTrack].title}`);
+  }
+}
+
+
+// Botones de Navegación (Manejo unificado para ambos modales)
+const handleNavigationClick = (e, direccion) => {
+  e.stopPropagation();
+
+  // 1. Verifica si el Modal de Tracks está abierto y maneja la navegación del track
+  if (modalTracks && !modalTracks.classList.contains("hidden")) {
+    navegarTracksModal(direccion);
+    return;
+  }
+  
+  // 2. Verifica si el Modal de Playlists está abierto y maneja la navegación de playlists
+  if (playlistModal && !playlistModal.classList.contains("hidden")) {
+    navegarPlaylistModal(direccion);
+    return;
+  }
+};
+
+
+// Botón Top
+if (btnTop) {
+  btnTop.addEventListener("click", (e) => handleNavigationClick(e, "arriba"));
+}
+
+// Botón Bottom
+if (btnBottom) {
+  btnBottom.addEventListener("click", (e) => handleNavigationClick(e, "abajo"));
+}
+
+
+// Cerrar modal con botón interno (X)
+if (closeTracksModal) {
+  closeTracksModal.addEventListener("click", (e) => {
+    e.stopPropagation();
+    cerrarModalTracks("botón interno");
+});
+}
+
+// Cerrar modal con ESC
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && modalTracks && !modalTracks.classList.contains("hidden")) {
+    cerrarModalTracks("ESC");
+  }
+});
+
+// Cerrar modal clic fuera
+document.addEventListener("click", (e) => {
+  // Referencias para evitar el cierre si el clic proviene de cualquiera de los botones
+  const btnMusic = document.getElementById("btn-music"); 
+
+  if (modalTracks && !modalTracks.classList.contains("hidden") &&
+      !modalTracks.contains(e.target) &&
+      !btnMusic?.contains(e.target) &&
+      !tracksBtn.contains(e.target)) {
+    cerrarModalTracks("clic fuera");
+  }
+});
+
+
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// BOTONERAS SINCRONIZADAS (patrón simple)
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//======================================
+// 🔌 BOTÓN POWER (cabecera + panel)
+//======================================
+
+["btn-power", "power-btn"].forEach(id => {
+  const el = document.getElementById(id);
+  if (!el) return;
+
+  el.addEventListener("click", () => {
+    console.log("🔌 Click Power desde:", id);
+
+    if (modoActual === "local") {
+      activarModoStreaming();
+      console.log("▶️ Cambiado a modo radio");
+    } else {
+      detenerActualizacionRadio();
+      detenerContadorRadioescuchas();
+      activarModoLocal("actual", 0);
+      playlistActual = "actual";
+      trackData = playlists[playlistActual] || [];
+      currentTrack = 0;
+      console.log(`📂 Entrando a local con playlist '${playlistActual}'`);
+    }
+
+    // sincronización simple: ambos botones se marcan/desmarcan con una clase genérica
+    const btnPowerHeader = document.getElementById("btn-power");
+    const powerBtnPanel  = document.getElementById("power-btn");
+
+    btnPowerHeader?.classList.toggle("active", modoActual !== "local");
+    powerBtnPanel?.classList.toggle("active", modoActual !== "local");
+  });
+});
+
+
+//======================================
+// MENU (cabecera + panel) — listeners garantizados
+//======================================
+
+document.addEventListener("DOMContentLoaded", () => {
+  const attach = (id) => {
+    const el = document.getElementById(id);
+    if (!el) {
+      console.warn(`No se encontró botón: ${id}`);
+      return;
+    }
+    el.addEventListener("click", (e) => {
+      e.stopPropagation();
+
+      // Obtener referencias frescas en cada clic
+      const historyModalEl  = document.getElementById("history-modal")  || historyModal;
+      const rightPanelEl    = document.getElementById("right-panel")     || rightPanel;
+      const playlistModalEl = document.getElementById("playlist-modal")  || playlistModal;
+
+      if (modoActual === "radio") {
+        if (!historyModalEl) {
+          console.error("history-modal no encontrado");
+          return;
+        }
+        const isOpen = !historyModalEl.classList.contains("hidden");
+        if (isOpen) {
+          historyModalEl.classList.add("hidden");
+          rightPanelEl?.classList.remove("show");
+          // sincroniza estado visual
+          document.getElementById("btn-menu")?.classList.remove("active");
+          document.getElementById("menu-btn")?.classList.remove("active");
+          console.log("❌ Historial cerrado");
+        } else {
+          renderHistoryModal();
+          historyModalEl.classList.remove("hidden");
+          rightPanelEl?.classList.add("show");
+          // sincroniza estado visual
+          document.getElementById("btn-menu")?.classList.add("active");
+          document.getElementById("menu-btn")?.classList.add("active");
+          console.log("📜 Historial abierto");
+        }
+      } else {
+        if (!playlistModalEl) {
+          console.error("playlist-modal no encontrado");
+          return;
+        }
+        const isOpen = !playlistModalEl.classList.contains("hidden");
+        if (isOpen) {
+          cerrarPlaylistModal("botón Menu");
+        } else {
+          abrirPlaylistModal("botón Menu");
+        }
+      }
+    });
+  };
+
+  // Adjuntar a ambos botones cuando el DOM esté listo
+  attach("btn-menu");  // cabecera
+  attach("menu-btn");  // panel
+});
+
+
+//======================================
+// BOTON TRACKS (Music/Contenido) (cabecera + panel)
+//======================================
+
+// 1. Referencias (ya obtenidas en el bloque superior)
+const tracksModalRef = document.getElementById("tracks-modal"); 
+const btnMusic = document.getElementById("btn-music"); // Botón de la Cabecera
+const contenidoBtn = document.getElementById("contenido-btn"); // Botón del Panel
+
+// Función unificada para manejar el click en ambos botones
+function toggleTracksHandler(e) {
+    e.stopPropagation(); 
+    
+    if (!tracksModalRef || modoActual !== "local") {
+        console.log("ℹ️ Tracks deshabilitado (Modo radio)");
+        return;
+    }
+
+    const isOpen = !tracksModalRef.classList.contains("hidden");
+
+    if (isOpen) {
+        // Cierre: llama a la función centralizada que remueve la clase 'active' de ambos
+        cerrarModalTracks("botón de alternancia");
+        return;
+    }
+
+    // --- Lógica de Apertura ---
+    trackData = playlists[playlistActual] || [];
+    currentTrack = currentTrack || 0;
+
+    tracksModalRef.classList.remove("hidden");
+    
+    // Sincroniza estado visual: añade la clase 'active' a AMBOS botones
+    if (btnMusic) btnMusic.classList.add("active");
+    if (contenidoBtn) contenidoBtn.classList.add("active");
+    
+    pintarCabecera(trackData, currentTrack); // Asegura que la cabecera se pinte
+    generarListaModal(trackData, currentTrack);
+    console.log("🎵 Modal Tracks abierto");
+}
+
+// 2. Asignación de listeners para ambos botones
+if (btnMusic) {
+    btnMusic.addEventListener("click", toggleTracksHandler);
+}
+if (contenidoBtn) {
+    contenidoBtn.addEventListener("click", toggleTracksHandler);
+}
+
+//======================================
+// ⏩ BOTÓN FORWARD (cabecera + panel)
+//======================================
+
+["btn-forward", "forward-btn"].forEach(id => {
+  const el = document.getElementById(id);
+  if (!el) return;
+
+  el.addEventListener("click", () => {
+    console.log("⏩ Click Forward desde:", id);
+
+    const list = playlists[playlistActual] || [];
+    if (!list.length) {
+      console.warn("⏩ Playlist vacía o no disponible:", playlistActual);
+      return;
+    }
+
+    // avanzar un track sin exceder
+    const next = Math.min(list.length - 1, currentTrack + 1);
+    currentTrack = next;
+
+    // reproducir usando activarModoLocal
+    activarModoLocal(playlistActual, currentTrack);
+
+    console.log(`⏩ Avanzado a track ${currentTrack}:`, list[currentTrack]?.title);
+  });
+});
+
+//======================================
+// ⏪ BOTÓN REWIND (cabecera + panel)
+//======================================
+
+["btn-rewind", "rewind-btn"].forEach(id => {
+  const el = document.getElementById(id);
+  if (!el) return;
+
+  el.addEventListener("click", () => {
+    console.log("⏪ Click Rewind desde:", id);
+
+    const list = playlists[playlistActual] || [];
+    if (!list.length) {
+      console.warn("⏪ Playlist vacía o no disponible:", playlistActual);
+      return;
+    }
+
+    // retroceder un track sin ir por debajo de 0
+    const prev = Math.max(0, currentTrack - 1);
+    currentTrack = prev;
+
+    // reproducir usando activarModoLocal
+    activarModoLocal(playlistActual, currentTrack);
+
+    console.log(`⏪ Retrocedido a track ${currentTrack}:`, list[currentTrack]?.title);
+  });
+});
+
+
+//======================================
+// 🔁 BOTÓN REPEAT (cabecera + panel)
+//======================================
+
+// Estado global de repetición
+let repeatMode = false;
+
+// Click en cabecera y panel
+["btn-repeat", "repeat-btn"].forEach(id => {
+  const el = document.getElementById(id);
+  if (!el) return;
+
+  el.addEventListener("click", () => {
+    repeatMode = !repeatMode;
+    console.log(`🔁 Repeat desde ${id} → ${repeatMode ? "ON" : "OFF"}`);
+
+    const btnRepeatHeader = document.getElementById("btn-repeat");
+    const repeatBtnPanel  = document.getElementById("repeat-btn");
+
+    // Efecto visual: solo panel
+    if (repeatMode) {
+      repeatBtnPanel?.classList.add("repeat-active");
+    } else {
+      repeatBtnPanel?.classList.remove("repeat-active");
+    }
+
+    // Si quieres apariencia “aparentemente aplicada a ambos” sin rotación:
+    // btnRepeatHeader?.classList.toggle("active", repeatMode);
+
+    // Lógica de reproductor (repeat-one o repeat-all)
+    // Ejemplo simple: repeat-one
+    audio.loop = repeatMode;
+  });
+});
+
+//======================================
+// 🔀 BOTÓN SHUFFLE (cabecera + panel)
+//======================================
+
+let shuffleMode = false; // estado global
+
+["btn-shuffle", "shuffle-btn"].forEach(id => {
+  const el = document.getElementById(id);
+  if (!el) return;
+
+  el.addEventListener("click", () => {
+    shuffleMode = !shuffleMode;
+    console.log(`🔀 Click Shuffle desde: ${id} → ${shuffleMode ? "ON" : "OFF"}`);
+
+    const btnShuffleHeader = document.getElementById("btn-shuffle");
+    const shuffleBtnPanel  = document.getElementById("shuffle-btn");
+
+    if (shuffleMode) {
+      shuffleBtnPanel?.classList.add("shuffle-active");
+      btnShuffleHeader?.classList.add("active"); // opcional, solo para apariencia
+    } else {
+      shuffleBtnPanel?.classList.remove("shuffle-active");
+      btnShuffleHeader?.classList.remove("active");
+    }
+
+    // Lógica de reproductor: activar modo aleatorio inmediato
+    if (shuffleMode) {
+      // ejemplo simple: elegir un track aleatorio
+      const list = playlists[playlistActual] || [];
+      if (list.length) {
+        currentTrack = Math.floor(Math.random() * list.length);
+        activarModoLocal(playlistActual, currentTrack);
+        audio.play();
+        console.log(`🔀 Shuffle activado → Track aleatorio: ${currentTrack}`, list[currentTrack]?.title);
+      }
+    }
+  });
+});
+
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// ▶️ BOTÓN PLAY (cabecera + panel)
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+["btn-playpause", "play-btn"].forEach(id => {
+  const el = document.getElementById(id);
+  if (!el) return;
+
+  el.addEventListener("click", async () => {
+    console.log("▶️ Click Play desde:", id);
+
+    // Si el modal Playlist está abierto y hay selección
+    if (playlistModal && !playlistModal.classList.contains("hidden") && currentModalList) {
+      const items = currentModalList.querySelectorAll("li[data-list]");
+      if (items.length) {
+        const selectedItem = items[modalIndex];
+        const key = selectedItem?.dataset.list;
+        if (key) {
+          await loadPlaylist(key);
+          activarModoLocal(key, 0);
+          audio.play();
+
+          // sincronizar íconos
+          document.getElementById("btn-playpause")?.querySelector("i")
+            ?.classList.replace("fa-play", "fa-pause");
+          document.getElementById("play-btn")?.querySelector("i")
+            ?.classList.replace("fa-play", "fa-pause");
+
+          cerrarPlaylistModal("Play desde modal");
+          console.log(`▶️ Playlist reproducida desde modal: ${key}`);
+          return;
+        }
+      }
+    }
+
+    // Caso normal: alternar play/pause del audio
+    if (audio.paused) {
+      audio.play();
+      console.log("▶️ Reproducción iniciada");
+    } else {
+      audio.pause();
+      console.log("⏸ Reproducción pausada");
+    }
+
+    // sincronizar íconos
+    const btnPlayPauseHeader = document.getElementById("btn-playpause")?.querySelector("i");
+    const playBtnPanel       = document.getElementById("play-btn")?.querySelector("i");
+
+    if (audio.paused) {
+      btnPlayPauseHeader?.classList.replace("fa-pause", "fa-play");
+      playBtnPanel?.classList.replace("fa-pause", "fa-play");
+    } else {
+      btnPlayPauseHeader?.classList.replace("fa-play", "fa-pause");
+      playBtnPanel?.classList.replace("fa-play", "fa-pause");
+    }
+  });
+});
+
+
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// ➕ BOTÓN PLUS → Ocultar/mostrar reproductor + cambio de ícono
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
 const btnPlus = document.getElementById("btn-plus");
 const mainContainer = document.getElementById("main-container");
+const iconPlus = btnPlus?.querySelector("i"); // suponiendo que dentro hay un <i> con fa-plus/fa-times
 
-if (btnPlus && mainContainer) {
-  btnPlus.addEventListener("click", () => {
-    mainContainer.classList.toggle("hidden-repro");
-    console.log("➕ Botón Plus: estado del reproductor cambiado");
-  });
-}
+btnPlus?.addEventListener("click", () => {
+  if (!mainContainer) return;
 
+  mainContainer.classList.toggle("hidden-repro");
 
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// CAMBIO DE MODO LOCAL y RADIO
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 🔁 Cambios de modo con actualización de status
-function activarModoLocal() {
-  modoActual = "local";
+  const oculto = mainContainer.classList.contains("hidden-repro");
 
-  // limpiar intervalos previos
-  if (radioIntervalId) { clearInterval(radioIntervalId); radioIntervalId = null; }
-  if (contadorIntervalId) { clearInterval(contadorIntervalId); contadorIntervalId = null; }
-
-  audio.pause();
-  audio.src = "";
-  COVER_ART_EL.classList.remove("rotating");
-  setDefaultMetadata();
-
-  // cargar playlist por defecto
-  cargarPlaylist("Repro34");
-  syncStatus("Actual"); // sincroniza status visual
-
-  // sincronizar iconos de ambos botones
-  playIcon.classList.replace("fa-pause", "fa-play");
-  if (iconPlayPause) {
-    iconPlayPause.classList.remove("fa-pause");
-    iconPlayPause.classList.add("fa-play");
+  // alternar ícono
+  if (iconPlus) {
+    if (oculto) {
+      iconPlus.classList.replace("fa-plus", "fa-times");
+    } else {
+      iconPlus.classList.replace("fa-times", "fa-plus");
+    }
   }
 
-  console.log("🎶 Modo Local activado");
-}
-
-function activarModoRadio() {
-  modoActual = "radio";
-
-  TRACK_ARTIST_EL.textContent = "Conectando...";
-  TRACK_TITLE_EL.textContent  = "Obteniendo datos...";
-  TRACK_ALBUM_EL.textContent  = "";
-  COVER_ART_EL.src = "https://santi-graphics.vercel.app/assets/covers/DalePlay.png";
-  COVER_ART_EL.classList.add("rotating");
-
-  audio.pause();
-  audio.src = "https://technoplayerserver.net/8240/stream";
-  audio.load();
-  audio.muted = !gestureDetected;
-
-  audio.play().then(() => {
-    playIcon.classList.replace("fa-play", "fa-pause");
-    if (iconPlayPause) {
-      iconPlayPause.classList.remove("fa-play");
-      iconPlayPause.classList.add("fa-pause");
-    }
-    console.log("📻 Radio reproduciendo automáticamente");
-  }).catch(err => {
-    console.warn("🔒 Error al iniciar Radio:", err);
-    playIcon.classList.replace("fa-pause", "fa-play");
-    if (iconPlayPause) {
-      iconPlayPause.classList.remove("fa-pause");
-      iconPlayPause.classList.add("fa-play");
-    }
-  });
-
-  iniciarActualizacionRadio();
-  iniciarContadorRadioescuchas();
-  syncStatus(); // oculta label de playlist en modo radio
-
-  console.log("📻 Modo Radio activado");
-}
-
-
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 🔁 Reproducción continua en modo local
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-audio.addEventListener("ended", () => {
-  if (modoActual !== "local") return;
-
-  // avanzar al siguiente track
-  const nextIndex = (currentTrack !== null ? currentTrack + 1 : 0);
-
-  if (nextIndex < trackData.length) {
-    activarReproduccion(nextIndex, "auto-next");
-    console.log(`⏭️ Avanzando automáticamente a la pista ${nextIndex + 1}`);
-  } else {
-    // si llegamos al final, reiniciar desde la primera
-    activarReproduccion(0, "auto-loop");
-    console.log("🔁 Playlist terminada, reiniciando desde el inicio");
-  }
+  console.log(`🎛️ Reproductor ${oculto ? "oculto" : "visible"}`);
 });
 
 
@@ -1334,7 +1390,9 @@ document.addEventListener("DOMContentLoaded", () => {
   setInterval(createParticle, 150);
 });
 
+//=====================================
 // Mostrar mensaje al hacer clic derecho
+//=====================================
 document.addEventListener("contextmenu", (e) => {
   e.preventDefault(); // evitar menú contextual
   const msg = document.getElementById("custom-message");
