@@ -19,7 +19,7 @@ body {
 #main-ctn {
   position: absolute;        /* se puede mover manualmente */
   top: 0;
-  right: 60px;
+  right: 70px;
   width: 100%;
   height: calc(100vh - 0px);
   overflow-y: auto;
@@ -362,4 +362,5 @@ body {
 }
 .custom-message.show {
     opacity: 1;
+
 }
