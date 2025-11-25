@@ -389,7 +389,7 @@ html, body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url(https://i.ibb.co/nMz9Tyjg/Plato.png);
+  background-image: url(https://santi-graphics.vercel.app/assets/img/Plato.png);
   background-size: cover;
   background-position: center;
   opacity: 1.0; /* corregido: valor válido entre 0 y 1 */
@@ -424,112 +424,107 @@ html, body {
   }
 }
 
-/*  *******************Estilos para el control de volumen***************  */
-    .volume-control {
-        margin-top: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        padding: 0 5px; /* Agregar un poco de padding en los extremos */
-    }
-    
-    .volume-control i {
-        color: #ffffff;
-        font-size: 16px;
-        width: 20px; /* Ancho fijo para evitar saltos */
-        transition: color 0.3s;
-    }
-    
-    .volume-control i:hover {
-        color: #ff4081;
-    }
-    
-    .volume-slider {
-        width: 70%;
-        -webkit-appearance: none;
-        height: 6px;
-        background: linear-gradient(to right,
-  #ff80b3 0%,                                       /* inicio rosa claro */
-  #ff4081 var(--volume-percent, 70%),               /* hasta el volumen actual */
-  rgba(255, 255, 255, 0.3) var(--volume-percent, 70%) /* transición a halo blanco */
-);
-        border-radius: 5px;
-        outline: none;
-        position: relative;
-    }
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Volumen ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.center-zone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
 
-    .volume-slider::-webkit-slider-thumb {
-        -webkit-appearance: none;
-        appearance: none;
-        width: 15px;
-        height: 15px;
-        background: #ffffff;
-        border-radius: 50%;
-        cursor: pointer;
-        border: 2px solid rgba(255, 255, 255, 0.8);
-        box-shadow: 0 0 10px rgba(255, 128, 179, 0.6); /* resplandor rosa suave */
-        transition: all 0.2s;
-    }
-    
-    .volume-slider::-webkit-slider-thumb:hover {
-        transform: scale(1.2);
-        background: #ff80b3;
-        box-shadow: 0 0 10px rgba(255, 128, 179, 0.6); /* resplandor rosa suave */
-    }
-    
-    .volume-slider:active::-webkit-slider-thumb {
-        transform: scale(1.3);
-        background: #ff4081;
-    }
-    
-    .volume-slider::-moz-range-progress {
-        background-color: #ffff66;
-        height: 6px;
-        border-radius: 5px;
-    }
-    
-    .volume-slider::-moz-range-thumb {
-        width: 15px;
-        height: 15px;
-        background: #4edd4e;
-        border-radius: 50%;
-        cursor: pointer;
-        border: 2px solid rgba(255, 255, 255, 0.8);
-        box-shadow: 0 0 10px rgba(255, 128, 179, 0.6); /* resplandor rosa suave */
-    }
-    
-    .volume-percentage {
-        color: #ffffff;
-        font-size: 12px;
-        min-width: 32px; /* Ancho fijo para evitar saltos de diseño */
-        text-align: right;
-        font-weight: bold;
-    }
-/* Responsive */
-@media (max-width: 768px) {
-  #block-volumen {
-    position: absolute;
-    bottom: 210px;
-    left: 0;
-    right: 0;
-    margin: auto;
-    z-index: 999;
-  }
+.volume-icon {
+  color: #ffffff;
+  font-size: 16px;
+  width: 20px;
+  transition: color 0.3s;
+    cursor: pointer;
+}
+.volume-icon:hover { color: #ff4081; }
 
-  .volume-control {
-    flex-wrap: wrap;
-    gap: 6px;
-  }
+.volume-track {
+  width: 250px;
+  height: 16px;
+  background: #010101;
+  border-radius: 8px;
+  box-shadow: inset 0 0 0 1px #C8A2C8, inset 0 2px 4px #000;
+  display: flex;
+  align-items: center;
+  padding: 0 4px;
+  overflow: hidden;
+    cursor: pointer;
+}
 
-  .volume-slider {
-    width: 100%;
-  }
+.volume-bar {
+  width: 100%;
+  height: 16px;
+  appearance: none;
+  background: none;
+  outline: none;
+  cursor: pointer;
+  --vol: 70%;
+}
 
-  .volume-percentage {
-    text-align: center;
-    width: 100%;
-  }
+.volume-bar::-webkit-slider-runnable-track {
+  height: 6px;
+  background: linear-gradient(
+    to right,
+    #ff4081 0%,
+    #ff4081 var(--vol),
+    #ccc var(--vol),
+    #ccc 100%
+  );
+  border-radius: 4px;
+}
+.volume-bar::-moz-range-track {
+  height: 6px;
+  background: linear-gradient(
+    to right,
+    #ff4081 0%,
+    #ff4081 var(--vol),
+    #ccc var(--vol),
+    #ccc 100%
+  );
+  border-radius: 4px;
+}
+
+.volume-bar::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 15px;
+  height: 15px;
+  background: #ffffff;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.8);
+  box-shadow: 0 0 10px rgba(255,128,179,0.6);
+  transition: all 0.2s;
+  cursor: pointer;
+  margin-top: -4px; /* centrado visual respecto al track */
+}
+.volume-bar::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  background: #ff80b3;
+}
+.volume-bar:active::-webkit-slider-thumb {
+  transform: scale(1.3);
+  background: #ff4081;
+}
+
+.volume-bar::-moz-range-thumb {
+  width: 15px;
+  height: 15px;
+  background: #ffffff;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.8);
+  box-shadow: 0 0 10px rgba(255,128,179,0.6);
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.volume-percentage {
+  color: #ffffff;
+  font-size: 12px;
+  min-width: 32px;
+  text-align: right;
+  font-weight: bold;
 }
 
 /* ***************************** INFO + EMOCIONES ***************************** */
@@ -680,14 +675,14 @@ html, body {
 .emotion-default      { color: #ff4081; }
 .emotion-picardia     { color: #ff80b3; }
 
-/* ***************************** BOTONES 1 ***************************** */
+/* ***************************** BOTONES ***************************** */
 /* Botonera Invisible */
 #block-controls {
   position: absolute;
-  top: 480px;           /* ← ajusta según tu layout */
+  bottom: -15px;           
   left: 50%;
   transform: translateX(-50%);
-  width: 300px;         /* ← puedes ajustar según contenido */
+  width: 300px;         
   height: auto;
   border-radius: 12px;
   z-index: 10;
@@ -697,8 +692,6 @@ html, body {
 /* 🎛️ Controles del reproductor */
 .radio-logo .player-controls {
   position: relative;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
   display: flex;
@@ -711,14 +704,13 @@ html, body {
   animation: counterRotation 3s linear infinite;
 }
 
-/* 🔄 Contrarresta rotación del disco */
 @keyframes counterRotation {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(-360deg); }
 }
 
 /* 🧩 Botones base */
-.btn-engendro {
+button {
   border-radius: 50%;
   background: linear-gradient(to bottom, #1a1a1a, #333);
   color: #fff;
@@ -728,277 +720,223 @@ html, body {
   align-items: center;
   transition: transform 0.3s ease;
   position: absolute;
+  pointer-events: auto; /* fuerza eventos en todos los botones */
+  cursor: pointer;
 }
-.btn-engendro:hover {
+button:hover {
   transform: scale(1.1);
 }
 
 /* 🎯 Botón POWER */
-.btn-power {
-  position: relative;
-  bottom: 470px;
-  right: 60px;
+#power-btn {
+  position: absolute;
+  bottom: 550px;
+  right: 330px;
   width: 32px;
   height: 32px;
-  background: #222;
   border-radius: 50%;
+  background: linear-gradient(to bottom, #1a1a1a, #333); 
   color: #fff;
+  transition: all 0.3s ease; 
   box-shadow: 0 0 8px rgba(255, 128, 179, 0.8);
-  transition: transform 0.3s ease;
-  align-items: center;
-  justify-content: center;
-  display: flex;
-  z-index: 20;
+  pointer-events: auto;
 }
-.btn-power:hover {
-  transform: scale(1.1);
+#power-btn:hover {
+  box-shadow: 0 0 12px #ff4081;
 }
 
-.btn-engendro-play {
-  position: relative;
-  bottom: 135px; /* ← desplazamiento positivo desde el borde inferior */
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
+/* Estado Activo: degradado rosa + glow */
+#power-btn.active {
   background: linear-gradient(to right,
-    #ff80b3 0%,     /* rosa suave al inicio */
-    #ff4081 50%,    /* rosa vibrante en el centro */
-    #e60073 100%    /* rosa intenso al final */
-  );
-  color: #fff;
-  box-shadow: 0 0 10px rgba(255, 128, 179, 0.8); /* resplandor rosa suave */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: transform 0.3s ease;
-  z-index: 20;
+      #ff80b3 0%,
+      #ff4081 50%,
+      #e60073 100%
+  ) !important;
+  box-shadow: 0 0 16px 4px #ff4081 !important;
 }
+#power-btn.active i {
+  text-shadow: 0 0 8px #ff4081;
+  transition: transform 0.5s ease-out;
+}
+
+/* Rotación del icono */
+#power-btn.animate-icon i {
+  transform: rotate(360deg);
+}
+
+
 /* 🔴 Botón Play */
-.play-btn {
+#play-btn {
   width: 80px;
   height: 80px;
   bottom: 20px;
   left: 38%;
   border-radius: 50%;
-  box-shadow: 0 0 6px rgba(255, 64, 129, 0.3);
+  background: linear-gradient(to bottom, #1a1a1a, #333); /* base oscura */
+  color: #fff;
+  box-shadow: 0 0 10px rgba(255, 128, 179, 0.8);
   font-size: 1.0em;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
   user-select: none;
+  z-index: 20;
+  transition: background 0.3s ease;
 }
 
-.rewind-btn {
+/* Estado activo del Play → degradado rosa */
+#play-btn.active {
+  background: linear-gradient(to right,
+    #ff80b3 0%,
+    #ff4081 50%,
+    #e60073 100%
+  );
+}
+
+#rewind-btn {
   width: 55px;
   height: 55px;
   bottom: 28px;
   left: 50px;
   border-radius: 50%;
-  box-shadow: 0 0 6px rgba(255, 64, 129, 0.3);
-  font-size: 1.0em;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  user-select: none;
+  background: linear-gradient(to bottom, #1a1a1a, #333); /* base oscura */
+  color: #fff;
+  box-shadow: 0 0 8px rgba(255, 64, 129, 0.6); /* glow */
 }
+#rewind-btn:hover { box-shadow: 0 0 12px #ff4081; }
 
-.rewind-btn:active {
-  transform: scale(1.2);
-}
 
-/* 🌀 Animación de giro simbólico */
-.rewind-btn i.animate-spin {
-  animation: spinOnce 0.6s ease-out;
-}
-@keyframes spinOnce {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(-360deg); }
-}
-
-.forward-btn {
+/* ⏩ Botón Forward */
+#forward-btn {
   width: 55px;
   height: 55px;
   bottom: 28px;
   left: 205px;
   border-radius: 50%;
-  box-shadow: 0 0 6px rgba(255, 64, 129, 0.3);
-  font-size: 1.0em;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  user-select: none;
+  background: linear-gradient(to bottom, #1a1a1a, #333);
+  color: #fff;
+  box-shadow: 0 0 8px rgba(255, 64, 129, 0.6);
+}
+#forward-btn:hover { box-shadow: 0 0 12px #ff4081; }
+
+
+/* 🔁 Botón Repeat */
+.control-btn.active {
+    background: linear-gradient(to right,
+        #ff80b3 0%,
+        #ff4081 50%,
+        #e60073 100%
+    ) !important;
 }
 
-.forward-btn:active {
-  transform: scale(1.2);
+.control-btn.active i {
+    text-shadow: 0 0 8px #ff4081;
+    /* Aplica una transición suave a la rotación */
+    transition: transform 0.5s ease-out; 
 }
 
-/* 🌀 Animación de giro simbólico */
-.forward-btn i.animate-spin {
-  animation: spinOnce 0.6s ease-out;
+/* CLASE TEMPORAL para disparar la Rotación */
+.control-btn.animate-icon i {
+    transform: rotate(360deg);
 }
 
-@keyframes spinOnce {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+/* 🔁 Botón Repeat */
+#repeat-btn {
+    width: 45px;
+    height: 45px;
+    bottom: 32px;
+    right: 265px;
+    border-radius: 50%;
+    background: linear-gradient(to bottom, #1a1a1a, #333);
+    color: #fff;
+    box-shadow: 0 0 8px rgba(255, 64, 129, 0.6);
+    transition: all 0.3s ease; 
+}
+#repeat-btn:hover { box-shadow: 0 0 12px #ff4081; }
+#repeat-btn.active-one {
+    box-shadow: 0 0 12px 4px rgba(255, 64, 129, 0.8);
+}
+#repeat-btn.active-one i {
+    text-shadow: 0 0 8px #ff4081;
 }
 
-/* 📍 Posiciones individuales */
-.repeat-btn {
-  width: 45px;
-  height: 45px;
-  bottom: 32px;
-  right: 265px;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-  border-radius: 50%;
-  box-shadow: 0 0 6px rgba(255, 64, 129, 0.3);
-  font-size: 1.0em;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+
+/* 🔀 Botón Shuffle */
+#shuffle-btn {
+    width: 45px;
+    height: 45px;
+    bottom: 32px;
+    left: 270px;
+    border-radius: 50%;
+    background: linear-gradient(to bottom, #1a1a1a, #333);
+    color: #fff;
+    box-shadow: 0 0 8px rgba(255, 64, 129, 0.6);
+    transition: all 0.3s ease;
+}
+#shuffle-btn:hover { box-shadow: 0 0 12px #ff4081; }
+#shuffle-btn.active {
+    box-shadow: 0 0 12px 4px rgba(255, 64, 129, 0.8);
 }
 
-.shuffle-btn {
-  width: 45px;
-  height: 45px;
-  bottom: 32px;
-  left: 270px;
-  border-radius: 50%;
-  box-shadow: 0 0 6px rgba(255, 64, 129, 0.3);
-  font-size: 1.0em;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  user-select: none;
-}
-
-.shuffle-active {
-  background-color: #ff4081;
-  box-shadow: 0 0 12px 4px rgba(255, 0, 0, 0.6);
-  animation: pulse-shuffle 1.2s infinite;
-  border-radius: 50%;
-}
-
-@keyframes pulse-shuffle {
-  0% {
-    transform: scale(1);
-    box-shadow: 0 0 12px 4px rgba(255, 64, 129, 0.6); /* rosa base suave */
-  }
-  50% {
-    transform: scale(1.1);
-    box-shadow: 0 0 18px 6px rgba(255, 64, 129, 0.8); /* rosa base vibrante */
-  }
-  100% {
-    transform: scale(1);
-    box-shadow: 0 0 12px 4px rgba(255, 64, 129, 0.6); /* rosa base suave */
-  }
-}
-
-.btn-menu {
+/* 📜 Botón Menu */
+#menu-btn {
   position: fixed;
   width: 40px;
   height: 40px;
   bottom: 60px;
   right: 320px;
-  border-radius: 50%;
   background: linear-gradient(to bottom, #1a1a1a, #333);
-  color: #fff;
   box-shadow: 0 0 6px rgba(255, 64, 129, 0.3);
-  font-size: 1.0em;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  user-select: none;
 }
-.btn-menu:hover {
+#menu-btn:hover {
   transform: scale(1.1);
   box-shadow: 0 0 10px #ff4081;
 }
 
-/* ***************************** BOTONES 2 ***************************** */
-/* 🔘 Botón flotante de contenido */
-.contenido-btn {
+/* 🎵 Botón Playlist */
+#music-btn {
   position: fixed;
   width: 40px;
   height: 40px;
   bottom: 60px;
   left: 325px;
   border-radius: 50%;
-  box-shadow: 0 0 6px rgba(255, 64, 129, 0.3);
-  font-size: 1.0em;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  user-select: none;
-}
-.contenido-btn:hover {
-  transform: scale(1.1);
-  box-shadow: 0 0 10px #ff4081;
-}
-
-/* 🌀 Animación de giro ritual */
-.contenido-btn i.animate-spin {
-  animation: spinOnce 0.6s ease-out;
-}
-
-@keyframes spinOnce {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-/* 📜 Panel emergente de contenido */
-#contenido-panel {
-  position: absolute;
-  top: 10px;
-  right: 360px;
-  width: 280px;
-  max-height: 300px;
-  overflow-y: auto;
-  background: rgba(20, 20, 20, 0.95);
+  background: linear-gradient(to bottom, #1a1a1a, #333); /* base oscura */
   color: #fff;
-  border-radius: 12px;
-  padding: 15px;
-  box-shadow: 0 0 10px rgba(255, 128, 179, 0.6); /* resplandor rosa suave */
-  z-index: 1000;
-  font-family: 'Courier New', monospace;
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 0 8px rgba(255, 64, 129, 0.6); /* glow rosa */
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
 }
 
-/* 🕶️ Oculto por defecto */
-#contenido-panel.hidden {
-  display: none;
+#music-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 12px #ff4081; /* glow rosa más intenso al hover */
 }
 
-/* 🎶 Ítems de la playlist */
-.contenido-item {
-  padding: 8px;
-  margin-bottom: 6px;
-  border-bottom: 1px dashed #ffff66;
-  cursor: pointer;
-  transition: background 0.2s ease, transform 0.2s ease;
+
+/* ==================== Animaciones ==================== */
+@keyframes spinOnceForward {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
-.contenido-item:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  transform: translateX(4px);
+@keyframes spinOnceBack {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(-360deg); }
 }
+
+@keyframes pulse-shuffle {
+  0% { transform: scale(1); box-shadow: 0 0 12px 4px rgba(255, 64, 129, 0.6); }
+  50% { transform: scale(1.1); box-shadow: 0 0 18px 6px rgba(255, 64, 129, 0.8); }
+  100% { transform: scale(1); box-shadow: 0 0 12px 4px rgba(255, 64, 129, 0.6); }
+}
+
+/* ================================================================ */
 
 .emocion-furia    { color: #ff4444; }
 .emocion-nostalgia { color: #44aaff; }
 .emocion-extasis   { color: #ffdd00; }
 .emocion-radiactiva { color: #00ff99; }
-
-/* ✨ Animación activa */
-.repeat-btn:active {
-  transform: scale(1.2);
-}
 
 /* 🔙 Botón Volver a listas */
 .volver-btn {
@@ -1038,36 +976,6 @@ html, body {
   background-color: #ff4081;
   border-radius: 8px;
   border: 2px solid rgba(20, 20, 20, 0.95);
-}
-
-/* 🎨 Estados visuales del botón repeat */
-.repeat-track {
-  background: linear-gradient(to bottom,
-  #3688ff 0%,     /* azul base vibrante */
-  #005fa3 50%,    /* azul profundo */
-  #003b66 100%    /* azul noche */
-);
-}
-.repeat-playlist {
-  background: linear-gradient(to bottom, #1a237e, #3949ab); /* Azul profundo */
-}
-
-/* 🌀 Animación de giro simbólico */
-.repeat-btn i.animate-spin {
-  animation: spinOnce 0.6s ease-out;
-}
-@keyframes spinOnce {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-/* 🌀 Animación de giro simbólico */
-.rewind-btn i.animate-spin {
-  animation: spinOnce 0.6s ease-out;
-}
-@keyframes spinOnce {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(-360deg); }
 }
 
 /* Responsive */
@@ -1253,78 +1161,40 @@ html, body {
   }
 }
 
-/* ***************************** SKINS ***************************** */
-#skin-splashes {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.splash {
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+/* MODAL GENERAL (BASE) */
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+.modal {
   position: absolute;
-  border-radius: 50%;
-  opacity: 0.6;
-  animation: fadeSplash 6s ease-out forwards;
-  mix-blend-mode: screen;
-  background-size: cover;
-  background-repeat: no-repeat;
-  will-change: transform, opacity;
-}
-
-@keyframes fadeSplash {
-  0% {
-    transform: scale(0.8) rotate(0deg);
-    opacity: 0.6;
-  }
-  50% {
-    transform: scale(1.2) rotate(180deg);
-    opacity: 0.4;
-  }
-  100% {
-    transform: scale(1.5) rotate(360deg);
-    opacity: 0;
-  }
-}
-
-/* Modal MENU */
-/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-.track-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+  width: 90%;
+  max-width: 440px; 
+  background-color: #01010195;
+  color: #fff;
+  border: 2px solid #ff4081;
+  border-radius: 12px;
+  box-shadow: 0 0 20px #ff4081;
+  z-index: 1000;
+  padding: 20px;
+  box-sizing: border-box; 
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  font-size: 1.1em;
+  overflow: hidden;
+  gap: 12px;
 }
 
-.track-list li {
-  padding: 6px 12px;
-  background-color: #1a1a1a;
-  border-radius: 8px;
-  transition: background-color 0.3s ease;
-  cursor: pointer;
+/* Oculto por defecto */
+.modal.hidden {
+  display: none;
 }
 
-.track-list li:hover {
-  background-color: rgba(255, 64, 129, 0.7);
-  color: #000;
-}
-
-/* 🎛️ Modal Playlist V3.0 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-/* Background Modal */
-  .modal::before {
+/* Background Modal (Ajustado para ocupar 100% del tamaño del modal) */
+.modal::before {
   content: "";
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 540px;
-  height: 650px;
+  width: 100%;
+  height: 100%;
   transform: translate(-50%, -50%);
   background-image: url("https://i.ibb.co/7xtPnmJk/Scene.gif");
   background-size: cover;
@@ -1336,41 +1206,16 @@ html, body {
   opacity: 0.9;
 }
 
-.modal {
-  position: fixed;
-  top: 37.1%;
-  left: 35.5%;
-  transform: translate(-50%, -50%);
-  width: 90%;
-  max-width: 398px;
-  height: 534px; /* NO SE TOCA */
-  background-color: #01010195;
-  color: #fff;
-  border: 2px solid #ff4081;
-  border-radius: 12px;
-  box-shadow: 0 0 20px #ff4081;
-  z-index: 1000;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden; /* ← elimina scroll horizontal */
-  gap: 12px;
-}
-
-/* Oculto por defecto */
-.modal.hidden {
-  display: none;
-}
-
 .modal-content {
   display: flex;
   flex-direction: column;
-  height: 100%; /* ← permite que .track-list calcule su espacio */
-  overflow: hidden; /* ← evita scroll doble */
+  height: 100%; 
+  overflow: hidden; 
 }
 
+/* Botón de cierre */
 .close-btn {
-  align-self: flex-end; /* ← alinea el botón a la derecha dentro del contenedor */
+  align-self: flex-end; 
   background: none;
   border: none;
   color: #ff4081;
@@ -1395,14 +1240,166 @@ html, body {
   max-height: 40px;
 }
 
-/* Lista de pistas */
+/* Lista de pistas (El ÚNICO lugar con scroll) */
 .track-list {
   list-style: none;
   padding: 0;
   margin: 0;
+  overflow-y: auto; /* CLAVE: Scroll solo en el contenido de la lista */
+  overflow-x: hidden; 
+  flex-grow: 1; /* Ocupa todo el espacio restante dentro del modal */
+}
+
+
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+/* MODAL HISTORIAL
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+#history-modal {
+  position: absolute;
+  top: 0px; 
+  left: 440px;
+  width: 100%;
+  max-width: 440px; 
+  height: 576px;
+  
+  background: rgba(20, 20, 20, 0.95);
+  border-radius: 10px;
+  z-index: 100;
+  padding: 20px;
+  box-sizing: border-box;
+  display: none;
+}
+
+#history-modal:not(.hidden) {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+#history-modal .modal-content {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: hidden;
+}
+
+#history-list {
+  flex: 1;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
   overflow-y: auto;
-  overflow-x: hidden; /* ← elimina scroll horizontal */
-  flex-grow: 1; /* ← ocupa todo el espacio restante */
+}
+
+#history-list li {
+  padding: 8px;
+  margin-bottom: 6px;
+  border-bottom: 1px dashed #777; 
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  color: #e0e0e0; 
+}
+
+#history-list li:hover {
+  background-color: rgba(255, 64, 129, 0.7);
+}
+
+#history-list li.active {
+  background-color: #ff4081;
+  color: #000;
+  font-weight: bold;
+  border-bottom-color: transparent;
+  transform: scale(1.01);
+}
+
+#history-list li.active:hover {
+  background-color: #e03874;
+}
+
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+/* MODAL PLAYLIST MENU (POSICIÓN Y MEDIDAS RESTAURADAS) */
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+#playlist-modal {
+  position: absolute;
+  top: 0px; 
+  left: 440px;
+  width: 100%;
+  max-width: 440px; 
+  height: 576px;
+  
+  background-color: rgba(20,20,20,0.9);
+  border: 2px solid #ff4081; 
+  border-radius: 12px;
+  box-shadow: 0 0 20px #ff4081;
+  z-index: 1000;
+  padding: 20px;
+  box-sizing: border-box;
+  display: none;
+  flex-direction: column;
+  overflow: hidden; 
+}
+
+#playlist-modal:not(.hidden) {
+  display: flex;
+}
+
+#playlist-modal .track-list {
+  flex: 1;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 1.1em;
+  overflow-y: auto; 
+  overflow-x: hidden;
+}
+
+#playlist-modal .track-list li {
+  padding: 6px 12px;
+  background-color: #1a1a1a;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+#playlist-modal .track-list li:hover {
+  background-color: rgba(255, 64, 129, 0.7);
+  color: #000;
+}
+
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+/* MODAL TRACKS (POSICIÓN Y MEDIDAS RESTAURADAS) */
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+#modal-playlist {
+  position: absolute;
+  top: 0px; 
+  left: 440px;
+  width: 100%;
+  max-width: 440px; 
+  height: 576px;
+  
+  background-color: #01010195;
+  color: #fff;
+  border: 2px solid #ff4081;
+  border-radius: 12px;
+  box-shadow: 0 0 20px #ff4081;
+  z-index: 1000;
+  padding: 20px;
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+  gap: 12px;
+}
+
+#modal-playlist:not(.hidden) {
+  display: flex;
 }
 
 /* Cada pista */
@@ -1414,7 +1411,7 @@ html, body {
   border-bottom: 1px solid #333;
   cursor: pointer;
   transition: background 0.3s, transform 0.2s;
-  min-width: 0; /* ← evita desbordamiento horizontal */
+  min-width: 0; 
 }
 
 .modal-track-item:hover {
@@ -1448,6 +1445,28 @@ html, body {
   margin-bottom: 4px;
 }
 
+/* Scroll Color */
+.track-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.track-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.track-list::-webkit-scrollbar-thumb {
+  background-color: #888; 
+  border-radius: 3px;
+  border: 1px solid transparent;
+  background-clip: content-box;
+}
+
+/* Firefox */
+.track-list {
+  scrollbar-width: thin;
+  scrollbar-color: #888 transparent;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .modal {
@@ -1477,7 +1496,7 @@ html, body {
   }
 }
 
-/* 🎚️ Scroll emocional fucsia ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 🎚️ Scroll emocional fucsia */
 .track-list::-webkit-scrollbar {
   width: 6px;
 }
@@ -1499,7 +1518,7 @@ html, body {
   scrollbar-color: #ff4081 transparent;
 }
 
-/* 🎶 Track actual y artista con aura ceremonial ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 🎶 Track actual y artista con aura ceremonial */
 #current-track-display {
   display: inline-block;
   padding: 4px 12px;
@@ -1553,4 +1572,26 @@ html, body {
     left: 0px; /* posición base */
     transform: translateX(-100px); /* ← desplazamiento hacia la izquierda */
   }
+}
+
+.custom-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 15px 25px;
+    background: rgba(0, 0, 0, 0.9);
+    border: 2px solid #ff0000;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 1.1em;
+    text-shadow: 0 0 8px #c2a044;
+    box-shadow: 0 0 20px #ff0000b3; /* b3 ≈ 70% de opacidad */
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease-in-out;
+}
+.custom-message.show {
+    opacity: 1;
 }

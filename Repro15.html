@@ -1,23 +1,21 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <link rel="icon" type="image/x-icon" href="assets/SG.ico" />
+  <link rel="icon" type="image/x-icon" href="https://santi-graphics.vercel.app/assets/SG.ico" />
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Repro Karaoke</title>
-  <link rel="icon" type="image/x-icon" href="assets/SG.ico" />
   <!-- Estilos principales -->
   <link rel="stylesheet" href="Repro15.css" />
-  <!-- Font Awesome para iconos -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <!-- BLOCK -->
+  <!-- Scripts funcionales + BLOCK 
   <script type="text/javascript">
-    document.onkeydown = function(){return false};
-    document.oncontextmenu = function(){return false}
-  </script>
-  <script src="https://precios-2025.web.app/gallery.js"></script>
+  document.onkeydown = function(){return false};
+  document.oncontextmenu = function(){return false}
+  </script>-->
   <script src="Repro15.js" defer></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
 </head>
 <body>
@@ -29,10 +27,14 @@
 
     <!-- ◀️ PANEL IZQUIERDO: LP -->
     <div id="left-panel" class="left-panel">
-      <!-- AUDIO -->
+        
+        <!-- Audio principal -->
         <section id="block-audio" class="block-audio">
-          <audio id="audio-player" preload="auto"></audio>
+            <audio id="player" autoplay muted></audio>
         </section>
+        
+        <!-- Mensaje personalizado para el clic derecho -->
+        <div id="custom-message" class="custom-message">Santi Graphics</div>
 
         <!-- HEADER  -->
         <section id="info-dj" class="info-dj">
@@ -45,13 +47,13 @@
             <span id="current-date">21/08/2025</span>
             <span class="date-separator">|</span>
             <i class="fas fa-map-marker-alt"></i>
-            <span id="current-city">CDMX</span>
+            <span id="current-city">DUBAI</span>
           </header>
 
           <aside class="listeners-container">
-            <span><i class="fas fa-headphones"></i></span>
-            <output id="sonic_listeners" class="listeners-count">--</output>
-          </aside>
+          <span><i class="fas fa-headphones"></i></span>
+          <output id="contadorRadio" class="listeners-count">--</output>
+        </aside>
 
         </section><!-- CIERRE BLOQUE HEADER -->
         
@@ -143,24 +145,27 @@
 
         </section><!-- CIERRE BLOQUE EFECTOS -->
         
-        <!-- BLOCK VOLUMEN -->
-        <section id="block-volumen" class="block-volumen">
+        <!-- BLOQUE VOLUMEN -->
+        <div class="center-zone">
+          <!-- Icono volumen dinámico -->
+          <i class="fas fa-volume-down volume-icon" id="volumeIcon"></i>
 
-          <div class="volume-control">
-            <i id="volumeIcon" class="fas fa-volume-down"></i>
+          <!-- Contenedor de pista -->
+          <div class="volume-track">
             <input
               type="range"
-              class="volume-slider"
-              id="volumeSlider"
               min="0"
-              max="1"
-              step="0.1"
-              value="0.7"
+              max="100"
+              step="1"
+              value="70"
+              class="volume-bar"
+              id="volumeBar"
             />
-            <span id="volumePercentage" class="volume-percentage">70%</span>
           </div>
 
-        </section><!-- CIERRE BLOQUE VOLUMEN -->
+          <!-- Porcentaje visible -->
+          <span id="volumePercentage" class="volume-percentage">70%</span>
+        </div><!-- CIERRE BLOQUE VOLUMEN -->
         
         <!-- BLOQUE TRACK-INFO -->
         <section id="track-info" class="track-info">
@@ -168,7 +173,7 @@
           <div class="track-display-container">
 
             <figure class="cover-art-container">
-              <img id="cover-art" src="assets/covers/Cover1.png" alt="Carátula del Track" />
+              <img id="cover-art" src="https://santi-graphics.vercel.app/assets/covers/Cover1.png" alt="Carátula del Track" />
             </figure>
 
             <article class="info-track-container">
@@ -210,32 +215,32 @@
 
           <div class="control-buttons">
             <!-- Power -->
-            <button class="btn-power">
+            <button id="power-btn" class="btn-power">
               <i class="fas fa-power-off"></i>
             </button>
 
             <!-- Repeat -->
-            <button class="btn-engendro repeat-btn">
+            <button id="repeat-btn" class="btn-repeat">
               <i class="fas fa-redo"></i>
             </button>
 
             <!-- Rewind -->
-            <button class="btn-engendro rewind-btn">
+            <button id="rewind-btn" class="btn-rewind">
               <i class="fas fa-backward"></i>
             </button>
 
             <!-- Play -->
-            <button id="play-btn" class="btn-engendro btn-engendro-play play-btn">
+            <button id="play-btn" class="btn-play">
               <i class="fas fa-play"></i>
             </button>
 
             <!-- Forward -->
-            <button class="btn-engendro forward-btn">
+            <button id="forward-btn" class="btn-forward">
               <i class="fas fa-forward"></i>
             </button>
 
             <!-- Shuffle -->
-            <button class="btn-engendro shuffle-btn">
+            <button id="shuffle-btn" class="btn-shuffle">
               <i class="fas fa-random"></i>
             </button>
 
@@ -244,8 +249,8 @@
               <i class="fas fa-list-ul"></i>
             </button>
 
-            <!-- Playlist -->
-            <button class="btn-engendro contenido-btn" id="contenido-btn">
+            <!-- Playlist Actual -->
+            <button id="music-btn" class="btn-music">
               <i class="fas fa-music"></i>
               <!-- Este será el botón Playlist, el anterior es decorativo -->
             </button>
@@ -262,70 +267,74 @@
         
     </div><!-- ======================== CIERRE RIGHT PANEL ======================== -->
       
-      <!-- MODAL TRACKS -->
-      <section id="block-modal" class="block-modal">
-
-      <div id="modal-playlist" class="modal hidden">
-        <div class="modal-content">
-          <button id="close-playlist-modal" class="close-btn">❌</button>
-
-          <p class="modal-info">
-            Reproduciendo:
-            <span id="current-track-display">Sin pista seleccionada — Sin artista</span>
-          </p>
-
-          <ul id="modal-playlist-tracks" class="track-list"></ul>
-        </div>
-      </div>
-
-    </section>
-      
-      <!-- MODAL PLAYLIST MMENU -->
-    <div id="playlist-modal" class="modal hidden">
-      <div class="modal-content">
-        <button class="close-btn" id="close-modal-btn">❌</button>
-        <h2>Listas de Reproducción</h2>
-        <ul class="track-list">
-          <li data-list="actual">Actual</li>
-          <li data-list="hits">Hits</li>
-          <li data-list="ruido">Ruido de Lata</li>
-        </ul>
-      </div>
+<!-- MODAL HISTORIAL -->
+<section id="block-history" class="block-modal">
+  <div id="history-modal" class="modal modal-history hidden">
+    <div class="modal-content">
+      <span id="close-history-modal" class="close-btn">
+        <i class="fas fa-times"></i>
+      </span>
+      <h2>Historial de reproducción</h2>
+      <ul id="history-list" class="track-list"></ul>
     </div>
+  </div>
+</section>
+
+<!-- MODAL TRACKS -->
+<section id="block-tracks" class="block-modal">
+  <div id="modal-playlist" class="modal modal-tracks hidden">
+    <div class="modal-content">
+      <!-- Botón de cierre exclusivo para este modal -->
+      <button id="close-playlist-modal" class="close-btn" aria-label="Cerrar modal">❌</button>
+      <!-- Información dinámica de la pista actual -->
+      <p class="modal-info">
+        Reproduciendo:
+        <span id="current-track-display">
+          Sin pista seleccionada — Sin artista
+        </span>
+      </p>
+      <!-- Lista de pistas de la playlist activa -->
+      <ul id="modal-playlist-tracks" class="track-list">
+        <!-- Ejemplo de ítem enriquecido -->
+        <li class="modal-track-item">
+          <img src="https://santi-graphics.vercel.app/assets/covers/Cover1.png" alt="Carátula" class="track-cover" />
+          <div class="track-info">
+            <strong>Título del Track</strong><br>
+            <span>🎤 Artista</span><br>
+            <span>💿 Álbum</span><br>
+            <span>⏱️ 3:45</span><br>
+            <span>👁️ 12</span>
+          </div>
+        </li>
+        <!-- Los demás ítems se generan dinámicamente desde JS -->
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- MODAL PLAYLIST MENU -->
+<section id="block-playlist-menu" class="block-modal">
+  <div id="playlist-modal" class="modal modal-menu hidden">
+    <div class="modal-content">
+      <button class="close-btn" id="close-modal-btn">❌</button>
+      <h2>Listas de Reproducción</h2>
+      <ul class="track-list">
+        <li data-list="actual">Actual</li>
+        <li data-list="rumba">Rumba Caliente</li>
+        <li data-list="exitos">Hits</li>
+        <li data-list="ruido">Ruido de Lata</li>
+        <li data-list="baladasrock">Baladas Rock</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
 
   </div><!-- ======================== CIERRE MAIN CONTAINER ======================== -->
     
     <!-- PARTICULAS CANVAS -->
     <canvas id="particles"></canvas>
-    <script src="lyricsRepro14.js"></script>
-    <script>
-        function actualizarFechaHora() {
-          const ahora = new Date();
-
-          // Hora en formato HH:MM:SS
-          const hora = ahora.toLocaleTimeString('es-MX', {
-            hour: '2-digit',
-            minute: '2-digit',
-            second: '2-digit',
-            hour12: false
-          });
-
-          // Fecha en formato DD/MM/YYYY
-          const fecha = ahora.toLocaleDateString('es-MX', {
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric'
-          });
-
-          document.getElementById('current-time').textContent = hora;
-          document.getElementById('current-date').textContent = fecha;
-        }
-
-        // Inicializa y actualiza cada segundo
-        actualizarFechaHora();
-        setInterval(actualizarFechaHora, 1000);
-    </script>
+    <script src="https://radio-tekileros.vercel.app/lyricsRepro15.js"></script>
 
 </body>
 </html>
-

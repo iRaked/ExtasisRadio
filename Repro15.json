@@ -8,7 +8,7 @@
     "genre": "cuarteto",
     "duration": 226,
     "dropbox_url": "https://www.dropbox.com/scl/fi/ukreph8oh63eg3edhy00x/Rep-blica-Fortuna-F-Caligaris-Ay-amor.MP3?rlkey=1opdc36sv5tqq5285of2i0i96&st=mkr9g7el&dl=0&raw=1",
-    "cover": "assets/covers/Republica-Fortuna-Caligaris-Ay-amor.jpg"
+    "cover": "https://iraked.github.io/SantiGraphics/assets/covers/Republica-Fortuna-Caligaris-Ay-amor.jpg"
   },
   {
     "id": "un-siglo-sin-ti",
@@ -19,7 +19,7 @@
     "genre": "balada",
     "duration": 233,
     "dropbox_url": "https://www.dropbox.com/scl/fi/k53tj6zectw4p4ve2gb84/Chayanne-Luck-Ra-Un-siglo-sin-ti.mp3?rlkey=godbvak8mqru4o6rgksy2140m&st=ivperm5u&dl=0&raw=1",
-    "cover": "assets/covers/Chayanne-Luck-Ra-Un-siglo-sin-ti.jpg"
+    "cover": "https://iraked.github.io/SantiGraphics/assets/covers/Chayanne-Luck-Ra-Un-siglo-sin-ti.jpg"
   },
   {
     "id": "mi-persona-favorita",
@@ -30,7 +30,7 @@
     "genre": "cuarteto",
     "duration": 153,
     "dropbox_url": "https://www.dropbox.com/scl/fi/xo036mexq5p4npm3ii1x0/Los-Herrera-Mi-persona-favorita-F-Pone-La-Premier.MP3?rlkey=6xseqtrfdqk5zcfy9168eqyoi&st=fav9jyqv&dl=0&raw=1",
-    "cover": "assets/covers/Los-Herrera-Mi-persona-favorita.jpg"
+    "cover": "https://iraked.github.io/SantiGraphics/assets/covers/Los-Herrera-Mi-persona-favorita.jpg"
   },
   {
     "id": "a-veces-bien-a-veces-mal",
@@ -41,7 +41,7 @@
     "genre": "cuarteto",
     "duration": 226,
     "dropbox_url": "https://www.dropbox.com/scl/fi/39zicpiydg3svngdf66h0/Banda-XXI-A-veces-bien-a-veces-mal.MP3?rlkey=gggvuoxcij2my1r8kiihobxgf&st=lo3ychyr&dl=0&raw=1",
-    "cover": "assets/covers/Banda-XXI-A-veces-bien-a-veces-mal.jpg"
+    "cover": "https://iraked.github.io/SantiGraphics/assets/covers/Banda-XXI-A-veces-bien-a-veces-mal.jpg"
   },
   {
     "id": "universo-paralelo",
@@ -52,7 +52,7 @@
     "genre": "cuarteto",
     "duration": 210,
     "dropbox_url": "https://www.dropbox.com/scl/fi/wedf6o08a9zhjbnd39ccm/La-K-onga-Mi-universo-paralelo-F-Nahuel-Pennisi.MP3?rlkey=i18oofog2t7d4cow23emmdwuj&st=1pogr5hc&dl=0&raw=1",
-    "cover": "assets/covers/La-Konga-Nahuel-Pennisi-Mi-universo-paralelo.jpg"
+    "cover": "https://iraked.github.io/SantiGraphics/assets/covers/La-Konga-Nahuel-Pennisi-Mi-universo-paralelo.jpg"
   },
   {
     "id": "me-levante",
@@ -63,7 +63,7 @@
     "genre": "cuarteto",
     "duration": 218,
     "dropbox_url": "https://www.dropbox.com/scl/fi/fyrn33dwutbm35qs0d3fk/Ulises-Bueno-Me-levant.MP3?rlkey=qnawcohqjeri6vwuk7jdfi7o8&st=2lzcvztn&dl=0&raw=1",
-    "cover": "assets/covers/Ulises-Bueno-Me-levante.jpg"
+    "cover": "https://iraked.github.io/SantiGraphics/assets/covers/Ulises-Bueno-Me-levante.jpg"
   },
   {
     "id": "nos-extrano",
@@ -74,7 +74,7 @@
     "genre": "cuarteto",
     "duration": 120,
     "dropbox_url": "https://www.dropbox.com/scl/fi/zwajsfpjl8yy2weis2c4p/Malparidas-Sabroso-Nos-extra-o.MP3?rlkey=t3hfs26petomtnxtj2gb42zln&st=frkllooe&dl=0&raw=1",
-    "cover": "assets/covers/Malparidas-Sabroso-Nos-extrano.jpg"
+    "cover": "https://iraked.github.io/SantiGraphics/assets/covers/Malparidas-Sabroso-Nos-extrano.jpg"
   },
   {
     "id": "no-podras",
@@ -85,7 +85,7 @@
     "genre": "cuarteto",
     "duration": 204,
     "dropbox_url": "https://www.dropbox.com/scl/fi/0n1r9vrz2lv1ci0254pbg/Eugenia-Quevedo-x-Angela-Leiva-x-La-Banda-De-Carlitos-No-podr-s.MP3?rlkey=wdsf9do8am6wk1pgxmcumvjam&st=c2glnu7m&dl=0&raw=1",
-    "cover": "assets/covers/Eugenia-Quevedo-Angela-Leiva-La-Banda-De-Carlitos-No-podras.jpg"
+    "cover": "https://iraked.github.io/SantiGraphics/assets/covers/Eugenia-Quevedo-Angela-Leiva-La-Banda-De-Carlitos-No-podras.jpg"
   },
   {
     "id": "cuidado-que-te-supero",
@@ -96,7 +96,7 @@
     "genre": "cuarteto",
     "duration": 188,
     "dropbox_url": "https://www.dropbox.com/scl/fi/e04imnbuc1fki0yc3atqx/Q-Lokura-Los-Herrera-Cuidado-que-te-supero.MP3?rlkey=szbosaj2ktw0u9rgea3sijvmw&st=imvxruil&dl=0&raw=1",
-    "cover": "assets/covers/Q-Lokura-Los-Herrera-Cuidado-que-te-supero.png"
+    "cover": "https://iraked.github.io/SantiGraphics/assets/covers/Q-Lokura-Los-Herrera-Cuidado-que-te-supero.png"
   },
   {
     "id": "estaba-aqui-pensando",
@@ -107,7 +107,7 @@
     "genre": "cuarteto",
     "duration": 160,
     "dropbox_url": "https://www.dropbox.com/scl/fi/qzo7k941l3mpv1gawi7op/DesaKTa2-x-Aneley-Estaba-aqu-pensando.mp3?rlkey=wr1lx1vrfk1ulxjq5jf7o80i6&st=d79cnyf5&dl=0&raw=1",
-    "cover": "assets/covers/DesaKTa2-Aneley-Estaba-aqui-pensando.jpg"
+    "cover": "https://iraked.github.io/SantiGraphics/assets/covers/DesaKTa2-Aneley-Estaba-aqui-pensando.jpg"
   },
 
 
@@ -121,7 +121,7 @@
     "genre": "cuarteto",
     "duration": 180,
     "dropbox_url": "https://www.dropbox.com/scl/fi/yhe1agjylcuvwnbv4vkkm/Flor-Alvarez-Luck-Ra-Q-Lokura-Tattoo-Remix.MP3?rlkey=xcpnyh0vh0ghy2b7xx7ypj6dp&st=605xqcjn&dl=0&raw=1",
-    "cover": "assets/covers/Flor-Alvarez-Luck-Ra-Q-Lokura-Tattoo.jpg"
+    "cover": "https://iraked.github.io/SantiGraphics/assets/covers/Flor-Alvarez-Luck-Ra-Q-Lokura-Tattoo.jpg"
   },
   {
     "id": "robame-un-beso",
@@ -132,7 +132,7 @@
     "genre": "balada",
     "duration": 192,
     "dropbox_url": "https://www.dropbox.com/scl/fi/lslte62g1z6db7gbjzica/Luck-Ra-Robame-un-beso.MP3?rlkey=lszdepl4hg93vzk2meiikave8&st=5lme8k0n&dl=0&raw=1",
-    "cover": "assets/covers/Luck-Ra-Robame-un-beso.jpg"
+    "cover": "https://iraked.github.io/SantiGraphics/assets/covers/Luck-Ra-Robame-un-beso.jpg"
   },
   {
     "id": "supuestamente",
@@ -143,7 +143,7 @@
     "genre": "cuarteto",
     "duration": 200,
     "dropbox_url": "https://www.dropbox.com/scl/fi/w8h4et2uv6oonfn99vjmw/Roze-DesaKTa2-Supuestamente.MP3?rlkey=ad9b53kjjc120nftnvf27lxny&st=u6ui7iiu&dl=0&raw=1",
-    "cover": "assets/covers/Roze-DesaKTa2-Supuestamente.jpg"
+    "cover": "https://iraked.github.io/SantiGraphics/assets/covers/Roze-DesaKTa2-Supuestamente.jpg"
   },
   {
     "id": "hechicera",
@@ -154,7 +154,7 @@
     "genre": "balada",
     "duration": 215,
     "dropbox_url": "https://www.dropbox.com/scl/fi/akbq7xmeeb3qyq3cqrm5d/Lucas-Sugo-Hechicera.MP3?rlkey=zlvn7uvu0jhz5o68rifdsvnxp&st=ylgqcel1&dl=0&raw=1",
-    "cover": "assets/covers/Lucas-Sugo-Hechicera.jpg"
+    "cover": "https://iraked.github.io/SantiGraphics/assets/covers/Lucas-Sugo-Hechicera.jpg"
   },
   {
     "id": "no-se-toca",
@@ -165,7 +165,7 @@
     "genre": "cumbia",
     "duration": 198,
     "dropbox_url": "https://www.dropbox.com/scl/fi/k5esny09u8la7fpj611d5/Karina-No-se-toca.MP3?rlkey=gpvkf0kbrzkfnk889wv0sf4md&st=7dchs61q&dl=0&raw=1",
-    "cover": "assets/covers/Karina-No-se-toca.jpg"
+    "cover": "https://iraked.github.io/SantiGraphics/assets/covers/Karina-No-se-toca.jpg"
   },
   {
     "id": "sinverguenza",
@@ -176,7 +176,7 @@
     "genre": "pop",
     "duration": 210,
     "dropbox_url": "https://www.dropbox.com/scl/fi/de2rc68owx48jxve1ym5d/Emanero-Karina-JMena-Angela-Torres-Sinverg-enza.mp3?rlkey=2lrtjmky1grsmuhw4tdcc6hr9&st=um793k3z&dl=0&raw=1",
-    "cover": "assets/covers/Emanero-Karina-JMena-Angela-Torres-Sinverguenza.jpg"
+    "cover": "https://iraked.github.io/SantiGraphics/assets/covers/Emanero-Karina-JMena-Angela-Torres-Sinverguenza.jpg"
   },
   {
     "id": "adicto",
@@ -187,7 +187,7 @@
     "genre": "cuarteto",
     "duration": 202,
     "dropbox_url": "https://www.dropbox.com/scl/fi/76qjtycgb2ony0gdu7e6b/Emanero-La-Konga-Antonio-R-os-Adicto.mp3?rlkey=axb4h27rswtogt3f22spu6a4v&st=482e9a0i&dl=0&raw=1",
-    "cover": "assets/covers/Emanero-La-Konga-Antonio-Rios-Adicto.jpg"
+    "cover": "https://iraked.github.io/SantiGraphics/assets/covers/Emanero-La-Konga-Antonio-Rios-Adicto.jpg"
   },
   {
     "id": "fama-de-diabla",
@@ -198,7 +198,7 @@
     "genre": "cuarteto",
     "duration": 208,
     "dropbox_url": "https://www.dropbox.com/scl/fi/icjoden570o658lc5sicr/Fama-de-diabla-La-Konga-F-David-Bisbal.mp3?rlkey=4jw3yfuheb9zj1400hw1crxoc&st=7ljigmej&dl=0&raw=1",
-    "cover": "assets/covers/La-Konga-David-Bisbal-Emanero-Fama-de-diabla.jpg"
+    "cover": "https://iraked.github.io/SantiGraphics/assets/covers/La-Konga-David-Bisbal-Emanero-Fama-de-diabla.jpg"
   },
   {
     "id": "ya-me-canse",
@@ -209,7 +209,7 @@
     "genre": "cuarteto",
     "duration": 195,
     "dropbox_url": "https://www.dropbox.com/scl/fi/4ost8ovt7440w3zrbolr2/Valentino-Merlo-Eugenia-Quevedo-Emanero-Ya-me-cans.mp3?rlkey=ntbvpdkywzsjm2syg60rct835&st=ys3v53hy&dl=0&raw=1",
-    "cover": "assets/covers/Valentino-Merlo-Eugenia-Quevedo-Emanero-Ya-me-canse.jpg"
+    "cover": "https://iraked.github.io/SantiGraphics/assets/covers/Valentino-Merlo-Eugenia-Quevedo-Emanero-Ya-me-canse.jpg"
   },
   {
     "id": "un-finde",
@@ -220,7 +220,7 @@
     "genre": "cumbia",
     "duration": 200,
     "dropbox_url": "https://www.dropbox.com/scl/fi/kqbri0recxzq5ue26qn2w/Ke-Personajes-FMK-Big-One-Un-finde.mp3?rlkey=i8ojl0bz1tjhoef9337bs6fyg&st=4vtpvol9&dl=0&raw=1",
-    "cover": "assets/covers/Ke-Personajes-FMK-Big.One-Un-finde.jpg"
+    "cover": "https://iraked.github.io/SantiGraphics/assets/covers/Ke-Personajes-FMK-BigOne-Un-finde.jpg"
   },
 
 
@@ -234,7 +234,7 @@
     "genre": "reggae",
     "duration": 210,
     "dropbox_url": "https://www.dropbox.com/scl/fi/iouva40ldcbpwd71kbcxo/Jahaziel-Band-Pa-que-te-enamores.MP3?rlkey=7rfaqb8kxx0hcve1q7qlvbqdw&st=1sfqkfcq&dl=0&raw=1",
-    "cover": "assets/covers/Jahaziel-Band-Pa-que-te-enamores.jpg"
+    "cover": "https://iraked.github.io/SantiGraphics/assets/covers/Jahaziel-Band-Pa-que-te-enamores.jpg"
   },
   {
     "id": "si-estas-tu",
@@ -245,7 +245,7 @@
     "genre": "reggae",
     "duration": 205,
     "dropbox_url": "https://www.dropbox.com/scl/fi/3ydutmbjnexezokco1204/Jah-Love-Si-est-s-t.mp3?rlkey=qp5q0fam6wtzbznfn89qklu3y&st=qa6kzxhh&dl=0&raw=1",
-    "cover": "assets/covers/Jah-Love-Si-estas-tu.jpg"
+    "cover": "https://iraked.github.io/SantiGraphics/assets/covers/Jah-Love-Si-estas-tu.jpg"
   },
   {
     "id": "dulce-sensacion",
@@ -256,7 +256,7 @@
     "genre": "reggae",
     "duration": 198,
     "dropbox_url": "https://www.dropbox.com/scl/fi/al689al94h7ttu64i5prl/Semillas-Dulce-sensaci-n.mp3?rlkey=2m8vz7t1od0j0rw4w80ojy366&st=zsmnlq9d&dl=0&raw=1",
-    "cover": "assets/covers/Semillas-Dulce-sensacion.jpg"
+    "cover": "https://iraked.github.io/SantiGraphics/assets/covers/Semillas-Dulce-sensacion.jpg"
   },
   {
     "id": "eres-tu",
@@ -267,7 +267,7 @@
     "genre": "reggae",
     "duration": 215,
     "dropbox_url": "https://www.dropbox.com/scl/fi/osx3ftwbo0nvmj3k0cstc/Julio-Garc-a-Eres-t-F-Jah-Love.mp3?rlkey=mx2zmzjbah1xdy28puqyotnp7&st=cnrlfcuf&dl=0&raw=1",
-    "cover": "assets/covers/Julio-Garcia-Jah-Love-Eres-tu.jpg"
+    "cover": "https://iraked.github.io/SantiGraphics/assets/covers/Julio-Garcia-Jah-Love-Eres-tu.jpg"
   },
   {
     "id": "desde-que-llegaste",
@@ -278,7 +278,7 @@
     "genre": "balada",
     "duration": 220,
     "dropbox_url": "https://www.dropbox.com/scl/fi/m22zysq1rnl4dmds2mzuw/Reyli-Barba-Desde-que-llegaste.mp3?rlkey=9h04ls3vmugdy6zlhs8s0gra6&st=ljnlu7hl&dl=0&raw=1",
-    "cover": "assets/covers/Reyli-Barba-Desde-que-llegaste.jpg"
+    "cover": "https://iraked.github.io/SantiGraphics/assets/covers/Reyli-Barba-Desde-que-llegaste.jpg"
   },
   {
     "id": "tatuajes-reggae",
@@ -289,7 +289,7 @@
     "genre": "reggae",
     "duration": 190,
     "dropbox_url": "https://www.dropbox.com/scl/fi/ezmj5hu72ziiji6fbnmys/Baby-Aventurero-Tatuajes-Reggae.mp3?rlkey=zhq1mjv331yu5jprcwmx1yl3t&st=5widn8xz&dl=0&raw=1",
-    "cover": "assets/covers/Baby-Aventurero-Tatuajes.jpg"
+    "cover": "https://iraked.github.io/SantiGraphics/assets/covers/Baby-Aventurero-Tatuajes.jpg"
   },
   {
     "id": "como-te-deseo",
@@ -300,7 +300,7 @@
     "genre": "rock",
     "duration": 200,
     "dropbox_url": "https://www.dropbox.com/scl/fi/ei6t03ocsir5c6brqjry3/Man-Como-te-deseo.mp3?rlkey=ix4d16tj182dauy7tti4k3xyk&st=aw8yjkwp&dl=0&raw=1",
-    "cover": "assets/covers/Mana-Como-te-deseo.jpg"
+    "cover": "https://iraked.github.io/SantiGraphics/assets/covers/Mana-Como-te-deseo.jpg"
   },
   {
     "id": "madrugada",
@@ -311,7 +311,7 @@
     "genre": "rock",
     "duration": 210,
     "dropbox_url": "https://www.dropbox.com/scl/fi/k4mnf3cf7obs7qvcuvxfd/La-Beriso-Madrugada.mp3?rlkey=kycofqvfltpwsiqw78q6adllz&st=6xb6njjr&dl=0&raw=1",
-    "cover": "assets/covers/La-Beriso-Madrugada.jpg"
+    "cover": "https://iraked.github.io/SantiGraphics/assets/covers/La-Beriso-Madrugada.jpg"
   },
   {
     "id": "commando",
@@ -322,7 +322,7 @@
     "genre": "regional",
     "duration": 185,
     "dropbox_url": "https://www.dropbox.com/scl/fi/v70g4qxsv6xjlxqqh0wuw/Natanael-Commando.mp3?rlkey=hbvvkcfo5gduozjigmyjvpg8i&st=ku3c04vv&dl=0&raw=1",
-    "cover": "assets/covers/Natanael-Commando.jpg"
+    "cover": "https://iraked.github.io/SantiGraphics/assets/covers/Natanael-Commando.jpg"
   },
   {
     "id": "mejor-que-tu-amor",
@@ -333,7 +333,7 @@
     "genre": "rock",
     "duration": 195,
     "dropbox_url": "https://www.dropbox.com/scl/fi/jmj4kqc9ishwbibvje90r/Coral-ft-Jorge-Serrano-Mejor-que-tu-amor.mp3?rlkey=ch26evgcy3d082cph2v8x9vkz&st=izl6jmaj&dl=0&raw=1",
-    "cover": "assets/covers/Coral-Jorge-Serrano-Mejor-que-tu-amor.jpg"
+    "cover": "https://iraked.github.io/SantiGraphics/assets/covers/Coral-Jorge-Serrano-Mejor-que-tu-amor.jpg"
   },
 
 
@@ -347,7 +347,7 @@
     "genre": "balada",
     "duration": 225,
     "dropbox_url": "https://www.dropbox.com/scl/fi/3uzz69adx6txo1wnpwr6d/Camila-De-qu-me-sirve-la-vida.mp3?rlkey=gis6ehkylw1atwot71sxq8rrc&st=g7by8bfv&dl=0&raw=1",
-    "cover": "assets/covers/Camila-De-que-me-sirve-la-vida.jpg"
+    "cover": "https://iraked.github.io/SantiGraphics/assets/covers/Camila-De-que-me-sirve-la-vida.jpg"
   },
   {
     "id": "si-hablo-de-ti-hablo-de-mi",
@@ -358,7 +358,7 @@
     "genre": "balada",
     "duration": 230,
     "dropbox_url": "https://www.dropbox.com/scl/fi/3xlu3sidtk5fcov1xfh6g/Natalino-Si-hablo-de-ti-hablo-de-mi.MP3?rlkey=jmoptabs73065datwsrl1myp5&st=xbmt9lj7&dl=0&raw=1",
-    "cover": "assets/covers/Natalino-Si-hablo-de-ti-hablo-de-mi.jpg"
+    "cover": "https://iraked.github.io/SantiGraphics/assets/covers/Natalino-Si-hablo-de-ti-hablo-de-mi.jpg"
   },
   {
     "id": "yo-no-te-pido-la-luna",
@@ -369,7 +369,7 @@
     "genre": "balada",
     "duration": 218,
     "dropbox_url": "https://www.dropbox.com/scl/fi/yjowvsx814uhfiz76jnm6/Sergio-Dalma-Yo-no-te-pido-la-luna.MP3?rlkey=odc4roww3mvmbds03siv4zg2s&st=7dyen5ir&dl=0&raw=1",
-    "cover": "assets/covers/Sergio-Dalma-Yo-no-te-pido-la-luna.jpg"
+    "cover": "https://iraked.github.io/SantiGraphics/assets/covers/Sergio-Dalma-Yo-no-te-pido-la-luna.jpg"
   },
   {
     "id": "hombre-normal",
@@ -380,7 +380,7 @@
     "genre": "balada",
     "duration": 210,
     "dropbox_url": "https://www.dropbox.com/scl/fi/rdcl1k7b6zp7h2uln68gq/Ricardo-Montaner-Hombre-normal.MP3?rlkey=qrj2gkudg8i8xuhe8kuwcj5kv&st=pytbg2h5&dl=0&raw=1",
-    "cover": "assets/covers/Ricardo-Montaner-Hombre-normal.jpg"
+    "cover": "https://iraked.github.io/SantiGraphics/assets/covers/Ricardo-Montaner-Hombre-normal.jpg"
   },
   {
     "id": "la-cosa-mas-bella",
@@ -391,7 +391,7 @@
     "genre": "balada",
     "duration": 215,
     "dropbox_url": "https://www.dropbox.com/scl/fi/6m455tmuywlcaf0i6b3wq/Eros-Ramazzotti-La-cosa-mas-bella.mp3?rlkey=m79zd5mq8s6gkec34ob65ubbt&st=o1pxdhxt&dl=0&raw=1",
-    "cover": "assets/covers/Eros-Ramazzotti-La-cosa-mas-bella.jpg"
+    "cover": "https://iraked.github.io/SantiGraphics/assets/covers/Eros-Ramazzotti-La-cosa-mas-bella.jpg"
   },
   {
     "id": "te-quiero-mucho-mucho",
@@ -402,7 +402,7 @@
     "genre": "balada",
     "duration": 200,
     "dropbox_url": "https://www.dropbox.com/scl/fi/16iit0jm22ekla0tmrsff/R-o-Roma-Te-quiero-mucho-mucho.mp3?rlkey=nsytasecmmc1wngsudim8dbc5&st=wiqh9h53&dl=0&raw=1",
-    "cover": "assets/covers/Rio-Roma-Te-quiero-mucho-mucho.jpg"
+    "cover": "https://iraked.github.io/SantiGraphics/assets/covers/Rio-Roma-Te-quiero-mucho-mucho.jpg"
   },
   {
     "id": "mi-persona-favorita-rio-roma",
@@ -413,7 +413,7 @@
     "genre": "balada",
     "duration": 198,
     "dropbox_url": "https://www.dropbox.com/scl/fi/2fakhauxwvwfja21xb26m/R-o-Roma-Mi-persona-favorita.mp3?rlkey=bx2f4hzx983eapy5kqsurvhua&st=7jwnm3rn&dl=0&raw=1",
-    "cover": "assets/covers/Rio-Roma-Mi-persona-favorita.jpg"
+    "cover": "https://iraked.github.io/SantiGraphics/assets/covers/Rio-Roma-Mi-persona-favorita.jpg"
   },
   {
     "id": "kilometros",
@@ -424,7 +424,7 @@
     "genre": "balada",
     "duration": 215,
     "dropbox_url": "https://www.dropbox.com/scl/fi/80snj5aqgxjlcol5q3azq/Sin-Bandera-Kil-metros.mp3?rlkey=373ijk879fojn4hzpdfvf8bhy&st=nmuvlosk&dl=0&raw=1",
-    "cover": "assets/covers/Sin-Bandera-Kilometros.jpg"
+    "cover": "https://iraked.github.io/SantiGraphics/assets/covers/Sin-Bandera-Kilometros.jpg"
   },
   {
     "id": "de-la-noche-a-la-manana",
@@ -435,7 +435,7 @@
     "genre": "pop",
     "duration": 220,
     "dropbox_url": "https://www.dropbox.com/scl/fi/05k49n6xf7lmdbdjwtpcn/Elefante-De-la-noche-a-la-ma-ana.mp3?rlkey=pb6bz1ppok1wkizdu9yseo40v&st=3r7nckd0&dl=0&raw=1",
-    "cover": "assets/covers/Elefante-De-la-noche-a-la-manana.jpg"
+    "cover": "https://iraked.github.io/SantiGraphics/assets/covers/Elefante-De-la-noche-a-la-manana.jpg"
   },
   {
     "id": "nada-valgo-sin-tu-amor",
@@ -446,7 +446,7 @@
     "genre": "rock",
     "duration": 210,
     "dropbox_url": "https://www.dropbox.com/scl/fi/t1dp8unrfkz1hi6m4kxgn/Juanes-Nada-valgo-sin-tu-amor.mp3?rlkey=kj5unx8ej0p508jmhz3dai39a&st=xvzo7qck&dl=0&raw=1",
-    "cover": "assets/covers/Juanes-Nada-valgo-sin-tu-amor.jpg"
+    "cover": "https://iraked.github.io/SantiGraphics/assets/covers/Juanes-Nada-valgo-sin-tu-amor.jpg"
   },
 
 
@@ -460,7 +460,7 @@
     "genre": "pop",
     "duration": 215,
     "dropbox_url": "https://www.dropbox.com/scl/fi/dwib1faied2oxf4iya6q0/La-Oreja-De-Van-Gogh-Deseos-de-cosas-imposibles.mp3?rlkey=0dpv30t1btlru56rk6r9fcygt&st=3ke4pszh&dl=0&raw=1",
-    "cover": "assets/covers/La-Oreja-De-Van-Gogh-Deseos-de-cosas-imposibles.jpg"
+    "cover": "https://iraked.github.io/SantiGraphics/assets/covers/La-Oreja-De-Van-Gogh-Deseos-de-cosas-imposibles.jpg"
   },
   {
     "id": "la-quiero-a-morir",
@@ -471,7 +471,7 @@
     "genre": "pop",
     "duration": 220,
     "dropbox_url": "https://www.dropbox.com/scl/fi/rb4qqbaso7ldgtdn3q374/Jarabe-De-Palo-La-quiero-a-morir-F.mp3?rlkey=6o48bhvmfrtw6wetgp23qebnj&st=mj0gj15d&dl=0&raw=1",
-    "cover": "assets/covers/Jarabe-De-Palo-La-quiero-a-morir.jpg"
+    "cover": "https://iraked.github.io/SantiGraphics/assets/covers/Jarabe-De-Palo-La-quiero-a-morir.jpg"
   },
   {
     "id": "karma",
@@ -482,7 +482,7 @@
     "genre": "pop",
     "duration": 205,
     "dropbox_url": "https://www.dropbox.com/scl/fi/umkyy0e8rltw5l6vplx96/TIM-Karma.MP3?rlkey=z1t399wycbmrqv7qcd4qn5ljk&st=86fggqar&dl=0&raw=1",
-    "cover": "assets/covers/Timo-Karma.jpg"
+    "cover": "https://iraked.github.io/SantiGraphics/assets/covers/Timo-Karma.jpg"
   },
   {
     "id": "enamorate",
@@ -493,7 +493,7 @@
     "genre": "pop",
     "duration": 210,
     "dropbox_url": "https://www.dropbox.com/scl/fi/nlqnulhig7cy4am9sbbbx/Dvicio-Enamorate.mp3?rlkey=stwdelj3i6k8660qdh1vb6kdp&st=s2r85m1y&dl=0&raw=1",
-    "cover": "assets/covers/Dvicio-Enamorate.jpg"
+    "cover": "https://iraked.github.io/SantiGraphics/assets/covers/Dvicio-Enamorate.jpg"
   },
   {
     "id": "te-amo",
@@ -504,7 +504,7 @@
     "genre": "r&b",
     "duration": 195,
     "dropbox_url": "https://www.dropbox.com/scl/fi/84gs5invr80tnsugscfjx/Rini-Te-amo.mp3?rlkey=i7qh4u2i4n55peo5vb8qhbbvq&st=34503awc&dl=0&raw=1",
-    "cover": "assets/covers/Rini-Te-amo.png"
+    "cover": "https://iraked.github.io/SantiGraphics/assets/covers/Rini-Te-amo.png"
   },
   {
     "id": "todo-y-nada",
@@ -515,7 +515,7 @@
     "genre": "rock",
     "duration": 200,
     "dropbox_url": "https://www.dropbox.com/scl/fi/00pyddcfhxhp5rty6zm9l/Rescate-Rock-Todo-y-nada.MP3?rlkey=4mocfn055pflrn5jilt12pnu1&st=vml659h6&dl=0&raw=1",
-    "cover": "assets/covers/Rescate-Rock-Todo-y-nada.jpg"
+    "cover": "https://iraked.github.io/SantiGraphics/assets/covers/Rescate-Rock-Todo-y-nada.jpg"
   },
   {
     "id": "sed-de-la-mala",
@@ -526,7 +526,7 @@
     "genre": "regional",
     "duration": 205,
     "dropbox_url": "https://www.dropbox.com/scl/fi/kwgjjnk3wwox7z3ez7sh2/Nunca-Jam-s-Sed-de-la-mala.mp3?rlkey=iaav74km2xo4i8wer3vmjzoe5&st=eaztsmzk&dl=0&raw=1",
-    "cover": "assets/covers/Nunca-Jamas-Sed-de-la-mala.jpg"
+    "cover": "https://iraked.github.io/SantiGraphics/assets/covers/Nunca-Jamas-Sed-de-la-mala.jpg"
   },
   {
     "id": "fiesta-pagana",
@@ -537,7 +537,7 @@
     "genre": "metal",
     "duration": 240,
     "dropbox_url": "https://www.dropbox.com/scl/fi/msuss52fimqnercwl3q2d/Mago-De-Oz-Fiesta-pagana.mp3?rlkey=22modkx1e0vlz1sl0ak1f0hbi&st=htxdvucu&dl=0&raw=1",
-    "cover": "assets/covers/Mago-De-Oz-Fiesta-pagana.jpg"
+    "cover": "https://iraked.github.io/SantiGraphics/assets/covers/Mago-De-Oz-Fiesta-pagana.jpg"
   },
   {
     "id": "hazme-un-sitio-entre-tu-piel",
@@ -548,7 +548,7 @@
     "genre": "metal",
     "duration": 230,
     "dropbox_url": "https://www.dropbox.com/scl/fi/0l5fvtfkjrlgdb0vtnpax/Mago-De-Oz-Hazme-un-sitio-entre-tu-piel.mp3?rlkey=jrrykqx5oiumg419nxrthy4mj&st=zryupsto&dl=0&raw=1",
-    "cover": "assets/covers/Mago-De-Oz-Hazme-un-sitio-entre-tu-piel.jpg"
+    "cover": "https://iraked.github.io/SantiGraphics/assets/covers/Mago-De-Oz-Hazme-un-sitio-entre-tu-piel.jpg"
   },
   {
     "id": "la-leyenda-del-hada-y-del-mago",
@@ -559,7 +559,7 @@
     "genre": "metal",
     "duration": 250,
     "dropbox_url": "https://www.dropbox.com/scl/fi/rptyizyjzp4newon7gvfi/Rata-Blanca-La-leyenda-del-hada-y-del-mago.MP3?rlkey=mm7afv1rxllliwonrjjbf23me&st=vdmws35x&dl=0&raw=1",
-    "cover": "assets/covers/Rata-Blanca-La-leyenda-del-hada-y-del-mago.jpg"
+    "cover": "https://iraked.github.io/SantiGraphics/assets/covers/Rata-Blanca-La-leyenda-del-hada-y-del-mago.jpg"
   },
 
 
@@ -573,7 +573,7 @@
     "genre": "ska",
     "duration": 210,
     "dropbox_url": "https://www.dropbox.com/scl/fi/ojdxmccrn0kb12021vlqp/Ska-Soul-Pideme-la-luna.mp3?rlkey=ximamvagrpqys6aw4xu50ocks&st=1s50o66n&dl=0&raw=1",
-    "cover": "assets/covers/Ska-Soul-Pideme-la-luna.jpg"
+    "cover": "https://iraked.github.io/SantiGraphics/assets/covers/Ska-Soul-Pideme-la-luna.jpg"
   },
   {
     "id": "cada-manana",
@@ -584,7 +584,7 @@
     "genre": "ska",
     "duration": 195,
     "dropbox_url": "https://www.dropbox.com/scl/fi/tszn5sme9fgne2n3qdnyb/Cada-ma-ana.mp3?rlkey=xlaswe8c3xoa36ir9yti8inc1&st=vdsmy5dd&dl=0&raw=1",
-    "cover": "assets/covers/Los-Estramboticos-Cada-manana.jpg"
+    "cover": "https://iraked.github.io/SantiGraphics/assets/covers/Los-Estramboticos-Cada-manana.jpg"
   },
   {
     "id": "durmiendo-con-la-luna",
@@ -595,7 +595,7 @@
     "genre": "pop",
     "duration": 215,
     "dropbox_url": "https://www.dropbox.com/scl/fi/86ne2d8405jqnei5tmp4a/Elefante-Durmiendo-con-la-luna.mp3?rlkey=cpdwav2tube4x1lh3z58tar3i&st=uh4pavol&dl=0&raw=1",
-    "cover": "assets/covers/Elefante-Durmiendo-con-la-luna.jpg"
+    "cover": "https://iraked.github.io/SantiGraphics/assets/covers/Elefante-Durmiendo-con-la-luna.jpg"
   },
   {
     "id": "i-like-you-mucho",
@@ -606,7 +606,7 @@
     "genre": "pop",
     "duration": 248,
     "dropbox_url": "https://www.dropbox.com/scl/fi/k9c36b6ntkcyk8kmrbvmj/Daaz-I-like-you-mucho.MP3?rlkey=mjv11davrewdpesloj1pxtdj0&st=jgfkd8qo&dl=0&raw=1",
-    "cover": "assets/covers/Daaz%20-%20I%20like%20you%20mucho.png"
+    "cover": "https://iraked.github.io/SantiGraphics/assets/covers/Daaz-I-like-you-mucho.png"
   },
   {
     "id": "latidos-de-tu-amor",
@@ -617,7 +617,7 @@
     "genre": "balada",
     "duration": 198,
     "dropbox_url": "https://www.dropbox.com/scl/fi/ididyu8ttvo1pcvucfapk/Pablo-Albor-n-Latidos-de-tu-amor.MP3?rlkey=l2q5nsiuxxyd3xaeaplsy1czd&st=30hizw18&dl=0&raw=1",
-    "cover": "assets/covers/Pablo-Alboran-Latidos-de-tu-amor.jpg"
+    "cover": "https://iraked.github.io/SantiGraphics/assets/covers/Pablo-Alboran-Latidos-de-tu-amor.jpg"
   },
   {
     "id": "eres-mi-razon",
@@ -628,7 +628,7 @@
     "genre": "balada",
     "duration": 185,
     "dropbox_url": "https://www.dropbox.com/scl/fi/ud204tymag2vr6yve6ew7/Luis-Fonsi-ft-Carlos-Rivera-Eres-mi-raz-n.MP3?rlkey=zwvsyzokp9fobt1bk9z9i9kwy&st=wpe3x0bq&dl=0&raw=1",
-    "cover": "assets/covers/Luis-Fonsi-Carlos-Rivera-Eres-mi-razon.jpg"
+    "cover": "https://iraked.github.io/SantiGraphics/assets/covers/Luis-Fonsi-Carlos-Rivera-Eres-mi-razon.jpg"
   },
   {
     "id": "mi-mayor-anhelo",
@@ -639,7 +639,7 @@
     "genre": "balada",
     "duration": 199,
     "dropbox_url": "https://www.dropbox.com/scl/fi/xetavetenxcut08kohy5u/R-o-Roma-Mi-mayor-anhelo.MP3?rlkey=rc6v3yg4tdfhqqy0r35wuwjrr&st=sm5xya2w&dl=0&raw=1",
-    "cover": "assets/covers/Rio-Roma-Mi-mayor-anhelo.jpg"
+    "cover": "https://iraked.github.io/SantiGraphics/assets/covers/Rio-Roma-Mi-mayor-anhelo.jpg"
   },
   {
     "id": "estar-enamorado",
@@ -650,7 +650,7 @@
     "genre": "balada",
     "duration": 205,
     "dropbox_url": "https://www.dropbox.com/scl/fi/9ejgx9lqfj6b0zaa76gik/Carlos-Rivera-Raphael-Estar-enamorado.MP3?rlkey=uh9vulhmfcg12h2cc19yp9jbp&st=633d5r0b&dl=0&raw=1",
-    "cover": "assets/covers/Carlos-Rivera-Raphael-Estar-enamorado.jpg"
+    "cover": "https://iraked.github.io/SantiGraphics/assets/covers/Carlos-Rivera-Raphael-Estar-enamorado.jpg"
   },
   {
   "id": "porfa-no-te-vayas",
@@ -661,7 +661,7 @@
   "genre": "balada",
   "duration": 240,
   "dropbox_url": "https://www.dropbox.com/scl/fi/xa0dn79gpfwz8j864ieuk/Beret-Morat-Porfa-no-te-vayas.mp3?rlkey=9d2g2p57go9axqjsft56g2bil&st=20jmkamv&dl=0&raw=1",
-  "cover": "assets/covers/Beret-Morat-Porfa-no-te-vayas.jpg"
+  "cover": "https://iraked.github.io/SantiGraphics/assets/covers/Beret-Morat-Porfa-no-te-vayas.jpg"
   },
   {
   "id": "rick-dj",
@@ -672,7 +672,7 @@
   "genre": "electro",
   "duration": 10,
   "dropbox_url": "https://www.dropbox.com/scl/fi/d3p8l70yx98sos427ex92/Estas-Escuchando-a-Rick-DJ.mp3?rlkey=u0odi4i4f2111r7mpmhhlid69&st=4qpseu8e&dl=0&raw=1",
-  "cover": "assets/covers/Cover1.png"
+  "cover": "https://iraked.github.io/SantiGraphics/assets/covers/Cover1.png"
   }
 
 ]
