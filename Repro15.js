@@ -50,27 +50,13 @@ const closeModalBtn    = document.getElementById("close-playlist-modal");
 const trackList        = document.querySelector(".track-list");
 const currentTrackNameModal = document.getElementById("current-track-display");
 
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// INICIALIZACIÓN AUTOMÁTICA
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// 🚀 Inicialización automática
 document.addEventListener("DOMContentLoaded", () => {
-  inicializarVolumen();
-  iniciarBurbujas();
-
-  const estadoGuardado = localStorage.getItem("estadoReproductor");
-  if (estadoGuardado) {
-    const { playlist, trackIndex } = JSON.parse(estadoGuardado);
-    console.log("🔄 Restaurando estado:", playlist, trackIndex);
-    cargarPlaylist(playlist).then(() => {
-      activarReproduccion(trackIndex, "restore");
-      safePlay({ keepMuted: true });
-    });
-  } else {
+    inicializarVolumen();
+    iniciarBurbujas();
     cargarPlaylist("Actual");
     safePlay({ keepMuted: true });
-  }
 });
-
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // 📝 Función global para registrar historial
@@ -152,38 +138,6 @@ async function cargarPlaylist(nombre) {
   } catch (err) {
     console.error(`❌ Error al cargar playlist "${nombre}":`, err);
   }
-}
-
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// CONTINUIDAD DE REPRODUCCIÓN
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-audio.addEventListener("ended", () => {
-  if (modoActual !== "local") return;
-
-  if (repeatMode === "one") {
-    activarReproduccion(currentTrack, "repeat-one");
-  } else if (isShuffling) {
-    let newIndex;
-    do {
-      newIndex = Math.floor(Math.random() * trackData.length);
-    } while (newIndex === currentTrack && trackData.length > 1);
-    activarReproduccion(newIndex, "shuffle-auto");
-  } else {
-    let nextIndex = (currentTrack + 1) % trackData.length;
-    activarReproduccion(nextIndex, "auto-next");
-  }
-});
-
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// GUARDAR ESTADO EN LOCALSTORAGE
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-function guardarEstadoReproductor(nombrePlaylist, indexTrack) {
-  const estado = {
-    playlist: nombrePlaylist,
-    trackIndex: indexTrack
-  };
-  localStorage.setItem("estadoReproductor", JSON.stringify(estado));
-  console.log("💾 Estado guardado:", estado);
 }
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -853,7 +807,7 @@ function generarSelectorPlaylists() {
   selector.innerHTML = "";
 
   const playlists = [
-    { nombre: "Repro36", etiqueta: "Actual" },
+    { nombre: "Actual", etiqueta: "Actual" },
     { nombre: "rumba",  etiqueta: "Rumba Caliente" },
     { nombre: "exitos", etiqueta: "Éxitos" },
     { nombre: "hardcore", etiqueta: "Ruido de Lata" },
