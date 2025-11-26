@@ -3192,6 +3192,51 @@ window.lyricsLibrary = {
 
 ],
 
+"si-sabes-contar": [
+  { "time": 9.0,  "text": "Los Ángeles Azules" },
+  { "time": 13.0, "text": "Luck Ra, y Yami Safdie" },
+
+  { "time": 21.0, "text": "Sé que te va a doler" },
+  { "time": 24.0, "text": "¿Pa' qué te digo que no, mi amor?" },
+  { "time": 26.0, "text": "Claro que te va a doler" },
+  { "time": 30.0, "text": "Porque quien más te quería en la vida, lo acabas de perder" },
+
+  { "time": 33.0, "text": "Dicen que siempre llega alguien mejor" },
+  { "time": 36.0, "text": "Pero en este caso hay una excepción" },
+  { "time": 40.0, "text": "Es que tu ex soy yo" },
+
+  { "time": 42.0, "text": "Si sabes contar, ya no cuentes conmigo" },
+  { "time": 48.0, "text": "Tú nunca me podrás olvidar, de una vez te lo digo" },
+  { "time": 53.0, "text": "Si sabes contar, no cuentes con mis besos" },
+  { "time": 59.0, "text": "Este amor para ti se acabó, no me hables de un regreso" },
+
+  { "time": 64.0, "text": "Si sabes contar, no cuentes con mis manos" },
+  { "time": 70.0, "text": "Que ya no te vuelven a tocar porque ya no te amo" },
+
+  { "time": 79.0, "text": "Mi amor" },
+  { "time": 80.0, "text": "Dicen que uno siempre vuelve donde fue feliz" },
+  { "time": 82.0, "text": "Y, por eso yo no volví" },
+
+  { "time": 85.0, "text": "Sé que te va a doler" },
+  { "time": 89.0, "text": "¿Pa' qué te digo que no, mi amor?" },
+  { "time": 92.0, "text": "Claro que te va a doler" },
+  { "time": 95.0, "text": "Porque la que más te quería en la vida, la acabas de perder" },
+
+  { "time": 99.0, "text": "Dicen que siempre llega alguien mejor" },
+  { "time": 101.0, "text": "Pero en este caso hay una excepción" },
+  { "time": 105.0, "text": "Y es que tu ex soy yo" },
+
+  { "time": 108.0, "text": "Si sabes contar, ya no cuentes conmigo" },
+  { "time": 114.0, "text": "Tú nunca me podrás olvidar, de una vez te lo digo" },
+  { "time": 119.0, "text": "Si sabes contar, no cuentes con mis besos" },
+  { "time": 124.0, "text": "Este amor para ti se acabó, no me hables de un regreso" },
+
+  { "time": 129.0, "text": "Si sabes contar, no cuentes con mis manos" },
+  { "time": 136.0, "text": "Que ya no te vuelven a tocar porque ya no te amo" }
+
+],
+
+
 "chance": [
   { "time": 3.0, "text": "Es DAAZ, directamente desde Cancún" },
   { "time": 9.0, "text": "Quería, quería hablar contigo porque" },
@@ -3294,7 +3339,7 @@ window.lyricsLibrary = {
 
 ],
 
-"adele-someone-like-you": [
+"adele-like": [
   { "time": 13.0, "text": "I heard that you're settled down" },
   { "time": 20.0, "text": "That you found a girl and you're married now" },
   { "time": 29.0, "text": "I heard that your dreams came true" },
@@ -3346,6 +3391,7 @@ window.lyricsLibrary = {
   { "time": 249.0, "text": "I remember you said" },
   { "time": 252.0, "text": "\"Sometimes it lasts in love, but sometimes it hurts instead\"" },
   { "time": 259.0, "text": "\"Sometimes it lasts in love, but sometimes it hurts instead\"" }
+
 ],
 
 
