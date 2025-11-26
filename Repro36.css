@@ -1627,3 +1627,9 @@ button:hover {
     left: 600px;           /* mantiene su desplazamiento */
   }
 }
+
+@media (max-width: 768px) {
+  #particles {
+    display: none;
+  }
+}
