@@ -1,9 +1,19 @@
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 01 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
 /*   ***************************** CONTENEDORES *****************************  */
 html, body {
   margin: 0;
   padding: 0;
-  overflow-x: hidden;         /* ← elimina scroll horizontal interno */
-  overflow-y: auto;           /* ← permite scroll vertical si hay recorrido */
+  overflow-x: hidden;   /* por defecto: sin scroll horizontal */
+  overflow-y: auto;     /* scroll vertical normal */
+  color: #e0e0e0;
+}
+
+/* Solo en pantallas pequeñas activar scroll horizontal */
+@media (max-width: 768px) {
+  html, body {
+    overflow-x: auto;   /* permite scroll horizontal */
+    overflow-y: hidden; /* opcional: bloquea scroll vertical si no lo quieres */
+  }
 }
 
 #main-container {
@@ -16,7 +26,7 @@ html, body {
   margin: auto;
   padding: 0;
   gap: 0;
-  background-image: url("https://i.ibb.co/CsVcpscX/BG-Repro-GFX.gif");
+  background-image: url("https://santi-graphics.vercel.app/assets/background/BG-Eluney-GFX.gif");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -26,8 +36,9 @@ html, body {
   z-index: 1;
 }
 
+/* Scrollbar rosa unificado */
 #main-container::-webkit-scrollbar {
-  height: 8px; /* ← horizontal scroll usa height, no width */
+  height: 8px;
 }
 
 #main-container::-webkit-scrollbar-track {
@@ -35,27 +46,19 @@ html, body {
 }
 
 #main-container::-webkit-scrollbar-thumb {
-  background-color: #a38838;
+  background-color: #ff4081;   /* rosa vibrante */
   border-radius: 4px;
-  border: 2px solid #efdd8e;
+  border: 2px solid #ffc0cb;   /* halo rosa claro */
 }
 
 #main-container::-webkit-scrollbar-thumb:hover {
-  background-color: #8B2323;
+  background-color: #e60073;   /* rosa intenso al hover */
 }
 
-/* Scroll activo en pantallas pequeñas */
-@media (max-width: 768px) {
-  #main-container {
-    flex-direction: row;
-    overflow-x: auto;
-    overflow-y: hidden;
-  }
-}
 
 #left-panel,
 #right-panel {
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(30, 30, 30, 0.4); /* gris oscuro semi-transparente */
   border-radius: 10px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
   padding: 48px;
@@ -430,6 +433,7 @@ html, body {
   align-items: center;
   justify-content: center;
   gap: 12px;
+    z-index: 20;
 }
 
 .volume-icon {
@@ -437,7 +441,7 @@ html, body {
   font-size: 16px;
   width: 20px;
   transition: color 0.3s;
-    cursor: pointer;
+    cursor: pointer;z-index: 20;
 }
 .volume-icon:hover { color: #ff4081; }
 
@@ -452,6 +456,7 @@ html, body {
   padding: 0 4px;
   overflow: hidden;
     cursor: pointer;
+    z-index: 20;
 }
 
 .volume-bar {
@@ -1571,6 +1576,31 @@ button:hover {
   #particles {
     left: 0px; /* posición base */
     transform: translateX(-100px); /* ← desplazamiento hacia la izquierda */
+  }
+}
+
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+/* MODALES EN RESPONSIVE → PANEL DERECHO */
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+@media (max-width: 768px) {
+  .modal {
+    position: absolute;       /* se ancla dentro del panel */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 100%;              /* ocupa todo el ancho del panel derecho */
+    max-width: 400px;         /* límite según el ancho del panel */
+    /* 🔑 restauramos altura original */
+    height: 534px;            /* conserva la altura fija del modal */
+    max-height: none;         /* elimina límite artificial */
+    transform: none;          /* elimina el centrado global */
+  }
+
+  /* Asegura que el modal se renderice dentro del panel derecho */
+  #right-panel {
+    position: relative;       /* referencia para los modales */
   }
 }
 

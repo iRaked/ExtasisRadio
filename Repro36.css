@@ -1,9 +1,19 @@
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 01 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
 /*   ***************************** CONTENEDORES *****************************  */
 html, body {
   margin: 0;
   padding: 0;
-  overflow-x: hidden;         /* ← elimina scroll horizontal interno */
-  overflow-y: auto;           /* ← permite scroll vertical si hay recorrido */
+  overflow-x: hidden;   /* por defecto: sin scroll horizontal */
+  overflow-y: auto;     /* scroll vertical normal */
+  color: #e0e0e0;
+}
+
+/* Solo en pantallas pequeñas activar scroll horizontal */
+@media (max-width: 768px) {
+  html, body {
+    overflow-x: auto;   /* permite scroll horizontal */
+    overflow-y: hidden; /* opcional: bloquea scroll vertical si no lo quieres */
+  }
 }
 
 #main-container {
@@ -26,9 +36,29 @@ html, body {
   z-index: 1;
 }
 
+/* Scrollbar rosa unificado */
+#main-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+#main-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#main-container::-webkit-scrollbar-thumb {
+  background-color: #ff4081;   /* rosa vibrante */
+  border-radius: 4px;
+  border: 2px solid #ffc0cb;   /* halo rosa claro */
+}
+
+#main-container::-webkit-scrollbar-thumb:hover {
+  background-color: #e60073;   /* rosa intenso al hover */
+}
+
+
 #left-panel,
 #right-panel {
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(30, 30, 30, 0.4); /* gris oscuro semi-transparente */
   border-radius: 10px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
   padding: 48px;
@@ -411,6 +441,7 @@ html, body {
   width: 20px;
   transition: color 0.3s;
     cursor: pointer;
+    z-index: 20;
 }
 .volume-icon:hover { color: #ff4081; }
 
@@ -425,6 +456,7 @@ html, body {
   padding: 0 4px;
   overflow: hidden;
     cursor: pointer;
+    z-index: 20;
 }
 
 .volume-bar {
@@ -1547,6 +1579,31 @@ button:hover {
   }
 }
 
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+/* MODALES EN RESPONSIVE → PANEL DERECHO */
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+@media (max-width: 768px) {
+  .modal {
+    position: absolute;       /* se ancla dentro del panel */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 100%;              /* ocupa todo el ancho del panel derecho */
+    max-width: 400px;         /* límite según el ancho del panel */
+    /* 🔑 restauramos altura original */
+    height: 534px;            /* conserva la altura fija del modal */
+    max-height: none;         /* elimina límite artificial */
+    transform: none;          /* elimina el centrado global */
+  }
+
+  /* Asegura que el modal se renderice dentro del panel derecho */
+  #right-panel {
+    position: relative;       /* referencia para los modales */
+  }
+}
+
 .custom-message {
     position: absolute;
     top: 50%;
@@ -1567,70 +1624,4 @@ button:hover {
 }
 .custom-message.show {
     opacity: 1;
-}
-
-
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-/* RESPONSIVE MAIN Y MODALES */
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-@media (max-width: 768px) {
-  #main-container {
-    flex-direction: row;
-    overflow-x: auto;   /* scroll horizontal activo */
-    overflow-y: hidden; /* bloquea scroll vertical */
-  }
-
-  /* Paneles: ancho fijo para forzar scroll horizontal */
-  #left-panel,
-  .right-panel {
-    flex-shrink: 0;
-    width: 400px;   /* conserva su ancho fijo */
-  }
-
-  .right-panel {
-    position: relative;
-  }
-
-  /* Playlist / Tracks */
-  #modal-playlist {
-    position: absolute;
-    top: 50%;
-    left: 600px;
-    transform: translate(-50%, -50%);
-  }
-
-  /* Historial aparte */
-  #history-modal {
-    position: absolute;
-    top: 50%;
-    left: 600px;
-    transform: translate(-50%, -50%);
-  }
-
-  /* Partículas desactivadas en responsive */
-  #particles {
-    display: none;
-  }
-}
-
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-/* SCROLLBAR PERSONALIZADO MAIN */
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-#main-container::-webkit-scrollbar {
-  height: 8px; /* scroll horizontal usa height */
-}
-
-#main-container::-webkit-scrollbar-track {
-  background: rgba(255, 64, 129, 0.15); /* pista rosa tenue */
-  border-radius: 4px;
-}
-
-#main-container::-webkit-scrollbar-thumb {
-  background-color: #ff4081; /* rosa vibrante */
-  border-radius: 4px;
-  border: 2px solid rgba(255, 255, 255, 0.3); /* halo blanco */
-}
-
-#main-container::-webkit-scrollbar-thumb:hover {
-  background-color: #e60073; /* rosa más intenso al hover */
 }
