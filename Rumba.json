@@ -1,0 +1,438 @@
+{
+  "rumba": [
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Los-Angeles-Azules-Luck-Ra-Yami-Safdie-Si-sabes-contar.jpg",
+      "id": "si-sabes-contar",
+      "emotion": "fiesta",
+      "artista": "Los Ángeles Azules, Luck Ra, Yami Safdie",
+      "nombre": "Si sabes contar",
+      "album": "Single",
+      "seccion": "rumba",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Los-Angeles-Azules-Luck-Ra-Yami-Safdie-Si-sabes-contar.MP3",
+      "genero": "cumbia",
+      "duracion": "2:46"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Los-Angeles-Azules-Kenia-Os-Una-nada-mas.jpg",
+      "id": "una-nada-mas",
+      "emotion": "fiesta",
+      "artista": "Los Ángeles Azules, Kenia Os",
+      "nombre": "Una nada más",
+      "album": "Single",
+      "seccion": "rumba",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Los-Angeles-Azules-Kenia-Os-Una-nada-mas.mp3",
+      "genero": "cumbia",
+      "duracion": "2:44"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Cazzu-Grupo-Frontera-Ke-Personajes-Tiempo-perdido.jpg",
+      "id": "tiempo-perdido",
+      "emotion": "fiesta",
+      "artista": "Cazzu, Grupo Frontera, Ke Personajes",
+      "nombre": "Tiempo perdido",
+      "album": "Single",
+      "seccion": "rumba",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Cazzu-Grupo-Frontera-Ke-Personajes-Tiempo-perdido.MP3",
+      "genero": "cumbia norteña",
+      "duracion": "3:14"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Los-Angeles-Azules-Emilia-Perdonarte-para-que.jpg",
+      "id": "perdonarte-para-que",
+      "emotion": "fiesta",
+      "artista": "Los Ángeles Azules, Emilia",
+      "nombre": "Perdonarte para qué",
+      "album": "Single",
+      "seccion": "rumba",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Los-Angeles-Azules-Emilia-Perdonarte-para-que.mp3",
+      "genero": "cumbia",
+      "duracion": "3:10"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Los-Angeles-Azules-Nicki-Nicole-Otra-noche.jpg",
+      "id": "otra-noche",
+      "emotion": "fiesta",
+      "artista": "Los Ángeles Azules, Nicki Nicole",
+      "nombre": "Otra noche",
+      "album": "Single",
+      "seccion": "rumba",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Los-Angeles-Azules-Nicki-Nicole-Otra-noche.mp3",
+      "genero": "cumbia",
+      "duracion": "3:19"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Banda-XXI-Viru-Kumbieron-Tu-falta-de-querer.jpg",
+      "id": "tu-falta-de-querer",
+      "emotion": "fiesta",
+      "artista": "Banda XXI, Viru Kumbieron",
+      "nombre": "Tu falta de querer",
+      "album": "Single",
+      "seccion": "rumba",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Banda-XXI-Viru-Kumbieron-Tu-falta-de-querer.MP3",
+      "genero": "cuarteto",
+      "duracion": "2:56"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Cazzu-Lulu-Pug-Yo-soy-asi-(Mala-suerte).jpg",
+      "id": "yo-soy-asi",
+      "emotion": "fiesta",
+      "artista": "Cazzu, Lulu Pug",
+      "nombre": "Yo soy así (Mala suerte)",
+      "album": "Single",
+      "seccion": "rumba",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Cazzu-Lulu-Pug-Yo-soy-asi-(Mala-suerte).MP3",
+      "genero": "trap",
+      "duracion": "2:58"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Agapornis-De-los-besos-que-te-di.jpg",
+      "id": "de-los-besos-que-te-di",
+      "emotion": "fiesta",
+      "artista": "Agapornis",
+      "nombre": "De los besos que te di",
+      "album": "Single",
+      "seccion": "rumba",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Agapornis-De-los-besos-que-te-di.MP3",
+      "genero": "cumbia",
+      "duracion": "3:05"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Valeria-Yescas-Tu-ponejita-juju.jpg",
+      "id": "tu-ponejita-juju",
+      "emotion": "fiesta",
+      "artista": "Valeria Yescas",
+      "nombre": "Tu ponejita juju",
+      "album": "Single",
+      "seccion": "rumba",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Valeria-Yescas-Tu-ponejita-juju.MP3",
+      "genero": "pop latino",
+      "duracion": "2:56"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Cazzu-Con-otra.jpg",
+      "id": "con-otra",
+      "emotion": "fiesta",
+      "artista": "Cazzu",
+      "nombre": "Con otra",
+      "album": "Single",
+      "seccion": "rumba",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Cazzu-Con-otra.mp3",
+      "genero": "trap",
+      "duracion": "3:03"
+    },
+
+
+
+
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Valentina-Marquez-AB-Quintanilla-III-Esta-noche.jpg",
+      "id": "esta-noche",
+      "emotion": "fiesta",
+      "artista": "Valentina Marquez, AB Quintanilla III",
+      "nombre": "Esta noche",
+      "album": "Single",
+      "seccion": "rumba",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Valentina-Marquez-AB-Quintanilla-III-Esta-noche.MP3",
+      "genero": "cumbia",
+      "duracion": "3:12"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Valeria-Yescas-Yo-me-lo-busque.jpg",
+      "id": "yo-me-lo-busque",
+      "emotion": "fiesta",
+      "artista": "Valeria Yescas",
+      "nombre": "Yo me lo busqué",
+      "album": "Single",
+      "seccion": "rumba",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Valeria-Yescas-Yo-me-lo-busque.MP3",
+      "genero": "pop latino",
+      "duracion": "2:35"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Valentina-Marquez-Aneley-A-veces-a-besos.jpg",
+      "id": "a-veces-a-besos",
+      "emotion": "fiesta",
+      "artista": "Valentina Marquez, Aneley",
+      "nombre": "A veces a besos",
+      "album": "Single",
+      "seccion": "rumba",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Valentina-Marquez-Aneley-A-veces-a-besos.MP3",
+      "genero": "balada pop",
+      "duracion": "3:14"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Grecia-Gon-Hoy-voy-a-salir.jpg",
+      "id": "hoy-voy-a-salir",
+      "emotion": "fiesta",
+      "artista": "Grecia Gon",
+      "nombre": "Hoy voy a salir",
+      "album": "Single",
+      "seccion": "rumba",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Grecia-Gon-Hoy-voy-a-salir.MP3",
+      "genero": "pop latino",
+      "duracion": "2:47"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Antonella-Ortiz-Contacto-bloqueado.jpg",
+      "id": "contacto-bloqueado",
+      "emotion": "fiesta",
+      "artista": "Antonella Ortiz",
+      "nombre": "Contacto bloqueado",
+      "album": "Single",
+      "seccion": "rumba",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Antonella-Ortiz-Contacto-bloqueado.MP3",
+      "genero": "pop latino",
+      "duracion": "2:30"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/El-Polaco-La-China-Ya-no-quiero-verte.jpg",
+      "id": "ya-no-quiero-verte",
+      "emotion": "fiesta",
+      "artista": "El Polaco, La China",
+      "nombre": "Ya no quiero verte",
+      "album": "Single",
+      "seccion": "rumba",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/El-Polaco-La-China-Ya-no-quiero-verte.MP3",
+      "genero": "cumbia",
+      "duracion": "2:36"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Banda-XXI-18-Kilates-Son-de-amores.jpg",
+      "id": "son-de-amores",
+      "emotion": "fiesta",
+      "artista": "Banda XXI, 18 Kilates",
+      "nombre": "Son de amores",
+      "album": "Single",
+      "seccion": "rumba",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Banda-XXI-18-Kilates-Son-de-amores.MP3",
+      "genero": "cuarteto",
+      "duracion": "2:28"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/TREX-ICC-Flor-Amor-Joven-Los-Jrs-Despechada.jpg",
+      "id": "despechada",
+      "emotion": "fiesta",
+      "artista": "TREX, ICC, Flor Amor Joven, Los Jrs",
+      "nombre": "Despechada",
+      "album": "Single",
+      "seccion": "rumba",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/TREX-ICC-Flor-Amor-Joven-Los-Jrs-Despechada.mp3",
+      "genero": "cumbia",
+      "duracion": "3:22"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Mexikolombia-Los-Askis-Los-De-Akino-Ya-no-vuelvas.jpg",
+      "id": "ya-no-vuelvas",
+      "emotion": "fiesta",
+      "artista": "Mexikolombia, Los Askis, Los De Akino",
+      "nombre": "Ya no vuelvas",
+      "album": "Single",
+      "seccion": "rumba",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Mexikolombia-Los-Askis-Los-De-Akino-Ya-no-vuelvas.MP3",
+      "genero": "cumbia",
+      "duracion": "4:23"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Vius-Que-es-eso.jpg",
+      "id": "que-es-eso",
+      "emotion": "fiesta",
+      "artista": "Vius",
+      "nombre": "Qué es eso",
+      "album": "Single",
+      "seccion": "rumba",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Vius-Que-es-eso.MP3",
+      "genero": "pop latino",
+      "duracion": "2:24"
+    },
+
+
+
+
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Roze-Flor-Alvarez-Mi-corazon.jpg",
+      "id": "mi-corazon",
+      "emotion": "fiesta",
+      "artista": "Roze, Flor Alvarez",
+      "nombre": "Mi corazón",
+      "album": "Single",
+      "seccion": "rumba",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Roze-Flor-Alvarez-Mi-corazon.MP3",
+      "genero": "pop latino",
+      "duracion": "2:18"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Flavia-Laos-Bonny-Lovy-My-lova.jpg",
+      "id": "my-lova",
+      "emotion": "fiesta",
+      "artista": "Flavia Laos, Bonny Lovy",
+      "nombre": "My lova",
+      "album": "Single",
+      "seccion": "rumba",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Flavia-Laos-Bonny-Lovy-My-lova.MP3",
+      "genero": "pop electrónico",
+      "duracion": "2:46"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Marama-DJ-Tao-Lauty-Gram-Roze-Una-noche-contigo.jpg",
+      "id": "una-noche-contigo",
+      "emotion": "fiesta",
+      "artista": "Marama, DJ Tao, Lauty Gram, Roze",
+      "nombre": "Una noche contigo",
+      "album": "Single",
+      "seccion": "rumba",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Marama-DJ-Tao-Lauty-Gram-Roze-Una-noche-contigo.MP3",
+      "genero": "tropi pop",
+      "duracion": "2:42"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/El-Reja-Marka-Akme-TocoParaVos-Se-pico.jpg",
+      "id": "se-pico",
+      "emotion": "fiesta",
+      "artista": "El Reja, Marka Akme, TocoParaVos",
+      "nombre": "Se picó",
+      "album": "Single",
+      "seccion": "rumba",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/El-Reja-Marka-Akme-TocoParaVos-Se-pico.mp3",
+      "genero": "cumbia",
+      "duracion": "2:14"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Kingto-El-Reja-No-es-chamullo.jpg",
+      "id": "no-es-chamullo",
+      "emotion": "fiesta",
+      "artista": "Kingto, El Reja",
+      "nombre": "No es chamullo",
+      "album": "Single",
+      "seccion": "rumba",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Kingto-El-Reja-No-es-chamullo.MP3",
+      "genero": "cumbia",
+      "duracion": "2:12"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Uno-70-Grecia-Gon-No-se-enamora.jpg",
+      "id": "no-se-enamora",
+      "emotion": "fiesta",
+      "artista": "Uno 70, Grecia Gon",
+      "nombre": "No se enamora",
+      "album": "Single",
+      "seccion": "rumba",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Uno-70-Grecia-Gon-No-se-enamora.MP3",
+      "genero": "trap",
+      "duracion": "3:07"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/CantoYo-Bauti-Mascia-Cele-Arrabal-Ya-no-me-duele.jpg",
+      "id": "ya-no-me-duele",
+      "emotion": "fiesta",
+      "artista": "CantoYo, Bauti Mascia, Cele Arrabal",
+      "nombre": "Ya no me duele",
+      "album": "Single",
+      "seccion": "rumba",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/CantoYo-Bauti-Mascia-Cele-Arrabal-Ya-no-me-duele.MP3",
+      "genero": "pop latino",
+      "duracion": "2:30"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Agostina-Pochi-Escucha-Mix-Vol2.jpg",
+      "id": "escucha-mix-vol2",
+      "emotion": "fiesta",
+      "artista": "Agostina Pochi",
+      "nombre": "Escucha Mix Vol.2",
+      "album": "Single",
+      "seccion": "rumba",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Agostina-Pochi-Escucha-Mix-Vol2.MP3",
+      "genero": "cumbia",
+      "duracion": "3:27"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/The-La-Planta-Damaris-Atorrante.jpg",
+      "id": "atorrante",
+      "emotion": "fiesta",
+      "artista": "The La Planta, Damaris",
+      "nombre": "Atorrante",
+      "album": "Single",
+      "seccion": "rumba",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/The-La-Planta-Damaris-Atorrante.MP3",
+      "genero": "cumbia",
+      "duracion": "2:29"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Cumbiaton-ThomB-Tu-principe.jpg",
+      "id": "tu-principe",
+      "emotion": "fiesta",
+      "artista": "Cumbiaton, ThomB",
+      "nombre": "Tu príncipe",
+      "album": "Single",
+      "seccion": "rumba",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Cumbiaton-ThomB-Tu-principe.MP3",
+      "genero": "cumbia",
+      "duracion": "2:49"
+    },
+
+
+
+
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Bauti-Mascia-Fer-Vazquez-Mi-ex.jpg",
+      "id": "mi-ex",
+      "emotion": "fiesta",
+      "artista": "Bauti Mascia, Fer Vazquez",
+      "nombre": "Mi ex",
+      "album": "Single",
+      "seccion": "rumba",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Bauti-Mascia-Fer-Vazquez-Mi-ex.MP3",
+      "genero": "pop latino",
+      "duracion": "2:17"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Nhay-Maias-Ochoa-Dulzura.jpg",
+      "id": "dulzura",
+      "emotion": "fiesta",
+      "artista": "Nhay, Maias Ochoa",
+      "nombre": "Dulzura",
+      "album": "Single",
+      "seccion": "rumba",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Nhay-Maias-Ochoa-Dulzura.MP3",
+      "genero": "pop latino",
+      "duracion": "2:37"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Marka-Akme-Lauty-Gram-Agus-Padilla-El-Reja-Llama.jpg",
+      "id": "llama",
+      "emotion": "fiesta",
+      "artista": "Marka Akme, Lauty Gram, Agus Padilla, El Reja",
+      "nombre": "Llama",
+      "album": "Single",
+      "seccion": "rumba",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Marka-Akme-Lauty-Gram-Agus-Padilla-El-Reja-Llama.MP3",
+      "genero": "cumbia",
+      "duracion": "3:29"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Luck-Ra-Ezequiel-Llanos-Salastkbron-Roze-The-La-Planta-Mentiras.jpg",
+      "id": "mentiras",
+      "emotion": "fiesta",
+      "artista": "Luck Ra, Ezequiel Llanos, Salastkbron, Roze, The La Planta",
+      "nombre": "Mentiras",
+      "album": "Single",
+      "seccion": "rumba",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Luck-Ra-Ezequiel-Llanos-Salastkbron-Roze-The-La-Planta-Mentiras.MP3",
+      "genero": "cumbia",
+      "duracion": "3:15"
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Drian-Bye-Te-supere.jpg",
+      "id": "te-supere",
+      "emotion": "fiesta",
+      "artista": "Drian Bye",
+      "nombre": "Te superé",
+      "album": "Single",
+      "seccion": "rumba",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Drian-Bye-Te-supere.MP3",
+      "genero": "pop latino",
+      "duracion": "2:57"
+    }
+
+
+  ]
+}
