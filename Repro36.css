@@ -16,7 +16,7 @@ html, body {
   margin: auto;
   padding: 0;
   gap: 0;
-  background-image: url("assets/bg/bg8.png");
+  background-image: url("https://santi-graphics.vercel.app/assets/bg/bg8.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -42,15 +42,6 @@ html, body {
 
 #main-container::-webkit-scrollbar-thumb:hover {
   background-color: #8B2323;
-}
-
-/* Scroll activo en pantallas pequeñas */
-@media (max-width: 768px) {
-  #main-container {
-    flex-direction: row;
-    overflow-x: auto;
-    overflow-y: hidden;
-  }
 }
 
 #left-panel,
@@ -389,7 +380,7 @@ html, body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url(assets/covers/Plato.png);
+  background-image: url(https://santi-graphics.vercel.app/assets/img/Plato.png);
   background-size: cover;
   background-position: center;
   opacity: 1.0; /* corregido: valor válido entre 0 y 1 */
@@ -437,6 +428,7 @@ html, body {
   font-size: 16px;
   width: 20px;
   transition: color 0.3s;
+    cursor: pointer;
 }
 .volume-icon:hover { color: #ff4081; }
 
@@ -450,6 +442,7 @@ html, body {
   align-items: center;
   padding: 0 4px;
   overflow: hidden;
+    cursor: pointer;
 }
 
 .volume-bar {
@@ -718,6 +711,8 @@ button {
   align-items: center;
   transition: transform 0.3s ease;
   position: absolute;
+  pointer-events: auto; /* fuerza eventos en todos los botones */
+  cursor: pointer;
 }
 button:hover {
   transform: scale(1.1);
@@ -731,11 +726,34 @@ button:hover {
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: linear-gradient(to bottom, #1a1a1a, #333);
+  background: linear-gradient(to bottom, #1a1a1a, #333); 
   color: #fff;
+  transition: all 0.3s ease; 
   box-shadow: 0 0 8px rgba(255, 128, 179, 0.8);
+  pointer-events: auto;
 }
-#power-btn:hover { box-shadow: 0 0 12px #ff4081; }
+#power-btn:hover {
+  box-shadow: 0 0 12px #ff4081;
+}
+
+/* Estado Activo: degradado rosa + glow */
+#power-btn.active {
+  background: linear-gradient(to right,
+      #ff80b3 0%,
+      #ff4081 50%,
+      #e60073 100%
+  ) !important;
+  box-shadow: 0 0 16px 4px #ff4081 !important;
+}
+#power-btn.active i {
+  text-shadow: 0 0 8px #ff4081;
+  transition: transform 0.5s ease-out;
+}
+
+/* Rotación del icono */
+#power-btn.animate-icon i {
+  transform: rotate(360deg);
+}
 
 
 /* 🔴 Botón Play */
@@ -795,34 +813,62 @@ button:hover {
 
 
 /* 🔁 Botón Repeat */
+.control-btn.active {
+    background: linear-gradient(to right,
+        #ff80b3 0%,
+        #ff4081 50%,
+        #e60073 100%
+    ) !important;
+}
+
+.control-btn.active i {
+    text-shadow: 0 0 8px #ff4081;
+    /* Aplica una transición suave a la rotación */
+    transition: transform 0.5s ease-out; 
+}
+
+/* CLASE TEMPORAL para disparar la Rotación */
+.control-btn.animate-icon i {
+    transform: rotate(360deg);
+}
+
+/* 🔁 Botón Repeat */
 #repeat-btn {
-  width: 45px;
-  height: 45px;
-  bottom: 32px;
-  right: 265px;
-  border-radius: 50%;
-  background: linear-gradient(to bottom, #1a1a1a, #333);
-  color: #fff;
-  box-shadow: 0 0 8px rgba(255, 64, 129, 0.6);
+    width: 45px;
+    height: 45px;
+    bottom: 32px;
+    right: 265px;
+    border-radius: 50%;
+    background: linear-gradient(to bottom, #1a1a1a, #333);
+    color: #fff;
+    box-shadow: 0 0 8px rgba(255, 64, 129, 0.6);
+    transition: all 0.3s ease; 
 }
 #repeat-btn:hover { box-shadow: 0 0 12px #ff4081; }
+#repeat-btn.active-one {
+    box-shadow: 0 0 12px 4px rgba(255, 64, 129, 0.8);
+}
+#repeat-btn.active-one i {
+    text-shadow: 0 0 8px #ff4081;
+}
 
 
 /* 🔀 Botón Shuffle */
 #shuffle-btn {
-  width: 45px;
-  height: 45px;
-  bottom: 32px;
-  left: 270px;
-  border-radius: 50%;
-  background: linear-gradient(to bottom, #1a1a1a, #333);
-  color: #fff;
-  box-shadow: 0 0 8px rgba(255, 64, 129, 0.6);
+    width: 45px;
+    height: 45px;
+    bottom: 32px;
+    left: 270px;
+    border-radius: 50%;
+    background: linear-gradient(to bottom, #1a1a1a, #333);
+    color: #fff;
+    box-shadow: 0 0 8px rgba(255, 64, 129, 0.6);
+    transition: all 0.3s ease;
 }
+#shuffle-btn:hover { box-shadow: 0 0 12px #ff4081; }
 #shuffle-btn.active {
-  box-shadow: 0 0 12px 4px rgba(255, 64, 129, 0.8); /* glow más fuerte */
+    box-shadow: 0 0 12px 4px rgba(255, 64, 129, 0.8);
 }
-
 
 /* 📜 Botón Menu */
 #menu-btn {
@@ -1106,78 +1152,40 @@ button:hover {
   }
 }
 
-/* ***************************** SKINS ***************************** */
-#skin-splashes {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.splash {
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+/* MODAL GENERAL (BASE) */
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+.modal {
   position: absolute;
-  border-radius: 50%;
-  opacity: 0.6;
-  animation: fadeSplash 6s ease-out forwards;
-  mix-blend-mode: screen;
-  background-size: cover;
-  background-repeat: no-repeat;
-  will-change: transform, opacity;
-}
-
-@keyframes fadeSplash {
-  0% {
-    transform: scale(0.8) rotate(0deg);
-    opacity: 0.6;
-  }
-  50% {
-    transform: scale(1.2) rotate(180deg);
-    opacity: 0.4;
-  }
-  100% {
-    transform: scale(1.5) rotate(360deg);
-    opacity: 0;
-  }
-}
-
-/* Modal MENU */
-/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-.track-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+  width: 90%;
+  max-width: 440px; 
+  background-color: #01010195;
+  color: #fff;
+  border: 2px solid #ff4081;
+  border-radius: 12px;
+  box-shadow: 0 0 20px #ff4081;
+  z-index: 1000;
+  padding: 20px;
+  box-sizing: border-box; 
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  font-size: 1.1em;
+  overflow: hidden;
+  gap: 12px;
 }
 
-.track-list li {
-  padding: 6px 12px;
-  background-color: #1a1a1a;
-  border-radius: 8px;
-  transition: background-color 0.3s ease;
-  cursor: pointer;
+/* Oculto por defecto */
+.modal.hidden {
+  display: none;
 }
 
-.track-list li:hover {
-  background-color: rgba(255, 64, 129, 0.7);
-  color: #000;
-}
-
-/* 🎛️ Modal Playlist V3.0 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-/* Background Modal */
-  .modal::before {
+/* Background Modal (Ajustado para ocupar 100% del tamaño del modal) */
+.modal::before {
   content: "";
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 540px;
-  height: 650px;
+  width: 100%;
+  height: 100%;
   transform: translate(-50%, -50%);
   background-image: url("https://i.ibb.co/7xtPnmJk/Scene.gif");
   background-size: cover;
@@ -1189,41 +1197,16 @@ button:hover {
   opacity: 0.9;
 }
 
-.modal {
-  position: fixed;
-  top: 37.1%;
-  left: 35.5%;
-  transform: translate(-50%, -50%);
-  width: 90%;
-  max-width: 398px;
-  height: 534px; /* NO SE TOCA */
-  background-color: #01010195;
-  color: #fff;
-  border: 2px solid #ff4081;
-  border-radius: 12px;
-  box-shadow: 0 0 20px #ff4081;
-  z-index: 1000;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden; /* ← elimina scroll horizontal */
-  gap: 12px;
-}
-
-/* Oculto por defecto */
-.modal.hidden {
-  display: none;
-}
-
 .modal-content {
   display: flex;
   flex-direction: column;
-  height: 100%; /* ← permite que .track-list calcule su espacio */
-  overflow: hidden; /* ← evita scroll doble */
+  height: 100%; 
+  overflow: hidden; 
 }
 
+/* Botón de cierre */
 .close-btn {
-  align-self: flex-end; /* ← alinea el botón a la derecha dentro del contenedor */
+  align-self: flex-end; 
   background: none;
   border: none;
   color: #ff4081;
@@ -1248,14 +1231,166 @@ button:hover {
   max-height: 40px;
 }
 
-/* Lista de pistas */
+/* Lista de pistas (El ÚNICO lugar con scroll) */
 .track-list {
   list-style: none;
   padding: 0;
   margin: 0;
+  overflow-y: auto; /* CLAVE: Scroll solo en el contenido de la lista */
+  overflow-x: hidden; 
+  flex-grow: 1; /* Ocupa todo el espacio restante dentro del modal */
+}
+
+
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+/* MODAL HISTORIAL
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+#history-modal {
+  position: absolute;
+  top: 0px; 
+  left: 440px;
+  width: 100%;
+  max-width: 440px; 
+  height: 576px;
+  
+  background: rgba(20, 20, 20, 0.95);
+  border-radius: 10px;
+  z-index: 100;
+  padding: 20px;
+  box-sizing: border-box;
+  display: none;
+}
+
+#history-modal:not(.hidden) {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+#history-modal .modal-content {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: hidden;
+}
+
+#history-list {
+  flex: 1;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
   overflow-y: auto;
-  overflow-x: hidden; /* ← elimina scroll horizontal */
-  flex-grow: 1; /* ← ocupa todo el espacio restante */
+}
+
+#history-list li {
+  padding: 8px;
+  margin-bottom: 6px;
+  border-bottom: 1px dashed #777; 
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  color: #e0e0e0; 
+}
+
+#history-list li:hover {
+  background-color: rgba(255, 64, 129, 0.7);
+}
+
+#history-list li.active {
+  background-color: #ff4081;
+  color: #000;
+  font-weight: bold;
+  border-bottom-color: transparent;
+  transform: scale(1.01);
+}
+
+#history-list li.active:hover {
+  background-color: #e03874;
+}
+
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+/* MODAL PLAYLIST MENU (POSICIÓN Y MEDIDAS RESTAURADAS) */
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+#playlist-modal {
+  position: absolute;
+  top: 0px; 
+  left: 440px;
+  width: 100%;
+  max-width: 440px; 
+  height: 576px;
+  
+  background-color: rgba(20,20,20,0.9);
+  border: 2px solid #ff4081; 
+  border-radius: 12px;
+  box-shadow: 0 0 20px #ff4081;
+  z-index: 1000;
+  padding: 20px;
+  box-sizing: border-box;
+  display: none;
+  flex-direction: column;
+  overflow: hidden; 
+}
+
+#playlist-modal:not(.hidden) {
+  display: flex;
+}
+
+#playlist-modal .track-list {
+  flex: 1;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 1.1em;
+  overflow-y: auto; 
+  overflow-x: hidden;
+}
+
+#playlist-modal .track-list li {
+  padding: 6px 12px;
+  background-color: #1a1a1a;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+#playlist-modal .track-list li:hover {
+  background-color: rgba(255, 64, 129, 0.7);
+  color: #000;
+}
+
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+/* MODAL TRACKS (POSICIÓN Y MEDIDAS RESTAURADAS) */
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+#modal-playlist {
+  position: absolute;
+  top: 0px; 
+  left: 440px;
+  width: 100%;
+  max-width: 440px; 
+  height: 576px;
+  
+  background-color: #01010195;
+  color: #fff;
+  border: 2px solid #ff4081;
+  border-radius: 12px;
+  box-shadow: 0 0 20px #ff4081;
+  z-index: 1000;
+  padding: 20px;
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+  gap: 12px;
+}
+
+#modal-playlist:not(.hidden) {
+  display: flex;
 }
 
 /* Cada pista */
@@ -1267,7 +1402,7 @@ button:hover {
   border-bottom: 1px solid #333;
   cursor: pointer;
   transition: background 0.3s, transform 0.2s;
-  min-width: 0; /* ← evita desbordamiento horizontal */
+  min-width: 0; 
 }
 
 .modal-track-item:hover {
@@ -1301,6 +1436,28 @@ button:hover {
   margin-bottom: 4px;
 }
 
+/* Scroll Color */
+.track-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.track-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.track-list::-webkit-scrollbar-thumb {
+  background-color: #888; 
+  border-radius: 3px;
+  border: 1px solid transparent;
+  background-clip: content-box;
+}
+
+/* Firefox */
+.track-list {
+  scrollbar-width: thin;
+  scrollbar-color: #888 transparent;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .modal {
@@ -1330,7 +1487,7 @@ button:hover {
   }
 }
 
-/* 🎚️ Scroll emocional fucsia ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 🎚️ Scroll emocional fucsia */
 .track-list::-webkit-scrollbar {
   width: 6px;
 }
@@ -1352,7 +1509,7 @@ button:hover {
   scrollbar-color: #ff4081 transparent;
 }
 
-/* 🎶 Track actual y artista con aura ceremonial ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 🎶 Track actual y artista con aura ceremonial */
 #current-track-display {
   display: inline-block;
   padding: 4px 12px;
@@ -1405,5 +1562,68 @@ button:hover {
   #particles {
     left: 0px; /* posición base */
     transform: translateX(-100px); /* ← desplazamiento hacia la izquierda */
+  }
+}
+
+.custom-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 15px 25px;
+    background: rgba(0, 0, 0, 0.9);
+    border: 2px solid #ff0000;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 1.1em;
+    text-shadow: 0 0 8px #c2a044;
+    box-shadow: 0 0 20px #ff0000b3; /* b3 ≈ 70% de opacidad */
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease-in-out;
+}
+.custom-message.show {
+    opacity: 1;
+}
+
+
+/* RESPONSIVE MAIN Y MODALES */
+@media (max-width: 768px) {
+  #main-container {
+    flex-direction: row;
+    overflow-x: auto;   /* scroll horizontal activo */
+    overflow-y: hidden; /* bloquea scroll vertical */
+  }
+}
+
+/* Right Panel */
+@media (max-width: 768px) {
+  .right-panel {
+    position: relative;
+    flex-shrink: 0;
+    width: 100%;
+  }
+
+  /* Playlist */
+  #playlist-modal {
+    position: absolute;
+    top: 50%;              /* centrados verticalmente */
+    left: 600px;             /* centrados horizontalmente */
+    transform: translate(-50%, -50%);
+  }
+
+  #modal-playlist {
+    position: absolute;
+    top: 50%;
+    left: 600px;
+    transform: translate(-50%, -50%);
+  }
+
+  /* Historial */
+  #history-modal {
+    position: absolute;
+    top: 50%;                /* mantiene su posición original */
+    left: 600px;           /* mantiene su desplazamiento */
   }
 }

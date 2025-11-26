@@ -1,25 +1,21 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <link rel="icon" type="image/x-icon" href="assets/SG.ico" />
+  <link rel="icon" type="image/x-icon" href="https://santi-graphics.vercel.app/assets/SG.ico" />
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="author" content="Rick">
-  <title>Repro Karaoke</title>
+  <title>Repro 36</title>
   <!-- Estilos principales -->
   <link rel="stylesheet" href="Repro36.css" />
-  <link rel="author" href="https://santi-graphics.vercel.app/copyright.txt">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <!-- Scripts funcionales -->
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <script src="Repro36.js" defer></script>
-  <!-- BLOCK 
+  <!-- Scripts funcionales + BLOCK 
   <script type="text/javascript">
   document.onkeydown = function(){return false};
   document.oncontextmenu = function(){return false}
-  </script>
-  <script src="https://precios-2025.web.app/gallery.js">-->
+  </script>-->
+  <script src="Repro36.js" defer></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
 </head>
 <body>
@@ -31,11 +27,14 @@
 
     <!-- ◀️ PANEL IZQUIERDO: LP -->
     <div id="left-panel" class="left-panel">
-      <!-- AUDIO -->
+        
+        <!-- Audio principal -->
         <section id="block-audio" class="block-audio">
-            <!-- Audio principal -->
             <audio id="player" autoplay muted></audio>
         </section>
+        
+        <!-- Mensaje personalizado para el clic derecho -->
+        <div id="custom-message" class="custom-message">Santi Graphics</div>
 
         <!-- HEADER  -->
         <section id="info-dj" class="info-dj">
@@ -174,7 +173,7 @@
           <div class="track-display-container">
 
             <figure class="cover-art-container">
-              <img id="cover-art" src="assets/covers/Cover1.png" alt="Carátula del Track" />
+              <img id="cover-art" src="https://santi-graphics.vercel.app/assets/covers/Cover1.png" alt="Carátula del Track" />
             </figure>
 
             <article class="info-track-container">
@@ -268,59 +267,74 @@
         
     </div><!-- ======================== CIERRE RIGHT PANEL ======================== -->
       
-      <!-- MODAL TRACKS -->
-    <section id="block-modal" class="block-modal">
-      <div id="modal-playlist" class="modal hidden">
-        <div class="modal-content">
-
-          <!-- Botón de cierre exclusivo para este modal -->
-          <button id="close-playlist-modal" class="close-btn" aria-label="Cerrar modal">❌</button>
-
-          <!-- Información dinámica de la pista actual -->
-          <p class="modal-info">
-            Reproduciendo:
-            <span id="current-track-display">
-              Sin pista seleccionada — Sin artista
-            </span>
-          </p>
-
-          <!-- Lista de pistas de la playlist activa -->
-          <ul id="modal-playlist-tracks" class="track-list">
-            <!-- Ejemplo de ítem enriquecido -->
-            <li class="modal-track-item">
-              <img src="assets/covers/Cover1.png" alt="Carátula" class="track-cover" />
-              <div class="track-info">
-                <strong>Título del Track</strong><br>
-                <span>🎤 Artista</span><br>
-                <span>💿 Álbum</span><br>
-                <span>⏱️ 3:45</span><br>
-                <span>👁️ 12</span>
-              </div>
-            </li>
-            <!-- Los demás ítems se generan dinámicamente desde JS -->
-          </ul>
-        </div>
-      </div>
-    </section>
-      
-      <!-- MODAL PLAYLIST MENU -->
-    <div id="playlist-modal" class="modal hidden">
-      <div class="modal-content">
-        <button class="close-btn" id="close-modal-btn">❌</button>
-        <h2>Listas de Reproducción</h2>
-        <ul class="track-list">
-          <li data-list="actual">Actual</li>
-          <li data-list="hits">Hits</li>
-          <li data-list="ruido">Ruido de Lata</li>
-        </ul>
-      </div>
+<!-- MODAL HISTORIAL -->
+<section id="block-history" class="block-modal">
+  <div id="history-modal" class="modal modal-history hidden">
+    <div class="modal-content">
+      <span id="close-history-modal" class="close-btn">
+        <i class="fas fa-times"></i>
+      </span>
+      <h2>Historial de reproducción</h2>
+      <ul id="history-list" class="track-list"></ul>
     </div>
+  </div>
+</section>
+
+<!-- MODAL TRACKS -->
+<section id="block-tracks" class="block-modal">
+  <div id="modal-playlist" class="modal modal-tracks hidden">
+    <div class="modal-content">
+      <!-- Botón de cierre exclusivo para este modal -->
+      <button id="close-playlist-modal" class="close-btn" aria-label="Cerrar modal">❌</button>
+      <!-- Información dinámica de la pista actual -->
+      <p class="modal-info">
+        Reproduciendo:
+        <span id="current-track-display">
+          Sin pista seleccionada — Sin artista
+        </span>
+      </p>
+      <!-- Lista de pistas de la playlist activa -->
+      <ul id="modal-playlist-tracks" class="track-list">
+        <!-- Ejemplo de ítem enriquecido -->
+        <li class="modal-track-item">
+          <img src="https://santi-graphics.vercel.app/assets/covers/Cover1.png" alt="Carátula" class="track-cover" />
+          <div class="track-info">
+            <strong>Título del Track</strong><br>
+            <span>🎤 Artista</span><br>
+            <span>💿 Álbum</span><br>
+            <span>⏱️ 3:45</span><br>
+            <span>👁️ 12</span>
+          </div>
+        </li>
+        <!-- Los demás ítems se generan dinámicamente desde JS -->
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- MODAL PLAYLIST MENU -->
+<section id="block-playlist-menu" class="block-modal">
+  <div id="playlist-modal" class="modal modal-menu hidden">
+    <div class="modal-content">
+      <button class="close-btn" id="close-modal-btn">❌</button>
+      <h2>Listas de Reproducción</h2>
+      <ul class="track-list">
+        <li data-list="actual">Actual</li>
+        <li data-list="rumba">Rumba Caliente</li>
+        <li data-list="exitos">Hits</li>
+        <li data-list="ruido">Ruido de Lata</li>
+        <li data-list="baladasrock">Baladas Rock</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
 
   </div><!-- ======================== CIERRE MAIN CONTAINER ======================== -->
     
     <!-- PARTICULAS CANVAS -->
     <canvas id="particles"></canvas>
-    <script src="lyricsRepro36.js"></script>
+    <script src="https://radio-tekileros.vercel.app/lyricsRepro.js"></script>
 
 </body>
 </html>
