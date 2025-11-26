@@ -1595,6 +1595,12 @@ button:hover {
     overflow-x: auto;   /* scroll horizontal activo */
     overflow-y: hidden; /* bloquea scroll vertical */
   }
+
+  #left-panel,
+  .right-panel {
+    flex-shrink: 0;   /* evita que se compriman */
+    width: 400px;     /* conserva su ancho fijo */
+  }
 }
 
 /* Right Panel */
