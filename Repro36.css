@@ -26,24 +26,6 @@ html, body {
   z-index: 1;
 }
 
-#main-container::-webkit-scrollbar {
-  height: 8px; /* ← horizontal scroll usa height, no width */
-}
-
-#main-container::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-#main-container::-webkit-scrollbar-thumb {
-  background-color: #a38838;
-  border-radius: 4px;
-  border: 2px solid #efdd8e;
-}
-
-#main-container::-webkit-scrollbar-thumb:hover {
-  background-color: #8B2323;
-}
-
 #left-panel,
 #right-panel {
   background-color: rgba(0, 0, 0, 0.7);
@@ -1588,7 +1570,9 @@ button:hover {
 }
 
 
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 /* RESPONSIVE MAIN Y MODALES */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 @media (max-width: 768px) {
   #main-container {
     flex-direction: row;
@@ -1596,29 +1580,18 @@ button:hover {
     overflow-y: hidden; /* bloquea scroll vertical */
   }
 
+  /* Paneles: ancho fijo para forzar scroll horizontal */
   #left-panel,
   .right-panel {
-    flex-shrink: 0;   /* evita que se compriman */
-    width: 400px;     /* conserva su ancho fijo */
+    flex-shrink: 0;
+    width: 400px;   /* conserva su ancho fijo */
   }
-}
 
-/* Right Panel */
-@media (max-width: 768px) {
   .right-panel {
     position: relative;
-    flex-shrink: 0;
-    width: 100%;
   }
 
-  /* Playlist */
-  #playlist-modal {
-    position: absolute;
-    top: 50%;              /* centrados verticalmente */
-    left: 600px;             /* centrados horizontalmente */
-    transform: translate(-50%, -50%);
-  }
-
+  /* Playlist / Tracks */
   #modal-playlist {
     position: absolute;
     top: 50%;
@@ -1626,16 +1599,38 @@ button:hover {
     transform: translate(-50%, -50%);
   }
 
-  /* Historial */
+  /* Historial aparte */
   #history-modal {
     position: absolute;
-    top: 50%;                /* mantiene su posición original */
-    left: 600px;           /* mantiene su desplazamiento */
+    top: 50%;
+    left: 600px;
+    transform: translate(-50%, -50%);
   }
-}
 
-@media (max-width: 768px) {
+  /* Partículas desactivadas en responsive */
   #particles {
     display: none;
   }
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* SCROLLBAR PERSONALIZADO MAIN */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+#main-container::-webkit-scrollbar {
+  height: 8px; /* scroll horizontal usa height */
+}
+
+#main-container::-webkit-scrollbar-track {
+  background: rgba(255, 64, 129, 0.15); /* pista rosa tenue */
+  border-radius: 4px;
+}
+
+#main-container::-webkit-scrollbar-thumb {
+  background-color: #ff4081; /* rosa vibrante */
+  border-radius: 4px;
+  border: 2px solid rgba(255, 255, 255, 0.3); /* halo blanco */
+}
+
+#main-container::-webkit-scrollbar-thumb:hover {
+  background-color: #e60073; /* rosa más intenso al hover */
 }
