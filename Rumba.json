@@ -25,7 +25,7 @@
       "duracion": "2:44"
     },
     {
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Cazzu-Grupo-Frontera-Ke-Personajes-Tiempo-perdido.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Cazzu-Grupo-Frontera-Ke-Personajes-Tiempo-perdido.png",
       "id": "tiempo-perdido",
       "emotion": "fiesta",
       "artista": "Cazzu, Grupo Frontera, Ke Personajes",
@@ -435,4 +435,5 @@
 
 
   ]
+
 }
