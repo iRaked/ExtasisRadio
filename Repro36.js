@@ -212,6 +212,30 @@ function safePlay({ keepMuted = false } = {}) {
   return Promise.resolve();
 }
 
+//================================
+// CONTINUIDAD DE REPRODUCCIÓN
+//================================
+audio.addEventListener("ended", () => {
+  if (modoActual !== "local") return;
+
+  if (repeatMode === "one") {
+    // 🔑 Reiniciar karaoke al repetir la misma pista
+    detenerKaraoke();
+    activarReproduccion(currentTrack, "repeat-one");
+  } else if (isShuffling) {
+    let newIndex;
+    do {
+      newIndex = Math.floor(Math.random() * trackData.length);
+    } while (newIndex === currentTrack && trackData.length > 1);
+    detenerKaraoke(); // limpiar karaoke antes de nueva pista
+    activarReproduccion(newIndex, "shuffle-auto");
+  } else {
+    let nextIndex = (currentTrack + 1) % trackData.length;
+    detenerKaraoke(); // limpiar karaoke antes de nueva pista
+    activarReproduccion(nextIndex, "auto-next");
+  }
+});
+
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // ▶️ MODO RADIO
