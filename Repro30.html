@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="author" content="Rick - xat.comn/CasinoDigital">
-  <title>Repro 30</title>
+  <title>Casino Digital Nano</title>
   <!-- Estilos principales -->
   <link rel="stylesheet" href="Repro30.css">
   <link rel="stylesheet" href="Player30.css">
@@ -23,10 +23,12 @@
 </head>
 
 <body>
-  <!-- 🎧 Audio principal -->
-  <audio id="player" autoplay muted>
-    <source src="https://technoplayerserver.net:8018/stream?icy=http" type="audio/mpeg" />
-  </audio>
+
+  <!-- Audio principal -->
+  <audio id="player" autoplay muted></audio>
+    
+  <!-- 🧱 Contenedor lateral izquierdo -->
+  <aside id="ctn-apps"></aside>
 
   <main id="main-container">
     <!-- 🎥 Video de fondo -->
@@ -34,8 +36,44 @@
       <source src="assets/video/StageCD.mp4" type="video/mp4" />
     </video>
 
-    <!-- 🧱 Contenedor lateral izquierdo -->
-    <aside id="ctn-apps"></aside>
+    <!-- 🎛️ Header fusionado -->
+    <header id="radio-header">
+      <!-- Zona izquierda: título -->
+      <div class="zone-left">
+        <div class="title-deluxe">
+          <span>C</span><span>A</span><span>S</span><span>I</span><span>N</span><span>O</span>
+          <span>D</span><span>I</span><span>G</span><span>I</span><span>T</span><span>A</span><span>L</span>
+          <span>R</span><span>A</span><span>D</span><span>I</span><span>O</span>
+        </div>
+      </div>
+
+      <!-- Botonera Cabecera -->
+      <div class="header-buttons">
+        <button id="btn-plus" title="Esconder/Revelar"><i class="fa-solid fa-plus"></i></button>
+        <button id="btn-power" title="Modo"><i class="fa-solid fa-music"></i></button>
+        <button id="btn-repeat" title="Repeat"><i class="fa-solid fa-repeat"></i></button>
+        <button id="btn-rewind" title="Rewind"><i class="fa-solid fa-backward"></i></button>
+        <button id="btn-playpause" title="Play/Pause"><i class="fa-solid fa-play"></i></button>
+        <button id="btn-forward" title="Forward"><i class="fa-solid fa-forward"></i></button>
+        <button id="btn-shuffle" title="Shuffle"><i class="fa-solid fa-shuffle"></i></button>
+
+        <button id="btn-top" title="Arriba"><i class="fa-solid fa-chevron-up"></i></button>
+        <button id="btn-bottom" title="Abajo"><i class="fa-solid fa-chevron-down"></i></button>
+
+        <!-- 🎨 Activadores laterales como botones con IDs originales -->
+        <button id="paint-trigger" title="Colores"><i class="fas fa-paint-brush"></i></button>
+        <button id="background-trigger" title="Fondos"><i class="fas fa-image"></i></button>
+        <button id="playlist-trigger" title="Playlists"><i class="fas fa-headphones-alt"></i></button>
+      </div>
+
+      <!-- Zona derecha: STATUS -->
+      <div class="zone-right">
+        <div id="playback-status" class="playback-status">
+          <span id="mode-label">Modo: —</span>
+          <span id="playlist-label">Playlist: —</span>
+        </div>
+      </div>
+    </header>
 
     <!-- 🎛️ Panel lateral de menú -->
     <div id="menu-panel">
@@ -47,35 +85,39 @@
       </div>
     </div>
 
-    <!-- 🎨 Activadores laterales -->
-    <div id="background-trigger"><i class="fas fa-image"></i></div>
-    <div id="paint-trigger"><i class="fas fa-paint-brush"></i></div>
-    <div id="playlist-trigger"><i class="fas fa-headphones-alt"></i></div>
-
-    <!-- 🎨 Panel de fondos -->
+    <!-- 🎨 CONTENEDOR BACKGROUND SWITCH -->
     <section id="background-panel">
       <aside id="background-switch">
-        <header class="background-switch-header"><h2>Fondos</h2></header>
+        <header class="background-switch-header">
+          <div class="header-content">
+            <h2>Fondos</h2>
+          </div>
+        </header>
+
         <section class="background-list">
           <div class="bg-option" data-bg="assets/bg/bg1.png" style="background-image:url('assets/bg/bg1.png')"></div>
-              <div class="bg-option" data-bg="assets/bg/bg2.png" style="background-image:url('assets/bg/bg2.png')"></div>
-              <div class="bg-option" data-bg="assets/bg/bg3.png" style="background-image:url('assets/bg/bg3.png')"></div>
-              <div class="bg-option" data-bg="assets/bg/bg4.png" style="background-image:url('assets/bg/bg4.png')"></div>
-              <div class="bg-option" data-bg="assets/bg/bg5.png" style="background-image:url('assets/bg/bg5.png')"></div>
-              <div class="bg-option" data-bg="assets/bg/bg6.png" style="background-image:url('assets/bg/bg6.png')"></div>
-              <div class="bg-option" data-bg="assets/bg/bg7.png" style="background-image:url('assets/bg/bg7.png')"></div>
-              <div class="bg-option" data-bg="assets/bg/bg8.png" style="background-image:url('assets/bg/bg8.png')"></div>
-              <div class="bg-option" data-bg="assets/bg/bg9.png" style="background-image:url('assets/bg/bg9.png')"></div>
-              <div class="bg-option" data-bg="assets/bg/bg10.png" style="background-image:url('assets/bg/bg10.png')"></div>
+          <div class="bg-option" data-bg="assets/bg/bg2.png" style="background-image:url('assets/bg/bg2.png')"></div>
+          <div class="bg-option" data-bg="assets/bg/bg3.png" style="background-image:url('assets/bg/bg3.png')"></div>
+          <div class="bg-option" data-bg="assets/bg/bg4.png" style="background-image:url('assets/bg/bg4.png')"></div>
+          <div class="bg-option" data-bg="assets/bg/bg5.png" style="background-image:url('assets/bg/bg5.png')"></div>
+          <div class="bg-option" data-bg="assets/bg/bg6.png" style="background-image:url('assets/bg/bg6.png')"></div>
+          <div class="bg-option" data-bg="assets/bg/bg7.png" style="background-image:url('assets/bg/bg7.png')"></div>
+          <div class="bg-option" data-bg="assets/bg/bg8.png" style="background-image:url('assets/bg/bg8.png')"></div>
+          <div class="bg-option" data-bg="assets/bg/bg9.png" style="background-image:url('assets/bg/bg9.png')"></div>
+          <div class="bg-option" data-bg="assets/bg/bg10.png" style="background-image:url('assets/bg/bg10.png')"></div>
         </section>
       </aside>
     </section>
 
-    <!-- 🎨 Panel de colores -->
+    <!-- 🎨 CONTENEDOR SWITCH DE COLORES -->
     <section id="switch-panel">
       <aside id="color-switch">
-        <header class="color-switch-header"><h2>Tu Estilo</h2></header>
-        <!-- PALETA DE COLORES CON TRANSPARENCIA -->
+        <header class="color-switch-header">
+          <div class="header-content">
+            <h2>Tu Estilo</h2>
+          </div>
+        </header>
+
         <section class="palette">
           <div class="color-option solid" style="background-color:#ff000050" data-color="#ff000050" title="Rojo"></div>
           <div class="color-option solid" style="background-color:#39ff1450" data-color="#39ff1450" title="Verde Neon"></div>
@@ -91,45 +133,55 @@
       </aside>
     </section>
 
-    <!-- 🎵 Panel de playlists -->
+    <!-- 🎵 CONTENEDOR PLAYLIST SWITCH -->
     <section id="playlist-panel">
       <aside id="playlist-switch">
         <header class="playlist-switch-header">
-          <h2>Listas de Reproducción</h2>
-        </header>
-        <div class="playlist-wrapper">
-          <div class="playlist-inner">
-            <section class="playlist-list">
-              <div class="playlist-item">Hits</div>
-              <div class="playlist-item">Regional Mexicano</div>
-              <div class="playlist-item">Viva Latino</div>
-              <div class="playlist-item">Rock En Español</div>
-              <div class="playlist-item">Mega Mix</div>
-              <div class="playlist-item">After Party</div>
-              <div class="playlist-item">Pop Electrónico</div>
-            </section>
+          <div class="header-content">
+            <h2>Listas de Reproducción</h2>
           </div>
-        </div>
+        </header>
+
+        <section class="playlist-list">
+          <button class="playlist-item" data-section="hits">Hits</button>
+          <button class="playlist-item" data-section="regional_mexicano">Regional Mexicano</button>
+          <button class="playlist-item" data-section="viva_latino">Viva Latino</button>
+          <button class="playlist-item" data-section="rock_espanol">Rock En Español</button>
+          <button class="playlist-item" data-section="mega_mix">Mega Mix</button>
+          <button class="playlist-item" data-section="after_party">After Party</button>
+          <button class="playlist-item" data-section="pop_electronico">Pop Electrónico</button>
+          <button class="playlist-item" data-section="baladas">Baladas</button>
+          <button class="playlist-item" data-section="essentials">Essentials</button>
+        </section>
       </aside>
     </section>
 
-    <!-- 🎧 Reproductor ocultable -->
+  </main>
+    
+    <!-- 🎧 Reproductor -->
     <section id="panel">
       <div id="iFone" class="ifone-ctn">
 
-        <audio id="audioStreaming" src="https://technoplayerserver.net:8018/stream?icy=http"></audio>
-
-        <div id="default-cover" class="default-cover">
-          <img src="assets/covers/Cover1.png" alt="Carátula por defecto" />
+        <!-- 🔼 Cabecera con botones -->
+        <div class="header">
+          <button id="btn-modo" class="modo-btn"><i class="fa-solid fa-music"></i></button>
         </div>
 
+        <!-- 📀 Carátula por defecto -->
+        <div id="default-cover" class="default-cover">
+          <img src="assets/covers/Cover1.png" alt="Carátula" />
+        </div>
+
+        <!-- 🎼 Metadatos -->
         <div class="info">
           <h2 id="modal-artist">Artista</h2>
           <p id="modal-title">Título</p>
         </div>
 
+        <!-- 📜 Playlist visual -->
         <ul id="modal-queue" class="modal-queue"></ul>
 
+        <!-- ▶️ Reproductor personalizado -->
         <div class="custom-player">
           <button id="btn-toggle" class="play-btn">
             <i class="fa-solid fa-play"></i>
@@ -139,11 +191,14 @@
           </div>
         </div>
 
+        <!-- 🎛️ Controles extendidos -->
         <div class="controls">
-          <label>Volumen:
+          <label>
+            Volumen:
             <input type="range" id="volume-control" min="0" max="1" step="0.01" />
           </label>
-          <label>Speed:
+          <label>
+            Speed:
             <select id="speed-control">
               <option value="0.5">0.5x</option>
               <option value="1" selected>1x</option>
@@ -154,31 +209,11 @@
           <button id="loop-toggle">Loop: Off</button>
           <button id="shuffle-toggle">Shuffle</button>
         </div>
+
       </div>
     </section>
 
-    <!-- 🎛️ Header reducido -->
-    <header id="radio-header">
-      <div class="title-deluxe">
-        <span>C</span><span>A</span><span>S</span><span>I</span><span>N</span><span>O</span>
-        <span>D</span><span>I</span><span>G</span><span>I</span><span>T</span><span>A</span><span>L</span>
-        <span>R</span><span>A</span><span>D</span><span>I</span><span>O</span>
-      </div>
-
-      <div id="playback-status" class="playback-status">
-        <span id="mode-label">Modo: —</span>
-        <span id="playlist-label">Playlist: —</span>
-      </div>
-        
-        <div class="header-buttons">
-          <button id="btn-plus" class="btn-plus">＋</button>
-          <button id="btn-modo" class="btn-modo"><i class="fa-solid fa-music"></i></button>
-        </div>
-    </header>
-
-  </main>
-
-      <!-- Footer -->
+    <!-- Footer -->
     <footer id="custom-footer">
       <div class="footer-content">
         <div class="footer-logo">
