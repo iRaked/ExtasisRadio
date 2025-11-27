@@ -12,8 +12,33 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentPlaylist = [];
   let currentTrackIndex = 0;
   let repeatMode = null;
-    
-    
+
+// ============================
+// 🔊 DESBLOQUEO DE AUDIO TRAS GESTO HUMANO
+// ============================
+
+// Función de desbloqueo
+function unlockAudio() {
+  player.muted = false;      // Quitar mute
+  player.volume = 1;         // Volumen máximo
+  player.play().then(() => {
+    console.log("🔊 Audio desbloqueado tras gesto humano");
+  }).catch(err => {
+    console.warn("Error al desbloquear audio:", err);
+  });
+
+  // Eliminar listeners para no repetir
+  document.removeEventListener("click", unlockAudio);
+  document.removeEventListener("touchstart", unlockAudio);
+  document.removeEventListener("keydown", unlockAudio);
+  document.removeEventListener("wheel", unlockAudio);
+}
+
+// Escuchar cualquier gesto humano inicial
+document.addEventListener("click", unlockAudio, { once: true });
+document.addEventListener("touchstart", unlockAudio, { once: true });
+document.addEventListener("keydown", unlockAudio, { once: true });
+document.addEventListener("wheel", unlockAudio, { once: true });
 
   // ============================
   // 🔊 AUTOPLAY Y ACTIVACIÓN
@@ -123,7 +148,7 @@ function playCurrentTrack() {
     const album = document.getElementById("track-album");
 
     if (caratula && titulo && artista && album) {
-      caratula.src = track.caratula || "assets/covers/Cover-Vinyl-Disc-FX1.png";
+      caratula.src = track.caratula || "https://i.postimg.cc/3w29QFHs/Cover1.png";
       titulo.textContent = track.nombre || "Sin título";
       artista.textContent = track.artista || "Desconocido";
       album.textContent = track.album || "Sin álbum";
