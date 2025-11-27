@@ -12,21 +12,9 @@ document.addEventListener("DOMContentLoaded", () => {
   // 🎧 Activadores y paneles con cabecera modular
   //=====================================
   const togglePairs = [
-    {
-      triggerId: "background-trigger",
-      panelId: "background-switch",
-      headerClass: "background-switch-header"
-    },
-    {
-      triggerId: "paint-trigger",
-      panelId: "color-switch",
-      headerClass: "color-switch-header"
-    },
-    {
-      triggerId: "playlist-trigger",
-      panelId: "playlist-switch",
-      headerClass: "playlist-switch-header"
-    }
+    { triggerId: "background-trigger", panelId: "background-switch", headerClass: "background-switch-header" },
+    { triggerId: "paint-trigger", panelId: "color-switch", headerClass: "color-switch-header" },
+    { triggerId: "playlist-trigger", panelId: "playlist-switch", headerClass: "playlist-switch-header" }
   ];
 
   togglePairs.forEach(({ triggerId, panelId, headerClass }) => {
@@ -89,12 +77,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // 🎨 Aplicar fondo con persistencia
+  // 🎨 Aplicar fondo (sin persistencia)
   function applyBackground(bgPath) {
     root.style.setProperty("--background-image", `url('${bgPath}')`);
     if (videoElement) videoElement.style.display = "none";
     document.body.classList.remove("video-active");
-    localStorage.setItem("selectedBackground", bgPath);
   }
 
   bgOptions.forEach(option => {
@@ -104,64 +91,40 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // 🎨 Aplicar color base o degradado con persistencia
-function applyGradient(type) {
-  const gradients = {
-    gold: "linear-gradient(45deg, #fbe8a6, #f6d365, #d4af37)",
-    unicorn: "linear-gradient(45deg, #ffb6f9, #b2f7ef, #f9f871, #d0a2ff)",
-    turquoise: "linear-gradient(45deg, #00c9a7, #00e6e6, #00ffff, #00bfff)"
-  };
-  const gradient = gradients[type] || "#3688ff50";
-  root.style.setProperty("--base-color", gradient);
-  localStorage.setItem("selectedSkin", gradient);
-}
+  // 🎨 Aplicar color base o degradado (sin persistencia)
+  function applyGradient(type) {
+    const gradients = {
+      gold: "linear-gradient(45deg, #fbe8a6, #f6d365, #d4af37)",
+      unicorn: "linear-gradient(45deg, #ffb6f9, #b2f7ef, #f9f871, #d0a2ff)",
+      turquoise: "linear-gradient(45deg, #00c9a7, #00e6e6, #00ffff, #00bfff)"
+    };
+    const gradient = gradients[type] || "#3688ff50";
+    root.style.setProperty("--base-color", gradient);
+  }
 
-colorOptions.forEach(option => {
-  option.addEventListener("click", () => {
-    const solidColor = option.dataset.color;
-    if (solidColor) {
-      // Color sólido
-      root.style.setProperty("--base-color", solidColor);
-      localStorage.setItem("selectedSkin", solidColor);
-    } else {
-      // Buscar clase de degradado
-      const gradientClass = [...option.classList].find(cls =>
-        ["gold", "unicorn", "turquoise"].includes(cls)
-      );
-      if (gradientClass) applyGradient(gradientClass);
-    }
+  colorOptions.forEach(option => {
+    option.addEventListener("click", () => {
+      const solidColor = option.dataset.color;
+      if (solidColor) {
+        root.style.setProperty("--base-color", solidColor);
+      } else {
+        const gradientClass = [...option.classList].find(cls =>
+          ["gold", "unicorn", "turquoise"].includes(cls)
+        );
+        if (gradientClass) applyGradient(gradientClass);
+      }
+    });
   });
-});
 
-restoreBtn.addEventListener("click", () => {
-  const defaultColor = "#3688ff50";
-  root.style.setProperty("--base-color", defaultColor);
-  root.style.setProperty("--background-image", "none");
-  if (videoElement) videoElement.style.display = "block";
-  document.body.classList.add("video-active");
-  localStorage.removeItem("selectedBackground");
-  localStorage.setItem("selectedSkin", defaultColor);
-});
+  restoreBtn.addEventListener("click", () => {
+    const defaultColor = "#3688ff50";
+    root.style.setProperty("--base-color", defaultColor);
+    root.style.setProperty("--background-image", "none");
+    if (videoElement) videoElement.style.display = "block";
+    document.body.classList.add("video-active");
+  });
 
-// 🎧 Restaurar estado desde localStorage
-const savedBackground = localStorage.getItem("selectedBackground");
-const savedSkin = localStorage.getItem("selectedSkin");
-
-if (savedBackground) {
-  applyBackground(savedBackground);
-} else {
-  if (videoElement) videoElement.style.display = "block";
-  document.body.classList.add("video-active");
-}
-
-if (savedSkin) {
-  // Puede ser color sólido o degradado
-  root.style.setProperty("--base-color", savedSkin);
-}
-
-  //=====================================
   // 🎧 Estado visual
-  //=====================================
   function updateModeAndPlaylist(mode, playlistName = null) {
     modeLabel.textContent = `Modo: ${mode}`;
     if (mode === "Radio") {

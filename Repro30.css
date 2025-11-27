@@ -180,7 +180,7 @@ body {
   top: calc(42px + 142px);
   left: -5px;
   width: 45px;
-  height: 248px;
+  height: 240px;
   background: var(--base-color);
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
