@@ -151,7 +151,7 @@ function crearTrackInfo() {
 
   const img = document.createElement("img");
   img.id = "cover-art";
-  img.src = "assets/covers/DalePlay.png";
+  img.src = "https://santi-graphics.vercel.app/assets/covers/DalePlay.png";
   img.alt = "Carátula del Track";
 
   figure.appendChild(img);
@@ -544,7 +544,7 @@ function crearModalPlaylist() {
   li.className = "modal-track-item";
 
   const img = document.createElement("img");
-  img.src = "assets/covers/Cover1.png";
+  img.src = "https://santi-graphics.vercel.app/assets/covers/Cover1.png";
   img.alt = "Carátula";
   img.className = "track-cover";
 
@@ -585,7 +585,7 @@ function crearLogoContainer() {
   logoContainer.className = "logo-container";
 
   const img = document.createElement("img");
-  img.src = "assets/img/Logo-DP.png";
+  img.src = "https://santi-graphics.vercel.app/assets/img/Logo-DP.png";
   img.alt = "Logo";
   img.className = "logo-base";
 
