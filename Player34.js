@@ -6,7 +6,7 @@ let lastTrackTitle = "";
 let trackHistory = [];
 let radioIntervalId = null;
 let contadorIntervalId = null;
-let modoActual = "local";
+let modoActual = "radio";
 
 const audio = document.getElementById("player");
 const playBtn = document.getElementById("play-btn");
@@ -910,7 +910,6 @@ audio.addEventListener("ended", () => {
     }
   }
 });
-
 
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

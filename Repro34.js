@@ -490,7 +490,13 @@ function crearPlaylistModal() {
   liRuido.dataset.list = "ruido";
   liRuido.textContent = "Ruido de Lata";
 
-  ul.append(liActual, liHits, liRuido);
+  // Nueva playlist: Baladas Rock
+  const liBaladas = document.createElement("li");
+  liBaladas.dataset.list = "baladasrock";
+  liBaladas.textContent = "Baladas Rock";
+
+  // Añadir todas las opciones al listado
+  ul.append(liActual, liHits, liRuido, liBaladas);
 
   modalContent.append(closeBtn, h2, ul);
   modal.appendChild(modalContent);
