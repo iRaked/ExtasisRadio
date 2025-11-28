@@ -421,6 +421,7 @@ html, body {
     justify-content: center;
     gap: 10px;
     padding: 0 5px;
+    z-index: 20;
 }
 
 .volume-control i {
@@ -429,6 +430,7 @@ html, body {
     width: 20px; /* ancho fijo para evitar saltos */
     transition: color 0.3s;
     cursor: pointer;
+    z-index: 20;
 }
 
 .volume-control i:hover {
@@ -451,6 +453,7 @@ html, body {
     outline: none;
     position: relative;
     transition: background 0.15s linear;
+    z-index: 20;
 }
 
 /* Thumb WebKit */
@@ -674,6 +677,7 @@ html, body {
   background: transparent;   /* invisible */
   box-shadow: none;          /* sin sombra */
   border: none;              /* sin borde */
+  z-index: 20;
 }
 
 /* 🎛️ Controles del reproductor */
