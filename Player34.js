@@ -237,16 +237,19 @@ async function cargarPlaylist(nombre) {
   try {
     let file, clave;
 
-    // mapeo nombre → archivo → raíz JSON
+    // mapeo nombre → archivo remoto → raíz JSON
     if (nombre === "Repro34") {
-      file = "Repro34.json";
+      file = "https://radio-tekileros.vercel.app/Repro34.json";
       clave = "actual";
     } else if (nombre === "exitos") {
-      file = "Exitos.json"; //https://radio-tekileros.vercel.app/
+      file = "https://radio-tekileros.vercel.app/Exitos.json";
       clave = "exitos";
     } else if (nombre === "hardcore") {
-      file = "HardCore.json";
+      file = "https://radio-tekileros.vercel.app/HardCore.json";
       clave = "hardcore";
+    } else if (nombre === "baladasrock") {
+      file = "https://radio-tekileros.vercel.app/BaladasRock.json";
+      clave = "baladasrock";
     } else {
       console.warn(`❌ Playlist desconocida: ${nombre}`);
       return;
@@ -499,7 +502,7 @@ function generarSelectorPlaylists() {
   // volver a enlazar
   const items = selector.querySelectorAll("li[data-list]");
   items.forEach(li => {
-    const key = li.dataset.list; // "actual" | "hits" | "ruido"
+    const key = li.dataset.list; // "actual" | "hits" | "ruido" | "baladasrock"
 
     li.addEventListener("click", () => {
       switch (key) {
@@ -511,6 +514,9 @@ function generarSelectorPlaylists() {
           break;
         case "ruido":
           cargarPlaylist("hardcore");  // raíz: "hardcore"
+          break;
+        case "baladasrock":
+          cargarPlaylist("baladasrock"); // raíz: "baladasrock"
           break;
         default:
           console.warn(`❌ Playlist desconocida en modal: ${key}`);
@@ -545,6 +551,9 @@ if (playlistModal) {
           break;
         case "ruido":
           cargarPlaylist("hardcore");  // raíz: "hardcore"
+          break;
+        case "baladasrock":
+          cargarPlaylist("baladasrock"); // raíz: "baladasrock"
           break;
         default:
           console.warn(`❌ Playlist desconocida: ${key}`);
