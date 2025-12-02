@@ -1,10 +1,9 @@
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // INICIALIZACIÓN GLOBAL Y ESTADOS CRÍTICOS
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
 let trackData = [];
 let currentTrack = null;
-let modoActual = "local"; // Arranca en modo local
+let modoActual = "radio"; // local/radio
 let gestureDetected = false;
 let repeatMode = "none";
 let isShuffling = false;
@@ -15,6 +14,16 @@ let visitas = {};
 
 // Evitar duplicados y tomar cover actual
 let lastTrackTitle = "";
+// 🚨 Variable de FALLBACK: Inicialización para evitar ReferenceError en bloques catch
+let lastValidEntry = { 
+    artist: "Bienvenido", 
+    title: "A la Radio", 
+    coverUrl: "https://santi-graphics.vercel.app/assets/covers/Cover1.png" 
+}; 
+let ultimaCaratulaValida = "https://santi-graphics.vercel.app/assets/covers/Cover1.png";
+let coverCatalog = null;
+
+// 🔊 ELEMENTOS DE AUDIO
 const audio = document.getElementById("player");
 const discImg = document.getElementById("cover-art");
 const COVER_ART_EL = discImg; // usamos la carátula como referencia
@@ -25,38 +34,46 @@ audio.preload = "auto";
 
 // 🎯 ELEMENTOS CLAVE DEL DOM
 const playPauseBtn = document.getElementById("play-btn");
-const nextBtn      = document.getElementById("forward-btn");
-const prevBtn      = document.getElementById("rewind-btn");
-const shuffleBtn   = document.getElementById("shuffle-btn");
-const repeatBtn    = document.getElementById("repeat-btn");
-const btnRadio     = document.getElementById("power-btn");
-const musicBtn     = document.getElementById('music-btn');
+const nextBtn      = document.getElementById("forward-btn");
+const prevBtn      = document.getElementById("rewind-btn");
+const shuffleBtn   = document.getElementById("shuffle-btn");
+const repeatBtn    = document.getElementById("repeat-btn");
+const btnRadio     = document.getElementById("power-btn");
+const musicBtn     = document.getElementById('music-btn');
 
-const currentTrackName     = document.getElementById("track-title");
-const currentArtistName  = document.getElementById("track-artist");
-const metaTrack          = document.getElementById("track-album");
+const currentTrackName     = document.getElementById("track-title");
+const currentArtistName  = document.getElementById("track-artist");
+const metaTrack          = document.getElementById("track-album");
 
-const volumeBar          = document.getElementById('volumeBar');
+const volumeBar          = document.getElementById('volumeBar');
 const volumePercentage = document.getElementById('volumePercentage');
-const volumeIcon       = document.getElementById('volumeIcon');
+const volumeIcon       = document.getElementById('volumeIcon');
 
 const contadorElemento = document.getElementById("contadorRadio");
 
-// 🚨 CORRECCIÓN: Reinsertar la definición del modal de tracks
-const modalTracks      = document.getElementById("modal-playlist");
-
-const menuBtn          = document.getElementById("menu-btn");
-const closeModalBtn    = document.getElementById("close-playlist-modal");
-const trackList        = document.querySelector(".track-list");
+// 🚨 Referencias de Modales y Listas
+const modalTracks      = document.getElementById("modal-playlist");
+const menuBtn          = document.getElementById("menu-btn");
+const closeModalBtn    = document.getElementById("close-playlist-modal");
+const trackList        = document.querySelector(".track-list");
 const currentTrackNameModal = document.getElementById("current-track-display");
+const trackPlaylistEl = document.getElementById("track-playlist");
+const trackEmotionEl  = document.getElementById("track-emotion");
 
 // 🚀 Inicialización automática
 document.addEventListener("DOMContentLoaded", () => {
-    inicializarVolumen();
-    iniciarBurbujas();
-    cargarPlaylist("Actual");
+  inicializarVolumen();
+  iniciarBurbujas();
+
+
+  if (modoActual === "radio") {
+    activarModoRadio();   // arranca directo en radio
+  } else {
+    cargarPlaylist("Actual");  // arranca en local
     safePlay({ keepMuted: true });
+  }
 });
+
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // 📝 Función global para registrar historial
@@ -83,10 +100,10 @@ async function cargarPlaylist(nombre) {
       file = "https://radio-tekileros.vercel.app/Actual.json";
       clave = "actual";
       etiqueta = "Actual";
-    } else if (nombre === "exitos") {
+    } else if (nombre === "bandida") {
       file = "https://radio-tekileros.vercel.app/Bandida.json";
       clave = "bandida";
-      etiqueta = "Éxitos";
+      etiqueta = "Bandida";
     } else if (nombre === "hardcore") {
       file = "https://radio-tekileros.vercel.app/HardCore.json";
       clave = "hardcore";
@@ -240,26 +257,13 @@ audio.addEventListener("ended", () => {
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // ▶️ MODO RADIO
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-// Referencias de campos locales que deben limpiarse en radio
-const trackPlaylistEl = document.getElementById("track-playlist");
-const trackEmotionEl  = document.getElementById("track-emotion");
-
 function activarModoRadio() {
   modoActual = "radio";
 
-  // Limpieza de emoción visual previa
-  limpiarEmociones();
-
-  // Limpieza inmediata de campos locales que NO deben aparecer en radio
   if (trackPlaylistEl) trackPlaylistEl.textContent = "";
   if (trackEmotionEl)  trackEmotionEl.textContent  = "";
-  if (metaTrack)       metaTrack.textContent       = ""; // álbum/local info
+  if (metaTrack)       metaTrack.textContent       = "";
 
-  // Limpiar karaoke previo para que no continúe en radio
-  detenerKaraoke();
-
-  // Estado visual de conexión
   if (currentArtistName) currentArtistName.textContent = "Conectando...";
   if (currentTrackName)  currentTrackName.textContent  = "Obteniendo datos...";
   if (discImg) {
@@ -267,32 +271,27 @@ function activarModoRadio() {
     discImg.classList.add("rotating");
   }
 
-  // Preparar stream
+  const STREAM_URL = "http://178.32.146.184:2852/stream.mp3";
   audio.pause();
-  audio.src = "https://technoplayerserver.net:8018/stream?icy=http";
+  audio.src = STREAM_URL;
   audio.load();
   audio.muted = gestureDetected ? false : true;
 
-  // Reproducir y sincronizar iconos reales del botón Play
   const playIcon = playPauseBtn ? playPauseBtn.querySelector("i") : null;
-
   audio.play().then(() => {
     if (playIcon) { playIcon.classList.remove("fa-play"); playIcon.classList.add("fa-pause"); }
     console.log("📻 Radio reproduciendo automáticamente");
-  }).catch(err => {
-    console.warn("🔒 Error al iniciar Radio:", err);
+  }).catch(() => {
     if (playIcon) { playIcon.classList.remove("fa-pause"); playIcon.classList.add("fa-play"); }
   });
 
-  // Actualización de datos de radio (listeners externos)
   iniciarActualizacionRadio();
   iniciarContadorRadioescuchas();
 }
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 📻 METADATOS RADIO (con historial activo)
+// 📻 METADATOS RADIO (fetch + proxy)
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
 function detenerActualizacionRadio() {
   if (radioIntervalId !== null) {
     clearInterval(radioIntervalId);
@@ -300,11 +299,51 @@ function detenerActualizacionRadio() {
   }
 }
 
+function safeCleanTitle(raw) {
+  let s = String(raw || "").trim();
+  if (!s) return "";
+
+  const tag = "SANTI MIX DJ";
+  const idx = s.toUpperCase().indexOf(tag);
+  if (idx !== -1) {
+    s = s.slice(0, idx) + s.slice(idx + tag.length);
+  }
+
+  let out = "", depth = 0;
+  for (let ch of s) {
+    if (ch === "[") { depth++; continue; }
+    if (ch === "]" && depth > 0) { depth--; continue; }
+    if (depth === 0) out += ch;
+  }
+  s = out;
+
+  while (s.endsWith("|") || s.endsWith(" |")) {
+    s = s.slice(0, s.lastIndexOf("|")).trim();
+  }
+
+  return s.trim();
+}
+
+function splitArtistTitle(cleaned) {
+  const s = String(cleaned);
+  const separators = [" - ", " – ", " — ", "-", "–", "—"];
+  for (const sep of separators) {
+    const pos = s.indexOf(sep);
+    if (pos > 0) {
+      return {
+        artist: s.slice(0, pos).trim(),
+        title: s.slice(pos + sep.length).trim()
+      };
+    }
+  }
+  return { artist: "Radio", title: s.trim() };
+}
+
 function iniciarActualizacionRadio() {
   detenerActualizacionRadio();
 
-  const radioUrl  = "https://technoplayerserver.net:8018/stats?json=1&sid=1";
-  const proxyUrl  = `https://api.allorigins.win/raw?url=${encodeURIComponent(radioUrl)}`;
+  const radioUrl = "http://178.32.146.184:2852/stats?sid=1&json=1";
+  const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(radioUrl)}`;
 
   async function actualizarDesdeServidor() {
     try {
@@ -312,99 +351,120 @@ function iniciarActualizacionRadio() {
 
       const res = await fetch(proxyUrl, { cache: "no-cache" });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const text = await res.text();
+      const data = await res.json();
 
-      let data;
-      try { data = JSON.parse(text); }
-      catch {
-        console.warn("⚠️ Texto no parseable:", text);
+      const cleanedTitle = safeCleanTitle(data?.songtitle);
+
+      if (!cleanedTitle || cleanedTitle.toLowerCase().includes("offline")) {
+        // Persistencia: usar último del historial
+        if (trackHistory.length > 0) actualizarUI(trackHistory[0]);
         return;
       }
 
-      const rawTitle = data?.songtitle ? String(data.songtitle) : "";
-      const cleanedTitle = rawTitle
-        .trim()
-        .replace(/SANTI MIX DJ/gi, "")
-        .replace(/\|\s*$/g, "")
-        .trim();
-
-      // Filtrar inválidos/duplicados/offline
-      if (!cleanedTitle || cleanedTitle.toLowerCase().includes("offline") || cleanedTitle === lastTrackTitle) {
+      if (cleanedTitle === lastTrackTitle) {
+        // mismo track → persistencia con historial
+        if (trackHistory.length > 0) actualizarUI(trackHistory[0]);
         return;
       }
+
+      // Nuevo track detectado
       lastTrackTitle = cleanedTitle;
+      const { artist, title } = splitArtistTitle(cleanedTitle);
 
-      // Separar artista/título
-      const parts = cleanedTitle.split(/\s*(?:-|–|—)\s*|\s-\s/);
-      let artist = "Radio";
-      let title  = cleanedTitle;
-      if (parts.length >= 2) {
-        artist = parts[0].trim();
-        title  = parts.slice(1).join(" - ").trim();
-      }
+      const coverUrl = await obtenerCaratula(artist, title);
+      const entry = { artist, title, coverUrl };
 
-      // Pintar UI
-      if (currentArtistName) currentArtistName.textContent = artist;
-      if (currentTrackName)  currentTrackName.textContent  = title;
-      if (metaTrack)         metaTrack.textContent         = "Stream";
-
-      // Limpiar campos no usados en radio
-      const trackGenreElement = document.getElementById("track-genre");
-      if (trackGenreElement) trackGenreElement.textContent = "";
-
-      // 🔑 Esperar carátula antes de registrar historial
-      const coverUrl = await obtenerCaratulaDesdeiTunes(artist, title);
+      // Guardar en historial y repintar
       pushHistoryEntry(artist, title, coverUrl);
-
-      console.log("🧾 Historial +UI:", { artist, title, coverUrl });
+      actualizarUI(entry);
 
     } catch (err) {
       console.error("❌ Error en metadatos radio:", err);
-      if (currentArtistName) currentArtistName.textContent = "Error Conexión";
-      if (currentTrackName)  currentTrackName.textContent  = "";
-      if (metaTrack)         metaTrack.textContent         = "";
+      if (trackHistory.length > 0) {
+        actualizarUI(trackHistory[0]);
+      } else {
+        actualizarUI({ artist: "Radio", title: "Error de Conexión", coverUrl: ultimaCaratulaValida });
+      }
     }
   }
 
-  // Primera actualización inmediata + intervalo
+  // Lectura inmediata
   actualizarDesdeServidor();
+
+  // Intervalo para refrescar cada 12s
   radioIntervalId = setInterval(actualizarDesdeServidor, 12000);
 }
 
+//================================
+// 🖥️ Actualizar UI con entrada
+//================================
+function actualizarUI(entry) {
+  if (!entry) return;
+  if (currentArtistName) currentArtistName.textContent = entry.artist || "";
+  if (currentTrackName)  currentTrackName.textContent  = entry.title  || "";
+  if (metaTrack)         metaTrack.textContent         = "Stream";
+  if (discImg && entry.coverUrl) {
+    discImg.src = entry.coverUrl;
+    discImg.classList.add("rotating");
+  }
+}
+
+//================================
+// 📜 Guardar en historial
+//================================
+function pushHistoryEntry(artist, title, coverUrl) {
+  const entry = {
+    artist,
+    title,
+    coverUrl,
+    timestamp: Date.now()
+  };
+  trackHistory.unshift(entry);
+  lastValidEntry = entry;
+  console.log("🧾 Historial actualizado:", entry);
+}
+
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 🎨 CARATULAS iTunes API (devuelve URL + fallback)
+// 🎨 CARÁTULAS (iTunes + fallback externo)
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-let ultimaCaratulaValida = "https://santi-graphics.vercel.app/assets/covers/Cover1.png";
+function validarCaratula(
+  url,
+  fallback = "https://santi-graphics.vercel.app/assets/covers/Cover1.png"
+) {
+  return new Promise(resolve => {
+    const img = new Image();
+    img.onload = () => {
+      ultimaCaratulaValida = url;
+      resolve(url);
+    };
+    img.onerror = () => {
+      resolve(fallback);
+    };
+    img.src = url;
+  });
+}
 
 async function obtenerCaratulaDesdeiTunes(artist, title) {
   try {
-    if (!artist && !title) return ultimaCaratulaValida;
-
     const query = encodeURIComponent(`${artist} ${title}`);
-    const url   = `https://itunes.apple.com/search?term=${query}&entity=song&limit=1`;
-
-    const res = await fetch(url, { cache: "no-cache" });
+    const url   = `https://itunes.apple.com/search?term=${query}&media=music&limit=1`;
+    const res   = await fetch(url, { cache: "no-cache" });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const data = await res.json();
-
+    const data  = await res.json();
     if (data.resultCount > 0) {
-      const artworkUrl = data.results[0].artworkUrl100
-        .replace("100x100bb", "300x300bb"); // mejor resolución
-
-      if (discImg) discImg.src = artworkUrl;
-      ultimaCaratulaValida = artworkUrl; // guardar como fallback
-      console.log("🖼 Carátula obtenida desde iTunes:", artworkUrl);
-      return artworkUrl;
-    } else {
-      console.warn("⚠️ Sin resultados en iTunes para:", artist, title);
-      if (discImg) discImg.src = ultimaCaratulaValida;
-      return ultimaCaratulaValida;
+      return data.results[0].artworkUrl100.replace("100x100", "400x400");
     }
   } catch (err) {
-    console.error("❌ Error al obtener carátula iTunes:", err);
-    if (discImg) discImg.src = ultimaCaratulaValida;
-    return ultimaCaratulaValida;
+    console.warn("⚠️ iTunes falló:", err);
   }
+  return null;
+}
+
+async function obtenerCaratula(artist, title) {
+  let cover = await obtenerCaratulaDesdeiTunes(artist, title);
+  if (!cover) cover = ultimaCaratulaValida;
+  const validatedUrl = await validarCaratula(cover);
+  return validatedUrl;
 }
 
 
@@ -424,7 +484,7 @@ function iniciarContadorRadioescuchas() {
   detenerContadorRadioescuchas();
   if (!contadorElemento) return;
 
-  const baseUrl = "https://technoplayerserver.net:8018/stats?json=1&sid=1";
+  const baseUrl = "http://178.32.146.184:2852/stats?sid=1&json=1";
   const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(baseUrl)}`;
 
   function pintar(valor) {
@@ -480,7 +540,7 @@ function activarModoLocal() {
   // Restaurar carátula por defecto
   if (discImg) {
     discImg.classList.remove("rotating");
-    discImg.src = ultimaCaratulaValida || "https://santi-graphics.vercel.app/assets/covers/DalePlay.png";
+    discImg.src = ultimaCaratulaValida || "https://santi-graphics.vercel.app/assets/covers/Cover1.png";
   }
 
   // Icono de play
@@ -527,7 +587,7 @@ function activarModoRadio() {
 
   // Configurar stream de radio
   audio.pause();
-  audio.src = "https://technoplayerserver.net:8018/stream?icy=http";
+  audio.src = "http://178.32.146.184:2852/stream.mp3";
   audio.load();
   audio.muted = !gestureDetected ? true : false;
 
@@ -736,7 +796,7 @@ if (menuBtn && historyModal && historyList) {
         const li = document.createElement("li");
         li.classList.add("modal-track-item");
         li.innerHTML = `
-          <img src="${entry.cover || 'https://santi-graphics.vercel.app/assets/covers/DalePlay.png'}" alt="Carátula" class="track-cover" />
+          <img src="${entry.cover || 'https://santi-graphics.vercel.app/assets/covers/Cover1.png'}" alt="Carátula" class="track-cover" />
           <div class="track-info">
             <strong>${entry.title || ""}</strong><br>
             <span>🎤 ${entry.artist || ""}</span><br>
@@ -1137,7 +1197,7 @@ if (menuBtn && !menuBtn.dataset.boundMenuOpen) {
           const li = document.createElement("li");
           li.classList.add("modal-track-item");
           li.innerHTML = `
-            <img src="${entry.cover || 'https://santi-graphics.vercel.app/assets/covers/DalePlay.png'}" alt="Carátula" class="track-cover" />
+            <img src="${entry.cover || 'https://santi-graphics.vercel.app/assets/covers/Cover1.png'}" alt="Carátula" class="track-cover" />
             <div class="track-info">
               <strong>${entry.title || ""}</strong><br>
               <span>🎤 ${entry.artist || ""}</span><br>

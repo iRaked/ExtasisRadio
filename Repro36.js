@@ -374,9 +374,9 @@ function buildRightPanel(mainContainer) {
 
   const playlistList = document.createElement("ul");
   playlistList.className = "track-list";
-  ["Actual","Rumba Caliente","Hits","Ruido de Lata","Baladas Rock"].forEach((label,i)=>{
+  ["Actual","Rumba Caliente","Bandida","Ruido de Lata","Baladas Rock"].forEach((label,i)=>{
     const li = document.createElement("li");
-    li.setAttribute("data-list", ["actual","rumba","exitos","ruido","baladasrock"][i]);
+    li.setAttribute("data-list", ["actual","rumba","bandida","ruido","baladasrock"][i]);
     li.textContent = label;
     playlistList.appendChild(li);
   });
