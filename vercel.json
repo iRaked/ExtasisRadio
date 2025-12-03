@@ -41,6 +41,16 @@
     { "source": "/repro37", "destination": "/Repro37.html" },
     { "source": "/repro38", "destination": "/Repro38.html" },
     { "source": "/repro39", "destination": "/Repro39.html" },
-    { "source": "/repro40", "destination": "/Repro40.html" }
+    { "source": "/repro40", "destination": "/Repro40.html" },
+    { "source": "/repro41", "destination": "/Repro41.html" },
+    { "source": "/repro42", "destination": "/Repro42.html" },
+    { "source": "/repro43", "destination": "/Repro43.html" },
+    { "source": "/repro44", "destination": "/Repro44.html" },
+    { "source": "/repro45", "destination": "/Repro45.html" },
+    { "source": "/repro46", "destination": "/Repro46.html" },
+    { "source": "/repro47", "destination": "/Repro47.html" },
+    { "source": "/repro48", "destination": "/Repro48.html" },
+    { "source": "/repro49", "destination": "/Repro49.html" },
+    { "source": "/repro50", "destination": "/Repro50.html" }
   ]
 }
