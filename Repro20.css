@@ -63,8 +63,8 @@ body {
 .btn-radio {
   width: 40px;
   height: 40px;
-  background-color: rgba(148, 0, 211, 0.9); /* violeta translúcido */
-  border: 2px solid #9400D3; /* Solid Color */
+  background-color: rgba(255, 0, 0, 0.9); /* rojo translúcido */
+  border: 2px solid #ff0000;              /* rojo sólido */
   border-radius: 8px;
   display: flex;
   justify-content: center;
@@ -96,7 +96,7 @@ body {
   background: rgba(0, 0, 0, 0.4);
   padding: 4px 8px;
   border-radius: 6px;
-  box-shadow: 0 0 8px rgba(186, 0, 255, 0.9);
+  box-shadow: 0 0 8px rgba(255, 0, 0, 0.9); /* rojo intenso */
   z-index: 10;
 }
 
@@ -109,16 +109,15 @@ body {
   font-size: 0.9rem;
   color: #fff;
   padding: 4px 10px;
-  background: rgba(148, 0, 211, 0.3); /* violeta translúcido */
-  border: 1px solid #9400D3;
+  background: rgba(255, 0, 0, 0.3); /* rojo translúcido */
+  border: 1px solid #ff0000;       /* rojo sólido */
   border-radius: 6px;
   box-shadow:
-    0 0 8px #C8A2C8,
-    2px 2px 6px rgba(0,0,0,0.8);
-  white-space: nowrap;            /* evita salto de línea */
-  text-shadow: 0 0 6px #9400D3;   /* brillo ceremonial */
+    0 0 8px rgba(255, 0, 0, 0.8),  /* halo rojo */
+    2px 2px 6px rgba(0,0,0,0.8);   /* sombra oscura */
+  white-space: nowrap;             /* evita salto de línea */
+  text-shadow: 0 0 6px #ff0000;    /* brillo ceremonial rojo */
 }
-
 
 /* ===================== */
 /* ESTRUCTURA BASE Y LOGO */
@@ -166,7 +165,7 @@ body {
 }
 
 .radio-logo:hover {
-    box-shadow: 0 0 20px rgba(148, 0, 211, 0.8);
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.8); /* halo rojo intenso */
 }
 
 /* CAPA DE EFECTOS */
@@ -211,7 +210,7 @@ body {
     height: 280px;
     transform: translate(-50%, -50%);
     border-radius: 50%;
-    background: conic-gradient(from 90deg, #a020f0, #00ffff, #a020f0);
+    background: conic-gradient(from 90deg, #ff0000, #ff6666, #ff0000); /* rojo intenso + variación */
     filter: blur(25px);
     opacity: 0.6;
     z-index: 0;
@@ -228,7 +227,13 @@ body {
     transform-origin: 50% 50%;
     border-radius: 50%;
     z-index: 1;
-    background: conic-gradient(from 90deg, transparent 0deg, #a020f0 60deg, #00ffff 120deg, transparent 180deg);
+    background: conic-gradient(
+        from 90deg,
+        transparent 0deg,
+        #ff0000 60deg,       /* rojo intenso */
+        #ff6666 120deg,      /* rojo más suave */
+        transparent 180deg
+    );
     mask: radial-gradient(circle at center, transparent 100px, black 128px);
     animation: arcSpin 6s linear infinite;
     opacity: 0.9;
@@ -236,7 +241,13 @@ body {
 
 .arc2 {
     animation-delay: -3s;
-    background: conic-gradient(from 270deg, transparent 0deg, #00ffff 60deg, #a020f0 120deg, transparent 180deg);
+    background: conic-gradient(
+        from 270deg,
+        transparent 0deg,
+        #ff6666 60deg,       /* rojo suave */
+        #ff0000 120deg,      /* rojo intenso */
+        transparent 180deg
+    );
 }
 
 /* ===================== */
@@ -249,14 +260,15 @@ body {
 
 @keyframes glow {
     0% {
-        box-shadow: 0 0 25px rgba(148, 0, 211, 0.5);
-        border-color: rgba(148, 0, 211, 0.6);
+        box-shadow: 0 0 25px rgba(255, 0, 0, 0.5);   /* halo rojo suave */
+        border-color: rgba(255, 0, 0, 0.6);          /* borde rojo translúcido */
     }
     100% {
-        box-shadow: 0 0 30px rgba(148, 0, 211, 0.8);
-        border-color: rgba(148, 0, 211, 0.9);
+        box-shadow: 0 0 30px rgba(255, 0, 0, 0.8);   /* halo rojo intenso */
+        border-color: rgba(255, 0, 0, 0.9);          /* borde rojo sólido */
     }
 }
+
 
 @keyframes glowPulse {
     0% { opacity: 0.4; filter: blur(20px); }
@@ -342,15 +354,15 @@ body {
   width: 220px;
   height: 24px;
   padding-left: 10px;
-  border-left: 2px solid #9400D3;
+  border-left: 2px solid #ff0000;             /* borde rojo */
   border-radius: 6px;
-  background-color: rgba(20, 0, 30, 0.4); /* fondo violeta oscuro translúcido */
+  background-color: rgba(30, 0, 0, 0.4);      /* fondo rojo oscuro translúcido */
   box-shadow:
     inset 0 1px 2px rgba(255, 255, 255, 0.2), /* luz interna superior */
     inset 0 -1px 2px rgba(0, 0, 0, 0.4),      /* sombra interna inferior */
     0 4px 8px rgba(0, 0, 0, 0.6),             /* sombra externa */
-    0 0 12px rgba(148, 0, 211, 0.3);          /* halo violeta */
-  backdrop-filter: blur(2px); /* profundidad atmosférica */
+    0 0 12px rgba(255, 0, 0, 0.3);            /* halo rojo */
+  backdrop-filter: blur(2px);                 /* profundidad atmosférica */
   display: flex;
   align-items: center;
 }
@@ -359,7 +371,7 @@ body {
   position: absolute;
   white-space: nowrap;
   animation: scrollMeta 12s linear infinite;
-  color: #C8A2C8;
+  color: #fff;
   font-size: 13px;
   text-shadow: 1px 1px 0 #000;
 }
@@ -383,11 +395,11 @@ body {
 
 /* Botón base con transparencia y sombra ceremonial */
 .soft {
-  background-color: rgba(148, 0, 211, 0.6); /* violeta translúcido */
-  border: 1px solid #9400D3;
+  background-color: rgba(255, 0, 0, 0.6); /* rojo translúcido */
+  border: 1px solid #ff0000;              /* borde rojo sólido */
   box-shadow:
-    8px 8px 16px rgba(0, 0, 0, 0.95),   /* sombra abajo y derecha, muy marcada */
-    0 0 12px #C8A2C8;
+    8px 8px 16px rgba(0, 0, 0, 0.95),     /* sombra abajo y derecha, muy marcada */
+    0 0 12px rgba(255, 0, 0, 0.6);        /* halo rojo */
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   display: flex;
@@ -397,10 +409,10 @@ body {
 }
 
 .soft:hover {
-  transform: scale(1.08);
-  box-shadow:
-    10px 10px 20px rgba(0, 0, 0, 6),    /* sombra más intensa al hover */
-    0 0 24px #9400D3;
+  transform: scale(1.08);
+  box-shadow:
+    10px 10px 20px rgba(0, 0, 0, 0.95),   /* sombra más intensa al hover */
+    0 0 24px rgba(255, 0, 0, 0.9);        /* halo rojo intenso */
 }
 
 .repro-controls {
@@ -455,11 +467,11 @@ body {
 
 /* Botón de reproducción */
 .btn-play {
-  background-color: rgba(148, 0, 211, 0.6); /* violeta translúcido */
-  border: 2px solid #9400D3; /* Solid Color */
+  background-color: rgba(255, 0, 0, 0.6); /* rojo translúcido */
+  border: 2px solid #ff0000;              /* borde rojo sólido */
   box-shadow:
-    10px 10px 20px rgba(0, 0, 0, 1),
-    0 0 24px #C8A2C8;
+    10px 10px 20px rgba(0, 0, 0, 1),      /* sombra marcada */
+    0 0 24px rgba(255, 0, 0, 0.6);        /* halo rojo */
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   display: flex;
   justify-content: center;
@@ -468,10 +480,10 @@ body {
 }
 
 .btn-play:hover {
-  transform: scale(1.08);
-  box-shadow:
-    12px 12px 24px rgba(0, 0, 0, 1),
-    0 0 32px #9400D3;
+  transform: scale(1.08);
+  box-shadow:
+    12px 12px 24px rgba(0, 0, 0, 1),      /* sombra más intensa al hover */
+    0 0 32px rgba(255, 0, 0, 0.9);        /* halo rojo intenso */
 }
 
 /* SVG dentro de botones */
@@ -502,16 +514,17 @@ button svg {
     /* Mantiene la transformación base al hover, pero lo aplica de forma fija */
     transform: scale(1.08); 
 
-    /* Fondo que indica el estado activo (usando el color rosa del modal, ff69b4) */
-    background-color: rgba(255, 105, 180, 0.8); /* Rosa vibrante translúcido */
-    border: 1px solid #ff69b4; /* Borde rosa más fuerte */
+    /* Fondo que indica el estado activo (usando el azul #3688ff) */
+    background-color: rgba(54, 136, 255, 0.8); /* Azul vibrante translúcido */
+    border: 1px solid #3688ff;                 /* Borde azul sólido */
     
     /* Efecto de resplandor para indicar que está "encendido" */
     box-shadow: 
-        10px 10px 20px rgba(0, 0, 0, 0.8), /* Sombra fuerte */
-        0 0 15px #ff69b4, /* Resplandor rosa */
-        0 0 25px rgba(255, 255, 255, 0.4); /* Halo blanco sutil */
+        10px 10px 20px rgba(0, 0, 0, 0.8),     /* Sombra fuerte */
+        0 0 15px #3688ff,                      /* Resplandor azul */
+        0 0 25px rgba(255, 255, 255, 0.4);     /* Halo blanco sutil */
 }
+
 
 /* Ajuste de color del SVG para que el icono se vea mejor sobre el fondo rosa activo */
 .soft.active-one svg,
@@ -533,8 +546,8 @@ button svg {
   background: #010101;
   border-radius: 8px;
   box-shadow:
-    inset 0 0 0 1px #C8A2C8,
-    inset 0 2px 4px #000;
+    inset 0 0 0 1px rgba(255, 0, 0, 0.4), /* borde interno rojo suave */
+    inset 0 2px 4px #000;                 /* sombra interna */
   display: flex;
   align-items: center;
   padding: 0 4px;
@@ -545,7 +558,13 @@ button svg {
   height: 4px;
   border-radius: 4px;
   appearance: none;
-  background: linear-gradient(to right, #9400D3 0%, #9400D3 70%, #4B0082 70%, #4B0082 100%);
+  background: linear-gradient(
+    to right,
+    #ff0000 0%,     /* rojo intenso */
+    #ff0000 70%,    /* rojo dominante */
+    #b30000 70%,    /* rojo más oscuro */
+    #b30000 100%    /* rojo profundo */
+  );
   outline: none;
   cursor: pointer;
 }
@@ -553,7 +572,7 @@ button svg {
 .volume-bar::-webkit-slider-thumb {
   width: 12px;
   height: 12px;
-  background: #800080;
+  background: #ff0000;
   border-radius: 50%;
   cursor: pointer;
   appearance: none;
@@ -589,11 +608,11 @@ button svg {
   position: relative;
   width: 100%; 
   height: 100%; 
-  background-color: rgba(20, 20, 20, 0.95);
-  border: 2px solid #9400D3;
+  background-color: rgba(20, 20, 20, 0.95); /* fondo oscuro translúcido */
+  border: 2px solid #ff0000;                /* borde rojo sólido */
   border-radius: 12px;
   padding: 20px;
-  box-shadow: 0 0 24px #9400D3;
+  box-shadow: 0 0 24px #ff0000;             /* halo rojo */
   color: #fff;
   text-align: left;
   overflow-y: auto;
@@ -602,7 +621,7 @@ button svg {
   transform: translateY(20px);
   transition: opacity 0.3s ease, transform 0.3s ease;
   scrollbar-width: thin;
-  scrollbar-color: #9400D3 #202020; 
+  scrollbar-color: #ff0000 #202020;         /* scrollbar rojo sobre fondo gris oscuro */
 }
 
 .modal:not(.hidden) .modal-content {
@@ -617,17 +636,17 @@ button svg {
   background: none;
   border: none;
   font-size: 1.5em;
-  color: #9400D3;
+  color: #ff0000;
   cursor: pointer;
-  text-shadow: 0 0 8px #9400D3;
+  text-shadow: 0 0 8px #ff0000;
   z-index: 10001;
 }
 
 .modal-title {
   font-size: 1.2em; /* Título más pequeño */
   margin-bottom: 10px;
-  color: #9400D3;
-  text-shadow: 0 0 8px #C8A2C8;
+  color: #ff0000;
+  text-shadow: 0 0 8px #ff0000;
   text-align: center; /* Centramos el título */
 }
 
@@ -642,28 +661,29 @@ button svg {
   padding: 4px 12px;
   margin-left: 6px;
   background: linear-gradient(
-  90deg,
-  #9400D3,
-  #C8A2C8
-); /* degradado */
+    90deg,
+    #ff0000,
+    #ff6666
+  ); /* degradado rojo intenso → rojo suave */
   border-radius: 8px;
   color: #fff;
   font-weight: bold;
   animation: pulseTrack 1.5s infinite;
-  box-shadow: 0 0 6px rgba(148, 0, 211, 0.4);
+  box-shadow: 0 0 6px rgba(255, 0, 0, 0.4); /* halo rojo inicial */
 }
 
 @keyframes pulseTrack {
-  0% {
-    box-shadow: 0 0 6px rgba(148, 0, 211, 0.4); /* Morado suave (Base: #9400D3) */
-  }
-  50% {
-    box-shadow: 0 0 12px rgba(178, 102, 255, 0.8); /* Morado claro vibrante (#B266FF) */
-  }
-  100% {
-    box-shadow: 0 0 6px rgba(148, 0, 211, 0.4); /* Morado suave */
-  }
+  0% {
+    box-shadow: 0 0 6px rgba(255, 0, 0, 0.4); /* rojo suave */
+  }
+  50% {
+    box-shadow: 0 0 12px rgba(255, 80, 80, 0.8); /* rojo claro vibrante */
+  }
+  100% {
+    box-shadow: 0 0 6px rgba(255, 0, 0, 0.4); /* rojo suave */
+  }
 }
+
 
 .track-list {
   list-style: none;
@@ -680,23 +700,23 @@ button svg {
 }
 
 .track-list li:hover {
-  color: #9400D3;
-  text-shadow: 0 0 8px #9400D3;
+  color: #ff0000;
+  text-shadow: 0 0 8px #ff0000;
 }
 
 #track-name.active {
   color: #3688ff;
   font-weight: bold;
-  text-shadow: 0 0 6px rgba(255, 105, 180, 0.5);
+  text-shadow: 0 0 6px rgba(255, 0, 0, 0.5);
   transition: all 300ms ease;
 }
 
 /* Nuevo selector para la pista activa en la lista */
 .track-list li.active-track {
-  color: #9400D3; /* Color principal de tu diseño */
+  color: #ff0000; /* Color principal de tu diseño */
   font-weight: bold;
-  text-shadow: 0 0 8px #C8A2C8;
-  background-color: rgba(148, 0, 211, 0.1); /* Fondo sutil */
+  text-shadow: 0 0 8px #ff0000;
+  background-color: rgba(255, 0, 0, 0.1); /* Fondo sutil */
   border-radius: 4px;
   padding: 2px 4px;
 }
