@@ -271,11 +271,18 @@ function activarModoRadio() {
     discImg.classList.add("rotating");
   }
 
-  const STREAM_URL = "http://178.32.146.184:2852/stream.mp3";
-  audio.pause();
-  audio.src = STREAM_URL;
-  audio.load();
-  audio.muted = gestureDetected ? false : true;
+  // URL insegura original
+const STREAM_URL = "http://178.32.146.184:2852/stream.mp3";
+
+// Proxy HTTPS (ejemplo con AllOrigins)
+const PROXY_URL = "https://api.allorigins.win/raw?url=" + encodeURIComponent(STREAM_URL);
+
+// Configurar stream de radio
+audio.pause();
+audio.src = PROXY_URL;   // usar proxy para evitar bloqueo mixed content
+audio.load();
+audio.muted = !gestureDetected; // muted hasta que haya interacción
+
 
   const playIcon = playPauseBtn ? playPauseBtn.querySelector("i") : null;
   audio.play().then(() => {
@@ -585,11 +592,20 @@ function activarModoRadio() {
     discImg.classList.add("rotating");
   }
 
-  // Configurar stream de radio
-  audio.pause();
-  audio.src = "http://178.32.146.184:2852/stream.mp3";
-  audio.load();
-  audio.muted = !gestureDetected ? true : false;
+  // URL insegura original
+const STREAM_URL = "http://178.32.146.184:2852/stream.mp3";
+
+// Proxy HTTPS para evitar bloqueo mixed content
+const PROXY_URL = "https://api.allorigins.win/raw?url=" + encodeURIComponent(STREAM_URL);
+
+// Configurar stream de radio
+audio.pause();
+audio.src = PROXY_URL;        // usar proxy HTTPS
+audio.load();
+
+// Muted hasta que el usuario interactúe (cumple autoplay policy)
+audio.muted = !gestureDetected;
+
 
   const playIcon = playPauseBtn ? playPauseBtn.querySelector("i") : null;
   audio.play().then(() => {
