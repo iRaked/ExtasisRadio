@@ -1,4 +1,4 @@
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 01 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 00 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // 🎧 INICIALIZACIÓN GLOBAL Y ESTADOS CRÍTICOS
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -82,7 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
     iniciarAnimacionesFondo();
 });
 
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 02 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 01 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // 📦 CARGA DE PISTAS DESDE JSON (MODO LOCAL)
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -115,7 +115,18 @@ function cargarTracksDesdeJSON() {
         });
 }
 
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━ CONTINUIDAD EN MODO LOCAL ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//=========================
+//CONTINUIDAD EN MODO LOCAL
+//=========================
+function actualizarMetaLocal(track) {
+    if (isTransitioning) return; // 🚫 no escribir durante transición
+    const metaTexto = `${track.nombre} — ${track.artista || "Artista Desconocido"} — ${track.genero || "Género desconocido"}`;
+    if (currentTrackName) currentTrackName.textContent = metaTexto;
+    if (metaTrack) {
+        metaTrack.textContent = metaTexto;
+        metaTrack.setAttribute("data-tag", metaTexto);
+    }
+}
 
 // Listener global: cuando termina una pista
 audio.addEventListener("ended", () => {
@@ -143,12 +154,13 @@ audio.addEventListener("ended", () => {
   activarReproduccion(nextIndex, "auto-next");
 });
 
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 03 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 02 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // ▶️ FUNCIÓN UNIVERSAL DE REPRODUCCIÓN
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 // Metadatos en modo local
 function actualizarMetaLocal(track) {
+    if (isTransitioning) return; // 🚫 no escribir durante transición
     const metaTexto = `${track.nombre} — ${track.artista || "Artista Desconocido"} — ${track.genero || "Género desconocido"}`;
     if (currentTrackName) currentTrackName.textContent = metaTexto;
     if (metaTrack) {
@@ -159,6 +171,7 @@ function actualizarMetaLocal(track) {
 
 // Metadatos en modo radio (se usa en Bloque 04)
 function actualizarMetaRadio(artist, title) {
+    if (isTransitioning) return; // 🚫 no escribir durante transición
     const metaTexto = `${artist} — ${title}`;
     if (currentTrackName) currentTrackName.textContent = metaTexto;
     if (metaTrack) {
@@ -184,9 +197,12 @@ function activarReproduccion(index, modo = "manual") {
 
     // --- Carátula ---
     if (discImg) {
-        discImg.style.backgroundImage = `url(${track.caratula || "assets/covers/Cover1.png"})`;
+        discImg.style.backgroundImage = `url(${track.caratula || "https://santi-graphics.vercel.app/assets/covers/Cover1.png"})`;
         discImg.classList.add("rotating");
     }
+
+    // ✅ ya hay datos válidos → fin de transición
+    isTransitioning = false;
 
     // --- Estado inicial ---
     if (modo === "initial-load") {
@@ -217,7 +233,7 @@ function activarReproduccion(index, modo = "manual") {
     }
 }
 
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 04 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 03 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // 📻 MODO RADIO — LÓGICA DE ACTUALIZACIÓN Y CONTROL (CON LIMPIEZA)
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -274,9 +290,31 @@ function activarModoLocal() {
     // El color del botón se actualiza fuera (en actualizarBotonRadio)
 }
 
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 📻 ACTUALIZACIÓN DE METADATOS EN MODO RADIO
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 04 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// 📻 ACTUALIZACIÓN DE METADATOS EN MODO RADIO (ROBUSTA)
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function actualizarMetaRadio(artist, title) {
+    // si aún estamos en transición, desbloquear al recibir datos válidos
+    if (isTransitioning) {
+        isTransitioning = false;
+    }
+
+    // limpieza previa: siempre reinicia antes de escribir
+    if (currentTrackName) currentTrackName.textContent = "";
+    if (metaTrack) {
+        metaTrack.textContent = "";
+        metaTrack.setAttribute("data-tag", "");
+    }
+
+    // escritura de datos válidos
+    const metaTexto = `${artist} — ${title}`;
+    if (currentTrackName) currentTrackName.textContent = metaTexto;
+    if (metaTrack) {
+        metaTrack.textContent = metaTexto;
+        metaTrack.setAttribute("data-tag", metaTexto);
+    }
+}
+
 function iniciarActualizacionRadio() {
     detenerActualizacionRadio();
 
@@ -289,11 +327,17 @@ function iniciarActualizacionRadio() {
             const newSongTitleRaw = await response.text();
             const cleanedTitle = newSongTitleRaw.trim();
 
+            // estado sin datos → limpieza + mensaje transitorio
             if (!cleanedTitle || cleanedTitle.toLowerCase().includes('offline')) {
-                if (currentTrackName) currentTrackName.textContent = "Datos bloqueados";
+                if (currentTrackName) currentTrackName.textContent = "🔒 Radio sin datos";
+                if (metaTrack) {
+                    metaTrack.textContent = "Esperando metadatos...";
+                    metaTrack.setAttribute("data-tag", "waiting");
+                }
                 return;
             }
 
+            // parseo de artista y título
             const songtitleSplit = cleanedTitle.split(/ - | – /);
             let artist = "Radio";
             let title = cleanedTitle;
@@ -303,21 +347,23 @@ function iniciarActualizacionRadio() {
                 title = songtitleSplit.slice(1).join(' - ').trim();
             }
 
-        // Guardar entrada en historial
-        const now = new Date();
-        const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            // ✅ fin de transición: ya hay datos válidos
+            isTransitioning = false;
 
-        trackHistory.unshift({
-            artist: artist,
-            title: title,
-            cover: discImg ? discImg.style.backgroundImage.replace(/url\(["']?|["']?\)/g, "") : "assets/covers/Plato.png",
-            time: timeString
-        });
+            // historial
+            const now = new Date();
+            const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
-        // Limitar historial a 20 entradas para no saturar
-        if (trackHistory.length > 20) {
-            trackHistory.pop();
-        }
+            trackHistory.unshift({
+                artist: artist,
+                title: title,
+                cover: discImg ? discImg.style.backgroundImage.replace(/url\(["']?|["']?\)/g, "") : "https://santi-graphics.vercel.app/assets/img/Plato.png",
+                time: timeString
+            });
+
+            if (trackHistory.length > 20) {
+                trackHistory.pop();
+            }
 
             // --- Marquesina en modo radio ---
             actualizarMetaRadio(artist, title);
@@ -327,7 +373,12 @@ function iniciarActualizacionRadio() {
 
         } catch (error) {
             console.error("❌ Error en actualización de Radio:", error);
+            // limpieza en error
             if (currentTrackName) currentTrackName.textContent = "Error al cargar metadatos";
+            if (metaTrack) {
+                metaTrack.textContent = "Fallo en servidor";
+                metaTrack.setAttribute("data-tag", "error");
+            }
         }
     }
 
@@ -343,14 +394,15 @@ function detenerActualizacionRadio() {
     }
 }
 
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 📻 FUNCIÓN PARA OBTENER CARÁTULA DESDE ITUNES
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 05 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// // 📻 FUNCIÓN PARA OBTENER CARÁTULA DESDE ITUNES
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
 function obtenerCaratulaDesdeiTunes(artist, title) {
     if (typeof $ === 'undefined' || typeof $.ajax === 'undefined') {
         // Fallback si no hay jQuery disponible
         if (discImg) {
-            discImg.style.backgroundImage = "url('assets/covers/Cover1.png')";
+            discImg.style.backgroundImage = "url('https://santi-graphics.vercel.app/assets/covers/Cover1.png')";
             discImg.classList.add("rotating");
         }
         return;
@@ -363,7 +415,7 @@ function obtenerCaratulaDesdeiTunes(artist, title) {
         dataType: 'jsonp',
         url: url,
         success: function(data) {
-            let cover = 'assets/covers/Cover1.png'; // fallback
+            let cover = 'https://santi-graphics.vercel.app/assets/covers/Cover1.png'; // fallback
             if (data.results && data.results.length > 0) {
                 cover = data.results[0].artworkUrl100.replace('100x100', '400x400');
             }
@@ -374,7 +426,7 @@ function obtenerCaratulaDesdeiTunes(artist, title) {
         },
         error: function() {
             if (discImg) {
-                discImg.style.backgroundImage = "url('assets/covers/Cover1.png')";
+                discImg.style.backgroundImage = "url('https://santi-graphics.vercel.app/assets/covers/Cover1.png')";
                 discImg.classList.add("rotating");
             }
         }
@@ -420,7 +472,7 @@ function iniciarContadorRadioescuchas() {
     contadorIntervalId = setInterval(actualizarContador, 15000);
 }
 
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 05 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 06 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // 🎛️ BOTONERA DE CONTROL (PLAY/PAUSE, NEXT, PREV, SHUFFLE, REPEAT, MUSIC, MENU)
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -621,9 +673,9 @@ btnRadio.addEventListener("click", () => {
     toggleMusicRadio();
 });
 
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 07 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // 🎛️ ACTIVAR/DESACTIVAR BOTONES SEGÚN MODO
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 function actualizarEstadoBotonera() {
     const disableInRadio = [menuBtn, repeatBtn, prevBtn, nextBtn, shuffleBtn];
 
@@ -676,7 +728,7 @@ function actualizarEstadoBotonera() {
     }
 }
 
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 05b ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 08 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // 🎵 ENLACE DEL BOTÓN MUSIC (ALTERNANCIA RADIO/LOCAL)
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 function toggleMusicRadio() {
@@ -716,16 +768,22 @@ if (btnRadio) {
     });
 }
 
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 05c ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 🧼 LIMPIEZA GLOBAL DE ESTADOS ENTRE MODOS
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 09 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// 🧼 LIMPIEZA GLOBAL DE ESTADOS ENTRE MODOS (ROBUSTA)
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+let isTransitioning = false;
+
 function limpiarEstados() {
+    isTransitioning = true; // 🚩 activar transición
+
     detenerActualizacionRadio();
     detenerContadorRadioescuchas();
 
     audio.pause();
     audio.currentTime = 0;
     audio.loop = false;
+    audio.src = "";
+    audio.load();
 
     if (playPauseBtn) playPauseBtn.classList.remove("active");
     if (iconPause) iconPause.classList.add("hidden");
@@ -733,22 +791,30 @@ function limpiarEstados() {
 
     desactivarAnimaciones();
 
-    // 🔑 Limpieza suave: solo metaTrack, no todo
+    // 📝 Metadatos universales
     if (metaTrack) {
-        metaTrack.textContent = "";
-        metaTrack.setAttribute("data-tag", "");
+        metaTrack.textContent = "🧼 limpiando estados...";
+        metaTrack.setAttribute("data-tag", "cleaning");
+    }
+    if (currentTrackName) currentTrackName.textContent = "";
+    if (currentArtistName) currentArtistName.textContent = "";
+
+    // 🎨 Carátula neutra
+    if (discImg) {
+        discImg.style.backgroundImage = "url('https://santi-graphics.vercel.app/assets/covers/Cover1.png')";
+        discImg.classList.remove("rotating");
     }
 
-    // 👉 currentTrackName y currentArtistName se limpian solo si estamos en local
-    if (modoActual === "local") {
-        if (currentTrackName) currentTrackName.textContent = "";
-        if (currentArtistName) currentArtistName.textContent = "";
-    }
+    // 📜 Variables internas
+    if (typeof trackHistory !== "undefined") trackHistory = [];
+    currentTrack = -1;
+    trackData = [];
 
-    // ❌ No tocamos carátula ni clase rotating
+    repeatMode = "off";
+    isShuffling = false;
 }
 
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ MENU ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 10 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // 📋 Botón Menu despliega modal con playlists desde JSON
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -776,7 +842,7 @@ menuBtn.addEventListener("click", () => {
         const li = document.createElement("li");
         li.classList.add("modal-track-item");
         li.innerHTML = `
-            <img src="${track.caratula || 'assets/covers/Cover1.png'}" alt="Carátula" class="track-cover" />
+            <img src="${track.caratula || 'https://santi-graphics.vercel.app/assets/covers/Cover1.png'}" alt="Carátula" class="track-cover" />
             <div class="track-info">
                 <strong>${track.nombre}</strong>
                 <span>🎤 ${track.artista || "Desconocido"}</span>
@@ -817,7 +883,7 @@ document.addEventListener("click", (e) => {
     }
 });
 
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 06 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 11 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // 🪟 HISTORIAL DE RADIO (MODAL)
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -859,7 +925,7 @@ function generarHistorialModal() {
         const li = document.createElement("li");
         li.classList.add("modal-history-track-item");
         li.innerHTML = `
-            <img src="${entry.cover || 'assets/covers/Plato.png'}" 
+            <img src="${entry.cover || 'https://santi-graphics.vercel.app/assets/img/Plato.png'}" 
                  alt="Carátula" class="track-cover" />
             <div class="track-info">
                 <strong>${entry.artist} — ${entry.title}</strong>
@@ -898,7 +964,7 @@ document.addEventListener("click", (e) => {
     }
 });
 
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 07 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 12 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // 🔊 CONTROL DE VOLUMEN (FUNCIONAL)
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -955,7 +1021,7 @@ function inicializarVolumen() {
   }
 }
 
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 08 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 13 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // 🎨 ANIMACIONES Y EFECTOS VISUALES (DISCO, NOTAS, ONDAS EQ, BURBUJAS)
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -985,7 +1051,7 @@ function desactivarAnimaciones() {
     if (waves) waves.classList.remove('active-waves');
 }
 
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 09 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 14 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // 🕒 FECHA Y HORA EN VIVO
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -1018,7 +1084,7 @@ updateDateTime();
 // Actualizar cada segundo
 setInterval(updateDateTime, 1000);
 
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 10 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 15 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // 🖱️ GESTIÓN DE GESTOS Y DESBLOQUEO DE AUDIO
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -1051,3 +1117,17 @@ document.addEventListener("click", () => {
         console.log("🟢 Gesto humano detectado: Audio desbloqueado.");
     }
 }, { once: true });
+
+//======================================
+// Mostrar mensaje al hacer clic derecho
+//======================================
+document.addEventListener("contextmenu", (e) => {
+  e.preventDefault(); // evitar menú contextual
+  const msg = document.getElementById("custom-message");
+  msg.classList.add("show");
+
+  // Ocultar automáticamente después de unos segundos
+  setTimeout(() => {
+    msg.classList.remove("show");
+  }, 2000);
+});

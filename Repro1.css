@@ -520,23 +520,10 @@ body {
     justify-content: flex-start;
 }
 
-.song-title {
-    color: #ffffff;
-    font-weight: bold;
-    display: block;
-    margin-top: 5px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    animation: marquee 15s linear infinite;
-}
+/*==========================================================
+ * CSS: Estilos de la Marquesina (Bloque 05)
+ *==========================================================*/
 
-@keyframes marquee {
-    0% { transform: translateX(100%); }
-    100% { transform: translateX(-100%); }
-}
-    
-/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 05 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
 #title {
     color: #ffffff;
     font-weight: bold;
@@ -544,9 +531,14 @@ body {
     white-space: nowrap;
     position: relative;
     padding-right: 285px;
-    animation: marquee-contained 12s linear infinite;
+    /* ELIMINADA: animation: marquee-contained 12s linear infinite; */
     width: max-content;
     font-size: 1.5em;
+}
+
+/* 🚩 NUEVA CLASE: Se aplica solo cuando el texto desborda el contenedor */
+.is-marquee-active {
+    animation: marquee-contained 12s linear infinite;
 }
 
 @keyframes marquee-contained {
@@ -554,6 +546,7 @@ body {
     100% { transform: translateX(-100%); } /* Termina fuera del contenedor a la izquierda */
 }
 
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 05 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
 /* Estilos para que el sonic_listeners tenga la animación de pulso */
 #sonic_listeners {
     color: #ffffff;
@@ -1280,4 +1273,26 @@ button:active i {
 #modalHistory .track-info span {
   font-size: 0.85em;
   color: #00ff99;
+}
+
+.custom-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 15px 25px;
+    background: rgba(0, 0, 0, 0.9);
+    border: 2px solid #ff0000;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 1.1em;
+    text-shadow: 0 0 8px #ff0000;
+    box-shadow: 0 0 20px #d4af37b3; /* b3 ≈ 70% de opacidad */
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease-in-out;
+}
+.custom-message.show {
+    opacity: 1;
 }
