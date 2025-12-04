@@ -447,7 +447,7 @@ function actualizarBotonRadio() {
     const btn = document.getElementById("btn-radio");
     if (btn) {
         if (modoActual === "radio") {
-            btn.style.backgroundColor = "#ff000050";   // rojo intenso para modo radio
+            btn.style.backgroundColor = "#9400D350";   // rojo intenso para modo radio
         } else {
             btn.style.backgroundColor = "#3688ff";   // azul para modo normal
         }
@@ -793,8 +793,8 @@ function actualizarModalActualTrack() {
 // ===============================
 function actualizarBarraVolumen(volume) {
     const percentage = volume * 100;
-    const activeColor = '#ff0000';   // rojo intenso
-    const inactiveColor = '#800000'; // rojo oscuro para la parte inactiva
+    const activeColor = '#9400D3';   // COLORES
+    const inactiveColor = '#800080';
 
     if (volumeBar) {
         volumeBar.style.background = `linear-gradient(
