@@ -253,49 +253,6 @@ audio.addEventListener("ended", () => {
   }
 });
 
-
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// ▶️ MODO RADIO
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-function activarModoRadio() {
-  modoActual = "radio";
-
-  if (trackPlaylistEl) trackPlaylistEl.textContent = "";
-  if (trackEmotionEl)  trackEmotionEl.textContent  = "";
-  if (metaTrack)       metaTrack.textContent       = "";
-
-  if (currentArtistName) currentArtistName.textContent = "Conectando...";
-  if (currentTrackName)  currentTrackName.textContent  = "Obteniendo datos...";
-  if (discImg) {
-    discImg.src = "https://santi-graphics.vercel.app/assets/covers/Cover1.png";
-    discImg.classList.add("rotating");
-  }
-
-  // URL insegura original
-const STREAM_URL = "http://178.32.146.184:2852/stream.mp3";
-
-// Proxy HTTPS (ejemplo con AllOrigins)
-const PROXY_URL = "https://api.allorigins.win/raw?url=" + encodeURIComponent(STREAM_URL);
-
-// Configurar stream de radio
-audio.pause();
-audio.src = PROXY_URL;   // usar proxy para evitar bloqueo mixed content
-audio.load();
-audio.muted = !gestureDetected; // muted hasta que haya interacción
-
-
-  const playIcon = playPauseBtn ? playPauseBtn.querySelector("i") : null;
-  audio.play().then(() => {
-    if (playIcon) { playIcon.classList.remove("fa-play"); playIcon.classList.add("fa-pause"); }
-    console.log("📻 Radio reproduciendo automáticamente");
-  }).catch(() => {
-    if (playIcon) { playIcon.classList.remove("fa-pause"); playIcon.classList.add("fa-play"); }
-  });
-
-  iniciarActualizacionRadio();
-  iniciarContadorRadioescuchas();
-}
-
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // 📻 METADATOS RADIO (fetch + proxy)
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -532,6 +489,9 @@ function iniciarContadorRadioescuchas() {
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // ALTERNANCIA DE MODOS
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//================================
+// MODO LOCAL
+//================================
 function activarModoLocal() {
   modoActual = "local";
 
@@ -570,20 +530,23 @@ function activarModoLocal() {
   }
 }
 
+//================================
+// MODO RADIO
+//================================
 function activarModoRadio() {
   modoActual = "radio";
 
+  // Limpieza y preparación
   limpiarEmociones();
   detenerActualizacionRadio();
   detenerContadorRadioescuchas();
+  detenerKaraoke();
 
   const playlistEl = document.getElementById("track-playlist");
   const emotionEl  = document.getElementById("track-emotion");
   if (playlistEl) playlistEl.textContent = "";
   if (emotionEl)  emotionEl.textContent  = "radio";
   if (metaTrack)  metaTrack.textContent  = "";
-
-  detenerKaraoke();
 
   if (currentArtistName) currentArtistName.textContent = "Conectando...";
   if (currentTrackName)  currentTrackName.textContent  = "Obteniendo datos...";
@@ -592,21 +555,18 @@ function activarModoRadio() {
     discImg.classList.add("rotating");
   }
 
-  // URL insegura original
-const STREAM_URL = "http://178.32.146.184:2852/stream.mp3";
+  // Fallback automático: proxy en HTTPS, directo en HTTP
+  const STREAM_URL = "http://178.32.146.184:2852/stream.mp3";
+  const PROXY_URL  = "https://radio-nine-gilt.vercel.app/api/radio";
+  const radioServer = location.protocol === "https:" ? PROXY_URL : STREAM_URL;
 
-// Proxy HTTPS para evitar bloqueo mixed content
-const PROXY_URL = "https://api.allorigins.win/raw?url=" + encodeURIComponent(STREAM_URL);
+  // Configurar stream de radio
+  audio.pause();
+  audio.src = radioServer;
+  audio.load();
+  audio.muted = !gestureDetected;
 
-// Configurar stream de radio
-audio.pause();
-audio.src = PROXY_URL;        // usar proxy HTTPS
-audio.load();
-
-// Muted hasta que el usuario interactúe (cumple autoplay policy)
-audio.muted = !gestureDetected;
-
-
+  // Control de reproducción y UI
   const playIcon = playPauseBtn ? playPauseBtn.querySelector("i") : null;
   audio.play().then(() => {
     if (playIcon) {
@@ -622,6 +582,7 @@ audio.muted = !gestureDetected;
     }
   });
 
+  // Mantener stats con AllOrigins
   iniciarActualizacionRadio();
   iniciarContadorRadioescuchas();
 
@@ -629,6 +590,7 @@ audio.muted = !gestureDetected;
   aplicarEfectosPorEmocion("radio");
   iniciarBurbujas("radio");
 }
+
 
 function actualizarBotonRadio() {
   if (btnRadio) {
