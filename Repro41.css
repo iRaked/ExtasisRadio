@@ -1,0 +1,740 @@
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  /*background: linear-gradient(180deg, #2a7b10 0%, #1e6807 40%, #144c05 100%);*/
+  background: url('assets/bg/bg2.png') no-repeat center center / cover;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* CONTENEDOR PRINCIPAL */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+#main-xbox {
+  width: 680px;
+  height: 525px;
+  min-width: 680px;
+  position: relative;
+  /* SEMITRANSPARENTE */
+  background: rgba(20, 76, 5, 0.6); /* verde oscuro semitransparente */
+  backdrop-filter: blur(10px);      /* opcional: efecto vidrio */
+  overflow: hidden;
+}
+
+/* ============================================================== */
+/* HEADER */
+/* ============================================================== */
+/* Header */
+.header-xbox {
+  position: absolute;
+  top: 10px;
+  left: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: calc(100% - 80px);
+}
+
+/* Contenedor logo + título */
+.logo-container {
+  position: relative;
+  display: inline-block;
+}
+
+/* Logo */
+.logo-container img {
+  display: block;
+  max-width: none;
+  height: auto;
+}
+
+/* Nombre de la radio dentro de la imagen */
+.radio-title {
+  position: absolute;
+  bottom: 5px;       /* ajusta según la altura del logo */
+  left: 35%;
+  transform: translateX(-50%);
+    display: flex;
+  align-items: center;
+  gap: 20px;
+  font-family: 'Segoe UI', Play-Regular, sans-serif;
+  font-size: 2rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  white-space: nowrap; /* fuerza una sola línea */
+  background: linear-gradient(90deg, #98ff06, #00d0ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow:
+    0 0 6px rgba(152,255,6,0.6),
+    0 0 12px rgba(0,208,255,0.6),
+    0 0 24px rgba(152,255,6,0.4);
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+/* Animación glow */
+@keyframes glowPulse {
+  0%, 100% {
+    text-shadow:
+      0 0 6px rgba(152,255,6,0.6),
+      0 0 12px rgba(0,208,255,0.6),
+      0 0 24px rgba(152,255,6,0.4);
+  }
+  50% {
+    text-shadow:
+      0 0 12px rgba(152,255,6,0.9),
+      0 0 24px rgba(0,208,255,0.9),
+      0 0 36px rgba(152,255,6,0.7);
+  }
+}
+
+/* Botón status estilo Xbox */
+.btn-status-header {
+  position: relative;
+  width: 9.6em;
+  height: 3.1em;
+  margin: 1.25em;
+  cursor: pointer;
+}
+
+.btn-status-header .status-label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255,255,255,0.05);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+  border-top: 1px solid rgba(255,255,255,0.1);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  border-radius: 0; /* rectangular */
+  color: #98ff06; /* verde Xbox */
+  z-index: 1;
+  letter-spacing: 1px;
+  text-decoration: none;
+  overflow: hidden;
+  transition: 0.5s;
+  backdrop-filter: blur(15px);
+  font-family: Play-Regular, sans-serif;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.btn-status-header .status-label::before {
+  content: '';
+  position: absolute;
+  inset: 0 50% 0 0;
+  background: linear-gradient(to left, rgba(255,255,255,0.15), transparent);
+  transform: skew(45deg) translateX(0);
+  transition: 0.5s;
+}
+
+.btn-status-header:hover .status-label {
+  letter-spacing: 3px;
+}
+
+.btn-status-header:hover .status-label::before {
+  transform: skew(45deg) translateX(200%);
+}
+
+/* Barras de neón verdes Xbox */
+.btn-status-header::before,
+.btn-status-header::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1.8em;
+  height: 0.6em;
+  background: #1eff45;
+  border-radius: 0;
+  transition: 0.5s;
+  box-shadow:
+    0 0 5px #1eff45,
+    0 0 15px #1eff45,
+    0 0 30px #1eff45,
+    0 0 60px #1eff45;
+}
+
+.btn-status-header::before { bottom: -5px; }
+.btn-status-header::after  { top: -0.3em; }
+
+.btn-status-header:hover::before {
+  height: 50%;
+  width: 80%;
+  bottom: 0;
+  transition-delay: 0.15s;
+}
+
+.btn-status-header:hover::after {
+  height: 50%;
+  width: 80%;
+  top: 0;
+  transition-delay: 0.15s;
+}
+
+.radio-title .listeners {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 1rem;
+  color: #98ff06; /* verde Xbox */
+}
+
+.radio-title .listeners i {
+  font-size: 1.2rem;
+}
+
+/* ============================================================== */
+/* CENTER */
+/* ============================================================== */
+/* Panel izquierdo */
+.panel-left {
+  position: absolute;
+  top: 80px;
+  left: 20px;
+}
+
+/* Barra de volumen */
+.volume-bar {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column; /* apila verticalmente */
+  align-items: center;
+  gap: 8px; /* espacio entre porcentaje, slider e icono */
+}
+
+/* Porcentaje arriba */
+.volume-percent {
+  font-family: 'Segoe UI', Play-Regular, sans-serif;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #98ff06;
+  text-shadow: 0 0 6px rgba(152,255,6,0.6), 0 0 12px rgba(152,255,6,0.8);
+}
+
+/* Wrap del slider */
+.volume-slider-wrap {
+  position: relative;
+  width: 12px;
+  height: 230px; /* alto visual fijo */
+}
+
+/* Slider rotado y centrado dentro del wrap */
+#volume-slider {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 230px;   /* largo antes de rotar → alto después */
+  height: 12px;   /* alto antes de rotar → ancho después */
+  transform: rotate(-90deg);
+  transform-origin: center;
+  background: transparent;
+  outline: none;
+  border: none;
+  cursor: pointer;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-90deg); /* centra y rota */
+}
+
+/* Track (WebKit) */
+#volume-slider::-webkit-slider-runnable-track {
+  height: 12px;
+  background: linear-gradient(90deg, #39ff14, #ccff00);
+  border-radius: 6px;
+  box-shadow: inset 0 0 6px rgba(0,0,0,0.6), 0 0 12px rgba(152,255,6,0.4);
+}
+
+/* Track (Firefox) */
+#volume-slider::-moz-range-track {
+  height: 12px;
+  background: linear-gradient(90deg, #39ff14, #ccff00);
+  border-radius: 6px;
+  box-shadow: inset 0 0 6px rgba(0,0,0,0.6), 0 0 12px rgba(152,255,6,0.4);
+}
+
+/* Thumb verde oscuro */
+#volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #006400;
+  border: none;
+  box-shadow: 0 0 6px #006400, 0 0 12px #004d00;
+}
+#volume-slider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #006400;
+  border: none;
+  box-shadow: 0 0 6px #006400, 0 0 12px #004d00;
+}
+
+/* Icono abajo */
+.volume-icon {
+  font-size: 1.2rem;
+  color: #98ff06;
+  text-shadow: 0 0 6px rgba(152,255,6,0.6), 0 0 12px rgba(152,255,6,0.8);
+}
+
+/*=============================*/
+/* Zona central banners */
+/*=============================*/
+.zone-center {
+  position: absolute;
+  top: 80px;
+  left: 90px;
+  width: 200px;
+  height: 325px;
+  overflow: hidden; /* oculta cualquier desbordamiento */
+}
+
+.banners {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll; /* mantiene scroll interno para lógica */
+  scrollbar-width: none; /* oculta barra en Firefox */
+    cursor: pointer;
+}
+.banners::-webkit-scrollbar { /* oculta barra en WebKit */
+  display: none;
+}
+
+.banner-item {
+  flex: 0 0 auto;
+  aspect-ratio: 212 / 31;     /* mantiene proporción original */
+  border-radius: 4px;
+  background-image: url("assets/img/Xbox-Banner.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: relative;
+  border: 2px solid transparent; /* base: sin trazo visible */
+  transition: border-color 0.3s ease;
+}
+
+/* Estado resaltado del banner activo → trazo verde Xbox */
+.banner-item.active {
+  border-color: #000; /* 98ff06 verde Xbox */
+}
+
+/* Overlay con metadatos */
+.banner-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  color: #000;
+  font-family: Play-Regular, sans-serif;
+  font-weight: bold;
+  text-shadow: 0 0 6px rgba(152,255,6,0.6),
+               0 0 12px rgba(0,208,255,0.6);
+}
+
+.banner-overlay span {
+  display: inline-block;
+  white-space: nowrap; /* evita saltos de línea */
+}
+
+/* Botones dentro de zone-center */
+.banner-btn {
+  position: absolute;
+  left: 90%;
+  transform: translateX(-50%);
+  border: none;
+  background: none;
+  color: #000;
+  font-size: 1.4rem;
+  cursor: pointer;
+  z-index: 10;
+  transition: color 0.3s ease;
+}
+
+.top-btn { top: 4px; }
+.bottom-btn { bottom: 4px; }
+
+.banner-btn:hover {
+  color: #98ff06;
+}
+
+/*=============================*/
+/* Panel derecho: conserva posición */
+/*=============================*/
+.panel-right {
+    position: absolute;
+    top: 105px;
+    right: 60px;
+}
+
+/* Contenedor principal: Aumentamos el tamaño y quitamos el borde circular forzado */
+.circle-xbox {
+    position: relative;
+    width: 250px; 
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: visible;
+    z-index: 10;
+}
+
+/* Contenedor de la CAJA (case.png) */
+.cover-case {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    background-image: url('https://santi-graphics.vercel.app/assets/covers/Case.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/* Contenedor para carátulas (El CD giratorio) */
+.cover-container {
+    position: absolute;
+    width: 90%; 
+    height: 85%;
+    overflow: hidden; 
+    z-index: 20;
+    top: 50%; 
+    left: 55%;
+    transform: translate(-50%, -50%); 
+    box-shadow:
+        0 0 10px #1eff45,
+        0 0 20px #1eff45,
+        0 0 40px #1eff45;
+    animation: glowPulseCircle 3s ease-in-out infinite;
+}
+
+/* Imagen de carátula/CD */
+.cover-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Animación glow pulsante (se conserva) */
+@keyframes glowPulseCircle {
+    0%, 100% {
+        box-shadow:
+            0 0 10px #1eff45,
+            0 0 20px #1eff45,
+            0 0 40px #1eff45;
+        opacity: 0.8;
+    }
+    50% {
+        box-shadow:
+            0 0 20px #39ff14,
+            0 0 40px #39ff14,
+            0 0 60px #00d0ff;
+        opacity: 1;
+    }
+}
+
+/* ============================================================== */
+/* FOOTER */
+/* ============================================================== */
+.footer-left {
+  position: absolute;
+  bottom: 70px;
+  left: 50px;
+}
+
+/* Imagen del footer: no debe bloquear el botón */
+.footer-left img {
+  display: block;
+  pointer-events: none; /* evita que la imagen intercepte el hover/click */
+  position: relative;
+  z-index: 0;           /* fondo */
+}
+
+/* Botón Historial estilo Xbox, más pequeño */
+.btn-status-footer {
+  position: absolute;   /* lo posicionamos encima de la imagen */
+  top: 5px;            /* ajusta según dónde quieras colocarlo */
+  left: 20px;           /* ajusta según diseño */
+  width: 6.0em;
+  height: 2.0em;
+  cursor: pointer;
+  z-index: 2;           /* por encima de la imagen */
+}
+
+.btn-status-footer .status-label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255,255,255,0.05);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.2);
+  border-top: 1px solid rgba(255,255,255,0.1);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  border-radius: 0;
+  color: #98ff06;
+  z-index: 2; /* asegura que el texto esté visible */
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  overflow: hidden;
+  transition: 0.5s;
+  backdrop-filter: blur(12px);
+  font-family: Play-Regular, sans-serif;
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+
+/* Glow al hover */
+.btn-status-footer:hover .status-label {
+  letter-spacing: 2px;
+}
+
+.btn-status-footer .status-label::before {
+  content: '';
+  position: absolute;
+  inset: 0 50% 0 0;
+  background: linear-gradient(to left, rgba(255,255,255,0.15), transparent);
+  transform: skew(45deg) translateX(0);
+  transition: 0.5s;
+}
+
+.btn-status-footer:hover .status-label::before {
+  transform: skew(45deg) translateX(200%);
+}
+
+/* Barras de neón verdes Xbox */
+.btn-status-footer::before,
+.btn-status-footer::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1.4em;   /* más pequeñas */
+  height: 0.5em;
+  background: #1eff45;
+  border-radius: 0;
+  transition: 0.5s;
+  box-shadow:
+    0 0 5px #1eff45,
+    0 0 15px #1eff45,
+    0 0 30px #1eff45,
+    0 0 60px #1eff45;
+}
+
+.btn-status-footer::before { bottom: -4px; }
+.btn-status-footer::after  { top: -0.2em; }
+
+.btn-status-footer:hover::before {
+  height: 50%;
+  width: 80%;
+  bottom: 0;
+  transition-delay: 0.15s;
+}
+
+.btn-status-footer:hover::after {
+  height: 50%;
+  width: 80%;
+  top: 0;
+  transition-delay: 0.15s;
+}
+
+/*=============================*/
+/*CENTER*/
+/*=============================*/
+.footer-center {
+  position: absolute;
+  top: 470px;
+  left: 60px;
+}
+
+.footer-center img {
+  display: block;
+  pointer-events: none; /* la imagen no bloquea el hover */
+}
+
+/*=============================*/
+/* Contenedor de la botonera */
+/*=============================*/
+.botonera {
+  position: absolute;
+  bottom: 3px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px; /* separación compacta */
+    z-index: 2;
+}
+
+/* Botones estilo bisel */
+.botonera button {
+  position: relative;
+  width: 2.2em;
+  height: 2.2em;
+  border: none;
+  border-radius: 6px;
+  background: rgba(255,255,255,0.05);
+  box-shadow:
+    inset 0 2px 4px rgba(255,255,255,0.2),
+    inset -2px -4px rgba(0,0,0,0.4),
+    0 2px 4px rgba(0,0,0,0.6);
+  color: #000;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.botonera button.active {
+  color: #98ff06; /* verde Xbox */
+  text-shadow: 0 0 6px rgba(152,255,6,0.6),
+               0 0 12px rgba(0,208,255,0.6);
+}
+
+/* Hover con glow verde Xbox en TODOS */
+.botonera button:hover {
+  color: #98ff06;
+  box-shadow:
+    inset 0 2px 4px rgba(255,255,255,0.2),
+    inset -2px -4px rgba(0,0,0,0.4),
+    0 0 8px #98ff06,
+    0 0 16px #98ff06;
+}
+
+/* Íconos dentro de los botones */
+.botonera button i {
+  pointer-events: none; /* evita que el ícono bloquee el hover */
+}
+
+/*=============================*/
+/* INFO RIGHT */
+/*=============================*/
+.footer-right {
+  position: absolute;
+  top: 370px;
+  left: 190px;
+  text-align: center;
+}
+
+/* Reloj grande */
+.clock-display {
+  position: absolute;
+  bottom: 80px;
+  left: 76%;
+  transform: translateX(-50%);
+  font-family: 'Segoe UI', Play-Regular, sans-serif;
+  font-size: 3rem;
+  font-weight: bold;
+  color: #98ff06;
+  text-shadow:
+    0 0 10px #98ff06,
+    0 0 20px #00d0ff,
+    0 0 40px #98ff06;
+  margin-bottom: 10px;
+}
+
+/* Marquesina */
+.marquee {
+  position: absolute;
+  bottom: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+  overflow: hidden;
+  white-space: nowrap;
+  width: 93%;
+}
+
+.marquee span {
+  display: inline-block;
+  padding-left: 100%;
+  animation: marquee-scroll 15s linear infinite;
+  font-family: Play-Regular, sans-serif;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #98ff06; /* verde Xbox */
+  text-shadow:
+    0 0 6px rgba(152,255,6,0.6),
+    0 0 12px rgba(0,208,255,0.6),
+    0 0 24px rgba(152,255,6,0.4);
+}
+
+@keyframes marquee-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+
+/* Ondas EQ */
+.audio-waves {
+  position: absolute;
+  bottom: 0;
+  left: 70%;
+  transform: translateX(-50%) scaleY(-1);
+  display: flex;
+  justify-content: center;
+  gap: 2px;
+  width: 300px;
+  z-index: 2;
+}
+
+/* Cada barra: solo animación */
+.wave-bar {
+  width: 6px;
+  height: var(--height, 60px);
+  background: linear-gradient(180deg, #39ff14, #00d0ff);
+  border-radius: 2px;
+  transform-origin: top; /* clave: que crezca desde arriba */
+  animation: wavePulse 1s infinite ease-in-out;
+  animation-delay: var(--delay, 0s);
+  box-shadow:
+    0 0 6px rgba(57,255,20,0.5),
+    0 0 10px rgba(0,208,255,0.35);
+}
+
+/* Animación continua */
+@keyframes wavePulse {
+  0%, 100% { transform: scaleY(0.6); } /* estado base */
+  50%      { transform: scaleY(1); }   /* pulso hacia arriba */
+}
+
+
+img {
+  display: block;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* MENSAJE */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.custom-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 15px 25px;
+    background: rgba(0, 0, 0, 0.9);
+    border: 2px solid #ff0000;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 1.1em;
+    text-shadow: 0 0 8px #c2a044;
+    box-shadow: 0 0 20px #ff0000b3; /* b3 ≈ 70% de opacidad */
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease-in-out;
+}
+.custom-message.show {
+    opacity: 1;
+}

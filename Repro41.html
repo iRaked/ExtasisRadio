@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <link rel="icon" type="image/x-icon" href="https://santi-graphics.vercel.app/assets/SG.ico" />
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="author" content="Rick">
+  <title>Repro 41</title>
+  <!-- Estilos principales -->
+  <link rel="author" href="https://santi-graphics.vercel.app/copyright.html">
+  <link rel="stylesheet" href="Repro41.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <!-- Scripts Principales 
+  <script type="text/javascript">
+  document.onkeydown = function(){return false};
+  document.oncontextmenu = function(){return false}
+  </script>-->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="Repro41.js" defer></script>
+
+</head>
+
+<body>
+
+    <!-- Audio principal -->
+    <audio id="player" autoplay muted></audio>
+    
+    <!-- Mensaje personalizado para el clic derecho -->
+    <div id="custom-message" class="custom-message">Santi Graphics</div>
+
+    <!-- Series X -->
+    <main id="main-xbox">
+      <!-- Header -->
+    <header class="header-xbox">
+      <img src="assets/img/Xbox-Header.png" alt="Xbox Header" />
+
+      <!-- Nombre de la radio -->
+      <h1 class="radio-title">
+        Casino Digital
+        <span class="listeners">
+          <i class="fa fa-headphones"></i>
+          <span id="listener-count">0</span>
+        </span>
+      </h1>
+
+      <div class="btn-status-header">
+        <div class="status-label"><b>RADIO</b></div>
+      </div>
+    </header>
+
+      <!-- Panel izquierdo -->
+    <section class="panel-left">
+      <img src="assets/img/Xbox-Panel-L.png" alt="Panel izquierdo" />
+
+      <div class="volume-bar">
+        <div class="volume-percent">70%</div>
+
+        <div class="volume-slider-wrap">
+          <input id="volume-slider" type="range" min="0" max="100" step="10" value="70" />
+        </div>
+
+        <div class="volume-icon">🔊</div>
+      </div>
+    </section>
+
+      <!-- Zona central con banners dinámicos -->
+    <section class="zone-center">
+      <!-- Botón scroll arriba -->
+      <button class="banner-btn top-btn" id="scrollTopBtn">▲</button>
+
+      <div class="banners" id="playlist-banners">
+        <!-- Aquí se insertarán dinámicamente los tracks -->
+      </div>
+
+      <!-- Botón scroll abajo -->
+      <button class="banner-btn bottom-btn" id="scrollBottomBtn">▼</button>
+    </section>
+
+      <!-- Panel derecho -->
+    <section class="panel-right">
+      <div class="circle-xbox">
+        <div class="cover-case">
+          <div class="cover-container">
+            <img src="https://santi-graphics.vercel.app/assets/img/CD.png" alt="Carátula demo" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+      <!-- Footer -->
+      <footer class="footer-xbox">
+        <div class="footer-left">
+          <img src="assets/img/Xbox-Footer-L.png" alt="Footer Left" />
+          <!-- Botón Menú -->
+          <div class="btn-status-footer">
+            <div class="status-label"><b>MENÚ</b></div>
+          </div>
+        </div>
+          
+        <!-- Botonera -->
+        <div class="footer-center">
+          <img src="assets/img/Xbox-Botonera.png" alt="Botonera" />
+
+          <div class="botonera">
+            <button id="btn-repeat" class="btn-repeat"><i class="fa-solid fa-repeat"></i></button>
+            <button id="btn-rwd" class="btn-rwd"><i class="fa-solid fa-backward"></i></button>
+            <button id="btn-play" class="btn-play"><i class="fa-solid fa-play"></i></button>
+            <button id="btn-fwd" class="btn-fwd"><i class="fa-solid fa-forward"></i></button>
+            <button id="btn-shuffle" class="btn-shuffle"><i class="fa-solid fa-shuffle"></i></button>
+          </div>
+        </div>
+          
+        <div class="footer-right">
+          <img src="assets/img/Xbox-Footer-R.png" alt="Footer Right" />
+
+          <!-- Reloj grande -->
+          <div class="clock-display" id="clock"></div>
+
+          <!-- Marquesina -->
+          <div class="marquee"><span id="date-span"></span></div>
+
+          <!-- Ondas Integradas -->
+          <div class="waves-container">
+          <div class="audio-waves">
+            <!-- Solo se muestra una serie representativa -->
+            <div class="wave-bar" style="--delay: 0.1s; --height: 15px;"></div>
+            <div class="wave-bar" style="--delay: 0.2s; --height: 35px;"></div>
+            <div class="wave-bar" style="--delay: 0.3s; --height: 25px;"></div>
+            <div class="wave-bar" style="--delay: 0.4s; --height: 40px;"></div>
+            <div class="wave-bar" style="--delay: 0.5s; --height: 20px;"></div>
+            <div class="wave-bar" style="--delay: 0.6s; --height: 30px;"></div>
+            <div class="wave-bar" style="--delay: 0.7s; --height: 35px;"></div>
+            <div class="wave-bar" style="--delay: 0.8s; --height: 45px;"></div>
+            <div class="wave-bar" style="--delay: 0.9s; --height: 30px;"></div>
+            <div class="wave-bar" style="--delay: 1.0s; --height: 25px;"></div>
+            <div class="wave-bar" style="--delay: 0.1s; --height: 15px;"></div>
+            <div class="wave-bar" style="--delay: 0.2s; --height: 35px;"></div>
+            <div class="wave-bar" style="--delay: 0.3s; --height: 25px;"></div>
+            <div class="wave-bar" style="--delay: 0.4s; --height: 40px;"></div>
+            <div class="wave-bar" style="--delay: 0.5s; --height: 20px;"></div>
+            <div class="wave-bar" style="--delay: 0.6s; --height: 30px;"></div>
+            <div class="wave-bar" style="--delay: 0.7s; --height: 35px;"></div>
+            <div class="wave-bar" style="--delay: 0.8s; --height: 45px;"></div>
+            <div class="wave-bar" style="--delay: 0.9s; --height: 30px;"></div>
+            <div class="wave-bar" style="--delay: 1.0s; --height: 25px;"></div>
+            <div class="wave-bar" style="--delay: 0.4s; --height: 40px;"></div>
+            <div class="wave-bar" style="--delay: 0.5s; --height: 20px;"></div>
+              
+            <div class="wave-bar" style="--delay: 0.1s; --height: 15px;"></div>
+            <div class="wave-bar" style="--delay: 0.2s; --height: 35px;"></div>
+            <div class="wave-bar" style="--delay: 0.3s; --height: 25px;"></div>
+            <div class="wave-bar" style="--delay: 0.4s; --height: 40px;"></div>
+            <div class="wave-bar" style="--delay: 0.5s; --height: 20px;"></div>
+            </div>
+        </div>
+        </div>
+      </footer>
+    </main>
+
+
+</body>
+</html>
