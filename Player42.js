@@ -250,42 +250,62 @@ function iniciarActualizacionRadio() {
     detenerActualizacionRadio();
     iniciarContadorRadioescuchas();
 
-    // 🔑 URL de metadatos del nuevo server (Zeno.fm vía SSE)
-    const radioUrl = "https://api.zeno.fm/mounts/metadata/subscribe/dnetgspkylstv";
-    const eventSource = new EventSource(radioUrl);
+    const radioUrl = "https://technoplayerserver.net:8018/currentsong?sid=1";
+    const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(radioUrl)}`;
 
-    eventSource.addEventListener("message", (event) => {
+    async function actualizarDesdeServidor() {
         try {
-            const data = JSON.parse(event.data);
-            const cleanedTitle = data.streamTitle.trim();
+            const response = await fetch(proxyUrl, { cache: 'no-cache' });
+            const newSongTitleRaw = await response.text();
+            
+            const cleanedTitle = newSongTitleRaw.trim().replace(/AUTODJ/gi, '').replace(/\|\s*$/g, '').trim();
 
-            if (!cleanedTitle || cleanedTitle === lastTrackTitle) return;
+            if (!cleanedTitle || cleanedTitle.toLowerCase().includes('offline') || cleanedTitle === lastTrackTitle) {
+                 if (cleanedTitle && cleanedTitle.toLowerCase().includes('offline')) {
+                     if (currentArtistName) currentArtistName.textContent = "¡Música sí!";
+                     if (currentTrackName) currentTrackName.textContent = "Datos bloqueados";
+                 }
+                 return;
+            }
+            
             lastTrackTitle = cleanedTitle;
-
+            
             const songtitleSplit = cleanedTitle.split(/ - | – /);
             let artist = "Radio";
             let title = cleanedTitle; 
 
             if (songtitleSplit.length >= 2) {
                 artist = songtitleSplit[0].trim();
-                title = songtitleSplit.slice(1).join(" - ").trim(); 
+                title = songtitleSplit.slice(1).join(' - ').trim(); 
             }
             
             // 🛑 CRÍTICO: ALIMENTAR EL HISTORIAL DE RADIO
-            const currentTrackTime = new Date().toLocaleTimeString("es-ES", { hour: "2-digit", minute: "2-digit" });
-            const newHistoryEntry = { artist, title, time: currentTrackTime };
+            const currentTrackTime = new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+            const newHistoryEntry = {
+                artist: artist,
+                title: title,
+                time: currentTrackTime
+            };
 
+            // Asegura que no se añada la misma pista dos veces seguidas
             if (trackHistory.length === 0 || trackHistory[0].title !== title) {
-                trackHistory.unshift(newHistoryEntry);
-                if (trackHistory.length > 20) trackHistory.pop();
+                trackHistory.unshift(newHistoryEntry); // Añadir al inicio
+                // Limitar el historial a 20 entradas
+                if (trackHistory.length > 20) {
+                    trackHistory.pop();
+                }
             }
+            // ---------------------------------------------
             
             const fullTrackInfo = `${artist} - ${title}`;
 
+            // Actualización Visual (Controles principales)
             if (currentArtistName) currentArtistName.textContent = artist;
             if (currentTrackName) currentTrackName.textContent = title;
             if (metaTrack) metaTrack.textContent = fullTrackInfo;
             
+            // ... (Lógica de marquesina y carátula) ...
+
             obtenerCaratulaDesdeiTunes(artist, title);
 
         } catch (error) {
@@ -293,11 +313,10 @@ function iniciarActualizacionRadio() {
             if (currentArtistName) currentArtistName.textContent = "Error";
             if (currentTrackName) currentTrackName.textContent = "al cargar metadatos";
         }
-    });
+    }
 
-    eventSource.addEventListener("error", (err) => {
-        console.error("❌ Error en la conexión SSE:", err);
-    });
+    actualizarDesdeServidor();
+    radioIntervalId = setInterval(actualizarDesdeServidor, 10000);
 }
     
 // ===================================
@@ -337,6 +356,7 @@ function iniciarContadorRadioescuchas() {
 
 if (btnRadio) {
     btnRadio.addEventListener("click", () => {
+        // Captura el gesto si no ha ocurrido (el cambio de modo es un gesto válido)
         if (!gestureDetected) { 
             gestureDetected = true; 
             audio.muted = false;
@@ -358,6 +378,7 @@ function activarModoRadio() {
     
     detenerActualizacionRadio();
     
+    // 🛑 LIMPIEZA VISUAL INMEDIATA
     if (currentArtistName) currentArtistName.textContent = "Conectando...";
     if (currentTrackName) currentTrackName.textContent = "Obteniendo datos...";
     
@@ -366,28 +387,33 @@ function activarModoRadio() {
         discImg.classList.add("rotating");
     }
     
+    // 🔑 CLAVE 1: Pausar y resetear el estado de reproducción del modo anterior
     audio.pause();
     
-    // 🔑 CLAVE 2: Asignar el SRC al nuevo stream
-    audio.src = "https://stream-178.zeno.fm/dnetgspkylstv?zt=eyJhbGciOiJIUzI1NiJ9.eyJzdHJlYW0iOiJkbmV0Z3Nwa3lsc3R2IiwiaG9zdCI6InN0cmVhbS0xNzguemVuby5mbSIsInJ0bGwiOjUsImp0aSI6IlVjX1FTQlN2UWk2WXBwaFFtclNwM3ciLCJpYXQiOjE3NjQ3MjE5MzYsImV4cCI6MTc2NDcyMTk5Nn0.0xZ7HJx24vpqjPTe6zd6Nic5EWdOEiGhVFhTugwUKIU";
+    // 🔑 CLAVE 2: Asignar el SRC
+    audio.src = "https://technoplayerserver.net:8018/stream?icy=http";
     audio.load();
 
+    // 1. Asegurarse de que el audio esté silenciado temporalmente (el gesto ya lo desbloqueó)
     if (!gestureDetected) {
         audio.muted = true;
     } else {
-        audio.muted = false;
+        audio.muted = false; // Si ya hay gesto, no silenciamos
     }
     
+    // 2. Intentar reproducir el nuevo stream
     audio.play().then(() => {
+        // ÉXITO en la reproducción
         if (iconPlay) iconPlay.classList.add("hidden");
         if (iconPause) iconPause.classList.remove("hidden");
     }).catch(err => {
+        // FALLO, pero la fuente está cargada y lista para reintentar con el botón Play/Pause
         console.warn("🔒 Error al iniciar Radio automáticamente en transición:", err);
         if (iconPause) iconPause.classList.add("hidden");
         if (iconPlay) iconPlay.classList.remove("hidden"); 
     });
 
-    iniciarActualizacionRadio();
+    iniciarActualizacionRadio(); // Inicia la búsqueda de metadatos
 }
 
 // Activar Modo Local (se mantiene)
@@ -396,12 +422,15 @@ function activarModoLocal() {
     detenerActualizacionRadio();
     detenerContadorRadioescuchas();
     
+    // Pausamos explícitamente
     audio.pause(); 
     
     if (discImg) discImg.classList.remove("rotating");
     
+    // Mantenemos el mute si el gesto no ha ocurrido (aunque es poco probable a estas alturas)
     audio.muted = !gestureDetected;
     
+    // 🔑 CRÍTICO: Resetear el icono a PLAY (Pista 0 está lista para reproducir)
     if (iconPause) iconPause.classList.add("hidden");
     if (iconPlay) iconPlay.classList.remove("hidden"); 
     
@@ -418,11 +447,9 @@ function actualizarBotonRadio() {
     const btn = document.getElementById("btn-radio");
     if (btn) {
         if (modoActual === "radio") {
-            btn.style.backgroundColor = "#ff000050";
-            btn.style.boxShadow = "0 0 12px rgba(255, 0, 0, 0.8)";
+            btn.style.backgroundColor = "#9400D350";   // rojo intenso para modo radio
         } else {
             btn.style.backgroundColor = "#3688ff";   // azul para modo normal
-            btn.style.boxShadow = "none";            // sin halo
         }
     }
 }
