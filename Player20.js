@@ -250,8 +250,10 @@ function iniciarActualizacionRadio() {
     detenerActualizacionRadio();
     iniciarContadorRadioescuchas();
 
-    const radioUrl = "https://technoplayerserver.net:8018/currentsong?sid=1";
+    // Nueva URL del servidor
+    const radioUrl = "https://mx.hdaudiostreaming.com:7157/currentsong?sid=1";
     const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(radioUrl)}`;
+
 
     async function actualizarDesdeServidor() {
         try {
@@ -331,7 +333,9 @@ function detenerContadorRadioescuchas() {
 function iniciarContadorRadioescuchas() {
     detenerContadorRadioescuchas();
     if (typeof $ === 'undefined' || typeof $.ajax === 'undefined' || !contadorElemento) return;
-    const contadorUrl = "https://technoplayerserver.net:8018/stats?json=1&sid=1";
+    // Nueva URL para el contador de radioescuchas
+    const contadorUrl = "https://mx.hdaudiostreaming.com:7157/stats?json=1&sid=1";
+
     function actualizarContador() {
         if (modoActual !== "radio") { detenerContadorRadioescuchas(); return; }
         $.ajax({
@@ -391,7 +395,7 @@ function activarModoRadio() {
     audio.pause();
     
     // 🔑 CLAVE 2: Asignar el SRC
-    audio.src = "https://technoplayerserver.net:8018/stream?icy=http";
+    audio.src = "https://mx.hdaudiostreaming.com:7157/stream?icy=http";
     audio.load();
 
     // 1. Asegurarse de que el audio esté silenciado temporalmente (el gesto ya lo desbloqueó)
@@ -460,7 +464,7 @@ function actualizarBotonRadio() {
 function inicializarReproductor() {
     if (modoActual === "radio") {
         if (currentTrackName) currentTrackName.textContent = "Conectando Radio...";
-        if (metaTrack) metaTrack.textContent = "🔊 Modo Radio activo";
+        if (metaTrack) metaTrack.textContent = "🔊 Modo Radio Activo";
         actualizarBotonRadio();
         if (discImg) {
             discImg.src = "https://santi-graphics.vercel.app/assets/img/Plato.png";
