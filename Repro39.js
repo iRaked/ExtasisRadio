@@ -25,7 +25,7 @@ function crearSectionPrincipal() {
 
   // GIF overlay encima del BG
   const gifOverlay = document.createElement("img");
-  gifOverlay.src = "assets/background/Butterflies.gif"; // tu gif aquí
+  gifOverlay.src = "https://santi-graphics.vercel.app/assets/background/Butterflies.gif"; // tu gif aquí
   gifOverlay.alt = "Animación de fondo";
   gifOverlay.style.position = "absolute";
   gifOverlay.style.top = "0";
