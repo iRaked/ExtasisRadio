@@ -316,7 +316,7 @@ body {
   flex: 0 0 auto;
   aspect-ratio: 212 / 31;     /* mantiene proporción original */
   border-radius: 4px;
-  background-image: url("assets/img/Xbox-Banner.png");
+  background-image: url("https://santi-graphics.vercel.app/assets/img/Xbox-Banner.png");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
