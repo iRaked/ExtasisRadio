@@ -577,7 +577,7 @@
 
 
     {
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Non-Servium-El-Imperio-Del-Mal.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Non-Servium-La-Voz-De-Los-Malditos.jpg",
       "id": "non-servium-bestia",
       "emotion": "furia",
       "artista": "Non Servium",
@@ -621,4 +621,5 @@
       "genero": "ska"
     }
   ]
+
 }
