@@ -9,7 +9,8 @@
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Adele-Someone-like-you.mp3",
       "seccion": "Baladas Rock",
       "duracion": "04:38",
-      "genero": "rock alternativo"
+      "genero": "rock alternativo",
+      "country": ["Reino Unido"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Ed-Sheeran-Perfect.jpg",
@@ -20,7 +21,8 @@
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Ed-Sheeran-Perfect.mp3",
       "seccion": "Baladas Rock",
       "duracion": "4:21",
-      "genero": "rock alternativo"
+      "genero": "rock alternativo",
+      "country": ["Reino Unido"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Benson-Boone-Beautiful-things.jpg",
@@ -31,7 +33,8 @@
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Benson-Boone-Beautiful-things.mp3",
       "seccion": "Baladas Rock",
       "duracion": "2:56",
-      "genero": "rock alternativo"
+      "genero": "rock alternativo",
+      "country": ["Estados Unidos"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Coldplay-Fix-you.jpg",
@@ -42,7 +45,8 @@
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Coldplay-Fix-you.mp3",
       "seccion": "Baladas Rock",
       "duracion": "4:25",
-      "genero": "rock alternativo"
+      "genero": "rock alternativo",
+      "country": ["Reino Unido"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Bryan-Adams-Please-forgive-me.jpg",
@@ -53,7 +57,8 @@
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Bryan-Adams-Please-forgive-me.mp3",
       "seccion": "Baladas Rock",
       "duracion": "5:31",
-      "genero": "rock alternativo"
+      "genero": "rock alternativo",
+      "country": ["Cánada"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/James-Blunt-Youre-beautiful.jpg",
@@ -64,7 +69,8 @@
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/James-Blunt-Youre-beautiful.mp3",
       "seccion": "Baladas Rock",
       "duracion": "",
-      "genero": "rock alternativo"
+      "genero": "rock alternativo",
+      "country": ["Reino Unido"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/The-Beatles-Let-it-be.jpg",
@@ -75,7 +81,8 @@
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/The-Beatles-Let-it-be.mp3",
       "seccion": "Baladas Rock",
       "duracion": "4:03",
-      "genero": "rock alternativo"
+      "genero": "rock alternativo",
+      "country": ["Reino Unido"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Lady-Gaga-Always-remember-us-this-way.jpg",
@@ -86,7 +93,8 @@
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Lady-Gaga-Always-remember-us-this-way.mp3",
       "seccion": "Baladas Rock",
       "duracion": "",
-      "genero": "rock alternativo"
+      "genero": "rock alternativo",
+      "country": ["Estados Unidos"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Coldplay-Yellow.jpg",
@@ -97,7 +105,8 @@
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Coldplay-Yellow.mp3",
       "seccion": "Baladas Rock",
       "duracion": "4:25",
-      "genero": "rock alternativo"
+      "genero": "rock alternativo",
+      "country": ["Reino Unido"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Guns-N-Roses-Patience.webp",
@@ -108,22 +117,20 @@
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Guns-N-Roses-Patience.mp3",
       "seccion": "Baladas Rock",
       "duracion": "6:05",
-      "genero": "rock alternativo"
+      "genero": "rock alternativo",
+      "country": ["Estados Unidos"]
     },
-
-
-
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Simple-Plan-Perfect.jpg",
       "id": "simple-perfect",
       "emotion": "incomprension",
       "artista": "simple plan",
       "nombre": "Perfect",
-      "dropbox_url": "",
-      "seccion": "Baladas Rock",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Simple-Plan-Perfect.mp3",
+      "seccion": "Baladas Rock",
       "duracion": "4:31",
-      "genero": "rock alternativo"
+      "genero": "rock alternativo",
+      "country": ["Cánada"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Kurado-Movin-on.jpg",
@@ -134,7 +141,8 @@
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Kurado-Movin-on.mp3",
       "seccion": "Baladas Rock",
       "duracion": "3:11",
-      "genero": "rock alternativo"
+      "genero": "rock alternativo",
+      "country": ["México"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Lewis-Capaldi-Someone-you-loved.jpg",
@@ -145,7 +153,8 @@
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Lewis-Capaldi-Someone-you-loved.mp3",
       "seccion": "Baladas Rock",
       "duracion": "2:57",
-      "genero": "rock alternativo"
+      "genero": "rock alternativo",
+      "country": ["Reino Unido"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Dean-Lewis-With-you.jpg",
@@ -156,7 +165,8 @@
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Dean-Lewis-With-you.mp3",
       "seccion": "Baladas Rock",
       "duracion": "3:05",
-      "genero": "rock alternativo"
+      "genero": "rock alternativo",
+      "country": ["Australia"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Lady-Gaga-Ill-never-love-again.jpg",
@@ -167,7 +177,8 @@
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Lady-Gaga-Ill-never-love-again.mp3",
       "seccion": "Baladas Rock",
       "duracion": "4:34",
-      "genero": "rock alternativo"
+      "genero": "rock alternativo",
+      "country": ["Estados Unidos"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Evanescence-My-immortal.png",
@@ -178,7 +189,8 @@
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Evanescence-My-immortal.mp3",
       "seccion": "Baladas Rock",
       "duracion": "4:18",
-      "genero": "rock alternativo"
+      "genero": "rock alternativo",
+      "country": ["Estados Unidos"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Sting-Shape-of-my-heart.jpg",
@@ -189,7 +201,8 @@
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Sting-Shape-of-my-heart.mp3",
       "seccion": "Baladas Rock",
       "duracion": "4:29",
-      "genero": "rock alternativo"
+      "genero": "rock alternativo",
+      "country": ["Reino Unido"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Aerosmith-Fly-away-from-here.jpg",
@@ -200,7 +213,8 @@
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Aerosmith-Fly-away-from-here.mp3",
       "seccion": "Baladas Rock",
       "duracion": "4:19",
-      "genero": "rock alternativo"
+      "genero": "rock alternativo",
+      "country": ["Estados Unidos"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Scorpions-Still-loving-you.jpg",
@@ -211,7 +225,8 @@
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Scorpions-Still-loving-you.mp3",
       "seccion": "Baladas Rock",
       "duracion": "4:41",
-      "genero": "rock alternativo"
+      "genero": "rock alternativo",
+      "country": ["Alemania"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Scorpions-No-one-like-you.jpg",
@@ -222,11 +237,9 @@
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Scorpions-No-one-like-you.mp3",
       "seccion": "Baladas Rock",
       "duracion": "2:35",
-      "genero": "rock alternativo"
+      "genero": "rock alternativo",
+      "country": ["Alemania"]
     },
-
-
-
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Jose-Madero-The-unforgiven.jpg",
       "id": "madero-unforgiven",
@@ -236,7 +249,8 @@
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Jose-Madero-The-unforgiven.mp3",
       "seccion": "Baladas Rock",
       "duracion": "4:00",
-      "genero": "rock alternativo"
+      "genero": "rock alternativo",
+      "country": ["México"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/The-Eagles-Hotel-California.jpg",
@@ -247,7 +261,8 @@
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/The-Eagles-Hotel-California.mp3",
       "seccion": "Baladas Rock",
       "duracion": "6:22",
-      "genero": "rock alternativo"
+      "genero": "rock alternativo",
+      "country": ["Estados Unidos"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Scorpions-Send-me-an-angel.jpg",
@@ -258,7 +273,8 @@
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Scorpions-Send-me-an-angel.mp3",
       "seccion": "Baladas Rock",
       "duracion": "4:26",
-      "genero": "rock alternativo"
+      "genero": "rock alternativo",
+      "country": ["Alemania"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Led-Zeppelin-Stairway-to-heaven.jpg",
@@ -269,7 +285,8 @@
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Led-Zeppelin-Stairway-to-heaven.mp3",
       "seccion": "Baladas Rock",
       "duracion": "",
-      "genero": "rock alternativo"
+      "genero": "rock alternativo",
+      "country": ["Reino Unido"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Metallica-One.jpg",
@@ -280,7 +297,8 @@
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Metallica-One.mp3",
       "seccion": "Baladas Rock",
       "duracion": "7:04",
-      "genero": "rock alternativo"
+      "genero": "rock alternativo",
+      "country": ["Estados Unidos"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/System-Of-A-Down-Toxicity.jpg",
@@ -291,7 +309,8 @@
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/System-Of-A-Down-Toxicity.mp3",
       "seccion": "Baladas Rock",
       "duracion": "3:43",
-      "genero": "rock alternativo"
+      "genero": "rock alternativo",
+      "country": ["Estados Unidos"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Radiohead-Creep.webp",
@@ -302,7 +321,8 @@
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Radiohead-Creep.mp3",
       "seccion": "Baladas Rock",
       "duracion": "3:53",
-      "genero": "rock alternativo"
+      "genero": "rock alternativo",
+      "country": ["Reino Unido"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Remy-Zero-Save-me.jpg",
@@ -313,7 +333,8 @@
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Remy-Zero-Save-me.mp3",
       "seccion": "Baladas Rock",
       "duracion": "4:27",
-      "genero": "rock alternativo"
+      "genero": "rock alternativo",
+      "country": ["Estados Unidos"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/The-Rasmus-In-the-shadows.jpg",
@@ -324,7 +345,8 @@
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/The-Rasmus-In-the-shadows.mp3",
       "seccion": "Baladas Rock",
       "duracion": "3:37",
-      "genero": "rock alternativo"
+      "genero": "rock alternativo",
+      "country": ["Finlandia"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Imagine-Dragons-Believer.jpg",
@@ -335,11 +357,9 @@
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Imagine-Dragons-Believer.mp3",
       "seccion": "Baladas Rock",
       "duracion": "3:21",
-      "genero": "rock alternativo"
+      "genero": "rock alternativo",
+      "country": ["Estados Unidos"]
     },
-
-
-
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Teddy-Swims-Lose-control.jpg",
       "id": "swims-losecontrol",
@@ -349,7 +369,8 @@
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Teddy-Swims-Lose-control.mp3",
       "seccion": "Baladas Rock",
       "duracion": "3:26",
-      "genero": "rock alternativo"
+      "genero": "rock alternativo",
+      "country": ["Estados Unidos"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/RagnBone-Man-Human.jpg",
@@ -360,7 +381,8 @@
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/RagnBone-Man-Human.mp3",
       "seccion": "Baladas Rock",
       "duracion": "3:14",
-      "genero": "rock alternativo"
+      "genero": "rock alternativo",
+      "country": ["Reino Unido"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Linkin-Park-In-the-end.png",
@@ -371,7 +393,8 @@
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Linkin-Park-In-the-end.MP3",
       "seccion": "Baladas Rock",
       "duracion": "3:36",
-      "genero": "rock alternativo"
+      "genero": "rock alternativo",
+      "country": ["Estados Unidos"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Eminem-Stan.png",
@@ -382,7 +405,8 @@
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Eminem-Stan.MP3",
       "seccion": "Baladas Rock",
       "duracion": "6:14",
-      "genero": "rap"
+      "genero": "rap",
+      "country": ["Estados Unidos"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Bob-Marley-Buffalo-soldier.jpg",
@@ -393,7 +417,8 @@
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Bob-Marley-Buffalo-soldier.mp3",
       "seccion": "Baladas Rock",
       "duracion": "4:17",
-      "genero": "reggae"
+      "genero": "reggae",
+      "country": ["Jamaica"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Big-Mountain-Baby-I-love-your-way.jpg",
@@ -404,7 +429,8 @@
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Big-Mountain-Baby-I-love-your-way.mp3",
       "seccion": "Baladas Rock",
       "duracion": "4:15",
-      "genero": "reggae"
+      "genero": "reggae",
+      "country": ["Estados Unidos"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Inspector-Big-Mountain-Como-un-sol.jpg",
@@ -415,7 +441,8 @@
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Inspector-Big-Mountain-Como-un-sol.mp3",
       "seccion": "Baladas Rock",
       "duracion": "4:48",
-      "genero": "ska"
+      "genero": "ska",
+      "country": ["México", "Estados Unidos"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/UB-40-Red-red-wine.jpg",
@@ -426,7 +453,8 @@
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/UB-40-Red-red-wine.mp3",
       "seccion": "Baladas Rock",
       "duracion": "5:12",
-      "genero": "reggae"
+      "genero": "reggae",
+      "country": ["Reino Unido"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Teddy-Swims-Funeral.jpg",
@@ -437,7 +465,8 @@
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Teddy-Swims-Funeral.mp3",
       "seccion": "Baladas Rock",
       "duracion": "3:49",
-      "genero": "rock alternativo"
+      "genero": "rock alternativo",
+      "country": ["Estados Unidos"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Blink-182-One-more-time.jpg",
@@ -448,11 +477,9 @@
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Blink-182-One-more-time.mp3",
       "seccion": "Baladas Rock",
       "duracion": "3:23",
-      "genero": "rock alternativo"
+      "genero": "rock alternativo",
+      "country": ["Estados Unidos"]
     },
-
-
-
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Blink-182-I-miss-you.jpg",
       "id": "blink-missyou",
@@ -462,7 +489,8 @@
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Blink-182-I-miss-you.mp3",
       "seccion": "Baladas Rock",
       "duracion": "3:44",
-      "genero": "rock alternativo"
+      "genero": "rock alternativo",
+      "country": ["Estados Unidos"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Simple-Plan-Welcome-to-my-life.jpg",
@@ -473,7 +501,8 @@
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Simple-Plan-Welcome-to-my-life.mp3",
       "seccion": "Baladas Rock",
       "duracion": "3:19",
-      "genero": "rock alternativo"
+      "genero": "rock alternativo",
+      "country": ["Cánada"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Guns-N-Roses-Patience.webp",
@@ -484,7 +513,8 @@
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Guns-N-Roses-Patience.mp3",
       "seccion": "Baladas Rock",
       "duracion": "6:05",
-      "genero": "rock alternativo"
+      "genero": "rock alternativo",
+      "country": ["Estados Unidos"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Guns-N-Roses-Dont-cry.jpg",
@@ -495,7 +525,8 @@
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Guns-N-Roses-Dont-cry.mp3",
       "seccion": "Baladas Rock",
       "duracion": "4:41",
-      "genero": "rock alternativo"
+      "genero": "rock alternativo",
+      "country": ["Estados Unidos"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/The-Cranberries-Dreams.jpg",
@@ -506,7 +537,8 @@
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/The-Cranberries-Dreams.mp3",
       "seccion": "Baladas Rock",
       "duracion": "4:05",
-      "genero": "rock alternativo"
+      "genero": "rock alternativo",
+      "country": ["Irlanda"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/U2-Beautiful-day.jpg",
@@ -517,7 +549,8 @@
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/U2-Beautiful-day.MP3",
       "seccion": "Baladas Rock",
       "duracion": "3:52",
-      "genero": "rock alternativo"
+      "genero": "rock alternativo",
+      "country": ["Irlanda"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Nirvana-Smells-like-teen-spirit.jpg",
@@ -528,7 +561,8 @@
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Nirvana-Smells-like-teen-spirit.mp3",
       "seccion": "Baladas Rock",
       "duracion": "4:32",
-      "genero": "rock alternativo"
+      "genero": "rock alternativo",
+      "country": ["Estados Unidos"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Drake-Bell-Makes-me-happy.jpg",
@@ -539,7 +573,8 @@
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Drake-Bell-Makes-me-happy.mp3",
       "seccion": "Baladas Rock",
       "duracion": "2:07",
-      "genero": "rock alternativo"
+      "genero": "rock alternativo",
+      "country": ["Estados Unidos"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Savage-Garden-Truly-madly-deeply.jpg",
@@ -550,7 +585,8 @@
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Savage-Garden-Truly-madly-deeply.mp3",
       "seccion": "Baladas Rock",
       "duracion": "4:10",
-      "genero": "rock alternativo"
+      "genero": "rock alternativo",
+      "country": ["Australia"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Celine-Dion-My-heart-will-go-on.png",
@@ -561,10 +597,8 @@
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Celine-Dion-My-heart-will-go-on.mp3",
       "seccion": "Baladas Rock",
       "duracion": "4:32",
-      "genero": "balada romantica"
+      "genero": "balada romantica",
+      "country": ["Cánada"]
     }
-
-
-
   ]
 }
