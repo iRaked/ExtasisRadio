@@ -10,7 +10,8 @@
       "seccion": "rumba",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Los-Angeles-Azules-Luck-Ra-Yami-Safdie-Si-sabes-contar.MP3",
       "genero": "cumbia",
-      "duracion": "2:46"
+      "duracion": "2:46",
+      "country": ["México", "Argentina"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Los-Angeles-Azules-Kenia-Os-Una-nada-mas.jpg",
@@ -22,7 +23,8 @@
       "seccion": "rumba",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Los-Angeles-Azules-Kenia-Os-Una-nada-mas.mp3",
       "genero": "cumbia",
-      "duracion": "2:44"
+      "duracion": "2:44",
+      "country": ["México"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Cazzu-Grupo-Frontera-Ke-Personajes-Tiempo-perdido.png",
@@ -34,7 +36,8 @@
       "seccion": "rumba",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Cazzu-Grupo-Frontera-Ke-Personajes-Tiempo-perdido.MP3",
       "genero": "cumbia norteña",
-      "duracion": "3:14"
+      "duracion": "3:14",
+      "country": ["Argentina", "Estados Unidos", "México"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Los-Angeles-Azules-Emilia-Perdonarte-para-que.jpg",
@@ -46,7 +49,8 @@
       "seccion": "rumba",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Los-Angeles-Azules-Emilia-Perdonarte-para-que.mp3",
       "genero": "cumbia",
-      "duracion": "3:10"
+      "duracion": "3:10",
+      "country": ["México", "Argentina"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Los-Angeles-Azules-Nicki-Nicole-Otra-noche.jpg",
@@ -58,7 +62,8 @@
       "seccion": "rumba",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Los-Angeles-Azules-Nicki-Nicole-Otra-noche.mp3",
       "genero": "cumbia",
-      "duracion": "3:19"
+      "duracion": "3:19",
+      "country": ["México", "Argentina"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Banda-XXI-Viru-Kumbieron-Tu-falta-de-querer.jpg",
@@ -70,7 +75,8 @@
       "seccion": "rumba",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Banda-XXI-Viru-Kumbieron-Tu-falta-de-querer.MP3",
       "genero": "cuarteto",
-      "duracion": "2:56"
+      "duracion": "2:56",
+      "country": ["Argentina"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Cazzu-Lulu-Pug-Yo-soy-asi-(Mala-suerte).jpg",
@@ -82,7 +88,8 @@
       "seccion": "rumba",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Cazzu-Lulu-Pug-Yo-soy-asi-(Mala-suerte).MP3",
       "genero": "trap",
-      "duracion": "2:58"
+      "duracion": "2:58",
+      "country": ["Argentina"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Agapornis-De-los-besos-que-te-di.jpg",
@@ -94,7 +101,8 @@
       "seccion": "rumba",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Agapornis-De-los-besos-que-te-di.MP3",
       "genero": "cumbia",
-      "duracion": "3:05"
+      "duracion": "3:05",
+      "country": ["Argentina"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Valeria-Yescas-Tu-ponejita-juju.jpg",
@@ -106,7 +114,8 @@
       "seccion": "rumba",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Valeria-Yescas-Tu-ponejita-juju.MP3",
       "genero": "pop latino",
-      "duracion": "2:56"
+      "duracion": "2:56",
+      "country": ["México"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Cazzu-Con-otra.jpg",
@@ -118,12 +127,9 @@
       "seccion": "rumba",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Cazzu-Con-otra.mp3",
       "genero": "trap",
-      "duracion": "3:03"
+      "duracion": "3:03",
+      "country": ["Argentina"]
     },
-
-
-
-
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Valentina-Marquez-AB-Quintanilla-III-Esta-noche.jpg",
       "id": "esta-noche",
@@ -134,7 +140,8 @@
       "seccion": "rumba",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Valentina-Marquez-AB-Quintanilla-III-Esta-noche.MP3",
       "genero": "cumbia",
-      "duracion": "3:12"
+      "duracion": "3:12",
+      "country": ["Argentina", "Estados Unidos"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Valeria-Yescas-Yo-me-lo-busque.jpg",
@@ -146,7 +153,8 @@
       "seccion": "rumba",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Valeria-Yescas-Yo-me-lo-busque.MP3",
       "genero": "pop latino",
-      "duracion": "2:35"
+      "duracion": "2:35",
+      "country": ["México"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Valentina-Marquez-Aneley-A-veces-a-besos.jpg",
@@ -158,7 +166,8 @@
       "seccion": "rumba",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Valentina-Marquez-Aneley-A-veces-a-besos.MP3",
       "genero": "balada pop",
-      "duracion": "3:14"
+      "duracion": "3:14",
+      "country": ["Argentina"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Grecia-Gon-Hoy-voy-a-salir.jpg",
@@ -168,9 +177,10 @@
       "nombre": "Hoy voy a salir",
       "album": "Single",
       "seccion": "rumba",
-      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Grecia-Gon-Hoy-voy-a-salir.MP3",
+      "dropbox_url": "https://radio-tekileros.app/assets/audio/Grecia-Gon-Hoy-voy-a-salir.MP3",
       "genero": "pop latino",
-      "duracion": "2:47"
+      "duracion": "2:47",
+      "country": ["México"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Antonella-Ortiz-Contacto-bloqueado.jpg",
@@ -182,7 +192,8 @@
       "seccion": "rumba",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Antonella-Ortiz-Contacto-bloqueado.MP3",
       "genero": "pop latino",
-      "duracion": "2:30"
+      "duracion": "2:30",
+      "country": ["México"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/El-Polaco-La-China-Ya-no-quiero-verte.jpg",
@@ -194,7 +205,8 @@
       "seccion": "rumba",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/El-Polaco-La-China-Ya-no-quiero-verte.MP3",
       "genero": "cumbia",
-      "duracion": "2:36"
+      "duracion": "2:36",
+      "country": ["Argentina"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Banda-XXI-18-Kilates-Son-de-amores.jpg",
@@ -206,7 +218,8 @@
       "seccion": "rumba",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Banda-XXI-18-Kilates-Son-de-amores.MP3",
       "genero": "cuarteto",
-      "duracion": "2:28"
+      "duracion": "2:28",
+      "country": ["Argentina"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/TREX-ICC-Flor-Amor-Joven-Los-Jrs-Despechada.jpg",
@@ -218,7 +231,8 @@
       "seccion": "rumba",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/TREX-ICC-Flor-Amor-Joven-Los-Jrs-Despechada.mp3",
       "genero": "cumbia",
-      "duracion": "3:22"
+      "duracion": "3:22",
+      "country": ["México"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Mexikolombia-Los-Askis-Los-De-Akino-Ya-no-vuelvas.jpg",
@@ -230,7 +244,8 @@
       "seccion": "rumba",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Mexikolombia-Los-Askis-Los-De-Akino-Ya-no-vuelvas.MP3",
       "genero": "cumbia",
-      "duracion": "4:23"
+      "duracion": "4:23",
+      "country": ["México"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Vius-Que-es-eso.jpg",
@@ -242,12 +257,9 @@
       "seccion": "rumba",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Vius-Que-es-eso.MP3",
       "genero": "pop latino",
-      "duracion": "2:24"
+      "duracion": "2:24",
+      "country": ["México"]
     },
-
-
-
-
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Roze-Flor-Alvarez-Mi-corazon.jpg",
       "id": "mi-corazon",
@@ -258,7 +270,8 @@
       "seccion": "rumba",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Roze-Flor-Alvarez-Mi-corazon.MP3",
       "genero": "pop latino",
-      "duracion": "2:18"
+      "duracion": "2:18",
+      "country": ["Argentina"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Flavia-Laos-Bonny-Lovy-My-lova.jpg",
@@ -270,7 +283,8 @@
       "seccion": "rumba",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Flavia-Laos-Bonny-Lovy-My-lova.MP3",
       "genero": "pop electrónico",
-      "duracion": "2:46"
+      "duracion": "2:46",
+      "country": ["Perú", "Bolivia"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Marama-DJ-Tao-Lauty-Gram-Roze-Una-noche-contigo.jpg",
@@ -282,7 +296,8 @@
       "seccion": "rumba",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Marama-DJ-Tao-Lauty-Gram-Roze-Una-noche-contigo.MP3",
       "genero": "tropi pop",
-      "duracion": "2:42"
+      "duracion": "2:42",
+      "country": ["Uruguay", "Argentina"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/El-Reja-Marka-Akme-TocoParaVos-Se-pico.jpg",
@@ -294,7 +309,8 @@
       "seccion": "rumba",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/El-Reja-Marka-Akme-TocoParaVos-Se-pico.mp3",
       "genero": "cumbia",
-      "duracion": "2:14"
+      "duracion": "2:14",
+      "country": ["Uruguay"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Kingto-El-Reja-No-es-chamullo.jpg",
@@ -306,7 +322,8 @@
       "seccion": "rumba",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Kingto-El-Reja-No-es-chamullo.MP3",
       "genero": "cumbia",
-      "duracion": "2:12"
+      "duracion": "2:12",
+      "country": ["Uruguay"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Uno-70-Grecia-Gon-No-se-enamora.jpg",
@@ -318,7 +335,8 @@
       "seccion": "rumba",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Uno-70-Grecia-Gon-No-se-enamora.MP3",
       "genero": "trap",
-      "duracion": "3:07"
+      "duracion": "3:07",
+      "country": ["México"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/CantoYo-Bauti-Mascia-Cele-Arrabal-Ya-no-me-duele.jpg",
@@ -330,7 +348,8 @@
       "seccion": "rumba",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/CantoYo-Bauti-Mascia-Cele-Arrabal-Ya-no-me-duele.MP3",
       "genero": "pop latino",
-      "duracion": "2:30"
+      "duracion": "2:30",
+      "country": ["Uruguay"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Agostina-Pochi-Escucha-Mix-Vol2.jpg",
@@ -342,7 +361,8 @@
       "seccion": "rumba",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Agostina-Pochi-Escucha-Mix-Vol2.MP3",
       "genero": "cumbia",
-      "duracion": "3:27"
+      "duracion": "3:27",
+      "country": ["Uruguay"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/The-La-Planta-Damaris-Atorrante.jpg",
@@ -354,7 +374,8 @@
       "seccion": "rumba",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/The-La-Planta-Damaris-Atorrante.MP3",
       "genero": "cumbia",
-      "duracion": "2:29"
+      "duracion": "2:29",
+      "country": ["Uruguay", "Chile"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Cumbiaton-ThomB-Tu-principe.jpg",
@@ -366,12 +387,9 @@
       "seccion": "rumba",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Cumbiaton-ThomB-Tu-principe.MP3",
       "genero": "cumbia",
-      "duracion": "2:49"
+      "duracion": "2:49",
+      "country": ["Uruguay"]
     },
-
-
-
-
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Bauti-Mascia-Fer-Vazquez-Mi-ex.jpg",
       "id": "mi-ex",
@@ -382,7 +400,8 @@
       "seccion": "rumba",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Bauti-Mascia-Fer-Vazquez-Mi-ex.MP3",
       "genero": "pop latino",
-      "duracion": "2:17"
+      "duracion": "2:17",
+      "country": ["Uruguay"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Nhay-Maias-Ochoa-Dulzura.jpg",
@@ -394,7 +413,8 @@
       "seccion": "rumba",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Nhay-Maias-Ochoa-Dulzura.MP3",
       "genero": "pop latino",
-      "duracion": "2:37"
+      "duracion": "2:37",
+      "country": ["Argentina"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Marka-Akme-Lauty-Gram-Agus-Padilla-El-Reja-Llama.jpg",
@@ -406,7 +426,8 @@
       "seccion": "rumba",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Marka-Akme-Lauty-Gram-Agus-Padilla-El-Reja-Llama.MP3",
       "genero": "cumbia",
-      "duracion": "3:29"
+      "duracion": "3:29",
+      "country": ["Uruguay", "Argentina"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Luck-Ra-Ezequiel-Llanos-Salastkbron-Roze-The-La-Planta-Mentiras.jpg",
@@ -418,7 +439,8 @@
       "seccion": "rumba",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Luck-Ra-Ezequiel-Llanos-Salastkbron-Roze-The-La-Planta-Mentiras.MP3",
       "genero": "cumbia",
-      "duracion": "3:15"
+      "duracion": "3:15",
+      "country": ["Argentina", "Uruguay"]
     },
     {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Drian-Bye-Te-supere.jpg",
@@ -430,10 +452,8 @@
       "seccion": "rumba",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Drian-Bye-Te-supere.MP3",
       "genero": "pop latino",
-      "duracion": "2:57"
+      "duracion": "2:57",
+      "country": ["México"]
     }
-
-
   ]
-
 }
