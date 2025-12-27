@@ -152,7 +152,7 @@
       "album": "Yo sí me veía contigo - Single",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Jose-Esparza-Jose-Madero-Yo-si-me-veia-contigo.mp3",
       "seccion": "bandida",
-      "genero": "pop/rock",
+      "genero": "mariachi",
       "duracion": "2:39",
       "country": ["México"]
     },
@@ -165,7 +165,7 @@
       "album": "Nosotros dos - Single",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Peso-Pluma-Belinda-Nosotros-2.mp3",
       "seccion": "bandida",
-      "genero": "regional mexicano / pop",
+      "genero": "regional mexicano",
       "duracion": "2:50",
       "country": ["México", "España"]
     },
@@ -178,7 +178,7 @@
       "album": "Mi peor error fuiste tú - Single",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Grupo-Firme-Romeo-Santos-Mi-peor-error-fuiste-tu.MP3",
       "seccion": "bandida",
-      "genero": "regional mexicano / bachata",
+      "genero": "regional mexicano",
       "duracion": "3:52",
       "country": ["México", "Estados Unidos"]
     },
@@ -243,7 +243,7 @@
       "album": "Una vida pasada - Single",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Camilo-Carin-Leon-Una-vida-pasada.MP3",
       "seccion": "bandida",
-      "genero": "pop latino / regional mexicano",
+      "genero": "regional mexicano",
       "duracion": "3:34",
       "country": ["Colombia", "México"]
     },
@@ -269,7 +269,7 @@
       "album": "Hombre normal - Single",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Grupo-Controversia-Hombre-normal.mp3",
       "seccion": "bandida",
-      "genero": "rock urbano",
+      "genero": "salsa",
       "duracion": "4:45",
       "country": ["México"]
     },
@@ -308,7 +308,7 @@
       "album": "Mi amor - Single",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Perro-Callejero-Poly-Rocket-Mi-amor.MP3",
       "seccion": "bandida",
-      "genero": "rap/hip hop",
+      "genero": "rock urbano",
       "duracion": "3:27",
       "country": ["México"]
     },
@@ -399,7 +399,7 @@
       "album": "No moriré por ti - Single",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Connekte-No-morireporti.mp3",
       "seccion": "bandida",
-      "genero": "rock alternativo",
+      "genero": "rock urbano",
       "duracion": "3:39",
       "country": ["México"]
     },
