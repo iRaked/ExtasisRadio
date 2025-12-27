@@ -166,7 +166,7 @@
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Enanitos-Verdes-Lamento-boliviano.mp3",
       "seccion": "exitos",
       "genero": "rock en español",
-      "duracion": "3:42",
+      "duracion": "3:41",
       "country": ["Argentina"]
     },
     {
@@ -261,16 +261,16 @@
       "country": ["Colombia"]
     },
     {
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/La-Oreja-De-Van-Gogh-Deseos-de-cosas-imposibles.jpg",
-      "id": "lovg-deseos",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/La-Oreja-De-Van-Gogh-Paris.jpg",
+      "id": "lovg-paris",
       "emotion": "nostalgia",
       "artista": "La Oreja de Van Gogh",
-      "nombre": "Deseos de cosas imposibles",
+      "nombre": "París",
       "album": "Lo que te conté mientras te hacías la dormida",
-      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/La-Oreja-De-Van-Gogh-Deseos-de-cosas-imposibles.mp3",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/La-Oreja-De-Van-Gogh-Paris.mp3",
       "seccion": "exitos",
       "genero": "pop rock",
-      "duracion": "3:08",
+      "duracion": "3:46",
       "country": ["España"]
     },
     {
@@ -293,10 +293,10 @@
       "artista": "Vico C",
       "nombre": "Me acuerdo",
       "album": "Aquel que había muerto",
-      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Vico-C-Me-acuerdo.mp3",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Vico-C-Me-acuerdo.MP3",
       "seccion": "exitos",
       "genero": "rap/hip hop",
-      "duracion": "4:05",
+      "duracion": "5:47",
       "country": ["Puerto Rico"]
     },
     {
@@ -399,7 +399,7 @@
       "album": "Hot Shot",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Shaggy-It-wasnt-me.mp3",
       "seccion": "exitos",
-      "genero": "reggae fusion",
+      "genero": "reggae",
       "duracion": "3:47",
       "country": ["Jamaica"]
     },
@@ -425,7 +425,7 @@
       "album": "El Noa Noa - Single",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Georgel-Esteman-El-noa-noa.mp3",
       "seccion": "exitos",
-      "genero": "pop",
+      "genero": "electrocumbia",
       "duracion": "3:15",
       "country": ["México", "Colombia"]
     },
@@ -438,7 +438,7 @@
       "album": "Margarita",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Calo-Margarita-La-colegiala.mp3",
       "seccion": "exitos",
-      "genero": "dance/pop",
+      "genero": "cumbia",
       "duracion": "3:55",
       "country": ["México"]
     },
@@ -449,10 +449,10 @@
       "artista": "Rombai & Marama",
       "nombre": "Noche loca",
       "album": "Noche loca - Single",
-      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Rombai-Marama-Noche-loca.mp3",
+      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Rombai-Marama-Noche-loca.MP3",
       "seccion": "exitos",
-      "genero": "cumbia pop",
-      "duracion": "2:58",
+      "genero": "cheta",
+      "duracion": "2:53",
       "country": ["Uruguay"]
     },
     {
@@ -464,7 +464,7 @@
       "album": "La morocha - Single",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Luck-Ra-BM-La-morocha.mp3",
       "seccion": "exitos",
-      "genero": "cuarteto/pop",
+      "genero": "cuarteto",
       "duracion": "3:02",
       "country": ["Argentina"]
     },
