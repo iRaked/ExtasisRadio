@@ -68,7 +68,7 @@
       "nombre": "You're beautiful",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/James-Blunt-Youre-beautiful.mp3",
       "seccion": "Baladas Rock",
-      "duracion": "",
+      "duracion": "3:24",
       "genero": "rock alternativo",
       "country": ["Reino Unido"]
     },
@@ -92,7 +92,7 @@
       "nombre": "Always remember us this way",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Lady-Gaga-Always-remember-us-this-way.mp3",
       "seccion": "Baladas Rock",
-      "duracion": "",
+      "duracion": "3:14",
       "genero": "rock alternativo",
       "country": ["Estados Unidos"]
     },
@@ -284,7 +284,7 @@
       "nombre": "Stairway to heaven",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Led-Zeppelin-Stairway-to-heaven.mp3",
       "seccion": "Baladas Rock",
-      "duracion": "",
+      "duracion": "7:58",
       "genero": "rock alternativo",
       "country": ["Reino Unido"]
     },
@@ -505,18 +505,6 @@
       "country": ["Cánada"]
     },
     {
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Guns-N-Roses-Patience.webp",
-      "id": "gnr-patience",
-      "emotion": "espera",
-      "artista": "guns n' roses",
-      "nombre": "Patience",
-      "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Guns-N-Roses-Patience.mp3",
-      "seccion": "Baladas Rock",
-      "duracion": "6:05",
-      "genero": "rock alternativo",
-      "country": ["Estados Unidos"]
-    },
-    {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Guns-N-Roses-Dont-cry.jpg",
       "id": "gnr-dontcry",
       "emotion": "desconsuelo",
@@ -600,5 +588,8 @@
       "genero": "balada romantica",
       "country": ["Cánada"]
     }
+
+
+    
   ]
 }
