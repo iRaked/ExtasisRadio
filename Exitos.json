@@ -9,7 +9,7 @@
       "album": "Chance - Single",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Daaz-Chance.mp3",
       "seccion": "exitos",
-      "genero": "pop/urban",
+      "genero": "rap",
       "duracion": "3:15",
       "country": ["México"]
     },
@@ -35,7 +35,7 @@
       "album": "Santo Pecado",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Ricardo-Arjona-El-problema.mp3",
       "seccion": "exitos",
-      "genero": "pop/balada",
+      "genero": "balada pop",
       "duracion": "5:28",
       "country": ["Guatemala"]
     },
@@ -74,7 +74,7 @@
       "album": "Santo Pecado",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Ricardo-Arjona-Minutos.mp3",
       "seccion": "exitos",
-      "genero": "pop/balada",
+      "genero": "balada pop",
       "duracion": "4:08",
       "country": ["Guatemala"]
     },
@@ -178,7 +178,7 @@
       "album": "Allenrok",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Estopa-Acelera.mp3",
       "seccion": "exitos",
-      "genero": "rumba/rock",
+      "genero": "pop rock",
       "duracion": "3:48",
       "country": ["España"]
     },
@@ -230,7 +230,7 @@
       "album": "La taberna del Buda",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Cafe-Quijano-Nada-de-na.mp3",
       "seccion": "exitos",
-      "genero": "rock latino",
+      "genero": "pop rock",
       "duracion": "3:41",
       "country": ["España"]
     },
@@ -269,7 +269,7 @@
       "album": "Lo que te conté mientras te hacías la dormida",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/La-Oreja-De-Van-Gogh-Paris.mp3",
       "seccion": "exitos",
-      "genero": "pop rock",
+      "genero": "pop",
       "duracion": "3:46",
       "country": ["España"]
     },
@@ -282,7 +282,7 @@
       "album": "Lei, gli amici e tutto il resto",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Nek-Laura-no-esta.mp3",
       "seccion": "exitos",
-      "genero": "pop rock",
+      "genero": "pop",
       "duracion": "3:46",
       "country": ["Italia"]
     },
@@ -295,7 +295,7 @@
       "album": "Aquel que había muerto",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Vico-C-Me-acuerdo.MP3",
       "seccion": "exitos",
-      "genero": "rap/hip hop",
+      "genero": "raggamuffin",
       "duracion": "5:47",
       "country": ["Puerto Rico"]
     },
@@ -334,7 +334,7 @@
       "album": "Sin ti - Single",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Rawayana-Willy-Rodriguez-McKlopedia-La-Vida-Boheme-Sin-ti.mp3",
       "seccion": "exitos",
-      "genero": "reggae/pop",
+      "genero": "reggae",
       "duracion": "4:12",
       "country": ["Venezuela", "Puerto Rico"]
     },
@@ -347,7 +347,7 @@
       "album": "Te quiero",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Nigga-Baby-te-quiero.mp3",
       "seccion": "exitos",
-      "genero": "reggaeton/pop",
+      "genero": "raggae",
       "duracion": "3:18",
       "country": ["Panamá"]
     },
@@ -360,7 +360,7 @@
       "album": "The Phenomenon",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Big-Boy-Ragga-Sin-tu-amor.mp3",
       "seccion": "exitos",
-      "genero": "ragga",
+      "genero": "raggamuffin",
       "duracion": "3:52",
       "country": ["Puerto Rico"]
     },
@@ -386,7 +386,7 @@
       "album": "La bomba",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/King-Africa-La-bomba.mp3",
       "seccion": "exitos",
-      "genero": "dance latino",
+      "genero": "pop latino",
       "duracion": "3:20",
       "country": ["Argentina"]
     },
@@ -529,7 +529,7 @@
       "album": "Hijas del Tomate",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Las-Ketchup-Asereje.mp3",
       "seccion": "exitos",
-      "genero": "pop/dance",
+      "genero": "pop",
       "duracion": "3:32",
       "country": ["España"]
     },
@@ -555,7 +555,7 @@
       "album": "A Little Bit of Mambo",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Lou-Bega-Mambo-No-5.mp3",
       "seccion": "exitos",
-      "genero": "mambo/pop",
+      "genero": "mambo",
       "duracion": "3:39",
       "country": ["Alemania"]
     },
@@ -581,7 +581,7 @@
       "album": "Mami",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/SBS-Follow-the-leader.mp3",
       "seccion": "exitos",
-      "genero": "dance latino",
+      "genero": "pop latino",
       "duracion": "4:08",
       "country": ["Cuba"]
     },
@@ -594,7 +594,7 @@
       "album": "Y la alegría continúa",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Los-Caligaris-Entre-vos-y-yo.mp3",
       "seccion": "exitos",
-      "genero": "ska/pop",
+      "genero": "ska",
       "duracion": "3:25",
       "country": ["Argentina"]
     },
@@ -620,7 +620,7 @@
       "album": "Mi vida loca",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Los-Autenticos-Decadentes-La-guitarra.mp3",
       "seccion": "exitos",
-      "genero": "ska rock",
+      "genero": "ska",
       "duracion": "3:38",
       "country": ["Argentina"]
     }
