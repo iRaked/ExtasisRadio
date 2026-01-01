@@ -9,7 +9,7 @@
       "genero": "heavy metal",
       "emotion": "poder",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "7:17",
       "country": ["Reino Unido"]
     },
     {
@@ -21,7 +21,7 @@
       "genero": "hard rock",
       "emotion": "euforia",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "6:44",
       "country": ["Estados Unidos"]
     },
     {
@@ -33,7 +33,7 @@
       "genero": "hard rock",
       "emotion": "energía",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "4:16",
       "country": ["Australia"]
     },
     {
@@ -45,7 +45,7 @@
       "genero": "hard rock",
       "emotion": "clásico",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "5:37",
       "country": ["Reino Unido"]
     },
     {
@@ -57,7 +57,7 @@
       "genero": "heavy metal",
       "emotion": "intensidad",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "5:31",
       "country": ["Estados Unidos"]
     },
     {
@@ -69,7 +69,7 @@
       "genero": "thrash metal",
       "emotion": "destreza",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "5:19",
       "country": ["Estados Unidos"]
     },
     {
@@ -81,7 +81,7 @@
       "genero": "groove metal",
       "emotion": "actitud",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "5:02",
       "country": ["Estados Unidos"]
     },
     {
@@ -93,7 +93,7 @@
       "genero": "heavy metal",
       "emotion": "velocidad",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "6:05",
       "country": ["Reino Unido"]
     },
     {
@@ -105,7 +105,7 @@
       "genero": "thrash metal",
       "emotion": "caos",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "2:54",
       "country": ["Estados Unidos"]
     },
     {
@@ -117,7 +117,7 @@
       "genero": "nu metal",
       "emotion": "frenesí",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "2:26",
       "country": ["Estados Unidos"]
     },
     {
@@ -129,7 +129,7 @@
       "genero": "heavy metal",
       "emotion": "victoria",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "4:10",
       "country": ["Reino Unido"]
     },
     {
@@ -141,7 +141,7 @@
       "genero": "hard rock",
       "emotion": "salvaje",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "4:26",
       "country": ["Estados Unidos"]
     },
     {
@@ -153,19 +153,19 @@
       "genero": "hard rock",
       "emotion": "rayo",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "4:55",
       "country": ["Australia"]
     },
     {
       "id": "met-master-puppets",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Metallica-Master-of-puppets.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Metallica-Masterof-puppets.jpg",
       "artista": "Metallica",
       "nombre": "Master of puppets",
       "enlace": "https://radio-tekileros.vercel.app/assets/audio/Metallica-Master-of-puppets.mp3",
       "genero": "thrash metal",
       "emotion": "control",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "8:28",
       "country": ["Estados Unidos"]
     },
     {
@@ -177,7 +177,7 @@
       "genero": "heavy metal",
       "emotion": "velocidad",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "2:44",
       "country": ["Reino Unido"]
     },
     {
@@ -189,7 +189,7 @@
       "genero": "hard rock",
       "emotion": "adrenalina",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "6:05",
       "country": ["Reino Unido"]
     },
     {
@@ -201,7 +201,7 @@
       "genero": "thrash metal",
       "emotion": "poder",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "3:48",
       "country": ["Estados Unidos"]
     },
     {
@@ -213,7 +213,7 @@
       "genero": "groove metal",
       "emotion": "rebelión",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "4:04",
       "country": ["Estados Unidos"]
     },
     {
@@ -225,7 +225,7 @@
       "genero": "heavy metal",
       "emotion": "ansiedad",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "2:45",
       "country": ["Reino Unido"]
     },
     {
@@ -237,7 +237,7 @@
       "genero": "hard rock",
       "emotion": "ritmo",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "4:44",
       "country": ["Reino Unido"]
     },
     {
@@ -249,7 +249,7 @@
       "genero": "heavy metal",
       "emotion": "persecución",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "3:53",
       "country": ["Reino Unido"]
     },
     {
@@ -261,7 +261,7 @@
       "genero": "hard rock",
       "emotion": "nostalgia",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "4:52",
       "country": ["Estados Unidos"]
     },
     {
@@ -273,7 +273,7 @@
       "genero": "heavy metal",
       "emotion": "locura",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "4:44",
       "country": ["Reino Unido"]
     },
     {
@@ -285,7 +285,7 @@
       "genero": "hard rock",
       "emotion": "libertad",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "3:29",
       "country": ["Australia"]
     },
     {
@@ -297,7 +297,7 @@
       "genero": "thrash metal",
       "emotion": "agresión",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "6:50",
       "country": ["Estados Unidos"]
     },
     {
@@ -309,7 +309,7 @@
       "genero": "industrial metal",
       "emotion": "diversión",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "3:07",
       "country": ["Suecia"]
     },
     {
@@ -321,7 +321,7 @@
       "genero": "nu metal",
       "emotion": "identidad",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "3:33",
       "country": ["Estados Unidos"]
     },
     {
@@ -329,11 +329,11 @@
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Rammstein-Du-hast.jpg",
       "artista": "Rammstein",
       "nombre": "Du hast",
-      "enlace": "https://radio-tekileros.vercel.app/assets/audio/Rammstein-Du-hast.mp3",
+      "enlace": "https://radio-tekileros.vercel.app/assets/audio/Rammstein-Du-hast.MP3",
       "genero": "industrial metal",
       "emotion": "fuerza",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "3:55",
       "country": ["Alemania"]
     },
     {
@@ -345,7 +345,7 @@
       "genero": "metalcore",
       "emotion": "determinación",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "4:19",
       "country": ["Estados Unidos"]
     },
     {
@@ -357,7 +357,7 @@
       "genero": "hard rock",
       "emotion": "orgullo",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "2:43",
       "country": ["Estados Unidos"]
     },
     {
@@ -369,7 +369,7 @@
       "genero": "nu metal",
       "emotion": "rabia",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "4:35",
       "country": ["Estados Unidos"]
     },
     {
@@ -377,11 +377,11 @@
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/System-Of-A-Down-Chop-suey.jpg",
       "artista": "System Of A Down",
       "nombre": "Chop suey",
-      "enlace": "https://radio-tekileros.vercel.app/assets/audio/System-Of-A-Down-Chop-suey.mp3",
+      "enlace": "https://radio-tekileros.vercel.app/assets/audio/System-Of-A-Down-Chop-suey.MP3",
       "genero": "alternative metal",
       "emotion": "caos",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "3:26",
       "country": ["Estados Unidos"]
     },
     {
@@ -389,11 +389,11 @@
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Nightwish-The-phantom-of-the-Opera.jpg",
       "artista": "Nightwish",
       "nombre": "The phantom of the Opera",
-      "enlace": "https://radio-tekileros.vercel.app/assets/audio/Nightwish-The-phantom-of-the-Opera.mp3",
+      "enlace": "https://radio-tekileros.vercel.app/assets/audio/Nightwish-The-phantom-of-the-Opera.MP3",
       "genero": "symphonic metal",
       "emotion": "drama",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "4:00",
       "country": ["Finlandia"]
     },
     {
@@ -405,7 +405,7 @@
       "genero": "industrial metal",
       "emotion": "oscuridad",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "4:30",
       "country": ["Estados Unidos"]
     },
     {
@@ -417,7 +417,7 @@
       "genero": "grunge",
       "emotion": "apatía",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "4:31",
       "country": ["Estados Unidos"]
     },
     {
@@ -429,7 +429,7 @@
       "genero": "melodic death metal",
       "emotion": "honor",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "4:17",
       "country": ["Japón"]
     },
     {
@@ -437,11 +437,11 @@
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Alter-Bridge-Metalingus.jpg",
       "artista": "Alter Bridge",
       "nombre": "Metalingus",
-      "enlace": "https://radio-tekileros.vercel.app/assets/audio/Alter-Bridge-Metalingus.mp3",
+      "enlace": "https://radio-tekileros.vercel.app/assets/audio/Alter-Bridge-Metalingus.MP3",
       "genero": "alternative metal",
       "emotion": "resurgir",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "2:20",
       "country": ["Estados Unidos"]
     },
     {
@@ -453,7 +453,7 @@
       "genero": "power metal",
       "emotion": "épico",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "7:12",
       "country": ["Reino Unido"]
     },
     {
@@ -465,7 +465,7 @@
       "genero": "heavy metal",
       "emotion": "misterio",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "3:44",
       "country": ["Reino Unido"]
     },
     {
@@ -477,7 +477,7 @@
       "genero": "8-bit metal",
       "emotion": "nostalgia",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "5:00",
       "country": ["Japón"]
     },
     {
@@ -486,10 +486,10 @@
       "artista": "Sixto Sounds",
       "nombre": "Technodrome (TMNT)",
       "enlace": "https://radio-tekileros.vercel.app/assets/audio/Sixto-Sounds-Technodrome-(TMNT).mp3",
-      "genero": "video game metal",
+      "genero": "8-bit metal",
       "emotion": "acción",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "3:59",
       "country": ["Estados Unidos"]
     },
     {
@@ -501,7 +501,7 @@
       "genero": "power metal",
       "emotion": "velocidad",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "6:46",
       "country": ["Reino Unido"]
     },
     {
@@ -513,7 +513,7 @@
       "genero": "power metal",
       "emotion": "fuego",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "7:20",
       "country": ["Reino Unido"]
     },
     {
@@ -525,7 +525,7 @@
       "genero": "country rock",
       "emotion": "duelo",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "6:29",
       "country": ["Estados Unidos"]
     },
     {
@@ -537,7 +537,7 @@
       "genero": "instrumental rock",
       "emotion": "paz",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "4:07",
       "country": ["Estados Unidos"]
     },
 
@@ -554,7 +554,7 @@
       "genero": "hard rock",
       "emotion": "energía",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "4:13",
       "country": ["Alemania"]
     },
     {
@@ -563,10 +563,10 @@
       "artista": "Kiss",
       "nombre": "Rock and roll all nite",
       "enlace": "https://radio-tekileros.vercel.app/assets/audio/Kiss-Rock-and-roll-all-night.mp3",
-      "genero": "glam rock",
+      "genero": "hard rock",
       "emotion": "fiesta",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "2:52",
       "country": ["Estados Unidos"]
     },
     {
@@ -578,7 +578,7 @@
       "genero": "heavy metal",
       "emotion": "rebelión",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "2:06",
       "country": ["Estados Unidos"]
     },
     {
@@ -590,7 +590,7 @@
       "genero": "hard rock",
       "emotion": "actitud",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "2:54",
       "country": ["Estados Unidos"]
     },
     {
@@ -602,7 +602,7 @@
       "genero": "rock n roll",
       "emotion": "ritmo",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "3:28",
       "country": ["Reino Unido"]
     },
     {
@@ -614,7 +614,7 @@
       "genero": "hard rock",
       "emotion": "optimismo",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "2:50",
       "country": ["Estados Unidos"]
     },
     {
@@ -626,7 +626,7 @@
       "genero": "hard rock",
       "emotion": "pasión",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "2:59",
       "country": ["Alemania"]
     },
     {
@@ -638,7 +638,7 @@
       "genero": "hard rock",
       "emotion": "baile",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "4:01",
       "country": ["Estados Unidos"]
     },
     {
@@ -650,7 +650,7 @@
       "genero": "rock",
       "emotion": "determinación",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "3:31",
       "country": ["Reino Unido"]
     },
     {
@@ -659,10 +659,10 @@
       "artista": "Bon Jovi",
       "nombre": "You give love a bad name",
       "enlace": "https://radio-tekileros.vercel.app/assets/audio/Bon-Jovi-You-give-love-a-bad-name.mp3",
-      "genero": "glam metal",
+      "genero": "hard rock",
       "emotion": "desamor",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "3:39",
       "country": ["Estados Unidos"]
     },
     {
@@ -674,7 +674,7 @@
       "genero": "rock",
       "emotion": "obsesión",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "3:54",
       "country": ["Reino Unido"]
     },
     {
@@ -686,7 +686,7 @@
       "genero": "hard rock",
       "emotion": "poder",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "4:22",
       "country": ["Estados Unidos"]
     },
     {
@@ -698,7 +698,7 @@
       "genero": "hard rock",
       "emotion": "esperanza",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "3:53",
       "country": ["Estados Unidos"]
     },
     {
@@ -710,7 +710,7 @@
       "genero": "rock",
       "emotion": "atracción",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "4:04",
       "country": ["Reino Unido"]
     },
     {
@@ -722,7 +722,7 @@
       "genero": "hard rock",
       "emotion": "velocidad",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "2:04",
       "country": ["Estados Unidos"]
     },
     {
@@ -734,7 +734,7 @@
       "genero": "hard rock",
       "emotion": "fuerza",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "4:22",
       "country": ["Estados Unidos"]
     },
     {
@@ -746,7 +746,7 @@
       "genero": "blues rock",
       "emotion": "groove",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "3:49",
       "country": ["Estados Unidos"]
     },
     {
@@ -758,7 +758,7 @@
       "genero": "indie rock",
       "emotion": "nostalgia",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "3:34",
       "country": ["Estados Unidos"]
     },
     {
@@ -767,10 +767,10 @@
       "artista": "AFI",
       "nombre": "Miss murder",
       "enlace": "https://radio-tekileros.vercel.app/assets/audio/AFI-Miss-murder.mp3",
-      "genero": "alternative rock",
+      "genero": "rock alternativo",
       "emotion": "oscuridad",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "3:15",
       "country": ["Estados Unidos"]
     },
     {
@@ -782,7 +782,7 @@
       "genero": "hard rock",
       "emotion": "frio",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "3:34",
       "country": ["Suecia"]
     },
     {
@@ -794,7 +794,7 @@
       "genero": "mathcore",
       "emotion": "frenesí",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "3:57",
       "country": ["Estados Unidos"]
     },
     {
@@ -802,11 +802,11 @@
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/The-Knack-My-Sharona.jpg",
       "artista": "The Knack",
       "nombre": "My Sharona",
-      "enlace": "https://radio-tekileros.vercel.app/assets/audio/The-Knack-My-Sharona.mp3",
-      "genero": "power pop",
+      "enlace": "https://radio-tekileros.vercel.app/assets/audio/The-Knack-My-Sharona.MP3",
+      "genero": "rock alternativo",
       "emotion": "energía",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "3:56",
       "country": ["Estados Unidos"]
     },
     {
@@ -818,19 +818,19 @@
       "genero": "hard rock",
       "emotion": "nostalgia",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "2:35",
       "country": ["Alemania"]
     },
     {
       "id": "pf-brick-wall",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Pink-Floyd-Another-brick-in-the-Wall.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Pink-Floyd-Another-brick-in-the-wall.jpg",
       "artista": "Pink Floyd",
       "nombre": "Another brick in the wall (Part 2)",
-      "enlace": "https://radio-tekileros.vercel.app/assets/audio/Pink-Floyd-Another-brick-in-the-Wall.mp3",
+      "enlace": "https://radio-tekileros.vercel.app/assets/audio/Pink-Floyd-Another-brick-in-the-wall.mp3",
       "genero": "progressive rock",
       "emotion": "resistencia",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "3:40",
       "country": ["Reino Unido"]
     },
     {
@@ -842,7 +842,7 @@
       "genero": "hard rock",
       "emotion": "libertad",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "2:01",
       "country": ["Estados Unidos"]
     },
     {
@@ -854,7 +854,7 @@
       "genero": "glam metal",
       "emotion": "rebeldía",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "3:40",
       "country": ["Estados Unidos"]
     },
     {
@@ -866,7 +866,7 @@
       "genero": "rock",
       "emotion": "frustración",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "2:31",
       "country": ["Reino Unido"]
     },
     {
@@ -878,7 +878,7 @@
       "genero": "rock",
       "emotion": "melancolía",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "3:03",
       "country": ["Reino Unido"]
     },
     {
@@ -890,7 +890,7 @@
       "genero": "rock",
       "emotion": "unidad",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "2:02",
       "country": ["Reino Unido"]
     },
     {
@@ -902,7 +902,7 @@
       "genero": "glam metal",
       "emotion": "épico",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "4:34",
       "country": ["Suecia"]
     },
     {
@@ -914,7 +914,7 @@
       "genero": "hard rock",
       "emotion": "triunfo",
       "seccion": "Heavy Metal",
-      "duracion": ":",
+      "duracion": "4:02",
       "country": ["Estados Unidos"]
     }
 
