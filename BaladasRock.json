@@ -8,7 +8,7 @@
       "nombre": "Someone like you",
       "dropbox_url": "https://radio-tekileros.vercel.app/assets/audio/Adele-Someone-like-you.mp3",
       "seccion": "Baladas Rock",
-      "duracion": "04:38",
+      "duracion": "4:38",
       "genero": "rock alternativo",
       "country": ["Reino Unido"]
     },
@@ -593,3 +593,4 @@
     
   ]
 }
+
