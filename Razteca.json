@@ -21,7 +21,7 @@
       "genero": "reggae",
       "emotion": "Alegre",
       "seccion": "razteca",
-      "duracion": ":",
+      "duracion": "5:07",
       "country": ["México"]
     },
     {
@@ -29,11 +29,11 @@
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Ganja-Aire-Roots.jpg",
       "artista": "Ganja",
       "nombre": "Reggae Music",
-      "enlace": "https://radio-tekileros.vercel.app/assets/audio/Ganja-Raggae-music.mp3",
+      "enlace": "https://radio-tekileros.vercel.app/assets/audio/Ganja-Reggae-music.mp3",
       "genero": "reggae",
       "emotion": "Relajada",
       "seccion": "razteca",
-      "duracion": ":",
+      "duracion": "4:43",
       "country": ["México"]
     },
     {
@@ -45,7 +45,7 @@
       "genero": "reggae",
       "emotion": "Enérgica",
       "seccion": "razteca",
-      "duracion": ":",
+      "duracion": "5:35",
       "country": ["México"]
     },
     {
@@ -57,7 +57,7 @@
       "genero": "reggae",
       "emotion": "Positiva",
       "seccion": "razteca",
-      "duracion": ":",
+      "duracion": "3:40",
       "country": ["Argentina"]
     },
     {
@@ -69,7 +69,7 @@
       "genero": "reggae",
       "emotion": "Festiva",
       "seccion": "razteca",
-      "duracion": ":",
+      "duracion": "3:44",
       "country": ["Chile"]
     },
     {
@@ -81,7 +81,7 @@
       "genero": "reggae",
       "emotion": "Espiritual",
       "seccion": "razteca",
-      "duracion": ":",
+      "duracion": "3:57",
       "country": ["Argentina"]
     },
     {
@@ -93,7 +93,7 @@
       "genero": "reggae",
       "emotion": "Romántica",
       "seccion": "razteca",
-      "duracion": ":",
+      "duracion": "3:57",
       "country": ["Puerto Rico"]
     },
     {
@@ -105,7 +105,7 @@
       "genero": "reggae",
       "emotion": "Rebelde",
       "seccion": "razteca",
-      "duracion": ":",
+      "duracion": "4:34",
       "country": ["México"]
     },
     {
@@ -117,7 +117,7 @@
       "genero": "dancehall",
       "emotion": "Motivadora",
       "seccion": "razteca",
-      "duracion": ":",
+      "duracion": "4:11",
       "country": ["México"]
     },
     {
@@ -129,7 +129,7 @@
       "genero": "reggae",
       "emotion": "Devoción",
       "seccion": "razteca",
-      "duracion": ":",
+      "duracion": "2:35",
       "country": ["Argentina"]
     },
     {
@@ -141,12 +141,12 @@
       "genero": "reggae",
       "emotion": "Mística",
       "seccion": "razteca",
-      "duracion": ":",
+      "duracion": "3:51",
       "country": ["Argentina"]
     },
     {
       "id": "gondwana-pedigueno",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Godwana-Pedigueno.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Godwana-Pincoya-calipso.jpg",
       "artista": "Gondwana",
       "nombre": "Pedigüeño",
       "enlace": "https://radio-tekileros.vercel.app/assets/audio/Godwana-Pedigueno.mp3",
@@ -165,7 +165,7 @@
       "genero": "reggae",
       "emotion": "Reflexiva",
       "seccion": "razteca",
-      "duracion": ":",
+      "duracion": "3:33",
       "country": ["México"]
     },
     {
@@ -177,7 +177,7 @@
       "genero": "reggae",
       "emotion": "Ecológica",
       "seccion": "razteca",
-      "duracion": ":",
+      "duracion": "4:18",
       "country": ["México"]
     },
     {
@@ -189,7 +189,7 @@
       "genero": "reggae",
       "emotion": "Melancólica",
       "seccion": "razteca",
-      "duracion": ":",
+      "duracion": "3:24",
       "country": ["México"]
     },
     {
@@ -201,7 +201,7 @@
       "genero": "reggae",
       "emotion": "Tranquila",
       "seccion": "razteca",
-      "duracion": ":",
+      "duracion": "3:31",
       "country": ["México"]
     },
     {
@@ -213,7 +213,7 @@
       "genero": "reggae",
       "emotion": "Divertida",
       "seccion": "razteca",
-      "duracion": ":",
+      "duracion": "4:16",
       "country": ["México"]
     },
     {
@@ -225,7 +225,7 @@
       "genero": "reggae",
       "emotion": "Libre",
       "seccion": "razteca",
-      "duracion": ":",
+      "duracion": "5:02",
       "country": ["México"]
     },
     {
@@ -237,7 +237,7 @@
       "genero": "reggae",
       "emotion": "Rítmica",
       "seccion": "razteca",
-      "duracion": ":",
+      "duracion": "3:18",
       "country": ["Chile"]
     },
     {
@@ -249,7 +249,7 @@
       "genero": "reggae",
       "emotion": "Narrativa",
       "seccion": "razteca",
-      "duracion": ":",
+      "duracion": "2:55",
       "country": ["México"]
     },
     {
@@ -261,7 +261,7 @@
       "genero": "reggae",
       "emotion": "Sensual",
       "seccion": "razteca",
-      "duracion": ":",
+      "duracion": "4:28",
       "country": ["Argentina"]
     },
     {
@@ -273,7 +273,7 @@
       "genero": "reggae",
       "emotion": "Suave",
       "seccion": "razteca",
-      "duracion": ":",
+      "duracion": "4:43",
       "country": ["México"]
     },
     {
@@ -285,7 +285,7 @@
       "genero": "reggae",
       "emotion": "Optimista",
       "seccion": "razteca",
-      "duracion": ":",
+      "duracion": "4:21",
       "country": ["México"]
     },
     {
@@ -297,7 +297,7 @@
       "genero": "reggae",
       "emotion": "Vibrante",
       "seccion": "razteca",
-      "duracion": ":",
+      "duracion": "4:26",
       "country": ["México"]
     },
     {
@@ -309,7 +309,7 @@
       "genero": "reggae",
       "emotion": "Cálida",
       "seccion": "razteca",
-      "duracion": ":",
+      "duracion": "4:17",
       "country": ["Argentina"]
     },
     {
@@ -321,7 +321,7 @@
       "genero": "reggae",
       "emotion": "Enamorada",
       "seccion": "razteca",
-      "duracion": ":",
+      "duracion": "3:28",
       "country": ["Argentina"]
     },
     {
@@ -333,7 +333,7 @@
       "genero": "reggae",
       "emotion": "Cariñosa",
       "seccion": "razteca",
-      "duracion": ":",
+      "duracion": "4:27",
       "country": ["México"]
     },
     {
@@ -345,7 +345,7 @@
       "genero": "reggae",
       "emotion": "Nostálgica",
       "seccion": "razteca",
-      "duracion": ":",
+      "duracion": "3:16",
       "country": ["Argentina"]
     },
     {
@@ -357,7 +357,7 @@
       "genero": "reggae",
       "emotion": "Esperanzadora",
       "seccion": "razteca",
-      "duracion": ":",
+      "duracion": "4:45",
       "country": ["Panamá", "Argentina"]
     },
     {
@@ -369,7 +369,7 @@
       "genero": "reggae",
       "emotion": "Resiliente",
       "seccion": "razteca",
-      "duracion": ":",
+      "duracion": "3:12",
       "country": ["México"]
     },
     {
@@ -381,7 +381,7 @@
       "genero": "reggae",
       "emotion": "Fraternal",
       "seccion": "razteca",
-      "duracion": ":",
+      "duracion": "3:09",
       "country": ["México"]
     },
     {
@@ -393,7 +393,7 @@
       "genero": "reggae",
       "emotion": "Viajera",
       "seccion": "razteca",
-      "duracion": ":",
+      "duracion": "3:47",
       "country": ["México"]
     },
     {
@@ -405,7 +405,7 @@
       "genero": "reggae",
       "emotion": "Apasionada",
       "seccion": "razteca",
-      "duracion": ":",
+      "duracion": "4:20",
       "country": ["Argentina"]
     },
     {
@@ -417,7 +417,7 @@
       "genero": "rub-a-dub",
       "emotion": "Bailable",
       "seccion": "razteca",
-      "duracion": ":",
+      "duracion": "4:10",
       "country": ["México"]
     },
 
@@ -425,7 +425,6 @@
 
 
 
-    [
   {
     "id": "gondwana-sentimiento-original",
     "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Gondwana-Sentimiento-original.jpg",
@@ -435,7 +434,7 @@
     "genero": "reggae",
     "emotion": "Inspiradora",
     "seccion": "razteca",
-    "duracion": ":",
+    "duracion": "6:36",
     "country": ["Chile"]
   },
   {
@@ -447,7 +446,7 @@
     "genero": "reggae",
     "emotion": "Despecho",
     "seccion": "razteca",
-    "duracion": ":",
+    "duracion": "3:44",
     "country": ["Argentina"]
   },
   {
@@ -459,7 +458,7 @@
     "genero": "reggae",
     "emotion": "Psicodélica",
     "seccion": "razteca",
-    "duracion": ":",
+    "duracion": "2:34",
     "country": ["Argentina"]
   },
   {
@@ -471,7 +470,7 @@
     "genero": "dancehall",
     "emotion": "Intensa",
     "seccion": "razteca",
-    "duracion": ":",
+    "duracion": "4:33",
     "country": ["España"]
   },
   {
@@ -483,7 +482,7 @@
     "genero": "reggae",
     "emotion": "Onírica",
     "seccion": "razteca",
-    "duracion": ":",
+    "duracion": "6:41",
     "country": ["España"]
   },
   {
@@ -495,7 +494,7 @@
     "genero": "reggae",
     "emotion": "Vitalista",
     "seccion": "razteca",
-    "duracion": ":",
+    "duracion": "5:52",
     "country": ["México"]
   },
   {
@@ -507,7 +506,7 @@
     "genero": "raggamuffin",
     "emotion": "Callejera",
     "seccion": "razteca",
-    "duracion": ":",
+    "duracion": "3:45",
     "country": ["España", "Perú"]
   },
   {
@@ -519,7 +518,7 @@
     "genero": "reggae",
     "emotion": "Cruda",
     "seccion": "razteca",
-    "duracion": ":",
+    "duracion": "4:45",
     "country": ["México"]
   },
   {
@@ -531,7 +530,7 @@
     "genero": "reggae",
     "emotion": "Auténtica",
     "seccion": "razteca",
-    "duracion": ":",
+    "duracion": "4:42",
     "country": ["México"]
   },
   {
@@ -543,7 +542,7 @@
     "genero": "reggae",
     "emotion": "Combativa",
     "seccion": "razteca",
-    "duracion": ":",
+    "duracion": "3:39",
     "country": ["Italia", "Jamaica"]
   },
   {
@@ -555,7 +554,7 @@
     "genero": "reggae",
     "emotion": "Tensa",
     "seccion": "razteca",
-    "duracion": ":",
+    "duracion": "3:33",
     "country": ["Jamaica"]
   },
   {
@@ -567,7 +566,7 @@
     "genero": "dancehall",
     "emotion": "Entusiasta",
     "seccion": "razteca",
-    "duracion": ":",
+    "duracion": "4:32",
     "country": ["Reino Unido"]
   },
   {
@@ -579,7 +578,7 @@
     "genero": "reggae",
     "emotion": "Irónica",
     "seccion": "razteca",
-    "duracion": ":",
+    "duracion": "3:22",
     "country": ["Jamaica"]
   },
   {
@@ -591,7 +590,7 @@
     "genero": "reggae",
     "emotion": "Veraniega",
     "seccion": "razteca",
-    "duracion": ":",
+    "duracion": "3:44",
     "country": ["Jamaica"]
   },
   {
@@ -603,7 +602,7 @@
     "genero": "reggae",
     "emotion": "Seductora",
     "seccion": "razteca",
-    "duracion": ":",
+    "duracion": "3:44",
     "country": ["Jamaica"]
   },
   {
@@ -615,7 +614,7 @@
     "genero": "dancehall",
     "emotion": "Melódica",
     "seccion": "razteca",
-    "duracion": ":",
+    "duracion": "4:35",
     "country": ["Jamaica"]
   },
   {
@@ -627,7 +626,7 @@
     "genero": "reggae",
     "emotion": "Relajante",
     "seccion": "razteca",
-    "duracion": ":",
+    "duracion": "3:30",
     "country": ["Jamaica"]
   },
   {
@@ -639,7 +638,7 @@
     "genero": "rub-a-dub",
     "emotion": "Orgullosa",
     "seccion": "razteca",
-    "duracion": ":",
+    "duracion": "3:45",
     "country": ["Jamaica"]
   },
   {
@@ -651,7 +650,7 @@
     "genero": "dancehall",
     "emotion": "Agresiva",
     "seccion": "razteca",
-    "duracion": ":",
+    "duracion": "3:41",
     "country": ["Jamaica"]
   },
   {
@@ -663,7 +662,7 @@
     "genero": "dancehall",
     "emotion": "Fiestera",
     "seccion": "razteca",
-    "duracion": ":",
+    "duracion": "2:43",
     "country": ["Jamaica"]
   },
   {
@@ -675,7 +674,7 @@
     "genero": "dancehall",
     "emotion": "Euforia",
     "seccion": "razteca",
-    "duracion": ":",
+    "duracion": "3:31",
     "country": ["Jamaica"]
   },
   {
@@ -687,7 +686,7 @@
     "genero": "reggae",
     "emotion": "Empoderada",
     "seccion": "razteca",
-    "duracion": ":",
+    "duracion": "2:59",
     "country": ["Jamaica", "Botsuana"]
   },
   {
@@ -699,7 +698,7 @@
     "genero": "reggae",
     "emotion": "Seria",
     "seccion": "razteca",
-    "duracion": ":",
+    "duracion": "3:39",
     "country": ["Italia"]
   },
   {
@@ -711,7 +710,7 @@
     "genero": "reggae",
     "emotion": "Clásica",
     "seccion": "razteca",
-    "duracion": ":",
+    "duracion": "3:31",
     "country": ["Jamaica"]
   },
   {
@@ -723,7 +722,7 @@
     "genero": "reggae",
     "emotion": "Estimada",
     "seccion": "razteca",
-    "duracion": ":",
+    "duracion": "3:50",
     "country": ["Italia", "Jamaica"]
   },
   {
@@ -735,7 +734,7 @@
     "genero": "reggae",
     "emotion": "Histórica",
     "seccion": "razteca",
-    "duracion": ":",
+    "duracion": "4:17",
     "country": ["Jamaica"]
   },
   {
@@ -747,7 +746,7 @@
     "genero": "reggae",
     "emotion": "Global",
     "seccion": "razteca",
-    "duracion": ":",
+    "duracion": "4:47",
     "country": ["Costa de Marfil"]
   },
   {
@@ -759,7 +758,7 @@
     "genero": "reggae",
     "emotion": "Esperanza",
     "seccion": "razteca",
-    "duracion": ":",
+    "duracion": "5:20",
     "country": ["Jamaica"]
   },
   {
@@ -771,7 +770,7 @@
     "genero": "reggae",
     "emotion": "Relajo",
     "seccion": "razteca",
-    "duracion": ":",
+    "duracion": "2:47",
     "country": ["México"]
   },
   {
@@ -783,7 +782,7 @@
     "genero": "reggae",
     "emotion": "Compañerismo",
     "seccion": "razteca",
-    "duracion": ":",
+    "duracion": "5:13",
     "country": ["Argentina"]
   },
   {
@@ -795,7 +794,7 @@
     "genero": "reggae",
     "emotion": "Sincera",
     "seccion": "razteca",
-    "duracion": ":",
+    "duracion": "3:57",
     "country": ["México"]
   },
   {
@@ -807,7 +806,7 @@
     "genero": "reggae",
     "emotion": "Soñadora",
     "seccion": "razteca",
-    "duracion": ":",
+    "duracion": "5:16",
     "country": ["Colombia"]
   },
   {
@@ -819,7 +818,7 @@
     "genero": "reggae",
     "emotion": "Etérea",
     "seccion": "razteca",
-    "duracion": ":",
+    "duracion": "4:17",
     "country": ["Argentina"]
   },
   {
@@ -831,7 +830,7 @@
     "genero": "reggae",
     "emotion": "Alivio",
     "seccion": "razteca",
-    "duracion": ":",
+    "duracion": "3:51",
     "country": ["Argentina"]
   },
   {
@@ -843,7 +842,7 @@
     "genero": "reggae",
     "emotion": "Enamoramiento",
     "seccion": "razteca",
-    "duracion": ":",
+    "duracion": "5:03",
     "country": ["Jamaica"]
   }
 
