@@ -34,31 +34,31 @@ audio.preload = "auto";
 
 // 🎯 ELEMENTOS CLAVE DEL DOM
 const playPauseBtn = document.getElementById("play-btn");
-const nextBtn      = document.getElementById("forward-btn");
-const prevBtn      = document.getElementById("rewind-btn");
-const shuffleBtn   = document.getElementById("shuffle-btn");
-const repeatBtn    = document.getElementById("repeat-btn");
-const btnRadio     = document.getElementById("power-btn");
-const musicBtn     = document.getElementById('music-btn');
+const nextBtn      = document.getElementById("forward-btn");
+const prevBtn      = document.getElementById("rewind-btn");
+const shuffleBtn   = document.getElementById("shuffle-btn");
+const repeatBtn    = document.getElementById("repeat-btn");
+const btnRadio     = document.getElementById("power-btn");
+const musicBtn     = document.getElementById('music-btn');
 
-const currentTrackName     = document.getElementById("track-title");
-const currentArtistName  = document.getElementById("track-artist");
-const metaTrack          = document.getElementById("track-album");
+const currentTrackName     = document.getElementById("track-title");
+const currentArtistName  = document.getElementById("track-artist");
+const metaTrack          = document.getElementById("track-album");
 
-const volumeBar          = document.getElementById('volumeBar');
+const volumeBar          = document.getElementById('volumeBar');
 const volumePercentage = document.getElementById('volumePercentage');
-const volumeIcon       = document.getElementById('volumeIcon');
+const volumeIcon       = document.getElementById('volumeIcon');
 
 const contadorElemento = document.getElementById("contadorRadio");
 
 // 🚨 Referencias de Modales y Listas
-const modalTracks      = document.getElementById("modal-playlist");
-const menuBtn          = document.getElementById("menu-btn");
-const closeModalBtn    = document.getElementById("close-playlist-modal");
-const trackList        = document.querySelector(".track-list");
+const modalTracks      = document.getElementById("modal-playlist");
+const menuBtn          = document.getElementById("menu-btn");
+const closeModalBtn    = document.getElementById("close-playlist-modal");
+const trackList        = document.querySelector(".track-list");
 const currentTrackNameModal = document.getElementById("current-track-display");
 const trackPlaylistEl = document.getElementById("track-playlist");
-const trackEmotionEl  = document.getElementById("track-emotion");
+const trackEmotionEl  = document.getElementById("track-emotion");
 
 // 🚀 Inicialización automática
 document.addEventListener("DOMContentLoaded", () => {
@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (modoActual === "radio") {
     activarModoRadio();   // arranca directo en radio
   } else {
-    cargarPlaylist("Actual");  // arranca en local
+    cargarPlaylist("actual");  // arranca en local
     safePlay({ keepMuted: true });
   }
 });
@@ -89,72 +89,73 @@ function pushHistoryEntry(artist, title, cover) {
 }
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-//CARGA DE JSON
+// 📂 CARGA DE JSON (autoplay integrado)
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 async function cargarPlaylist(nombre) {
-  try {
-    let file, clave, etiqueta;
+  try {
+    let file, clave, etiqueta;
+    const n = (nombre || "").toLowerCase();
 
-    // Mapeo de listas a archivos y claves
-    if (nombre === "Actual") {
-      file = "https://radio-tekileros.vercel.app/Actual.json";
-      clave = "actual";
-      etiqueta = "Actual";
-    } else if (nombre === "bandida") {
-      file = "https://radio-tekileros.vercel.app/Bandida.json";
-      clave = "bandida";
-      etiqueta = "Bandida";
-    } else if (nombre === "hardcore") {
-      file = "https://radio-tekileros.vercel.app/HardCore.json";
-      clave = "hardcore";
-      etiqueta = "HardCore";
-    } else if (nombre === "baladasrock") {
-      // LISTA NUEVA: Baladas Rock
-      file = "https://radio-tekileros.vercel.app/BaladasRock.json";
-      clave = "baladasrock";
-      etiqueta = "Baladas Rock";
-    } else if (nombre === "rumba") {
-      // LISTA FUTURA: Rumba Caliente
-      file = "https://radio-tekileros.vercel.app/Rumba.json"; 
-      clave = "rumba";
-      etiqueta = "Rumba Caliente";
-    } else {
-      console.warn(`❌ Playlist desconocida: ${nombre}`);
-      return;
-    }
+    if (n === "actual") {
+      file = "https://radio-tekileros.vercel.app/Actual.json"; clave = "actual"; etiqueta = "Novedades";
+    } else if (n === "exitos") {
+      file = "https://radio-tekileros.vercel.app/Exitos.json"; clave = "exitos"; etiqueta = "Éxitos";
+    } else if (n === "hardcore") {
+      file = "https://radio-tekileros.vercel.app/HardCore.json"; clave = "hardcore"; etiqueta = "Ruido de Lata";
+    } else if (n === "baladasrock") {
+      file = "https://radio-tekileros.vercel.app/BaladasRock.json"; clave = "baladasrock"; etiqueta = "Baladas Rock";
+    } else if (n === "rumba") {
+      file = "https://radio-tekileros.vercel.app/Rumba.json"; clave = "rumba"; etiqueta = "Rumba Caliente";
+    } else if (n === "bandida") {
+      file = "https://radio-tekileros.vercel.app/Bandida.json"; clave = "bandida"; etiqueta = "Bandida";
+    } else if (n === "vina_rock") {
+      file = "https://radio-tekileros.vercel.app/ViñaRock.json"; clave = "vina_rock"; etiqueta = "Viña Rock";
+    } else if (n === "guitarhero") {
+      file = "https://radio-tekileros.vercel.app/HeavyMetal.json"; clave = "Heavy Metal"; etiqueta = "Guitar Hero";
+    } else if (n === "razteca") {
+      file = "https://radio-tekileros.vercel.app/Razteca.json"; clave = "razteca"; etiqueta = "Festival Razteca";
+    } else if (n === "soytribu") {
+      file = "https://radio-tekileros.vercel.app/SoyTribu.json"; clave = "Soy Tribu"; etiqueta = "Soy Tribu";
+    } else {
+      console.warn(`❌ Playlist desconocida: ${nombre}`); return;
+    }
 
-    // 1. FETCH ASÍNCRONO DEL ARCHIVO JSON
-    const res = await fetch(file, { cache: "no-cache" });
-    if (!res.ok) {
-      console.error(`❌ No se pudo cargar el archivo ${file} (status ${res.status})`);
-      return;
-    }
+    const res = await fetch(file, { cache: "no-cache" });
+    if (!res.ok) { console.error(`❌ No se pudo cargar ${file} (status ${res.status})`); return; }
 
-    const data = await res.json();
-    console.log("🗂️ Claves disponibles en JSON:", Object.keys(data));
+    const data = await res.json();
+    let pistas;
+    if (n === "vina_rock" && data[clave]) {
+      pistas = Object.values(data[clave]).flat();
+    } else if (data[clave]) {
+      pistas = data[clave];
+    } else if (Array.isArray(data)) {
+      pistas = data;
+    } else {
+      console.error(`❌ La clave "${clave}" no existe en ${file}.`); return;
+    }
 
-    // 2. VALIDACIÓN DE CLAVE DENTRO DEL JSON
-    if (!data[clave]) {
-      console.error(`❌ La clave "${clave}" no existe en ${file}.`);
-      return;
-    }
+    // 🔧 Normalización de claves por pista
+    trackData = (pistas || []).map(t => ({
+      ...t,
+      dropbox_url: t.dropbox_url || t.enlace || t.url || "",
+      caratula: t.caratula || t.cover || t.portada || "https://santi-graphics.vercel.app/assets/covers/Cover1.png",
+      genero: t.genero || t.genre || "Desconocido",
+      nombre: t.nombre || t.title || "Sin título",
+      artista: t.artista || t.artist || "Desconocido",
+    }));
 
-    // 3. ASIGNACIÓN DE DATOS Y ESTADO GLOBAL
-    trackData = data[clave];
-    console.log("🎶 Pistas cargadas:", trackData.length);
+    const playlistLabel = document.getElementById("track-playlist");
+    if (playlistLabel) playlistLabel.textContent = `Playlist: ${etiqueta}`;
 
-    currentTrack = 0;
-    activarReproduccion(0, "initial-load"); 
-    generarListaModal(); 
+    currentTrack = 0;
+    activarReproduccion(0, "auto-load"); // ✅ autoplay real
+    generarListaModal?.();
 
-    // 4. ACTUALIZACIÓN DE ETIQUETA EN LA UI
-    const playlistLabel = document.getElementById("track-playlist");
-    if (playlistLabel) playlistLabel.textContent = `Playlist: ${etiqueta}`;
-
-    console.log(`✅ Playlist "${etiqueta}" cargada con ${trackData.length} pistas.`);
-  } catch (err) {
-    console.error(`❌ Error al cargar playlist "${nombre}":`, err);
-  }
+    console.log(`✅ Playlist "${etiqueta}" cargada con ${trackData.length} pistas.`);
+  } catch (err) {
+    console.error(`❌ Error al cargar playlist "${nombre}":`, err);
+  }
 }
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -168,6 +169,7 @@ function activarReproduccion(index, modo = "manual") {
 
   currentTrack = index;
 
+  // Actualizar UI con datos del track
   if (currentTrackName) currentTrackName.textContent = track.nombre;
   if (currentArtistName) currentArtistName.textContent = track.artista;
   if (metaTrack) metaTrack.textContent = track.genero || "Desconocido";
@@ -190,13 +192,16 @@ function activarReproduccion(index, modo = "manual") {
   const nombrePlaylist = playlistLabel ? playlistLabel.textContent.replace("Playlist: ", "") : "Actual";
   guardarEstadoReproductor(nombrePlaylist, currentTrack);
 
+  // 🔑 Diferenciar modos
   if (modo === "initial-load") {
+    // Solo preparar UI, sin reproducir
     const icon = playPauseBtn ? playPauseBtn.querySelector("i") : null;
     if (icon) { icon.classList.remove("fa-pause"); icon.classList.add("fa-play"); }
     if (discImg) discImg.classList.remove("rotating");
     return;
   }
 
+  // 🚀 auto-load y manual sí reproducen
   audio.muted = false;
   safePlay({ keepMuted: false }).then(() => {
     const icon = playPauseBtn ? playPauseBtn.querySelector("i") : null;
@@ -210,11 +215,9 @@ function activarReproduccion(index, modo = "manual") {
   });
 }
 
-
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // AUTOPLAY SEGURO
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
 function safePlay({ keepMuted = false } = {}) {
   if (!audio) return Promise.resolve();
 
@@ -236,7 +239,6 @@ audio.addEventListener("ended", () => {
   if (modoActual !== "local") return;
 
   if (repeatMode === "one") {
-    // 🔑 Reiniciar karaoke al repetir la misma pista
     detenerKaraoke();
     activarReproduccion(currentTrack, "repeat-one");
   } else if (isShuffling) {
@@ -244,14 +246,15 @@ audio.addEventListener("ended", () => {
     do {
       newIndex = Math.floor(Math.random() * trackData.length);
     } while (newIndex === currentTrack && trackData.length > 1);
-    detenerKaraoke(); // limpiar karaoke antes de nueva pista
+    detenerKaraoke();
     activarReproduccion(newIndex, "shuffle-auto");
   } else {
     let nextIndex = (currentTrack + 1) % trackData.length;
-    detenerKaraoke(); // limpiar karaoke antes de nueva pista
+    detenerKaraoke();
     activarReproduccion(nextIndex, "auto-next");
   }
 });
+
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // 📻 METADATOS RADIO (fetch + proxy)
@@ -859,21 +862,27 @@ function generarListaModal() {
   });
 }
 
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // GENERAR SELECTOR DE PLAYLISTS
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 function generarSelectorPlaylists() {
   const selector = document.querySelector("#playlist-modal .track-list");
   if (!selector) return;
 
   selector.innerHTML = "";
 
+  // 🔑 Orden completo y correcto
   const playlists = [
-    { nombre: "Actual", etiqueta: "Actual" },
-    { nombre: "rumba",  etiqueta: "Rumba Caliente" },
-    { nombre: "bandida", etiqueta: "Bandida" },
-    { nombre: "hardcore", etiqueta: "Ruido de Lata" },
-    { nombre: "baladasrock", etiqueta: "Baladas Rock" }
+    { nombre: "actual",     etiqueta: "Novedades" },
+    { nombre: "exitos",     etiqueta: "Éxitos" },
+    { nombre: "hardcore",   etiqueta: "Ruido de Lata" },
+    { nombre: "baladasrock",etiqueta: "Baladas Rock" },
+    { nombre: "rumba",      etiqueta: "Rumba Caliente" },
+    { nombre: "bandida",    etiqueta: "Bandida" },
+    { nombre: "vina_rock",  etiqueta: "Viña Rock" },
+    { nombre: "guitarhero", etiqueta: "Guitar Hero" },
+    { nombre: "razteca",    etiqueta: "Festival Razteca" },
+    { nombre: "soytribu",   etiqueta: "Soy Tribu" }
   ];
 
   playlists.forEach(pl => {
@@ -884,11 +893,13 @@ function generarSelectorPlaylists() {
     li.addEventListener("click", () => {
       cargarPlaylist(pl.nombre);
       playlistModal.classList.add("hidden");
+      console.log(`📂 Playlist seleccionada: ${pl.nombre}`);
     });
 
     selector.appendChild(li);
   });
 }
+
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // CIERRES COMUNES DE MODALES (SECCIÓN CORREGIDA)
