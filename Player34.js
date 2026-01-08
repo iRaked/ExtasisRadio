@@ -42,12 +42,13 @@ document.addEventListener("click", async () => {
 
   // Esperar karaoke antes de iniciar reproducción
   try {
-    await cargarLyricsScript("./lyricsRepro34.js");
+    await cargarLyricsScript("https://radio-tekileros.vercel.app/lyricsRepro.js");
   } catch (e) {
     console.warn("⚠️ Karaoke no disponible:", e.message);
   }
 
   if (modoActual === "radio") {
+    // Primer gesto: iniciar stream de radio
     try {
       if (!audio.src) {
         audio.src = "https://technoplayerserver.net/8240/stream";
@@ -64,16 +65,19 @@ document.addEventListener("click", async () => {
       console.warn("⚠️ Error al iniciar stream en gesto:", err);
       playIcon.classList.replace("fa-pause", "fa-play");
     }
-  } else {
+  } else if (modoActual === "local") {
+    // Primer gesto: iniciar modo local
     try {
       const necesitaCargar = !Array.isArray(trackData) || trackData.length === 0;
       if (necesitaCargar) {
-        await cargarPlaylist("Repro34");
+        console.log("📂 Cargando playlist Actual.json en modo local...");
+        await cargarPlaylist("actual"); // nombre corto, no URL
       }
 
       if (Array.isArray(trackData) && trackData.length > 0) {
         activarReproduccion(0, "initial-gesture");
-        console.log("🟢 Primer gesto: local iniciado.");
+        playIcon.classList.replace("fa-play", "fa-pause");
+        console.log(`🟢 Primer gesto: local iniciado con ${trackData.length} pistas.`);
       } else {
         console.warn("⚠️ No hay pistas disponibles en modo local tras gesto.");
       }
@@ -83,11 +87,10 @@ document.addEventListener("click", async () => {
   }
 }, { once: true });
 
-
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // 📥 Inyección robusta de lyricsRepro34.js
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-function cargarLyricsScript(url = "./lyricsRepro34.js") {
+function cargarLyricsScript(url = "https://radio-tekileros.vercel.app/lyricsRepro.js") {
   const existing = document.getElementById("lyricsRepro34-script");
   if (existing) {
     return new Promise((resolve) => {
@@ -230,46 +233,101 @@ function pushHistoryEntry(artist, title, cover) {
   }
 }
 
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // Cargar playlist según nombre y raíz
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 async function cargarPlaylist(nombre) {
   try {
-    let file, clave;
+    let file, clave, etiqueta;
 
-    // mapeo nombre → archivo remoto → raíz JSON
-    if (nombre === "Repro34") {
-      file = "https://radio-tekileros.vercel.app/Repro34.json";
+    if (nombre === "actual") {
+      file = "https://radio-tekileros.vercel.app/Actual.json";
       clave = "actual";
+      etiqueta = "Novedades";
     } else if (nombre === "exitos") {
       file = "https://radio-tekileros.vercel.app/Exitos.json";
       clave = "exitos";
+      etiqueta = "Éxitos";
     } else if (nombre === "hardcore") {
       file = "https://radio-tekileros.vercel.app/HardCore.json";
       clave = "hardcore";
+      etiqueta = "Ruido de Lata";
     } else if (nombre === "baladasrock") {
       file = "https://radio-tekileros.vercel.app/BaladasRock.json";
       clave = "baladasrock";
+      etiqueta = "Baladas Rock";
+    } else if (nombre === "rumba") {
+      file = "https://radio-tekileros.vercel.app/Rumba.json";
+      clave = "rumba";
+      etiqueta = "Rumba Caliente";
+    } else if (nombre === "bandida") {
+      file = "https://radio-tekileros.vercel.app/Bandida.json";
+      clave = "bandida";
+      etiqueta = "Bandida";
+    } else if (nombre === "vina_rock") {
+      file = "https://radio-tekileros.vercel.app/ViñaRock.json";
+      clave = "vina_rock";
+      etiqueta = "Viña Rock";
+    } else if (nombre === "guitarhero") {
+      file = "https://radio-tekileros.vercel.app/HeavyMetal.json";
+      clave = "Heavy Metal";
+      etiqueta = "Guitar Hero";
+    } else if (nombre === "razteca") {
+      file = "https://radio-tekileros.vercel.app/Razteca.json";
+      clave = "razteca";
+      etiqueta = "Festival Razteca";
+    } else if (nombre === "soytribu") {
+      file = "https://radio-tekileros.vercel.app/SoyTribu.json";
+      clave = "Soy Tribu";
+      etiqueta = "Soy Tribu";
     } else {
-      console.warn(`❌ Playlist desconocida: ${nombre}`);
+      console.warn(`⚠️ Playlist desconocida: ${nombre}`);
       return;
     }
 
+    // 1. FETCH ASÍNCRONO DEL ARCHIVO JSON
     const res = await fetch(file, { cache: "no-cache" });
-    const data = await res.json();
+    if (!res.ok) {
+      console.error(`❌ No se pudo cargar el archivo ${file} (status ${res.status})`);
+      return;
+    }
 
-    // tomar la raíz correcta
-    trackData = Array.isArray(data[clave]) ? data[clave] : [];
+    const data = await res.json();
+    console.log("🗂️ Claves disponibles en JSON:", Object.keys(data));
+
+    // 2. VALIDACIÓN Y ASIGNACIÓN DE DATOS
+    let pistas;
+    if (nombre === "vina_rock" && data[clave]) {
+      // Caso especial: Viña Rock → objeto con sublistas
+      const sublistas = Object.values(data[clave]);
+      pistas = sublistas.flat();
+    } else if (data[clave]) {
+      pistas = data[clave];
+    } else if (Array.isArray(data)) {
+      pistas = data;
+    } else {
+      console.error(`❌ La clave "${clave}" no existe en ${file}.`);
+      return;
+    }
+
+    // 3. ASIGNACIÓN DE DATOS Y ESTADO GLOBAL
+    trackData = pistas;
     console.log("🎶 Pistas cargadas:", trackData.length);
 
-    // activar primera pista automáticamente
-    if (trackData.length > 0) {
-      activarReproduccion(0, "initial-load");
-    }
+    currentTrack = 0;
+    activarReproduccion(0, "initial-load");
+    generarListaModal();
+
+    // 4. ACTUALIZACIÓN DE ETIQUETA EN LA UI
+    const playlistLabel = document.getElementById("track-playlist");
+    if (playlistLabel) playlistLabel.textContent = `Playlist: ${etiqueta}`;
+
+    console.log(`✅ Playlist "${etiqueta}" cargada con ${trackData.length} pistas.`);
   } catch (err) {
-    console.error("❌ Error al cargar playlist:", err);
+    console.error(`❌ Error al cargar playlist "${nombre}":`, err);
   }
 }
+
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // Variables de estado de playlist
@@ -278,13 +336,15 @@ let trackData = [];
 let currentTrack = null;
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// Activar reproducción local
+// ▶️ Activar reproducción local
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 function activarReproduccion(index, modo = "manual") {
   if (modoActual !== "local" || index < 0 || index >= trackData.length) return;
 
   const track = trackData[index];
-  if (!track?.dropbox_url) return;
+  // 🔑 Compatibilidad con "enlace" y "dropbox_url"
+  const url = track.enlace || track.dropbox_url;
+  if (!url) return;
 
   currentTrack = index;
 
@@ -298,16 +358,18 @@ function activarReproduccion(index, modo = "manual") {
   }
 
   // reproducir pista
-  audio.src = track.dropbox_url;
+  audio.src = url;
   audio.load();
 
   audio.play().then(() => {
     playIcon.classList.replace("fa-play", "fa-pause");
   }).catch(err => {
     console.warn("⚠️ Error al reproducir pista local:", err);
+    // si falla, revertir icono y animación
+    playIcon.classList.replace("fa-pause", "fa-play");
+    if (COVER_ART_EL) COVER_ART_EL.classList.remove("rotating");
   });
 }
-
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // 🔘 Modal de Tracks en modo local
@@ -487,9 +549,9 @@ if (contenidoBtn && historyModal && historyList) {
   });
 }
 
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // 📜 Generar el selector del modal de playlists
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 function generarSelectorPlaylists() {
   const selector = document.querySelector("#playlist-modal .track-list");
   if (!selector) return;
@@ -502,22 +564,20 @@ function generarSelectorPlaylists() {
   // volver a enlazar
   const items = selector.querySelectorAll("li[data-list]");
   items.forEach(li => {
-    const key = li.dataset.list; // "actual" | "hits" | "ruido" | "baladasrock"
+    const key = li.dataset.list;
 
     li.addEventListener("click", () => {
       switch (key) {
-        case "actual":
-          cargarPlaylist("Repro34");   // raíz: "actual"
-          break;
-        case "hits":
-          cargarPlaylist("exitos");    // raíz: "exitos"
-          break;
-        case "ruido":
-          cargarPlaylist("hardcore");  // raíz: "hardcore"
-          break;
-        case "baladasrock":
-          cargarPlaylist("baladasrock"); // raíz: "baladasrock"
-          break;
+        case "actual":      cargarPlaylist("actual"); break;
+        case "exitos":      cargarPlaylist("exitos"); break;
+        case "hardcore":    cargarPlaylist("hardcore"); break;
+        case "baladasrock": cargarPlaylist("baladasrock"); break;
+        case "rumba":       cargarPlaylist("rumba"); break;
+        case "bandida":     cargarPlaylist("bandida"); break;
+        case "vina_rock":   cargarPlaylist("vina_rock"); break;
+        case "Heavy Metal":  cargarPlaylist("guitarhero"); break;
+        case "razteca":     cargarPlaylist("razteca"); break;
+        case "Soy Tribu":    cargarPlaylist("soytribu"); break;
         default:
           console.warn(`❌ Playlist desconocida en modal: ${key}`);
           return;
@@ -529,9 +589,9 @@ function generarSelectorPlaylists() {
   });
 }
 
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // 📜 Selección automática y cierre del modal de playlist
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 const playlistModal = document.getElementById("playlist-modal");
 const closeMenuModal = document.getElementById("close-modal-btn");
 
@@ -543,22 +603,41 @@ if (playlistModal) {
       const key = li.dataset.list;
 
       switch (key) {
-        case "actual":
-          cargarPlaylist("Repro34");   // raíz: "actual"
-          break;
-        case "hits":
-          cargarPlaylist("exitos");    // raíz: "exitos"
-          break;
-        case "ruido":
-          cargarPlaylist("hardcore");  // raíz: "hardcore"
-          break;
-        case "baladasrock":
-          cargarPlaylist("baladasrock"); // raíz: "baladasrock"
-          break;
-        default:
-          console.warn(`❌ Playlist desconocida: ${key}`);
-          return;
-      }
+  case "actual":
+    cargarPlaylist("actual");       // raíz: "actual"
+    break;
+  case "exitos":
+    cargarPlaylist("exitos");       // raíz: "exitos"
+    break;
+  case "hardcore":
+    cargarPlaylist("hardcore");     // raíz: "hardcore"
+    break;
+  case "baladasrock":
+    cargarPlaylist("baladasrock");  // raíz: "baladasrock"
+    break;
+  case "rumba":
+    cargarPlaylist("rumba");        // raíz: "rumba"
+    break;
+  case "bandida":
+    cargarPlaylist("bandida");      // raíz: "bandida"
+    break;
+  case "vina_rock":
+    cargarPlaylist("vina_rock");    // raíz especial: objeto con sublistas
+    break;
+  case "guitarhero":
+    cargarPlaylist("guitarhero");   // raíz especial: "Heavy Metal"
+    break;
+  case "razteca":
+    cargarPlaylist("razteca");      // raíz: "razteca"
+    break;
+  case "soytribu":
+    cargarPlaylist("soytribu");     // raíz especial: "Soy Tribu"
+    break;
+  default:
+    console.warn(`❌ Playlist desconocida: ${key}`);
+    return;
+}
+
 
       // cerrar modal al seleccionar
       playlistModal.classList.add("hidden");
@@ -930,7 +1009,7 @@ function activarModoLocal() {
 
   // ✅ cargar playlist y reproducir primera pista
   // usa el nombre correcto según tu JSON: "Repro34" o "Repro36"
-  cargarPlaylist("Repro34");
+  cargarPlaylist("actual");
 
   console.log("🎶 Modo Local activado");
 }
