@@ -478,25 +478,60 @@ function crearPlaylistModal() {
   const ul = document.createElement("ul");
   ul.className = "track-list";
 
+  // Playlists en orden
   const liActual = document.createElement("li");
   liActual.dataset.list = "actual";
-  liActual.textContent = "Actual";
+  liActual.textContent = "Novedades";
 
-  const liHits = document.createElement("li");
-  liHits.dataset.list = "hits";
-  liHits.textContent = "Hits";
+  const liExitos = document.createElement("li");
+  liExitos.dataset.list = "exitos";
+  liExitos.textContent = "Éxitos";
 
   const liRuido = document.createElement("li");
-  liRuido.dataset.list = "ruido";
+  liRuido.dataset.list = "hardcore";
   liRuido.textContent = "Ruido de Lata";
 
-  // Nueva playlist: Baladas Rock
   const liBaladas = document.createElement("li");
   liBaladas.dataset.list = "baladasrock";
   liBaladas.textContent = "Baladas Rock";
 
-  // Añadir todas las opciones al listado
-  ul.append(liActual, liHits, liRuido, liBaladas);
+  const liRumba = document.createElement("li");
+  liRumba.dataset.list = "rumba";
+  liRumba.textContent = "Rumba Caliente";
+
+  const liBandida = document.createElement("li");
+  liBandida.dataset.list = "bandida";
+  liBandida.textContent = "Bandida";
+
+  const liVinaRock = document.createElement("li");
+  liVinaRock.dataset.list = "vina_rock";
+  liVinaRock.textContent = "Viña Rock";
+
+  const liGuitarHero = document.createElement("li");
+  liGuitarHero.dataset.list = "guitarhero";
+  liGuitarHero.textContent = "Guitar Hero";
+
+  const liRazteca = document.createElement("li");
+  liRazteca.dataset.list = "razteca";
+  liRazteca.textContent = "Festival Razteca";
+
+  const liSoyTribu = document.createElement("li");
+  liSoyTribu.dataset.list = "soytribu";
+  liSoyTribu.textContent = "Soy Tribu";
+
+  // Añadir todas las opciones al listado en orden
+  ul.append(
+    liActual,
+    liExitos,
+    liRuido,
+    liBaladas,
+    liRumba,
+    liBandida,
+    liVinaRock,
+    liGuitarHero,
+    liRazteca,
+    liSoyTribu
+  );
 
   modalContent.append(closeBtn, h2, ul);
   modal.appendChild(modalContent);
