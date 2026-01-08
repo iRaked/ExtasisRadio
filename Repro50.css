@@ -1,0 +1,1627 @@
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 01 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+/*   ***************************** CONTENEDORES *****************************  */
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;   /* por defecto: sin scroll horizontal */
+  overflow-y: auto;     /* scroll vertical normal */
+  color: #e0e0e0;
+}
+
+/* Solo en pantallas pequeñas activar scroll horizontal */
+@media (max-width: 768px) {
+  html, body {
+    overflow-x: auto;   /* permite scroll horizontal */
+    overflow-y: hidden; /* opcional: bloquea scroll vertical si no lo quieres */
+  }
+}
+
+#main-container {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  width: 880px;
+  margin: auto;
+  padding: 0;
+  gap: 0;
+  background-image: url("https://santi-graphics.vercel.app/assets/background/BG-Eluney-GFX.gif");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 20px;
+  overflow-x: auto;           /* ← activa scroll horizontal */
+  scroll-behavior: smooth;    /* ← desplazamiento suave */
+  z-index: 1;
+}
+
+/* Scrollbar rosa unificado */
+#main-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+#main-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#main-container::-webkit-scrollbar-thumb {
+  background-color: #ff4081;   /* rosa vibrante */
+  border-radius: 4px;
+  border: 2px solid #ffc0cb;   /* halo rosa claro */
+}
+
+#main-container::-webkit-scrollbar-thumb:hover {
+  background-color: #e60073;   /* rosa intenso al hover */
+}
+
+
+#left-panel,
+#right-panel {
+  background-color: rgba(30, 30, 30, 0.4); /* gris oscuro semi-transparente */
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  padding: 48px;
+  width: 400px;
+  height: 480px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  z-index: 3;
+  transform: translateZ(0);
+}
+
+/* ***************************** Ondas ***************************** */
+/* Ondas posicionadas manualmente */
+.audio-waves {
+  position: absolute;
+  top: 20px; /* Ajusta según la posición del logo */
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  gap: 3px;
+  padding: 15px 0;
+  width: 300px; /* Más grande que el logo */
+  z-index: 2;
+
+  -webkit-mask-image: radial-gradient(circle at center, transparent 40%, black 100%);
+  mask-image: radial-gradient(circle at center, transparent 40%, black 100%);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: cover;
+  mask-size: cover;
+}
+
+.wave-bar {
+  width: 10px;
+  height: var(--height, 60px); /* Valor por defecto si no se define */
+  background-color: #ff4081; /* Validación emocional */
+  border-radius: 2px;
+  animation: barDance 1s infinite cubic-bezier(0.4, 0, 0.2, 1);
+  animation-delay: var(--delay, 0s);
+  opacity: 1; /* Opacidad fija, sin transparencia */
+}
+
+/* Animaciones */
+@keyframes wave-animation {
+  0%, 100% {
+    transform: scaleY(0.5);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes letterPulse {
+  0% {
+    text-shadow:
+      0 0 6px rgba(255, 64, 129, 0.9),   /* rosa base vibrante */
+      0 0 12px rgba(255, 153, 0, 0.6),   /* naranja cálido */
+      0 0 24px rgba(255, 255, 102, 0.4); /* amarillo suave */
+    color: rgba(255, 64, 129, 0.9);      /* rosa base */
+  }
+  100% {
+    text-shadow:
+      0 0 10px rgba(255, 64, 129, 1),    /* rosa intenso */
+      0 0 20px rgba(255, 153, 0, 0.8),   /* naranja más fuerte */
+      0 0 30px rgba(255, 255, 102, 0.6), /* amarillo más brillante */
+      0 0 40px rgba(255, 255, 255, 0.4); /* halo blanco suave */
+    color: rgba(255, 64, 129, 1);        /* rosa puro */
+  }
+}
+
+@keyframes letterFloat {
+  0% { transform: translateY(0px) translateZ(0); }
+  30% { transform: translateY(-3px) translateZ(10px); }
+  70% { transform: translateY(2px) translateZ(5px); }
+  100% { transform: translateY(-1px) translateZ(0); }
+}
+
+@keyframes reflectionPulse {
+  0% { opacity: 0.2; transform: scale(0.8); }
+  100% { opacity: 0.6; transform: scale(1.2); }
+}
+
+@keyframes barDance {
+  0% { height: calc(var(--height) * 0.6); }
+  100% { height: var(--height); }
+}
+
+@keyframes glowPulse {
+  0% { opacity: 0.4; filter: blur(20px); }
+  100% { opacity: 0.8; filter: blur(25px); }
+}
+
+@keyframes wordRotate {
+  0%, 100% { transform: rotateX(0deg); }
+  25% { transform: rotateX(2deg); }
+  75% { transform: rotateX(-2deg); }
+}
+
+@keyframes wordFloat {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+  100% { transform: translateY(1px); }
+}
+
+@keyframes neonFlicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+    opacity: 1;
+    text-shadow:
+      0 0 10px #ff4081,   /* rosa base vibrante */
+      0 0 15px #ffcc00,   /* dorado cálido */
+      0 0 25px #ffff66,   /* amarillo ritual */
+      0 0 40px #ffffff;   /* halo blanco */
+    color: #ff4081;
+  }
+  20%, 22%, 24%, 55% {
+    opacity: 0.8;
+    text-shadow:
+      0 0 5px #ff4081,
+      0 0 10px #ffcc00,
+      0 0 15px #ffff66;
+    color: #ff4081;
+  }
+}
+
+@keyframes neon-pulse {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.5); }
+}
+
+@keyframes reflection-pulse {
+  0%, 100% {
+    opacity: 0.3;
+    width: 80%;
+    left: 10%;
+  }
+  50% {
+    opacity: 0.6;
+    width: 90%;
+    left: 5%;
+  }
+}
+
+@media (max-width: 768px) {
+  .audio-waves {
+    top: 12px;
+    width: 90vw;
+    gap: 2px;
+    padding: 10px 0;
+    transform: translateX(-50%);
+  }
+
+  .wave-bar {
+    width: 6px;
+    height: var(--height, 40px);
+  }
+}
+
+/*  ****************** Estilos para el contenedor de fecha y hora ******************  */
+.datetime-container {
+  color: #ffffff;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 12px;
+  padding: 5px 10px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  justify-content: center;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  bottom: 535px;               /* ← ajustado para visibilidad */
+  left: 50%;                  /* ← centrado horizontal */
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .datetime-container {
+    position: static;
+    margin: 16px auto;
+    flex-wrap: wrap;
+    justify-content: center;
+    font-size: 12px;
+    transform: none;
+  }
+}
+
+.date-separator {
+  color: #999;
+}
+
+/* Marquesina Ubicacion */
+#current-city {
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 120px;
+  position: relative;
+}
+
+#current-city::before {
+  content: attr(data-text);
+  position: absolute;
+  animation: deslizar 8s linear infinite;
+}
+
+@keyframes deslizar {
+  0% { left: 100%; }
+  100% { left: -100%; }
+}
+
+    .datetime-container i {
+    color: #ff4081;
+    font-size: 14px;
+    }
+    
+    #current-time, #current-date {
+    font-weight: bold;
+    }
+    
+    .date-separator {
+    margin: 0 5px;
+    opacity: 0.6;
+    }
+    
+    /* Animación sutil para el reloj */
+    .datetime-container .fa-clock {
+    animation: clockPulse 2s infinite linear;
+    }
+    
+    @keyframes clockPulse {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(3deg); }
+    75% { transform: rotate(-3deg); }
+    100% { transform: rotate(0deg); }
+    }
+
+/*  Radioescuchas */
+.listeners-container {
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 12px;
+  padding: 5px 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #ff4081;
+  position: absolute;
+  top: 55px;
+  left: 10px;
+  z-index: 10;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+    
+    .listeners-count {
+        font-weight: bold;
+        color: #ff4081;
+        animation: countPulse 2s infinite;
+    }
+    
+    @keyframes countPulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+        100% { transform: scale(1); }
+    }
+
+/* Contador de Usuarios */
+
+.listeners-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #ff4081;
+}
+
+.listeners-count {
+  font-weight: bold;
+  color: #ffffff; /* tono ritual */
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .datetime-container {
+    position: static;
+    margin: 16px auto;
+    flex-wrap: wrap;
+    justify-content: center;
+    font-size: 12px;
+  }
+
+  .listeners-container {
+    position: static;
+    margin: 8px auto;
+    justify-content: center;
+    font-size: 12px;
+  }
+
+  #current-city {
+    max-width: 100px;
+  }
+}
+
+/* ***************************** LOGO ***************************** */
+.radio-logo {
+  width: 100%;
+  max-width: 220px;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  margin: 25px auto 20px;
+  border: 1px solid rgb(255, 255, 255);
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  animation: vinylSpin 3s linear infinite, glow 3s infinite alternate;
+  box-shadow: 0 0 15px rgb(255, 255, 255);
+  z-index: 5;
+  isolation: isolate;
+}
+
+.radio-logo::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url(https://santi-graphics.vercel.app/assets/img/Plato.png);
+  background-size: cover;
+  background-position: center;
+  opacity: 1.0; /* corregido: valor válido entre 0 y 1 */
+  z-index: 2;
+}
+
+.radio-logo:hover {
+  box-shadow: 0 0 20px rgba(255, 64, 129, 0.8); /* resplandor rosa intenso */
+}
+
+@keyframes vinylSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 25px rgba(255, 64, 129, 0.5);   /* rosa suave */
+    border-color: rgba(255, 64, 129, 0.6);          /* borde rosa tenue */
+  }
+  100% {
+    box-shadow: 0 0 30px rgba(255, 64, 129, 0.8);   /* resplandor rosa intenso */
+    border-color: rgba(255, 64, 129, 0.9);          /* borde vibrante */
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .radio-logo {
+    max-width: 160px;
+    margin: 16px auto;
+  }
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Volumen ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.center-zone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+    z-index: 20;
+}
+
+.volume-icon {
+  color: #ffffff;
+  font-size: 16px;
+  width: 20px;
+  transition: color 0.3s;
+    cursor: pointer;z-index: 20;
+}
+.volume-icon:hover { color: #ff4081; }
+
+.volume-track {
+  width: 250px;
+  height: 16px;
+  background: #010101;
+  border-radius: 8px;
+  box-shadow: inset 0 0 0 1px #C8A2C8, inset 0 2px 4px #000;
+  display: flex;
+  align-items: center;
+  padding: 0 4px;
+  overflow: hidden;
+    cursor: pointer;
+    z-index: 20;
+}
+
+.volume-bar {
+  width: 100%;
+  height: 16px;
+  appearance: none;
+  background: none;
+  outline: none;
+  cursor: pointer;
+  --vol: 70%;
+}
+
+.volume-bar::-webkit-slider-runnable-track {
+  height: 6px;
+  background: linear-gradient(
+    to right,
+    #ff4081 0%,
+    #ff4081 var(--vol),
+    #ccc var(--vol),
+    #ccc 100%
+  );
+  border-radius: 4px;
+}
+.volume-bar::-moz-range-track {
+  height: 6px;
+  background: linear-gradient(
+    to right,
+    #ff4081 0%,
+    #ff4081 var(--vol),
+    #ccc var(--vol),
+    #ccc 100%
+  );
+  border-radius: 4px;
+}
+
+.volume-bar::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 15px;
+  height: 15px;
+  background: #ffffff;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.8);
+  box-shadow: 0 0 10px rgba(255,128,179,0.6);
+  transition: all 0.2s;
+  cursor: pointer;
+  margin-top: -4px; /* centrado visual respecto al track */
+}
+.volume-bar::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  background: #ff80b3;
+}
+.volume-bar:active::-webkit-slider-thumb {
+  transform: scale(1.3);
+  background: #ff4081;
+}
+
+.volume-bar::-moz-range-thumb {
+  width: 15px;
+  height: 15px;
+  background: #ffffff;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.8);
+  box-shadow: 0 0 10px rgba(255,128,179,0.6);
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.volume-percentage {
+  color: #ffffff;
+  font-size: 12px;
+  min-width: 32px;
+  text-align: right;
+  font-weight: bold;
+}
+
+/* ***************************** INFO + EMOCIONES ***************************** */
+/* Contenedor Info + Track */
+.track-display-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 12px;
+  padding: 12px 18px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  position: absolute;
+  top: 340px;
+  left: 8px;
+  width: 400px;
+  min-height: 120px;
+  max-height: 180px;
+  overflow: hidden;
+  z-index: 9;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .track-display-container {
+    right: 250px;
+  }
+}
+
+/* Carátula */
+.cover-art-container {
+  flex-shrink: 0;
+}
+
+#cover-art {
+  width: 100px;
+  height: 100px;
+  border-radius: 10px;
+  box-shadow:
+    0 0 12px 4px rgba(255, 128, 179, 0.6),  /* rosa suave cercano */
+    0 0 24px 6px rgba(255, 64, 129, 0.4),   /* rosa base medio */
+    0 0 36px 8px rgba(255, 255, 255, 0.2);  /* halo blanco lejano */
+  object-fit: cover;
+  object-fit: cover;
+}
+
+/* Información */
+.info-track-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  padding-left: 12px;
+  color: #fff;
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+/* Iconos */
+.info-track-container i {
+  color: #ff4081;
+  font-size: 15px;
+}
+
+.info-separator {
+  margin: 0 4px;
+  opacity: 0.5;
+}
+
+/* Contenedor por línea */
+.scroll-wrapper {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  height: 1.4em;
+  mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+}
+
+.scroll-text {
+  display: inline-block;
+  white-space: nowrap;
+  font-size: 16px;
+  line-height: 1.4;
+  color: #fff;
+  transform: translateX(0%);
+  will-change: transform;
+  margin: 0;
+}
+
+/* Activación forzada para prueba */
+.scrollable {
+  animation: scroll-left 10s linear infinite;
+}
+
+/* Animación */
+@keyframes scroll-left {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* Playlist Actual */
+#track-playlist {
+  font-size: 0.85em;
+  font-style: italic;
+  color: var(--accent-color);
+  margin-top: 4px;
+}
+
+/* Base Colores Para Emociones en Info Track */
+#track-emotion[class^="emotion-"] {
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: color 0.4s ease;
+  animation: emotionPulse 3s ease-in-out infinite;
+  display: inline-block;
+  overflow: visible;
+}
+
+@keyframes emotionPulse {
+  0%, 100% {
+    transform: scale(0.90);
+    box-shadow: 0 0 6px currentColor;
+  }
+  50% {
+    transform: scale(1.00);
+    box-shadow: 0 0 12px currentColor;
+  }
+}
+
+/* Estilos por género detectado */
+.emotion-cuarteto     { color: #ff9800; }
+.emotion-balada       { color: #f5c6aa; }
+.emotion-cumbia       { color: #ff4081; }
+.emotion-pop          { color: #f06292; }
+.emotion-reggae       { color: #4caf50; }
+.emotion-rock         { color: #ff5722; }
+.emotion-regional     { color: #a1887f; }
+.emotion-r-b          { color: #b39ddb; }
+.emotion-metal        { color: #ff1744; }
+.emotion-ska          { color: #ffffff; }
+.emotion-electro      { color: #3688ff; }
+.emotion-default      { color: #ff4081; }
+.emotion-picardia     { color: #ff80b3; }
+
+/* ***************************** BOTONES ***************************** */
+/* Botonera Invisible */
+#block-controls {
+  position: absolute;
+  bottom: -15px;           
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300px;         
+  height: auto;
+  border-radius: 12px;
+  z-index: 10;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+}
+
+/* 🎛️ Controles del reproductor */
+.radio-logo .player-controls {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 5;
+  opacity: 1;
+  pointer-events: none;
+  animation: counterRotation 3s linear infinite;
+}
+
+@keyframes counterRotation {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(-360deg); }
+}
+
+/* 🧩 Botones base */
+button {
+  border-radius: 50%;
+  background: linear-gradient(to bottom, #1a1a1a, #333);
+  color: #fff;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s ease;
+  position: absolute;
+  pointer-events: auto; /* fuerza eventos en todos los botones */
+  cursor: pointer;
+}
+button:hover {
+  transform: scale(1.1);
+}
+
+/* 🎯 Botón POWER */
+#power-btn {
+  position: absolute;
+  bottom: 550px;
+  right: 330px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(to bottom, #1a1a1a, #333); 
+  color: #fff;
+  transition: all 0.3s ease; 
+  box-shadow: 0 0 8px rgba(255, 128, 179, 0.8);
+  pointer-events: auto;
+}
+#power-btn:hover {
+  box-shadow: 0 0 12px #ff4081;
+}
+
+/* Estado Activo: degradado rosa + glow */
+#power-btn.active {
+  background: linear-gradient(to right,
+      #ff80b3 0%,
+      #ff4081 50%,
+      #e60073 100%
+  ) !important;
+  box-shadow: 0 0 16px 4px #ff4081 !important;
+}
+#power-btn.active i {
+  text-shadow: 0 0 8px #ff4081;
+  transition: transform 0.5s ease-out;
+}
+
+/* Rotación del icono */
+#power-btn.animate-icon i {
+  transform: rotate(360deg);
+}
+
+
+/* 🔴 Botón Play */
+#play-btn {
+  width: 80px;
+  height: 80px;
+  bottom: 20px;
+  left: 38%;
+  border-radius: 50%;
+  background: linear-gradient(to bottom, #1a1a1a, #333); /* base oscura */
+  color: #fff;
+  box-shadow: 0 0 10px rgba(255, 128, 179, 0.8);
+  font-size: 1.0em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  z-index: 20;
+  transition: background 0.3s ease;
+}
+
+/* Estado activo del Play → degradado rosa */
+#play-btn.active {
+  background: linear-gradient(to right,
+    #ff80b3 0%,
+    #ff4081 50%,
+    #e60073 100%
+  );
+}
+
+#rewind-btn {
+  width: 55px;
+  height: 55px;
+  bottom: 28px;
+  left: 50px;
+  border-radius: 50%;
+  background: linear-gradient(to bottom, #1a1a1a, #333); /* base oscura */
+  color: #fff;
+  box-shadow: 0 0 8px rgba(255, 64, 129, 0.6); /* glow */
+}
+#rewind-btn:hover { box-shadow: 0 0 12px #ff4081; }
+
+
+/* ⏩ Botón Forward */
+#forward-btn {
+  width: 55px;
+  height: 55px;
+  bottom: 28px;
+  left: 205px;
+  border-radius: 50%;
+  background: linear-gradient(to bottom, #1a1a1a, #333);
+  color: #fff;
+  box-shadow: 0 0 8px rgba(255, 64, 129, 0.6);
+}
+#forward-btn:hover { box-shadow: 0 0 12px #ff4081; }
+
+
+/* 🔁 Botón Repeat */
+.control-btn.active {
+    background: linear-gradient(to right,
+        #ff80b3 0%,
+        #ff4081 50%,
+        #e60073 100%
+    ) !important;
+}
+
+.control-btn.active i {
+    text-shadow: 0 0 8px #ff4081;
+    /* Aplica una transición suave a la rotación */
+    transition: transform 0.5s ease-out; 
+}
+
+/* CLASE TEMPORAL para disparar la Rotación */
+.control-btn.animate-icon i {
+    transform: rotate(360deg);
+}
+
+/* 🔁 Botón Repeat */
+#repeat-btn {
+    width: 45px;
+    height: 45px;
+    bottom: 32px;
+    right: 265px;
+    border-radius: 50%;
+    background: linear-gradient(to bottom, #1a1a1a, #333);
+    color: #fff;
+    box-shadow: 0 0 8px rgba(255, 64, 129, 0.6);
+    transition: all 0.3s ease; 
+}
+#repeat-btn:hover { box-shadow: 0 0 12px #ff4081; }
+#repeat-btn.active-one {
+    box-shadow: 0 0 12px 4px rgba(255, 64, 129, 0.8);
+}
+#repeat-btn.active-one i {
+    text-shadow: 0 0 8px #ff4081;
+}
+
+
+/* 🔀 Botón Shuffle */
+#shuffle-btn {
+    width: 45px;
+    height: 45px;
+    bottom: 32px;
+    left: 270px;
+    border-radius: 50%;
+    background: linear-gradient(to bottom, #1a1a1a, #333);
+    color: #fff;
+    box-shadow: 0 0 8px rgba(255, 64, 129, 0.6);
+    transition: all 0.3s ease;
+}
+#shuffle-btn:hover { box-shadow: 0 0 12px #ff4081; }
+#shuffle-btn.active {
+    box-shadow: 0 0 12px 4px rgba(255, 64, 129, 0.8);
+}
+
+/* 📜 Botón Menu */
+#menu-btn {
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  bottom: 60px;
+  right: 320px;
+  background: linear-gradient(to bottom, #1a1a1a, #333);
+  box-shadow: 0 0 6px rgba(255, 64, 129, 0.3);
+}
+#menu-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 10px #ff4081;
+}
+
+/* 🎵 Botón Playlist */
+#music-btn {
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  bottom: 60px;
+  left: 325px;
+  border-radius: 50%;
+  background: linear-gradient(to bottom, #1a1a1a, #333); /* base oscura */
+  color: #fff;
+  box-shadow: 0 0 8px rgba(255, 64, 129, 0.6); /* glow rosa */
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+#music-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 12px #ff4081; /* glow rosa más intenso al hover */
+}
+
+
+/* ==================== Animaciones ==================== */
+@keyframes spinOnceForward {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes spinOnceBack {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(-360deg); }
+}
+
+@keyframes pulse-shuffle {
+  0% { transform: scale(1); box-shadow: 0 0 12px 4px rgba(255, 64, 129, 0.6); }
+  50% { transform: scale(1.1); box-shadow: 0 0 18px 6px rgba(255, 64, 129, 0.8); }
+  100% { transform: scale(1); box-shadow: 0 0 12px 4px rgba(255, 64, 129, 0.6); }
+}
+
+/* ================================================================ */
+
+.emocion-furia    { color: #ff4444; }
+.emocion-nostalgia { color: #44aaff; }
+.emocion-extasis   { color: #ffdd00; }
+.emocion-radiactiva { color: #00ff99; }
+
+/* 🔙 Botón Volver a listas */
+.volver-btn {
+  margin-top: 12px;
+  padding: 8px 14px;
+  background-color: #ff4081;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.volver-btn:hover {
+  background-color: rgba(255, 64, 129, 0.31); /* Antes: ff408150 */
+  transform: scale(1.05);
+}
+
+/* 🧃 Scroll suave y estilizado */
+#contenido-panel {
+  scroll-behavior: smooth;
+}
+
+/* 🎨 Scrollbar personalizado (Webkit) */
+#contenido-panel::-webkit-scrollbar {
+  width: 8px;
+}
+
+#contenido-panel::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+}
+
+#contenido-panel::-webkit-scrollbar-thumb {
+  background-color: #ff4081;
+  border-radius: 8px;
+  border: 2px solid rgba(20, 20, 20, 0.95);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .playlist-panel,
+  #contenido-panel {
+    position: static;
+    width: 100%;
+    max-width: 320px;
+    margin: 16px auto;
+    top: auto;
+    right: auto;
+  }
+
+  .contenido-btn {
+    bottom: 60px;
+    right: 20px;
+  }
+}
+
+/* ************************* NOTAS MUSICALES ************************* */
+/* Modificación de los contenedores de efectos para limitarlos al reproductor */
+    .music-notes-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
+    overflow: hidden;
+    }
+    
+    /* Corregir las posiciones de inicio de las notas musicales */
+    .music-note {
+    position: absolute;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 24px;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+    animation: floatNote 12s linear infinite;
+    opacity: 0;
+    }
+    
+    .music-note:nth-child(1) { left: 20%; top: -30px; animation-delay: 0s; font-size: 25px; }
+    .music-note:nth-child(2) { left: 40%; top: -30px; animation-delay: 2s; font-size: 18px; }
+    .music-note:nth-child(3) { left: 60%; top: -30px; animation-delay: 4s; font-size: 22px; }
+    .music-note:nth-child(4) { left: 80%; top: -30px; animation-delay: 6s; font-size: 26px; }
+    .music-note:nth-child(5) { left: 10%; top: -30px; animation-delay: 1s; font-size: 20px; }
+    .music-note:nth-child(6) { left: 30%; top: -30px; animation-delay: 3s; font-size: 19px; }
+    .music-note:nth-child(7) { left: 50%; top: -30px; animation-delay: 5s; font-size: 24px; }
+    .music-note:nth-child(8) { left: 70%; top: -30px; animation-delay: 7s; font-size: 21px; }
+    
+    /* Animación modificada para que las notas se muevan solo dentro del contenedor */
+    @keyframes floatNote {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.8;
+    }
+    90% {
+        opacity: 0.6;
+    }
+    100% {
+        transform: translateY(380px) rotate(360deg);
+        opacity: 0;
+    }
+    }
+
+/* ***************************** MÁSCARA NOTAS ***************************** */
+/* Máscara de capa para ocultar ondas detrás del logo */
+.mask-wrapper {
+  position: absolute;
+  top: 150px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  overflow: visible; /* solo para diagnóstico */
+
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .mask-wrapper {
+    top: 200px;
+    width: 160px;
+    height: 160px;
+  }
+
+  .music-note {
+    font-size: 18px;
+  }
+
+  @keyframes floatNote {
+    100% {
+      transform: translateY(280px) rotate(360deg);
+      opacity: 0;
+    }
+  }
+}
+
+/* ***************************** LIRYCS ***************************** */
+.right-panel {
+  position: relative;
+}
+
+.lyrics-container {
+    position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 540px;
+  height: 640px;
+  padding: 20px;
+  box-sizing: border-box;
+  /*background-color: rgba(0, 0, 0, 0.6);*/
+  border-radius: 10px;
+  font-family: 'Arial', sans-serif;
+  color: white;
+  overflow-y: hidden;
+}
+
+
+.lyric-line {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: slideUp 0.8s ease-out forwards;
+  animation-delay: var(--line-delay, 0s);
+  margin-bottom: 12px;
+}
+
+@keyframes slideUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.lyric-line span {
+  display: inline-block;
+  opacity: 0;
+  animation-name: fadeInUp, pulseWord;
+  animation-duration: 0.6s, 0.8s;
+  animation-delay: var(--delay), calc(var(--delay) + 0.2s);
+  animation-fill-mode: forwards;
+  margin-right: 4px;
+  color: var(--color, #ffff66);
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulseWord {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .lyrics-container {
+    width: 90vw;
+    height: auto;
+    max-height: 480px;
+    padding: 16px;
+    font-size: 14px;
+    overflow-y: auto;
+  }
+
+  .lyric-line span {
+    font-size: 14px;
+  }
+}
+
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+/* MODAL GENERAL (BASE) */
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+.modal {
+  position: absolute;
+  width: 90%;
+  max-width: 440px; 
+  background-color: #01010195;
+  color: #fff;
+  border: 2px solid #ff4081;
+  border-radius: 12px;
+  box-shadow: 0 0 20px #ff4081;
+  z-index: 1000;
+  padding: 20px;
+  box-sizing: border-box; 
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  gap: 12px;
+}
+
+/* Oculto por defecto */
+.modal.hidden {
+  display: none;
+}
+
+/* Background Modal (Ajustado para ocupar 100% del tamaño del modal) */
+.modal::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  transform: translate(-50%, -50%);
+  background-image: url("https://i.ibb.co/7xtPnmJk/Scene.gif");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  clip-path: inset(0 round 20px);
+  z-index: -1;
+  border-radius: 12px;
+  opacity: 0.9;
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%; 
+  overflow: hidden; 
+}
+
+/* Botón de cierre */
+.close-btn {
+  align-self: flex-end; 
+  background: none;
+  border: none;
+  color: #ff4081;
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  margin-bottom: 8px;
+}
+
+.close-btn:hover {
+  transform: scale(1.2);
+}
+
+/* Info de pista actual */
+.modal-info {
+  font-size: 0.95em;
+  color: #ccc;
+  margin: 0 0 8px 0;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: unset;
+  max-height: 40px;
+}
+
+/* Lista de pistas (El ÚNICO lugar con scroll) */
+.track-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  overflow-y: auto; /* CLAVE: Scroll solo en el contenido de la lista */
+  overflow-x: hidden; 
+  flex-grow: 1; /* Ocupa todo el espacio restante dentro del modal */
+}
+
+
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+/* MODAL HISTORIAL
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+#history-modal {
+  position: absolute;
+  top: 0px; 
+  left: 440px;
+  width: 100%;
+  max-width: 440px; 
+  height: 576px;
+  
+  background: rgba(20, 20, 20, 0.95);
+  border-radius: 10px;
+  z-index: 100;
+  padding: 20px;
+  box-sizing: border-box;
+  display: none;
+}
+
+#history-modal:not(.hidden) {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+#history-modal .modal-content {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: hidden;
+}
+
+#history-list {
+  flex: 1;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  overflow-y: auto;
+}
+
+#history-list li {
+  padding: 8px;
+  margin-bottom: 6px;
+  border-bottom: 1px dashed #777; 
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  color: #e0e0e0; 
+}
+
+#history-list li:hover {
+  background-color: rgba(255, 64, 129, 0.7);
+}
+
+#history-list li.active {
+  background-color: #ff4081;
+  color: #000;
+  font-weight: bold;
+  border-bottom-color: transparent;
+  transform: scale(1.01);
+}
+
+#history-list li.active:hover {
+  background-color: #e03874;
+}
+
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+/* MODAL PLAYLIST MENU (POSICIÓN Y MEDIDAS RESTAURADAS) */
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+#playlist-modal {
+  position: absolute;
+  top: 0px; 
+  left: 440px;
+  width: 100%;
+  max-width: 440px; 
+  height: 576px;
+  
+  background-color: rgba(20,20,20,0.9);
+  border: 2px solid #ff4081; 
+  border-radius: 12px;
+  box-shadow: 0 0 20px #ff4081;
+  z-index: 1000;
+  padding: 20px;
+  box-sizing: border-box;
+  display: none;
+  flex-direction: column;
+  overflow: hidden; 
+}
+
+#playlist-modal:not(.hidden) {
+  display: flex;
+}
+
+#playlist-modal .track-list {
+  flex: 1;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 1.1em;
+  overflow-y: auto; 
+  overflow-x: hidden;
+}
+
+#playlist-modal .track-list li {
+  padding: 6px 12px;
+  background-color: #1a1a1a;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+#playlist-modal .track-list li:hover {
+  background-color: rgba(255, 64, 129, 0.7);
+  color: #000;
+}
+
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+/* MODAL TRACKS (POSICIÓN Y MEDIDAS RESTAURADAS) */
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+#modal-playlist {
+  position: absolute;
+  top: 0px; 
+  left: 440px;
+  width: 100%;
+  max-width: 440px; 
+  height: 576px;
+  
+  background-color: #01010195;
+  color: #fff;
+  border: 2px solid #ff4081;
+  border-radius: 12px;
+  box-shadow: 0 0 20px #ff4081;
+  z-index: 1000;
+  padding: 20px;
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+  gap: 12px;
+}
+
+#modal-playlist:not(.hidden) {
+  display: flex;
+}
+
+/* Cada pista */
+.modal-track-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  border-bottom: 1px solid #333;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+  min-width: 0; 
+}
+
+.modal-track-item:hover {
+  background-color: #222;
+  transform: scale(1.02);
+}
+
+/* Carátula */
+.track-cover {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 0 6px #ff4081;
+  flex-shrink: 0;
+}
+
+/* Info de la pista */
+.track-info {
+  flex: 1;
+  font-size: 0.9em;
+  line-height: 1.4;
+  color: #ccc;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.track-info strong {
+  color: #fff;
+  display: block;
+  margin-bottom: 4px;
+}
+
+/* Scroll Color */
+.track-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.track-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.track-list::-webkit-scrollbar-thumb {
+  background-color: #888; 
+  border-radius: 3px;
+  border: 1px solid transparent;
+  background-clip: content-box;
+}
+
+/* Firefox */
+.track-list {
+  scrollbar-width: thin;
+  scrollbar-color: #888 transparent;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .modal {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 95%;
+    max-width: 360px;
+    height: 560px;
+    padding: 16px;
+  }
+
+  .modal::before {
+    width: 100%;
+    height: 100%;
+    clip-path: none;
+    border-radius: 12px;
+  }
+
+  .track-cover {
+    width: 60px;
+    height: 60px;
+  }
+
+  .track-info {
+    font-size: 0.85em;
+  }
+}
+
+/* 🎚️ Scroll emocional fucsia */
+.track-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.track-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.track-list::-webkit-scrollbar-thumb {
+  background-color: #ff4081;
+  border-radius: 3px;
+  border: 1px solid transparent;
+  background-clip: content-box;
+}
+
+/* Firefox */
+.track-list {
+  scrollbar-width: thin;
+  scrollbar-color: #ff4081 transparent;
+}
+
+/* 🎶 Track actual y artista con aura ceremonial */
+#current-track-display {
+  display: inline-block;
+  padding: 4px 12px;
+  margin-left: 6px;
+  background: linear-gradient(90deg, #3688ff, #6aaeff); /* Degradado Azul Tema Actual */
+  border-radius: 8px;
+  color: #fff;
+  font-weight: bold;
+  animation: pulseTrack 1.5s infinite;
+  box-shadow: 0 0 6px rgba(54, 136, 255, 0.4);
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@keyframes pulseTrack {
+  0%   { box-shadow: 0 0 6px rgba(54, 136, 255, 0.4); }
+  50%  { box-shadow: 0 0 12px rgba(106, 174, 255, 0.8); }
+  100% { box-shadow: 0 0 6px rgba(54, 136, 255, 0.4); }
+}
+
+/* *********************** Registro de Visitas/Reproducciones *********************** */
+.track-info span:last-child {
+  color: #3688ff;
+  font-weight: 500;
+}
+
+/* Canvas */
+#layout-wrapper {
+  position: relative;
+  width: 880px;
+  margin: auto;
+  overflow: hidden;
+}
+
+#particles {
+  position: absolute;
+  bottom: 190px;
+  left: 330px;              /* ← compensación exacta */
+  width: 880px;             /* ← igual al nuevo #main-container */
+  height: 580px;            /* ← igual a los paneles */
+  overflow: hidden;
+  z-index: 4;
+  pointer-events: none;
+  display: block;
+}
+
+@media (max-width: 768px) {
+  #particles {
+    left: 0px; /* posición base */
+    transform: translateX(-100px); /* ← desplazamiento hacia la izquierda */
+  }
+}
+
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+/* MODALES EN RESPONSIVE → PANEL DERECHO */
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+@media (max-width: 768px) {
+  .modal {
+    position: absolute;       /* se ancla dentro del panel */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 100%;              /* ocupa todo el ancho del panel derecho */
+    max-width: 400px;         /* límite según el ancho del panel */
+    /* 🔑 restauramos altura original */
+    height: 534px;            /* conserva la altura fija del modal */
+    max-height: none;         /* elimina límite artificial */
+    transform: none;          /* elimina el centrado global */
+  }
+
+  /* Asegura que el modal se renderice dentro del panel derecho */
+  #right-panel {
+    position: relative;       /* referencia para los modales */
+  }
+}
+
+.custom-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 15px 25px;
+    background: rgba(0, 0, 0, 0.9);
+    border: 2px solid #ff0000;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 1.1em;
+    text-shadow: 0 0 8px #c2a044;
+    box-shadow: 0 0 20px #ff0000b3; /* b3 ≈ 70% de opacidad */
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease-in-out;
+}
+.custom-message.show {
+    opacity: 1;
+}
