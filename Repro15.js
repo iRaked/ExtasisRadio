@@ -100,6 +100,11 @@ async function cargarPlaylist(nombre) {
       clave = "rumba";
       etiqueta = "Rumba Caliente";
         
+    } else if (nombre === "bandida") {
+      file = "https://radio-tekileros.vercel.app/Bandida.json";
+      clave = "bandida";   // raíz exacta del JSON
+      etiqueta = "Bandida";
+        
     } else if (nombre === "vina_rock") {
       file = "https://radio-tekileros.vercel.app/ViñaRock.json";
       clave = "vina_rock";   // raíz exacta del JSON
@@ -864,10 +869,11 @@ function generarSelectorPlaylists() {
 
   const playlists = [
     { nombre: "Actual", etiqueta: "Actual" },
-    { nombre: "rumba",  etiqueta: "Rumba Caliente" },
     { nombre: "exitos", etiqueta: "Éxitos" },
     { nombre: "hardcore", etiqueta: "Ruido de Lata" },
     { nombre: "baladasrock", etiqueta: "Baladas Rock" },
+    { nombre: "rumba",  etiqueta: "Rumba Caliente" },
+    { nombre: "bandida",  etiqueta: "Bandida" },
     { nombre: "vina_rock", etiqueta: "Viña Rock" },
     { nombre: "guitarhero", etiqueta: "Guitar Hero" },
     { nombre: "razteca", etiqueta: "Festival Razteca" },
