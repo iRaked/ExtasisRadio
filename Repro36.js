@@ -349,42 +349,62 @@ function buildRightPanel(mainContainer) {
   mainContainer.appendChild(blockHistory);
 
 
-  // MODAL PLAYLIST MENU (Menú de Listas)
-  const blockPlaylistMenu = document.createElement("section");
-  blockPlaylistMenu.id = "block-playlist-menu";
-  blockPlaylistMenu.className = "block-modal";
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// MODAL PLAYLIST MENU (Menú de Listas)
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+const blockPlaylistMenu = document.createElement("section");
+blockPlaylistMenu.id = "block-playlist-menu";
+blockPlaylistMenu.className = "block-modal";
 
-  const playlistModal = document.createElement("div");
-  playlistModal.id = "playlist-modal";
-  playlistModal.className = "modal modal-menu hidden";
+const playlistModal = document.createElement("div");
+playlistModal.id = "playlist-modal";
+playlistModal.className = "modal modal-menu hidden";
 
-  const playlistContent = document.createElement("div");
-  playlistContent.className = "modal-content";
+const playlistContent = document.createElement("div");
+playlistContent.className = "modal-content";
 
-  const closePlaylistMenu = document.createElement("button");
-  closePlaylistMenu.id = "close-modal-btn"; 
-  closePlaylistMenu.className = "close-btn";
-  closePlaylistMenu.setAttribute("aria-label","Cerrar menú de playlists");
-  closePlaylistMenu.textContent = "❌";
-  playlistContent.appendChild(closePlaylistMenu);
+// Botón de cierre
+const closePlaylistMenu = document.createElement("button");
+closePlaylistMenu.id = "close-modal-btn"; 
+closePlaylistMenu.className = "close-btn";
+closePlaylistMenu.setAttribute("aria-label","Cerrar menú de playlists");
+closePlaylistMenu.textContent = "❌";
+playlistContent.appendChild(closePlaylistMenu);
 
-  const playlistTitle = document.createElement("h2");
-  playlistTitle.textContent = "Listas de Reproducción";
-  playlistContent.appendChild(playlistTitle);
+// Título
+const playlistTitle = document.createElement("h2");
+playlistTitle.textContent = "Listas de Reproducción";
+playlistContent.appendChild(playlistTitle);
 
-  const playlistList = document.createElement("ul");
-  playlistList.className = "track-list";
-  ["Actual","Rumba Caliente","Bandida","Ruido de Lata","Baladas Rock"].forEach((label,i)=>{
-    const li = document.createElement("li");
-    li.setAttribute("data-list", ["actual","rumba","bandida","ruido","baladasrock"][i]);
-    li.textContent = label;
-    playlistList.appendChild(li);
-  });
-  playlistContent.appendChild(playlistList);
+// Lista de playlists
+const playlistList = document.createElement("ul");
+playlistList.className = "track-list";
 
-  playlistModal.appendChild(playlistContent);
-  blockPlaylistMenu.appendChild(playlistModal);
-  mainContainer.appendChild(blockPlaylistMenu);
+// 🔑 Orden completo y correcto
+const playlists = [
+  { label: "Novedades",       key: "actual" },
+  { label: "Éxitos",          key: "exitos" },
+  { label: "Ruido de Lata",   key: "hardcore" },
+  { label: "Baladas Rock",    key: "baladasrock" },
+  { label: "Rumba Caliente",  key: "rumba" },
+  { label: "Bandida",         key: "bandida" },
+  { label: "Viña Rock",       key: "vina_rock" },
+  { label: "Guitar Hero",     key: "guitarhero" },
+  { label: "Festival Razteca",key: "razteca" },
+  { label: "Soy Tribu",       key: "soytribu" }
+];
+
+playlists.forEach(item => {
+  const li = document.createElement("li");
+  li.setAttribute("data-list", item.key);
+  li.textContent = item.label;
+  playlistList.appendChild(li);
+});
+
+playlistContent.appendChild(playlistList);
+playlistModal.appendChild(playlistContent);
+blockPlaylistMenu.appendChild(playlistModal);
+mainContainer.appendChild(blockPlaylistMenu);
 
 
   // MODAL TRACKS (Lista de Pistas)
