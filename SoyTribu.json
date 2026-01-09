@@ -9,7 +9,7 @@
       "genero": "rock urbano",
       "emotion": "Identidad",
       "seccion": "soytribu",
-      "duracion": ":",
+      "duracion": "4:19",
       "country": ["México"]
     },
     {
@@ -21,7 +21,7 @@
       "genero": "rock urbano",
       "emotion": "Unión",
       "seccion": "soytribu",
-      "duracion": ":",
+      "duracion": "2:59",
       "country": ["México"]
     },
     {
@@ -33,7 +33,7 @@
       "genero": "ska",
       "emotion": "Ancestral",
       "seccion": "soytribu",
-      "duracion": ":",
+      "duracion": "0:25",
       "country": ["México"]
     },
     {
@@ -45,7 +45,7 @@
       "genero": "ska fusion",
       "emotion": "Energía",
       "seccion": "soytribu",
-      "duracion": ":",
+      "duracion": "2:48",
       "country": ["México"]
     },
     {
@@ -57,7 +57,7 @@
       "genero": "ska fusion",
       "emotion": "Solemne",
       "seccion": "soytribu",
-      "duracion": ":",
+      "duracion": "1:06",
       "country": ["México"]
     },
     {
@@ -69,19 +69,19 @@
       "genero": "ska fusion",
       "emotion": "Resiliencia",
       "seccion": "soytribu",
-      "duracion": ":",
+      "duracion": "2:55",
       "country": ["México"]
     },
     {
       "id": "los-calzones-llamada-tilcara",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Los-Calzones-Llamada-de-Tilcara-El-Huamaqueno-El-Toro.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Los-Calzones-Llamada-de-Tilcara-El-Huamaqueno-El Toro.jpg",
       "artista": "Los Calzones",
       "nombre": "Llamada de Tilcara / El Huamaqueño / El Toro",
-      "enlace": "https://radio-tekileros.vercel.app/assets/audio/Los-Calzones-Llamada-de-Tilcara-El-Huamaqueno-El-Toro.MP3",
+      "enlace": "Los-Calzones-Llamada-de-Tilcara-El-Huamaqueno-El Toro.MP3",
       "genero": "skandino",
       "emotion": "Carnavalera",
       "seccion": "soytribu",
-      "duracion": ":",
+      "duracion": "2:29",
       "country": ["Argentina"]
     },
     {
@@ -93,7 +93,7 @@
       "genero": "skandino",
       "emotion": "Inspiradora",
       "seccion": "soytribu",
-      "duracion": ":",
+      "duracion": "3:20",
       "country": ["Argentina"]
     },
     {
@@ -105,7 +105,7 @@
       "genero": "skandino",
       "emotion": "Festiva",
       "seccion": "soytribu",
-      "duracion": ":",
+      "duracion": "5:00",
       "country": ["México"]
     },
     {
@@ -117,7 +117,7 @@
       "genero": "folklore fusion",
       "emotion": "Alegre",
       "seccion": "soytribu",
-      "duracion": ":",
+      "duracion": "4:46",
       "country": ["México"]
     },
     {
@@ -129,7 +129,7 @@
       "genero": "tinkus",
       "emotion": "Guerrera",
       "seccion": "soytribu",
-      "duracion": ":",
+      "duracion": "3:48",
       "country": ["Bolivia"]
     },
     {
@@ -141,7 +141,7 @@
       "genero": "folklore andino",
       "emotion": "Tradicional",
       "seccion": "soytribu",
-      "duracion": ":",
+      "duracion": "3:20",
       "country": ["Bolivia"]
     },
     {
@@ -153,7 +153,7 @@
       "genero": "saya",
       "emotion": "Clásica",
       "seccion": "soytribu",
-      "duracion": ":",
+      "duracion": "3:27",
       "country": ["Bolivia"]
     },
     {
@@ -165,7 +165,7 @@
       "genero": "huayno",
       "emotion": "Pícara",
       "seccion": "soytribu",
-      "duracion": ":",
+      "duracion": "3:12",
       "country": ["Bolivia"]
     },
     {
@@ -177,7 +177,7 @@
       "genero": "pop andino",
       "emotion": "Sentimental",
       "seccion": "soytribu",
-      "duracion": ":",
+      "duracion": "3:47",
       "country": ["Bolivia", "Perú"]
     },
     {
@@ -189,7 +189,7 @@
       "genero": "andino",
       "emotion": "Romántica",
       "seccion": "soytribu",
-      "duracion": ":",
+      "duracion": "3:40",
       "country": ["Bolivia"]
     },
     {
@@ -201,7 +201,7 @@
       "genero": "folklore fusion",
       "emotion": "Melancólica",
       "seccion": "soytribu",
-      "duracion": ":",
+      "duracion": "3:17",
       "country": ["Bolivia"]
     },
     {
@@ -213,19 +213,19 @@
       "genero": "folklore fusion",
       "emotion": "Digital",
       "seccion": "soytribu",
-      "duracion": ":",
+      "duracion": "3:12",
       "country": ["Bolivia"]
     },
     {
       "id": "maria-juana-rompemonteras",
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Maria-Juana-Rompemonteras.jpg",
       "artista": "Maria Juana",
-      "nombre": "Rompemonteras",
+      "nombre": "Rompe monteras",
       "enlace": "https://radio-tekileros.vercel.app/assets/audio/Maria-Juana-Rompemonteras.mp3",
       "genero": "tinkus",
       "emotion": "Vigorosa",
       "seccion": "soytribu",
-      "duracion": ":",
+      "duracion": "3:58",
       "country": ["Bolivia"]
     },
     {
@@ -237,7 +237,7 @@
       "genero": "bomba",
       "emotion": "Explosiva",
       "seccion": "soytribu",
-      "duracion": ":",
+      "duracion": "3:53",
       "country": ["Ecuador"]
     },
     {
@@ -249,7 +249,7 @@
       "genero": "saya",
       "emotion": "Despecho",
       "seccion": "soytribu",
-      "duracion": ":",
+      "duracion": "4:13",
       "country": ["Bolivia"]
     },
     {
@@ -261,19 +261,19 @@
       "genero": "folklore fusion",
       "emotion": "Pícara",
       "seccion": "soytribu",
-      "duracion": ":",
+      "duracion": "3:03",
       "country": ["Bolivia"]
     },
     {
       "id": "suyari-chaskanawi",
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Suyari-Chaskanawi.jpg",
-      "artista": "Suyari",
-      "nombre": "Chaskañawi",
+      "artista": "Pakari",
+      "nombre": "Chaska ñawi",
       "enlace": "https://radio-tekileros.vercel.app/assets/audio/Suyari-Chaskanawi.mp3",
       "genero": "huayno",
       "emotion": "Dulce",
       "seccion": "soytribu",
-      "duracion": ":",
+      "duracion": "3:52",
       "country": ["Bolivia"]
     },
     {
@@ -285,20 +285,20 @@
       "genero": "folklore fusion",
       "emotion": "Libertad",
       "seccion": "soytribu",
-      "duracion": ":",
+      "duracion": "3:27",
       "country": ["Bolivia", "Ecuador"]
     },
     {
       "id": "santi-mix-danza-inti-raymi",
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Santi-Mix-Danza-rompe-zapatos-Saltadito-Allku-Nawi-Inti-Raymi.jpg",
-      "artista": "Varios Artistas",
+      "artista": "Santi Mix DJ",
       "nombre": "MIX Danza Rompe Zapatos / Saltadito / Allku Ñawi / Inti Raymi",
       "enlace": "https://radio-tekileros.vercel.app/assets/audio/Santi-Mix-Danza-rompe-zapatos-Saltadito-Allku-Nawi-Inti-Raymi.mp3",
       "genero": "sanjuanito",
       "emotion": "Celebración",
       "seccion": "soytribu",
-      "duracion": ":",
-      "country": ["Ecuador"]
+      "duracion": "5:46",
+      "country": ["México"]
     },
     {
       "id": "dj-potencia-nacidos-bailar",
@@ -309,7 +309,7 @@
       "genero": "electro andino",
       "emotion": "Euforia",
       "seccion": "soytribu",
-      "duracion": ":",
+      "duracion": "4:32",
       "country": ["Bolivia"]
     },
     {
@@ -321,7 +321,7 @@
       "genero": "huayno rock",
       "emotion": "Orgullo",
       "seccion": "soytribu",
-      "duracion": ":",
+      "duracion": "3:21",
       "country": ["Bolivia"]
     },
     {
@@ -333,7 +333,7 @@
       "genero": "salay",
       "emotion": "Zapateado",
       "seccion": "soytribu",
-      "duracion": ":",
+      "duracion": "4:33",
       "country": ["Bolivia"]
     },
     {
@@ -345,19 +345,19 @@
       "genero": "huayno",
       "emotion": "Tristeza",
       "seccion": "soytribu",
-      "duracion": ":",
+      "duracion": "3:42",
       "country": ["Bolivia"]
     },
     {
       "id": "los-llajtas-renacer",
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Los-Llajtas-Renacer.jpg",
-      "artista": "Los Llajtas",
+      "artista": "Llajtas Bolivia",
       "nombre": "Renacer",
       "enlace": "https://radio-tekileros.vercel.app/assets/audio/Los-Llajtas-Renacer.mp3",
       "genero": "andino fusion",
       "emotion": "Esperanza",
       "seccion": "soytribu",
-      "duracion": ":",
+      "duracion": "3:41",
       "country": ["Bolivia"]
     },
     {
@@ -369,7 +369,7 @@
       "genero": "saya",
       "emotion": "Rítmica",
       "seccion": "soytribu",
-      "duracion": ":",
+      "duracion": "4:20",
       "country": ["Bolivia"]
     },
     {
@@ -381,19 +381,19 @@
       "genero": "tinkus",
       "emotion": "Bohemia",
       "seccion": "soytribu",
-      "duracion": ":",
+      "duracion": "3:44",
       "country": ["Bolivia"]
     },
     {
       "id": "juan-tuba-chucha-karajo",
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Juan-Tuba-Chucha-karajo.jpg",
-      "artista": "Juan Tuba",
+      "artista": "Jokiwas",
       "nombre": "Chucha karajo",
       "enlace": "https://radio-tekileros.vercel.app/assets/audio/Juan-Tuba-Chucha-karajo.mp3",
       "genero": "huayno fusion",
       "emotion": "Desenfreno",
       "seccion": "soytribu",
-      "duracion": ":",
+      "duracion": "5:58",
       "country": ["Bolivia"]
     },
 
@@ -409,7 +409,7 @@
     "genero": "chicha",
     "emotion": "Promesa",
     "seccion": "soytribu",
-    "duracion": ":",
+    "duracion": "6:05",
     "country": ["Perú"]
   },
   {
@@ -421,7 +421,7 @@
     "genero": "chicha",
     "emotion": "Entrega",
     "seccion": "soytribu",
-    "duracion": ":",
+    "duracion": "4:22",
     "country": ["Bolivia"]
   },
   {
@@ -433,7 +433,7 @@
     "genero": "cumbia andina",
     "emotion": "Irónica",
     "seccion": "soytribu",
-    "duracion": ":",
+    "duracion": "4:38",
     "country": ["México"]
   },
   {
@@ -445,19 +445,19 @@
     "genero": "cumbia",
     "emotion": "Despecho",
     "seccion": "soytribu",
-    "duracion": ":",
+    "duracion": "3:35",
     "country": ["Perú"]
   },
   {
     "id": "monica-alexandra-que-se-vaya",
-    "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Monica-Alexandra-Que-se-vaya.jpg",
+    "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Monica-Alexandra-Tu-Dulzura-Musical-Que-se-vaya.jpg",
     "artista": "Mónica Alexandra",
     "nombre": "Que se vaya",
-    "enlace": "https://radio-tekileros.vercel.app/assets/audio/Monica-Alexandra-Que-se-vaya.mp3",
+    "enlace": "https://radio-tekileros.vercel.app/assets/audio/Monica-Alexandra-Tu-Dulzura-Musical-Que-se-vaya.mp3",
     "genero": "cumbia",
     "emotion": "Determinación",
     "seccion": "soytribu",
-    "duracion": ":",
+    "duracion": "4:15",
     "country": ["Ecuador"]
   },
   {
@@ -469,7 +469,7 @@
     "genero": "cumbia sonidera",
     "emotion": "Baile",
     "seccion": "soytribu",
-    "duracion": ":",
+    "duracion": "3:58",
     "country": ["México"]
   },
   {
@@ -481,19 +481,19 @@
     "genero": "cumbia",
     "emotion": "Esperanza",
     "seccion": "soytribu",
-    "duracion": ":",
+    "duracion": "4:05",
     "country": ["Ecuador"]
   },
   {
     "id": "corazon-serrano-olvidame",
-    "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Corazon-Serrano-Olvidate-demi-olvidame.jpg",
+    "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Corazon-Serrano-Olvidame.jpg",
     "artista": "Corazón Serrano",
     "nombre": "Olvídate de mí, Olvídame",
-    "enlace": "https://radio-tekileros.vercel.app/assets/audio/Corazon-Serrano-Olvidate-demi-olvidame.mp3",
+    "enlace": "https://radio-tekileros.vercel.app/assets/audio/Corazon-Serrano-Olvidame.mp3",
     "genero": "cumbia sanjuanera",
     "emotion": "Olvido",
     "seccion": "soytribu",
-    "duracion": ":",
+    "duracion": "3:35",
     "country": ["Perú"]
   },
   {
@@ -505,7 +505,7 @@
     "genero": "cumbia",
     "emotion": "Orgullo",
     "seccion": "soytribu",
-    "duracion": ":",
+    "duracion": "3:41",
     "country": ["Ecuador"]
   },
   {
@@ -517,7 +517,7 @@
     "genero": "cumbia andina",
     "emotion": "Nostalgia",
     "seccion": "soytribu",
-    "duracion": ":",
+    "duracion": "3:40",
     "country": ["Ecuador"]
   },
   {
@@ -529,7 +529,7 @@
     "genero": "cumbia",
     "emotion": "Lealtad",
     "seccion": "soytribu",
-    "duracion": ":",
+    "duracion": "4:10",
     "country": ["Ecuador"]
   },
   {
@@ -541,7 +541,7 @@
     "genero": "cumbia sanjuanera",
     "emotion": "Dolor",
     "seccion": "soytribu",
-    "duracion": ":",
+    "duracion": "3:41",
     "country": ["Perú"]
   },
   {
@@ -553,7 +553,7 @@
     "genero": "cumbia",
     "emotion": "Pícara",
     "seccion": "soytribu",
-    "duracion": ":",
+    "duracion": "5:09",
     "country": ["Perú"]
   },
   {
@@ -565,7 +565,7 @@
     "genero": "cumbia",
     "emotion": "Melancolía",
     "seccion": "soytribu",
-    "duracion": ":",
+    "duracion": "3:44",
     "country": ["Ecuador"]
   },
   {
@@ -577,7 +577,7 @@
     "genero": "cumbia andina",
     "emotion": "Aprendizaje",
     "seccion": "soytribu",
-    "duracion": ":",
+    "duracion": "4:52",
     "country": ["México"]
   },
   {
@@ -589,7 +589,7 @@
     "genero": "chicha",
     "emotion": "Raíces",
     "seccion": "soytribu",
-    "duracion": ":",
+    "duracion": "4:33",
     "country": ["Perú"]
   },
   {
@@ -601,7 +601,7 @@
     "genero": "cumbia andina",
     "emotion": "Cariño",
     "seccion": "soytribu",
-    "duracion": ":",
+    "duracion": "4:07",
     "country": ["México"]
   },
   {
@@ -613,7 +613,7 @@
     "genero": "cumbia andina",
     "emotion": "Sinceridad",
     "seccion": "soytribu",
-    "duracion": ":",
+    "duracion": "4:06",
     "country": ["México"]
   },
   {
@@ -625,7 +625,7 @@
     "genero": "cumbia andina",
     "emotion": "Anhelo",
     "seccion": "soytribu",
-    "duracion": ":",
+    "duracion": "3:47",
     "country": ["México"]
   },
   {
@@ -637,7 +637,7 @@
     "genero": "cumbia andina",
     "emotion": "Fidelidad",
     "seccion": "soytribu",
-    "duracion": ":",
+    "duracion": "4:40",
     "country": ["México"]
   },
   {
@@ -649,7 +649,7 @@
     "genero": "cumbia andina",
     "emotion": "Vuelo",
     "seccion": "soytribu",
-    "duracion": ":",
+    "duracion": "3:54",
     "country": ["México"]
   },
   {
@@ -661,7 +661,7 @@
     "genero": "cumbia andina",
     "emotion": "Distancia",
     "seccion": "soytribu",
-    "duracion": ":",
+    "duracion": "3:31",
     "country": ["México"]
   },
   {
@@ -673,7 +673,7 @@
     "genero": "cumbia andina",
     "emotion": "Dedicación",
     "seccion": "soytribu",
-    "duracion": ":",
+    "duracion": "3:21",
     "country": ["México"]
   }
 
