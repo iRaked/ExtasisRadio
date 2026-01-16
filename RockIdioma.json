@@ -145,6 +145,18 @@
       "country": ["Argentina"]
     },
     {
+    "id": "soda-stereo-nada-personal",
+    "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Soda-Stereo-Nada-personal.jpg",
+    "artista": "Soda Stereo",
+    "nombre": "Nada personal",
+    "enlace": "https://radio-tekileros.vercel.app/assets/audio/Soda-Stereo-Nada-personal.mp3",
+    "genero": "Rock en Español",
+    "emotion": "Sofisticado",
+    "seccion": "idioma",
+    "duracion": ":",
+    "country": ["Argentina"]
+    },
+    {
       "id": "enanitos-verdes-guitarras-blancas",
       "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Enanitos-Verdes-Guitarras-blancas.jpg",
       "artista": "Enanitos Verdes",
@@ -630,6 +642,18 @@
       "seccion": "idioma",
       "duracion": ":",
       "country": ["México"]
+    },
+    {
+    "id": "soda-stereo-persiana-americana",
+    "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Soda-Stereo-Persiana-americana.jpg",
+    "artista": "Soda Stereo",
+    "nombre": "Persiana americana",
+    "enlace": "https://radio-tekileros.vercel.app/assets/audio/Soda-Stereo-Persiana-americana.mp3",
+    "genero": "Rock en Español",
+    "emotion": "Intrigante",
+    "seccion": "idioma",
+    "duracion": ":",
+    "country": ["Argentina"]
     },
     {
       "id": "violadores-1-2-ultraviolento",
