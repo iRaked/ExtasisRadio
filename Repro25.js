@@ -9,6 +9,8 @@ let modo = 'local';
 let modoShuffle = false; 
 let radioIntervalId = null;
 let trackHistory = []; // Almacena las últimas 20 de la radio
+// Variable global para evitar procesos repetidos innecesarios
+let ultimaPistaStreaming = "";
 
 // Elementos de la Interfaz
 const audio = document.getElementById('player');
@@ -134,69 +136,122 @@ function actualizarModalActualTrack() {
 }
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// METADATOS STREAMING
+// METADATOS STREAMING (VERSIÓN IMPLACABLE)
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 async function actualizarMetadatosStreaming() {
     if (modo !== 'streaming') return;
-    const cacheBuster = new Date().getTime();
-    const urlStats = `https://technoplayerserver.net:8018/stats?json=1&sid=1&t=${cacheBuster}`;
+
+    // Cache buster para forzar al servidor a dar el dato real actual
+    const urlStats = `https://technoplayerserver.net:8018/stats?json=1&sid=1&t=${Date.now()}`;
     const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(urlStats)}`;
 
     try {
         const response = await fetch(proxyUrl);
+        if (!response.ok) throw new Error("Error de red");
         const proxyData = await response.json();
         const data = JSON.parse(proxyData.contents);
 
-        const rawTitle = data.songtitle || "Transmisión en Vivo";
-        const oyentesReales = data.currentlisteners || 0;
-
-        let artistName = "Casino Digital", songTitle = rawTitle;
-        const separators = [" - ", " – ", " — "];
-        for (const sep of separators) {
-            if (rawTitle.includes(sep)) {
-                const parts = rawTitle.split(sep);
-                artistName = parts[0].trim();
-                songTitle = parts.slice(1).join(sep).trim();
-                break;
-            }
-        }
-
-        if (contadorRadio) contadorRadio.textContent = oyentesReales;
-        if (titulo) titulo.textContent = songTitle;
-        if (artista) artista.textContent = artistName;
+        const rawTitle = data.songtitle || "";
         
-        // 💡 Aquí forzamos Casino Digital en el campo de la radio
+        // 1. SI LA PISTA ES IGUAL A LA ANTERIOR, SOLO ACTUALIZAMOS OYENTES Y SALIMOS
+        if (rawTitle === ultimaPistaStreaming && rawTitle !== "") {
+            if (contadorRadio) contadorRadio.textContent = data.currentlisteners || 0;
+            return; 
+        }
+        ultimaPistaStreaming = rawTitle;
+
+        // 2. LIMPIEZA PROFUNDA DE METADATOS
+        let { artista: finalArtist, titulo: finalTitle } = limpiarMetadatosRadio(rawTitle);
+
+        // 3. ACTUALIZACIÓN INMEDIATA DE UI
+        if (contadorRadio) contadorRadio.textContent = data.currentlisteners || 0;
+        if (titulo) titulo.textContent = finalTitle;
+        if (artista) artista.textContent = finalArtist;
         if (radio) radio.textContent = "Casino Digital"; 
         if (album) album.textContent = "Streaming AutoDJ";
+
+        // 4. PROCESOS EN SEGUNDO PLANO (No bloquean la UI)
+        registrarEnHistorial(finalArtist, finalTitle);
+        buscarCaratulaReal(finalArtist, finalTitle);
         
-        registrarEnHistorial(artistName, songTitle); // Registro automático
-        buscarCaratulaReal(artistName, songTitle);
+        // Reiniciar animaciones de scroll
         activarScroll('.titulo-container');
         activarScroll('.artista-container');
-    } catch (e) {}
+
+    } catch (e) {
+        console.error("Error en Metadatos:", e);
+    }
 }
 
+// 🧠 Lógica de limpieza fuera para mayor velocidad
+function limpiarMetadatosRadio(texto) {
+    if (!texto || texto.includes("Stream") || texto.includes("Unknown")) {
+        return { artista: "Casino Digital", titulo: "Siente la música" };
+    }
+
+    // Eliminamos tags de calidad, sitios web y basura común
+    let limpio = texto
+        .replace(/WWW\..*\..*|http:\/\/.*|\[.*\]|<.*>|128kbps|64kbps|mp3/gi, "")
+        .replace(/\(.*\)/g, "") // Quita paréntesis (Remix, Edit, etc) para mejorar búsqueda
+        .trim();
+
+    const separadores = [" - ", " – ", " — ", " / "];
+    let art = "Casino Digital", tit = limpio;
+
+    for (const sep of separadores) {
+        if (limpio.includes(sep)) {
+            const parts = limpio.split(sep);
+            art = parts[0].trim();
+            tit = parts.slice(1).join(sep).trim();
+            break;
+        }
+    }
+    return { artista: art, titulo: tit };
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// BÚSQUEDA DE CARÁTULA (PRECISIÓN QUIRÚRGICA)
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 async function buscarCaratulaReal(artistaQuery, tituloQuery) {
-    const limpiar = (t) => t.toLowerCase().replace(/\(.*\)|\[.*\]/g, "").replace(/feat\..*|ft\..*|prod\..*|official video/gi, "").trim();
-    const busqueda = `${limpiar(artistaQuery)} ${limpiar(tituloQuery)}`;
-    const itunesUrl = `https://itunes.apple.com/search?term=${encodeURIComponent(busqueda)}&media=music&limit=1`;
+    // Si es el nombre por defecto, ponemos la carátula base rápido
+    if (artistaQuery === "Casino Digital") {
+        caratula.src = "https://santi-graphics.vercel.app/assets/covers/Cover1.png";
+        return;
+    }
+
+    const termino = `${artistaQuery} ${tituloQuery}`.toLowerCase();
+    const itunesUrl = `https://itunes.apple.com/search?term=${encodeURIComponent(termino)}&media=music&limit=1`;
+
     try {
         const res = await fetch(itunesUrl);
         const json = await res.json();
+        
         if (json.results && json.results.length > 0) {
-            const highRes = json.results[0].artworkUrl100.replace("100x100bb", "600x600bb");
-            if (!caratula.src.includes(json.results[0].artworkUrl100.split('/')[4])) caratula.src = highRes;
+            const result = json.results[0];
+            const highRes = result.artworkUrl100.replace("100x100bb", "600x600bb");
+            
+            // Solo actualizamos el DOM si la carátula es realmente distinta a la actual
+            if (!caratula.src.includes(result.collectionId)) {
+                caratula.src = highRes;
+            }
         } else {
-            if (!caratula.src.includes("Cover1.png")) caratula.src = "https://santi-graphics.vercel.app/assets/covers/Cover1.png";
+            caratula.src = "https://santi-graphics.vercel.app/assets/covers/Cover1.png";
         }
-    } catch (e) {}
+    } catch (e) {
+        caratula.src = "https://santi-graphics.vercel.app/assets/covers/Cover1.png";
+    }
 }
 
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// GESTIÓN DE CICLO (MÁS AGRESIVO)
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 function gestionarCicloRadio(activar) {
     if (radioIntervalId) clearInterval(radioIntervalId);
     if (activar) {
+        ultimaPistaStreaming = ""; // Reset para forzar primera carga
         actualizarMetadatosStreaming();
-        radioIntervalId = setInterval(actualizarMetadatosStreaming, 10000);
+        // Bajamos a 8 segundos para ser más "implacables" con el cambio de pista
+        radioIntervalId = setInterval(actualizarMetadatosStreaming, 8000);
     }
 }
 
@@ -276,9 +331,39 @@ document.querySelector('.close-modal').addEventListener('click', () => toggleMod
 modalTracks.addEventListener('click', (e) => { if (e.target === modalTracks) toggleModal(false); });
 document.addEventListener('keydown', (e) => { if (e.key === "Escape") toggleModal(false); });
 
-// EQ y Volumen
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// CONTROL DE VOLUMEN / EQ
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 const slider = document.getElementById('volumenSlider');
-slider.addEventListener('input', () => { audio.volume = slider.value / 100; });
+const btnMenos = document.querySelector('.volumen-control:first-of-type');
+const btnMas = document.querySelector('.volumen-control:last-of-type');
+
+if (slider) {
+    // 1. Control por el Slider (Arrastrar)
+    slider.addEventListener('input', () => {
+        const val = slider.value;
+        // Aplicar volumen al audio (de 0.0 a 1.0)
+        audio.volume = val / 100;
+        // Actualizar el "llenado" visual de la barra (Glow blanco)
+        slider.style.background = `linear-gradient(to right, white ${val}%, transparent ${val}%)`;
+    });
+
+    // 2. Control por los botones - y +
+    if (btnMenos) {
+        btnMenos.onclick = () => {
+            slider.value = Math.max(0, parseInt(slider.value) - 10);
+            slider.dispatchEvent(new Event('input')); // Dispara la actualización
+        };
+    }
+
+    if (btnMas) {
+        btnMas.onclick = () => {
+            slider.value = Math.min(100, parseInt(slider.value) + 10);
+            slider.dispatchEvent(new Event('input')); // Dispara la actualización
+        };
+    }
+}
 
 const canvas = document.getElementById('miniEQ'), ctx = canvas.getContext('2d');
 setInterval(() => {
@@ -289,7 +374,9 @@ setInterval(() => {
     }
 }, 100);
 
+// =================================
 // Bloqueo de Context Menu y Mensaje
+// =================================
 document.addEventListener("contextmenu", (e) => {
     e.preventDefault();
     const msg = document.getElementById("custom-message");
