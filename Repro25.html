@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <!-- Font Awesome para iconos -->
-  <link rel="icon" type="image/x-icon" href="assets/SG.ico" />
+  <link rel="icon" type="image/x-icon" href="https://santi-graphics.vercel.app/assets/SG.ico" />
   <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="author" content="Rick - xat.comn/CasinoDigital">
-  <title>Repro 25 Híbrido</title>
+  <meta name="author" content="Rick">
   <!-- Estilos principales -->
-  <link rel="stylesheet" href="https://radio-tekileros.vercel.app/Repro25.css">
+  <link rel="author" href="https://santi-graphics.vercel.app/copyright.txt">
+  <title>Repro 25</title>
+  <link rel="stylesheet" href="Repro25.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <!-- Scripts Principales -->
   <script type="text/javascript">
@@ -17,22 +17,33 @@
   document.oncontextmenu = function(){return false}
   </script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://radio-tekileros.vercel.app/Repro25.js" defer></script>
+  <script src="Repro25.js" defer></script>
 </head>
     
 <body>
 <!-- Main -->
 <div id="Repro" class="reproductor">
-<!-- Reproductor Streaming -->
-<audio id="audioStreaming" autoplay muted></audio>
+    
+    <!-- Mensaje personalizado para el clic derecho -->
+    <div id="custom-message" class="custom-message">Santi Graphics</div>
+
+    <!-- Reproductor Streaming -->
+    <audio id="player" autoplay muted></audio>
     
     <!-- Ecualizador miniatura -->
-    <canvas id="miniEQ" width="30" height="20"></canvas>
-    
-    <!-- Volumen -->
-    <div class="volumen">
-      <div class="volumen-barra"></div>
-      <input type="range" min="0" max="100" value="70" class="volumen-slider" id="volumenSlider">
+    <canvas id="miniEQ" width="21" height="20"></canvas>
+
+    <!-- Nuevo contenedor de controles de volumen -->
+    <div class="volumen-contenedor">
+      <span class="volumen-control">−</span>
+
+      <div class="volumen">
+        <input type="range" min="0" max="100" value="20" class="volumen-slider" id="volumenSlider">
+      </div>
+
+      <span class="volumen-control">+</span>
+
+      <i class="fas fa-headphones volumen-headphones"></i>
     </div>
 
     <!-- Contador de radioescuchas -->
@@ -43,7 +54,14 @@
 
     <!-- Carátula -->
       <div class="caratula">
-        <img src="assets/covers/Cover1.png" alt="Carátula">
+        <img src="https://santi-graphics.vercel.app/assets/covers/Cover1.png" alt="Carátula">
+      </div>
+    
+    <!-- Effects -->
+      <div class="effects">
+        <button class="fx">
+          <img src="https://santi-graphics.vercel.app/assets/img/Dance.gif" alt="Efectos">
+        </button>
       </div>
 
     <!-- Metadata -->
@@ -65,35 +83,59 @@
       </div>
     </div>
 
-  <!-- Botonera -->
-      <div class="botonera">
-      <button class="menu">
-        <img src="assets/img/btn-menu.png" alt="Menu">
+    <!-- Botonera -->
+    <div class="botonera">
+      <!-- 👁 Fondo transparente -->
+      <button class="btn fondo">
+        <img src="https://santi-graphics.vercel.app/assets/img/btn.png" alt="Transparente">
+        <i class="fas fa-eye"></i>
       </button>
-      <button class="prev">
-        <img src="assets/img/btn-rwd.png" alt="Anterior">
+
+      <!-- 🎵 Music/Radio -->
+      <button class="btn menu">
+        <img src="https://santi-graphics.vercel.app/assets/img/btn.png" alt="Music/Radio">
+        <i class="fas fa-music"></i>
       </button>
-      <button class="play">
-        <img src="assets/img/btn-play.png" alt="Reproducir">
+
+      <!-- ⏪ RWD intacto -->
+      <button class="btn prev">
+        <img src="https://santi-graphics.vercel.app/assets/img/btn-rwd.png" alt="Anterior">
       </button>
-      <button class="next">
-        <img src="assets/img/btn-fwd.png" alt="Siguiente">
+
+      <!-- ⏯ Play/Pause intacto -->
+      <button class="btn play">
+        <img src="https://santi-graphics.vercel.app/assets/img/btn-play.png" alt="Reproducir">
       </button>
-      <button class="shuffle">
-        <img src="assets/img/btn-shuffle.png" alt="Shuffle">
+
+      <!-- ⏩ FWD intacto -->
+      <button class="btn next">
+        <img src="https://santi-graphics.vercel.app/assets/img/btn-fwd.png" alt="Siguiente">
+      </button>
+
+      <!-- 🔀 Shuffle intacto -->
+      <button class="btn shuffle">
+        <img src="https://santi-graphics.vercel.app/assets/img/btn-shuffle.png" alt="Shuffle">
+      </button>
+
+      <!-- 📜 Historial -->
+      <button class="btn historial">
+        <img src="https://santi-graphics.vercel.app/assets/img/btn.png" alt="Historial">
+        <i class="fas fa-history"></i>
       </button>
     </div>
 
-   <!-- Effects -->
-      <div class="effects">
-        <button class="fx">
-          <img src="assets/img/Dance.gif" alt="Efectos">
-        </button>
-      </div>
+    <!-- MODAL SELECTOR e Historial -->
+    <div id="modalTracks" class="modal-container hidden">
+        <div class="repro-box">
+            <div class="modal-header">
+                <span id="currentTrackNameModal">Lista de Reproducción</span>
+                <button class="close-modal">&times;</button>
+            </div>
+            <ul id="trackList" class="track-list"></ul>
+        </div>
+    </div>
 
 </div>
+
 </body>
 </html>
-<!-- 
-Could you please point out what's wrong with the file so I can update it in the future if it doesn't pass Xatradio's validation?
- -->
