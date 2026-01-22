@@ -3,26 +3,38 @@
   width: 650px;
   height: 328px;
   position: relative;
-  background-image: url('assets/img/Player-Extasis-FX.png');
+  background-image: url('assets/bg/Minion.gif');
   background-size: cover;
   background-position: center;
   overflow: hidden;
+  border-radius: 10px;
 }
 
+/* ================================ */
+/* HEADER */
+/* ================================ */
 #miniEQ {
   position: absolute;
-  top: 39px;
-  right: 390px;
+  top: 20px;
+  right: 450px;
   box-shadow: 0 0 6px rgba(186, 0, 255, 0.8);
 }
 
-/* Volumen - barra superior centrada */
-.volumen {
+/* Nuevo contenedor que agrupa controles, barra y audífonos */
+.volumen-contenedor {
   position: absolute;
-  top: 10px;
-  left: 50%;
+  top: -5px;
+  left: 50%;                /* centrado exacto */
   transform: translateX(-50%);
-  width: 90px;/* Esta es la barra que visualmente ocupa el 100% */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;                 /* separación entre cada elemento */
+}
+
+/* Volumen - barra superior centrada (INTACTA) */
+.volumen {
+  width: 90px;               /* se conserva tu valor original */
   height: 76px;
   display: flex;
   align-items: center;
@@ -55,9 +67,30 @@
   cursor: pointer;
 }
 
+/* Controles de volumen (- y +) */
+.volumen-control {
+  font-size: 18px;
+  font-weight: bold;
+  color: white;       /* íconos en blanco */
+  cursor: pointer;
+  align-self: center; /* se centra en el eje vertical del contenedor */
+  transition: transform 0.2s;
+}
+.volumen-control:hover {
+  transform: scale(1.1);
+}
+
+/* Icono audífonos */
+.volumen-headphones {
+  font-size: 18px;
+  color: white;       /* ícono en blanco */
+  align-self: center; /* se centra en el eje vertical del contenedor */
+}
+
+/* Contador de radioescuchas */
 .radioescuchas {
   position: absolute;
-  top: 35px;
+  top: 20px;
   right: 140px;
   display: flex;
   align-items: center;
@@ -71,47 +104,28 @@
   z-index: 10;
 }
 
-/* Carátula */
-.caratula {
-  position: absolute;
-  bottom: 25px;
-  left: 26px;
-  width: 17%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.caratula img {
-  max-width: 90%;
-  max-height: 90%;
-  box-shadow: 0 0 12px rgba(186, 0, 255, 0.6);
-  border-radius: 10px;
-}
 
-/* Botón de efecto */
-.effects button {
-    position: absolute;
-    bottom: 135px;
-    right: 25px;
-  background: transparent;
-  border: none;
-    box-shadow: 0 0 12px rgba(186, 0, 255, 0.6);
-}
-
-/* Metadata */
+/* ================================ */
+/* Parte central: Metadata */
+/* ================================ */
 .metadata {
   position: absolute;
-  top: 24%;
+  top: 24%;                  /* mantiene posición central */
   left: 50%;
   transform: translateX(-50%);
-  width: 60%;
+  width: 50%;
   height: auto;
-  padding: 10px;
-  color: white;
+  padding: 12px;
+  color: #fff;
   font-family: 'Segoe UI', sans-serif;
-  text-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
   text-align: center;
+  text-shadow: 0 0 6px rgba(0,0,0,0.7);
+
+  /* Marco transparente con glow */
+  border: 2px solid rgba(255,255,255,0.2);
+  box-shadow: 0 0 14px rgba(186,0,255,0.8);
+  border-radius: 8px;
+  background: rgba(0,0,0,0.2);
 }
 
 .metadatos-contenedor {
@@ -136,6 +150,7 @@
   display: none;
 }
 
+/* Texto desplazable */
 .scroll-text {
   position: relative;
   overflow: hidden;
@@ -144,76 +159,331 @@
   height: 24px;
   margin: 0 auto;
 }
-
 .scroll-text span {
   display: inline-block;
   white-space: nowrap;
-  transform: translateX(0);
-  animation: none;
-  padding: 0 5px; /* para evitar recortes laterales */
+  padding: 0 5px;
+  animation: scroll-left 12s linear infinite;
 }
 @keyframes scroll-left {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(calc(-100% + 300px)); /* ajustado al contenedor */
-  }
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
 }
 
-@keyframes scroll-left {
-  0% {
-    transform: translateX(100%);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
+/* ================================ */
+/* Carátula */
+/* ================================ */
+.caratula {
+  position: absolute;
+  bottom: 130px;
+  left: 20px;
+  width: 110px;              /* medida fija */
+  height: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 2px solid rgba(255,255,255,0.2);
+  box-shadow: 0 0 14px rgba(186,0,255,0.8);
+  border-radius: 10px;
+  overflow: hidden;          /* asegura que el glow no se corte */
+}
+.caratula img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 0 10px rgba(186,0,255,0.9));
 }
 
-/* Botonera */
+/* ================================ */
+/* Effects (GIF) actualizado */
+/* ================================ */
+.effects button {
+  position: absolute;
+  bottom: 130px;
+  right: 20px;
+  width: 110px;              /* misma medida que la carátula */
+  height: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 2px solid rgba(255,255,255,0.2);
+  box-shadow: 0 0 14px rgba(186,0,255,0.8);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.effects button img {
+  width: 110px;              /* fuerza al GIF a ocupar todo el marco */
+  height: 110px;
+  object-fit: fill;           /* estira para cubrir completamente */
+  filter: drop-shadow(0 0 10px rgba(186,0,255,0.9));
+}
+
+
+/* ================================ */
+/* Botonera con iconos superpuestos */
+/* ================================ */
 .botonera {
   position: absolute;
-  bottom: 20px;
+  bottom: 1px;
   left: 50%;
   transform: translateX(-50%);
-  width: 100%;
-  max-width: 650px;
-  height: 80px;
   display: flex;
   justify-content: center;
-  align-items: center;
-  gap: 24px; /* Espaciado uniforme entre botones */
+  align-items: center;   /* 🔑 todos en la misma línea horizontal */
+  gap: 18px;
 }
 
-.botonera button {
-  background: transparent;
+.botonera .btn {
+  position: relative;
+  background: none;
   border: none;
   padding: 0;
   cursor: pointer;
+  line-height: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.botonera img {
-  height: 80px;
-  width: 80px;
-  filter: drop-shadow(0 0 6px rgba(186, 0, 255, 0.8));
+/* Iconos superpuestos con glow */
+.botonera .btn i {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  pointer-events: none;
+  text-shadow: 0 0 12px rgba(186,0,255,1);
 }
 
+/* Play (80px) */
+.botonera .play img { width: 80px; height: 80px; filter: drop-shadow(0 0 12px rgba(186,0,255,1)); }
+.botonera .play i { font-size: 22px; }
+
+/* Fwd y Rwd (70px) */
+.botonera .prev img,
+.botonera .next img { width: 70px; height: 70px; filter: drop-shadow(0 0 10px rgba(186,0,255,0.9)); }
+.botonera .prev i,
+.botonera .next i { font-size: 20px; }
+
+/* Music y Shuffle (60px) */
 .botonera .menu img,
-.botonera .shuffle img {
-  height: 60px;
-  width: 60px;
-}
+.botonera .shuffle img { width: 60px; height: 60px; filter: drop-shadow(0 0 8px rgba(186,0,255,0.8)); }
+.botonera .menu i,
+.botonera .shuffle i { font-size: 18px; }
 
-.efecto-activo img {
-  transform: scale(1.1);
-  filter: drop-shadow(0 0 12px rgba(186, 0, 255, 1));
+/* ============================================= */
+/* SECCIÓN: BOTÓN FONDO E HISTORIAL        */
+/* ============================================= */
+
+/* Estilo base de las imágenes de los botones */
+.botonera .fondo img,
+.botonera .historial img {
+  width: 50px;
+  height: 50px;
+  filter: drop-shadow(0 0 6px rgba(186, 0, 255, 0.8)); /* Brillo Púrpura */
   transition: transform 0.2s ease, filter 0.2s ease;
+  cursor: pointer;
 }
 
-.botonera .shuffle img {
-  transition: filter 0.3s ease;
+/* Iconos internos (si los usas sobre la imagen) */
+.botonera .fondo i,
+.botonera .historial i {
+  font-size: 16px;
+  color: #fff;
+  pointer-events: none;
+  transition: color 0.2s ease;
 }
 
-.botonera .menu img {
-  transition: filter 0.3s ease;
+/* --- FEEDBACK VISUAL (HOVER Y ACTIVE) --- */
+
+.botonera .fondo:hover img,
+.botonera .historial:hover img {
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 8px rgba(255, 0, 200, 1));
+}
+
+.botonera .fondo:active img,
+.botonera .historial:active img {
+  transform: scale(0.95);
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 1));
+}
+
+/* ============================================= */
+/* LÓGICA DE APARIENCIA: MODO TRANSPARENTE    */
+/* ============================================= */
+
+/* Este estilo se aplica al contenedor principal (#Repro) */
+#Repro.fondo-activo {
+  background: rgba(0, 0, 0, 0.45) !important; 
+  background-image: none !important; /* IMPORTANTE: Esto elimina el GIF de fondo (Minion) */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: none;
+  transition: background 0.4s ease, backdrop-filter 0.4s ease;
+}
+
+/* Ocultar elementos de fondo animado EXCLUYENDO el ecualizador */
+#Repro.fondo-activo canvas:not(#miniEQ), 
+#Repro.fondo-activo .particulas,
+#Repro.fondo-activo #canvas-fondo {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease;
+}
+
+/* Aseguramos que el miniEQ siempre sea visible */
+#miniEQ {
+  z-index: 20; /* Lo ponemos por encima de todo */
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+#Repro.fondo-activo .metadato {
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* ============================================= */
+/* MODAL HISTORIAL Y SELECTOR DE TRACKS  */
+/* ============================================= */
+.modal-container {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(8px);
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.3s ease;
+}
+.modal-container.hidden { display: none; }
+
+.repro-box {
+    width: 90%;
+    height: 85%;
+    background: rgba(20, 20, 20, 0.9);
+    border: 1px solid rgba(186, 0, 255, 0.5);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.modal-header {
+    padding: 15px;
+    background: rgba(186, 0, 255, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(186, 0, 255, 0.5);
+}
+
+.modal-header span { color: #fff; font-weight: bold; font-size: 14px; }
+
+.close-modal {
+    background: none; border: none; color: #fff; font-size: 24px; cursor: pointer;
+}
+
+.track-list {
+    list-style: none; padding: 10px; margin: 0;
+    overflow-y: auto; flex-grow: 1;
+}
+
+.track-list li {
+    padding: 10px;
+    color: #ccc;
+    font-size: 13px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.track-list li:hover { background: rgba(186, 0, 255, 0.3); color: #fff; }
+
+.track-list li.active-track {
+    background: rgba(186, 0, 255, 0.5);
+    color: #fff;
+    font-weight: bold;
+    border-left: 4px solid #fff;
+}
+
+/* Estilo para el nombre del artista en la lista del modal */
+.track-artist {
+    font-size: 0.85em;
+    opacity: 0.6;
+    margin-left: 5px;
+    font-style: italic;
+}
+
+/* Cuando la pista está activa, subimos la opacidad del artista */
+.active-track .track-artist {
+    opacity: 0.9;
+    color: #eee;
+}
+
+/* ============================================= */
+/* PERSONALIZACIÓN DEL SCROLLBAR (MODAL)         */
+/* ============================================= */
+
+/* 1. Tamaño y fondo de la barra completa */
+.track-list::-webkit-scrollbar {
+  width: 8px; /* Barra delgada y elegante */
+  background: rgba(0, 0, 0, 0.2); 
+}
+
+/* 2. El "riel" o camino por donde se mueve */
+.track-list::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+}
+
+/* 3. El "tirador" (la parte que se arrastra) */
+.track-list::-webkit-scrollbar-thumb {
+  background: rgba(186, 0, 255, 0.5); /* Púrpura base */
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 0 6px rgba(186, 0, 255, 0.3);
+  transition: background 0.3s ease;
+}
+
+/* 4. Efecto cuando pasas el mouse o arrastras el scroll */
+.track-list::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 0, 200, 0.8); /* Cambia a un tono más fucsia */
+  box-shadow: 0 0 10px rgba(186, 0, 255, 0.8);
+}
+
+/* Firefox (Soporte básico) */
+.track-list {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(186, 0, 255, 0.5) rgba(0, 0, 0, 0.2);
+}
+
+/* ===================== */
+/* MENSAJE */
+/* ===================== */
+.custom-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 15px 25px;
+    background: rgba(0, 0, 0, 0.9);
+    border: 2px solid #ff0000;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 1.1em;
+    text-shadow: 0 0 8px #c2a044;
+    box-shadow: 0 0 20px #ff0000b3; /* b3 ≈ 70% de opacidad */
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease-in-out;
+}
+.custom-message.show {
+    opacity: 1;
 }
