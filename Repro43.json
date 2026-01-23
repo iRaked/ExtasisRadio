@@ -1,0 +1,328 @@
+
+{
+
+  "spotifly": [
+{
+    "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Enrique-Bunbury-Miren-Iza-Frente-a-frente.jpg",
+    "artista": "Enrique Bunbury & Miren Iza",
+    "nombre": "Frente a frente",
+    "enlace": "https://radio-tekileros.vercel.app/assets/audio/Enrique-Bunbury-Miren-Iza-Frente-a-frente.MP3",
+    "seccion": "rock_espanol",
+    "genero": "rock en español",
+    "duracion": "3:24",
+    "country": ["España"]
+  },
+  {
+    "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Magnolia-Los-No-Me-Olvides-Las-cosas-mas-bonitas.png",
+    "artista": "Magnolia Y Los No Me Olvides",
+    "nombre": "Las cosas más bonitas",
+    "enlace": "https://radio-tekileros.vercel.app/assets/audio/Magnolia-Los-No-Me-Olvides-Las-cosas-mas-bonitas.mp3",
+    "seccion": "rock_espanol",
+    "genero": "rock en español",
+    "duracion": "2:55",
+    "country": ["México"]
+  },
+  {
+    "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Melendi-Tu-jardin.jpg",
+    "artista": "Melendi",
+    "nombre": "Tu jardín",
+    "enlace": "https://radio-tekileros.vercel.app/assets/audio/Melendi-Tu-jardin.mp3",
+    "seccion": "rock_espanol",
+    "genero": "pop rock",
+    "duracion": "3:56",
+    "country": ["España"]
+  },
+  {
+    "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Caifanes-La-celula-que-explota.jpg",
+    "artista": "Caifanes",
+    "nombre": "La célula que explota",
+    "enlace": "https://radio-tekileros.vercel.app/assets/audio/Caifanes-La-celula-que-explota.mp3",
+    "seccion": "rock_espanol",
+    "genero": "rock en español",
+    "duracion": "3:39",
+    "country": ["México"]
+  },
+  {
+    "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Los-Enanitos-Verdes-Y-ahora-te-vas.jpg",
+    "artista": "Los Enanitos Verdes",
+    "nombre": "Y ahora te vas",
+    "enlace": "https://radio-tekileros.vercel.app/assets/audio/Los-Enanitos-Verdes-Y-ahora-te-vas.mp3",
+    "seccion": "rock_espanol",
+    "genero": "rock en español",
+    "duracion": "4:12",
+    "country": ["Argentina"]
+  },
+  {
+    "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Maldita-Vecindad-Lo-pasado-pasado.jpg",
+    "artista": "Maldita Vecindad",
+    "nombre": "Lo pasado pasado",
+    "enlace": "https://radio-tekileros.vercel.app/assets/audio/Maldita-Vecindad-Lo-pasado-pasado.mp3",
+    "seccion": "rock_espanol",
+    "genero": "ska",
+    "duracion": "3:21",
+    "country": ["México"]
+  },
+  {
+    "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Hombres-G-Lo-noto.jpg",
+    "artista": "Hombres G",
+    "nombre": "Lo noto",
+    "enlace": "https://radio-tekileros.vercel.app/assets/audio/Hombres-G-Lo-noto.mp3",
+    "seccion": "rock_espanol",
+    "genero": "rock en español",
+    "duracion": "4:21",
+    "country": ["España"]
+  },
+  {
+    "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Mana-Rayando-el-sol.jpg",
+    "artista": "Maná",
+    "nombre": "Rayando el sol",
+    "enlace": "https://radio-tekileros.vercel.app/assets/audio/Mana-Rayando-el-sol.MP3",
+    "seccion": "rock_espanol",
+    "genero": "pop rock",
+    "duracion": "4:10",
+    "country": ["México"]
+  },
+  {
+    "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Moderato-Queremos-Rock.png",
+    "artista": "Moderatto",
+    "nombre": "Ya lo veía venir",
+    "enlace": "https://radio-tekileros.vercel.app/assets/audio/Moderatto-Ya-lo-veia-venir.mp3",
+    "seccion": "rock_espanol",
+    "genero": "rock en español",
+    "duracion": "3:44",
+    "country": ["México"]
+  },
+  {
+    "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/La-Vela-Puerca-El-Impulso.jpg",
+    "artista": "La Vela Puerca",
+    "nombre": "Frágil",
+    "enlace": "https://radio-tekileros.vercel.app/assets/audio/La-Vela-Puerca-Fragil.mp3",
+    "seccion": "rock_espanol",
+    "genero": "rock alternativo",
+    "duracion": "3:24",
+    "country": ["Uruguay"]
+  },
+  {
+    "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Genitallica-Lo-que-nunca-vas-a-ser.jpg",
+    "artista": "Genitallica",
+    "nombre": "Lo que nunca vas a ser",
+    "enlace": "https://radio-tekileros.vercel.app/assets/audio/Genitallica-Lo-que-nunca-vas-a-ser.MP3",
+    "seccion": "rock_espanol",
+    "genero": "rock en español",
+    "duracion": "3:45",
+    "country": ["México"]
+  },
+  {
+    "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Los-Rabanes-Perfidia.jpg",
+    "artista": "Los Rabanes",
+    "nombre": "Perfidia",
+    "enlace": "https://radio-tekileros.vercel.app/assets/audio/Los-Rabanes-Perfidia.mp3",
+    "seccion": "rock_espanol",
+    "genero": "ska",
+    "duracion": "3:11",
+    "country": ["Panamá"]
+  },
+  {
+    "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Los-Estramboticos-La-Mosca-Tse-Tse-El-mosquito.jpg",
+    "artista": "Los Estrambóticos & La Mosca Tsé Tsé",
+    "nombre": "El mosquito",
+    "enlace": "https://radio-tekileros.vercel.app/assets/audio/Los-Estramboticos-La-Mosca-Tse-Tse-El-mosquito.MP3",
+    "seccion": "rock_espanol",
+    "genero": "ska",
+    "duracion": "3:07",
+    "country": ["México", "Argentina"]
+  },
+  {
+    "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Los-Autenticos-Decandetes-Sigue-tu-camino.jpg",
+    "artista": "Los Auténticos Decadentes",
+    "nombre": "Sigue tu camino",
+    "enlace": "https://radio-tekileros.vercel.app/assets/audio/Los-Autenticos-Decandetes-Sigue-tu-camino.mp3",
+    "seccion": "rock_espanol",
+    "genero": "rock en español",
+    "duracion": "3:10",
+    "country": ["Argentina"]
+  },
+  {
+    "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Los-Fabulosos-Cadillacs-Manuel-Santillan-(El-leon).jpg",
+    "artista": "Los Fabulosos Cadillacs",
+    "nombre": "Manuel Santillán (El león)",
+    "enlace": "https://radio-tekileros.vercel.app/assets/audio/Los-Fabulosos-Cadillacs-Manuel-Santillan-(El-leon).mp3",
+    "seccion": "rock_espanol",
+    "genero": "rock en español",
+    "duracion": "3:58",
+    "country": ["Argentina"]
+  },
+  {
+    "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Bersuit-Espiritu-de-esta-selva.jpg",
+    "artista": "Bersuit Vergarabat",
+    "nombre": "Espíritu de esta selva",
+    "enlace": "https://radio-tekileros.vercel.app/assets/audio/Bersuit-Vergarabat-Espiritu-de-esta-selva.mp3",
+    "seccion": "rock_espanol",
+    "genero": "rock en español",
+    "duracion": "3:52",
+    "country": ["Argentina"]
+  },
+  {
+    "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Vilma-Palma-e-Vampiros-Auto-rojo-(Mix).jpg",
+    "artista": "Vilma Palma e Vampiros",
+    "nombre": "Auto rojo",
+    "enlace": "https://radio-tekileros.vercel.app/assets/audio/Vilma-Palma-e-Vampiros-Auto-rojo.mp3",
+    "seccion": "rock_espanol",
+    "genero": "pop rock",
+    "duracion": "4:37",
+    "country": ["Argentina"]
+  },
+  {
+    "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/La-Mosca-Tse-Tse-Baila-para-mi.jpg",
+    "artista": "La Mosca Tsé Tsé",
+    "nombre": "Baila para mi",
+    "enlace": "https://radio-tekileros.vercel.app/assets/audio/La-Mosca-Tse-Tse-Baila-para-mi.mp3",
+    "seccion": "rock_espanol",
+    "genero": "ska",
+    "duracion": "3:25",
+    "country": ["Argentina"]
+  },
+  {
+    "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Cafe-Tacuba-Como-te-extrano-mi-amor.jpg",
+    "artista": "Café Tacvba",
+    "nombre": "Cómo te extraño mi amor",
+    "enlace": "https://radio-tekileros.vercel.app/assets/audio/Cafe-Tacuba-Como-te-extrano-mi-amor.mp3",
+    "seccion": "rock_espanol",
+    "genero": "rock en español",
+    "duracion": "3:37",
+    "country": ["México"]
+  },
+  {
+    "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Los-Autenticos-Decadentes-La-ladrona.png",
+    "artista": "Los Auténticos Decadentes",
+    "nombre": "La ladrona",
+    "enlace": "https://radio-tekileros.vercel.app/assets/audio/Los-Autenticos-Decadentes-Diego-Verdaguer-La-ladrona.mp3",
+    "seccion": "rock_espanol",
+    "genero": "rock en español",
+    "duracion": "3:14",
+    "country": ["Argentina", "México"]
+  },
+  {
+    "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Alex-Lora-&-Diego-Verdaguer-Usted-que-haria.jpg",
+    "artista": "Diego Verdaguer & Alex Lora",
+    "nombre": "Usted que haría",
+    "enlace": "https://radio-tekileros.vercel.app/assets/audio/Alex-Lora-Diego-Verdaguer-Usted-que-haria.mp3",
+    "seccion": "rock_espanol",
+    "genero": "rock en español",
+    "duracion": "2:52",
+    "country": ["México", "Argentina"]
+  },
+  {
+    "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Sangre-Avandaro-Dejame-verte-sonreir.jpg",
+    "artista": "Sangre Avandaro",
+    "nombre": "Déjame verte sonreír",
+    "enlace": "https://radio-tekileros.vercel.app/assets/audio/Sangre-Avandaro-Dejame-verte-sonreir.mp3",
+    "seccion": "rock_espanol",
+    "genero": "rock urbano",
+    "duracion": "5:20",
+    "country": ["México"]
+  },
+  {
+    "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Baby-Batiz-Se-mi-baby.jpg",
+    "artista": "Baby Batiz",
+    "nombre": "Se mi baby",
+    "enlace": "https://radio-tekileros.vercel.app/assets/audio/Baby-Batiz-Se-mi-baby.mp3",
+    "seccion": "rock_espanol",
+    "genero": "rock urbano",
+    "duracion": "3:54",
+    "country": ["México"]
+  },
+  {
+    "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/El-Tri-Claro-que-se-puede.jpg",
+    "artista": "El Tri",
+    "nombre": "Claro que se puede",
+    "enlace": "https://radio-tekileros.vercel.app/assets/audio/El-Tri-Claro-que-se-puede.mp3",
+    "seccion": "rock_espanol",
+    "genero": "rock urbano",
+    "duracion": "3:14",
+    "country": ["México"]
+  },
+  {
+    "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Mago-De-Oz-Hoy-toca-ser-feliz.jpg",
+    "artista": "Mago De Oz",
+    "nombre": "Hoy toca ser feliz",
+    "enlace": "https://radio-tekileros.vercel.app/assets/audio/Mago-De-Oz-Hoy-toca-ser-feliz.mp3",
+    "seccion": "rock_espanol",
+    "genero": "metal",
+    "duracion": "4:19",
+    "country": ["España"]
+  },
+  {
+    "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Nunca-Jamas-Mentirosa-y-cabrona.jpg",
+    "artista": "Nunca Jamás",
+    "nombre": "Mentirosa y cabrona",
+    "enlace": "https://radio-tekileros.vercel.app/assets/audio/Nunca-Jamas-Mentirosa-y-cabrona.MP3",
+    "seccion": "rock_espanol",
+    "genero": "metal",
+    "duracion": "2:58",
+    "country": ["México"]
+  },
+  {
+    "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Rod-Levario-Sola-una-vez.jpg",
+    "artista": "Rod Levario",
+    "nombre": "Solo una vez",
+    "enlace": "https://radio-tekileros.vercel.app/assets/audio/Rod-Levario-Solo-una-vez.MP3",
+    "seccion": "rock_espanol",
+    "genero": "rock urbano",
+    "duracion": "2:28",
+    "country": ["México"]
+  },
+  {
+    "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Brabaje-Extrano-Amiga.jpg",
+    "artista": "Brebaje Extraño",
+    "nombre": "Amiga",
+    "enlace": "https://radio-tekileros.vercel.app/assets/audio/Brebaje-Extrano-Amiga.mp3",
+    "seccion": "rock_espanol",
+    "genero": "rock urbano",
+    "duracion": "4:10",
+    "country": ["México"]
+  },
+  {
+    "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Sur-16-Dime.jpg",
+    "artista": "Sur 16",
+    "nombre": "Dime",
+    "enlace": "https://radio-tekileros.vercel.app/assets/audio/Sur-16-Dime.mp3",
+    "seccion": "rock_espanol",
+    "genero": "rock urbano",
+    "duracion": "5:02",
+    "country": ["México"]
+  },
+  {
+    "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Toma-II-Que-seas-muy-feliz.jpg",
+    "artista": "Toma II",
+    "nombre": "Que seas muy feliz",
+    "enlace": "https://radio-tekileros.vercel.app/assets/audio/Toma-II-Que-seas-muy-feliz.mp3",
+    "seccion": "rock_espanol",
+    "genero": "rock urbano",
+    "duracion": "4:44",
+    "country": ["México"]
+  },
+  {
+    "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Vallejo-3-Yo-te-necesito.jpg",
+    "artista": "3 Vallejo",
+    "nombre": "Yo te necesito",
+    "enlace": "https://radio-tekileros.vercel.app/assets/audio/3-Vallejo-Yo-te-necesito.mp3",
+    "seccion": "rock_espanol",
+    "genero": "rock urbano",
+    "duracion": "4:09",
+    "country": ["México"]
+  },
+  {
+    "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/Hazel-Me-haces-sentir-bien.jpg",
+    "artista": "Hazel",
+    "nombre": "Me haces sentir tan bien",
+    "enlace": "https://radio-tekileros.vercel.app/assets/audio/Hazel-Me-haces-sentir-bien.mp3",
+    "seccion": "rock_espanol",
+    "genero": "rock urbano",
+    "duracion": "3:30",
+    "country": ["México"]
+  },
+
+
+  ]
+}
