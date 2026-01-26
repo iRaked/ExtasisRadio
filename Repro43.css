@@ -815,90 +815,126 @@ body {
 }
 
 /* =======================================================
-   RESPOSINVE iFon (480) & iPhone (600)
+   BLOQUE DE CONTROL MAESTRO - AJUSTE MANUAL FULL
    ======================================================= */
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 650px) {
     :root {
-        /* Ajusta estos 3 valores para cambiar TODOS los botones a la vez */
-        --btn-size: 38px;       /* Círculos secundarios */
-        --power-size: 52px;     /* Círculo Power */
-        --icon-font: 1rem;      /* Tamaño de iconos */
-        --mgs-green: #70b189;
+        --btn-size: 38px;
+        --power-size: 80px;
+        --icon-size: 1.1rem;
     }
 
-    /* 1. CARÁTULA Y VIDEO (Más pequeños para pantallas estrechas) */
-    .cover-wrapper {
-        width: 100px !important; 
-        height: 100px !important;
-        top: 80px !important;
-        left: 20px !important;
+    .main-container {
+        display: flex !important;
+        flex-direction: column !important;
+        height: 100vh !important;
+        min-height: 560px !important;
+        position: relative !important;
+        overflow: hidden !important;
     }
 
-    .video-background {
-        width: 115% !important; /* Menos desborde */
-        top: 45px !important;
-        right: -50px !important;
-    }
-
-    /* 2. UNIFICACIÓN DE ICONOS Y CÍRCULOS */
-    #play-btn, #shuffle-btn, #repeat-btn, #music-btn, #contenido-btn {
-        width: var(--btn-size) !important;
-        height: var(--btn-size) !important;
-        font-size: var(--icon-font) !important;
+    /* --- 1. BOTÓN POWER (CON AJUSTE DE CENTRADO) --- */
+    .btn-power {
+        width: var(--power-size) !important;
+        height: var(--power-size) !important;
+        /* POSICIÓN MANUAL POWER */
+        bottom: 140% !important; 
+        left: 50% !important;
+        transform: translateX(-50%) !important; 
+        
         display: flex !important;
         justify-content: center !important;
         align-items: center !important;
+        position: absolute !important;
+        z-index: 20;
     }
 
-    /* 3. BOTÓN POWER */
-    .btn-power {
-        bottom: 60px !important; 
-        left: 50% !important;
+    .btn-power img {
+        width: 100% !important;
+        height: 100% !important;
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        z-index: 1;
     }
+
     .power-icon {
-        width: var(--power-size) !important;
-        height: var(--power-size) !important;
-        font-size: 1.2rem !important;
+        font-size: 1.5rem !important;
+        color: var(--mgs-green);
+        position: relative !important;
+        z-index: 2;
+        /* AJUSTE FINO ICONO (Mover si el icono no viene centrado de fábrica) */
+        margin-top: -45px !important; 
+        margin-left: -30px !important;
     }
 
-    /* 4. COORDENADAS DE NAVEGACIÓN (RWD / FWD) */
-    .btn-rwd { bottom: 380px !important; left: 32% !important; }
-    .btn-fwd { bottom: 380px !important; right: 26% !important; }
+    /* --- 2. NAVEGACIÓN (RWD / FWD) --- */
+    .btn-rwd { 
+        bottom: 380% !important; 
+        left: 32% !important; 
+    }
+    .btn-fwd { 
+        bottom: 380% !important; 
+        left: 70% !important; 
+    }
 
-    /* 5. RELOJ Y SWITCH */
-    .codec-clock {
-        bottom: 300px !important;
-        left: 50px !important;
+    /* --- 3. REPRODUCCIÓN (REPEAT / SHUFFLE / PLAY) --- */
+    #repeat-btn { 
+        bottom: 150% !important; 
+        left: 10% !important; 
+    }
+    #shuffle-btn { 
+        bottom: 150% !important; 
+        left: 20% !important; 
+    }
+    #play-btn { 
+        bottom: 180% !important; 
+        right: 8% !important; 
+    }
+
+    /* --- 4. SECUNDARIOS (MUSIC / CONTENIDO) --- */
+    #music-btn { 
+        bottom: 100% !important; 
+        right: 15% !important; 
+    }
+    #contenido-btn { 
+        bottom: 100% !important; 
+        right: 8% !important; 
+    }
+
+    /* --- 5. INTERFAZ (RELOJ / SWITCH) --- */
+    .codec-clock { 
+        top: 58% !important; 
+        left: 11% !important; 
     }
     .mode-switch {
-        top: 295px !important;
-        left: 50% !important;
+        top: 41% !important;
+        left: 53% !important;
         transform: translateX(-195%) !important;
     }
 
-    /* 6. PLAYLIST Y SECUNDARIOS */
-    #play-btn { bottom: 180px !important; right: 28px !important; }
-    #shuffle-btn { bottom: 160px !important; left: 90px !important; }
-    #repeat-btn { bottom: 160px !important; left: 45px !important; }
-
-    /* 7. MUSIC Y CONTENIDO (Alineados con el nuevo diseño) */
-    #music-btn { bottom: 100px !important; right: 75px !important; }
-    #contenido-btn { bottom: 100px !important; right: 30px !important; }
-
-    /* 8. BARRA DE VOLUMEN (Expandida para táctil) */
+    /* --- 6. TEXTO Y VOLUMEN (MARQUESINA) --- */
+    .metadata-container {
+        top: 33.5% !important;
+        width: 82% !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+    }
     .volumen-contenedor {
-        bottom: 100px !important;
-        width: 90% !important;
+        bottom: 14% !important;
+        width: 85% !important;
         left: 50% !important;
         transform: translateX(-50%) !important;
     }
 
-    /* 9. MARQUESINA (Optimización de espacio) */
-    .metadata-container {
-        top: 245px !important;
-        width: 82% !important;
-    }
-    #track-info {
-        font-size: 1.6rem !important;
+    /* --- 7. TAMAÑOS GENERALES --- */
+    #play-btn, #shuffle-btn, #repeat-btn, #music-btn, #contenido-btn {
+        width: var(--btn-size) !important;
+        height: var(--btn-size) !important;
+        font-size: var(--icon-size) !important;
+        border-radius: 50% !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
     }
 }
