@@ -817,50 +817,88 @@ body {
 /* =======================================================
    RESPOSINVE iFon (480) & iPhone (600)
    ======================================================= */
-/* AJUSTE MANUAL QUIRÚRGICO - PÉGALO AL FINAL DEL CSS */
-@media screen and (max-width: 600px) {
-
-    /* 1. BOTÓN POWER */
-    .btn-power {
-        bottom: 60px !important; /* Cambia este número para probar si se mueve */
-        left: 50% !important;
+@media screen and (max-width: 768px) {
+    :root {
+        /* Ajusta estos 3 valores para cambiar TODOS los botones a la vez */
+        --btn-size: 38px;       /* Círculos secundarios */
+        --power-size: 52px;     /* Círculo Power */
+        --icon-font: 1rem;      /* Tamaño de iconos */
+        --mgs-green: #70b189;
     }
 
-    /* 2. RELOJ (CLOCK) */
+    /* 1. CARÁTULA Y VIDEO (Más pequeños para pantallas estrechas) */
+    .cover-wrapper {
+        width: 100px !important; 
+        height: 100px !important;
+        top: 80px !important;
+        left: 20px !important;
+    }
+
+    .video-background {
+        width: 115% !important; /* Menos desborde */
+        top: 45px !important;
+        right: -50px !important;
+    }
+
+    /* 2. UNIFICACIÓN DE ICONOS Y CÍRCULOS */
+    #play-btn, #shuffle-btn, #repeat-btn, #music-btn, #contenido-btn {
+        width: var(--btn-size) !important;
+        height: var(--btn-size) !important;
+        font-size: var(--icon-font) !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+    }
+
+    /* 3. BOTÓN POWER */
+    .btn-power {
+        bottom: 60px !important; 
+        left: 50% !important;
+    }
+    .power-icon {
+        width: var(--power-size) !important;
+        height: var(--power-size) !important;
+        font-size: 1.2rem !important;
+    }
+
+    /* 4. COORDENADAS DE NAVEGACIÓN (RWD / FWD) */
+    .btn-rwd { bottom: 380px !important; left: 32% !important; }
+    .btn-fwd { bottom: 380px !important; right: 26% !important; }
+
+    /* 5. RELOJ Y SWITCH */
     .codec-clock {
         bottom: 300px !important;
         left: 50px !important;
     }
-
-    /* 3. MARQUESINA (ANCHO Y POSICIÓN) */
-    .metadata-container {
-        top: 245px !important;
-        width: 80% !important; /* Aquí controlas que no se desborde */
+    .mode-switch {
+        top: 295px !important;
+        left: 50% !important;
+        transform: translateX(-195%) !important;
     }
 
-    /* 4. BOTONES RWD / FWD */
-    .btn-rwd { bottom: 380px !important; left: 32% !important; }
-    .btn-fwd { bottom: 380px !important; right: 26% !important; }
-
-    /* 5. BOTONES SECUNDARIOS (PLAY, SHUFFLE, REPEAT) */
+    /* 6. PLAYLIST Y SECUNDARIOS */
     #play-btn { bottom: 180px !important; right: 28px !important; }
     #shuffle-btn { bottom: 160px !important; left: 90px !important; }
     #repeat-btn { bottom: 160px !important; left: 45px !important; }
 
-    /* 6. SWITCH DE MODO */
-    .mode-switch {
-        top: 295px !important;
-        left: 215px !important;
-        transform: translateX(-170%) !important;
-    }
-
-    /* 7. MUSIC Y CONTENIDO */
-    #music-btn { bottom: 100px !important; right: 70px !important; }
+    /* 7. MUSIC Y CONTENIDO (Alineados con el nuevo diseño) */
+    #music-btn { bottom: 100px !important; right: 75px !important; }
     #contenido-btn { bottom: 100px !important; right: 30px !important; }
 
-    /* 8. BARRA DE VOLUMEN */
+    /* 8. BARRA DE VOLUMEN (Expandida para táctil) */
     .volumen-contenedor {
         bottom: 100px !important;
         width: 90% !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+    }
+
+    /* 9. MARQUESINA (Optimización de espacio) */
+    .metadata-container {
+        top: 245px !important;
+        width: 82% !important;
+    }
+    #track-info {
+        font-size: 1.6rem !important;
     }
 }
