@@ -88,21 +88,58 @@ $(document).ready(function() {
     }
 
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    // --- PROCESAMIENTO DE DATOS (JSON) ---
-    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    function fetchPlaylist(url) {
-        $.ajax({
-            url: url, dataType: 'json', cache: false,
-            success: function(data) {
-                let content = Array.isArray(data) ? data : data[Object.keys(data)[0]];
-                tracks = Array.isArray(content) ? content : [];
-                if (tracks.length > 0) {
-                    currentTrackIndex = 0;
-                    playTrack();
+// --- PROCESAMIENTO DE DATOS (JSON) ---
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function fetchPlaylist(url) {
+    $.ajax({
+        url: url, 
+        dataType: 'json', 
+        cache: false,
+        success: function(data) {
+            // Función interna para aplanar cualquier estructura de JSON
+            const flattenTracks = (obj) => {
+                let foundTracks = [];
+                
+                // Si es un array, revisamos si sus elementos son tracks o necesitan más exploración
+                if (Array.isArray(obj)) {
+                    obj.forEach(item => {
+                        if (item.enlace || item.dropbox_url) {
+                            foundTracks.push(item);
+                        } else if (typeof item === 'object') {
+                            foundTracks = foundTracks.concat(flattenTracks(item));
+                        }
+                    });
+                } 
+                // Si es un objeto, exploramos todas sus llaves (bandas, secciones, etc.)
+                else if (typeof obj === 'object' && obj !== null) {
+                    Object.values(obj).forEach(value => {
+                        if (value.enlace || value.dropbox_url) {
+                            foundTracks.push(value);
+                        } else {
+                            foundTracks = foundTracks.concat(flattenTracks(value));
+                        }
+                    });
                 }
+                return foundTracks;
+            };
+
+            // Ejecutamos el aplanado
+            tracks = flattenTracks(data);
+
+            console.log(`LOG: Se han extraído ${tracks.length} pistas de la frecuencia.`);
+
+            if (tracks.length > 0) {
+                currentTrackIndex = 0;
+                playTrack();
+            } else {
+                console.warn("ALERTA: No se encontraron datos de audio en el JSON.");
             }
-        });
-    }
+        },
+        error: function() {
+            console.error("ERROR: Fallo en la conexión con el servidor de datos.");
+        }
+    });
+}
 
     function playTrack() {
         if (!tracks.length) return;

@@ -15,6 +15,13 @@
     --mgs-green-text: #70b189;
 }
 
+#root-scaler {
+    /* Este contenedor envolverá a tu .main-container */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -28,15 +35,24 @@ body {
 
 .main-container {
     position: relative;
-    width: 100vw;
-    height: 100vh;
-    max-height: -webkit-fill-available; 
-    max-width: 450px;
+    /* Volvemos a tus medidas de oro */
+    width: 450px; 
+    height: 800px; 
+    
+    /* El truco: Si la pantalla es más pequeña que el Codec, lo encogemos todo */
+    max-width: 100vw;
+    max-height: 100vh;
+    
+    /* Centrado total */
+    margin: auto;
+    background: #000;
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    margin: 0 auto; 
-    background: #000;
+    box-shadow: 0 0 50px rgba(0,0,0,0.5);
+
+    /* Añadimos esto para que si el contenedor se achica, los hijos no se muevan */
+    transform-origin: center center;
 }
 
 /* El video de fondo - Restaurado a tus valores */
@@ -59,7 +75,8 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: fill;
     z-index: 2;
     pointer-events: none;
 }
@@ -101,7 +118,7 @@ body {
 /* ============================= */
 .metadata-container {
     position: absolute;
-    top: 320px; /* Ajustalo según el espacio libre en tu Codec.png */
+    top: 240px; /* Ajustalo según el espacio libre en tu Codec.png */
     left: 50%;
     transform: translateX(-50%);
     width: 85%;
@@ -178,7 +195,7 @@ body {
 /* CLOCK COMPACTO - MGS STYLE */
 .codec-clock {
     position: absolute;
-    bottom: 205px;
+    bottom: 320px;
     left: 50px;
     font-family: 'Arial Narrow', sans-serif;
     color: #00ff00;
@@ -195,81 +212,68 @@ body {
 }
 
 /* ================================ */
-/* VOLUMEN */
+/* VOLUMEN TÁCTICO EXPANDIDO */
 /* ================================ */
-/* Nuevo contenedor que agrupa controles, barra y audífonos */
 .volumen-contenedor {
-  position: absolute;
-  top: 240px;
-  left: 55%;                /* centrado exacto */
-  transform: translateX(-50%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;                 /* separación entre cada elemento */
-  z-index: 999; /* <--- Prioridad máxima para recibir clics */
-  pointer-events: all; /* <--- Asegura que no ignore el mouse */
+    position: absolute;
+    bottom: 112px;
+    top: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    /* Ocupa casi todo el ancho del Codec */
+    width: 85%; 
+    display: flex;
+    align-items: center;
+    /* Los iconos a los lados, la barra al centro */
+    justify-content: space-between; 
+    gap: 15px;
+    z-index: 999;
+    pointer-events: all;
 }
 
-/* Volumen - barra superior centrada (INTACTA) */
+/* La barra de volumen ahora es el elemento dominante */
 .volumen {
-  width: 90px;               /* se conserva tu valor original */
-  height: 76px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    flex-grow: 2; /* Le damos prioridad de crecimiento */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
 }
 
-/* Slider estilizado con glow - ACTUALIZADO */
+/* Slider más largo y visible */
 .volumen-slider {
-  -webkit-appearance: none;
-  width: 100%;
-  height: 20px;
-  /* Color de fondo (vacío) */
-  background: rgba(255, 255, 255, 0.1); 
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.9);
-  outline: none;
-  cursor: pointer;
-  /* Importante para que el JS maneje el degradado */
-  border: 1px solid rgba(112, 177, 137, 0.5);
-  cursor: pointer !important;
-  z-index: 1000;
+    -webkit-appearance: none;
+    width: 100%; /* Ahora el 100% de su padre flexible */
+    height: 12px; /* Un poco más estilizada para que el glow destaque más */
+    background: rgba(255, 255, 255, 0.1); 
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.9);
+    outline: none;
+    border: 1px solid rgba(112, 177, 137, 0.6);
+    cursor: pointer !important;
+    z-index: 1000;
 }
 
-/* Pista del slider */
-.volumen-slider::-webkit-slider-runnable-track {
-  background: transparent;
-}
-
-/* Pulgar del slider */
-.volumen-slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 0;
-  height: 0;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-}
-
-/* Controles de volumen (- y +) */
-.volumen-control {
-  font-size: 18px;
-  font-weight: bold;
-  color: #fff;       /* íconos en blanco */
-  cursor: pointer;
-  align-self: center; /* se centra en el eje vertical del contenedor */
-  transition: transform 0.2s;
+/* Iconos laterales (Volumen - / + / Headphones) */
+.volumen-control, .volumen-headphones {
+    font-size: 1.2rem; /* Un poco más grandes para facilitar el toque */
+    color: #fff;
+    cursor: pointer;
+    text-shadow: 0 0 10px rgba(112, 177, 137, 0.5);
+    transition: all 0.2s;
+    /* Evitamos que los iconos se encojan */
+    flex-shrink: 0; 
 }
 
 .volumen-control:hover {
-  transform: scale(1.1);
+    color: var(--mgs-green-text);
+    transform: scale(1.2);
 }
 
-/* Icono audífonos */
-.volumen-headphones {
-  font-size: 18px;
-  color: #fff;       /* ícono en blanco */
-  align-self: center; /* se centra en el eje vertical del contenedor */
+/* Ocultar el pulgar nativo para mantener la estética MGS */
+.volumen-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 0;
+    height: 0;
 }
 
 /* ============================= */
@@ -288,7 +292,7 @@ body {
 /* Contenedor del Power (ya lo tenías, solo aseguramos el centro) */
 .btn-power {
     position: absolute;
-    bottom: 1px;
+    bottom: 100px;
     left: 51%;
     transform: translate(-50%, -50%);
     width: 20%; /* Ajusta según el tamaño de tu PNG */
@@ -299,17 +303,48 @@ body {
     z-index: 25;
 }
 
-/* El icono dentro del botón */
+/* El icono dentro del botón - RECALIBRADO */
 .power-icon {
     position: absolute;
-    top: 38px;
-    left: 36px;
-    font-size: 1.5rem; /* Ajusta según el tamaño de tu botón */
+    /* Ubicación del círculo */
+    top: 25%;
+    left: 25%;
+    transform: translate(-50%, -50%);
+    
+    /* Dimensiones del círculo */
+    width: 55px;
+    height: 55px;
+    
+    /* Centrado INTERNO absoluto */
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    text-align: center;
+    line-height: 0; /* Elimina espacios extra de fuentes */
+
+    /* Estética Visual */
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0 15px rgba(112, 177, 137, 0.3);
+    
+    /* Propiedades del Icono */
+    font-size: 1.4rem;
     color: var(--mgs-green-text);
-    text-shadow: 0 0 10px var(--mgs-green-text), 0 0 20px rgba(112, 177, 137, 0.5);
-    pointer-events: none; /* Para que el clic pase al div padre */
+    text-shadow: 0 0 10px var(--mgs-green-text);
+    
+    pointer-events: none;
     transition: all 0.3s ease;
+    animation: power-pulse 2s infinite ease-in-out;
 }
+
+/* Forzamos que el elemento <i> no tenga márgenes */
+.power-icon i {
+    margin: 0 !important;
+    padding: 0 !important;
+    display: block;
+}
+
 
 /* Efecto cuando el sistema está "ON" (lo usaremos con JS) */
 .btn-power.system-on .power-icon {
@@ -333,7 +368,7 @@ body {
 /* ============================= */
 .btn-rwd, .btn-fwd {
     position: absolute;
-    bottom: 440%;
+    bottom: 430px;
     transform: translateY(-50%);
     color: var(--mgs-green-text);
     font-size: 1.2rem;
@@ -383,19 +418,49 @@ body {
 
 /* Coordenadas para ajuste manual */
 #play-btn {
-    bottom: 140px; 
-    right: 65px;
+    bottom: 200px; 
+    right: 28px;
     transform: translateX(-50%);
+    /* Efecto circular */
+    width: 50px;
+    height: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.8); /* Trazo circular */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 10px rgba(112, 177, 137, 0.2);
 }
 
 #shuffle-btn {
-    bottom: 100px;
-    left: 98px;
+    bottom: 180px;
+    left: 94px;
+    /* Efecto circular */
+    width: 30px;
+    height: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.8); /* Trazo circular */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 10px rgba(112, 177, 137, 0.2);
 }
 
 #repeat-btn {
-    bottom: 100px;
-    left: 55px;
+    bottom: 180px;
+    left: 50px;
+    /* Efecto circular */
+    width: 30px;
+    height: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.8); /* Trazo circular */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 10px rgba(112, 177, 137, 0.2);
 }
 
 /* Estado activo para botones tácticos */
@@ -406,21 +471,41 @@ body {
 }
 
 #music-btn {
-    bottom: 40px;
-    right: 90px;
+    bottom: 125px;
+    right: 65px;
     transform: translateX(-50%);
+    /* Efecto circular */
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.8); /* Trazo circular */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 10px rgba(112, 177, 137, 0.2);
 }
 
 /* Botón de Contenido (Historial / Selector de Tracks) */
 #contenido-btn {
     position: absolute;
-    bottom: 40px; 
-    right: 45px; 
+    bottom: 125px; 
+    right: 35px; 
     color: #fff;
     font-size: 1.1rem;
     cursor: pointer;
     opacity: 0.7;
     transition: all 0.2s;
+    /* Efecto circular */
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.8); /* Trazo circular */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 10px rgba(112, 177, 137, 0.2);
 }
 
 #contenido-btn:hover {
@@ -440,9 +525,11 @@ body {
 /* ============================= */
 .mode-switch {
     position: absolute;
-    bottom: 342px;
-    left: 90px;
-    transform: translateX(-50%);
+    top: 320px;
+    left: 50%;
+    transform: translateX(-185%);
+    height: auto;
+    width: 100px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -465,9 +552,9 @@ body {
     color: var(--mgs-green-text);
     text-shadow: 0 0 8px rgba(112, 177, 137, 0.8);
     background: rgba(0, 0, 0, 0.3);
-    padding: 2px 10px;
+    padding: 2px 6px;
     border: 1px solid rgba(112, 177, 137, 0.2);
-    min-width: 80px;
+    min-width: 65px;
     text-align: center;
     text-transform: uppercase;
     transition: all 0.3s ease;
@@ -728,51 +815,22 @@ body {
 }
 
 /* =======================================================
-   CORRECCIÓN FINAL DE POSICIÓN (DESKTOP ONLY)
+   RESPOSINVE iFon (480) & iPhone (600)
    ======================================================= */
-@media (min-width: 1024px) {
-    
-    /* PLAY */
-    #play-btn {
-        bottom: 130px !important;
-        right: 70px !important;
+/* ELIMINAMOS cualquier otro bloque media y usamos este único para móvil */
+@media screen and (max-width: 768px) and (hover: none) {
+    .main-container {
+        /* Encogemos el reproductor para que quepa en el ancho del celular */
+        transform: scale(0.85); 
+        /* Lo mantenemos centrado a pesar del escalado */
+        transform-origin: top center;
+        margin-top: 20px; 
     }
+}
 
-    /* RWD y FWD */
-    .btn-rwd, .btn-fwd {
-        bottom: 430px !important;
-    }
-
-    /* REPEAT */
-    #repeat-btn {
-        bottom: 90px !important;
-        left: 55px !important;
-    }
-
-    /* SHUFFLE */
-    #shuffle-btn {
-        bottom: 90px !important;
-        left: 100px !important;
-    }
-    
-    /* MUSIC */
-    #music-btn {
-        bottom: 30px !important;
-        right: 100px !important;
-    }
-
-    /* CONTENIDO */
-    #contenido-btn {
-        bottom: 30px !important;
-    }
-
-    /* SWITCH DE MODO */
-    .mode-switch {
-        bottom: 332px !important; 
-    }
-
-    /* Limpiamos cualquier transform que esté estorbando el posicionamiento manual */
-    .secondary-controls i {
-        transform: none !important;
+/* Ajuste extremo solo para pantallas realmente diminutas */
+@media screen and (max-width: 380px) and (hover: none) {
+    .main-container {
+        transform: scale(0.75);
     }
 }
