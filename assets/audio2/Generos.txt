@@ -1,0 +1,119 @@
+1. 8-bit Metal
+2. Alternative Metal
+3. Andino
+4. Andino Fusion
+5. Bachata
+6. Balada Pop
+7. Balada Rock
+8. Balada Romántica
+9. Banda
+10. Blues Rock
+11. Bolero
+12. Bomba
+13. Bubblegum Pop
+14. Cheta
+15. Chicha
+16. Comedy Rap
+17. Country
+18. Country Rock
+19. Corrido Bélico
+20. Corrido Tumbado
+21. Cumbia
+22. Cumbia Andina
+23. Cumbia Norteña
+24. Cumbia Pop
+25. Cumbia Sanjuanera
+26. Cumbia Sonidera
+27. Cuarteto
+28. Dance
+29. Dance Pop
+30. Dancehall
+31. Dembow
+32. Disco
+33. Duranguense
+34. Electro Andino
+35. Electro Flow
+36. Electrocumbia
+37. Euro-Disco
+38. Folklore Andino
+39. Folklore Fusion
+40. Glam Metal
+41. Groove Metal
+42. Grunge
+43. Hard Rock
+44. Hardcore Rap
+45. Heavy Metal
+46. Hip Hop
+47. House
+48. Huayno
+49. Huayno Fusion
+50. Huayno Rock
+51. Indie Pop
+52. Indie Rock
+53. Industrial Metal
+54. Instrumental Rock
+55. Kumbiaton
+56. Mambo
+57. Mariachi
+58. Mathcore
+59. Melodic Death Metal
+60. Merengue
+61. Metal
+62. Metal Core
+63. New Wave
+64. Norteño
+65. Norteño Banda
+66. Nu Metal
+67. Pop
+68. Pop Andino
+69. Pop Electrónico
+70. Pop Latino
+71. Pop Rock
+72. Post Punk
+73. Power Metal
+74. Progressive Rock
+75. Punk Rock
+76. Punta
+77. R&B
+78. Raggamuffin
+79. Rap
+80. Rap Rock
+81. Reggae
+82. Reguetón
+83. Regional
+84. Regional Mexicano
+85. Rock
+86. Rock Alternativo
+87. Rock en Español
+88. Rock Latino
+89. Rock n Roll
+90. Rock Pop
+91. Rock Urbano
+92. Rockabilly
+93. Rocksteady
+94. Rub-a-Dub
+95. Rumba
+96. Salsa
+97. San Juanito
+98. Saya
+99. Ska
+100. Ska Core
+101. Ska Fusion
+102. Ska Punk
+103. Skandino
+104. Soft Rock
+105. Symphonic Metal
+106. Synth Pop
+107. Techno
+108. Techno Rap
+109. Tex-Mex
+110. Thrash Metal
+111. Tinkus
+112. Trance
+113. Trap
+114. Tribal
+115. Tropi Pop
+116. Urbano
+117. Vallenato
+118. Wepa
+119. World Music
