@@ -30,22 +30,18 @@ body {
     align-items: center;
     height: 100vh;
     width: 100vw;
-    background: #000;
     overflow: hidden;
     font-family: var(--font-mgs);
 }
 
 .main-container {
     position: relative;
-    /* La proporción áurea del Codec */
-    width: 100vw;
-    height: 177.77vw; /* Mantiene proporción 9:16 */
-    max-width: 450px; 
-    max-height: 800px;
-    margin: auto;
+    width: 500px;         /* Medida exacta de tu Card */
+    height: 795px;        /* Medida exacta de tu Card */
+    margin: 0 auto;       /* Centrado perfecto */
     background: #000;
-    overflow: hidden;
-    box-shadow: 0 0 50px rgba(0,0,0,0.8);
+    overflow: hidden;     /* Nada sale de la zona de operaciones */
+    z-index: 10;
 }
 
 /* El video de fondo - ADAPTADO PARA ESCALAR */
@@ -63,14 +59,14 @@ body {
     display: block;
 }
 
-/* La imagen Codec.png - Restaurada */
+/* La imagen Codec.png - Calibración 1:1 con la Card */
 .codec-overlay {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: fill;
+    width: 100%;       /* Se acopla a los 500px del padre */
+    height: 100%;      /* Se acopla a los 795px del padre */
+    object-fit: fill;  /* ESTO es lo que garantiza que el diseño no se rompa */
     z-index: 2;
     pointer-events: none;
 }
@@ -92,7 +88,7 @@ body {
 /* ============================= */
 .cover-wrapper {
     position: absolute;
-    top: 85px; 
+    top: 95px; 
     left: 15px; 
     width: 120px; 
     height: 120px;
@@ -159,7 +155,7 @@ body {
 /* ============================= */
 .codec-names {
     position: absolute;
-    top: 215px; /* Ajustado para que quede debajo de los recuadros de imagen */
+    top: 240px; /* Ajustado para que quede debajo de los recuadros de imagen */
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -189,8 +185,8 @@ body {
 /* CLOCK COMPACTO - MGS STYLE */
 .codec-clock {
     position: absolute;
-    bottom: 330px;
-    left: 50px;
+    bottom: 325px;
+    left: 60px;
     font-family: 'Arial Narrow', sans-serif;
     color: #00ff00;
     font-size: 1.0rem; /* Ligeramente más pequeño para mayor control */
@@ -362,7 +358,7 @@ body {
 /* ============================= */
 .btn-rwd, .btn-fwd {
     position: absolute;
-    bottom: 450px;
+    bottom: 440px;
     transform: translateY(-50%);
     color: var(--mgs-green-text);
     font-size: 1.2rem;
@@ -412,8 +408,8 @@ body {
 
 /* Coordenadas para ajuste manual */
 #play-btn {
-    bottom: 220px; 
-    right: 28px;
+    bottom: 215px; 
+    right: 32px;
     transform: translateX(-50%);
     /* Efecto circular */
     width: 50px;
@@ -429,7 +425,7 @@ body {
 
 #shuffle-btn {
     bottom: 190px;
-    left: 90px;
+    left: 100px;
     /* Efecto circular */
     width: 30px;
     height: 30px;
@@ -444,7 +440,7 @@ body {
 
 #repeat-btn {
     bottom: 190px;
-    left: 45px;
+    left: 55px;
     /* Efecto circular */
     width: 30px;
     height: 30px;
@@ -466,7 +462,7 @@ body {
 
 #music-btn {
     bottom: 130px;
-    right: 65px;
+    right: 75px;
     transform: translateX(-50%);
     /* Efecto circular */
     width: 40px;
@@ -484,7 +480,7 @@ body {
 #contenido-btn {
     position: absolute;
     bottom: 130px; 
-    right: 35px; 
+    right: 40px; 
     color: #fff;
     font-size: 1.1rem;
     cursor: pointer;
@@ -519,8 +515,8 @@ body {
 /* ============================= */
 .mode-switch {
     position: absolute;
-    top: 330px;
-    left: 50%;
+    top: 325px;
+    left: 48%;
     transform: translateX(-185%);
     height: auto;
     width: 100px;
@@ -817,3 +813,13 @@ body {
 /* =======================================================
    BLOQUE DE CONTROL MAESTRO - VERSIÓN FINAL PX
    ======================================================= */
+@media screen and (max-width: 500px) {
+    body {
+        zoom: 0.8;
+        display: flex;             /* Aseguramos que siga siendo flex */
+        justify-content: center;   /* Forzamos el centro horizontal */
+        align-items: center;       /* Forzamos el centro vertical */
+        width: 100%;
+        height: 100vh;
+    }
+}
