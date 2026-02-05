@@ -833,15 +833,95 @@ body {
         overflow: hidden !important;
     }
 
-    /* --- 1. BOTÓN POWER (CON AJUSTE DE CENTRADO) --- */
+    /* --- AJUSTES ESPECÍFICOS PARA 480px (aprox) --- */
+    @media (max-width: 500px) {
+        /* Carátula y Video 5px izquierda */
+        .cover-wrapper, .video-background {
+            transform: translateX(-5px) !important;
+        }
+
+        /* FWD y RWD: +10px arriba (subir bottom) y 15px derecha */
+        .btn-rwd { 
+            bottom: calc(380% + 10px) !important; 
+            left: calc(32% + 15px) !important; 
+        }
+        .btn-fwd { 
+            bottom: calc(380% + 10px) !important; 
+            left: calc(70% + 15px) !important; 
+        }
+
+        /* Switch: 20px derecha y 5px arriba (bajar top) */
+        .mode-switch {
+            top: calc(41% - 5px) !important;
+            left: calc(53% + 20px) !important;
+        }
+
+        /* Repeat y Shuffle: 5px izquierda. Repeat 4px adicionales (9px total) */
+        #shuffle-btn { left: calc(20% - 5px) !important; }
+        #repeat-btn { left: calc(10% - 9px) !important; }
+
+        /* Power: 5px izquierda */
+        .btn-power { transform: translateX(calc(-50% - 5px)) !important; }
+
+        /* Play: 10px derecha */
+        #play-btn { right: calc(8% - 10px) !important; }
+
+        /* Contenido 5px derecha, Music 10px derecha */
+        #contenido-btn { right: calc(8% - 5px) !important; }
+        #music-btn { right: calc(15% - 10px) !important; }
+    }
+
+    /* --- AJUSTES ESPECÍFICOS PARA 600px --- */
+    @media (min-width: 501px) {
+        /* Switch 10px derecha y Texto (mode-text) 10px derecha */
+        .mode-switch { left: calc(53% + 10px) !important; }
+        .mode-text { margin-left: 10px !important; }
+
+        /* Repeat y Shuffle: 20px arriba. Repeat 2px izquierda */
+        #shuffle-btn { bottom: calc(150% + 20px) !important; }
+        #repeat-btn { 
+            bottom: calc(150% + 20px) !important; 
+            left: calc(10% - 2px) !important; 
+        }
+
+        /* Power: Imagen 20px arriba y 5px derecha. Icono 5px menor y 5px izquierda */
+        .btn-power img {
+            top: -20px !important;
+            left: 5px !important;
+        }
+        .power-icon {
+            font-size: 1.2rem !important; /* Reducido de 1.5rem */
+            transform: translateX(-5px) !important;
+            margin-top: -45px !important; 
+            margin-left: -30px !important;
+        }
+
+        /* Play: 20px arriba */
+        #play-btn { bottom: calc(180% + 20px) !important; }
+
+        /* Music y Contenido: 5px derecha y 15px arriba */
+        #music-btn { 
+            right: calc(15% - 5px) !important; 
+            bottom: calc(100% + 15px) !important; 
+        }
+        #contenido-btn { 
+            right: calc(8% - 5px) !important; 
+            bottom: calc(100% + 15px) !important; 
+        }
+
+        /* Reloj: 5px arriba (bajar top) y 4px derecha */
+        .codec-clock {
+            top: calc(58% - 5px) !important;
+            left: calc(11% + 4px) !important;
+        }
+    }
+
+    /* --- ESTILOS BASE (COMPARTIDOS) --- */
     .btn-power {
         width: var(--power-size) !important;
         height: var(--power-size) !important;
-        /* POSICIÓN MANUAL POWER */
         bottom: 140% !important; 
         left: 50% !important;
-        transform: translateX(-50%) !important; 
-        
         display: flex !important;
         justify-content: center !important;
         align-items: center !important;
@@ -853,81 +933,9 @@ body {
         width: 100% !important;
         height: 100% !important;
         position: absolute !important;
-        top: 0 !important;
-        left: 0 !important;
         z-index: 1;
     }
 
-    .power-icon {
-        font-size: 1.5rem !important;
-        color: var(--mgs-green);
-        position: relative !important;
-        z-index: 2;
-        /* AJUSTE FINO ICONO (Mover si el icono no viene centrado de fábrica) */
-        margin-top: -45px !important; 
-        margin-left: -30px !important;
-    }
-
-    /* --- 2. NAVEGACIÓN (RWD / FWD) --- */
-    .btn-rwd { 
-        bottom: 380% !important; 
-        left: 32% !important; 
-    }
-    .btn-fwd { 
-        bottom: 380% !important; 
-        left: 70% !important; 
-    }
-
-    /* --- 3. REPRODUCCIÓN (REPEAT / SHUFFLE / PLAY) --- */
-    #repeat-btn { 
-        bottom: 150% !important; 
-        left: 10% !important; 
-    }
-    #shuffle-btn { 
-        bottom: 150% !important; 
-        left: 20% !important; 
-    }
-    #play-btn { 
-        bottom: 180% !important; 
-        right: 8% !important; 
-    }
-
-    /* --- 4. SECUNDARIOS (MUSIC / CONTENIDO) --- */
-    #music-btn { 
-        bottom: 100% !important; 
-        right: 15% !important; 
-    }
-    #contenido-btn { 
-        bottom: 100% !important; 
-        right: 8% !important; 
-    }
-
-    /* --- 5. INTERFAZ (RELOJ / SWITCH) --- */
-    .codec-clock { 
-        top: 58% !important; 
-        left: 11% !important; 
-    }
-    .mode-switch {
-        top: 41% !important;
-        left: 53% !important;
-        transform: translateX(-195%) !important;
-    }
-
-    /* --- 6. TEXTO Y VOLUMEN (MARQUESINA) --- */
-    .metadata-container {
-        top: 33.5% !important;
-        width: 82% !important;
-        left: 50% !important;
-        transform: translateX(-50%) !important;
-    }
-    .volumen-contenedor {
-        bottom: 14% !important;
-        width: 85% !important;
-        left: 50% !important;
-        transform: translateX(-50%) !important;
-    }
-
-    /* --- 7. TAMAÑOS GENERALES --- */
     #play-btn, #shuffle-btn, #repeat-btn, #music-btn, #contenido-btn {
         width: var(--btn-size) !important;
         height: var(--btn-size) !important;
@@ -936,5 +944,6 @@ body {
         display: flex !important;
         justify-content: center !important;
         align-items: center !important;
+        position: absolute !important;
     }
 }
