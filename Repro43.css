@@ -815,7 +815,7 @@ body {
 }
 
 /* =======================================================
-   BLOQUE DE CONTROL MAESTRO - AJUSTE MANUAL FULL
+   BLOQUE DE CONTROL MAESTRO - VERSIÓN FINAL BLINDADA
    ======================================================= */
 @media screen and (max-width: 650px) {
     :root {
@@ -833,107 +833,139 @@ body {
         overflow: hidden !important;
     }
 
-    /* --- AJUSTES ESPECÍFICOS PARA 480px (aprox) --- */
+    /* --- AJUSTES PARA 480px --- */
     @media (max-width: 500px) {
-        /* Carátula y Video 5px izquierda */
         .cover-wrapper, .video-background {
             transform: translateX(-5px) !important;
         }
 
-        /* FWD y RWD: +10px arriba (subir bottom) y 15px derecha */
+        /* RWD y FWD: 8px arriba; RWD 4px izq, FWD 2px izq */
         .btn-rwd { 
-            bottom: calc(380% + 10px) !important; 
-            left: calc(32% + 15px) !important; 
+            bottom: calc(380% + 8px) !important; 
+            left: calc(32% - 4px) !important; 
         }
         .btn-fwd { 
-            bottom: calc(380% + 10px) !important; 
-            left: calc(70% + 15px) !important; 
+            bottom: calc(380% + 8px) !important; 
+            left: calc(70% - 2px) !important; 
         }
 
-        /* Switch: 20px derecha y 5px arriba (bajar top) */
-        .mode-switch {
-            top: calc(41% - 5px) !important;
-            left: calc(53% + 20px) !important;
+        /* Texto Switch 10px abajo */
+        .mode-text { margin-top: 10px !important; }
+
+        /* Repeat y Shuffle 10px abajo */
+        #repeat-btn { bottom: calc(150% - 10px) !important; left: calc(10% - 9px) !important; }
+        #shuffle-btn { bottom: calc(150% - 10px) !important; left: calc(20% - 5px) !important; }
+
+        /* Play 10px abajo */
+        #play-btn { 
+            bottom: calc(180% - 10px) !important; 
+            right: calc(8% - 10px) !important; 
         }
 
-        /* Repeat y Shuffle: 5px izquierda. Repeat 4px adicionales (9px total) */
-        #shuffle-btn { left: calc(20% - 5px) !important; }
-        #repeat-btn { left: calc(10% - 9px) !important; }
-
-        /* Power: 5px izquierda */
+        /* Music y Contenido 5px abajo */
+        #music-btn { bottom: calc(100% - 5px) !important; right: calc(15% - 10px) !important; }
+        #contenido-btn { bottom: calc(100% - 5px) !important; right: calc(8% - 5px) !important; }
+        
+        /* Power: 5px izquierda (ajustado en el transform del padre) */
         .btn-power { transform: translateX(calc(-50% - 5px)) !important; }
-
-        /* Play: 10px derecha */
-        #play-btn { right: calc(8% - 10px) !important; }
-
-        /* Contenido 5px derecha, Music 10px derecha */
-        #contenido-btn { right: calc(8% - 5px) !important; }
-        #music-btn { right: calc(15% - 10px) !important; }
     }
 
-    /* --- AJUSTES ESPECÍFICOS PARA 600px --- */
+    /* --- AJUSTES PARA 600px --- */
     @media (min-width: 501px) {
-        /* Switch 10px derecha y Texto (mode-text) 10px derecha */
-        .mode-switch { left: calc(53% + 10px) !important; }
-        .mode-text { margin-left: 10px !important; }
+        /* FWD y RWD 30px arriba y 10px izquierda */
+        .btn-rwd { 
+            bottom: calc(380% + 30px) !important; 
+            left: calc(32% - 10px) !important; 
+        }
+        .btn-fwd { 
+            bottom: calc(380% + 30px) !important; 
+            left: calc(70% - 10px) !important; 
+        }
 
-        /* Repeat y Shuffle: 20px arriba. Repeat 2px izquierda */
-        #shuffle-btn { bottom: calc(150% + 20px) !important; }
+        /* Switch 5px abajo y 10px izquierda | Texto switch 5px abajo */
+        .mode-switch { 
+            top: calc(41% + 5px) !important; 
+            left: calc(53% - 10px) !important; 
+        }
+        .mode-text { margin-top: 5px !important; }
+
+        /* Repeat 2px derecha */
         #repeat-btn { 
             bottom: calc(150% + 20px) !important; 
-            left: calc(10% - 2px) !important; 
+            left: calc(10% + 2px) !important; 
+        }
+        #shuffle-btn { bottom: calc(150% + 20px) !important; }
+
+        /* Play 5px arriba y 4px izquierda */
+        #play-btn { 
+            bottom: calc(180% + 5px) !important; 
+            right: calc(8% + 4px) !important; 
         }
 
-        /* Power: Imagen 20px arriba y 5px derecha. Icono 5px menor y 5px izquierda */
-        .btn-power img {
-            top: -20px !important;
-            left: 5px !important;
-        }
-        .power-icon {
-            font-size: 1.2rem !important; /* Reducido de 1.5rem */
-            transform: translateX(-5px) !important;
-            margin-top: -45px !important; 
-            margin-left: -30px !important;
-        }
-
-        /* Play: 20px arriba */
-        #play-btn { bottom: calc(180% + 20px) !important; }
-
-        /* Music y Contenido: 5px derecha y 15px arriba */
+        /* Music 2px izquierda | Music y Contenido 15px arriba */
         #music-btn { 
-            right: calc(15% - 5px) !important; 
             bottom: calc(100% + 15px) !important; 
+            right: calc(15% + 2px) !important; 
         }
         #contenido-btn { 
-            right: calc(8% - 5px) !important; 
             bottom: calc(100% + 15px) !important; 
+            right: calc(8% - 5px) !important; 
         }
 
-        /* Reloj: 5px arriba (bajar top) y 4px derecha */
         .codec-clock {
             top: calc(58% - 5px) !important;
             left: calc(11% + 4px) !important;
         }
+
+        /* Power 600: Imagen 20px arriba, 5px derecha. Icono 5px menor, 5px izq */
+        .btn-power img { 
+            top: -20px !important; 
+            left: 5px !important; 
+        }
+        .power-icon {
+            font-size: 1rem !important;
+            transform: translateX(-5px) !important;
+        }
     }
 
-    /* --- ESTILOS BASE (COMPARTIDOS) --- */
+    /* --- ESTRUCTURA BASE POWER (PROTEGIDA) --- */
     .btn-power {
         width: var(--power-size) !important;
         height: var(--power-size) !important;
         bottom: 140% !important; 
         left: 50% !important;
+        transform: translateX(-50%) !important;
         display: flex !important;
         justify-content: center !important;
         align-items: center !important;
         position: absolute !important;
-        z-index: 20;
+        z-index: 100 !important;
     }
 
     .btn-power img {
         width: 100% !important;
         height: 100% !important;
         position: absolute !important;
-        z-index: 1;
+        top: 0;
+        left: 0;
+        z-index: 1 !important;
+    }
+
+    .power-icon {
+        position: relative !important;
+        z-index: 2 !important;
+        color: var(--mgs-green) !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    /* --- ELEMENTOS POSICIONADOS --- */
+    #play-btn, #shuffle-btn, #repeat-btn, #music-btn, #contenido-btn, 
+    .btn-rwd, .btn-fwd, .mode-switch, .codec-clock {
+        position: absolute !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
     }
 
     #play-btn, #shuffle-btn, #repeat-btn, #music-btn, #contenido-btn {
@@ -941,9 +973,5 @@ body {
         height: var(--btn-size) !important;
         font-size: var(--icon-size) !important;
         border-radius: 50% !important;
-        display: flex !important;
-        justify-content: center !important;
-        align-items: center !important;
-        position: absolute !important;
     }
 }
