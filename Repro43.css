@@ -815,7 +815,7 @@ body {
 }
 
 /* =======================================================
-   BLOQUE DE CONTROL MAESTRO - VERSIÓN FINAL BLINDADA
+   BLOQUE DE CONTROL MAESTRO - VERSIÓN FINAL PX
    ======================================================= */
 @media screen and (max-width: 650px) {
     :root {
@@ -825,153 +825,88 @@ body {
     }
 
     .main-container {
-        display: flex !important;
-        flex-direction: column !important;
+        display: block !important; 
         height: 100vh !important;
-        min-height: 560px !important;
         position: relative !important;
-        overflow: hidden !important;
     }
 
     /* --- AJUSTES PARA 480px --- */
     @media (max-width: 500px) {
-        .cover-wrapper, .video-background {
-            transform: translateX(-5px) !important;
-        }
+        .cover-wrapper, .video-background { transform: translateX(-5px) !important; }
 
-        /* RWD y FWD: 8px arriba; RWD 4px izq, FWD 2px izq */
-        .btn-rwd { 
-            bottom: calc(380% + 8px) !important; 
-            left: calc(32% - 4px) !important; 
-        }
-        .btn-fwd { 
-            bottom: calc(380% + 8px) !important; 
-            left: calc(70% - 2px) !important; 
-        }
+        .btn-rwd { bottom: 338px !important; left: 157px !important; }
+        .btn-fwd { bottom: 338px !important; left: 337px !important; }
 
-        /* Texto Switch 10px abajo */
-        .mode-text { margin-top: 10px !important; }
+        .mode-switch { top: 240px !important; left: 295px !important; }
+        .mode-text { margin-top: 16px !important; } 
 
-        /* Repeat y Shuffle 10px abajo */
-        #repeat-btn { bottom: calc(150% - 10px) !important; left: calc(10% - 9px) !important; }
-        #shuffle-btn { bottom: calc(150% - 10px) !important; left: calc(20% - 5px) !important; }
+        #repeat-btn { bottom: 135px !important; left: 26px !important; }
+        #shuffle-btn { bottom: 135px !important; left: 80px !important; }
 
-        /* Play 10px abajo */
-        #play-btn { 
-            bottom: calc(180% - 10px) !important; 
-            right: calc(8% - 10px) !important; 
-        }
+        .codec-clock { top: 340px !important; left: 50px !important; } 
 
-        /* Music y Contenido 5px abajo */
-        #music-btn { bottom: calc(100% - 5px) !important; right: calc(15% - 10px) !important; }
-        #contenido-btn { bottom: calc(100% - 5px) !important; right: calc(8% - 5px) !important; }
+        /* Icono Power 480: 15px arriba y 15px izq */
+        .power-icon { margin-top: -15px !important; margin-left: -15px !important; }
         
-        /* Power: 5px izquierda (ajustado en el transform del padre) */
-        .btn-power { transform: translateX(calc(-50% - 5px)) !important; }
+        #play-btn { bottom: 160px !important; right: 40px !important; }
+        #music-btn { bottom: 90px !important; right: 72px !important; }
+        #contenido-btn { bottom: 90px !important; right: 40px !important; }
+
+        /* Volumen 480: 6px abajo y 15px derecha */
+        .volumen-contenedor { 
+            bottom: calc(14% - 6px) !important; 
+            left: calc(50% + 15px) !important; 
+            transform: translateX(-50%) !important;
+        }
     }
 
     /* --- AJUSTES PARA 600px --- */
     @media (min-width: 501px) {
-        /* FWD y RWD 30px arriba y 10px izquierda */
-        .btn-rwd { 
-            bottom: calc(380% + 30px) !important; 
-            left: calc(32% - 10px) !important; 
-        }
-        .btn-fwd { 
-            bottom: calc(380% + 30px) !important; 
-            left: calc(70% - 10px) !important; 
-        }
+        /* Marquesina 600: 20px abajo */
+        .metadata-container { top: calc(33.5% + 20px) !important; }
 
-        /* Switch 5px abajo y 10px izquierda | Texto switch 5px abajo */
-        .mode-switch { 
-            top: calc(41% + 5px) !important; 
-            left: calc(53% - 10px) !important; 
-        }
-        .mode-text { margin-top: 5px !important; }
+        .btn-rwd { bottom: 415px !important; left: 190px !important; }
+        .btn-fwd { bottom: 415px !important; left: 415px !important; }
 
-        /* Repeat 2px derecha */
-        #repeat-btn { 
-            bottom: calc(150% + 20px) !important; 
-            left: calc(10% + 2px) !important; 
-        }
-        #shuffle-btn { bottom: calc(150% + 20px) !important; }
+        .mode-switch { top: 270px !important; left: 318px !important; }
+        .mode-text { margin-top: 10px !important; }
 
-        /* Play 5px arriba y 4px izquierda */
-        #play-btn { 
-            bottom: calc(180% + 5px) !important; 
-            right: calc(8% + 4px) !important; 
-        }
+        #repeat-btn { bottom: 165px !important; left: 64px !important; }
+        #shuffle-btn { bottom: 165px !important; left: 120px !important; }
 
-        /* Music 2px izquierda | Music y Contenido 15px arriba */
-        #music-btn { 
-            bottom: calc(100% + 15px) !important; 
-            right: calc(15% + 2px) !important; 
-        }
-        #contenido-btn { 
-            bottom: calc(100% + 15px) !important; 
-            right: calc(8% - 5px) !important; 
-        }
+        #play-btn { bottom: 220px !important; right: 50px !important; }
 
-        .codec-clock {
-            top: calc(58% - 5px) !important;
-            left: calc(11% + 4px) !important;
-        }
+        #music-btn { bottom: 120px !important; right: 88px !important; }
+        #contenido-btn { bottom: 120px !important; right: 43px !important; }
 
-        /* Power 600: Imagen 20px arriba, 5px derecha. Icono 5px menor, 5px izq */
-        .btn-power img { 
-            top: -20px !important; 
-            left: 5px !important; 
-        }
-        .power-icon {
-            font-size: 1rem !important;
-            transform: translateX(-5px) !important;
+        .codec-clock { top: 380px !important; left: 62px !important; }
+
+        /* Power 600: Imagen 10px arriba e Icono 20px arriba/izq */
+        .btn-power img { top: -10px !important; }
+        .power-icon { 
+            font-size: 1rem !important; 
+            margin-top: -20px !important; 
+            margin-left: -20px !important; 
         }
     }
 
-    /* --- ESTRUCTURA BASE POWER (PROTEGIDA) --- */
+    /* --- ESTRUCTURA BASE --- */
     .btn-power {
         width: var(--power-size) !important;
         height: var(--power-size) !important;
-        bottom: 140% !important; 
+        position: absolute !important;
         left: 50% !important;
+        bottom: 140% !important;
         transform: translateX(-50%) !important;
         display: flex !important;
         justify-content: center !important;
         align-items: center !important;
-        position: absolute !important;
         z-index: 100 !important;
     }
+    .btn-power img { width: 100% !important; height: 100% !important; position: absolute !important; z-index: 1 !important; }
+    .power-icon { position: relative !important; z-index: 2 !important; color: var(--mgs-green) !important; }
 
-    .btn-power img {
-        width: 100% !important;
-        height: 100% !important;
+    .btn-rwd, .btn-fwd, #play-btn, #shuffle-btn, #repeat-btn, #music-btn, #contenido-btn, .mode-switch, .codec-clock {
         position: absolute !important;
-        top: 0;
-        left: 0;
-        z-index: 1 !important;
-    }
-
-    .power-icon {
-        position: relative !important;
-        z-index: 2 !important;
-        color: var(--mgs-green) !important;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-
-    /* --- ELEMENTOS POSICIONADOS --- */
-    #play-btn, #shuffle-btn, #repeat-btn, #music-btn, #contenido-btn, 
-    .btn-rwd, .btn-fwd, .mode-switch, .codec-clock {
-        position: absolute !important;
-        display: flex !important;
-        justify-content: center !important;
-        align-items: center !important;
-    }
-
-    #play-btn, #shuffle-btn, #repeat-btn, #music-btn, #contenido-btn {
-        width: var(--btn-size) !important;
-        height: var(--btn-size) !important;
-        font-size: var(--icon-size) !important;
-        border-radius: 50% !important;
     }
 }
