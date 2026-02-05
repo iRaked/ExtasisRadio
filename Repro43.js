@@ -12,7 +12,9 @@ $(document).ready(function() {
         "https://radio-tekileros.vercel.app/ViñaRock.json",
         "https://radio-tekileros.vercel.app/HeavyMetal.json",
         "https://radio-tekileros.vercel.app/Rimas.json",
-        "https://radio-tekileros.vercel.app/RockIdioma.json"
+        "https://radio-tekileros.vercel.app/RockIdioma.json",
+        "https://radio-tekileros.vercel.app/Skañol.json",
+        "https://radio-tekileros.vercel.app/ZonaSka.json"
     ];
 
     let currentMode = "RADIO";
@@ -342,7 +344,7 @@ window.addEventListener('online', () => {
     // --- CONTROLES TACTICOS ---
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-    // Play/Pause con cambio de icono
+    // Play/Pause con cambio de icono NO CAMBIA
     $('#play-btn').click(function() {
         if (!isSystemOn) return;
         if (audio.paused) {
