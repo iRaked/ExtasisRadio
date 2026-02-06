@@ -40,6 +40,825 @@ body {
     height: 795px;        /* Medida exacta de tu Card */
     margin: 0 auto;       /* Centrado perfecto */
     background: #000;
+    /*overflow: hidden;      Nada sale de la zona de operaciones */
+    z-index: 10;
+}
+
+/* El video de fondo - ADAPTADO PARA ESCALAR */
+.video-background {
+    position: absolute;
+    top: 6.25%; 
+    right: -20%; 
+    width: 130%; 
+    z-index: 1;
+}
+
+.video-background video {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* La imagen Codec.png - Calibración 1:1 con la Card */
+.codec-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;       /* Se acopla a los 500px del padre */
+    height: 100%;      /* Se acopla a los 795px del padre */
+    object-fit: fill;  /* ESTO es lo que garantiza que el diseño no se rompa */
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* El contenedor de la interfaz */
+.ui-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    pointer-events: none;
+}
+
+/* ============================= */
+/* CARATULA */
+/* ============================= */
+.cover-wrapper {
+    position: absolute;
+    top: 95px; 
+    left: 15px; 
+    width: 120px; 
+    height: 120px;
+    border: 2px solid rgba(0, 255, 0, 0.3); 
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+}
+
+.cover-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ============================= */
+/* MARQUESINA */
+/* ============================= */
+.metadata-container {
+    position: absolute;
+    top: 270px; /* Ajustalo según el espacio libre en tu Codec.png */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 85%;
+    height: 35px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    /* Un ligero resplandor para simular pantalla retro */
+    text-shadow: 0 0 8px rgba(112, 177, 137, 0.6);
+    overflow: hidden;
+    z-index: 15;
+}
+
+.marquee-box {
+    white-space: nowrap;
+    overflow: hidden;
+    width: 100%;
+}
+
+#track-info {
+    display: inline-block;
+    padding-left: 105%;
+    font-family: var(--font-digital);
+    font-size: 1.8rem;
+    color: #70b189;
+    text-transform: uppercase;
+    animation: nanomachines 15s linear infinite;
+}
+
+/* Animación de la Marquesina */
+@keyframes nanomachines {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+}
+
+/* Estilo específico por si quieres resaltar el server */
+.playlist-meta {
+    font-weight: bold;
+    opacity: 0.8;
+}
+
+/* ============================= */
+/* DIAL DE FRECUENCIA */
+/* ============================= */
+.codec-names {
+    position: absolute;
+    top: 240px; /* Ajustado para que quede debajo de los recuadros de imagen */
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 45px; /* Ajuste para alinear con los centros de las imágenes */
+    box-sizing: border-box;
+    z-index: 15;
+}
+
+.name-left, .name-right {
+    font-family: var(--font-mgs);
+    font-size: 1rem;
+    color: var(--mgs-green-text);
+    text-shadow: 0 0 5px rgba(112, 177, 137, 0.5);
+    letter-spacing: 1px;
+}
+
+/* Opcional: un efecto de parpadeo muy tenue para simular señal activa */
+.name-left {
+    animation: signal-pulse 3s infinite;
+}
+
+@keyframes signal-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+/* CLOCK COMPACTO - MGS STYLE */
+.codec-clock {
+    position: absolute;
+    bottom: 325px;
+    left: 60px;
+    font-family: 'Arial Narrow', sans-serif;
+    color: #00ff00;
+    font-size: 1.0rem; /* Ligeramente más pequeño para mayor control */
+    font-weight: 900;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.9);
+    letter-spacing: -1px; /* Hace los números más compactos */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 20;
+    pointer-events: none; /* Para que no estorbe si hay clics debajo */
+    line-height: 1;
+}
+
+/* ================================ */
+/* VOLUMEN TÁCTICO EXPANDIDO */
+/* ================================ */
+.volumen-contenedor {
+    position: absolute;
+    bottom: 112px;
+    top: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    /* Ocupa casi todo el ancho del Codec */
+    width: 85%; 
+    display: flex;
+    align-items: center;
+    /* Los iconos a los lados, la barra al centro */
+    justify-content: space-between; 
+    gap: 15px;
+    z-index: 999;
+    pointer-events: all;
+}
+
+/* La barra de volumen ahora es el elemento dominante */
+.volumen {
+    flex-grow: 2; /* Le damos prioridad de crecimiento */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+}
+
+/* Slider más largo y visible */
+.volumen-slider {
+    -webkit-appearance: none;
+    width: 100%; /* Ahora el 100% de su padre flexible */
+    height: 12px; /* Un poco más estilizada para que el glow destaque más */
+    background: rgba(255, 255, 255, 0.1); 
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.9);
+    outline: none;
+    border: 1px solid rgba(112, 177, 137, 0.6);
+    cursor: pointer !important;
+    z-index: 1000;
+}
+
+/* Iconos laterales (Volumen - / + / Headphones) */
+.volumen-control, .volumen-headphones {
+    font-size: 1.2rem; /* Un poco más grandes para facilitar el toque */
+    color: #fff;
+    cursor: pointer;
+    text-shadow: 0 0 10px rgba(112, 177, 137, 0.5);
+    transition: all 0.2s;
+    /* Evitamos que los iconos se encojan */
+    flex-shrink: 0; 
+}
+
+.volumen-control:hover {
+    color: var(--mgs-green-text);
+    transform: scale(1.2);
+}
+
+/* Ocultar el pulgar nativo para mantener la estética MGS */
+.volumen-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 0;
+    height: 0;
+}
+
+/* ============================= */
+/* BOTONERA */
+/* ============================= */
+/* Contenedor principal de controles */
+.main-controls {
+    position: absolute;
+    bottom: 180px; /* Ajustado para que quede sobre la marquesina o debajo de ella según tu diseño */
+    width: 100%;
+    height: 100px;
+    z-index: 20;
+    pointer-events: auto; /* IMPORTANTE: para que los clics funcionen */
+}
+
+/* Contenedor del Power (ya lo tenías, solo aseguramos el centro) */
+.btn-power {
+    position: absolute;
+    bottom: 100px;
+    left: 51%;
+    transform: translate(-50%, -50%);
+    width: 20%; /* Ajusta según el tamaño de tu PNG */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 25;
+}
+
+/* El icono dentro del botón - RECALIBRADO */
+.power-icon {
+    position: absolute;
+    /* Ubicación del círculo */
+    top: 25%;
+    left: 25%;
+    transform: translate(-50%, -50%);
+    
+    /* Dimensiones del círculo */
+    width: 55px;
+    height: 55px;
+    
+    /* Centrado INTERNO absoluto */
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    text-align: center;
+    line-height: 0; /* Elimina espacios extra de fuentes */
+
+    /* Estética Visual */
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0 15px rgba(112, 177, 137, 0.3);
+    
+    /* Propiedades del Icono */
+    font-size: 1.4rem;
+    color: var(--mgs-green-text);
+    text-shadow: 0 0 10px var(--mgs-green-text);
+    
+    pointer-events: none;
+    transition: all 0.3s ease;
+    animation: power-pulse 2s infinite ease-in-out;
+}
+
+/* Forzamos que el elemento <i> no tenga márgenes */
+.power-icon i {
+    margin: 0 !important;
+    padding: 0 !important;
+    display: block;
+}
+
+
+/* Efecto cuando el sistema está "ON" (lo usaremos con JS) */
+.btn-power.system-on .power-icon {
+    color: #fff;
+    text-shadow: 0 0 15px #fff, 0 0 30px var(--mgs-green-text);
+    filter: brightness(1.2);
+}
+
+/* Animación de latido sutil para indicar que está esperando ser pulsado */
+.power-icon {
+    animation: power-pulse 2s infinite ease-in-out;
+}
+
+@keyframes power-pulse {
+    0%, 100% { opacity: 0.7; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.1); }
+}
+
+/* ============================= */
+/* NAVEGACIÓN FWD Y RWD (HOVER) */
+/* ============================= */
+.btn-rwd, .btn-fwd {
+    position: absolute;
+    bottom: 440px;
+    transform: translateY(-50%);
+    color: var(--mgs-green-text);
+    font-size: 1.2rem;
+    cursor: pointer;
+    letter-spacing: -2px;
+    text-shadow: 0 0 8px var(--mgs-green-text);
+    /* Transición para suavizar el efecto hover */
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 25;
+}
+
+.btn-rwd { left: 33%; }
+.btn-fwd { right: 26%; }
+
+/* Efecto Hover estilo Volumen */
+.btn-rwd:hover, .btn-fwd:hover {
+    color: #fff; /* Cambio a blanco para simular iluminación de panel */
+    transform: translateY(-50%) scale(1.2); /* Aumento de tamaño */
+    text-shadow: 0 0 15px #fff, 0 0 25px var(--mgs-green-text);
+    opacity: 1;
+}
+
+/* Feedback al hacer clic */
+.btn-rwd:active, .btn-fwd:active {
+    transform: translateY(-50%) scale(0.95);
+    filter: brightness(0.7);
+    transition: all 0.05s;
+}
+
+/* INDIVIDUALIZACIÓN DE BOTONES SECUNDARIOS */
+.secondary-controls {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.secondary-controls i {
+    position: absolute; /* Ahora son independientes */
+    color: #fff;
+    font-size: 1.1rem;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: all 0.2s;
+}
+
+/* Coordenadas para ajuste manual */
+#play-btn {
+    bottom: 215px; 
+    right: 32px;
+    transform: translateX(-50%);
+    /* Efecto circular */
+    width: 50px;
+    height: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.8); /* Trazo circular */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 10px rgba(112, 177, 137, 0.2);
+}
+
+#shuffle-btn {
+    bottom: 190px;
+    left: 100px;
+    /* Efecto circular */
+    width: 30px;
+    height: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.8); /* Trazo circular */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 10px rgba(112, 177, 137, 0.2);
+}
+
+#repeat-btn {
+    bottom: 190px;
+    left: 55px;
+    /* Efecto circular */
+    width: 30px;
+    height: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.8); /* Trazo circular */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 10px rgba(112, 177, 137, 0.2);
+}
+
+/* Estado activo para botones tácticos */
+.btn-active {
+    color: #00ff00 !important;
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.8);
+    transform: scale(1.1);
+}
+
+#music-btn {
+    bottom: 130px;
+    right: 75px;
+    transform: translateX(-50%);
+    /* Efecto circular */
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.8); /* Trazo circular */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 10px rgba(112, 177, 137, 0.2);
+}
+
+/* Botón de Contenido (Historial / Selector de Tracks) */
+#contenido-btn {
+    position: absolute;
+    bottom: 130px; 
+    right: 40px; 
+    color: #fff;
+    font-size: 1.1rem;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: all 0.2s;
+    /* Efecto circular */
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.8); /* Trazo circular */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 10px rgba(112, 177, 137, 0.2);
+}
+
+#contenido-btn:hover {
+    color: var(--mgs-green-text);
+    opacity: 1;
+    text-shadow: 0 0 10px var(--mgs-green-text);
+}
+
+.secondary-controls i:hover {
+    color: var(--mgs-green-text);
+    opacity: 1;
+    text-shadow: 0 0 10px var(--mgs-green-text);
+}
+
+/* ============================= */
+/* SWITCH DE MODO (VISUAL) */
+/* ============================= */
+.mode-switch {
+    position: absolute;
+    top: 325px;
+    left: 48%;
+    transform: translateX(-185%);
+    height: auto;
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 15;
+    pointer-events: none; /* Es solo visual por ahora */
+}
+
+.mode-label {
+    font-family: var(--font-mgs);
+    font-size: 0.6rem;
+    color: #fff;
+    opacity: 0.5;
+    letter-spacing: 1px;
+    margin-bottom: 2px;
+}
+
+.mode-text {
+    font-family: var(--font-digital);
+    font-size: 1.2rem;
+    color: var(--mgs-green-text);
+    text-shadow: 0 0 8px rgba(112, 177, 137, 0.8);
+    background: rgba(0, 0, 0, 0.3);
+    padding: 2px 6px;
+    border: 1px solid rgba(112, 177, 137, 0.2);
+    min-width: 65px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+
+/* Clase de apoyo para cuando el modo cambie (la usaremos en JS) */
+.mode-text.music-active {
+    color: #fff; /* O un azul cian para diferenciar modos */
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+}
+
+/* =======================================================
+   MODAL TACTICAL DISPLAY (FULL SCREEN RE-DESIGN)
+   ======================================================= */
+.codec-modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 500px;
+    height: 795px;
+    /* No usamos transform para que cubra exactamente el main-container */
+    transform: none; 
+    background: rgba(10, 25, 15, 0.98); /* Verde oscuro casi opaco */
+    border: none; /* Eliminamos borde para que sea full screen */
+    box-shadow: inset 0 0 50px rgba(112, 177, 137, 0.2);
+    z-index: 100;
+    display: none; 
+    flex-direction: column;
+    opacity: 0;
+    transition: opacity 0.3s ease-out;
+    pointer-events: auto;
+}
+
+.codec-modal.active {
+    display: flex;
+    opacity: 1;
+}
+
+/* Header del Modal */
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 2px solid var(--mgs-green-text);
+    background: rgba(112, 177, 137, 0.05);
+}
+
+.modal-title {
+    font-family: var(--font-mgs);
+    color: var(--mgs-green-text);
+    font-size: 1.2rem;
+    line-height: 1;
+    margin: 0;
+    padding-top: 8px;
+}
+
+#close-modal, .close-btn {
+    background: none;
+    border: none;
+    color: var(--mgs-green-text);
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+#close-modal:hover {
+    filter: brightness(1.5);
+    text-shadow: 0 0 10px var(--mgs-green-text);
+}
+
+/* =======================================================
+   LISTA DE TRACKS Y SCROLL PERSONALIZADO (OPTIMIZADO)
+   ======================================================= */
+.track-list-container {
+    height: calc(100% - 70px);
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden; /* Evita desbordamiento horizontal */
+    padding: 10px 0;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    /* Scroll personalizado para navegadores modernos */
+    scrollbar-width: thin;
+    scrollbar-color: var(--mgs-green-text) transparent;
+}
+
+/* Estilo del Scroll para Webkit (Chrome/Edge/Safari) */
+.track-list-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.track-list-container::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.track-list-container::-webkit-scrollbar-thumb {
+    background: var(--mgs-green-text);
+    box-shadow: 0 0 10px var(--mgs-green-text);
+}
+
+/* Estructura: CARATULA - (#) - TITULO/ARTISTA - DURACION */
+.track-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 12px 10px;
+    border-bottom: 1px solid rgba(112, 177, 137, 0.1);
+    cursor: pointer;
+    color: var(--mgs-green-text);
+    font-family: var(--font-digital);
+    transition: all 0.2s;
+    box-sizing: border-box; /* Fundamental para que no se escape del modal */
+    /*outline: 1px solid rgba(255, 0, 0, 0.5) !important;  Borra esto después de ajustar */
+}
+
+.track-item:hover, .track-item.active-track {
+    background: rgba(112, 177, 137, 0.2);
+    box-shadow: inset 0 0 15px rgba(112, 177, 137, 0.1);
+}
+
+.track-item img {
+    width: 40px;
+    height: 40px;
+    min-width: 40px; /* Evita que la imagen se deforme */
+    object-fit: cover;
+    border: 1px solid var(--mgs-green-text);
+}
+
+.track-number {
+    font-size: 1.2rem;
+    opacity: 0.7;
+    min-width: 30px; /* Espacio reservado para el número o la hora */
+    text-align: center;
+}
+
+.track-info-text {
+    flex: 1; /* Empuja la duración hacia la derecha */
+    display: flex;
+    flex-direction: column;
+    min-width: 0; /* Necesario para que el truncado de texto funcione */
+    overflow: hidden;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+.track-name {
+    font-size: 0.95rem;
+    white-space: nowrap; /* Cambiado a nowrap para mantener el estilo MGS */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Pone "..." si el nombre es demasiado largo */
+    line-height: 1.2;
+    margin-bottom: 2px;
+    text-transform: uppercase;
+}
+
+.track-artist {
+    font-size: 0.7rem;
+    opacity: 0.8;
+    line-height: 1.4 !important;
+    padding-top: 2px;
+    margin-top: 1px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+}
+
+.track-dur {
+    text-align: right;
+    font-size: 0.8rem;
+    min-width: 45px; /* Asegura espacio para el cronómetro */
+    margin-left: 10px;
+}
+
+/* Ocultamos los selectores de playlist viejos */
+.playlist-selector {
+    display: none; 
+}
+
+.section-divider {
+    background: rgba(112, 177, 137, 0.1);
+    color: var(--mgs-green-text);
+    padding: 5px 15px;
+    font-family: var(--font-mgs);
+    font-size: 0.8rem;
+    letter-spacing: 3px;
+    border-top: 1px solid var(--mgs-green-text);
+    border-bottom: 1px solid var(--mgs-green-text);
+    margin: 10px 0;
+}
+
+/* =======================================================
+   SCROLL VERTICAL TACTICAL (ESTILO MGS)
+   ======================================================= */
+
+/* Contenedor del scroll - Aseguramos que el desbordamiento sea vertical */
+.custom-scroll {
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    scrollbar-gutter: stable; /* Evita que el contenido salte al aparecer el scroll */
+}
+
+/* 1. Ancho de la barra de scroll */
+.custom-scroll::-webkit-scrollbar {
+    width: 6px; /* Barra delgada y elegante */
+}
+
+/* 2. El carril (Track) por donde se desliza */
+.custom-scroll::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.4); /* Fondo oscuro profundo */
+    border-left: 1px solid rgba(112, 177, 137, 0.1); /* Separación tenue */
+}
+
+/* 3. El "Pulgar" (Thumb) - La pieza que se mueve */
+.custom-scroll::-webkit-scrollbar-thumb {
+    background: var(--mgs-green-text);
+    background: linear-gradient(to bottom, 
+                transparent, 
+                var(--mgs-green-text), 
+                transparent); /* Efecto de desvanecimiento en puntas */
+    border-radius: 0px; /* Estilo cuadrado militar */
+    box-shadow: 0 0 10px rgba(112, 177, 137, 0.5); /* El brillo característico */
+}
+
+/* 4. Efecto al pasar el mouse (Hover) */
+.custom-scroll::-webkit-scrollbar-thumb:hover {
+    background: #fff; /* Se ilumina al contacto */
+    box-shadow: 0 0 15px #fff;
+    cursor: pointer;
+}
+
+/* Soporte para Firefox (Scrollbar estándar) */
+.custom-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: var(--mgs-green-text) rgba(0, 0, 0, 0.4);
+}
+
+.custom-scroll {
+    -webkit-overflow-scrolling: touch;
+}
+
+/* ===================== */
+/* MENSAJE */
+/* ===================== */
+.custom-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 15px 25px;
+    background: rgba(0, 0, 0, 0.9);
+    border: 2px solid #ff0000;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 1.1em;
+    text-shadow: 0 0 8px #c2a044;
+    box-shadow: 0 0 20px #ff0000b3; /* b3 ≈ 70% de opacidad */
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.custom-message.show {
+    opacity: 1;
+}
+
+/* =======================================================
+   BLOQUE DE CONTROL MAESTRO - VERSIÓN FINAL PX
+   ======================================================= */
+/* Importación de Fuentes */
+@font-face {
+    font-family: 'MetalGear';
+    src: url('https://santi-graphics.vercel.app/assets/fonts/MetalGear.TTF') format('truetype');
+}
+
+@font-face {
+    font-family: 'MGS2';
+    src: url('https://santi-graphics.vercel.app/assets/fonts/MGS2.ttf') format('truetype');
+}
+
+:root {
+    --font-mgs: 'MetalGear', sans-serif;
+    --font-digital: 'MGS2', monospace;
+    --mgs-green-text: #70b189;
+}
+
+#root-scaler {
+    /* Este contenedor envolverá a tu .main-container */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    font-family: var(--font-mgs);
+}
+
+.main-container {
+    position: relative;
+    width: 500px;         /* Medida exacta de tu Card */
+    height: 795px;        /* Medida exacta de tu Card */
+    margin: 0 auto;       /* Centrado perfecto */
+    background: #000;
     overflow: hidden;     /* Nada sale de la zona de operaciones */
     z-index: 10;
 }
@@ -813,3 +1632,32 @@ body {
 /* =======================================================
    BLOQUE DE CONTROL MAESTRO - VERSIÓN FINAL PX
    ======================================================= */
+/* EL ESCALADOR MAESTRO */
+#root-scaler {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #121212; /* Para que veas bien los bordes de tu Codec */
+    overflow: hidden;
+}
+
+.main-container {
+    position: relative;
+    width: 500px;
+    height: 795px;
+    flex-shrink: 0;
+    /* Mantiene todo centrado al escalar */
+    transform-origin: center center; 
+    transition: transform 0.2s ease; /* Suavidad al redimensionar */
+}
+
+/* LA REGLA DE ORO PARA 480px Y MENOS */
+@media screen and (max-width: 500px) {
+    .main-container {
+        /* Esta fórmula divide el ancho de la pantalla (ej. 480) 
+           entre el ancho de tu diseño (500) para darte el factor exacto */
+        transform: scale(calc(100vw / 500));
+    }
+}
