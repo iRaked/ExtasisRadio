@@ -179,7 +179,7 @@ function fetchPlaylist(url) {
             $item.click(function() {
                 currentTrackIndex = index;
                 playTrack();
-                $('#music-modal').fadeOut(300).removeClass('active');
+                closeModal(); // Usamos la nueva función centralizada
             });
             $container.append($item);
         });
@@ -289,11 +289,41 @@ window.addEventListener('online', () => {
 });
 
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    // --- GESTIÓN DE MODALES ---
+    // --- GESTIÓN DE MODALES (VERSIÓN TÁCTICA) ---
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    $('#music-btn').click(function() {
+    
+    // Función centralizada para abrir modales
+    function openModal(modalId) {
         if (!isSystemOn) return;
-        $('#content-modal').fadeOut(200);
+        
+        // Cerramos cualquier otro modal abierto primero
+        $('.codec-modal').fadeOut(200).removeClass('active');
+        
+        const $target = $(`#${modalId}`);
+        $target.fadeIn(300).addClass('active');
+        
+        // Empujamos un estado al historial para que el botón "Atrás" del móvil no cierre la web
+        window.history.pushState({ modalOpen: true, id: modalId }, "");
+    }
+
+    // Función centralizada para cerrar modales
+    function closeModal() {
+    const $activeModal = $('.codec-modal.active');
+    
+    // Si no hay modales activos, no hacemos nada (evita romper el historial)
+    if ($activeModal.length === 0) return;
+
+    // Ejecutamos el cierre visual
+    $activeModal.fadeOut(300).removeClass('active');
+
+    // Solo retrocedemos en el historial si nosotros mismos creamos el estado
+    if (window.history.state && window.history.state.modalOpen) {
+        window.history.back();
+    }
+}
+
+    // Listeners de Botones
+    $('#music-btn').click(function() {
         const $container = $('#track-list');
         $container.empty();
 
@@ -314,31 +344,36 @@ window.addEventListener('online', () => {
             $('.modal-title').text("PLAYLIST ACTUAL");
             refreshTrackListUI();
         }
-        $('#music-modal').fadeIn(300).addClass('active');
+        openModal('music-modal');
     });
 
     $('#contenido-btn').click(function() {
-        if (!isSystemOn) return;
-        $('#music-modal').fadeOut(200);
-        
-        // --- CAMBIO DE TEXTO DE CABECERA AQUÍ ---
         $('#content-modal .modal-title').text("SELECT FREQUENCY"); 
-        
-        $('#content-modal').fadeIn(300).addClass('active');
+        openModal('content-modal');
     });
 
-    $('.playlist-item').click(function() {
-        currentPlaylistIndex = $(this).data('index');
-        currentMode = "MUSIC";
-        updateSwitch();
-        fetchPlaylist(playlists[currentPlaylistIndex]);
-        $('#content-modal').fadeOut(300);
-    });
-
+    // Cierre por clic en botones X
     $('.codec-modal-close, #close-music-modal, #close-content-modal').click(function() {
-        $(this).closest('.codec-modal').fadeOut(300).removeClass('active');
+        const $modal = $(this).closest('.codec-modal');
+        $modal.fadeOut(300).removeClass('active');
+        // Si hay un estado en el historial, volvemos atrás
+        if (window.history.state && window.history.state.modalOpen) {
+            window.history.back();
+        }
     });
 
+    // Cierre por tecla ESC
+    $(document).on('keydown', function(e) {
+        if (e.key === "Escape") closeModal();
+    });
+
+    // GESTIÓN DEL BOTÓN ATRÁS (Móvil / Navegador)
+    window.onpopstate = function(event) {
+        // Si el usuario da atrás y el modal está abierto, lo cerramos
+        if ($('.codec-modal.active').length) {
+            $('.codec-modal').fadeOut(300).removeClass('active');
+        }
+    };
 
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     // --- CONTROLES TACTICOS ---
