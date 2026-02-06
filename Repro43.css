@@ -515,9 +515,9 @@ body {
 /* ============================= */
 .mode-switch {
     position: absolute;
-    top: 325px;
-    left: 48%;
-    transform: translateX(-185%);
+    top: 332px;
+    left: 50%;
+    transform: translateX(-195%);
     height: auto;
     width: 100px;
     display: flex;
@@ -1411,7 +1411,8 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px;
+    padding: 5px 20px;
+    height: 60px;
     border-bottom: 2px solid var(--mgs-green-text);
     background: rgba(112, 177, 137, 0.05);
 }
@@ -1419,8 +1420,10 @@ body {
 .modal-title {
     font-family: var(--font-mgs);
     color: var(--mgs-green-text);
-    font-size: 1.2rem;
-    letter-spacing: 2px;
+    font-size: 1.1rem;
+    line-height: 1;
+    margin: 0;
+    padding: 0;
 }
 
 #close-modal, .close-btn {
@@ -1441,13 +1444,11 @@ body {
    LISTA DE TRACKS Y SCROLL PERSONALIZADO (OPTIMIZADO)
    ======================================================= */
 .track-list-container {
-    height: calc(100% - 70px);
-    flex-grow: 1;
+    flex: 1;
     overflow-y: auto;
-    overflow-x: hidden; /* Evita desbordamiento horizontal */
-    padding-bottom: 20px;
+    padding: 0 0 20px 0; /* Arriba 0, Lados 0, Abajo 20px */
+    margin-top: 0;
     box-sizing: border-box;
-    /* Scroll personalizado para navegadores modernos */
     scrollbar-width: thin;
     scrollbar-color: var(--mgs-green-text) transparent;
 }
@@ -1636,17 +1637,24 @@ body {
 /* =======================================================
     BLOQUE DE CONTROL MAESTRO - VERSIÓN FINAL ESTABILIZADA
    ======================================================= */
+/* EL ESCALADOR MAESTRO - VERSIÓN 3.0 (Anti-Desborde) */
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden; /* Vital: Prohíbe el desborde fuera del scaler */
+    background: #000;
+}
 
-/* EL ESCALADOR MAESTRO */
 #root-scaler {
     width: 100vw;
     height: 100vh;
     display: flex;
     justify-content: center;
-    align-items: center; /* Centrado vertical en pantallas grandes */
-    background: #000;    /* Fondo negro total para inmersión */
-    overflow: hidden;
-    position: fixed;     /* Evita rebotes de scroll en navegadores móviles */
+    align-items: center;
+    background: #000;
+    position: fixed;
     top: 0;
     left: 0;
 }
@@ -1656,35 +1664,14 @@ body {
     width: 500px;
     height: 795px;
     flex-shrink: 0;
-    background: #000;
-    
-    /* CAMBIO TÁCTICO: Escalamos desde el centro-superior para 
-       garantizar que el ancho se ajuste perfectamente al viewport */
-    transform-origin: center top; 
+    /* Cambiamos el origen según el dispositivo para evitar que se salga de pantalla */
+    transform-origin: center center; 
     transition: transform 0.2s ease;
 }
 
-/* LA REGLA DE ORO PARA MÓVILES (480px y menores) */
 @media screen and (max-width: 500px) {
-    #root-scaler {
-        /* En móvil, alineamos al inicio superior para que el 
-           transform-origin: top haga su magia sin dejar huecos */
-        align-items: flex-start; 
-    }
-
     .main-container {
-        /* Multiplicamos por 1 para ajuste exacto o 0.98 si 
-           quieres un margen mínimo de seguridad contra desbordes */
-        transform: scale(calc(100vw / 500));
-        
-        /* Aseguramos que el centrado vertical se compense tras escalar */
-        margin-top: calc((100vh - (795px * (100vw / 500))) / 2);
-    }
-}
-
-/* Soporte para pantallas muy bajas o modo landscape agresivo */
-@media screen and (max-height: 700px) and (min-width: 501px) {
-    .main-container {
-        transform: scale(calc(650 / 795));
+        /* Bajamos ligeramente el factor (0.97) para que NUNCA toque los bordes físicos del móvil */
+        transform: scale(calc(100vw / 500 * 0.97));
     }
 }
