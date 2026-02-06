@@ -813,13 +813,3 @@ body {
 /* =======================================================
    BLOQUE DE CONTROL MAESTRO - VERSIÓN FINAL PX
    ======================================================= */
-@media screen and (max-width: 500px) {
-    body {
-        zoom: 0.8;
-        display: flex;             /* Aseguramos que siga siendo flex */
-        justify-content: center;   /* Forzamos el centro horizontal */
-        align-items: center;       /* Forzamos el centro vertical */
-        width: 100%;
-        height: 100vh;
-    }
-}
