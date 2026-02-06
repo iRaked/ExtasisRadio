@@ -56,10 +56,14 @@ html, body {
     width: 500px !important;
     height: 795px !important;
     background: #000;
-    overflow: hidden !important; /* Aquí es donde muere el desborde */
+    overflow: hidden !important; /* Bloqueo de desborde */
     flex-shrink: 0;
     z-index: 10;
     transform-origin: center center;
+    
+    /* Evita que cualquier hijo con display:table o similar ensanche el contenedor */
+    display: flex;
+    flex-direction: column;
 }
 
 /* El video de fondo - ADAPTADO PARA ESCALAR */
@@ -1546,18 +1550,20 @@ body {
 }
 
 /* =======================================================
-    BLOQUE 3: RESPONSIVE - ADAPTACIÓN TÁCTICA
+    BLOQUE 3: RESPONSIVE - FIJACIÓN DE RATIO TÁCTICO
    ======================================================= */
-@media screen and (max-width: 500px) {
-    .main-container {
-        transform: scale(calc(100vw / 500 * 0.98));
-        transform-origin: center center;
+@media screen and (max-width: 500px), screen and (max-height: 795px) {
+    #root-scaler {
+        overflow: hidden;
+        width: 100vw;
+        height: 100vh;
     }
-}
 
-@media screen and (max-height: 795px) {
     .main-container {
-        transform: scale(calc(100vh / 795 * 0.96));
+        /* Calcula la escala basándose en qué eje está más apretado */
+        transform: scale(min(calc(100vw / 500), calc(100vh / 795))) !important;
         transform-origin: center center;
+        position: absolute; /* Evita que el flujo de caja del body lo desplace */
+        margin: 0;
     }
 }
