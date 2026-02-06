@@ -22,26 +22,44 @@
     align-items: center;
 }
 
-body {
+/* =======================================================
+   1. ESTRUCTURA MAESTRA (BORRA CUALQUIER OTRA DEFINICIÓN DE MAIN)
+   ======================================================= */
+* {
+    box-sizing: border-box; /* Crucial para que paddings no ensanchen el main */
+}
+
+html, body {
     margin: 0;
     padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden; 
+    background: #000;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    width: 100vw;
-    overflow: hidden;
-    font-family: var(--font-mgs);
 }
 
+#root-scaler {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #000;
+}
+
+/* ÚNICA DEFINICIÓN DEL MAIN */
 .main-container {
     position: relative;
-    width: 500px;         /* Medida exacta de tu Card */
-    height: 795px;        /* Medida exacta de tu Card */
-    margin: 0 auto;       /* Centrado perfecto */
+    width: 500px !important;
+    height: 795px !important;
     background: #000;
-    /*overflow: hidden;      Nada sale de la zona de operaciones */
+    overflow: hidden !important; /* Aquí es donde muere el desborde */
+    flex-shrink: 0;
     z-index: 10;
+    transform-origin: center center;
 }
 
 /* El video de fondo - ADAPTADO PARA ESCALAR */
@@ -1380,160 +1398,75 @@ body {
 }
 
 /* =======================================================
-   MODAL TACTICAL DISPLAY - BLOQUE INTEGRAL DEFINITIVO
+    BLOQUE 2: MODALES - ESTRUCTURA DEFINIDA
    ======================================================= */
 
-.codec-modal {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 500px; /* Ancho fijo igual al contenedor */
-    height: 795px; /* Alto fijo igual al contenedor */
-    background: rgba(10, 25, 15, 0.98);
-    border: none;
-    z-index: 1000;
-    display: none; 
-    flex-direction: column;
-    opacity: 0;
-    transition: opacity 0.3s ease-out;
-    pointer-events: auto;
-    overflow: hidden; /* Garantía anti-desborde */
-}
-
-.codec-modal.active {
-    display: flex;
-    opacity: 1;
-}
-
-/* HEADER DEL MODAL */
-.modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
-    height: 60px;
-    border-bottom: 2px solid var(--mgs-green-text);
-    background: rgba(112, 177, 137, 0.05);
-    flex-shrink: 0;
-}
-
-.modal-title {
-    font-family: var(--font-mgs);
-    color: var(--mgs-green-text);
-    font-size: 1.1rem;
-    margin: 0;
-    text-transform: uppercase;
-}
-
-#close-modal {
-    background: none;
-    border: none;
-    color: var(--mgs-green-text);
-    font-size: 1.8rem;
-    cursor: pointer;
-    line-height: 1;
-}
-
-/* CONTENEDOR DE SCROLL */
-.track-list-container {
-    flex: 1;
-    overflow-y: auto;
-    overflow-x: hidden;
-    width: 100%;
-    padding-bottom: 20px;
-    scrollbar-width: thin;
-    scrollbar-color: var(--mgs-green-text) transparent;
-}
-
-/* TRACK ITEM - ESTRUCTURA DE COORDENADAS FIJAS */
+/* CONTENEDOR BASE PARA AMBOS */
 .track-item {
     position: relative;
-    width: 500px; /* Forzamos el ancho del item */
+    width: 500px;
     height: 65px;
     border-bottom: 1px solid rgba(112, 177, 137, 0.1);
-    cursor: pointer;
-    display: block; /* Matamos el flex para que manden top/left */
-    background: transparent;
-    transition: background 0.2s;
+    display: block; /* Mantenemos bloque para control absoluto */
+    overflow: hidden;
 }
 
-.track-item:hover, .track-item.active-track {
-    background: rgba(112, 177, 137, 0.15);
-}
-
-/* 1. CARÁTULA */
+/* CARÁTULA COMÚN */
 .track-item img {
     position: absolute;
     top: 12px;
     left: 15px;
     width: 40px;
     height: 40px;
-    object-fit: cover;
     border: 1px solid var(--mgs-green-text);
 }
 
-/* 2. BLOQUE DE INFORMACIÓN (Ajuste Manual) */
+/* NÚMERO DE TRACK (Sutil) */
+.track-number {
+    position: absolute;
+    left: 60px;
+    top: 12px;
+    font-family: var(--font-digital);
+    color: var(--mgs-green-text);
+    font-size: 10px;
+    opacity: 0.6;
+}
+
+/* ÁREA DE TEXTOS (Ajustada para no chocar con la hora) */
 .track-info-text {
     position: absolute;
-    top: 0;
-    left: 70px; /* Posición inicial del bloque de texto */
-    width: 320px; /* Límite de expansión lateral */
-    height: 100%;
+    left: 85px; /* Más espacio para el número */
+    top: 17px;
+    width: 320px; /* Ancho fijo para que no empuje la hora */
+    height: auto;
     pointer-events: none;
 }
 
-.track-name {
-    position: absolute;
-    left: 0;          /* <--- MUEVE ESTE PARA IZQUIERDA/DERECHA */
-    top: 20px;        /* <--- MUEVE ESTE PARA ARRIBA/ABAJO */
-    font-size: 14px;
-    color: var(--mgs-green-text);
-    font-family: var(--font-digital);
-    width: 100%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: block;
-}
-
-.track-artist {
-    position: absolute;
-    left: 0;          /* <--- MUEVE ESTE PARA IZQUIERDA/DERECHA */
-    top: 35px;        /* <--- MUEVE ESTE PARA ARRIBA/ABAJO */
-    font-size: 11px;
-    color: #fff;      /* Blanco para contraste tipo MGS */
-    opacity: 0.7;
-    width: 100%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: block;
-}
-
-/* 3. DURACIÓN */
-.track-dur {
+/* --- AJUSTE ESPECÍFICO PARA LA HORA (EL HISTORIAL) --- */
+#track-list .track-dur {
     position: absolute;
     right: 20px;
-    top: 24px;
+    top: 0;
+    height: 65px;
+    line-height: 65px; /* Centrado vertical infalible */
+    width: 60px;
+    text-align: right;
     font-family: var(--font-digital);
     color: var(--mgs-green-text);
     font-size: 0.85rem;
-    text-align: right;
-    width: 50px;
 }
 
-/* DIVISOR TÁCTICO */
-.section-divider {
-    background: rgba(112, 177, 137, 0.1);
-    color: var(--mgs-green-text);
-    padding: 8px 15px;
+/* --- AJUSTE ESPECÍFICO PARA EL BOTÓN "LINK" (PLAYLISTS) --- */
+.playlist-item .track-dur {
+    position: absolute;
+    right: 20px;
+    top: 22px; /* Posición distinta para texto tipo "LINK" */
+    color: #fff;
     font-family: var(--font-mgs);
-    font-size: 0.75rem;
-    letter-spacing: 2px;
-    border-top: 1px solid rgba(112, 177, 137, 0.3);
-    border-bottom: 1px solid rgba(112, 177, 137, 0.3);
-    margin: 5px 0;
-    text-transform: uppercase;
+    font-size: 0.65rem;
+    letter-spacing: 1px;
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 2px 5px;
 }
 
 /* =======================================================
@@ -1613,70 +1546,18 @@ body {
 }
 
 /* =======================================================
-    BLOQUE DE CONTROL MAESTRO - VERSIÓN FINAL ESTABILIZADA
+    BLOQUE 3: RESPONSIVE - ADAPTACIÓN TÁCTICA
    ======================================================= */
-
-/* RESET MAESTRO */
-* {
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent; /* Evita destello azul en móviles */
-}
-
-html, body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden; /* Bloqueo total de scroll fantasma */
-    background: #000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#root-scaler {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #000;
-    position: fixed;
-    top: 0;
-    left: 0;
-}
-
-.main-container {
-    position: relative;
-    width: 500px;
-    height: 795px;
-    background: #000;
-    overflow: hidden; /* Corta cualquier desborde de modales o tracks */
-    flex-shrink: 0;
-    z-index: 10;
-    /* Centrado absoluto */
-    transform-origin: center center; 
-    transition: transform 0.2s ease;
-}
-
-/* LÓGICA DE ESCALADO DINÁMICO */
 @media screen and (max-width: 500px) {
     .main-container {
-        /* Escala el contenedor al ancho de la pantalla móvil (97% para margen de seguridad) */
-        transform: scale(calc(100vw / 500 * 0.97));
+        transform: scale(calc(100vw / 500 * 0.98));
+        transform-origin: center center;
     }
 }
 
 @media screen and (max-height: 795px) {
     .main-container {
-        /* Si la pantalla es muy bajita, escala según el alto */
-        transform: scale(calc(100vh / 795 * 0.95));
+        transform: scale(calc(100vh / 795 * 0.96));
+        transform-origin: center center;
     }
-}
-
-/* ANTI-SCROLL PARA IOS/SAFARI */
-body {
-    position: fixed;
-    touch-action: none;
-    -webkit-overflow-scrolling: none;
 }
