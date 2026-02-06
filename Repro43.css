@@ -1335,15 +1335,19 @@ body {
 .mode-switch {
     position: absolute;
     top: 325px;
-    left: 48%;
-    transform: translateX(-185%);
+    /* Anclamos al centro exacto del contenedor de 500px */
+    left: 50%; 
+    /* Movemos el elemento exactamente X píxeles a la izquierda */
+    /* Ajusta este -165px (más o menos) hasta que calce con tu PNG */
+    transform: translateX(-195px); 
+    
     height: auto;
     width: 100px;
     display: flex;
     flex-direction: column;
     align-items: center;
     z-index: 15;
-    pointer-events: none; /* Es solo visual por ahora */
+    pointer-events: none;
 }
 
 .mode-label {
@@ -1630,17 +1634,21 @@ body {
 }
 
 /* =======================================================
-   BLOQUE DE CONTROL MAESTRO - VERSIÓN FINAL PX
+    BLOQUE DE CONTROL MAESTRO - VERSIÓN FINAL ESTABILIZADA
    ======================================================= */
+
 /* EL ESCALADOR MAESTRO */
 #root-scaler {
     width: 100vw;
     height: 100vh;
     display: flex;
     justify-content: center;
-    align-items: center;
-    background: #121212; /* Para que veas bien los bordes de tu Codec */
+    align-items: center; /* Centrado vertical en pantallas grandes */
+    background: #000;    /* Fondo negro total para inmersión */
     overflow: hidden;
+    position: fixed;     /* Evita rebotes de scroll en navegadores móviles */
+    top: 0;
+    left: 0;
 }
 
 .main-container {
@@ -1648,16 +1656,35 @@ body {
     width: 500px;
     height: 795px;
     flex-shrink: 0;
-    /* Mantiene todo centrado al escalar */
-    transform-origin: center center; 
-    transition: transform 0.2s ease; /* Suavidad al redimensionar */
+    background: #000;
+    
+    /* CAMBIO TÁCTICO: Escalamos desde el centro-superior para 
+       garantizar que el ancho se ajuste perfectamente al viewport */
+    transform-origin: center top; 
+    transition: transform 0.2s ease;
 }
 
-/* LA REGLA DE ORO PARA 480px Y MENOS */
+/* LA REGLA DE ORO PARA MÓVILES (480px y menores) */
 @media screen and (max-width: 500px) {
+    #root-scaler {
+        /* En móvil, alineamos al inicio superior para que el 
+           transform-origin: top haga su magia sin dejar huecos */
+        align-items: flex-start; 
+    }
+
     .main-container {
-        /* Esta fórmula divide el ancho de la pantalla (ej. 480) 
-           entre el ancho de tu diseño (500) para darte el factor exacto */
+        /* Multiplicamos por 1 para ajuste exacto o 0.98 si 
+           quieres un margen mínimo de seguridad contra desbordes */
         transform: scale(calc(100vw / 500));
+        
+        /* Aseguramos que el centrado vertical se compense tras escalar */
+        margin-top: calc((100vh - (795px * (100vw / 500))) / 2);
+    }
+}
+
+/* Soporte para pantallas muy bajas o modo landscape agresivo */
+@media screen and (max-height: 700px) and (min-width: 501px) {
+    .main-container {
+        transform: scale(calc(650 / 795));
     }
 }
