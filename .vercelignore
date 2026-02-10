@@ -1,0 +1,6 @@
+# Evitar que Vercel agote el disco analizando audios
+assets/audio3/
+assets/
+*.mp3
+*.MP3
+*.wav
