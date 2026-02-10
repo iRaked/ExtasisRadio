@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <link rel="icon" type="image/x-icon" href="https://santi-graphics.vercel.app/assets/SG.ico" />
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="author" content="Rick">
+  <!-- Estilos principales https://radio-tekileros.vercel.app/-->
+  <link rel="author" href="https://santi-graphics.vercel.app/copyright.txt">
+  <title>Repro 43</title>
+  <link rel="stylesheet" href="Repro43.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <!-- Scripts Principales 
+  <script type="text/javascript">
+  document.onkeydown = function(){return false};
+  document.oncontextmenu = function(){return false}
+  </script>-->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="Player43.js" defer></script>
+  <script src="Repro43.js" defer></script>
+</head>
+    
+<body>
+<div id="root-scaler">
+<!-- Audio principal -->
+<section id="intro" class="intro">
+    <audio id="player" autoplay muted></audio>
+</section>
+    
+<!-- Mensaje personalizado para el clic derecho -->
+<div id="custom-message" class="custom-message">Santi Graphics</div>
+
+<!-- CODEC -->
+<main class="main-container">
+    <div class="video-background">
+        <video autoplay muted loop playsinline webkit-playsinline preload="auto" id="codecVideo">
+            <source src="https://santi-graphics.vercel.app/assets/video/Codec.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <img src="https://santi-graphics.vercel.app/assets/img/Codec.png" class="codec-overlay" alt="Codec Frame">
+
+    <!-- PANTALLA -->
+    <section class="ui-content">
+        <div class="cover-wrapper">
+            <img src="https://santi-graphics.vercel.app/assets/covers/Cover1.png" id="current-cover" alt="Cover">
+        </div>
+        
+        <div class="metadata-container">
+            <div class="marquee-box">
+                <p id="track-info">
+                    <span class="title-meta">CARGANDO...</span> ▬ 
+                    <span class="artist-meta">SANTI GRAPHICS</span> ▬ 
+                    <span class="playlist-meta">BASE SHADOW MOSES</span>
+                </p>
+            </div>
+        </div>
+        
+        <div class="codec-names">
+            <span class="name-left">SIGNAL</span>
+            <span class="name-right">SNAKE</span>
+        </div>
+        
+        <!-- VOLUMEN -->
+        <div class="volumen-contenedor">
+          <span class="volumen-control">◄</span>
+          <div class="volumen">
+            <input type="range" min="0" max="100" value="20" class="volumen-slider" id="volumenSlider">
+          </div>
+          <span class="volumen-control">►</span>
+          <i class="fas fa-headphones volumen-headphones"></i>
+        </div>
+        
+    </section>
+    
+    <!-- MODAL TACTICAL DISPLAY (LISTAS)-->
+    <div id="content-modal" class="codec-modal">
+        <div class="modal-header">
+            <span class="modal-title">TACTICAL DATA FILES</span>
+            <button id="close-content-modal" class="close-btn"><i class="fas fa-times"></i></button>
+        </div>
+
+        <div class="modal-body track-list-container custom-scroll">
+
+            <div class="section-divider">DISKETTES / PLAYLISTS</div>
+
+            <div class="track-item playlist-item" data-index="0">
+                <img src="https://santi-graphics.vercel.app/assets/covers/Cover10.png" alt="Disk">
+                <span class="track-number">01</span>
+                <div class="track-info-text">
+                    <span class="track-name">ROCK EN ESPAÑOL</span>
+                    <span class="track-artist">REMOTE SERVER</span>
+                </div>
+                <span class="track-dur">LINK</span>
+            </div>
+
+            <div class="track-item playlist-item" data-index="1">
+                <img src="https://santi-graphics.vercel.app/assets/covers/Cover1.png" alt="Disk">
+                <span class="track-number">02</span>
+                <div class="track-info-text">
+                    <span class="track-name">RUIDO DE LATA</span>
+                    <span class="track-artist">REMOTE SERVER</span>
+                </div>
+                <span class="track-dur">LINK</span>
+            </div>
+
+            <div class="track-item playlist-item" data-index="2">
+                <img src="https://santi-graphics.vercel.app/assets/covers/Cover8.png" alt="Disk">
+                <span class="track-number">03</span>
+                <div class="track-info-text">
+                    <span class="track-name">BALADAS ROCK</span>
+                    <span class="track-artist">REMOTE SERVER</span>
+                </div>
+                <span class="track-dur">LINK</span>
+            </div>
+
+            <div class="track-item playlist-item" data-index="3">
+                <img src="https://santi-graphics.vercel.app/assets/covers/Cover7.png" alt="Disk">
+                <span class="track-number">04</span>
+                <div class="track-info-text">
+                    <span class="track-name">FESTIVAL RAZTECA</span>
+                    <span class="track-artist">REMOTE SERVER</span>
+                </div>
+                <span class="track-dur">LINK</span>
+            </div>
+
+            <div class="track-item playlist-item" data-index="4">
+                <img src="https://santi-graphics.vercel.app/assets/covers/Cover1.png" alt="Disk">
+                <span class="track-number">05</span>
+                <div class="track-info-text">
+                    <span class="track-name">VIÑA ROCK</span>
+                    <span class="track-artist">REMOTE SERVER</span>
+                </div>
+                <span class="track-dur">LINK</span>
+            </div>
+
+            <div class="track-item playlist-item" data-index="5">
+                <img src="https://santi-graphics.vercel.app/assets/covers/Cover11.png" alt="Disk">
+                <span class="track-number">06</span>
+                <div class="track-info-text">
+                    <span class="track-name">HEAVY METAL</span>
+                    <span class="track-artist">REMOTE SERVER</span>
+                </div>
+                <span class="track-dur">LINK</span>
+            </div>
+
+            <div class="track-item playlist-item" data-index="6">
+                <img src="https://santi-graphics.vercel.app/assets/covers/Cover11.png" alt="Disk">
+                <span class="track-number">07</span>
+                <div class="track-info-text">
+                    <span class="track-name">RIMAS Y CALLE</span>
+                    <span class="track-artist">REMOTE SERVER</span>
+                </div>
+                <span class="track-dur">LINK</span>
+            </div>
+
+            <div class="track-item playlist-item" data-index="7">
+                <img src="https://santi-graphics.vercel.app/assets/covers/Cover10.png" alt="Disk">
+                <span class="track-number">08</span>
+                <div class="track-info-text">
+                    <span class="track-name">ROCK EN TU IDIOMA</span>
+                    <span class="track-artist">REMOTE SERVER</span>
+                </div>
+                <span class="track-dur">LINK</span>
+            </div>
+            
+            <div class="track-item playlist-item" data-index="8">
+                <img src="https://santi-graphics.vercel.app/assets/covers/Cover1.png" alt="Disk">
+                <span class="track-number">09</span>
+                <div class="track-info-text">
+                    <span class="track-name">SKAÑOL</span>
+                    <span class="track-artist">REMOTE SERVER</span>
+                </div>
+                <span class="track-dur">LINK</span>
+            </div>
+            
+            <div class="track-item playlist-item" data-index="9">
+                <img src="https://santi-graphics.vercel.app/assets/covers/Cover1.png" alt="Disk">
+                <span class="track-number">10</span>
+                <div class="track-info-text">
+                    <span class="track-name">ZONA SKA</span>
+                    <span class="track-artist">REMOTE SERVER</span>
+                </div>
+                <span class="track-dur">LINK</span>
+            </div>
+            
+            <div class="track-item playlist-item" data-index="9">
+                <img src="https://santi-graphics.vercel.app/assets/covers/Cover11.png" alt="Disk">
+                <span class="track-number">11</span>
+                <div class="track-info-text">
+                    <span class="track-name">ASFALTO URBANO</span>
+                    <span class="track-artist">REMOTE SERVER</span>
+                </div>
+                <span class="track-dur">LINK</span>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- MODAL TACTICAL DISPLAY (MUSICA)-->
+    <div id="music-modal" class="codec-modal">
+        <div class="modal-header">
+            <span class="modal-title">CURRENT MISSION TRACKS</span>
+            <button id="close-music-modal" class="close-btn"><i class="fas fa-times"></i></button>
+        </div>
+
+        <div id="track-list" class="track-list-container custom-scroll">
+            <div class="track-item">
+                <img src="https://santi-graphics.vercel.app/assets/covers/Cover1.png" class="track-cover-mini" alt="Cover">
+                <span class="track-number">01</span>
+                <div class="track-info-text">
+                    <span class="track-name">SNAKE EATER</span>
+                    <span class="track-artist">CYNTHIA HARRELL</span>
+                </div>
+                <span class="track-dur">02:57</span>
+            </div>
+
+            </div>
+    </div>
+    
+    <!-- BOTONERA -->
+    <div class="main-controls">
+    
+        <div id="rwd-btn" class="btn-rwd">◄</div>
+        <div id="fwd-btn" class="btn-fwd">►</div>
+
+        <div id="power-btn" class="btn-power">
+            <img src="https://santi-graphics.vercel.app/assets/img/Power.png" alt="Power">
+            <i class="fas fa-power-off power-icon"></i>
+        </div>
+
+        <div class="secondary-controls">
+            <i id="shuffle-btn" class="fas fa-random btn-shuffle"></i>
+            <i id="repeat-btn" class="fas fa-redo btn-repeat"></i>
+            <i id="play-btn" class="fas fa-play btn-play"></i>
+            <i id="music-btn" class="fas fa-music btn-music"></i>
+            <i id="contenido-btn" class="fas fa-list-ul btn-contenido"></i>
+        </div>
+    </div>
+    
+    <!-- CLOCK -->
+    <div class="codec-clock" id="digital-clock">00:00:00</div>
+
+    <!-- SWITCH -->
+    <div id="mode-switch-container" class="mode-switch">
+        <span class="mode-label">MODE:</span>
+        <span id="current-mode" class="mode-text">RADIO</span>
+    </div>
+    
+</main>
+</div>
+</body>
+</html>
