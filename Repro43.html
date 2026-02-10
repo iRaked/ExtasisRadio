@@ -11,18 +11,18 @@
   <title>Repro 43</title>
   <link rel="stylesheet" href="Repro43.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <!-- Scripts Principales -->
+  <!-- Scripts Principales 
   <script type="text/javascript">
   document.onkeydown = function(){return false};
   document.oncontextmenu = function(){return false}
-  </script>
+  </script>-->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="Player43.js" defer></script>
   <script src="Repro43.js" defer></script>
 </head>
     
 <body>
-
+<div id="root-scaler">
 <!-- Audio principal -->
 <section id="intro" class="intro">
     <audio id="player" autoplay muted></audio>
@@ -164,6 +164,36 @@
                 </div>
                 <span class="track-dur">LINK</span>
             </div>
+            
+            <div class="track-item playlist-item" data-index="8">
+                <img src="https://santi-graphics.vercel.app/assets/covers/Cover1.png" alt="Disk">
+                <span class="track-number">09</span>
+                <div class="track-info-text">
+                    <span class="track-name">SKAÑOL</span>
+                    <span class="track-artist">REMOTE SERVER</span>
+                </div>
+                <span class="track-dur">LINK</span>
+            </div>
+            
+            <div class="track-item playlist-item" data-index="9">
+                <img src="https://santi-graphics.vercel.app/assets/covers/Cover1.png" alt="Disk">
+                <span class="track-number">10</span>
+                <div class="track-info-text">
+                    <span class="track-name">ZONA SKA</span>
+                    <span class="track-artist">REMOTE SERVER</span>
+                </div>
+                <span class="track-dur">LINK</span>
+            </div>
+            
+            <div class="track-item playlist-item" data-index="9">
+                <img src="https://santi-graphics.vercel.app/assets/covers/Cover11.png" alt="Disk">
+                <span class="track-number">11</span>
+                <div class="track-info-text">
+                    <span class="track-name">ASFALTO URBANO</span>
+                    <span class="track-artist">REMOTE SERVER</span>
+                </div>
+                <span class="track-dur">LINK</span>
+            </div>
 
         </div>
     </div>
@@ -219,6 +249,6 @@
     </div>
     
 </main>
-
+</div>
 </body>
 </html>
