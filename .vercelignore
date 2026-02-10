@@ -1,6 +1,6 @@
-# Evitar que Vercel agote el disco analizando audios
+# Mantener ignoradas las carpetas que ya movimos a xat-music
+assets/audio2/
 assets/audio3/
-assets/
-*.mp3
-*.MP3
-*.wav
+
+# NO pongas assets/ ni *.mp3 aquí, 
+# para que los audios de la carpeta 'assets/audio/' sí se suban.
