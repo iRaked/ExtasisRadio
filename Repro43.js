@@ -14,7 +14,8 @@ $(document).ready(function() {
         "https://radio-tekileros.vercel.app/Rimas.json",
         "https://radio-tekileros.vercel.app/RockIdioma.json",
         "https://radio-tekileros.vercel.app/Skañol.json",
-        "https://radio-tekileros.vercel.app/ZonaSka.json"
+        "https://radio-tekileros.vercel.app/ZonaSka.json",
+        "https://radio-tekileros.vercel.app/AsfaltoUrbano.json"
     ];
 
     let currentMode = "RADIO";
@@ -185,75 +186,104 @@ function fetchPlaylist(url) {
         });
     }
 
-    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    // --- METADATOS STREAMING (RADIO) ---
-    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    function limpiarInterfazMetadatos() {
-        $('.title-meta').text("CONECTANDO...");
-        $('.artist-meta').text("BUSCANDO SEÑAL");
-        $('.playlist-meta').text("CODEC 140.85");
-        $('#current-cover').attr('src', 'https://santi-graphics.vercel.app/assets/covers/Cover1.png');
-    }
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// --- METADATOS STREAMING (RADIO) ---
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function limpiarInterfazMetadatos() {
+    $('.title-meta').text("CONECTANDO...");
+    $('.artist-meta').text("BUSCANDO SEÑAL");
+    $('.playlist-meta').text("CODEC 140.85");
+    $('#current-cover').attr('src', 'https://santi-graphics.vercel.app/assets/covers/Cover1.png');
+}
 
-    async function actualizarMetadatosStreaming() {
-        if (currentMode !== 'RADIO') return;
-        const urlStats = `https://laradiossl.online:12000/stats?json=1&t=${Date.now()}`;
-        const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(urlStats)}`;
+async function actualizarMetadatosStreaming() {
+    if (currentMode !== 'RADIO') return;
+    const urlStats = `https://laradiossl.online:12000/stats?json=1&t=${Date.now()}`;
+    const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(urlStats)}`;
 
-        try {
-            const response = await fetch(proxyUrl);
-            const proxyData = await response.json();
-            if (!proxyData.contents) return;
+    try {
+        const response = await fetch(proxyUrl);
+        const proxyData = await response.json();
+        if (!proxyData.contents) return;
 
-            const data = JSON.parse(proxyData.contents);
-            const rawTitle = data.songtitle || "";
+        const data = JSON.parse(proxyData.contents);
+        const rawTitle = data.songtitle || "";
 
-            if (rawTitle === ultimaPistaStreaming && rawTitle !== "") return;
-            ultimaPistaStreaming = rawTitle;
+        if (rawTitle === ultimaPistaStreaming && rawTitle !== "") return;
+        ultimaPistaStreaming = rawTitle;
 
-            let { artista: fArtist, titulo: fTitle } = limpiarMetadatosRadio(rawTitle);
+        let { artista: fArtist, titulo: fTitle } = limpiarMetadatosRadio(rawTitle);
 
-            $('.title-meta').text(fTitle);
-            $('.artist-meta').text(fArtist);
-            $('.playlist-meta').text(data.servertitle || "RADIO PSIKOSIS");
-            // --- INSERCIÓN MEDIA SESSION API B ---
-            updateMediaSession();
+        // --- RESPUESTA INSTANTÁNEA ---
+        // Esto se ejecuta sin esperar a nadie
+        $('.title-meta').text(fTitle);
+        $('.artist-meta').text(fArtist);
+        $('.playlist-meta').text(data.servertitle || "RADIO PSIKOSIS");
+        updateMediaSession();
 
+        // --- PROCESO EN SEGUNDO PLANO ---
+        // Ejecutamos la búsqueda de carátula pero NO usamos 'await' aquí
+        // para que no bloquee la visualización de los textos
+        buscarCaratulaReal(fArtist, fTitle).then(() => {
+            // Una vez que la carátula cargue (cuando sea que termine), registramos
             registrarEnHistorial(fArtist, fTitle);
-            buscarCaratulaReal(fArtist, fTitle);
-        } catch (e) { console.error("Error metadatos:", e); }
-    }
+            updateMediaSession();
+        });
 
-    function limpiarMetadatosRadio(texto) {
-        if (!texto || texto.includes("Stream") || texto.includes("Unknown")) {
-            return { artista: "Casino Digital", titulo: "Siente la música" };
+    } catch (e) { 
+        console.error("Error metadatos:", e); 
+    }
+}
+
+function limpiarMetadatosRadio(texto) {
+    if (!texto || texto.includes("Stream") || texto.includes("Unknown")) {
+        return { artista: "Casino Digital", titulo: "Siente la música" };
+    }
+    let limpio = texto.replace(/WWW\..*\..*|http:\/\/.*|\[.*\]|<.*>|128kbps|64kbps|mp3/gi, "").trim();
+    const parts = limpio.split(" - ");
+    return { 
+        artista: parts[0] ? parts[0].trim() : "Casino Digital", 
+        titulo: parts[1] ? parts[1].trim() : limpio 
+    };
+}
+
+function registrarEnHistorial(artista, titulo) {
+    const ahora = new Date();
+    const hora = ahora.getHours().toString().padStart(2, '0') + ":" + ahora.getMinutes().toString().padStart(2, '0');
+    
+    // Capturamos la carátula que el DOM ya actualizó gracias al await
+    const caratulaActual = $('#current-cover').attr('src');
+
+    if (trackHistory.length > 0 && trackHistory[0].title === titulo) return;
+
+    trackHistory.unshift({ 
+        time: hora, 
+        artist: artista, 
+        title: titulo, 
+        cover: caratulaActual 
+    });
+
+    if (trackHistory.length > 30) trackHistory.pop();
+}
+
+async function buscarCaratulaReal(artista, titulo) {
+    const term = encodeURIComponent(`${artista} ${titulo}`);
+    try {
+        const res = await fetch(`https://itunes.apple.com/search?term=${term}&media=music&limit=1`);
+        const json = await res.json();
+        if (json.results && json.results.length > 0) {
+            const highResCover = json.results[0].artworkUrl100.replace("100x100bb", "600x600bb");
+            $('#current-cover').attr('src', highResCover);
+            return highResCover;
+        } else {
+            // Si no hay resultados, ponemos la de por defecto para no heredar la del artista anterior
+            $('#current-cover').attr('src', 'https://santi-graphics.vercel.app/assets/covers/Cover1.png');
         }
-        let limpio = texto.replace(/WWW\..*\..*|http:\/\/.*|\[.*\]|<.*>|128kbps|64kbps|mp3/gi, "").trim();
-        const parts = limpio.split(" - ");
-        return { 
-            artista: parts[0] ? parts[0].trim() : "Casino Digital", 
-            titulo: parts[1] ? parts[1].trim() : limpio 
-        };
+    } catch (e) { 
+        console.warn("Sin portada"); 
     }
-
-    function registrarEnHistorial(artista, titulo) {
-        const ahora = new Date();
-        const hora = ahora.getHours().toString().padStart(2, '0') + ":" + ahora.getMinutes().toString().padStart(2, '0');
-        if (trackHistory.length > 0 && trackHistory[0].title === titulo) return;
-        trackHistory.unshift({ time: hora, artist: artista, title: titulo });
-        if (trackHistory.length > 30) trackHistory.pop();
-    }
-
-    async function buscarCaratulaReal(artista, titulo) {
-        const term = encodeURIComponent(`${artista} ${titulo}`);
-        try {
-            const res = await fetch(`https://itunes.apple.com/search?term=${term}&media=music&limit=1`);
-            const json = await res.json();
-            if (json.results && json.results.length > 0) {
-                $('#current-cover').attr('src', json.results[0].artworkUrl100.replace("100x100bb", "600x600bb"));
-            }
-        } catch (e) { console.warn("Sin portada"); }
-    }
+    return null;
+}
     
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     // --- PROTOCOLO DE RECONEXIÓN AUTOMÁTICA ---
@@ -308,30 +338,48 @@ window.addEventListener('online', () => {
 
     // Función centralizada para cerrar modales
     function closeModal() {
-    const $activeModal = $('.codec-modal.active');
-    
-    // Si no hay modales activos, no hacemos nada (evita romper el historial)
-    if ($activeModal.length === 0) return;
+        const $activeModal = $('.codec-modal.active');
+        if ($activeModal.length === 0) return;
 
-    // Ejecutamos el cierre visual
-    $activeModal.fadeOut(300).removeClass('active');
+        $activeModal.fadeOut(300).removeClass('active');
 
-    // Solo retrocedemos en el historial si nosotros mismos creamos el estado
-    if (window.history.state && window.history.state.modalOpen) {
-        window.history.back();
+        if (window.history.state && window.history.state.modalOpen) {
+            window.history.back();
+        }
     }
-}
 
-    // Listeners de Botones
+    // --- ESCUCHA PARA EL SELECTOR DE PLAYLISTS (ELIMINA EL FALLO) ---
+    // Este bloque faltaba: activa los clics en los diskettes del modal de contenido
+    $(document).on('click', '.playlist-item', function() {
+        if (!isSystemOn) return;
+
+        const index = $(this).data('index');
+        currentPlaylistIndex = index;
+
+        console.log("FRECUENCIA CAMBIADA A: " + index);
+
+        // Cambiamos modo a MUSIC
+        currentMode = "MUSIC";
+        updateSwitch();
+
+        // Detenemos radio e iniciamos carga de JSON
+        if (radioIntervalId) clearInterval(radioIntervalId);
+        fetchPlaylist(playlists[currentPlaylistIndex]);
+
+        closeModal();
+    });
+
+    // Listeners de Botones de la Interfaz
     $('#music-btn').click(function() {
         const $container = $('#track-list');
         $container.empty();
 
         if (currentMode === 'RADIO') {
             $('.modal-title').text("RADIO HISTORY 30 RECENT TRACKS");
-            trackHistory.forEach(track => {
+            trackHistory.forEach((track, index) => {
                 $container.append(`
                     <div class="track-item">
+                        <img src="${track.cover}" alt="Cover">
                         <span class="track-number">${track.time}</span>
                         <div class="track-info-text">
                             <span class="track-name">${track.title}</span>
@@ -354,12 +402,7 @@ window.addEventListener('online', () => {
 
     // Cierre por clic en botones X
     $('.codec-modal-close, #close-music-modal, #close-content-modal').click(function() {
-        const $modal = $(this).closest('.codec-modal');
-        $modal.fadeOut(300).removeClass('active');
-        // Si hay un estado en el historial, volvemos atrás
-        if (window.history.state && window.history.state.modalOpen) {
-            window.history.back();
-        }
+        closeModal();
     });
 
     // Cierre por tecla ESC
@@ -369,29 +412,57 @@ window.addEventListener('online', () => {
 
     // GESTIÓN DEL BOTÓN ATRÁS (Móvil / Navegador)
     window.onpopstate = function(event) {
-        // Si el usuario da atrás y el modal está abierto, lo cerramos
         if ($('.codec-modal.active').length) {
             $('.codec-modal').fadeOut(300).removeClass('active');
         }
     };
 
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    // --- CONTROLES TACTICOS ---
+    // --- CONTROLES TACTICOS (PLAY/PAUSE INTEGRAL) ---
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-    // Play/Pause con cambio de icono NO CAMBIA
-    $('#play-btn').click(function() {
+    // Función unificada para el cambio visual
+    function setPlayIcon(isPlaying) {
+        const btn = document.getElementById('play-btn');
+        if (!btn) return;
+        btn.className = isPlaying ? 'fas fa-pause btn-play' : 'fas fa-play btn-play';
+    }
+
+    // Sincronización con el hardware (Para cuando la pista cambia sola)
+    audio.addEventListener('play', () => setPlayIcon(true));
+    audio.addEventListener('pause', () => setPlayIcon(false));
+
+    // Control de Click (Cambio inmediato para Radio)
+    $('#play-btn').off('click').on('click', function(e) {
+        e.preventDefault();
         if (!isSystemOn) return;
+
         if (audio.paused) {
-            audio.play();
+            // 1. Cambio visual INSTANTÁNEO (No espera al buffer)
+            setPlayIcon(true);
+
+            if (currentMode === "RADIO") {
+                if (!audio.src || audio.src === window.location.href) {
+                    audio.src = radioURL;
+                }
+            }
+            
+            audio.play().catch(err => {
+                console.error("Error en reproducción:", err);
+                setPlayIcon(false); // Revertir si falla
+            });
         } else {
+            // 1. Cambio visual INSTANTÁNEO
+            setPlayIcon(false);
+
             audio.pause();
+
+            if (currentMode === "RADIO") {
+                audio.src = ""; // Cortar flujo de datos
+                audio.load();
+            }
         }
     });
-
-    // Detectar eventos del audio para cambiar el icono automáticamente
-    audio.onplay = () => $('#play-btn i').removeClass('fa-play').addClass('fa-pause');
-    audio.onpause = () => $('#play-btn i').removeClass('fa-pause').addClass('fa-play');
 
 
     // --- PROTOCOLO REPEAT (SISTEMA INTEGRAL) ---
@@ -578,3 +649,42 @@ document.addEventListener("contextmenu", (e) => {
         setTimeout(() => msg.classList.remove("show"), 2000);
     }
 });
+
+/**
+ * PROTOCOLO DE ESCALADO TÁCTICO - ASFALTO URBANO
+ * Ajusta un contenedor de 500x795 a cualquier pantalla móvil.
+ */
+const fixCodecScale = () => {
+    const mainContainer = document.querySelector('.main-container');
+    const rootScaler = document.getElementById('root-scaler');
+    
+    if (!mainContainer || !rootScaler) return;
+
+    // Dimensiones originales del diseño MGS
+    const DESIGN_WIDTH = 500;
+    const DESIGN_HEIGHT = 795;
+
+    // Espacio disponible en el dispositivo real
+    const windowWidth = window.innerWidth;
+    const windowHeight = window.innerHeight;
+
+    // Cálculo de ratio (min selecciona el eje más restrictivo)
+    const scale = Math.min(windowWidth / DESIGN_WIDTH, windowHeight / DESIGN_HEIGHT);
+
+    // Aplicamos el escalado al contenedor
+    // Usamos un factor de 0.98 para evitar que toque los bordes del cristal
+    if (windowWidth < DESIGN_WIDTH || windowHeight < DESIGN_HEIGHT) {
+        mainContainer.style.transform = `scale(${scale * 0.98})`;
+    } else {
+        mainContainer.style.transform = 'scale(1)';
+    }
+
+    // Aseguramos que el origen sea el centro
+    mainContainer.style.transformOrigin = 'center center';
+};
+
+// Ejecución inmediata y en cambios de orientación
+window.addEventListener('resize', fixCodecScale);
+window.addEventListener('DOMContentLoaded', fixCodecScale);
+// Ejecución de respaldo por si el DOM tarda
+setTimeout(fixCodecScale, 100);
