@@ -15,13 +15,6 @@
     --mgs-green-text: #70b189;
 }
 
-#root-scaler {
-    /* Este contenedor envolverá a tu .main-container */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 /* =======================================================
    1. ESTRUCTURA MAESTRA (BORRA CUALQUIER OTRA DEFINICIÓN DE MAIN)
    ======================================================= */
@@ -29,41 +22,39 @@
     box-sizing: border-box; /* Crucial para que paddings no ensanchen el main */
 }
 
+/* RESET ABSOLUTO */
 html, body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden; 
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    overflow: hidden !important;
     background: #000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
 }
 
 #root-scaler {
+    /* Eliminamos cualquier restricción de tamaño */
     width: 100%;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #000;
+    overflow: hidden;
 }
 
-/* ÚNICA DEFINICIÓN DEL MAIN */
 .main-container {
     position: relative;
-    width: 500px !important;
-    height: 795px !important;
-    background: #000;
-    overflow: hidden !important; /* Bloqueo de desborde */
-    flex-shrink: 0;
-    z-index: 10;
-    transform-origin: center center;
-    
-    /* Evita que cualquier hijo con display:table o similar ensanche el contenedor */
+    width: 500px;
+    height: 795px;
+    margin: 0 auto;
+    /* Eliminamos cualquier 'transform' manual del CSS para que no choque con el JS */
     display: flex;
     flex-direction: column;
+    z-index: 10;
+    will-change: transform; /* Ayuda a la GPU del OPPO */
 }
 
 /* El video de fondo - ADAPTADO PARA ESCALAR */
@@ -610,18 +601,23 @@ html, body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px;
+    /* Usamos padding-top con safe-area para evitar recortes en muescas/notches */
+    padding: calc(20px + env(safe-area-inset-top, 0px)) 20px 20px 20px;
     border-bottom: 2px solid var(--mgs-green-text);
     background: rgba(112, 177, 137, 0.05);
+    /* Asegura que el header no crezca infinitamente si el padding es mucho */
+    box-sizing: border-box; 
 }
 
 .modal-title {
     font-family: var(--font-mgs);
     color: var(--mgs-green-text);
-    font-size: 1.2rem;
-    line-height: 1;
+    font-size: 1.1rem; /* Bajamos un poco para seguridad */
+    line-height: 1.2;
     margin: 0;
-    padding-top: 8px;
+    /* Eliminamos el padding-top fijo que tenías para usar el del header */
+    padding-top: 0; 
+    text-transform: uppercase;
 }
 
 #close-modal, .close-btn {
@@ -714,14 +710,23 @@ html, body {
     padding-bottom: 2px;
 }
 
+/* EL TITULO (Específicamente para fuente MGS2) */
 .track-name {
-    font-size: 0.95rem;
-    white-space: nowrap; /* Cambiado a nowrap para mantener el estilo MGS */
+    font-size: 0.95rem; /* Un poco más grande para que destaque sobre el artista */
+    font-family: 'MGS2', sans-serif; /* Tu fuente específica */
+    color: #fff; 
+    
+    /* SOLUCIÓN AL RECORTE: */
+    line-height: 1.2;      /* Altura de línea suficiente */
+    padding-top: 5px;      /* ESPACIO VITAL: Empuja la fuente MGS2 hacia abajo para que no se corte arriba */
+    margin-bottom: -2px;   /* Compensa el padding para no separar mucho al artista */
+    
+    display: block;        /* Asegura que tome su propia línea */
+    white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis; /* Pone "..." si el nombre es demasiado largo */
-    line-height: 1.2;
-    margin-bottom: 2px;
+    text-overflow: ellipsis;
     text-transform: uppercase;
+    letter-spacing: 1px;   /* Estilo visual MGS2 */
 }
 
 .track-artist {
@@ -861,18 +866,6 @@ html, body {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-body {
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    width: 100vw;
-    overflow: hidden;
-    font-family: var(--font-mgs);
 }
 
 .main-container {
