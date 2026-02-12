@@ -2,7 +2,7 @@
   "Zona Ska": [
     {
       "id": "inspector-blanco-y-negro",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Blanco-y-Negro.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Inspector-Blanco-y-Negro.jpg",
       "artista": "Inspector",
       "nombre": "Blanco y negro",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Inspector-Blanco-y-negro.mp3",
@@ -16,7 +16,7 @@
     },
     {
       "id": "los-fabulosos-cadillacs-rudy-message-for-you",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Yo-Te-Avise.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Los-Fabulosos-Cadillacs-Yo-Te-Avise.jpg",
       "artista": "Los Fabulosos Cadillacs",
       "nombre": "Rudy (A Message to You)",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Los-Fabulosos-Cadillacs-Rudy-(Message-for-you).mp3",
@@ -44,7 +44,7 @@
     },
     {
       "id": "skaparapid-sharp-ska",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Que-Trabaje-el-Rey.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Skaparapid.jpg",
       "artista": "Skaparapid",
       "nombre": "S.H.A.R.P. ska",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Skaparapid-SHARP-ska.mp3",
@@ -58,7 +58,7 @@
     },
     {
       "id": "los-atlantes-futuro",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Futuro.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Skamania.jpg",
       "artista": "Los Atlantes",
       "nombre": "Futuro",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Los-Atlantes-Futuro.mp3",
@@ -72,7 +72,7 @@
     },
     {
       "id": "maskatesta-fiesta-ska",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Que-Te-Vaya-Bien.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Maskatesta.jpg",
       "artista": "Maskatesta",
       "nombre": "Fiesta ska",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Maskatesta-Fiesta-ska.mp3",
@@ -86,7 +86,7 @@
     },
     {
       "id": "la-gran-orquesta-republicana-desespero",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Optimista.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/La-Gran-Orquesta-Republicana-Optimista.jpg",
       "artista": "La Gran Orquesta Republicana",
       "nombre": "Desespero",
       "enlace": "https://xat-music.vercel.app/assets/audio2/La-Gran-Orquesta-Republicana-Desespero.mp3",
@@ -100,7 +100,7 @@
     },
     {
       "id": "intocables-western-special",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Los-Intocables.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Skamania.jpg",
       "artista": "Los Intocables",
       "nombre": "Western special",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Intocables-Western-special.mp3",
@@ -114,7 +114,7 @@
     },
     {
       "id": "korrokada-en-mi-casa",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/A-las-Barricadas.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Korroskada.jpg",
       "artista": "Korrokada",
       "nombre": "En mi casa",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Korrokada-En-mi-casa.mp3",
@@ -142,7 +142,7 @@
     },
     {
       "id": "los-intocables-tiran-bombas",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Los-Intocables.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Skamania.jpg",
       "artista": "Los Intocables",
       "nombre": "Tiran bombas",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Los-Intocables-Tiran-bombas.mp3",
@@ -156,7 +156,7 @@
     },
     {
       "id": "panteon-rococo-bier-ska",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/A-la-Izquierda-de-la-Tierra.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Panteon-Rococo-Bier-Ska.jpg",
       "artista": "Panteón Rococó",
       "nombre": "Bier & ska",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Panteon-Rococo-Bier-&-ska.MP3",
@@ -170,7 +170,7 @@
     },
     {
       "id": "desorden-publico-monkey-ska",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Canto-Popular-de-la-Vida-y-Muerte.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Desorden-Publico-Canto-Popular-De-La-Vida-Y-Muerte.jpg",
       "artista": "Desorden Público",
       "nombre": "Monkey ska",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Desorden-Publico-Monkey-ska.mp3",
@@ -184,7 +184,7 @@
     },
     {
       "id": "juantxo-skalari-rompere-cadenas",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Rude-Station.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Juantxo-Rude-Station.jpg",
       "artista": "Juantxo Skalari",
       "nombre": "Romperé cadenas",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Juantxo-Skalari-Rompere-cadenas.mp3",
@@ -198,7 +198,7 @@
     },
     {
       "id": "los-caligaris-bailando-ska",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Grasas-Totales.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Los-Caligaris-Grasas-Totales.jpg",
       "artista": "Los Caligaris",
       "nombre": "Bailando ska",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Los-Caligaris-Bailando-ska.mp3",
@@ -212,7 +212,7 @@
     },
     {
       "id": "panteon-rococo-cha-cha-love",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Companeros-Musicales.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Pantaeon-Rococo-Cha-Cha-Love.jpg",
       "artista": "Panteón Rococó",
       "nombre": "Cha cha love",
       "enlace": "https://radio-tekileros.app/assets/audio2/Panteon-Rococo-Cha-cha-love.MP3",
@@ -226,7 +226,7 @@
     },
     {
       "id": "desorden-publico-baila-mi-cha-cha-ska",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Plomo-Revienta.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Desorden-Publico-Plomo-Revienta.jpg",
       "artista": "Desorden Público",
       "nombre": "Baila mi cha cha ska",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Desorden-Publico-Baila-mi-cha-cha-ska.mp3",
@@ -240,7 +240,7 @@
     },
     {
       "id": "skaparapid-plantita-ska",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Skaparapid.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Skaparapid-El-Cuento-De-Nunca-Acabar.jpg",
       "artista": "Skaparapid",
       "nombre": "Plantita ska",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Skaparapid-Plantita-ska.mp3",
@@ -254,7 +254,7 @@
     },
     {
       "id": "leche-burra-lio-en-la-cabeza",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Leche-Burra.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Leche-Burra-Ska-Pinolero.jpg.jpg",
       "artista": "Leche Burra",
       "nombre": "Lío en la cabeza",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Leche-Burra-Lio-en-la-cabeza.mp3",
@@ -282,7 +282,7 @@
     },
     {
       "id": "rude-boys-blanco-amarillo-o-cafe",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Mejores-Tiempos.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Rude-Boys-Mejores-Tiempos.jpg",
       "artista": "Rude Boys",
       "nombre": "Blanco, amarillo o café",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Rude-Boys-Blanco-amarillo-o-cafe.mp3",
@@ -310,7 +310,7 @@
     },
     {
       "id": "la-royal-club-mujer-ska",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Mujer-Ska.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Latin-Skankin.jpg.jpg",
       "artista": "La Royal Club",
       "nombre": "Mujer ska",
       "enlace": "https://xat-music.vercel.app/assets/audio2/La-Royal-Club-Mujer-ska.mp3",
@@ -324,7 +324,7 @@
     },
     {
       "id": "los-pies-negros-nino-de-sangre-azul",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Pies-Negros.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Latin-Skankin.jpg",
       "artista": "Los Pies Negros",
       "nombre": "Niño de sangre azul",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Los-Pies-Negros-Nino-de-sangre-azul.mp3",
@@ -338,7 +338,7 @@
     },
     {
       "id": "skaparapid-que-trabaje-el-rey",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Que-Trabaje-el-Rey.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Skaparapid.jpg",
       "artista": "Skaparapid",
       "nombre": "Que trabaje el rey",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Skaparapid-Que-trabaje-el-rey.mp3",
@@ -352,7 +352,7 @@
     },
     {
       "id": "los-atlantes-hombre-de-las-nieves",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Futuro.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Skamania.jpg",
       "artista": "Los Atlantes",
       "nombre": "Hombre de las nieves",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Los-Atlantes-Hombre-de-las-nieves.mp3",
@@ -366,7 +366,7 @@
     },
     {
       "id": "espiaas-secretos-los-parches-del-hambre",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Espiaas-Secretos.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Skamania.jpg",
       "artista": "Espiaas Secretos",
       "nombre": "Los parches del hambre",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Espiaas-Secretos-Los-parches-del-hambre.mp3",
@@ -380,7 +380,7 @@
     },
     {
       "id": "los-caligaris-todos-locos",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Yacu-Puyo.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Los-Caligaris-Circologia.jpg",
       "artista": "Los Caligaris",
       "nombre": "Todos locos",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Los-Caligaris-Todos-locos.mp3",
@@ -394,7 +394,7 @@
     },
     {
       "id": "rude-boys-mejores-tiempos",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Mejores-Tiempos.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Rude-Boys-Mejores-Tiempos.jpg",
       "artista": "Rude Boys",
       "nombre": "Mejores tiempos",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Rude-Boys-Mejores-tiempos.mp3",
@@ -408,7 +408,7 @@
     },
     {
       "id": "satellite-kingston-dulcinea",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Subterrania.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Skamania.jpg",
       "artista": "Satellite Kingston",
       "nombre": "Dulcinea",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Satellite-Kingston-Dulcinea.mp3",
@@ -436,7 +436,7 @@
     },
     {
       "id": "rude-boys-descontrol",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/El-Precio-del-Sudor.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Rude-Boys-El-Precio-Del-Sudor.jpg",
       "artista": "Rude Boys",
       "nombre": "Descontrol",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Rude-Boys-Descontrol.mp3",
@@ -450,7 +450,7 @@
     },
     {
       "id": "rude-boys-sigo-yo",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/El-Precio-del-Sudor.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Rude-Boys-El-Precio-Del-Sudor.jpg",
       "artista": "Rude Boys",
       "nombre": "Sigo yo",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Rude-Boys-Sigo-yo.mp3",
@@ -464,7 +464,7 @@
     },
     {
       "id": "kaso-perdido-despierta-revolucion",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Despierta.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Kaso-Perdido-Despierta.jpg",
       "artista": "Kaso Perdido",
       "nombre": "Despierta Revolución",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Kaso-Perdido-Despierta-Revolucion.mp3",
@@ -478,7 +478,7 @@
     },
     {
       "id": "the-locos-centrales-de-la-muerte",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Energia-Inagotable.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/The-Locos-Energia-Inagotable.jpg",
       "artista": "The Locos",
       "nombre": "Centrales de la muerte",
       "enlace": "https://xat-music.vercel.app/assets/audio2/The-Locos-Centrales-de-la-muerte.mp3",
@@ -492,7 +492,7 @@
     },
     {
       "id": "rude-boys-bone-heads-no",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Mejores-Tiempos.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Rude-Boys-Mejores-Tiempos.jpg",
       "artista": "Rude Boys",
       "nombre": "Boneheads no",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Rude-Boys-Bone-heads-no.mp3",
@@ -506,7 +506,7 @@
     },
     {
       "id": "skaparapid-insumision",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Skaparapid.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Skaparapid-Que-Empiece-Ya.jpg",
       "artista": "Skaparapid",
       "nombre": "Insumisión",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Skaparapid-Insumision.mp3",
@@ -520,7 +520,7 @@
     },
     {
       "id": "salida-nula-alla-en-mi-pais",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Mucho-Cuidado.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Salida-Nula-Esto-No-Es-Un-Juguete.jpg",
       "artista": "Salida Nula",
       "nombre": "Allá en mi país",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Salida-Nula-Alla-en-mi-pais.mp3",
@@ -534,7 +534,7 @@
     },
     {
       "id": "rude-boys-el-precio-del-sudor",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/El-Precio-del-Sudor.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Rude-Boys-El-Precio-Del-Sudor.jpg",
       "artista": "Rude Boys",
       "nombre": "El precio del sudor",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Rude-Boys-El-precio-del-sudor.mp3",
@@ -562,7 +562,7 @@
     },
     {
       "id": "juantxo-skalari-non-stop",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Rude-Station.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Juantxo-Rude-Station.jpg",
       "artista": "Juantxo Skalari",
       "nombre": "Non stop",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Juantxo-Skalari-Non-stop.mp3",
@@ -576,7 +576,7 @@
     },
     {
       "id": "inspector-our-house",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Ska-a-la-Carta.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Inspector-Ska-A-La-Carta.jpg",
       "artista": "Inspector",
       "nombre": "Our house",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Inspector-Our-house.mp3",
@@ -590,7 +590,7 @@
     },
     {
       "id": "los-korucos-sally-brown",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Dale-Ska-a-tu-Cuerpo.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Los-Korucos-De-Ke-Manera-Te-Olvido-Chimol.jpg",
       "artista": "Los Korucos",
       "nombre": "Sally Brown",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Los-Korucos-Sally-Brown.mp3",
@@ -604,7 +604,7 @@
     },
     {
       "id": "rude-boys-perdido",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/El-Precio-del-Sudor.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Rude-Boys-El-Precio-Del-Sudor.jpg",
       "artista": "Rude Boys",
       "nombre": "Perdido",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Rude-Boys-Perdido.mp3",
@@ -618,7 +618,7 @@
     },
     {
       "id": "los-calzones-porropompero",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Plastico.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Los-Calzones-Plastico.jpg",
       "artista": "Los Calzones",
       "nombre": "Porropompero",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Los-Calzones-Porropompero.MP3",
@@ -632,7 +632,7 @@
     },
     {
       "id": "inspector-latino-rudeboy",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Unidad-Cerveza-y-Ska.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Inspector-Unidad-Cerveza-Y-Ska.jpg",
       "artista": "Inspector",
       "nombre": "Latino rudeboy",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Inspector-Latino-rudeboy.mp3",
@@ -660,7 +660,7 @@
     },
     {
       "id": "juantxo-skalari-rudi-not-dead",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Rudi-Not-Dead.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Juantxo-Rudi-Not-Dead.jpg",
       "artista": "Juantxo Skalari",
       "nombre": "Rudi not dead",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Juantxo-Skalari-Rudi-not-dead.mp3",
@@ -674,7 +674,7 @@
     },
     {
       "id": "melodycans-los-de-siempre",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Generacion-Ska.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Los-Melodycans-De-Jamaica-A-Inglaterra.jpg",
       "artista": "Melodycans",
       "nombre": "Los de siempre",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Melodycans-Los-de-siempre.mp3",
@@ -688,7 +688,7 @@
     },
     {
       "id": "the-locos-no-sin-pelear",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Tiempos-Dificiles.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/The-Locos-Tiempos-Dificiles.jpg",
       "artista": "The Locos",
       "nombre": "No sin pelear",
       "enlace": "https://xat-music.vercel.app/assets/audio2/The-Locos-No-sin-pelear.mp3",
@@ -702,7 +702,7 @@
     },
     {
       "id": "rude-boys-policias-no",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Mejores-Tiempos.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Rude-Boys-Mejores-Tiempos.jpg",
       "artista": "Rude Boys",
       "nombre": "Policías no",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Rude-Boys-Policias-no.mp3",
@@ -730,7 +730,7 @@
     },
     {
       "id": "la-ska-brass-la-dedocracia",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/El-Pais-de-los-Ciegos.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/La-Ska-Brass-El-Pais-de-los-Ciegos.jpg",
       "artista": "La Ska Brass",
       "nombre": "La dedocracia",
       "enlace": "https://xat-music.vercel.app/assets/audio2/La-Ska-Brass-La-dedocracia.mp3",
@@ -744,7 +744,7 @@
     },
     {
       "id": "ska-p-estimado-john",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Lagrimas-y-Gozos.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Ska-P-Estimado-John.jpg",
       "artista": "Ska-P",
       "nombre": "Estimado John",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Ska-P-Estimado-John.mp3",
@@ -758,7 +758,7 @@
     },
     {
       "id": "skaparapid-a-100km-neurona",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Skaparapid.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Skaparapid-El-Cuento-De-Nunca-Acabar.jpg",
       "artista": "Skaparapid",
       "nombre": "A 100km neurona",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Skaparapid-A-100km-neurona.mp3",
@@ -772,7 +772,7 @@
     },
     {
       "id": "the-locos-johnny-dos-pistolas",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Jaula-de-Grillos.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/The-Locos-Tiempos-Dificiles.jpg",
       "artista": "The Locos",
       "nombre": "Johnny dos pistolas",
       "enlace": "https://xat-music.vercel.app/assets/audio2/The-Locos-Johnny-dos-pistolas.mp3",
@@ -786,7 +786,7 @@
     },
     {
       "id": "la-gran-orquesta-republicana-la-calle-vacia",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/2-Anos-de-Republica.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/La-Gran-Orquesta-Republicana-Optimista.jpg",
       "artista": "La Gran Orquesta Republicana",
       "nombre": "La calle vacía",
       "enlace": "https://xat-music.vercel.app/assets/audio2/La-Gran-Orquesta-Republicana-La-calle-vacia.mp3",
@@ -800,7 +800,7 @@
     },
     {
       "id": "desorden-publico-esto-es-ska-ii",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/En-Descomposicion.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Desorden-Publico-Canto-Popular-De-La-Vida-Y-Muerte.jpg",
       "artista": "Desorden Público",
       "nombre": "Esto es ska II",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Desorden-Publico-Esto-es-ska-II.MP3",
@@ -828,7 +828,7 @@
     },
     {
       "id": "leche-burra-amigos-ska-y-fiesta",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Leche-Burra.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Leche-Burra-Ska-Pinolero.jpg",
       "artista": "Leche Burra",
       "nombre": "Amigos, ska y fiesta",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Leche-Burra-Amigos-ska-y-fiesta.mp3",
@@ -856,7 +856,7 @@
     },
     {
       "id": "los-rabanes-latin-ska",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/¿Por-Qué-Te-Fuiste-Benito?.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Los-Rabanes-Por-Que-Te-Fuiste-Benito.jpg",
       "artista": "Los Rabanes",
       "nombre": "Latin ska",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Los-Rabanes-Latin-ska.mp3",
@@ -870,7 +870,7 @@
     },
     {
       "id": "los-estramboticos-aqui-estamos",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Basado-En-Hechos-Reales.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Los-Estramboticos-Basado-En-Hechos-Reales.jpg",
       "artista": "Los Estrambóticos ft. Yoss Bones & Los Auténticos Decadentes",
       "nombre": "Aquí estamos",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Los-Estramboticos-Yoss-Bones-Los-Autenticos-Decadentes-Aqui-estamos.MP3",
@@ -899,7 +899,7 @@
     },
     {
       "id": "ru2-no-estamos-todos",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/No-Estamos-Todos.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/RU2-No-Estamos-Todos.jpg",
       "artista": "Ru2",
       "nombre": "No estamos todos",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Ru2-No-estamos-todos.mp3",
@@ -913,7 +913,7 @@
     },
     {
       "id": "skaterrestres-two-tone-party",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Two-Tone-Party.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Skaterrestres-Two-Tone-Party.jpg",
       "artista": "Skaterrestres",
       "nombre": "Two tone party",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Skaterrestres-Two-tone-party.mp3",
@@ -927,7 +927,7 @@
     },
     {
       "id": "juantxo-skalari-sarrera-vii-rude-station",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Rude-Station.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Juantxo-Rude-Station.jpg",
       "artista": "Juantxo Skalari",
       "nombre": "Sarrera VII Rude Station",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Juantxo-Skalari-Sarrera-VII-Rude-Station.mp3",
@@ -941,7 +941,7 @@
     },
     {
       "id": "tokyo-ska-paradise-orchestra-world-rude-connection",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/World-Ska-Paradise.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Tokyo-Ska-Paradise-Orchestra-Paradise-Has-No-Border-(American-Edition).jpg",
       "artista": "Tokyo Ska Paradise Orchestra ft. Los Auténticos Decadentes",
       "nombre": "World rude connection",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Tokyo-Ska-Paradise-Orchestra-LAD-World-rude-connection.mp3",
@@ -971,7 +971,7 @@
     },
     {
       "id": "desorden-publico-alla-cayo",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Plomo-Revienta.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Desorden-Publico-Plomo-Revienta.jpg",
       "artista": "Desorden Público",
       "nombre": "Allá cayó",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Desorden-Publico-Alla-cayo.mp3",
@@ -985,7 +985,7 @@
     },
     {
       "id": "los-autenticos-decadentes-la-pizza-con-faina",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/El-Milagro-Argentino.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Los-Autenticos-Decadentes-El-Milagro-Argentino.jpg",
       "artista": "Los Auténticos Decadentes",
       "nombre": "La pizza con fainá",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Los-Autenticos-Decadentes-La-pizza-con-faina.mp3",
@@ -999,7 +999,7 @@
     },
     {
       "id": "la-vela-puerca-rebuscado",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Deskarado.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/La-Vela-Puerca-Deskarado.jpg",
       "artista": "La Vela Puerca",
       "nombre": "Rebuscado",
       "enlace": "https://xat-music.vercel.app/assets/audio2/La-Vela-Puerca-Rebuscado.mp3",
@@ -1013,7 +1013,7 @@
     },
     {
       "id": "la-ska-brass-mi-exnovia-cadaver",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/La-Ska-Brass.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/La-Ska-Brass-El-Pais-de-los-Ciegos.jpg",
       "artista": "La Ska Brass",
       "nombre": "Mi exnovia cadáver",
       "enlace": "https://xat-music.vercel.app/assets/audio2/La-Ska-Brass-Mi-exnovia-cadaver.mp3",
@@ -1027,7 +1027,7 @@
     },
     {
       "id": "alademoska-ni-una-mas",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Semilla-de-Revolucion.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Alademoska-Revolucion.jpg",
       "artista": "Alademoska",
       "nombre": "Ni una más",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Alademoska-Ni-una-mas.mp3",
@@ -1041,7 +1041,7 @@
     },
     {
       "id": "skaparapid-kolors",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Skaparapid.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Skaparapid-Que-Empiece-Ya.jpg",
       "artista": "Skaparapid",
       "nombre": "Kolors",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Skaparapid-Kolors.mp3",
@@ -1055,7 +1055,7 @@
     },
     {
       "id": "ska-p-colores",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/El-Vals-del-Obrero.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Ska-P-Game-Over.jpg",
       "artista": "Ska-P",
       "nombre": "Colores",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Ska-P-Colores.mp3",
@@ -1069,7 +1069,7 @@
     },
     {
       "id": "ska-p-brave-girls",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Game-Over.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Ska-P-Game-Over.jpg",
       "artista": "Ska-P",
       "nombre": "Brave girls",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Ska-P-Brave-girls.mp3",
@@ -1083,7 +1083,7 @@
     },
     {
       "id": "the-locos-no-estas-solo",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Tiempos-Dificiles.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/The-Locos-Tiempos-Dificiles.jpg",
       "artista": "The Locos",
       "nombre": "No estás solo",
       "enlace": "https://xat-music.vercel.app/assets/audio2/The-Locos-No-estas-solo.mp3",
@@ -1097,7 +1097,7 @@
     },
     {
       "id": "rude-boys-problemas",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Mejores-Tiempos.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Rude-Boys-Mejores-Tiempos.jpg",
       "artista": "Rude Boys",
       "nombre": "Problemas",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Rude-Boys-Problemas.mp3",
@@ -1111,7 +1111,7 @@
     },
     {
       "id": "la-vela-puerca-madre-resistencia",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Destilar.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/La-Vela-Puerca-Deskarado.jpg",
       "artista": "La Vela Puerca",
       "nombre": "Madre resistencia",
       "enlace": "https://xat-music.vercel.app/assets/audio2/La-Vela-Puerca-Madre-resistencia.mp3",
@@ -1139,7 +1139,7 @@
     },
     {
       "id": "los-autenticos-decadentes-jopito",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Cualquiera-Puede-Cantar.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Los-Autenticos-Decadentes-Cualquiera-Puede-Cantar.jpg",
       "artista": "Los Auténticos Decadentes",
       "nombre": "Jopito",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Los-Autenticos-Decadentes-Jopito.mp3",
@@ -1153,7 +1153,7 @@
     },
     {
       "id": "skalariak-global-musik",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Luz-Rebelde.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Skalariak-Luz-Rebelde.jpg",
       "artista": "Skalariak",
       "nombre": "Global musik",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Skalariak-Global-musik.mp3",
@@ -1195,7 +1195,7 @@
     },
     {
       "id": "juantxo-skalari-la-rude-band",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/La-Rude-Band.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Juantxo-La-Rude-Band.jpg",
       "artista": "Juantxo Skalari & La Rude Band",
       "nombre": "La Rude Band",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Juantxo-Skalari-La-Rude-Band.mp3",
@@ -1209,7 +1209,7 @@
     },
     {
       "id": "bersuit-vergarabat-the-locos-la-bolsa",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Hijos-del-Culo.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/The-Locos-La-Bolsa.jpg",
       "artista": "Bersuit Vergarabat ft. The Locos",
       "nombre": "La bolsa",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Bersuit-Vergarabat-The-Locos-La-bolsa.mp3",
@@ -1224,7 +1224,7 @@
     },
     {
       "id": "los-autenticos-decadentes-skabio",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/El-Milagro-Argentino.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Los-Autenticos-Decadentes-Los-Reyes-De-La-Cancion.jpg",
       "artista": "Los Auténticos Decadentes",
       "nombre": "Skabio",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Los-Autenticos-Decadentes-Skabio.mp3",
@@ -1238,7 +1238,7 @@
     },
     {
       "id": "los-autenticos-decadentes-mandrake",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Mi-Vida-Loca.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Los-Autenticos-Decadentes-Mi-Vida-Loca.jpg",
       "artista": "Los Auténticos Decadentes",
       "nombre": "Mandrake",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Los-Autenticos-Decadentes-Mandrake.mp3",
@@ -1252,7 +1252,7 @@
     },
     {
       "id": "los-calzones-no-te-calles",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Mugre.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Los-Calzones-Mugre.jpg",
       "artista": "Los Calzones",
       "nombre": "No te calles",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Los-Calzones-No-te-calles.MP3",
@@ -1266,7 +1266,7 @@
     },
     {
       "id": "la-vela-puerca-manana",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/A-Contraluz.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/La-Vela-Puerca-A-Contraluz.jpg",
       "artista": "La Vela Puerca",
       "nombre": "Mañana",
       "enlace": "https://xat-music.vercel.app/assets/audio2/La-Vela-Puerca-Manana.mp3",
@@ -1280,7 +1280,7 @@
     },
     {
       "id": "los-fabulosos-cadillacs-yo-te-avise",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Yo-Te-Avise.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Los-Fabulosos-Cadillacs-Yo-Te-Avise.jpg",
       "artista": "Los Fabulosos Cadillacs",
       "nombre": "Yo te avisé",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Los-Fabulosos-Cadillacs-Yo-te-avise.mp3",
@@ -1294,7 +1294,7 @@
     },
     {
       "id": "wisecracker-dr-shenka-modo-de-odio",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Modo-de-Odio.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Wisecracker-Modo-De-Odio.jpg",
       "artista": "Wisecracker ft. Dr. Shenka",
       "nombre": "Modo de odio",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Wisecracker-Dr-Shenka-Modo-de-odio.mp3",
@@ -1309,7 +1309,7 @@
     },
     {
       "id": "genitallica-dr-shenka-big-javi-tengo-un-amor",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Bien-Intenso.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Genitallica-Tengo-Un-Amor.jpg",
       "artista": "Genitallica ft. Dr. Shenka & Big Javi",
       "nombre": "Tengo un amor",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Genitallica-Dr-Shenka-Big-Javi-Tengo-un-amor.mp3",
@@ -1323,7 +1323,7 @@
     },
     {
       "id": "nana-pancha-esqueletos-tocan-a-mi-puerta",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Armada-Hasta-los-Dientes.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Nana-Pancha-Esqueletos-Tocan-A-Mi-Puerta.jpg",
       "artista": "Nana Pancha",
       "nombre": "Esqueletos tocan a mi puerta",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Nana-Pancha-Esqueletos-tocan-a-mi-puerta.mp3",
@@ -1337,7 +1337,7 @@
     },
     {
       "id": "nana-pancha-ay-ay-amor",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Nana-Pancha.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Nana-Pancha-Ay-Ay-Amor.jpg",
       "artista": "Nana Pancha",
       "nombre": "Ay ay amor",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Nana-Pancha-Ay-ay-amor.mp3",
@@ -1351,7 +1351,7 @@
     },
     {
       "id": "wisecracker-no-tengo-dinero",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Ska-a-la-Carta.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Wisecracker-No-Tengo-Dinero.jpg",
       "artista": "Wisecracker",
       "nombre": "No tengo dinero",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Wisecracker-No-tengo-dinero.mp3",
@@ -1365,7 +1365,7 @@
     },
     {
       "id": "los-rabanes-my-commanding-wife",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/All-Stars-Volume-2.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Los-Rabanes-All-Stars-Volumen-2.jpg",
       "artista": "Los Rabanes",
       "nombre": "My commanding wife",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Los-Rabanes-My-commanding-wife.mp3",
@@ -1379,7 +1379,7 @@
     },
     {
       "id": "kurado-de-coco-dr-shenka-la-mas-chula",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Kurado-de-Coco.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Kurado-De-Coco-La-Mas-Chula.jpg",
       "artista": "Kurado de Coco ft. Dr. Shenka",
       "nombre": "La más chula",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Kurado-De-Coco-Dr-Shenka-La-mas-chula.mp3",
@@ -1393,7 +1393,7 @@
     },
     {
       "id": "la-vela-puerca-la-sin-razon",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/El-Impulso.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/covers/La-Vela-Puerca-El-Impulso.jpg",
       "artista": "La Vela Puerca",
       "nombre": "La sin razón",
       "enlace": "https://xat-music.vercel.app/assets/audio2/La-Vela-Puerca-La-sin-razon.mp3",
@@ -1407,7 +1407,7 @@
     },
     {
       "id": "nana-pancha-culero-a-la-calle",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Armada-Hasta-los-Dientes.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Nana-Pancha-Culero-A-La-Calle.jpg",
       "artista": "Nana Pancha",
       "nombre": "Culero a la calle",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Nana-Pancha-Culero-a-la-calle.mp3",
@@ -1435,7 +1435,7 @@
     },
     {
       "id": "melodycans-muneco-tomando-por-ti",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Generacion-Ska.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Melodycans-Tomando-Por-Ti.jpg",
       "artista": "Melodycans ft. Muñeko",
       "nombre": "Tomando por ti",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Melodycans-Muneco-Tomando-por-ti.mp3",
@@ -1449,7 +1449,7 @@
     },
     {
       "id": "fidel-nadal-los-caligaris-te-robaste-mi-corazon",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Forever.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Fidel-Nadal-Te-Robaste-Mi-Corazon.jpg.jpg",
       "artista": "Fidel Nadal ft. Los Caligaris",
       "nombre": "Te robaste mi corazón",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Fidel-Nadal-Los-Caligaris-Te-robaste-mi-corazon.mp3",
@@ -1463,7 +1463,7 @@
     },
     {
       "id": "panteon-rococo-rojo",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Infiernos.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Panteon-Rococo-Infiernos.jpg",
       "artista": "Panteón Rococó",
       "nombre": "Rojo",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Panton-Rococo-Rojo.MP3",
@@ -1477,9 +1477,9 @@
     },
     {
       "id": "los-estramboticos-monedas",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Extrambotismo-Magico.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Los-Estramboticos-Basado-En-Hechos-Reales.jpg",
       "artista": "Los Estrambóticos",
-      "nombre": "Monedas",
+      "nombre": "30 Monedas",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Los-Estramboticos-Monedas.mp3",
       "genero": "ska",
       "emotion": "cotidianeidad",
@@ -1491,7 +1491,7 @@
     },
     {
       "id": "los-caligaris-kilometros",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Yacu-Puyo.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Los-caligaris-No-Es-Lo-Que-Parece.jpg",
       "artista": "Los Caligaris",
       "nombre": "Kilómetros",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Los-Caligaris-Kilometros.mp3",
@@ -1519,7 +1519,7 @@
     },
     {
       "id": "los-autenticos-decadentes-vivire-por-siempre",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Sigue-tu-Camino.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Los-Autenticos-Decadentes-Sigue-tu-Camino.jpg",
       "artista": "Los Auténticos Decadentes",
       "nombre": "Viviré por siempre",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Los-Autenticos-Decadentes-Vivire-por-siempre.mp3",
@@ -1533,7 +1533,7 @@
     },
     {
       "id": "juantxo-skalari-contigo-estare-bien",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Rude-Station.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Juantxo-Rude-Station.jpg",
       "artista": "Juantxo Skalari",
       "nombre": "Contigo estaré bien",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Juantxo-Skalari-Contigo-estare-bien.mp3",
@@ -1547,7 +1547,7 @@
     },
     {
       "id": "desorden-publico-el-clon",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Diablo.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Desorden-Publico-Diablo.jpg",
       "artista": "Desorden Público",
       "nombre": "El clon",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Desorden-Publico-El-clon.MP3",
@@ -1561,7 +1561,7 @@
     },
     {
       "id": "esto-la-llamada",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/ESTO.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/ESTO-Selena.jpg",
       "artista": "ESTO",
       "nombre": "La llamada",
       "enlace": "https://xat-music.vercel.app/assets/audio2/ESTO-La-llamada.mp3",
@@ -1575,7 +1575,7 @@
     },
     {
       "id": "baby-aventurero-belleza-de-cantina",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Ska-Latino.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Baby-Aventurero-Belleza-De-Cantina.jpg",
       "artista": "Baby Aventurero",
       "nombre": "Belleza de cantina",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Baby-Aventurero-Belleza-de-cantina.mp3",
@@ -1617,7 +1617,7 @@
     },
     {
       "id": "panteon-rococo-caray",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Ofrenda.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Panteon-Rococo-Ofrenda.jpg",
       "artista": "Panteón Rococó",
       "nombre": "Caray",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Panteon-Rococo-Caray.mp3",
@@ -1631,7 +1631,7 @@
     },
     {
       "id": "los-caligaris-los-estramboticos-inspector-pero-que-necesidad",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Pero-Que-Necesidad.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Los-Estramboticos-Pero-Que-Necesidad.jpg",
       "artista": "Los Caligaris ft. Los Estrambóticos & Inspector",
       "nombre": "Pero qué necesidad",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Los-Caligaris-Los-Estramboticos-Inspector-Pero-que-necesidad.mp3",
@@ -1646,7 +1646,7 @@
     },
     {
       "id": "maskatesta-te-necesito",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Que-Te-Vaya-Bien.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Maskatesta.jpg",
       "artista": "Maskatesta",
       "nombre": "Te necesito",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Maskatesta-Te-necesito.mp3",
@@ -1660,7 +1660,7 @@
     },
     {
       "id": "los-estramboticos-no-me-haces-falta",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Cuchufli.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Los-Estramboticos-Basado-En-Hechos-Reales.jpg",
       "artista": "Los Estrambóticos",
       "nombre": "No me haces falta (Delante de ti)",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Los-Estramboticos-No-me-haces-falta-(Delante-de-ti).mp3",
@@ -1674,7 +1674,7 @@
     },
     {
       "id": "maskatesta-solo-un-minuto",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Maskatesta.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Maskatesta-The-Maskatonians-All-Stars.jpg",
       "artista": "Maskatesta",
       "nombre": "Solo un minuto",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Maskatesta-Solo-un-minuto.mp3",
@@ -1688,7 +1688,7 @@
     },
     {
       "id": "los-calzones-ladron-sin-destino",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Plastico.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Los-Calzones-Plastico.jpg",
       "artista": "Los Calzones",
       "nombre": "Ladrón sin destino",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Los-Calzones-Ladron-sin-destino.MP3",
@@ -1702,7 +1702,7 @@
     },
     {
       "id": "azul-flamingo-rude-girl",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Rude-Girl.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Azul-Flamingo-Rude-Girl.jpg",
       "artista": "Azul Flamingo",
       "nombre": "Rude girl",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Azul-Flamingo-Rude-girl.mp3",
@@ -1716,7 +1716,7 @@
     },
     {
       "id": "skaparapid-amor-sin-odio",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Skaparapid.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Skaparapid-Que-Empiece-Ya.jpg",
       "artista": "Skaparapid",
       "nombre": "Amor sin odio",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Skaparapid-Amor-sin-odio.mp3",
@@ -1730,7 +1730,7 @@
     },
     {
       "id": "melodycans-dias-felices",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Una-Noche-de-Ska-con-la-Melodycans.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Melodycans-Una-Noche-De-Ska.jpg",
       "artista": "Melodycans",
       "nombre": "Días felices",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Melodycans-Dias-felices.mp3",
@@ -1744,7 +1744,7 @@
     },
     {
       "id": "los-caligaris-bailando-ska",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Grasas-Totales.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Los-Caligaris-Grasas-Totales.jpg",
       "artista": "Los Caligaris",
       "nombre": "Bailando ska",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Los-Caligaris-Bailando-ska.mp3",
@@ -1758,7 +1758,7 @@
     },
     {
       "id": "los-fabulosos-cadillacs-mi-novia-se-cayo-en-un-pozo-ciego",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Yo-Te-Avise.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Los-Fabulosos-Cadillacs-Yo-Te-Avise.jpg",
       "artista": "Los Fabulosos Cadillacs",
       "nombre": "Mi novia se cayó en un pozo ciego",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Los-Fabulosos-Cadillacs-Mi-novia-se-callo-en-un-pozo-ciego.mp3",
@@ -1772,7 +1772,7 @@
     },
     {
       "id": "los-caligaris-quereme-asi",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Chante-Clair.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Los-Caligaris-Chanchos-Amigos.jpg",
       "artista": "Los Caligaris",
       "nombre": "Quereme así",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Los-Caligaris-Quereme-asi.mp3",
@@ -1786,7 +1786,7 @@
     },
     {
       "id": "maskatesta-tu-que-pediras",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Que-Te-Vaya-Bien.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Maskatesta-The-Maskatonians-All-Stars.jpg",
       "artista": "Maskatesta",
       "nombre": "Tú qué pedirás",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Maskatesta-Tu-que-pediras.mp3",
@@ -1800,7 +1800,7 @@
     },
     {
       "id": "los-caligaris-razon",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Bailarin-Apocaliptico.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Los-Caligaris-Bailarin-Apocaliptico.jpg",
       "artista": "Los Caligaris",
       "nombre": "Razón",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Los-Caligaris-Razon.mp3",
@@ -1814,7 +1814,7 @@
     },
     {
       "id": "agav-bimba-los-autenticos-decadentes-yo-te-sone",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Yo-Te-Sone.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Agav-Bimba.jpg",
       "artista": "Agav Bimba ft. Los Auténticos Decadentes",
       "nombre": "Yo te soñé",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Agav-Bimba-Los-Autenticos-Decadentes-Yo-te-sone.mp3",
@@ -1829,7 +1829,7 @@
     },
     {
       "id": "leche-burra-conversaciones-de-cama",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Leche-Burra.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Leche-Burra-Ska-Pinolero.jpg",
       "artista": "Leche Burra",
       "nombre": "Conversaciones de cama",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Leche-Burra-Conversaciones-de-cama.mp3",
@@ -1857,7 +1857,7 @@
     },
     {
       "id": "melodycans-quedate",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Generacion-Ska.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Melodycans-El-Ataque-De-La-Nueva-Ola.jpg",
       "artista": "Melodycans",
       "nombre": "Quédate",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Melodycans-Quedate.mp3",
@@ -1871,7 +1871,7 @@
     },
     {
       "id": "maskatesta-tabernero",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Maskatesta.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Maskatesta-The-Maskatonians-All-Stars.jpg",
       "artista": "Maskatesta",
       "nombre": "Tabernero",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Maskatesta-Tabernero.mp3",
@@ -1885,7 +1885,7 @@
     },
     {
       "id": "melodycans-que-te-vaya-bien",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Generacion-Ska.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Melodycans-Y-Su-Gente.jpg",
       "artista": "Melodycans",
       "nombre": "Que te vaya bien",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Melodycans-Que-te-vaya-bien.mp3",
@@ -1913,7 +1913,7 @@
     },
     {
       "id": "skaparapid-konfesion",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Que-Trabaje-el-Rey.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Skaparapid-Aci-Estem.jpg",
       "artista": "Skaparapid",
       "nombre": "Konfesión",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Skaparapid-Konfesion.mp3",
@@ -1927,7 +1927,7 @@
     },
     {
       "id": "papas-ni-pidamos-me-cago-en-vos",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Papas-Ni-Pidamos.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Papas-Ni-Pidamos-Papas-Ni-Pidamos.jpg",
       "artista": "Papas Ni Pidamos",
       "nombre": "Me cago en vos",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Papas-Ni-Pidamos-Me-cago-en-vos.mp3",
@@ -1941,7 +1941,7 @@
     },
     {
       "id": "los-estramboticos-monedas",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Extrambotismo-Magico.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Los-Estramboticos-Basado-En-Hechos-Reales.jpg",
       "artista": "Los Estrambóticos",
       "nombre": "Monedas",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Los-Estramboticos-Monedas.mp3",
@@ -1955,7 +1955,7 @@
     },
     {
       "id": "percance-los-caligaris-cantando-canciones",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/¿Donde-Iremos-a-Parar?.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Percance-Cantando-Canciones.jpg",
       "artista": "Percance ft. Los Caligaris",
       "nombre": "Cantando canciones",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Percance-Los-Caligaris-Cantando-canciones.mp3",
@@ -1970,7 +1970,7 @@
     },
     {
       "id": "rude-boys-intentos",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/El-Precio-del-Sudor.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Rude-Boys-Una-Vez-Mas.jpg",
       "artista": "Rude Boys",
       "nombre": "Intentos",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Rude-Boys-Intentos.mp3",
@@ -1984,7 +1984,7 @@
     },
     {
       "id": "los-estramboticos-todo-algun-dia-termina",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Todo-Algun-Dia-Termina.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Los-Estramboticos-Todo-Algun-Dia-Termina.jpg",
       "artista": "Los Estrambóticos",
       "nombre": "Todo algún día termina",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Los-Estramboticos-Todo-algun-dia-termina.mp3",
@@ -1998,7 +1998,7 @@
     },
     {
       "id": "la-gran-orquesta-republicana-mis-pies",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Abrazos.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/La-Gran-Orquesta-Republicana-Abrazos.jpg",
       "artista": "La Gran Orquesta Republicana",
       "nombre": "Mis pies",
       "enlace": "https://xat-music.vercel.app/assets/audio2/La-Gran-Orquesta-Republicana-Mis-pies.mp3",
@@ -2012,7 +2012,7 @@
     },
     {
       "id": "juantxo-skalari-levanta",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Rude-Station.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Juantxo-Rude-Station.jpg",
       "artista": "Juantxo Skalari",
       "nombre": "Levanta",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Juantxo-Skalari-Levanta.mp3",
@@ -2026,7 +2026,7 @@
     },
     {
       "id": "los-calzones-revolucion",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Jungla-Ska.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Los-Calzones-Tanguito.jpg",
       "artista": "Los Calzones",
       "nombre": "Revolución",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Los-Calzones-Revolucion.mp3",
@@ -2040,7 +2040,7 @@
     },
     {
       "id": "papas-ni-pidamos-culpables",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/A-Vivir.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Papas-Ni-Pidamos-Papas-Ni-Pidamos.jpg",
       "artista": "Papas Ni Pidamos",
       "nombre": "Culpables",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Papas-Ni-Pidamos-Culpables.mp3",
@@ -2054,7 +2054,7 @@
     },
     {
       "id": "los-calzones-te-quita-y-te-da",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Jungla-Ska.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Los-Calzones-Chamuyo.jpg",
       "artista": "Los Calzones",
       "nombre": "Te quita y te da",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Los-Calzones-Te-quita-y-te-da.mp3",
@@ -2068,7 +2068,7 @@
     },
     {
       "id": "rude-boys-miedo",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/El-Precio-del-Sudor.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Rude-Boys-Una-Vez-Mas.jpg",
       "artista": "Rude Boys",
       "nombre": "Miedo",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Rude-Boys-Miedo.mp3",
@@ -2082,7 +2082,7 @@
     },
     {
       "id": "la-vela-puerca-el-profeta",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/A-Contraluz.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/La-Vela-Puerca-De-Bichos-Y-Flores.jpg",
       "artista": "La Vela Puerca",
       "nombre": "El profeta",
       "enlace": "https://xat-music.vercel.app/assets/audio2/La-Vela-Puerca-El-profeta.mp3",
@@ -2096,7 +2096,7 @@
     },
     {
       "id": "la-gran-orquesta-republicana-enemigo",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/La-Gran-Orquesta-Republicana.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/La-Gran-Orquesta-Republicana-Abrazos.jpg",
       "artista": "La Gran Orquesta Republicana",
       "nombre": "Enemigo",
       "enlace": "https://xat-music.vercel.app/assets/audio2/La-Gran-Orquesta-Republicana-Enemigo.mp3",
@@ -2110,7 +2110,7 @@
     },
     {
       "id": "la-vela-puerca-contradecir",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/De-Bichos-y-Flores.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/La-Vela-Puerca-De-Bichos-Y-Flores.jpg",
       "artista": "La Vela Puerca",
       "nombre": "Contradecir",
       "enlace": "https://xat-music.vercel.app/assets/audio2/La-Vela-Puerca-Contradecir.mp3",
@@ -2124,7 +2124,7 @@
     },
     {
       "id": "los-calzones-riendome-asi",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Jungla-Ska.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Los-Calzones-Chamuyo.jpg",
       "artista": "Los Calzones",
       "nombre": "Riéndome así",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Los-Calzones-Riendome-asi.MP3",
@@ -2138,7 +2138,7 @@
     },
     {
       "id": "la-gran-orquesta-republicana-la-noche-1",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Optimista.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/La-Gran-Orquesta-Republicana-Abrazos.jpg",
       "artista": "La Gran Orquesta Republicana",
       "nombre": "La noche 1",
       "enlace": "https://xat-music.vercel.app/assets/audio2/La-Gran-Orquesta-Republicana-La-noche-1.mp3",
@@ -2152,7 +2152,7 @@
     },
     {
       "id": "skalariak-luz-rebelde",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Luz-Rebelde.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Skalariak-Luz-Rebelde.jpg",
       "artista": "Skalariak",
       "nombre": "Luz rebelde",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Skalariak-Luz-rebelde.mp3",
@@ -2166,7 +2166,7 @@
     },
     {
       "id": "vendetta-volar",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Fuimos-Familia.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Vendetta-Puro-Infierno.jpg",
       "artista": "Vendetta",
       "nombre": "Volar",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Vendetta-Volar.mp3",
@@ -2180,7 +2180,7 @@
     },
     {
       "id": "los-calzones-rueda",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Plastico.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Los-Calzones-Tanguito.jpg",
       "artista": "Los Calzones",
       "nombre": "Rueda",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Los-Calzones-Rueda.mp3",
@@ -2194,7 +2194,7 @@
     },
     {
       "id": "skalariak-la-makina-ska",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Skalariak.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Skalariak-En-La-Kalle.jpg",
       "artista": "Skalariak",
       "nombre": "La makina ska",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Skalariak-La-makina-ska.mp3",
@@ -2208,7 +2208,7 @@
     },
     {
       "id": "los-calzones-el-sabor-del-encuentro",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Los-Calzones-Rotos.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Los-Calzones-Tanguito.jpg",
       "artista": "Los Calzones",
       "nombre": "El sabor del encuentro",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Los-Calzones-El-sabor-del-encuentro.MP3",
@@ -2222,7 +2222,7 @@
     },
     {
       "id": "la-vela-puerca-el-senor",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Deskarado.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/La-Vela-Puerca-De-Bichos-Y-Flores.jpg",
       "artista": "La Vela Puerca",
       "nombre": "El señor",
       "enlace": "https://xat-music.vercel.app/assets/audio2/La-Vela-Puerca-El-senor.mp3",
@@ -2236,7 +2236,7 @@
     },
     {
       "id": "ska-p-el-mion",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Ska-P.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Ska-P-Varios.jpg",
       "artista": "Ska-P",
       "nombre": "El mion",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Ska-P-El-mion.mp3",
@@ -2250,7 +2250,7 @@
     },
     {
       "id": "salida-nula-de-bar-en-bar",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Mucho-Cuidado.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Salida-Nula-Y-Fumo-Porque-Me-Toca.jpg",
       "artista": "Salida Nula",
       "nombre": "De bar en bar",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Salida-Nula-De-bar-en-bar.mp3",
@@ -2264,7 +2264,7 @@
     },
     {
       "id": "la-vela-puerca-el-viejo",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/De-Bichos-y-Flores.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/La-Vela-Puerca-De-Bichos-Y-Flores.jpg",
       "artista": "La Vela Puerca",
       "nombre": "El viejo",
       "enlace": "https://xat-music.vercel.app/assets/audio2/La-Vela-Puerca-El-viejo.mp3",
@@ -2278,7 +2278,7 @@
     },
     {
       "id": "los-autenticos-decadentes-el-chorro",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/El-Milagro-Argentino.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Los-Autenticos-Decadentes-El-Milagro-Argentino.jpg",
       "artista": "Los Auténticos Decadentes",
       "nombre": "El chorro",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Los-Autenticos-Decadentes-El-chorro.mp3",
@@ -2292,7 +2292,7 @@
     },
     {
       "id": "ska-p-no-lo-volvere-a-hacer-mas",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Ska-P.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Ska-P-Game-Over.jpg",
       "artista": "Ska-P",
       "nombre": "No lo volveré a hacer más",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Ska-P-No-lo-volvere-a-hacer-mas.mp3",
@@ -2306,7 +2306,7 @@
     },
     {
       "id": "ska-p-navegando",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Incontrolable.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Ska-P-Varios.jpg",
       "artista": "Ska-P",
       "nombre": "Navegando",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Ska-P-Navegando.mp3",
@@ -2320,7 +2320,7 @@
     },
     {
       "id": "vendetta-la-diabla",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Vendetta.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Vendetta-Puro-Infierno.jpg",
       "artista": "Vendetta",
       "nombre": "La diabla",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Vendetta-La-diabla.mp3",
@@ -2334,7 +2334,7 @@
     },
     {
       "id": "salida-nula-ven-pa-ka",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Mucho-Cuidado.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Salida-Nula-Mucha-Mierda-Y-Poca-Eskoba.jpg",
       "artista": "Salida Nula",
       "nombre": "Ven pa ka",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Salida-Nula-Ven-pa-ka.mp3",
@@ -2348,7 +2348,7 @@
     },
     {
       "id": "la-gran-orquesta-republicana-el-aire-y-el-viento",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/La-Gran-Orquesta-Republicana.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/La-Gran-Orquesta-Republicana-Abrazos.jpg",
       "artista": "La Gran Orquesta Republicana",
       "nombre": "El aire y el viento",
       "enlace": "https://xat-music.vercel.app/assets/audio2/La-Gran-Orquesta-Republicana-El-aire-y-el-viento.mp3",
@@ -2362,7 +2362,7 @@
     },
     {
       "id": "rude-boys-la-linea-de-enfrente",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/El-Precio-del-Sudor.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Rude-Boys-El-Precio-Del-Sudor.jpg",
       "artista": "Rude Boys",
       "nombre": "La línea de enfrente",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Rude-Boys-La-linea-de-enfrente.mp3",
@@ -2376,7 +2376,7 @@
     },
     {
       "id": "vendetta-fuimos",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Fuimos-Familia.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Vendetta-Fuimos-Familia.jpg",
       "artista": "Vendetta",
       "nombre": "Fuimos",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Vendetta-Fuimos.mp3",
@@ -2390,7 +2390,7 @@
     },
     {
       "id": "los-calzones-la-mezquindad",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Mugre.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Los-Calzones-Tanguito.jpg",
       "artista": "Los Calzones",
       "nombre": "La mezquindad",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Los-Calzones-La-mezquindad.MP3",
@@ -2404,7 +2404,7 @@
     },
     {
       "id": "ska-p-senor-matanza",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Ska-P.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Mano-Negra-Illegal.jpg",
       "artista": "Ska-P",
       "nombre": "Señor Matanza",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Ska-P-Senor-Matanza.mp3",
@@ -2418,7 +2418,7 @@
     },
     {
       "id": "los-calzones-cieguito",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Mugre.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Los-Calzones-Tanguito.jpg",
       "artista": "Los Calzones",
       "nombre": "Cieguito",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Los-Calzones-Cieguito.MP3",
@@ -2432,7 +2432,7 @@
     },
     {
       "id": "la-ska-brass-el-pais-de-los-ciegos",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/El-Pais-de-los-Ciegos.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/La-Ska-Brass-El-Pais-de-los-Ciegos.jpg",
       "artista": "La Ska Brass",
       "nombre": "El país de los ciegos",
       "enlace": "https://xat-music.vercel.app/assets/audio2/La-Ska-Brass-El-pais-de-los-ciegos.mp3",
@@ -2446,7 +2446,7 @@
     },
     {
       "id": "the-locos-hueso-y-piel",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Tiempos-Dificiles.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/The-Locos-Todos-Distintos-Todos-Iguales.jpg",
       "artista": "The Locos",
       "nombre": "Hueso y piel",
       "enlace": "https://xat-music.vercel.app/assets/audio2/The-Locos-Hueso-y-piel.mp3",
@@ -2460,7 +2460,7 @@
     },
     {
       "id": "la-gran-orquesta-republicana-imagina-la-victoria-de-los-vencidos",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/La-Gran-Orquesta-Republicana.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/La-Gran-Orquesta-Republicana-Optimista.jpg",
       "artista": "La Gran Orquesta Republicana",
       "nombre": "Imagina la victoria de los vencidos",
       "enlace": "https://xat-music.vercel.app/assets/audio2/La-Gran-Orquesta-Republicana-Imagina-la-victoria-de-los-vencidos.mp3",
@@ -2474,7 +2474,7 @@
     },
     {
       "id": "los-calzones-caras-y-caretas",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Mugre.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Los-Calzones-Chamuyo.jpg",
       "artista": "Los Calzones",
       "nombre": "Caras y caretas",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Los-Calzones-Caras-y-caretas.MP3",
@@ -2488,7 +2488,7 @@
     },
     {
       "id": "la-vela-puerca-alta-magia",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Deskarado.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/La-Vela-Puerca-Deskarado.jpg",
       "artista": "La Vela Puerca",
       "nombre": "Alta magia",
       "enlace": "https://xat-music.vercel.app/assets/audio2/La-Vela-Puerca-Alta-magia.mp3",
@@ -2502,7 +2502,7 @@
     },
     {
       "id": "los-calzones-la-sanata-colectiva",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Mugre.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Los-Calzones-Aconcagua.jpg",
       "artista": "Los Calzones",
       "nombre": "La sanata colectiva",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Los-Calzones-La-sanata-colectiva.mp3",
@@ -2516,7 +2516,7 @@
     },
     {
       "id": "salida-nula-che",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Mucho-Cuidado.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Salida-Nula-Y-Fumo-Porque-Me-Toca.jpg",
       "artista": "Salida Nula",
       "nombre": "Che",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Salida-Nula-Che.mp3",
@@ -2530,7 +2530,7 @@
     },
     {
       "id": "patita-de-perro-hasta-la-victoria-siempre",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Hasta-la-Victoria-Siempre.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Patita-De-Perro-Los-Päta.png.jpg",
       "artista": "Patita De Perro",
       "nombre": "Hasta la victoria siempre",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Patita-De-Perro-Hasta-la-victoria-siempre.MP3",
@@ -2544,7 +2544,7 @@
     },
     {
       "id": "la-vela-puerca-vamos-che",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Deskarado.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/La-Vela-Puerca-La-Vela-De-Mi-Corazon.jpg",
       "artista": "La Vela Puerca",
       "nombre": "Vamos Che",
       "enlace": "https://xat-music.vercel.app/assets/audio2/La-Vela-Puerca-Vamos-Che.mp3",
@@ -2572,7 +2572,7 @@
     },
     {
       "id": "la-vela-puerca-el-bandido-saltodemata",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Piel-y-Hueso.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/La-Vela-Puerca-Deskarado.jpg",
       "artista": "La Vela Puerca",
       "nombre": "El bandido Saltodemata",
       "enlace": "https://xat-music.vercel.app/assets/audio2/La-Vela-Puerca-El-bandido-Saltodemata.mp3",
@@ -2586,7 +2586,7 @@
     },
     {
       "id": "la-vela-puerca-vuelan-palos",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/De-Bichos-y-Flores.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/La-Vela-Puerca-Deskarado.jpg",
       "artista": "La Vela Puerca",
       "nombre": "Vuelan palos",
       "enlace": "https://xat-music.vercel.app/assets/audio2/La-Vela-Puerca-Vuelan-palos.mp3",
@@ -2600,7 +2600,7 @@
     },
     {
       "id": "ska-p-adoctrinados",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/99-Por-Ciento.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Ska-P-99.jpg",
       "artista": "Ska-P",
       "nombre": "Adoctrinados",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Ska-P-Adoctrinados.mp3",
@@ -2614,7 +2614,7 @@
     },
     {
       "id": "the-locos-la-decadencia",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Energia-Inagotable.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/The-Locos-La-Decadencia.jpg",
       "artista": "The Locos",
       "nombre": "La decadencia",
       "enlace": "https://xat-music.vercel.app/assets/audio2/The-Locos-La-decadencia.mp3",
@@ -2628,7 +2628,7 @@
     },
     {
       "id": "rude-boys-diario-del-terror",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/El-Precio-del-Sudor.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Rude-Boys-Mejores-Tiempos.jpg",
       "artista": "Rude Boys",
       "nombre": "Diario del terror",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Rude-Boys-Diario-del-terror.mp3",
@@ -2642,7 +2642,7 @@
     },
     {
       "id": "la-ska-brass-postureo-del-terror",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/El-Pais-de-los-Ciegos.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/La-Ska-Brass-El-Pais-de-los-Ciegos.jpg",
       "artista": "La Ska Brass",
       "nombre": "Postureo del terror",
       "enlace": "https://xat-music.vercel.app/assets/audio2/La-Ska-Brass-Postureo-del-terror.mp3",
@@ -2656,7 +2656,7 @@
     },
     {
       "id": "los-calzones-mugre",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Mugre.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Los-Calzones-Mugre.jpg",
       "artista": "Los Calzones",
       "nombre": "Mugre",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Los-Calzones-Mugre.MP3",
@@ -2670,7 +2670,7 @@
     },
     {
       "id": "dr-krapula-puerto-carretera",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Viva-el-Planeta.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Dr-Krapula-Amazonas.jpg",
       "artista": "Dr. Krápula",
       "nombre": "Puerto carretera",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Dr-Krapula-Puerto-carretera.MP3",
@@ -2698,7 +2698,7 @@
     },
     {
       "id": "red-gekko-la-del-bar",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Red-Gekko.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Red-Gekko-Red-Gekko.jpg",
       "artista": "Red Gekko",
       "nombre": "La del bar",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Red-Gekko-La-del-bar.mp3",
@@ -2712,7 +2712,7 @@
     },
     {
       "id": "la-ska-brass-algo-no-va-bien",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/La-Ska-Brass.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/La-Ska-Brass-El-Pais-de-los-Ciegos.jpg",
       "artista": "La Ska Brass",
       "nombre": "Algo no va bien",
       "enlace": "https://xat-music.vercel.app/assets/audio2/La-Ska-Brass-Algo-no-va-bien.mp3",
@@ -2726,7 +2726,7 @@
     },
     {
       "id": "kaso-perdido-palestina",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Despierta.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Kaso-Perdido-Despierta.jpg",
       "artista": "Kaso Perdido",
       "nombre": "Palestina",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Kaso-Perdido-Palestina.mp3",
@@ -2740,7 +2740,7 @@
     },
     {
       "id": "the-locos-fuego-y-dinamita",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Tiempos-Dificiles.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/The-Locos-Fuego-Y-Dinamita.jpg",
       "artista": "The Locos",
       "nombre": "Fuego y dinamita",
       "enlace": "https://xat-music.vercel.app/assets/audio2/The-Locos-Fuego-y-dinamita.mp3",
@@ -2768,7 +2768,7 @@
     },
     {
       "id": "wisecracker-modo-de-odio",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Modo-de-Odio.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Wisecracker-Modo-De-Odio.jpg",
       "artista": "Wisecracker ft. Dr. Shenka",
       "nombre": "Modo de odio",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Wisecracker-Dr-Shenka-Modo-de-odio.mp3",
@@ -2783,7 +2783,7 @@
     },
     {
       "id": "asesinos-cereales-hormigas",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Hormigas.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Asesinos-Cereales-Hormigas.jpg",
       "artista": "Asesinos Cereales ft. Pulpul",
       "nombre": "Hormigas",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Asesinos-Cereales-Pulpul-Hormigas.mp3",
@@ -2813,7 +2813,7 @@
     },
     {
       "id": "la-gran-orquesta-republicana-republica-iii",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/La-Gran-Orquesta-Republicana.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/La-Gran-Orquesta-Republicana-Abrazos.jpg",
       "artista": "La Gran Orquesta Republicana",
       "nombre": "República III",
       "enlace": "https://xat-music.vercel.app/assets/audio2/La-Gran-Orquesta-Republicana-Republica-III.mp3",
@@ -2827,7 +2827,7 @@
     },
     {
       "id": "la-ska-brass-santa-tradicion",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/El-Pais-de-los-Ciegos.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/La-Ska-Brass-El-Pais-de-los-Ciegos.jpg",
       "artista": "La Ska Brass",
       "nombre": "Santa tradición",
       "enlace": "https://xat-music.vercel.app/assets/audio2/La-Ska-Brass-Santa-tradicion.mp3",
@@ -2841,7 +2841,7 @@
     },
     {
       "id": "the-locos-a-punto-de-explotar",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Energia-Inagotable.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/The-Locos-Energia-Inagotable.jpg",
       "artista": "The Locos",
       "nombre": "A punto de explotar",
       "enlace": "https://xat-music.vercel.app/assets/audio2/The-Locoso-A-punto-de-explotar.mp3",
@@ -2855,7 +2855,7 @@
     },
     {
       "id": "kaso-perdido-vaticano-sa",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Despierta.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Kaso-Perdido-Despierta.jpg",
       "artista": "Kaso Perdido",
       "nombre": "Vaticano S.A.",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Kaso-Perdido-Vaticano-SA.mp3",
@@ -2869,7 +2869,7 @@
     },
     {
       "id": "salida-nula-skagalera",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Mucho-Cuidado.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Salida-Nula-Mucha-Mierda-Y-Poca-Eskoba.jpg",
       "artista": "Salida Nula",
       "nombre": "Skagalera",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Salida-Nula-Skagalera.mp3",
@@ -2883,7 +2883,7 @@
     },
     {
       "id": "skaparapid-dona-rebel-lat",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Que-Trabaje-el-Rey.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Skaparapid-El-Cuento-De-Nunca-Acabar.jpg",
       "artista": "Skaparapid",
       "nombre": "Dona rebel·lat",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Skaparapid-Dona-rebel-lat.mp3",
@@ -2897,7 +2897,7 @@
     },
     {
       "id": "porretas-marihuana",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Porretas.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Porretas-Marihuana.jpg",
       "artista": "Porretas ft. Pulpul",
       "nombre": "Marihuana",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Porretas-Pulpul-Marihuana.mp3",
@@ -2925,7 +2925,7 @@
     },
     {
       "id": "skaparapid-temps-perdut",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Skaparapid.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Skaparapid-El-Cuento-De-Nunca-Acabar.jpg",
       "artista": "Skaparapid",
       "nombre": "Temps perdut",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Skaparapid-Temps-perdut.mp3",
@@ -2939,7 +2939,7 @@
     },
     {
       "id": "ska-p-fujimori",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Incontrolable.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Ska-P-Varios.jpg",
       "artista": "Ska-P",
       "nombre": "Fujimori",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Ska-P-Fujimori.mp3",
@@ -2953,7 +2953,7 @@
     },
     {
       "id": "la-pegatina-dr-shenka-corea-del-sur",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Ahora-o-Nunca.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/La-Pegatina-Ahora-O-Nunca.jpg",
       "artista": "La Pegatina ft. Dr. Shenka",
       "nombre": "Corea del Sur",
       "enlace": "https://xat-music.vercel.app/assets/audio2/La-Pegatina-Dr-Shenka-Corea-Del-Sur.mp3",
@@ -2968,7 +2968,7 @@
     },
     {
       "id": "la-tremenda-korte-lawrence-de-arabia",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Venga-la-Sentencia.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Hombres-G-Tributo.jpg",
       "artista": "La Tremenda Korte",
       "nombre": "Lawrence de Arabia",
       "enlace": "https://xat-music.vercel.app/assets/audio2/La-Tremenda-Korte-Lawrence-de-Arabia.mp3",
@@ -2982,7 +2982,7 @@
     },
     {
       "id": "panteon-rococo-el-ultimo-ska",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Infiernos.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Panteon-Rococo-Infiernos.jpg",
       "artista": "Panteón Rococó",
       "nombre": "El último ska",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Panteon-Rococo-El-ultimo-ska.mp3",
@@ -2996,7 +2996,7 @@
     },
     {
       "id": "buhos-pulpul-toca-hamelin",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/La-Gran-Vida.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Mad-In-Ska.jpg",
       "artista": "Buhos ft. Pulpul",
       "nombre": "Toca Hamelín",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Buhos-Pulpul-Toca-hamelin.mp3",
@@ -3010,7 +3010,7 @@
     },
     {
       "id": "tamarita-pulpul-dans-la-musique",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Tamarita.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Tamarita-Pulpul-Dans-La-Musique.png.jpg",
       "artista": "Tamarita ft. Pulpul",
       "nombre": "Dans la musique",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Tamarita-Pulpul-Dans-la-musique.mp3",
@@ -3025,7 +3025,7 @@
     },
     {
       "id": "nino-mandarina-pulpul-juliembre",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Juliembre.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Nino-Mandarina-Pulpul-Juliembre.jpg",
       "artista": "Niño Mandarina ft. Pulpul",
       "nombre": "Juliembre",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Nino-Mandarina-Pulpul-Juliembre.mp3",
@@ -3039,7 +3039,7 @@
     },
     {
       "id": "juantxo-skalari-ska-cypher-1",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Ska-Cypher.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Juantxo-Super-Roots-Market.jpg",
       "artista": "Juantxo Skalari",
       "nombre": "Ska cypher 1",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Juantxo-Skalari-Ska-cypher-1.mp3",
@@ -3053,7 +3053,7 @@
     },
     {
       "id": "los-calzones-tanguito",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Plastico.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Los-Calzones-Tanguito.jpg",
       "artista": "Los Calzones",
       "nombre": "Tanguito",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Los-Calzones-Tanguito.MP3",
@@ -3067,7 +3067,7 @@
     },
     {
       "id": "skaparapid-lhorta-sac-ska",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Skaparapid.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Skaparapid-El-Cuento-De-Nunca-Acabar.jpg",
       "artista": "Skaparapid",
       "nombre": "L'horta sac ska",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Skaparapid-Lhorta-sac-ska.mp3",
@@ -3095,7 +3095,7 @@
     },
     {
       "id": "skalariak-sarrera-iii",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/En-la-Kalle.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Skalariak-En-La-Kalle.jpg",
       "artista": "Skalariak",
       "nombre": "Sarrera III",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Skalariak-Sarrera-III.mp3",
@@ -3109,7 +3109,7 @@
     },
     {
       "id": "obrint-pas-la-flama",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/La-Flama.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Obrint-Pas-La-Flama.jpg",
       "artista": "Obrint Pas",
       "nombre": "La flama",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Obrint-Pas-La-flama.mp3",
@@ -3123,7 +3123,7 @@
     },
     {
       "id": "mad-band-pulpul-mopckar",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Mad-Band.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Mad-Band-Pulpul-Mopckar.jpg",
       "artista": "Mad Band ft. Pulpul",
       "nombre": "Mopckar",
       "enlace": "https://xat-music.vercel.app/assets/audio2/MAD-Band-Pulpul-Mopckar.mp3",
@@ -3138,7 +3138,7 @@
     },
     {
       "id": "skalariak-solo-vivir",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Skalariak.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Skalariak-Klub-Ska.jpg",
       "artista": "Skalariak",
       "nombre": "Solo vivir",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Skalariak-Solo-vivir.mp3",
@@ -3152,7 +3152,7 @@
     },
     {
       "id": "panteon-rococo-gansters",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/A-la-Izquierda-de-la-Tierra.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Panteon-Rococo-Ni-Carne-Ni-Pescado.jpg",
       "artista": "Panteón Rococó",
       "nombre": "Gánsters",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Panteon-Rococo-Gansters.mp3",
@@ -3166,7 +3166,7 @@
     },
     {
       "id": "suburban-ska-club-death-of-guitar-pop",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Suburban-Ska-Club.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Suburban-Ska-Club-Death-Of-Guitar-Pop.jpg",
       "artista": "Suburban Ska Club ft. Neville Staple",
       "nombre": "Death of guitar pop",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Suburban-Ska-Club-Neville-Staple-Death-of-guitar-pop.mp3",
@@ -3195,7 +3195,7 @@
     },
     {
       "id": "timber-party-like-its",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Timber.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Timber-Party-Like-Its.jpg",
       "artista": "Timber ft. Pitbull & Ke$ha",
       "nombre": "Party like it's (Ska Version)",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Timber-Pitbull-Keha-Party-like-its.mp3",
@@ -3209,7 +3209,7 @@
     },
     {
       "id": "the-holophonics-it-wasnt-me",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/MaSkaRades.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/The-Holophonics-MaSkaRades.jpg",
       "artista": "The Holophonics",
       "nombre": "It wasn't me",
       "enlace": "https://xat-music.vercel.app/assets/audio2/The-Holophonics-It-wasnt-me.mp3",
@@ -3223,7 +3223,7 @@
     },
     {
       "id": "skamikaze-yum-yum-orange",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Yum-Yum-Orange.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Skamikaze-Yum-Yum-Orange.jpg",
       "artista": "Skamikaze",
       "nombre": "Yum yum orange",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Skamikaze-Yum-yum-orange.mp3",
@@ -3237,7 +3237,7 @@
     },
     {
       "id": "save-ferris-come-on-eileen",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/It-Means-Everything.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Save-Ferris-It-Means-Everything.jpg",
       "artista": "Save Ferris",
       "nombre": "Come on Eileen",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Save-Ferris-Come-on-Eileen.mp3",
@@ -3251,7 +3251,7 @@
     },
     {
       "id": "merengue-crujiente-baby-one-more-time",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Merengue-Crujiente.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Merengue-Crujiente-Baby-one-more-time.jpg",
       "artista": "Merengue Crujiente",
       "nombre": "Baby one more time (Ska cover)",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Merengue-Crujiente-Baby-one-more-time.mp3",
@@ -3265,7 +3265,7 @@
     },
     {
       "id": "the-busters-dont-worry-be-happy",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Live-in-Berlin.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/The-Busters-Ruder-Than-Rude.jpg",
       "artista": "The Busters",
       "nombre": "Don't worry, be happy",
       "enlace": "https://xat-music.vercel.app/assets/audio2/The-Busters-Dont-worry-be-happy.mp3",
@@ -3279,7 +3279,7 @@
     },
     {
       "id": "save-ferris-the-world-is-new",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/It-Means-Everything.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Save-Ferris-It-Means-Everything.jpg",
       "artista": "Save Ferris",
       "nombre": "The world is new",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Save-Ferris-The-world-is-new.mp3",
