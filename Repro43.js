@@ -32,17 +32,24 @@ $(document).ready(function() {
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     // --- SISTEMA DE ARRANQUE (BOOT) ---
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    $(document).one('click touchstart', function() {
-        if (!isSystemOn) {
-            const bootSFX = new Audio('https://radio-tekileros.vercel.app/assets/audio/Codec.mp3');
-            bootSFX.volume = 0.6;
-            bootSFX.play().then(() => {
+    // Precarga fuera del evento para ganar tiempo
+const bootSFX = new Audio('https://radio-tekileros.vercel.app/assets/audio/Codec.mp3');
+bootSFX.preload = 'auto';
+
+$(document).one('click touchstart', function() {
+    if (!isSystemOn) {
+        bootSFX.volume = 0.6;
+        bootSFX.play()
+            .then(() => {
+                console.log("Codec Sound: ON");
                 setTimeout(() => { bootSystem(); }, 500);
-            }).catch(e => {
+            })
+            .catch(e => {
+                console.error("Fallo de audio, booteando sin sonido:", e);
                 bootSystem();
             });
-        }
-    });
+    }
+});
 
     function bootSystem() {
         isSystemOn = true;
@@ -180,10 +187,24 @@ function fetchPlaylist(url) {
             $item.click(function() {
                 currentTrackIndex = index;
                 playTrack();
-                closeModal(); // Usamos la nueva función centralizada
+                closeModal(); 
             });
             $container.append($item);
         });
+
+        // --- SISTEMA DE AUTO-SCROLL TÁCTICO ---
+        // Esperamos un momento a que el modal se muestre para calcular el scroll
+        setTimeout(() => {
+            const $activeItem = $container.find('.active-track');
+            if ($activeItem.length) {
+                $container.animate({
+                    scrollTop: $activeItem.position().top + $container.scrollTop() - ($container.height() / 2) + ($activeItem.height() / 2)
+                }, 500); // 500ms para un desplazamiento suave
+            } else {
+                // Si no hay track sonando (ej: primer inicio), ir al inicio
+                $container.scrollTop(0);
+            }
+        }, 300);
     }
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -388,9 +409,10 @@ window.addEventListener('online', () => {
                     </div>
                 `);
             });
+            $container.scrollTop(0); // En radio siempre ver lo más reciente arriba
         } else {
             $('.modal-title').text("PLAYLIST ACTUAL");
-            refreshTrackListUI();
+            refreshTrackListUI(); // Esto ya incluye el auto-scroll al track activo
         }
         openModal('music-modal');
     });

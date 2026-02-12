@@ -685,6 +685,19 @@ html, body {
     box-shadow: inset 0 0 15px rgba(112, 177, 137, 0.1);
 }
 
+/* Animación de Pulso Táctico */
+@keyframes flickerActive {
+    0% { opacity: 1; background-color: rgba(0, 255, 0, 0.2); }
+    50% { opacity: 0.6; background-color: rgba(0, 255, 0, 0.05); }
+    100% { opacity: 1; background-color: rgba(0, 255, 0, 0.2); }
+}
+
+.active-track {
+    border-left: 3px solid #00ff00;
+    animation: flickerActive 1.5s infinite ease-in-out;
+    box-shadow: inset 0 0 10px rgba(0, 255, 0, 0.1);
+}
+
 .track-item img {
     width: 40px;
     height: 40px;
