@@ -15,7 +15,8 @@ $(document).ready(function() {
         "https://radio-tekileros.vercel.app/RockIdioma.json",
         "https://radio-tekileros.vercel.app/Skañol.json",
         "https://radio-tekileros.vercel.app/ZonaSka.json",
-        "https://radio-tekileros.vercel.app/AsfaltoUrbano.json"
+        "https://radio-tekileros.vercel.app/AsfaltoUrbano.json",
+        "https://radio-tekileros.vercel.app/Metañero.json"
     ];
 
     let currentMode = "RADIO";
@@ -29,24 +30,29 @@ $(document).ready(function() {
     let trackHistory = [];
     let ultimaPistaStreaming = "";
 
-    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    // --- SISTEMA DE ARRANQUE (BOOT) ---
-    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    // Precarga fuera del evento para ganar tiempo
-const bootSFX = new Audio('https://radio-tekileros.vercel.app/assets/audio/Codec.mp3');
-bootSFX.preload = 'auto';
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// --- SISTEMA DE ARRANQUE (BOOT) ---
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+// Lo dejamos declarado pero vacío
+let bootSFX; 
 
 $(document).one('click touchstart', function() {
     if (!isSystemOn) {
+        // CREAMOS EL AUDIO DENTRO DEL EVENTO (Clave para móviles)
+        bootSFX = new Audio('https://radio-tekileros.vercel.app/assets/audio/Codec.mp3');
         bootSFX.volume = 0.6;
+        
+        // Forzamos la carga y reproducción inmediata
         bootSFX.play()
             .then(() => {
                 console.log("Codec Sound: ON");
-                setTimeout(() => { bootSystem(); }, 500);
+                // Pequeño delay para que el sonido se aprecie antes de que entre la música
+                setTimeout(() => { bootSystem(); }, 800); 
             })
             .catch(e => {
-                console.error("Fallo de audio, booteando sin sonido:", e);
-                bootSystem();
+                console.error("Móvil bloqueó audio o URL falló:", e);
+                bootSystem(); // Booteamos aunque sea en silencio para no trabar la web
             });
     }
 });
