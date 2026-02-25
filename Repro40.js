@@ -6,9 +6,10 @@ function crearAudio() {
   const audio = document.createElement("audio");
   audio.id = "player";
   audio.setAttribute("autoplay", "");
-  audio.setAttribute("muted", "");
+  audio.src = "https://technoplayerserver.net/8148/stream"; // stream real
   return audio;
 }
+
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // 🌊 SECTION PRINCIPAL (bg-water + ripples)
@@ -123,6 +124,41 @@ function crearHeader() {
   header.appendChild(btnRadio);
 
   return header;
+}
+
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// 🌌 LOGO CONTAINER
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function crearLogoContainer() {
+  const logoContainer = document.createElement("div");
+  logoContainer.className = "logo-container";
+
+  const img = document.createElement("img");
+  img.src = "https://santi-graphics.vercel.app/assets/img/Logo-Pollos.png";
+  img.alt = "Logo";
+  img.className = "logo-base zoom-effect";
+
+  logoContainer.appendChild(img);
+  return logoContainer;
+}
+
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// ✨ TEXTO ANIMADO BIENVENIDOS
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function crearTextoBienvenida() {
+  const contextDiv = document.createElement("div");
+  contextDiv.className = "context-bienvenida"; // Usamos la clase del CSS
+
+  const p = document.createElement("p");
+  p.className = "animtext";
+  // Importante: No dejar espacios en blanco innecesarios entre las etiquetas span
+  p.innerHTML = `
+    <span class="word">¡Bienvenidos!</span>
+    <span class="word">¡Welcome!</span>
+  `;
+  contextDiv.appendChild(p);
+
+  return contextDiv;
 }
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -442,20 +478,25 @@ function inicializarPixiBubbles() {
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // 🧩 ENSAMBLADOR FINAL
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// Une todas las piezas y las inserta en body
 function inicializarReproductor() {
   const body = document.body;
-  body.innerHTML = ""; // limpia cualquier contenido previo
+  body.innerHTML = "";
 
-  // Section principal
   const section = crearSectionPrincipal();
 
-  // ReproBox
+  // Bloque lateral con logo + texto
+  const bloqueBienvenida = document.createElement("div");
+  bloqueBienvenida.className = "bloque-bienvenida";
+  bloqueBienvenida.appendChild(crearLogoContainer());
+  bloqueBienvenida.appendChild(crearTextoBienvenida());
+
+  section.appendChild(bloqueBienvenida);
+
+  // ReproBox intacto
   const reproBox = crearReproBox();
   reproBox.appendChild(crearVisualEffects());
   reproBox.appendChild(crearFooter());
 
-  // Mensaje personalizado
   const customMessage = document.createElement("div");
   customMessage.id = "custom-message";
   customMessage.className = "custom-message";
@@ -473,9 +514,7 @@ function inicializarReproductor() {
   inicializarRipples();
   inicializarPixiBubbles();
 
-  // 🔑 Señal explícita para Player20.js
   window.dispatchEvent(new Event("repro-ready"));
 }
 
-// ⚡️ Ejecutar ensamblador de inmediato (defer garantiza que body ya existe)
 inicializarReproductor();
