@@ -251,7 +251,8 @@ function iniciarActualizacionRadio() {
     iniciarContadorRadioescuchas();
 
     // Nuevo server para canción actual
-    const radioUrl = "https://radio.technoplayer2radioserver.org:8010/currentsong?sid=1";
+    const radioUrl = "https://technoplayerserver.net/8148/currentsong?sid=1";
+
     const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(radioUrl)}`;
 
     async function actualizarDesdeServidor() {
@@ -312,7 +313,7 @@ function iniciarActualizacionRadio() {
 }
     
 // ===================================
-// 📻 MODO RADIO - LÓGICA CONTADOR RADIOESCUCHAS (server tekileros)
+// 📻 MODO RADIO - LÓGICA CONTADOR RADIOESCUCHAS (server los pollos)
 // ===================================
 function detenerContadorRadioescuchas() {
     if (contadorIntervalId !== null) clearInterval(contadorIntervalId);
@@ -322,28 +323,36 @@ function detenerContadorRadioescuchas() {
 
 function iniciarContadorRadioescuchas() {
     detenerContadorRadioescuchas();
-    if (typeof $ === 'undefined' || typeof $.ajax === 'undefined' || !contadorElemento) return;
+    if (!contadorElemento) return;
 
-    // Mantener el server anterior para stats
-    const contadorUrl = "https://technoplayerserver.net:8018/stream/stats?json=1&sid=1";
+    const contadorUrl = "https://technoplayerserver.net/8148/stats?json=1&sid=1";
+    const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(contadorUrl)}`;
 
-    function actualizarContador() {
-        if (modoActual !== "radio") { detenerContadorRadioescuchas(); return; }
-        $.ajax({
-            dataType: 'jsonp',
-            url: contadorUrl,
-            success: function(data) {
-                contadorElemento.textContent = data.currentlisteners || "0";
-            },
-            error: function() {
-                contadorElemento.textContent = "0";
-            },
-            timeout: 5000
-        });
+    async function actualizarContador() {
+        if (modoActual !== "radio") { 
+            detenerContadorRadioescuchas(); 
+            return; 
+        }
+        try {
+            const response = await fetch(proxyUrl, { cache: "no-cache" });
+            const xmlText = await response.text();
+
+            const parser = new DOMParser();
+            const xmlDoc = parser.parseFromString(xmlText, "application/xml");
+
+            const listeners = xmlDoc.querySelector("CURRENTLISTENERS")?.textContent;
+            contadorElemento.textContent = listeners || "0";
+        } catch (error) {
+            console.error("❌ Error al obtener contador de oyentes:", error);
+            contadorElemento.textContent = "0";
+        }
     }
+
     actualizarContador();
     contadorIntervalId = setInterval(actualizarContador, 15000);
 }
+
+
 
 // ===============================
 // 🔄 ALTERNANCIA DE MODOS
@@ -386,7 +395,7 @@ function activarModoRadio() {
     audio.pause();
     
     // 🔑 CLAVE 2: Asignar el SRC
-    audio.src = "https://radio.technoplayer2radioserver.org/8010/stream";
+    audio.src = "https://technoplayerserver.net/8148/stream";
     audio.load();
 
     // 1. Asegurarse de que el audio esté silenciado temporalmente (el gesto ya lo desbloqueó)
@@ -880,6 +889,74 @@ function iniciarBurbujas() {
 
     dibujarBurbujas();
 }
+
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// 🔄 ANIMACIÓN DE TEXTO BIENVENIDA CON LOGS
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+document.addEventListener("DOMContentLoaded", () => {
+  var words = document.getElementsByClassName('word');
+  var wordArray = [];
+  var currentWord = 0;
+
+  console.log("▶ Animación iniciada. Palabras encontradas:", words.length);
+
+  if (words.length === 0) {
+    console.warn("⚠ No se encontraron elementos con clase 'word'.");
+    return;
+  }
+
+  words[currentWord].style.opacity = 1;
+  for (var i = 0; i < words.length; i++) {
+    console.log("✂ Dividiendo palabra:", words[i].innerText);
+    splitLetters(words[i]);
+  }
+
+  function changeWord() {
+    console.log("🔄 Cambio de palabra. Índice actual:", currentWord);
+    var cw = wordArray[currentWord];
+    var nw = currentWord == words.length - 1 ? wordArray[0] : wordArray[currentWord + 1];
+    for (var i = 0; i < cw.length; i++) animateLetterOut(cw, i);
+    for (var i = 0; i < nw.length; i++) {
+      nw[i].className = 'letter behind';
+      nw[0].parentElement.style.opacity = 1;
+      animateLetterIn(nw, i);
+    }
+    currentWord = (currentWord == wordArray.length - 1) ? 0 : currentWord + 1;
+    console.log("✅ Nueva palabra activa:", nw.map(l => l.innerText).join(""));
+  }
+
+  function animateLetterOut(cw, i) {
+    setTimeout(() => {
+      cw[i].className = 'letter out';
+      console.log("⬅ Letra OUT:", cw[i].innerText, "posición", i);
+    }, i * 80);
+  }
+
+  function animateLetterIn(nw, i) {
+    setTimeout(() => {
+      nw[i].className = 'letter in';
+      console.log("➡ Letra IN:", nw[i].innerText, "posición", i);
+    }, 340 + (i * 80));
+  }
+
+  function splitLetters(word) {
+    var content = word.innerHTML;
+    word.innerHTML = '';
+    var letters = [];
+    for (var i = 0; i < content.length; i++) {
+      var letter = document.createElement('span');
+      letter.className = 'letter';
+      letter.innerHTML = content.charAt(i);
+      word.appendChild(letter);
+      letters.push(letter);
+    }
+    wordArray.push(letters);
+    console.log("🧩 Palabra dividida en letras:", letters.map(l => l.innerText));
+  }
+
+  changeWord();
+  setInterval(changeWord, 4000);
+});
 
 
 // ==================================
