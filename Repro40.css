@@ -63,15 +63,14 @@ body {
 .btn-radio {
   width: 40px;
   height: 40px;
-  background-color: rgba(54, 136, 255, 0.9); /* azul translúcido */
-  border: 2px solid #3688ff;                 /* azul sólido */
+  background-color: rgba(148, 0, 211, 0.9); /* violeta translúcido */
+  border: 2px solid #9400D3; /* Solid Color */
   border-radius: 8px;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.3s ease;
-  box-shadow: 0 0 12px rgba(173, 216, 230, 0.6); /* halo azul claro */
 }
 
 .btn-radio:hover {
@@ -97,7 +96,7 @@ body {
   background: rgba(0, 0, 0, 0.4);
   padding: 4px 8px;
   border-radius: 6px;
-  box-shadow: 0 0 8px rgba(54, 136, 255, 0.9); /* azul intenso */
+  box-shadow: 0 0 8px rgba(186, 0, 255, 0.9);
   z-index: 10;
 }
 
@@ -105,19 +104,134 @@ body {
 /* INFO TIME (fecha/hora) */
 /* ===================== */
 .info-time {
-  margin-left: 15px;                   /* separación respecto al botón menú */
+  margin-left: 15px;              /* separación respecto al botón menú */
   font-family: 'Orbitron', sans-serif; /* tipografía ceremonial */
   font-size: 0.9rem;
   color: #fff;
   padding: 4px 10px;
-  background: rgba(54, 136, 255, 0.3); /* azul translúcido */
-  border: 1px solid #3688ff;           /* azul sólido */
+  background: rgba(148, 0, 211, 0.3); /* violeta translúcido */
+  border: 1px solid #9400D3;
   border-radius: 6px;
   box-shadow:
-    0 0 8px rgba(54, 136, 255, 0.8),   /* halo azul intenso */
-    2px 2px 6px rgba(0,0,0,0.8);       /* sombra oscura */
-  white-space: nowrap;                 /* evita salto de línea */
-  text-shadow: 0 0 6px #3688ff;        /* brillo ceremonial azul */
+    0 0 8px #C8A2C8,
+    2px 2px 6px rgba(0,0,0,0.8);
+  white-space: nowrap;            /* evita salto de línea */
+  text-shadow: 0 0 6px #9400D3;   /* brillo ceremonial */
+}
+
+
+/* ===================== */
+/* BLOQUE BIENVENIDA */
+/* ===================== */
+.bloque-bienvenida {
+  position: absolute;
+  top: 50%;        /* mitad vertical */
+  left: 1%;        /* ajusta este valor para moverlo más a la izquierda */
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.logo-container-bienvenida {
+  text-align: center;
+}
+
+.logo-base-bienvenida.zoom-effect {
+  width: 150px;
+  height: auto;
+  animation: zoomInOut 6s ease-in-out infinite;
+}
+
+@keyframes zoomInOut {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+.context-bienvenida {
+  text-align: center;
+}
+
+/* Ajustes para que las palabras se superpongan correctamente */
+.context-bienvenida {
+  position: relative;
+  width: 300px; /* Ajusta según el largo de tu texto */
+  height: 50px; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.animtext {
+  position: relative;
+  width: 100%;
+}
+
+.word {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  white-space: nowrap;
+  font-weight: bold;
+  font-size: 24px; /* Ajusta a tu gusto */
+  color: #800080;
+  text-align: center;
+}
+
+.letter {
+  display: inline-block;
+  position: relative;
+  transform-style: preserve-3d;
+}
+
+p.animtext {
+  margin: 0;
+  color: #800080;
+  perspective: 1000px; /* da profundidad al efecto 3D */
+}
+
+.letter.out {
+  transform: rotateX(90deg);
+  transition: transform 0.32s cubic-bezier(0.55, 0.055, 0.675, 0.19);
+}
+.letter.behind {
+  transform: rotateX(-90deg);
+}
+.letter.in {
+  transform: rotateX(0deg);
+  transition: transform 0.38s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* ===================== */
+/* LOGO RADIO */
+/* ===================== */
+.lateral-container {
+  position: absolute;
+  top: 40%;
+  left: 50%;   /* izquierda media de main */
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.logo-container {
+  text-align: center;
+}
+
+.logo-base.zoom-effect {
+  width: 250px;
+  height: auto;
+  animation: zoomInOut 6s ease-in-out infinite;
+}
+
+.context {
+  text-align: center;
 }
 
 /* ===================== */
@@ -166,7 +280,7 @@ body {
 }
 
 .radio-logo:hover {
-    box-shadow: 0 0 20px rgba(54, 136, 255, 0.8); /* halo azul intenso */
+    box-shadow: 0 0 20px rgba(148, 0, 211, 0.8);
 }
 
 /* CAPA DE EFECTOS */
@@ -211,7 +325,7 @@ body {
     height: 280px;
     transform: translate(-50%, -50%);
     border-radius: 50%;
-    background: conic-gradient(from 90deg, #3688ff, #99ccff, #3688ff); /* azul intenso + variación clara */
+    background: conic-gradient(from 90deg, #a020f0, #00ffff, #a020f0);
     filter: blur(25px);
     opacity: 0.6;
     z-index: 0;
@@ -228,13 +342,7 @@ body {
     transform-origin: 50% 50%;
     border-radius: 50%;
     z-index: 1;
-    background: conic-gradient(
-        from 90deg,
-        transparent 0deg,
-        #3688ff 60deg,       /* azul intenso */
-        #99ccff 120deg,      /* azul claro */
-        transparent 180deg
-    );
+    background: conic-gradient(from 90deg, transparent 0deg, #a020f0 60deg, #00ffff 120deg, transparent 180deg);
     mask: radial-gradient(circle at center, transparent 100px, black 128px);
     animation: arcSpin 6s linear infinite;
     opacity: 0.9;
@@ -242,13 +350,7 @@ body {
 
 .arc2 {
     animation-delay: -3s;
-    background: conic-gradient(
-        from 270deg,
-        transparent 0deg,
-        #99ccff 60deg,       /* azul claro */
-        #3688ff 120deg,      /* azul intenso */
-        transparent 180deg
-    );
+    background: conic-gradient(from 270deg, transparent 0deg, #00ffff 60deg, #a020f0 120deg, transparent 180deg);
 }
 
 /* ===================== */
@@ -261,15 +363,14 @@ body {
 
 @keyframes glow {
     0% {
-        box-shadow: 0 0 25px rgba(54, 136, 255, 0.5);   /* halo azul suave */
-        border-color: rgba(54, 136, 255, 0.6);          /* borde azul translúcido */
+        box-shadow: 0 0 25px rgba(148, 0, 211, 0.5);
+        border-color: rgba(148, 0, 211, 0.6);
     }
     100% {
-        box-shadow: 0 0 30px rgba(54, 136, 255, 0.8);   /* halo azul intenso */
-        border-color: rgba(54, 136, 255, 0.9);          /* borde azul sólido */
+        box-shadow: 0 0 30px rgba(148, 0, 211, 0.8);
+        border-color: rgba(148, 0, 211, 0.9);
     }
 }
-
 
 @keyframes glowPulse {
     0% { opacity: 0.4; filter: blur(20px); }
@@ -355,15 +456,15 @@ body {
   width: 220px;
   height: 24px;
   padding-left: 10px;
-  border-left: 2px solid #3688ff;             /* borde azul intenso */
+  border-left: 2px solid #9400D3;
   border-radius: 6px;
-  background-color: rgba(0, 20, 40, 0.4);     /* fondo azul oscuro translúcido */
+  background-color: rgba(20, 0, 30, 0.4); /* fondo violeta oscuro translúcido */
   box-shadow:
     inset 0 1px 2px rgba(255, 255, 255, 0.2), /* luz interna superior */
     inset 0 -1px 2px rgba(0, 0, 0, 0.4),      /* sombra interna inferior */
     0 4px 8px rgba(0, 0, 0, 0.6),             /* sombra externa */
-    0 0 12px rgba(54, 136, 255, 0.3);         /* halo azul ceremonial */
-  backdrop-filter: blur(2px);                 /* profundidad atmosférica */
+    0 0 12px rgba(148, 0, 211, 0.3);          /* halo violeta */
+  backdrop-filter: blur(2px); /* profundidad atmosférica */
   display: flex;
   align-items: center;
 }
@@ -372,7 +473,7 @@ body {
   position: absolute;
   white-space: nowrap;
   animation: scrollMeta 12s linear infinite;
-  color: #fff;
+  color: #C8A2C8;
   font-size: 13px;
   text-shadow: 1px 1px 0 #000;
 }
@@ -396,11 +497,11 @@ body {
 
 /* Botón base con transparencia y sombra ceremonial */
 .soft {
-  background-color: rgba(54, 136, 255, 0.6); /* azul translúcido */
-  border: 1px solid #3688ff;                 /* borde azul sólido */
+  background-color: rgba(148, 0, 211, 0.6); /* violeta translúcido */
+  border: 1px solid #9400D3;
   box-shadow:
-    8px 8px 16px rgba(0, 0, 0, 0.95),        /* sombra abajo y derecha, muy marcada */
-    0 0 12px rgba(54, 136, 255, 0.6);        /* halo azul */
+    8px 8px 16px rgba(0, 0, 0, 0.95),   /* sombra abajo y derecha, muy marcada */
+    0 0 12px #C8A2C8;
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   display: flex;
@@ -410,10 +511,10 @@ body {
 }
 
 .soft:hover {
-  transform: scale(1.08);
-  box-shadow:
-    10px 10px 20px rgba(0, 0, 0, 0.95),      /* sombra más intensa al hover */
-    0 0 24px rgba(54, 136, 255, 0.9);        /* halo azul intenso */
+  transform: scale(1.08);
+  box-shadow:
+    10px 10px 20px rgba(0, 0, 0, 6),    /* sombra más intensa al hover */
+    0 0 24px #9400D3;
 }
 
 .repro-controls {
@@ -468,11 +569,11 @@ body {
 
 /* Botón de reproducción */
 .btn-play {
-  background-color: rgba(54, 136, 255, 0.6); /* azul translúcido */
-  border: 2px solid #3688ff;                 /* borde azul sólido */
+  background-color: rgba(148, 0, 211, 0.6); /* violeta translúcido */
+  border: 2px solid #9400D3; /* Solid Color */
   box-shadow:
-    10px 10px 20px rgba(0, 0, 0, 1),         /* sombra marcada */
-    0 0 24px rgba(54, 136, 255, 0.6);        /* halo azul */
+    10px 10px 20px rgba(0, 0, 0, 1),
+    0 0 24px #C8A2C8;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   display: flex;
   justify-content: center;
@@ -481,10 +582,10 @@ body {
 }
 
 .btn-play:hover {
-  transform: scale(1.08);
-  box-shadow:
-    12px 12px 24px rgba(0, 0, 0, 1),         /* sombra más intensa al hover */
-    0 0 32px rgba(54, 136, 255, 0.9);        /* halo azul intenso */
+  transform: scale(1.08);
+  box-shadow:
+    12px 12px 24px rgba(0, 0, 0, 1),
+    0 0 32px #9400D3;
 }
 
 /* SVG dentro de botones */
@@ -515,18 +616,18 @@ button svg {
     /* Mantiene la transformación base al hover, pero lo aplica de forma fija */
     transform: scale(1.08); 
 
-    /* Fondo que indica el estado activo (usando púrpura vibrante) */
-    background-color: rgba(128, 0, 128, 0.8); /* púrpura translúcido */
-    border: 1px solid #800080;                /* borde púrpura sólido */
+    /* Fondo que indica el estado activo (usando el color rosa del modal, ff69b4) */
+    background-color: rgba(255, 105, 180, 0.8); /* Rosa vibrante translúcido */
+    border: 1px solid #ff69b4; /* Borde rosa más fuerte */
     
     /* Efecto de resplandor para indicar que está "encendido" */
     box-shadow: 
-        10px 10px 20px rgba(0, 0, 0, 0.8),    /* sombra fuerte */
-        0 0 15px #800080,                     /* resplandor púrpura */
-        0 0 25px rgba(255, 255, 255, 0.4);    /* halo blanco sutil */
+        10px 10px 20px rgba(0, 0, 0, 0.8), /* Sombra fuerte */
+        0 0 15px #ff69b4, /* Resplandor rosa */
+        0 0 25px rgba(255, 255, 255, 0.4); /* Halo blanco sutil */
 }
 
-/* Ajuste de color del SVG para que el icono se vea mejor sobre el fondo púrpura activo */
+/* Ajuste de color del SVG para que el icono se vea mejor sobre el fondo rosa activo */
 .soft.active-one svg,
 .soft.active svg {
     /* Usamos un violeta oscuro (casi negro) para un buen contraste */
@@ -546,8 +647,8 @@ button svg {
   background: #010101;
   border-radius: 8px;
   box-shadow:
-    inset 0 0 0 1px rgba(54, 136, 255, 0.4), /* borde interno azul suave */
-    inset 0 2px 4px #000;                    /* sombra interna */
+    inset 0 0 0 1px #C8A2C8,
+    inset 0 2px 4px #000;
   display: flex;
   align-items: center;
   padding: 0 4px;
@@ -558,13 +659,7 @@ button svg {
   height: 4px;
   border-radius: 4px;
   appearance: none;
-  background: linear-gradient(
-    to right,
-    #3688ff 0%,      /* azul intenso */
-    #3688ff 70%,     /* azul dominante */
-    #1f4d99 70%,     /* azul más oscuro */
-    #1f4d99 100%     /* azul profundo */
-  );
+  background: linear-gradient(to right, #9400D3 0%, #9400D3 70%, #4B0082 70%, #4B0082 100%);
   outline: none;
   cursor: pointer;
 }
@@ -572,7 +667,7 @@ button svg {
 .volume-bar::-webkit-slider-thumb {
   width: 12px;
   height: 12px;
-  background: #3688ff;                       /* azul intenso */
+  background: #800080;
   border-radius: 50%;
   cursor: pointer;
   appearance: none;
@@ -608,11 +703,11 @@ button svg {
   position: relative;
   width: 100%; 
   height: 100%; 
-  background-color: rgba(20, 20, 20, 0.95); /* fondo oscuro translúcido */
-  border: 2px solid #3688ff;                /* borde azul sólido */
+  background-color: rgba(20, 20, 20, 0.95);
+  border: 2px solid #9400D3;
   border-radius: 12px;
   padding: 20px;
-  box-shadow: 0 0 24px #3688ff;             /* halo azul */
+  box-shadow: 0 0 24px #9400D3;
   color: #fff;
   text-align: left;
   overflow-y: auto;
@@ -621,7 +716,7 @@ button svg {
   transform: translateY(20px);
   transition: opacity 0.3s ease, transform 0.3s ease;
   scrollbar-width: thin;
-  scrollbar-color: #3688ff #202020;         /* scrollbar azul sobre fondo gris oscuro */
+  scrollbar-color: #9400D3 #202020; 
 }
 
 .modal:not(.hidden) .modal-content {
@@ -636,17 +731,17 @@ button svg {
   background: none;
   border: none;
   font-size: 1.5em;
-  color: #3688ff;                           /* azul intenso */
+  color: #9400D3;
   cursor: pointer;
-  text-shadow: 0 0 8px #3688ff;             /* brillo azul */
+  text-shadow: 0 0 8px #9400D3;
   z-index: 10001;
 }
 
 .modal-title {
   font-size: 1.2em; /* Título más pequeño */
   margin-bottom: 10px;
-  color: #3688ff;                           /* azul intenso */
-  text-shadow: 0 0 8px #3688ff;             /* brillo ceremonial azul */
+  color: #9400D3;
+  text-shadow: 0 0 8px #C8A2C8;
   text-align: center; /* Centramos el título */
 }
 
@@ -661,27 +756,27 @@ button svg {
   padding: 4px 12px;
   margin-left: 6px;
   background: linear-gradient(
-    90deg,
-    #3688ff,
-    #99ccff
-  ); /* degradado azul intenso → azul claro */
+  90deg,
+  #9400D3,
+  #C8A2C8
+); /* degradado */
   border-radius: 8px;
   color: #fff;
   font-weight: bold;
   animation: pulseTrack 1.5s infinite;
-  box-shadow: 0 0 6px rgba(54, 136, 255, 0.4); /* halo azul inicial */
+  box-shadow: 0 0 6px rgba(148, 0, 211, 0.4);
 }
 
 @keyframes pulseTrack {
-  0% {
-    box-shadow: 0 0 6px rgba(54, 136, 255, 0.4); /* azul suave */
-  }
-  50% {
-    box-shadow: 0 0 12px rgba(153, 204, 255, 0.8); /* azul claro vibrante */
-  }
-  100% {
-    box-shadow: 0 0 6px rgba(54, 136, 255, 0.4); /* azul suave */
-  }
+  0% {
+    box-shadow: 0 0 6px rgba(148, 0, 211, 0.4); /* Morado suave (Base: #9400D3) */
+  }
+  50% {
+    box-shadow: 0 0 12px rgba(178, 102, 255, 0.8); /* Morado claro vibrante (#B266FF) */
+  }
+  100% {
+    box-shadow: 0 0 6px rgba(148, 0, 211, 0.4); /* Morado suave */
+  }
 }
 
 .track-list {
@@ -699,25 +794,25 @@ button svg {
 }
 
 .track-list li:hover {
-  color: #3688ff;
-  text-shadow: 0 0 8px #3688ff;
+  color: #9400D3;
+  text-shadow: 0 0 8px #9400D3;
 }
 
 #track-name.active {
-  color: #3688ff;                           /* azul intenso */
+  color: #3688ff;
   font-weight: bold;
-  text-shadow: 0 0 6px rgba(54, 136, 255, 0.5); /* halo azul suave */
+  text-shadow: 0 0 6px rgba(255, 105, 180, 0.5);
   transition: all 300ms ease;
 }
 
 /* Nuevo selector para la pista activa en la lista */
 .track-list li.active-track {
-  color: #3688ff;                           /* azul intenso */
-  font-weight: bold;
-  text-shadow: 0 0 8px #99ccff;             /* halo azul claro */
-  background-color: rgba(54, 136, 255, 0.1); /* fondo azul translúcido sutil */
-  border-radius: 4px;
-  padding: 2px 4px;
+  color: #9400D3; /* Color principal de tu diseño */
+  font-weight: bold;
+  text-shadow: 0 0 8px #C8A2C8;
+  background-color: rgba(148, 0, 211, 0.1); /* Fondo sutil */
+  border-radius: 4px;
+  padding: 2px 4px;
 }
 
 /* ===================== */
