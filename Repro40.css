@@ -31,6 +31,33 @@ body {
   background: transparent;
 }
 
+/* Sobrescritura total de .bg-water en Repro40.css */
+.bg-water {
+    /* 1. Fondo (Imagen y comportamiento) */
+    background: url('https://santi-graphics.vercel.app/assets/bg/Background-Pulgosa-FX.png') no-repeat center center / cover !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+
+    /* 2. Dimensiones (Aquí puedes cambiarlas a tu gusto) */
+    width: 750px !important; 
+    height: 425px !important; 
+
+    /* 3. Estética de bordes */
+    border-radius: 20px !important;
+    border: 2px solid #9d74c2 !important;
+    box-shadow: 0 0 30px rgba(148, 0, 211, 0.6) !important;
+
+    /* 4. Comportamiento y Capas */
+    position: relative !important;
+    overflow: hidden !important;
+    pointer-events: auto !important;
+    z-index: 0 !important;
+
+    /* 5. Corrección para Ripples (opcional pero recomendado) */
+    display: block !important; 
+}
+
 /* ===================== */
 /* 💿 PARTE 2: DISCO, ENCABEZADO Y TEXTOS */
 /* ===================== */
