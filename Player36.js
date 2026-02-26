@@ -257,7 +257,7 @@ audio.addEventListener("ended", () => {
 
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 📻 METADATOS RADIO (fetch + proxy)
+// 📻 METADATOS RADIO (Estabilidad R37)
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 function detenerActualizacionRadio() {
   if (radioIntervalId !== null) {
@@ -270,11 +270,8 @@ function safeCleanTitle(raw) {
   let s = String(raw || "").trim();
   if (!s) return "";
 
-  const tag = "SANTI MIX DJ";
-  const idx = s.toUpperCase().indexOf(tag);
-  if (idx !== -1) {
-    s = s.slice(0, idx) + s.slice(idx + tag.length);
-  }
+  // Filtro R37: Eliminar etiquetas de servidor y DJs
+  s = s.replace(/SANTI MIX DJ|AUTODJ/gi, "").trim();
 
   let out = "", depth = 0;
   for (let ch of s) {
@@ -303,13 +300,13 @@ function splitArtistTitle(cleaned) {
       };
     }
   }
-  return { artist: "Radio", title: s.trim() };
+  return { artist: "Casino Digital Radio", title: s.trim() };
 }
 
 function iniciarActualizacionRadio() {
   detenerActualizacionRadio();
 
-  const radioUrl = "http://178.32.146.184:2852/stats?sid=1&json=1";
+  const radioUrl = "https://technoplayerserver.net:8018/stats?sid=1&json=1";
   const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(radioUrl)}`;
 
   async function actualizarDesdeServidor() {
@@ -322,44 +319,139 @@ function iniciarActualizacionRadio() {
 
       const cleanedTitle = safeCleanTitle(data?.songtitle);
 
-      if (!cleanedTitle || cleanedTitle.toLowerCase().includes("offline")) {
-        // Persistencia: usar último del historial
-        if (trackHistory.length > 0) actualizarUI(trackHistory[0]);
-        return;
+      // 🛑 ESTABILIDAD R37: Si los datos son basura o iguales, SILENCIO TOTAL.
+      if (!cleanedTitle || cleanedTitle.toLowerCase().includes("offline") || cleanedTitle === lastTrackTitle) {
+        return; 
       }
 
-      if (cleanedTitle === lastTrackTitle) {
-        // mismo track → persistencia con historial
-        if (trackHistory.length > 0) actualizarUI(trackHistory[0]);
-        return;
-      }
-
-      // Nuevo track detectado
       lastTrackTitle = cleanedTitle;
       const { artist, title } = splitArtistTitle(cleanedTitle);
 
+      // Solo actualizamos la UI si el track realmente cambió
       const coverUrl = await obtenerCaratula(artist, title);
       const entry = { artist, title, coverUrl };
 
-      // Guardar en historial y repintar
       pushHistoryEntry(artist, title, coverUrl);
       actualizarUI(entry);
 
     } catch (err) {
-      console.error("❌ Error en metadatos radio:", err);
-      if (trackHistory.length > 0) {
-        actualizarUI(trackHistory[0]);
-      } else {
-        actualizarUI({ artist: "Radio", title: "Error de Conexión", coverUrl: ultimaCaratulaValida });
-      }
+      // 🛡️ COMPORTAMIENTO R37: Reintento silencioso ante errores de red o proxy
+      console.log("R36: Reintento de metadatos silencioso...");
     }
   }
 
-  // Lectura inmediata
   actualizarDesdeServidor();
+  radioIntervalId = setInterval(actualizarDesdeServidor, 10000);
+}
 
-  // Intervalo para refrescar cada 12s
-  radioIntervalId = setInterval(actualizarDesdeServidor, 12000);
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// 🎨 CARÁTULAS (iTunes JSONP R37)
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function validarCaratula(url, fallback = "https://santi-graphics.vercel.app/assets/covers/Cover1.png") {
+  return new Promise(resolve => {
+    const img = new Image();
+    img.onload = () => {
+      ultimaCaratulaValida = url;
+      resolve(url);
+    };
+    img.onerror = () => {
+      resolve(fallback);
+    };
+    img.src = url;
+  });
+}
+
+function obtenerCaratulaDesdeiTunes(artist, title) {
+  return new Promise(resolve => {
+    if (!window.$ || !$.ajax) return resolve(null);
+
+    const cleanArtist = artist.toLowerCase().replace(/ &.*$| feat.*$| ft\.?.*$/i, "").trim();
+    const cleanTitle = title.toLowerCase().replace(/ &| ft\.?.*$/i, "").replace(/\s*\(.*\)\s*$/g, "").trim();
+    
+    const query = encodeURIComponent(`${cleanArtist} ${cleanTitle}`);
+    const url = `https://itunes.apple.com/search?term=${query}&media=music&limit=1`;
+
+    $.ajax({
+      dataType: "jsonp",
+      url: url,
+      timeout: 5000,
+      success: function (data) {
+        if (data && data.results && data.results.length > 0) {
+          const art100 = data.results[0].artworkUrl100;
+          resolve(art100.replace("100x100", "400x400"));
+        } else {
+          resolve(null);
+        }
+      },
+      error: function () {
+        resolve(null);
+      }
+    });
+  });
+}
+
+async function obtenerCaratula(artist, title) {
+  let cover = await obtenerCaratulaDesdeiTunes(artist, title);
+  if (!cover) cover = "https://santi-graphics.vercel.app/assets/covers/Cover1.png";
+  const validatedUrl = await validarCaratula(cover);
+  return validatedUrl;
+}
+
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// CONTADOR RADIOESCUCHAS (Estable)
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function detenerContadorRadioescuchas() {
+  if (contadorIntervalId !== null) {
+    clearInterval(contadorIntervalId);
+    contadorIntervalId = null;
+  }
+  if (contadorElemento) contadorElemento.textContent = "--";
+}
+
+function iniciarContadorRadioescuchas() {
+  detenerContadorRadioescuchas();
+  if (!contadorElemento) return;
+
+  const baseUrl = "https://technoplayerserver.net:8018/stats?sid=1&json=1";
+  const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(baseUrl)}`;
+
+  function pintar(valor) {
+    contadorElemento.textContent = Number.isFinite(valor) ? String(valor) : "0";
+  }
+
+  function actualizar() {
+    if (modoActual !== "radio") { 
+      detenerContadorRadioescuchas(); 
+      return; 
+    }
+
+    // Usamos JSONP nativo para máxima estabilidad
+    $.ajax({
+      dataType: "jsonp",
+      url: baseUrl,
+      timeout: 4000,
+      success: function (data) {
+        if (data && typeof data.currentlisteners === "number") {
+          pintar(data.currentlisteners);
+        } else {
+          fetch(proxyUrl, { cache: "no-cache" })
+            .then(r => r.json())
+            .then(d => pintar(d?.currentlisteners ?? 0))
+            .catch(() => pintar(0));
+        }
+      },
+      error: function () {
+        fetch(proxyUrl, { cache: "no-cache" })
+          .then(r => r.json())
+          .then(d => pintar(d?.currentlisteners ?? 0))
+          .catch(() => pintar(0));
+      }
+    });
+  }
+
+  contadorElemento.textContent = "--";
+  actualizar();
+  contadorIntervalId = setInterval(actualizar, 15000);
 }
 
 //================================
@@ -389,104 +481,6 @@ function pushHistoryEntry(artist, title, coverUrl) {
   trackHistory.unshift(entry);
   lastValidEntry = entry;
   console.log("🧾 Historial actualizado:", entry);
-}
-
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 🎨 CARÁTULAS (iTunes + fallback externo)
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-function validarCaratula(
-  url,
-  fallback = "https://santi-graphics.vercel.app/assets/covers/Cover1.png"
-) {
-  return new Promise(resolve => {
-    const img = new Image();
-    img.onload = () => {
-      ultimaCaratulaValida = url;
-      resolve(url);
-    };
-    img.onerror = () => {
-      resolve(fallback);
-    };
-    img.src = url;
-  });
-}
-
-async function obtenerCaratulaDesdeiTunes(artist, title) {
-  try {
-    const query = encodeURIComponent(`${artist} ${title}`);
-    const url   = `https://itunes.apple.com/search?term=${query}&media=music&limit=1`;
-    const res   = await fetch(url, { cache: "no-cache" });
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const data  = await res.json();
-    if (data.resultCount > 0) {
-      return data.results[0].artworkUrl100.replace("100x100", "400x400");
-    }
-  } catch (err) {
-    console.warn("⚠️ iTunes falló:", err);
-  }
-  return null;
-}
-
-async function obtenerCaratula(artist, title) {
-  let cover = await obtenerCaratulaDesdeiTunes(artist, title);
-  if (!cover) cover = ultimaCaratulaValida;
-  const validatedUrl = await validarCaratula(cover);
-  return validatedUrl;
-}
-
-
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// CONTADOR RADIOESCUCHAS (estable, sin CORS roturas)
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-function detenerContadorRadioescuchas() {
-  if (contadorIntervalId !== null) {
-    clearInterval(contadorIntervalId);
-    contadorIntervalId = null;
-  }
-  if (contadorElemento) contadorElemento.textContent = "--";
-}
-
-function iniciarContadorRadioescuchas() {
-  detenerContadorRadioescuchas();
-  if (!contadorElemento) return;
-
-  const baseUrl = "http://178.32.146.184:2852/stats?sid=1&json=1";
-  const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(baseUrl)}`;
-
-  function pintar(valor) {
-    contadorElemento.textContent = Number.isFinite(valor) ? String(valor) : "0";
-  }
-
-  function actualizar() {
-    if (modoActual !== "radio") { detenerContadorRadioescuchas(); return; }
-
-    $.ajax({
-      dataType: "jsonp",
-      url: baseUrl,
-      timeout: 4000,
-      success: function (data) {
-        if (data && typeof data.currentlisteners === "number") {
-          pintar(data.currentlisteners);
-        } else {
-          fetch(proxyUrl, { cache: "no-cache" })
-            .then(r => r.json())
-            .then(d => pintar(d?.currentlisteners ?? 0))
-            .catch(() => pintar(0));
-        }
-      },
-      error: function () {
-        fetch(proxyUrl, { cache: "no-cache" })
-          .then(r => r.json())
-          .then(d => pintar(d?.currentlisteners ?? 0))
-          .catch(() => pintar(0));
-      }
-    });
-  }
-
-  contadorElemento.textContent = "--";
-  actualizar();
-  contadorIntervalId = setInterval(actualizar, 15000);
 }
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -539,69 +533,89 @@ function activarModoLocal() {
 function activarModoRadio() {
   modoActual = "radio";
 
-  // Limpieza y preparación
+  // Limpieza y preparación total
   limpiarEmociones();
   detenerActualizacionRadio();
   detenerContadorRadioescuchas();
   detenerKaraoke();
 
   const playlistEl = document.getElementById("track-playlist");
-  const emotionEl  = document.getElementById("track-emotion");
+  const emotionEl = document.getElementById("track-emotion");
   if (playlistEl) playlistEl.textContent = "";
-  if (emotionEl)  emotionEl.textContent  = "radio";
-  if (metaTrack)  metaTrack.textContent  = "";
+  if (emotionEl) emotionEl.textContent = "radio";
+  if (metaTrack) metaTrack.textContent = "";
 
   if (currentArtistName) currentArtistName.textContent = "Conectando...";
-  if (currentTrackName)  currentTrackName.textContent  = "Obteniendo datos...";
+  if (currentTrackName) currentTrackName.textContent = "Obteniendo datos...";
   if (discImg) {
     discImg.src = "https://santi-graphics.vercel.app/assets/covers/Cover1.png";
     discImg.classList.add("rotating");
   }
 
-  // Fallback automático: proxy en HTTPS, directo en HTTP
-  const STREAM_URL = "http://178.32.146.184:2852/stream.mp3";
-  const PROXY_URL  = "https://radio-nine-gilt.vercel.app/api/radio";
+  // 🚨 ACTUALIZACIÓN DE SERVIDOR: TechnoPlayer 8018
+  // El ";" al final es vital para que Chrome no bloquee el puerto 8018
+  const STREAM_URL = "https://technoplayerserver.net:8018/;"; 
+  const PROXY_URL = "https://radio-nine-gilt.vercel.app/api/radio";
+  
+  // Decidimos fuente: Si el sitio es seguro (HTTPS), usamos tu proxy de Vercel
   const radioServer = location.protocol === "https:" ? PROXY_URL : STREAM_URL;
 
-  // Configurar stream de radio
+  // Configurar stream de radio - Reset limpio
   audio.pause();
   audio.src = radioServer;
   audio.load();
+  
+  // Si ya hubo un click (gestureDetected), quitamos el mute
   audio.muted = !gestureDetected;
 
   // Control de reproducción y UI
   const playIcon = playPauseBtn ? playPauseBtn.querySelector("i") : null;
+  
   audio.play().then(() => {
     if (playIcon) {
       playIcon.classList.remove("fa-play");
       playIcon.classList.add("fa-pause");
     }
-    console.log("📻 Radio reproduciendo automáticamente");
+    console.log("📻 Radio TechnoPlayer 8018 conectada vía:", radioServer);
   }).catch(err => {
-    console.warn("🔒 Error al iniciar Radio:", err);
+    console.warn("🔒 Error al iniciar Radio (Esperando interacción):", err);
     if (playIcon) {
       playIcon.classList.remove("fa-pause");
       playIcon.classList.add("fa-play");
     }
   });
 
-  // Mantener stats con AllOrigins
+  // Mantener estadísticas actualizadas
   iniciarActualizacionRadio();
   iniciarContadorRadioescuchas();
 
-  // Reiniciar partículas en modo radio
+  // Reiniciar partículas y efectos en modo radio
   aplicarEfectosPorEmocion("radio");
   iniciarBurbujas("radio");
+  
+  // Actualizar el estado del botón Power
+  actualizarBotonRadio();
 }
 
-
+//================================
+// ACTUALIZAR ESTADO VISUAL BOTÓN RADIO
+//================================
 function actualizarBotonRadio() {
   if (btnRadio) {
-    btnRadio.classList.remove("modo-radio", "modo-local");
-    btnRadio.classList.add(modoActual === "radio" ? "modo-radio" : "modo-local");
+    // Limpiamos clases previas para no acumular basura
+    btnRadio.classList.remove("modo-radio", "modo-local", "active");
+    
+    if (modoActual === "radio") {
+      btnRadio.classList.add("modo-radio", "active");
+    } else {
+      btnRadio.classList.add("modo-local");
+    }
   }
 }
 
+//================================
+// LIMPIEZA DE EMOCIONES Y CLASES
+//================================
 function limpiarEmociones() {
   document.body.classList.remove(
     "emotion-nostalgia",
@@ -609,6 +623,13 @@ function limpiarEmociones() {
     "emotion-energia",
     "emotion-fiesta"
   );
+  
+  // También limpiamos el canvas de partículas si es necesario un reset visual
+  const canvas = document.getElementById("particles");
+  if (canvas) {
+    const ctx = canvas.getContext("2d");
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }
 }
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -1389,52 +1410,26 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// UBICACION
+// 📍 UBICACIÓN (Safe & Static)
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 function updateLocation() {
     const cityElement = document.getElementById("current-city");
     
-    if (!cityElement || !navigator.geolocation) {
-        if (cityElement) {
-            cityElement.textContent = "Ubicación no disponible";
-        }
-        return;
-    }
+    if (!cityElement) return;
 
-    navigator.geolocation.getCurrentPosition(
-        position => {
-            const { latitude, longitude } = position.coords;
+    // Definimos una ciudad fija para evitar el rastreo GPS
+    // Esto evita que salte el popup de permiso en el navegador
+    const ciudadPorDefecto = "DUBAI"; 
 
-            const nominatimUrl = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&zoom=10`;
-
-            fetch(nominatimUrl)
-                .then(res => {
-                    if (!res.ok) throw new Error('Respuesta de Nominatim no válida');
-                    return res.json();
-                })
-                .then(data => {
-                    const city = data.address?.city || 
-                                 data.address?.town || 
-                                 data.address?.village || 
-                                 data.address?.state || 
-                                 data.address?.country;
-
-                    if (city) {
-                        cityElement.textContent = city.toUpperCase();
-                    } else {
-                        cityElement.textContent = "Localidad desconocida";
-                    }
-                })
-                .catch(err => {
-                    cityElement.textContent = "Error al obtener ciudad";
-                });
-        },
-        err => {
-            cityElement.textContent = "DUBAI";
-        }
-    );
+    // Simplemente aplicamos el texto con un ligero retraso para que 
+    // parezca que el sistema está "cargando" la info al iniciar.
+    setTimeout(() => {
+        cityElement.textContent = ciudadPorDefecto.toUpperCase();
+        console.log("📍 Ubicación establecida: " + ciudadPorDefecto);
+    }, 1500);
 }
 
+// Iniciar cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', updateLocation);
 
 
