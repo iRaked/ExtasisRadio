@@ -2,20 +2,20 @@
 <html lang="es">
 <head>
   <!-- Font Awesome -->
-  <link rel="icon" type="image/x-icon" href="assets/SG.ico" />
+  <link rel="icon" type="image/x-icon" href="https://santi-graphics.vercel.app/assets/SG.ico" />
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="author" content="Rick - xat.comn/CasinoDigital">
-  <title>Repro 12</title>
+  <meta name="author" content="Rick">
+  <title>Repro 37</title>
   <!-- Estilos principales -->
   <link rel="stylesheet" href="Repro37.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <!-- Scripts Principales -->
+  <!-- Scripts Principales
   <script type="text/javascript">
   document.onkeydown = function(){return false};
   document.oncontextmenu = function(){return false}
-  </script>
+  </script>-->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="Repro37.js" defer></script>
 
@@ -23,14 +23,13 @@
 
 <body>
     
-  <audio id="player" autoplay muted>
-  <source src="https://technoplayerserver.net:8018/stream?icy=http" type="audio/mpeg">
-</audio>
+    <!-- Audio principal -->
+    <audio id="player" autoplay muted></audio>
     
   <main id="main-container">
       
       <video autoplay muted loop id="bg-video">
-      <source src="assets/video/StageCD.mp4" type="video/mp4" />
+      <source src="https://santi-graphics.vercel.app/assets/video/StageCD.mp4" type="video/mp4" />
       Tu navegador no soporta video HTML5.
       </video>
 
@@ -111,28 +110,35 @@
         </div>
 
         <!-- CONTENEDOR BACKGROUND SWITCH -->
-        <section id="background-panel">
-          <aside id="background-switch">
-            <header class="switch-header">
-              <div class="header-content">
-                <h2>Fondos</h2>
-              </div>
-            </header>
-
+        <div id="background-panel">
+          <div id="background-switch">
+            <div class="switch-header">
+              <h2>Galería de Fondos</h2>
+            </div>
             <section class="background-list">
-              <div class="bg-option" data-bg="assets/bg/bg1.png" style="background-image:url('assets/bg/bg1.png')"></div>
-              <div class="bg-option" data-bg="assets/bg/bg2.png" style="background-image:url('assets/bg/bg2.png')"></div>
-              <div class="bg-option" data-bg="assets/bg/bg3.png" style="background-image:url('assets/bg/bg3.png')"></div>
-              <div class="bg-option" data-bg="assets/bg/bg4.png" style="background-image:url('assets/bg/bg4.png')"></div>
-              <div class="bg-option" data-bg="assets/bg/bg5.png" style="background-image:url('assets/bg/bg5.png')"></div>
-              <div class="bg-option" data-bg="assets/bg/bg6.png" style="background-image:url('assets/bg/bg6.png')"></div>
-              <div class="bg-option" data-bg="assets/bg/bg7.png" style="background-image:url('assets/bg/bg7.png')"></div>
-              <div class="bg-option" data-bg="assets/bg/bg8.png" style="background-image:url('assets/bg/bg8.png')"></div>
-              <div class="bg-option" data-bg="assets/bg/bg9.png" style="background-image:url('assets/bg/bg9.png')"></div>
-              <div class="bg-option" data-bg="assets/bg/bg10.png" style="background-image:url('assets/bg/bg10.png')"></div>
+              <div class="bg-option" data-bg="https://santi-graphics.vercel.app/assets/bg/bg1.png"></div>
+              <div class="bg-option" data-bg="https://santi-graphics.vercel.app/assets/bg/bg2.png"></div>
+              <div class="bg-option" data-bg="https://santi-graphics.vercel.app/assets/bg/bg3.png"></div>
+              <div class="bg-option" data-bg="https://santi-graphics.vercel.app/assets/bg/bg4.png"></div>
+              <div class="bg-option" data-bg="https://santi-graphics.vercel.app/assets/bg/bg5.png"></div>
+              <div class="bg-option" data-bg="https://santi-graphics.vercel.app/assets/bg/bg6.png"></div>
+              <div class="bg-option" data-bg="https://santi-graphics.vercel.app/assets/bg/bg7.png"></div>
+              <div class="bg-option" data-bg="https://santi-graphics.vercel.app/assets/bg/bg8.png"></div>
+              <div class="bg-option" data-bg="https://santi-graphics.vercel.app/assets/bg/bg9.png"></div>
+              <div class="bg-option" data-bg="https://santi-graphics.vercel.app/assets/bg/bg10.png"></div>
             </section>
-          </aside>
-        </section>
+          </div>
+        </div>
+
+        <div id="playlist-panel">
+          <div id="playlist-switch">
+            <div class="switch-header">
+              <h2>Explorar Listas</h2>
+            </div>
+            <section class="playlist-list" id="dynamic-playlist-container">
+              </section>
+          </div>
+        </div>
 
     <!-- Activador lateral -->
     <div id="paint-trigger">
@@ -200,7 +206,7 @@
           <div class="cover-zone">
               <div class="cover-art-border"></div> <!-- Halo externo -->
               <div class="cover-art-wrapper">
-                <img src="assets/covers/Cover1.png" alt="Carátula actual" class="cover-art">
+                <img src="https://santi-graphics.vercel.app/assets/covers/Cover1.png" alt="Carátula actual" class="cover-art">
               </div>
             </div>
 
@@ -294,7 +300,7 @@
           <footer class="footer-inner">
             <a href="#" target="_blank" rel="noreferrer" class="footer-link">
               <img src="assets/SG.ico" alt="icono" class="footer-icon">
-              <h5 class="footer-year">©2025</h5>
+              <h5 class="footer-year">©2026</h5>
             </a>
           </footer>
         </div>
@@ -302,5 +308,4 @@
     </footer>
 
 </body>
-
 </html>

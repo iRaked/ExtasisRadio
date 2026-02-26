@@ -652,10 +652,15 @@ body {
   top: 20px;
   right: -260px;
   width: 260px;
-  height: 100%;
+  /* CAMBIO: height auto para que el panel se ajuste al contenido */
+  height: auto; 
+  /* Limita el panel a la altura de las 10 listas + paddings */
+  max-height: 480px; 
   background-color: rgba(0, 0, 0, 0.7);
   transition: right 0.5s ease;
   pointer-events: auto;
+  border-radius: 8px 0 0 8px; /* Opcional: redondeado para que no se vea cortado seco */
+  overflow: hidden; /* Mantiene el scroll dentro de la lista, no del panel */
 }
 
 #playlist-switch.visible {
@@ -670,6 +675,20 @@ body {
   flex-direction: column;
   padding: 1rem;
   gap: 0.8rem;
+  /* TOPE DE 10 LISTAS VISIBLES */
+  max-height: 450px; 
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--base-color) transparent;
+}
+
+/* Estilo del Scrollbar para mantener la estética */
+.playlist-list::-webkit-scrollbar {
+  width: 6px;
+}
+.playlist-list::-webkit-scrollbar-thumb {
+  background-color: var(--base-color);
+  border-radius: 10px;
 }
 
 .playlist-item {
@@ -683,6 +702,8 @@ body {
   cursor: pointer;
   transition: background 0.3s ease;
   text-align: center;
+  /* Evita que el texto se deforme al activar el scroll */
+  flex-shrink: 0; 
 }
 
 .playlist-item:hover {

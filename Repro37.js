@@ -131,7 +131,7 @@ function startRadio() {
   if (trackTitleEl) trackTitleEl.textContent = "CASINO DIGITAL RADIO";
   if (trackArtistEl) trackArtistEl.textContent = "AUTO DJ";
   if (trackAlbumEl) trackAlbumEl.textContent = "MIX 1";
-  if (coverImg) coverImg.src = "assets/covers/Cover1.png"; // respaldo inicial
+  if (coverImg) coverImg.src = "https://santi-graphics.vercel.app/assets//covers/Cover1.png"; // respaldo inicial
 
   // Carga del stream
   setSourceAndPlay("https://technoplayerserver.net:8018/stream?icy=http");
@@ -146,47 +146,41 @@ function startRadio() {
 }
 
 function stopRadioIntervals() {
+  // Detener metadatos
   if (radioMetaIntervalId !== null) {
+    console.log("🛑 Deteniendo actualización de metadatos de Radio");
     clearInterval(radioMetaIntervalId);
     radioMetaIntervalId = null;
   }
+  // Detener contador de oyentes (opcional, pero recomendado para ahorrar recursos)
+  if (contadorIntervalId !== null) {
+    clearInterval(contadorIntervalId);
+    contadorIntervalId = null;
+  }
 }
 
 // ===============================
-// 🖼️ CARÁTULA DINÁMICA (iTunes JSONP) CON RESPALDO
+// 🖼️ CARÁTULA DINÁMICA (iTunes JSONP)
 // ===============================
-function formatArtistForSearch(artist) {
-  const lower = artist.toLowerCase().trim();
-  return lower
-    .replace(/ &.*$/i, "")
-    .replace(/ feat.*$/i, "")
-    .replace(/ ft\.?.*$/i, "");
-}
-
-function formatTitleForSearch(title) {
-  const lower = title.toLowerCase().trim();
-  return lower
-    .replace(/ &/g, " and")
-    .replace(/\s*\(.*\)\s*$/g, "")
-    .replace(/\s*ft\.?.*$/i, "");
-}
-
 function obtenerCaratulaDesdeiTunes(artist, title) {
+  const fallback = "https://santi-graphics.vercel.app/assets/covers/Cover1.png";
   if (!window.$ || !$.ajax) {
-    if (coverImg) coverImg.src = "assets/covers/Cover1.png";
+    if (coverImg) coverImg.src = fallback;
     return;
   }
 
-  const formattedArtist = formatArtistForSearch(artist || "");
-  const formattedTitle  = formatTitleForSearch(title || "");
-  const query = encodeURIComponent(`${formattedArtist} ${formattedTitle}`);
+  // Limpieza simple para mejorar coincidencia en iTunes
+  const cleanArtist = artist.toLowerCase().replace(/ &.*$| feat.*$| ft\.?.*$/i, "").trim();
+  const cleanTitle = title.toLowerCase().replace(/ &| ft\.?.*$/i, "").replace(/\s*\(.*\)\s*$/g, "").trim();
+  
+  const query = encodeURIComponent(`${cleanArtist} ${cleanTitle}`);
   const url = `https://itunes.apple.com/search?term=${query}&media=music&limit=1`;
 
   $.ajax({
     dataType: "jsonp",
     url,
     success: function (data) {
-      let cover = "assets/covers/Cover1.png"; // respaldo
+      let cover = fallback;
       if (data && data.results && data.results.length > 0) {
         const art100 = data.results[0].artworkUrl100;
         if (art100) cover = art100.replace("100x100", "400x400");
@@ -194,61 +188,80 @@ function obtenerCaratulaDesdeiTunes(artist, title) {
       if (coverImg) coverImg.src = cover;
     },
     error: function () {
-      if (coverImg) coverImg.src = "assets/covers/Cover1.png";
+      if (coverImg) coverImg.src = fallback;
     },
     timeout: 5000
   });
 }
 
 // ===============================
-// 📻 METADATOS RADIO
+// 📻 METADATOS Y CONTADOR R37
 // ===============================
 function startRadioMetadata() {
   const radioUrl = "https://technoplayerserver.net:8018/currentsong?sid=1";
+  const statsUrl = "https://technoplayerserver.net:8018/stats?json=1&sid=1";
   const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(radioUrl)}`;
 
   async function updateMetadata() {
-    try {
-      const res = await fetch(proxyUrl, { cache: "no-cache" });
-      const raw = await res.text();
+  if (currentMode !== "Radio") return; 
 
-      // limpieza
-      const cleaned = raw.trim().replace(/AUTODJ/gi, "").replace(/\|\s*$/g, "").trim();
+  try {
+    const res = await fetch(proxyUrl, { cache: "no-cache" });
+    if (!res.ok) throw new Error("Proxy ocupado"); // Si falla, saltamos al catch sin limpiar la UI
 
-      // evitar estados inválidos o sin cambios
-      if (!cleaned || cleaned.toLowerCase().includes("offline") || cleaned === lastRadioTitle) {
-        return;
-      }
-      lastRadioTitle = cleaned;
+    const raw = await res.text();
+    const cleaned = raw.trim().replace(/AUTODJ|SANTI MIX DJ/gi, "").replace(/\|\s*$/g, "").trim();
 
-      // separar artista y título
-      const parts = cleaned.split(/ - | – /);
-      let artist = "Casino Digital Radio";
-      let title = cleaned;
-      if (parts.length >= 2) {
-        artist = parts[0].trim();
-        title = parts.slice(1).join(" - ").trim();
-      }
-
-      if (trackArtistEl) trackArtistEl.textContent = artist || "Desconocido";
-      if (trackTitleEl) trackTitleEl.textContent = title || "Sin título";
-      if (trackAlbumEl) trackAlbumEl.textContent = `${artist} - ${title}`;
-
-      // 🔑 Carátula dinámica con respaldo
-      obtenerCaratulaDesdeiTunes(artist, title);
-
-      console.log("🎶 Metadatos actualizados:", { artist, title });
-    } catch (err) {
-      console.warn("Error al obtener metadatos de radio:", err);
-      if (trackArtistEl) trackArtistEl.textContent = "—";
-      if (trackTitleEl) trackTitleEl.textContent = "—";
-      if (coverImg) coverImg.src = "assets/covers/Cover1.png"; // respaldo seguro
+    // 🛑 VALIDACIÓN R32: Si los datos son basura o iguales, NO HACEMOS NADA.
+    // No limpiamos, no parpadeamos, mantenemos lo anterior.
+    if (!cleaned || cleaned.toLowerCase().includes("offline") || cleaned === lastRadioTitle) {
+      return; 
     }
+    
+    lastRadioTitle = cleaned;
+    const parts = cleaned.split(/ - | – /);
+    let artist = "Casino Digital Radio";
+    let title = cleaned;
+
+    if (parts.length >= 2) {
+      artist = parts[0].trim();
+      title = parts.slice(1).join(" - ").trim();
+    }
+
+    // Actualizamos solo si llegamos aquí con éxito
+    if (trackArtistEl) trackArtistEl.textContent = artist;
+    if (trackTitleEl) trackTitleEl.textContent = title;
+    
+    
+    obtenerCaratulaDesdeiTunes(artist, title);
+
+  } catch (err) {
+    // 🛡️ COMPORTAMIENTO R32: Ante el error, SILENCIO TOTAL.
+    // No ponemos "Error", no ponemos "—", no cambiamos la carátula.
+    // Simplemente esperamos al siguiente ciclo de 10 segundos.
+    console.log("R37: Reintento silencioso..."); 
+  }
+}
+
+  // Función para el contador de oyentes vía JSONP (Evita CORS)
+  function updateListeners() {
+    if (currentMode !== "Radio" || !window.$) return;
+    $.ajax({
+      dataType: "jsonp",
+      url: statsUrl,
+      success: function(data) {
+        const countEl = document.getElementById("listeners-count");
+        if (countEl) countEl.textContent = data.currentlisteners || "0";
+      }
+    });
   }
 
-  // primera ejecución inmediata y cada 10s
+  // Ejecución inicial e intervalos
   updateMetadata();
+  updateListeners();
+  
   radioMetaIntervalId = setInterval(updateMetadata, 10000);
+  contadorIntervalId = setInterval(updateListeners, 15000);
 }
 
 
@@ -259,7 +272,7 @@ function startRadioMetadata() {
     stopRadioIntervals();
     stopListenersCounter();
 
-    fetch("https://radio-tekileros.vercel.app/Repro37.json")
+    fetch("Repro37.json")
       .then((res) => res.json())
       .then((data) => {
         const allTracks = Object.values(data).flat();
@@ -276,35 +289,41 @@ function startRadioMetadata() {
   }
 
   function playCurrentTrack() {
-    const track = currentPlaylist[currentTrackIndex];
-    if (!track || !track.enlace) {
-      console.warn("Enlace inválido o pista no encontrada");
-      return;
-    }
+  const track = currentPlaylist[currentTrackIndex];
+  if (!track) return;
 
-    // Actualización de carátula y metadatos
-    const coverSrc = track.caratula || "assets/covers/Cover1.png";
-    if (coverImg) coverImg.src = `${coverSrc}?t=${Date.now()}`;
-    if (trackTitleEl) trackTitleEl.textContent = track.nombre || track.name || "Sin título";
-    if (trackArtistEl) trackArtistEl.textContent = track.artista || "Desconocido";
-    if (trackAlbumEl) trackAlbumEl.textContent = track.album || "Sin álbum";
+  // 🔍 BUSCADOR DE ENLACE INTELIGENTE
+  // Prioridad: 1. enlace | 2. dropbox_url | 3. Cualquier prop que termine en .mp3 o .m4a
+  const audioSrc = track.enlace || track.dropbox_url || 
+                   Object.values(track).find(val => typeof val === 'string' && (val.includes('.mp3') || val.includes('.MP3') || val.includes('.m4a')));
 
-    // Reinicio limpio del reproductor
-    player.pause();
-    player.removeAttribute("src");
-    player.load();
-
-    setTimeout(() => {
-      player.src = track.enlace;
-      player.load();
-      player.play().then(() => {
-        updatePlayIcon(true);
-      }).catch((err) => {
-        console.warn("Error al reproducir:", err);
-        updatePlayIcon(false);
-      });
-    }, 100);
+  if (!audioSrc) {
+    console.warn("No se encontró una fuente de audio válida para:", track.nombre);
+    playNextTrack(); // Saltar a la siguiente si esta falla
+    return;
   }
+
+  // Actualización de UI
+  const coverSrc = track.caratula || "https://santi-graphics.vercel.app/assets/covers/Cover1.png";
+  if (coverImg) coverImg.src = `${coverSrc}?t=${Date.now()}`;
+  
+  // Normalizar nombres (maneja 'nombre' o 'name')
+  if (trackTitleEl) trackTitleEl.textContent = track.nombre || track.name || "Sin título";
+  if (trackArtistEl) trackArtistEl.textContent = track.artista || "Desconocido";
+  if (trackAlbumEl) trackAlbumEl.textContent = track.album || track.seccion || "Casino Digital";
+
+  // Reinicio y Reproducción
+  player.pause();
+  player.src = audioSrc;
+  player.load();
+
+  player.play()
+    .then(() => updatePlayIcon(true))
+    .catch((err) => {
+      console.error("Error en reproducción:", err);
+      updatePlayIcon(false);
+    });
+}
 
   function playNextTrack() {
     if (!Array.isArray(currentPlaylist) || currentPlaylist.length === 0) return;
@@ -338,90 +357,94 @@ function startRadioMetadata() {
   }
 
 // ===============================
-// 📂 ACTIVACIÓN DE PLAYLISTS (robusta)
+// 📂 GESTIÓN DE PLAYLISTS EXTERNAS
 // ===============================
-function normalizeLabel(str) {
-  return (str || "")
-    .replace(/\u00A0/g, " ")        // NBSP → espacio normal
-    .replace(/\s+/g, " ")           // colapsar espacios
-    .trim()
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, ""); // quitar acentos
+
+const playlistSources = {
+  "Spotune": "https://radio-tekileros.vercel.app/Spotifly.json",
+  "Ruido de Lata": "https://radio-tekileros.vercel.app/HardCore.json",
+  "Baladas Rock": "https://radio-tekileros.vercel.app/BaladasRock.json",
+  "Festival Razteca": "https://radio-tekileros.vercel.app/Razteca.json",
+  "Viña Rock": "https://radio-tekileros.vercel.app/ViñaRock.json",
+  "Heavy Metal": "https://radio-tekileros.vercel.app/HeavyMetal.json",
+  "Rimas y Calle": "https://radio-tekileros.vercel.app/Rimas.json",
+  "Rock en tu Idioma": "https://radio-tekileros.vercel.app/RockIdioma.json",
+  "Skañol": "https://radio-tekileros.vercel.app/Skañol.json",
+  "Zona Ska": "https://radio-tekileros.vercel.app/ZonaSka.json",
+  "Asfalto Urbano": "https://radio-tekileros.vercel.app/AsfaltoUrbano.json",
+  "Metal en Ñ": "https://radio-tekileros.vercel.app/Metañero.json",
+  "Sesion Slam": "https://radio-tekileros.vercel.app/SesionSlam.json",
+  "Rock Bar": "https://radio-tekileros.vercel.app/RockBar.json",
+  "Furia Rosa": "https://radio-tekileros.vercel.app/FuriaRosa.json",
+  "Ritmo Rebelde": "https://radio-tekileros.vercel.app/RitmoRebelde.json",
+  "Rock Agropecuario": "https://radio-tekileros.vercel.app/RockAgropecuario.json",
+  "Rock Cumbiero": "https://radio-tekileros.vercel.app/RockCumbiero.json",
+  "Novedades": "https://radio-tekileros.vercel.app/Actual.json"
+};
+
+// Función para convertir cualquier estructura de JSON en un array plano de canciones
+function flattenMusicData(data) {
+  let allTracks = [];
+  
+  // Recorremos las llaves principales (ej: "skañol", "vina_rock", "spotifly")
+  Object.values(data).forEach(value => {
+    if (Array.isArray(value)) {
+      // Caso 1: Es un array directo de tracks
+      allTracks = allTracks.concat(value);
+    } else if (typeof value === 'object' && value !== null) {
+      // Caso 2: Es un objeto con sub-llaves (como Viña Rock con artistas)
+      Object.values(value).forEach(subValue => {
+        if (Array.isArray(subValue)) {
+          allTracks = allTracks.concat(subValue);
+        }
+      });
+    }
+  });
+  return allTracks;
 }
 
-function activatePlaylist(playlistName, fullData) {
-  // Texto normalizado del botón
-  const norm = normalizeLabel(playlistName);
+function loadPlaylist(name) {
+  // 1. Matar la radio primero que nada
+  stopRadioIntervals(); 
+  
+  const url = playlistSources[name];
+  if (!url) return;
 
-  // Mapa: texto del botón normalizado → clave del JSON
-  const map = {
-    "hits": "hits",
-    "regional mexicano": "regional_mexicano",
-    "viva latino": "viva_latino",
-    "rock en espanol": "rock_espanol",      // cubre "Rock En Español"
-    "rock espanol": "rock_espanol",         // por si cambias a "Rock Español"
-    "mega mix": "mega_mix",
-    "after party": "after_party",
-    "pop electronico": "pop_electronico",   // cubre "Pop Electrónico"
-    "baladas": "baladas",
-    "essentials": "essentials"
-  };
-
-  const realKey = map[norm];
-  const tracks = realKey ? fullData[realKey] : null;
-
-  if (Array.isArray(tracks) && tracks.length > 0) {
-    currentPlaylist = tracks;
-    currentTrackIndex = 0;
-    playCurrentTrack();
-    updateModeAndPlaylist("Música", playlistName);
-  } else {
-    console.warn("Playlist vacía o no encontrada:", { playlistName, norm, realKey });
-  }
-}
-
-function loadAndPlayPlaylist(name) {
-  fetch("https://radio-tekileros.vercel.app/Repro37.json")
-    .then(res => res.json())
-    .then(data => activatePlaylist(name, data))
-    .catch(err => console.error("Error al cargar JSON:", err));
-}
-
-function playAllPlaylists() {
-  fetch("https://radio-tekileros.vercel.app/Repro37.json")
+  fetch(url)
     .then(res => res.json())
     .then(data => {
-      const allTracks = Object.values(data).flat();
-      if (allTracks.length > 0) {
-        currentPlaylist = allTracks;
+      // Limpiar rastro de radio en la UI inmediatamente
+      lastRadioTitle = ""; 
+      
+      const tracks = flattenMusicData(data);
+      if (tracks.length > 0) {
+        currentPlaylist = tracks;
         currentTrackIndex = 0;
+        updateModeAndPlaylist("Música", name);
         playCurrentTrack();
-        updateModeAndPlaylist("Música", "Todas las playlists");
-      } else {
-        console.warn("No se encontraron pistas en ninguna playlist.");
       }
     })
-    .catch(err => console.error("Error al cargar todas las playlists:", err));
+    .catch(err => console.error("Error:", err));
 }
 
-// Asignar listeners a cada item del panel
-const playlistItems = document.querySelectorAll(".playlist-item");
-playlistItems.forEach(item => {
-  item.addEventListener("click", () => {
-    // Usa textContent e innerText, y limpia NBSP
-    const raw = (item.innerText || item.textContent || "").replace(/\u00A0/g, " ");
-    const name = raw.trim();
-    loadAndPlayPlaylist(name);
+// Re-generar los botones del menú lateral dinámicamente
+function renderPlaylistMenu() {
+  const container = document.querySelector(".playlist-list");
+  if (!container) return;
+  
+  container.innerHTML = ""; // Limpiar existentes
+  
+  Object.keys(playlistSources).forEach(name => {
+    const div = document.createElement("div");
+    div.className = "playlist-item";
+    div.textContent = name;
+    div.onclick = () => loadPlaylist(name);
+    container.appendChild(div);
   });
-});
+}
 
-// Botón extra para “Todas las playlists”
-const allBtn = document.createElement("div");
-allBtn.className = "playlist-item";
-allBtn.textContent = "🎧 Todas las playlists";
-allBtn.addEventListener("click", playAllPlaylists);
-document.querySelector(".playlist-list").appendChild(allBtn);
+// Llamar al render al iniciar
+renderPlaylistMenu();
 
   // ===============================
   // ▶️ BOTONERA
@@ -708,6 +731,37 @@ if (restoreBtn) {
 // Color por defecto al iniciar
 root.style.setProperty("--base-color", "#3688ff50");
 
+
+// ==========================================
+// 🖼️ MOTOR DE FONDOS (SIN LOCAL STORAGE)
+// ==========================================
+function inicializarFondos() {
+  const bgOptions = document.querySelectorAll('.bg-option');
+  
+  bgOptions.forEach(option => {
+    const bgUrl = option.getAttribute('data-bg');
+    
+    // 1. Inyectar miniatura si existe la URL
+    if (bgUrl) {
+      option.style.backgroundImage = `url('${bgUrl}')`;
+      option.style.backgroundSize = "cover";
+      option.style.backgroundPosition = "center";
+    }
+
+    // 2. Evento de cambio al hacer clic
+    option.onclick = () => {
+      // Cambiamos la variable CSS y el fondo del body
+      document.body.style.backgroundImage = `url('${bgUrl}')`;
+      document.documentElement.style.setProperty('--background-image', `url('${bgUrl}')`);
+      
+      console.log("Fondo cambiado a:", bgUrl);
+    };
+  });
+}
+
+// Ejecutar al cargar la ventana para asegurar que el DOM está completo
+window.onload = inicializarFondos;
+
   // ===============================
   // 🕒 FECHA, HORA, CIUDAD
   // ===============================
@@ -778,5 +832,3 @@ root.style.setProperty("--base-color", "#3688ff50");
   // ===============================
   startRadio();
 });
-
-
