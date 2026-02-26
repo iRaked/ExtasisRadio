@@ -250,28 +250,33 @@ function iniciarActualizacionRadio() {
     detenerActualizacionRadio();
     iniciarContadorRadioescuchas();
 
-    // Nueva URL del servidor
-    const radioUrl = "https://mx.hdaudiostreaming.com:7157/currentsong?sid=1";
+    // 1. URL Correcta para datos de SonicPanel (sin puerto 8042)
+    const radioUrl = "https://sonicpanel.tmcreativos.com/cp/get_info.php?p=8042";
+    // Usamos allorigins como puente para evitar bloqueos de seguridad (CORS)
     const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(radioUrl)}`;
-
 
     async function actualizarDesdeServidor() {
         try {
             const response = await fetch(proxyUrl, { cache: 'no-cache' });
-            const newSongTitleRaw = await response.text();
+            // 2. IMPORTANTE: SonicPanel responde con un JSON, no con texto plano
+            const data = await response.json(); 
             
-            const cleanedTitle = newSongTitleRaw.trim().replace(/AUTODJ/gi, '').replace(/\|\s*$/g, '').trim();
+            // Extraemos el título del objeto JSON
+            const rawTitle = data.title || "";
+            
+            const cleanedTitle = rawTitle.trim().replace(/AUTODJ/gi, '').replace(/\|\s*$/g, '').trim();
 
             if (!cleanedTitle || cleanedTitle.toLowerCase().includes('offline') || cleanedTitle === lastTrackTitle) {
                  if (cleanedTitle && cleanedTitle.toLowerCase().includes('offline')) {
-                     if (currentArtistName) currentArtistName.textContent = "¡Música sí!";
-                     if (currentTrackName) currentTrackName.textContent = "Datos bloqueados";
+                     if (currentArtistName) currentArtistName.textContent = "Sintonizando...";
+                     if (currentTrackName) currentTrackName.textContent = "Señal en vivo";
                  }
                  return;
             }
             
             lastTrackTitle = cleanedTitle;
             
+            // Separar Artista y Título (SonicPanel suele enviar "Artista - Canción")
             const songtitleSplit = cleanedTitle.split(/ - | – /);
             let artist = "Radio";
             let title = cleanedTitle; 
@@ -281,7 +286,7 @@ function iniciarActualizacionRadio() {
                 title = songtitleSplit.slice(1).join(' - ').trim(); 
             }
             
-            // 🛑 CRÍTICO: ALIMENTAR EL HISTORIAL DE RADIO
+            // 🛑 CRÍTICO: ALIMENTAR EL HISTORIAL
             const currentTrackTime = new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
             const newHistoryEntry = {
                 artist: artist,
@@ -289,36 +294,33 @@ function iniciarActualizacionRadio() {
                 time: currentTrackTime
             };
 
-            // Asegura que no se añada la misma pista dos veces seguidas
             if (trackHistory.length === 0 || trackHistory[0].title !== title) {
-                trackHistory.unshift(newHistoryEntry); // Añadir al inicio
-                // Limitar el historial a 20 entradas
+                trackHistory.unshift(newHistoryEntry);
                 if (trackHistory.length > 20) {
                     trackHistory.pop();
                 }
             }
-            // ---------------------------------------------
             
             const fullTrackInfo = `${artist} - ${title}`;
 
-            // Actualización Visual (Controles principales)
+            // Actualización Visual
             if (currentArtistName) currentArtistName.textContent = artist;
             if (currentTrackName) currentTrackName.textContent = title;
             if (metaTrack) metaTrack.textContent = fullTrackInfo;
             
-            // ... (Lógica de marquesina y carátula) ...
-
+            // Intentar obtener carátula
             obtenerCaratulaDesdeiTunes(artist, title);
 
         } catch (error) {
             console.error("❌ Error CRÍTICO en la actualización de Radio:", error);
-            if (currentArtistName) currentArtistName.textContent = "Error";
-            if (currentTrackName) currentTrackName.textContent = "al cargar metadatos";
+            // Si el error es por el JSON, intentaremos mostrar algo genérico
+            if (currentArtistName) currentArtistName.textContent = "En vivo";
+            if (currentTrackName) currentTrackName.textContent = "Amor en el aire";
         }
     }
 
     actualizarDesdeServidor();
-    radioIntervalId = setInterval(actualizarDesdeServidor, 10000);
+    radioIntervalId = setInterval(actualizarDesdeServidor, 15000); // 15 seg para no saturar el proxy
 }
     
 // ===================================
@@ -333,24 +335,37 @@ function detenerContadorRadioescuchas() {
 function iniciarContadorRadioescuchas() {
     detenerContadorRadioescuchas();
     if (typeof $ === 'undefined' || typeof $.ajax === 'undefined' || !contadorElemento) return;
-    // Nueva URL para el contador de radioescuchas
-    const contadorUrl = "https://mx.hdaudiostreaming.com:7157/stats?json=1&sid=1";
+
+    // Nueva URL de SonicPanel (ruta de información centralizada)
+    const contadorUrl = "https://sonicpanel.tmcreativos.com/cp/get_info.php?p=8042";
 
     function actualizarContador() {
-        if (modoActual !== "radio") { detenerContadorRadioescuchas(); return; }
-        $.ajax({
-            dataType: 'jsonp',
-            url: contadorUrl,
-            success: function(data) {
-                contadorElemento.textContent = data.currentlisteners || "0";
-            },
-            error: function() {
-                contadorElemento.textContent = "0";
-            },
-            timeout: 5000
-        });
-    }
+    if (modoActual !== "radio") { detenerContadorRadioescuchas(); return; }
+    
+    $.ajax({
+        url: contadorUrl,
+        method: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            // 1. Actualiza los oyentes
+            contadorElemento.textContent = data.listeners || "0";
+            
+            // 2. ¡ACTUALIZA LA CANCIÓN AQUÍ! 
+            // Buscamos el elemento donde se muestra el nombre en tu repro
+            const trackNameElement = document.getElementById('current-track-name');
+            if (trackNameElement && data.title) {
+                trackNameElement.textContent = data.title;
+            }
+        },
+        error: function() {
+            contadorElemento.textContent = "0";
+        },
+        timeout: 5000
+    });
+}
+
     actualizarContador();
+    // Lo mantenemos en 15 segundos para no saturar el servidor
     contadorIntervalId = setInterval(actualizarContador, 15000);
 }
 
@@ -394,8 +409,8 @@ function activarModoRadio() {
     // 🔑 CLAVE 1: Pausar y resetear el estado de reproducción del modo anterior
     audio.pause();
     
-    // 🔑 CLAVE 2: Asignar el SRC
-    audio.src = "https://mx.hdaudiostreaming.com:7157/stream?icy=http";
+    // 🔑 CLAVE 2: Asignar el SRC (Actualizado para SonicPanel)
+    audio.src = "https://sonicpanel.tmcreativos.com:8042/stream";
     audio.load();
 
     // 1. Asegurarse de que el audio esté silenciado temporalmente (el gesto ya lo desbloqueó)
@@ -797,17 +812,10 @@ function actualizarModalActualTrack() {
 // ===============================
 function actualizarBarraVolumen(volume) {
     const percentage = volume * 100;
-    const activeColor = '#9400D3';   // COLORES
-    const inactiveColor = '#800080';
-
+    
     if (volumeBar) {
-        volumeBar.style.background = `linear-gradient(
-            to right,
-            ${activeColor} 0%,
-            ${activeColor} ${percentage}%,
-            ${inactiveColor} ${percentage}%,
-            ${inactiveColor} 100%
-        )`;
+        // Esta línea actualiza la variable en el CSS que lee el 'runnable-track'
+        volumeBar.style.setProperty('--p', percentage + '%');
     }
 }
 
@@ -833,6 +841,7 @@ function inicializarVolumen() {
             actualizarBarraVolumen(newVolume);
 
             if (volumeIcon) {
+                // Mantenemos tu lógica de iconos original
                 volumeIcon.className = (newVolume === 0) ? 
                     'fas fa-volume-mute volume-icon' : 
                     'fas fa-volume-down volume-icon';
@@ -840,6 +849,74 @@ function inicializarVolumen() {
         });
     }
 }
+    
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// 🔄 ANIMACIÓN DE TEXTO BIENVENIDA CON LOGS
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+document.addEventListener("DOMContentLoaded", () => {
+  var words = document.getElementsByClassName('word');
+  var wordArray = [];
+  var currentWord = 0;
+
+  console.log("▶ Animación iniciada. Palabras encontradas:", words.length);
+
+  if (words.length === 0) {
+    console.warn("⚠ No se encontraron elementos con clase 'word'.");
+    return;
+  }
+
+  words[currentWord].style.opacity = 1;
+  for (var i = 0; i < words.length; i++) {
+    console.log("✂ Dividiendo palabra:", words[i].innerText);
+    splitLetters(words[i]);
+  }
+
+  function changeWord() {
+    console.log("🔄 Cambio de palabra. Índice actual:", currentWord);
+    var cw = wordArray[currentWord];
+    var nw = currentWord == words.length - 1 ? wordArray[0] : wordArray[currentWord + 1];
+    for (var i = 0; i < cw.length; i++) animateLetterOut(cw, i);
+    for (var i = 0; i < nw.length; i++) {
+      nw[i].className = 'letter behind';
+      nw[0].parentElement.style.opacity = 1;
+      animateLetterIn(nw, i);
+    }
+    currentWord = (currentWord == wordArray.length - 1) ? 0 : currentWord + 1;
+    console.log("✅ Nueva palabra activa:", nw.map(l => l.innerText).join(""));
+  }
+
+  function animateLetterOut(cw, i) {
+    setTimeout(() => {
+      cw[i].className = 'letter out';
+      console.log("⬅ Letra OUT:", cw[i].innerText, "posición", i);
+    }, i * 80);
+  }
+
+  function animateLetterIn(nw, i) {
+    setTimeout(() => {
+      nw[i].className = 'letter in';
+      console.log("➡ Letra IN:", nw[i].innerText, "posición", i);
+    }, 340 + (i * 80));
+  }
+
+  function splitLetters(word) {
+    var content = word.innerHTML;
+    word.innerHTML = '';
+    var letters = [];
+    for (var i = 0; i < content.length; i++) {
+      var letter = document.createElement('span');
+      letter.className = 'letter';
+      letter.innerHTML = content.charAt(i);
+      word.appendChild(letter);
+      letters.push(letter);
+    }
+    wordArray.push(letters);
+    console.log("🧩 Palabra dividida en letras:", letters.map(l => l.innerText));
+  }
+
+  changeWord();
+  setInterval(changeWord, 4000);
+});
 
 // ===============================
 // 🌌 PARTÍCULAS — FONDO VIVO (Lógica de las burbujas)
