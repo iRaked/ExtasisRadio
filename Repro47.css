@@ -1,0 +1,931 @@
+body {
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  z-index: 0;
+}
+
+.repro-box {
+  position: relative;
+  z-index: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  background: transparent;
+}
+
+/* ===================== */
+/* 🖼️ FONDO PRINCIPAL (REPRO 45) */
+/* ===================== */
+.bg-water {
+    /* 1. Fondo (Imagen y comportamiento) */
+    background: url('https://santi-graphics.vercel.app/assets/bg/BG-Extasis.png') no-repeat center center / cover !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+
+    /* 2. Dimensiones */
+    width: 750px !important;
+    height: 425px !important;
+
+    /* 3. Estética de bordes y resplandor */
+    border-radius: 20px !important;
+    border: 2px solid #FF1493 !important;
+    box-shadow: 0 0 30px rgba(255, 20, 147, 0.6) !important;
+
+    /* 4. Comportamiento y Capas */
+    position: relative !important;
+    overflow: hidden !important;
+    pointer-events: auto !important;
+    z-index: 0 !important;
+
+    /* 5. Corrección de visualización */
+    display: block !important;
+}
+
+/* ===================== */
+/* 💿 PARTE 2: DISCO, ENCABEZADO Y TEXTOS */
+/* ===================== */
+.repro-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.btn-menu {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.icon-menu {
+  width: 32px;
+  height: 32px;
+  fill: #fff;
+  transition: transform 0.3s ease;
+}
+
+.icon-menu:hover {
+  transform: scale(1.1);
+}
+
+.btn-radio {
+  width: 40px;
+  height: 40px;
+  background-color: rgba(255, 20, 147, 0.6); /* Deep Pink translúcido en rgba */
+  border: 2px solid #ff1493;                 /* borde sólido en hex */
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+
+.btn-radio:hover {
+  transform: translateY(-2px);
+}
+
+.btn-radio svg {
+  width: 60%;
+  height: 60%;
+  fill: #000000;
+  pointer-events: none;
+}
+
+.radioescuchas {
+  position: absolute;
+  top: 80px;
+  left: 20px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: white;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 4px 8px;
+  border-radius: 6px;
+  box-shadow: 0 0 8px rgba(255, 20, 147, 0.9);
+  z-index: 10;
+}
+
+/* ===================== */
+/* INFO TIME (fecha/hora) */
+/* ===================== */
+.info-time {
+  margin-left: 15px;              /* separación respecto al botón menú */
+  font-family: 'Orbitron', sans-serif; /* tipografía ceremonial */
+  font-size: 0.9rem;
+  color: #fff;
+  padding: 4px 10px;
+  background: rgba(255, 20, 147, 0.3); /* translúcido */
+  border: 1px solid #FF1493;
+  border-radius: 6px;
+  box-shadow:
+    0 0 8px #FF1493,
+    2px 2px 6px rgba(0,0,0,0.8);
+  white-space: nowrap;            /* evita salto de línea */
+  text-shadow: 0 0 6px #FF1493;   /* brillo ceremonial */
+}
+
+/* ===================== */
+/* BLOQUE BIENVENIDA */
+/* ===================== */
+.bloque-bienvenida {
+  position: absolute;
+  top: 50%;        /* mitad vertical */
+  left: 1%;        /* ajusta este valor para moverlo más a la izquierda */
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.logo-container-bienvenida {
+  text-align: center;
+}
+
+.logo-base-bienvenida.zoom-effect {
+  width: 150px;
+  height: auto;
+  animation: zoomInOut 6s ease-in-out infinite;
+}
+
+@keyframes zoomInOut {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+.context-bienvenida {
+  text-align: center;
+}
+
+/* Ajustes para que las palabras se superpongan correctamente */
+.context-bienvenida {
+  position: relative;
+  width: 300px; /* Ajusta según el largo de tu texto */
+  height: 50px; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.animtext {
+  position: relative;
+  width: 100%;
+}
+
+.word {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  white-space: nowrap;
+  font-weight: bold;
+  font-size: 24px; /* Ajusta a tu gusto */
+  color: #FF1493;
+  text-align: center;
+}
+
+.letter {
+  display: inline-block;
+  position: relative;
+  transform-style: preserve-3d;
+}
+
+p.animtext {
+  margin: 0;
+  color: #800080;
+  perspective: 1000px; /* da profundidad al efecto 3D */
+}
+
+.letter.out {
+  transform: rotateX(90deg);
+  transition: transform 0.32s cubic-bezier(0.55, 0.055, 0.675, 0.19);
+}
+.letter.behind {
+  transform: rotateX(-90deg);
+}
+.letter.in {
+  transform: rotateX(0deg);
+  transition: transform 0.38s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* ===================== */
+/* LOGO RADIO */
+/* ===================== */
+.lateral-container {
+  position: absolute;
+  top: 40%;
+  left: 50%;   /* izquierda media de main */
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.logo-container {
+  text-align: center;
+}
+
+.logo-base.zoom-effect {
+  width: 250px;
+  height: auto;
+  animation: zoomInOut 6s ease-in-out infinite;
+}
+
+.context {
+  text-align: center;
+}
+
+/* ===================== */
+/* ESTRUCTURA BASE Y LOGO */
+/* ===================== */
+.logo-waves-wrapper {
+    position: relative; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 250px;
+    height: 250px;
+    gap: 12px;
+    margin: 20px auto;
+    transform: scale(0.85);
+}
+
+.radio-logo {
+    width: 100%;
+    max-width: 220px;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    margin: 0; 
+    border: 1px solid rgb(255, 255, 255);
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    animation: vinylSpin 3s linear infinite, glow 3s infinite alternate;
+    box-shadow: 0 0 15px rgb(255, 255, 255);
+    z-index: 6; 
+    isolation: isolate;
+}
+
+.radio-logo::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 1.0;
+    z-index: 2;
+}
+
+.radio-logo:hover {
+    box-shadow: 0 0 20px rgba(255, 20, 147, 0.8);
+}
+
+/* CAPA DE EFECTOS */
+.effects-layer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+    pointer-events: none;
+}
+
+/* ===================== */
+/* PULSO MEDIA LUNA */
+/* ===================== */
+.orbital_container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.avatar-glow {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+}
+
+.avatar-glow::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 280px;
+    height: 280px;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: conic-gradient(
+        from 90deg,
+        rgba(255, 20, 147, 0.6), /* Deep Pink translúcido */
+        #ff1493,                 /* Deep Pink sólido */
+        #e1dc5a                  /* crema */
+    );
+    filter: blur(25px);
+    opacity: 0.6;
+    z-index: 0;
+    animation: glowPulse 6s ease-in-out infinite;
+}
+
+.orbital_arc {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 260px;
+    height: 260px;
+    transform: translate(-50%, -50%);
+    transform-origin: 50% 50%;
+    border-radius: 50%;
+    z-index: 1;
+    background: conic-gradient(
+        from 90deg,
+        transparent 0deg,
+        rgba(255, 20, 147, 0.6) 60deg, /* Deep Pink translúcido */
+        #ff1493 120deg,                /* Deep Pink sólido */
+        transparent 180deg
+    );
+    mask: radial-gradient(circle at center, transparent 100px, black 128px);
+    animation: arcSpin 6s linear infinite;
+    opacity: 0.9;
+}
+
+.arc2 {
+    animation-delay: -3s;
+    background: conic-gradient(
+        from 270deg,
+        transparent 0deg,
+        #ff1493 60deg,                 /* Deep Pink sólido */
+        rgba(255, 20, 147, 0.6) 120deg,/* Deep Pink translúcido */
+        transparent 180deg
+    );
+}
+
+/* ===================== */
+/* ANIMACIONES Y MEDIA QUERIES */
+/* ===================== */
+@keyframes vinylSpin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes glow {
+    0% {
+        box-shadow: 0 0 25px rgba(255, 20, 147, 0.5);   /* halo Deep Pink suave */
+        border-color: rgba(255, 20, 147, 0.6);          /* borde Deep Pink translúcido */
+    }
+    100% {
+        box-shadow: 0 0 30px rgba(255, 20, 147, 0.8);   /* halo Deep Pink intenso */
+        border-color: rgba(255, 20, 147, 0.9);          /* borde Deep Pink sólido */
+    }
+}
+
+@keyframes glowPulse {
+    0% { opacity: 0.4; filter: blur(20px); }
+    100% { opacity: 0.8; filter: blur(25px); }
+}
+
+@keyframes arcSpin {
+    0%   { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes wave-animation {
+    0%, 100% { transform: scaleY(0.5); }
+    50% { transform: scaleY(1); }
+}
+
+/* ===================== */
+/* FOOTER */
+/* ===================== */
+.footer-2_5d {
+    position: absolute;
+    top: 365px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 750px;
+    max-width: 750px;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /*background: linear-gradient(to bottom, #4a4a4a, #2e2e2e);*/
+  box-shadow:
+    inset 0 2px 4px rgba(255, 255, 255, 0.2),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.4),
+    0 4px 8px rgba(0, 0, 0, 0.6);
+  padding: 0 20px;
+  border-top: 1px solid #5a5a5a;
+  z-index: 10;
+}
+
+.left-zone,
+.botonera,
+.right-zone {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.footer-label,
+.footer-info {
+  color: #ccc;
+  font-size: 14px;
+  text-shadow: 1px 1px 0 #000;
+}
+
+.footer-btn {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(to bottom, #5a5a5a, #3a3a3a);
+  border: none;
+  border-radius: 8px;
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 0.2),
+    0 2px 4px rgba(0, 0, 0, 0.5);
+  color: #fff;
+  font-size: 18px;
+  transition: transform 0.2s ease;
+}
+
+.footer-btn:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 0.3),
+    0 4px 6px rgba(0, 0, 0, 0.6);
+}
+
+/* ===================== */
+/* METADATOS */
+/* ===================== */
+.meta-marquee {
+  position: relative;
+  overflow: hidden;
+  width: 220px;
+  height: 24px;
+  padding-left: 10px;
+  border-left: 2px solid #FF1493; /* borde sólido Deep Pink en hex */
+  border-radius: 6px;
+  background-color: rgba(20, 0, 30, 0.4); /* fondo violeta oscuro translúcido */
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 0.2), /* luz interna superior */
+    inset 0 -1px 2px rgba(0, 0, 0, 0.4),      /* sombra interna inferior */
+    0 4px 8px rgba(0, 0, 0, 0.6),             /* sombra externa */
+    0 0 12px rgba(255, 20, 147, 0.3);         /* halo Deep Pink en rgba */
+  backdrop-filter: blur(2px); /* profundidad atmosférica */
+  display: flex;
+  align-items: center;
+}
+
+
+.meta-track {
+  position: absolute;
+  white-space: nowrap;
+  animation: scrollMeta 12s linear infinite;
+  color: #fff;
+  font-size: 13px;
+  text-shadow: 1px 1px 0 #000;
+}
+
+
+@keyframes scrollMeta {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+/* ===================== */
+/* BOTONERA */
+/* ===================== */
+#buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1px;
+    z-index: 20;
+}
+
+/* Botón base con transparencia y sombra ceremonial */
+.soft {
+  background-color: rgba(255, 20, 147, 0.6); /* Deep Pink translúcido en rgba */
+  border: 1px solid #ff1493;                 /* borde sólido Deep Pink en hex */
+  box-shadow:
+    8px 8px 16px rgba(0, 0, 0, 0.95),        /* sombra abajo y derecha, muy marcada */
+    0 0 12px #ff1493;                         /* halo Deep Pink en hex */
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+
+.soft:hover {
+  transform: scale(1.08);
+  box-shadow:
+    10px 10px 20px rgba(0, 0, 0, 0.95),       /* sombra más intensa al hover */
+    0 0 24px #ff1493;                         /* halo Deep Pink más fuerte en hex */
+}
+
+.repro-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: .5rem;
+  z-index: 10;
+  position: relative;
+}
+
+/* ===================== */
+/* 🎯 Tamaños individuales para cada botón */
+/* ===================== */
+#repeat-button {
+  width: 32px;
+  height: 32px;
+}
+
+#prev-button {
+  width: 40px;
+  height: 40px;
+}
+
+#btn-play-pause {
+  width: 54px;
+  height: 54px;
+}
+
+#next-button {
+  width: 40px;
+  height: 40px;
+}
+
+#shuffle-button {
+  width: 32px;
+  height: 32px;
+}
+
+/* Iconos */
+.btn-play svg {
+  width: 50%;
+  height: 50%;
+}
+
+.btn-repeat svg,
+.btn-shuffle svg {
+  width: 70%;
+  height: 70%;
+}
+
+/* Botón de reproducción */
+.btn-play {
+  background-color: rgba(255, 20, 147, 0.6); /* Deep Pink translúcido en rgba */
+  border: 2px solid #ff1493;                 /* borde sólido Deep Pink en hex */
+  box-shadow:
+    10px 10px 20px rgba(0, 0, 0, 1),
+    0 0 24px #ff1493;                         /* halo Deep Pink en hex */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+
+.btn-play:hover {
+  transform: scale(1.08);
+  box-shadow:
+    12px 12px 24px rgba(0, 0, 0, 1),
+    0 0 32px #ff1493;                         /* halo Deep Pink más intenso */
+}
+
+
+/* SVG dentro de botones */
+button svg {
+  width: 50%;
+  height: 50%;
+  fill: #000;
+  pointer-events: none;
+}
+
+.btn-play svg path {
+  filter: url(#inset-shadow);
+  fill: #17191e;
+}
+
+.icon-pause,
+.icon-play {
+  transition: opacity 0.3s ease;
+}
+
+/* ===================== */
+/* ESTILOS DE ESTADO (ACTIVE) */
+/* ===================== */
+
+/* Aplica a Shuffle (.active) y Repeat (.active-one) */
+.soft.active,
+.soft.active-one {
+    /* Mantiene la transformación base al hover, pero lo aplica de forma fija */
+    transform: scale(1.08); 
+
+    /* Fondo que indica el estado activo */
+    background-color: rgba(148, 0, 211, 0.8); /* violeta translúcido */
+    border: 1px solid #9400D3;                /* borde violeta sólido */
+    
+    /* Efecto de resplandor para indicar que está "encendido" */
+    box-shadow: 
+        10px 10px 20px rgba(0, 0, 0, 0.8), /* sombra fuerte */
+        0 0 15px #9400D3,                  /* resplandor violeta */
+        0 0 25px rgba(255, 255, 255, 0.4); /* halo blanco sutil */
+}
+
+/* Ajuste de color del SVG para que el icono se vea mejor sobre el fondo activo */
+.soft.active-one svg,
+.soft.active svg {
+    /* Usamos un violeta oscuro (casi negro) para un buen contraste */
+    fill: #17191e; 
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Volumen Corregido ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.volume-icon {
+  color: #000;
+  font-size: 16px;
+}
+
+.volume-track {
+  width: 150px;
+  height: 16px;
+  background: #010101;
+  border-radius: 8px;
+  box-shadow:
+    inset 0 0 0 1px #ff1493,       /* borde interno Deep Pink en hex */
+    inset 0 2px 4px #000;
+  display: flex;
+  align-items: center;
+  padding: 0 4px;
+}
+
+.volume-bar {
+  width: 100%;
+  height: 4px;
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent; /* Dejamos el fondo base transparente */
+  outline: none;
+  cursor: pointer;
+}
+
+/* ESTO PINTA LA BARRA EN CHROME, EDGE Y SAFARI */
+.volume-bar::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 4px;
+  cursor: pointer;
+  border-radius: 4px;
+  background: linear-gradient(
+    to right,
+    rgba(255, 20, 147, 0.6) 0%,   /* Deep Pink translúcido en rgba */
+    rgba(255, 20, 147, 0.6) 70%, 
+    #ff1493 70%,                  /* Deep Pink sólido en hex */
+    #ff1493 100%
+  );
+}
+
+/* EL PIVOTE EN CHROME, EDGE Y SAFARI */
+.volume-bar::-webkit-slider-thumb {
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  background: #ff1493; /* Deep Pink sólido en hex */
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -4px; /* Centra el pivote sobre los 4px de la barra */
+  box-shadow: 0 0 2px #000;
+}
+
+/* ESTO PINTA LA BARRA EN FIREFOX */
+.volume-bar::-moz-range-progress {
+  background-color: rgba(255, 20, 147, 0.6); /* Deep Pink translúcido en rgba */
+  height: 4px;
+  border-radius: 4px;
+}
+
+.volume-bar::-moz-range-track {
+  background-color: #ff1493; /* Deep Pink sólido en hex */
+  height: 4px;
+  border-radius: 4px;
+}
+
+.volume-bar::-moz-range-thumb {
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  background: #ff1493; /* Deep Pink sólido en hex */
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 0 2px #000;
+}
+
+/* ===================== */
+/* 🪟 Modal de Tracks (NUEVA POSICIÓN) */
+/* ===================== */
+.hidden {
+  display: none;
+}
+
+.modal {
+  position: absolute; 
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 750px;
+  height: 440px;
+  background-color: rgba(0, 0, 0, 0.1); 
+  backdrop-filter: blur(4px);
+  border-radius: 12px;
+  overflow: hidden; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.modal-content {
+  position: relative;
+  width: 100%; 
+  height: 100%; 
+  background-color: rgba(20, 20, 20, 0.95);
+  border: 2px solid #ff1493;              /* borde Deep Pink */
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 0 24px #ff1493;           /* halo Deep Pink */
+  color: #fff;
+  text-align: left;
+  overflow-y: auto;
+  z-index: 10000;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  scrollbar-width: thin;
+  scrollbar-color: #ff1493 #202020;       /* scroll Deep Pink */
+}
+
+.modal:not(.hidden) .modal-content {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.modal-x {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  background: none;
+  border: none;
+  font-size: 1.5em;
+  color: #ff1493;                         /* ícono cierre Deep Pink */
+  cursor: pointer;
+  text-shadow: 0 0 8px #ff1493;
+  z-index: 10001;
+}
+
+.modal-title {
+  font-size: 1.2em; /* Título más pequeño */
+  margin-bottom: 10px;
+  color: #ff1493;                         /* título Deep Pink */
+  text-shadow: 0 0 8px #ff1493;
+  text-align: center; /* Centramos el título */
+}
+
+.modal-info {
+  font-size: 0.95em;
+  color: #ccc;
+  margin-bottom: 12px;
+}
+
+#current-track-name {
+  display: inline-block;
+  padding: 4px 12px;
+  margin-left: 6px;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 20, 147, 0.6), /* Deep Pink translúcido */
+    #ff1493                  /* Deep Pink sólido */
+  );
+  border-radius: 8px;
+  color: #fff;
+  font-weight: bold;
+  animation: pulseTrack 1.5s infinite;
+  box-shadow: 0 0 6px rgba(255, 20, 147, 0.4);
+}
+
+@keyframes pulseTrack {
+  0% {
+    box-shadow: 0 0 6px rgba(255, 20, 147, 0.4); /* Deep Pink suave */
+  }
+  50% {
+    box-shadow: 0 0 12px rgba(255, 20, 147, 0.8); /* Deep Pink vibrante */
+  }
+  100% {
+    box-shadow: 0 0 6px rgba(255, 20, 147, 0.4); /* Deep Pink suave */
+  }
+}
+
+.track-list {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+.track-list li {
+  margin: 8px 0;
+  font-size: 1em;
+  color: #ccc;
+  cursor: pointer;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.track-list li:hover {
+  color: #ff1493;                         /* hover Deep Pink */
+  text-shadow: 0 0 8px #ff1493;
+}
+
+#track-name.active {
+  color: #ff1493;                         /* activo Deep Pink */
+  font-weight: bold;
+  text-shadow: 0 0 6px rgba(255, 20, 147, 0.5);
+  transition: all 300ms ease;
+}
+
+/* Nuevo selector para la pista activa en la lista */
+.track-list li.active-track {
+  color: #ff1493;                         /* activo Deep Pink */
+  font-weight: bold;
+  text-shadow: 0 0 8px rgba(255, 20, 147, 0.6);
+  background-color: rgba(255, 20, 147, 0.1); /* fondo sutil Deep Pink */
+  border-radius: 4px;
+  padding: 2px 4px;
+}
+
+/* ===================== */
+/* BURBUJAS */
+/* ===================== */
+#pixi-container canvas {
+  background-color: transparent !important;
+}
+
+.custom-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 15px 25px;
+    background: rgba(0, 0, 0, 0.9);
+    border: 2px solid #ff0000;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 1.1em;
+    text-shadow: 0 0 8px #c2a044;
+    box-shadow: 0 0 20px #ff0000b3; /* b3 ≈ 70% de opacidad */
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease-in-out;
+}
+.custom-message.show {
+    opacity: 1;
+}
