@@ -724,7 +724,7 @@ button svg {
 }
 
 /* ===================== */
-/* 🪟 Modal de Tracks (NUEVA POSICIÓN) */
+/* 🪟 Modal de Tracks (NUEVA POSICIÓN - ROJO) */
 /* ===================== */
 .hidden {
   display: none;
@@ -752,10 +752,10 @@ button svg {
   width: 100%; 
   height: 100%; 
   background-color: rgba(20, 20, 20, 0.95);
-  border: 2px solid #6865d0;
+  border: 2px solid #ff0000;              /* borde rojo */
   border-radius: 12px;
   padding: 20px;
-  box-shadow: 0 0 24px #6865d0;
+  box-shadow: 0 0 24px #ff0000;           /* halo rojo */
   color: #fff;
   text-align: left;
   overflow-y: auto;
@@ -764,7 +764,7 @@ button svg {
   transform: translateY(20px);
   transition: opacity 0.3s ease, transform 0.3s ease;
   scrollbar-width: thin;
-  scrollbar-color: #6865d0 #202020; 
+  scrollbar-color: #ff0000 #202020;       /* scroll rojo */
 }
 
 .modal:not(.hidden) .modal-content {
@@ -779,17 +779,17 @@ button svg {
   background: none;
   border: none;
   font-size: 1.5em;
-  color: #6865d0;
+  color: #ff0000;                         /* ícono cierre rojo */
   cursor: pointer;
-  text-shadow: 0 0 8px #6865d0;
+  text-shadow: 0 0 8px #ff0000;
   z-index: 10001;
 }
 
 .modal-title {
   font-size: 1.2em; /* Título más pequeño */
   margin-bottom: 10px;
-  color: #6865d0;
-  text-shadow: 0 0 8px #6865d0;
+  color: #ff0000;                         /* título rojo */
+  text-shadow: 0 0 8px #ff0000;
   text-align: center; /* Centramos el título */
 }
 
@@ -804,27 +804,27 @@ button svg {
   padding: 4px 12px;
   margin-left: 6px;
   background: linear-gradient(
-  90deg,
-  #9400D3,
-  #C8A2C8
-); /* degradado */
+    90deg,
+    rgba(255, 0, 0, 0.6), /* rojo translúcido */
+    #ff0000               /* rojo sólido */
+  );
   border-radius: 8px;
   color: #fff;
   font-weight: bold;
   animation: pulseTrack 1.5s infinite;
-  box-shadow: 0 0 6px rgba(148, 0, 211, 0.4);
+  box-shadow: 0 0 6px rgba(255, 0, 0, 0.4);
 }
 
 @keyframes pulseTrack {
-  0% {
-    box-shadow: 0 0 6px rgba(148, 0, 211, 0.4); /* Morado suave (Base: #9400D3) */
-  }
-  50% {
-    box-shadow: 0 0 12px rgba(178, 102, 255, 0.8); /* Morado claro vibrante (#B266FF) */
-  }
-  100% {
-    box-shadow: 0 0 6px rgba(148, 0, 211, 0.4); /* Morado suave */
-  }
+  0% {
+    box-shadow: 0 0 6px rgba(255, 0, 0, 0.4); /* rojo suave */
+  }
+  50% {
+    box-shadow: 0 0 12px rgba(255, 0, 0, 0.8); /* rojo vibrante */
+  }
+  100% {
+    box-shadow: 0 0 6px rgba(255, 0, 0, 0.4); /* rojo suave */
+  }
 }
 
 .track-list {
@@ -842,25 +842,25 @@ button svg {
 }
 
 .track-list li:hover {
-  color: #9400D3;
-  text-shadow: 0 0 8px #9400D3;
+  color: #ff0000;                         /* hover rojo */
+  text-shadow: 0 0 8px #ff0000;
 }
 
 #track-name.active {
-  color: #e1dc5a;
+  color: #ff0000;                         /* activo rojo */
   font-weight: bold;
-  text-shadow: 0 0 6px rgba(255, 105, 180, 0.5);
+  text-shadow: 0 0 6px rgba(255, 0, 0, 0.5);
   transition: all 300ms ease;
 }
 
 /* Nuevo selector para la pista activa en la lista */
 .track-list li.active-track {
-  color: #ff0000; /* Color principal de tu diseño */
-  font-weight: bold;
-  text-shadow: 0 0 8px #ff0000;
-  background-color: rgba(255, 0, 0, 0.1); /* Fondo sutil */
-  border-radius: 4px;
-  padding: 2px 4px;
+  color: #ff0000;                         /* activo rojo */
+  font-weight: bold;
+  text-shadow: 0 0 8px #ff0000;
+  background-color: rgba(255, 0, 0, 0.1); /* fondo sutil rojo */
+  border-radius: 4px;
+  padding: 2px 4px;
 }
 
 /* ===================== */
