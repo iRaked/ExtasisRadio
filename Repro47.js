@@ -6,7 +6,7 @@ function crearAudio() {
   const audio = document.createElement("audio");
   audio.id = "player";
   audio.setAttribute("autoplay", "");
-  audio.src = "https://sonicpanel.tmcreativos.com:8042"; // stream real
+  audio.src = "https://technoplayerserver.net/8148/stream"; // stream real
   return audio;
 }
 
