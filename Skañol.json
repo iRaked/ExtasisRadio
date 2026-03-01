@@ -241,7 +241,7 @@
     {
       "id": "la-matatena-royal-club-su-majestad",
       "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/La-Matatena-Royal-Club-Su-Majestad.jpg",
-      "artista": "La Matatena / Royal Club",
+      "artista": "La Matatena Royal Club",
       "nombre": "Su Majestad",
       "enlace": "https://xat-music.vercel.app/assets/audio2/La-Matatena-Royal-Club-Su-Majestad.mp3",
       "genero": "ska",
@@ -504,6 +504,10 @@
         "México"
       ]
     },
+
+
+
+
     {
       "id": "gato-de-troya-como-quiera-seguira",
       "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Gato-De-Troya.jpg",
@@ -590,7 +594,7 @@
     },
     {
       "id": "panteon-rococo-cuando-tengas",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Panteon-Rococo-Companeros-Musicales.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Panteon-Rococo-Estrella-Roja.jpg",
       "artista": "Panteón Rococó",
       "nombre": "Cuando tengas",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Panteon-Rococo-Cuando-tengas.mp3",
@@ -994,6 +998,11 @@
         "México"
       ]
     },
+
+
+
+
+
     {
       "id": "skalofrio-america-latina",
       "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Skalofrio.jpg",
@@ -1498,6 +1507,11 @@
         "México"
       ]
     },
+
+
+
+
+
     {
       "id": "santisima-trinidad-blue-ska",
       "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Santisima-Trinidad.jpg",
@@ -1530,7 +1544,7 @@
       "id": "los-korucos-tu-generacion",
       "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Los-Korucos-De-Ke-Manera-Te-Olvido-Chimol.jpg",
       "artista": "Los Korucos",
-      "nombre": "TU GENERACION",
+      "nombre": "Tu generación",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Los-Korucos-Tu-generacion.mp3",
       "genero": "ska",
       "emotion": "identidad",
@@ -1988,6 +2002,12 @@
         "México"
       ]
     },
+
+
+
+
+
+
     {
       "id": "eskalofrio-sin-la-luna",
       "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Skalofrio.jpg",
@@ -2061,8 +2081,8 @@
     {
       "id": "los-de-abajo-virgen-de-la-merced",
       "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Los-De-Abajo-Revolucion-Ska.jpg",
-      "artista": "Los De Abajo",
-      "nombre": "Virgen de la Merced (ft. Big Javi)",
+      "artista": "Los De Abajo ft. Big Javi",
+      "nombre": "Virgen de la Merced",
       "enlace": "https://xat-music.vercel.app/assets/audio2/Los-De-Abajo-Big-Javi-Virgen-de-la-Merced.mp3",
       "genero": "ska fusion",
       "emotion": "devoción",
@@ -2478,6 +2498,11 @@
         "México"
       ]
     },
+
+
+
+
+
     {
       "id": "santisima-trinidad-eso",
       "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Santisima-Trinidad.jpg",
@@ -2968,6 +2993,11 @@
         "México"
       ]
     },
+
+
+
+
+
     {
       "id": "sonora-skandalera-la-fuga",
       "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Sonora-Skandalera-Skantitlan.jpg",
@@ -3276,5 +3306,10 @@
         "México"
       ]
     }
+
+
+
+
+
   ]
 }
