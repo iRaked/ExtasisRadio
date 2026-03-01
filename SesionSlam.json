@@ -46,7 +46,7 @@
       "artista": "Kurado De Coco",
       "nombre": "Sal de mar",
       "album": "Kurado de Coco",
-      "enlace": "https://xat-music.vercel.app/assets/audio2/Kurado-De-Coco-Sal-de-mar.M P3",
+      "enlace": "https://xat-music.vercel.app/assets/audio2/Kurado-De-Coco-Sal-de-mar.MP3",
       "seccion": "sesion slam",
       "genero": "Ska Punk",
       "duracion": "2:40",
@@ -641,19 +641,6 @@
       "seccion": "sesion slam",
       "genero": "Skacore",
       "duracion": "4:52",
-      "country": ["México"]
-    },
-    {
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Nana-Pancha-Carne-de-canon.jpg",
-      "id": "nana-pancha-carne-de-canon",
-      "emotion": "resistencia",
-      "artista": "Nana Pancha",
-      "nombre": "Carne de cañón",
-      "album": "Flores de la Calle",
-      "enlace": "https://xat-music.vercel.app/assets/audio2/Nana-Pancha-Carne-de-canon.mp3",
-      "seccion": "sesion slam",
-      "genero": "Ska",
-      "duracion": "3:36",
       "country": ["México"]
     },
     {
