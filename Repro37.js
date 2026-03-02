@@ -831,4 +831,24 @@ window.onload = inicializarFondos;
   // 🚀 INICIO: Modo Radio por defecto
   // ===============================
   startRadio();
+
+  // ===============================
+  // 📐 DIMENSIONES DEL REPRODUCTOR
+  // ===============================
+  function updatePlayerDimensions() {
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+
+    const cmToPx = 37.8; // conversión estándar
+    const footerHeight = 1.3 * cmToPx;
+
+    const playerWidth = viewportWidth;
+    const playerHeight = viewportHeight - footerHeight;
+
+    console.log(`Reproductor: ${playerWidth}x${playerHeight}px`);
+  }
+
+  // Ejecutar al cargar y cada vez que se redimensiona la ventana
+  window.addEventListener('resize', updatePlayerDimensions);
+  updatePlayerDimensions();
 });
