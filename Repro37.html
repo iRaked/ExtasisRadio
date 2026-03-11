@@ -10,11 +10,11 @@
   <!-- Estilos principales -->
   <link rel="stylesheet" href="Repro37.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <!-- Scripts Principales -->
+  <!-- Scripts Principales
   <script type="text/javascript">
   document.onkeydown = function(){return false};
   document.oncontextmenu = function(){return false}
-  </script>
+  </script>-->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="Repro37.js" defer></script>
 
@@ -102,102 +102,7 @@
             <output id="sonic_listeners" class="listeners-count">--</output>
           </header>
         </section>
-          
-        <!-- Activador lateral de fondos -->
-        <div id="background-trigger">
-          <i class="fas fa-image"></i>
-        </div>
 
-        <!-- CONTENEDOR BACKGROUND SWITCH -->
-        <div id="background-panel">
-          <div id="background-switch">
-            <div class="switch-header">
-              <h2>Galería de Fondos</h2>
-            </div>
-            <section class="background-list">
-              <div class="bg-option" data-bg="https://santi-graphics.vercel.app/assets/bg/bg1.png"></div>
-              <div class="bg-option" data-bg="https://santi-graphics.vercel.app/assets/bg/bg2.png"></div>
-              <div class="bg-option" data-bg="https://santi-graphics.vercel.app/assets/bg/bg3.png"></div>
-              <div class="bg-option" data-bg="https://santi-graphics.vercel.app/assets/bg/bg4.png"></div>
-              <div class="bg-option" data-bg="https://santi-graphics.vercel.app/assets/bg/bg5.png"></div>
-              <div class="bg-option" data-bg="https://santi-graphics.vercel.app/assets/bg/bg6.png"></div>
-              <div class="bg-option" data-bg="https://santi-graphics.vercel.app/assets/bg/bg7.png"></div>
-              <div class="bg-option" data-bg="https://santi-graphics.vercel.app/assets/bg/bg8.png"></div>
-              <div class="bg-option" data-bg="https://santi-graphics.vercel.app/assets/bg/bg9.png"></div>
-              <div class="bg-option" data-bg="https://santi-graphics.vercel.app/assets/bg/bg10.png"></div>
-            </section>
-          </div>
-        </div>
-
-        <div id="playlist-panel">
-          <div id="playlist-switch">
-            <div class="switch-header">
-              <h2>Explorar Listas</h2>
-            </div>
-            <section class="playlist-list" id="dynamic-playlist-container">
-              </section>
-          </div>
-        </div>
-
-    <!-- Activador lateral -->
-    <div id="paint-trigger">
-      <i class="fas fa-paint-brush"></i>
-    </div>
-
-      <!-- CONTENEDOR SWITCH -->
-      <section id="switch-panel">
-        <aside id="color-switch">
-          <header class="switch-header">
-            <div class="header-content">
-              <h2>Tu Estilo</h2>
-            </div>
-          </header>
-
-          <!-- PALETA DE COLORES CON TRANSPARENCIA -->
-        <section class="palette">
-          <div class="color-option solid" style="background-color:#ff000050" data-color="#ff000050" title="Rojo"></div>
-          <div class="color-option solid" style="background-color:#39ff1450" data-color="#39ff1450" title="Verde Neon"></div>
-          <div class="color-option solid" style="background-color:#ffff0050" data-color="#ffff0050" title="Amarillo"></div>
-          <div class="color-option solid" style="background-color:#8000ff50" data-color="#8000ff50" title="Púrpura"></div>
-          <div class="color-option solid" style="background-color:#ff69b450" data-color="#ff69b450" title="Rosa"></div>
-          <div class="color-option solid" style="background-color:#ff800050" data-color="#ff800050" title="Naranja"></div>
-          <div class="color-option gradient gold" title="Degradado Dorado"></div>
-          <div class="color-option gradient unicorn" title="Degradado Unicornio"></div>
-          <div class="color-option gradient turquoise" title="Degradado Turquesa"></div>
-          <div class="color-option restore" id="restore-default" title="Restaurar Azul"></div>
-        </section>
-        </aside>
-      </section>
-          
-        <!-- Activador lateral de playlists -->
-        <div id="playlist-trigger">
-          <i class="fas fa-headphones-alt"></i>
-        </div>
-
-        <!-- CONTENEDOR PLAYLIST SWITCH -->
-        <section id="playlist-panel">
-          <aside id="playlist-switch">
-            <header class="switch-header">
-              <div class="header-content">
-                <h2>Listas de Reproducción</h2>
-              </div>
-            </header>
-
-            <section class="playlist-list">
-              <div class="playlist-item" data-key="hits">Hits</div>
-              <div class="playlist-item" data-key="regional_mexicano">Regional Mexicano</div>
-              <div class="playlist-item" data-key="viva_latino">Viva Latino</div>
-              <div class="playlist-item" data-key="rock_espanol">Rock En Español</div>
-              <div class="playlist-item" data-key="mega_mix">Mega Mix</div>
-              <div class="playlist-item" data-key="after_party">After Party</div>
-              <div class="playlist-item" data-key="pop_electronico">Pop Electrónico</div>
-              <div class="playlist-item" data-key="baladas">Baladas</div>
-              <div class="playlist-item" data-key="essentials">Essentials</div>
-            </section>
-          </aside>
-        </section>
-          
-          
         <!-- REPRODUCTOR -->
         <section id="repro-container" class="repro-container">
 
@@ -287,16 +192,101 @@
           </div><!-- Cierre player-zone -->
 
         </section><!-- Cierre repro-container -->
-
-      </section><!-- Cierre de content overlay -->
-      
-      <!-- Footer -->
+          
+          <!-- Footer -->
     <footer id="custom-footer">
       <a href="#" target="_blank" rel="noreferrer" class="footer-link">
-        <img src="assets/SG.ico" alt="icono" class="footer-icon">
+        <img src="https://santi-graphics.vercel.app/assets/SG.ico" alt="icono" class="footer-icon">
         <span class="footer-year">©2026</span>
       </a>
     </footer>
+
+      </section><!-- Cierre de content overlay -->
+      
+      <!-- Activador lateral de fondos -->
+        <div id="background-trigger">
+          <i class="fas fa-image"></i>
+        </div>
+
+        <!-- CONTENEDOR BACKGROUND SWITCH -->
+        <div id="background-panel">
+          <div id="background-switch">
+            <div class="switch-header">
+              <h2>Galería de Fondos</h2>
+            </div>
+            <section class="background-list">
+              <div class="bg-option" data-bg="https://santi-graphics.vercel.app/assets/bg/bg1.png"></div>
+              <div class="bg-option" data-bg="https://santi-graphics.vercel.app/assets/bg/bg2.png"></div>
+              <div class="bg-option" data-bg="https://santi-graphics.vercel.app/assets/bg/bg3.png"></div>
+              <div class="bg-option" data-bg="https://santi-graphics.vercel.app/assets/bg/bg4.png"></div>
+              <div class="bg-option" data-bg="https://santi-graphics.vercel.app/assets/bg/bg5.png"></div>
+              <div class="bg-option" data-bg="https://santi-graphics.vercel.app/assets/bg/bg6.png"></div>
+              <div class="bg-option" data-bg="https://santi-graphics.vercel.app/assets/bg/bg7.png"></div>
+              <div class="bg-option" data-bg="https://santi-graphics.vercel.app/assets/bg/bg8.png"></div>
+              <div class="bg-option" data-bg="https://santi-graphics.vercel.app/assets/bg/bg9.png"></div>
+              <div class="bg-option" data-bg="https://santi-graphics.vercel.app/assets/bg/bg10.png"></div>
+            </section>
+          </div>
+        </div>
+
+        <div id="playlist-panel">
+          <div id="playlist-switch">
+            <div class="switch-header">
+              <h2>Explorar Listas</h2>
+            </div>
+            <section class="playlist-list" id="dynamic-playlist-container">
+              </section>
+          </div>
+        </div>
+
+    <!-- Activador lateral -->
+    <div id="paint-trigger">
+      <i class="fas fa-paint-brush"></i>
+    </div>
+
+      <!-- CONTENEDOR SWITCH -->
+      <section id="switch-panel">
+        <aside id="color-switch">
+          <header class="switch-header">
+            <div class="header-content">
+              <h2>Tu Estilo</h2>
+            </div>
+          </header>
+
+          <!-- PALETA DE COLORES CON TRANSPARENCIA -->
+        <section class="palette">
+          <div class="color-option solid" style="background-color:#ff000050" data-color="#ff000050" title="Rojo"></div>
+          <div class="color-option solid" style="background-color:#39ff1450" data-color="#39ff1450" title="Verde Neon"></div>
+          <div class="color-option solid" style="background-color:#ffff0050" data-color="#ffff0050" title="Amarillo"></div>
+          <div class="color-option solid" style="background-color:#8000ff50" data-color="#8000ff50" title="Púrpura"></div>
+          <div class="color-option solid" style="background-color:#ff69b450" data-color="#ff69b450" title="Rosa"></div>
+          <div class="color-option solid" style="background-color:#ff800050" data-color="#ff800050" title="Naranja"></div>
+          <div class="color-option gradient gold" title="Degradado Dorado"></div>
+          <div class="color-option gradient unicorn" title="Degradado Unicornio"></div>
+          <div class="color-option gradient turquoise" title="Degradado Turquesa"></div>
+          <div class="color-option restore" id="restore-default" title="Restaurar Azul"></div>
+        </section>
+        </aside>
+      </section>
+          
+        <!-- Activador lateral de playlists -->
+        <div id="playlist-trigger">
+          <i class="fas fa-headphones-alt"></i>
+        </div>
+
+        <!-- CONTENEDOR PLAYLIST SWITCH -->
+        <section id="playlist-panel">
+            <aside id="playlist-switch">
+                <header class="switch-header"><h2>Listas de Reproducción</h2></header>
+                <section class="playlist-list" id="dynamic-playlist-container">
+                    <div class="playlist-item" data-key="hits">Hits</div>
+                    <div class="playlist-item" data-key="regional_mexicano">Regional Mexicano</div>
+                    <div class="playlist-item" data-key="viva_latino">Viva Latino</div>
+                    <div class="playlist-item" data-key="rock_espanol">Rock En Español</div>
+                    <div class="playlist-item" data-key="mega_mix">Mega Mix</div>
+                </section>
+            </aside>
+        </section>
 
     </main>
 

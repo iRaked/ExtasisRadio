@@ -2,6 +2,10 @@
   position: absolute;
   opacity: 0;
 }
+
+* {
+  box-sizing: border-box;
+}
 /* ===================== */
 /* VARIABLES Y COLOR BASE */
 /* ===================== */
@@ -17,48 +21,48 @@
 body {
   margin: 0;
   padding: 0;
+  width: 100% !important; /* Ancho fijo para evitar estiramientos */
+  height: 870px !important; /* Alto exacto del frame */
   font-family: 'Segoe UI', sans-serif;
-  overflow: hidden; /* elimina scroll externo */
+  overflow: hidden; /* Prohibido el scroll fuera del búnker */
+  background: black; 
 }
 
 /* ===================== */
 /* CONTENEDOR PRINCIPAL */
 /* ===================== */
 #main-container {
+  display: flex;          /* ACTIVA EL MODO MOLDE */
+  flex-direction: column; /* Apila Header, Contenido y Footer */
   position: relative;
   width: 100%;
-  height: 870px; /* límite máximo del frame de Xat */
-  overflow-y: auto;   /* scroll único dentro del main */
-  overflow-x: hidden; /* evita scroll horizontal */
-  /*background-image: url("assets/bg/Vinil1.jpg");*/
+  height: 870px;          /* El límite sagrado de Xat */
+  overflow: hidden;       /* BLOQUEA el estiramiento del frame */
+  
+  /* PARÁMETROS DEL FONDO - REPLICADOS */
   background-size: cover;
   background-position: center;
-  /*background: #000;*/
-  background: transparent; /* IMPORTANTE: Para que el video se vea */
+  background: transparent; /* Para que tu video de fondo sea visible */
 }
 
 /* ===================== */
 /* VIDEO DE FONDO (AJUSTE QUIRÚRGICO) */
 /* ===================== */
 #bg-video {
-  position: absolute;
+  position: fixed; /* Se queda pegado a la pantalla, no al contenido */
   top: 0;
   left: 0;
   width: 100%;
-  /* Forzamos a que el video sea un poquito más alto que el contenedor */
-  height: 105%; 
+  height: 100%;
   object-fit: cover;
   z-index: -1;
-  /* Evitamos cualquier movimiento extraño */
-  pointer-events: none;
-  /* Aseguramos que empiece desde arriba */
-  transform: translateY(0);
 }
 
 /* ===================== */
 /* HEADER PRINCIPAL */
 /* ===================== */
 #radio-header {
+  flex-shrink: 0;      /* AJUSTE: Prohíbe que el flexbox lo estire o encoja */
   position: relative;
   top: 0;
   left: 0;
@@ -70,7 +74,7 @@ body {
   align-items: center;
   justify-content: center;
   padding: 0 1rem;
-  box-sizing: border-box;
+  box-sizing: border-box; /* ESTO evita que el padding ensanche el header fuera del layout */
   z-index: 1;
 }
 
@@ -175,10 +179,10 @@ body {
 /* ===================== */
 #menu-panel {
   position: absolute;
-  top: 2.2cm; /* justo debajo del header */
   right: 0;
+  top: 100px; /* Consistencia total con el Header */
+  height: calc(870px - 100px); /* Usamos el límite sagrado de 870px */
   width: 260px;
-  height: calc(100vh - 2.2cm);
   z-index: 20;
   pointer-events: none;
 }
@@ -252,13 +256,36 @@ body {
 }
 
 /* ===================== */
-/* CONTENIDO SUPERIOR */
+/* CONTENEDOR DE SCROLL */
 /* ===================== */
 .content-overlay {
+  display: flex;
+  flex-direction: column;
+  flex: 1;                     /* → AJUSTE: Ocupa solo el espacio entre Header y Footer */
+  width: 100%;
+  overflow-y: auto;            /* El scroll se queda atrapado aquí, sin tocar el header */
+  overflow-x: hidden;
+  padding-bottom: 20px;        /* Espacio para que el repro no pegue con el footer */
   position: relative;
-  z-index: 1;
-  padding-top: 1.0cm;
-  box-sizing: border-box;
+
+  /* Tus estilos de scrollbar (se mantienen intactos) */
+  scrollbar-width: thin;
+  scrollbar-color: var(--base-color) transparent;
+}
+
+/* Personalización para navegadores Webkit (Chrome/Xat) */
+.content-overlay::-webkit-scrollbar {
+  width: 6px;
+}
+
+.content-overlay::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.content-overlay::-webkit-scrollbar-thumb {
+  background-color: var(--base-color);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* ===================== */
@@ -400,21 +427,21 @@ body {
 }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-/* ACTIVADOR DE FONDOS */
+/* ACTIVADOR SWITCH FONDOS */
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 #background-trigger {
   position: absolute;
   right: 0;
-  top: 80px;
+  top: 130px; /* Tu posición definida */
   transform: translateY(-50%);
   width: 50px;
   height: 50px;
-  background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), var(--base-color);/*linear-gradient(rgba(0, 0, 0, 0.2), valor menor color solido, mayor degradado oscuro */
+  background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), var(--base-color);
   border-radius: 6px 0 0 6px;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 30;
+  z-index: 2000;
   cursor: pointer;
   border-left: 2px solid #fff;
 }
@@ -429,23 +456,32 @@ body {
 /* ===================== */
 #background-panel {
   position: absolute;
-  top: 190px;
+  top: 265px;
   right: 0;
-  width: 260px;
-  height: calc(100vh - 2cm);
-  z-index: 20;
+  /* CAMBIO RADICAL: El contenedor padre mide 0 */
+  width: 0; 
+  height: 500px; 
+  z-index: 2000;
   pointer-events: none;
+  /* Evita que los hijos se vean fuera de este contenedor de ancho 0 */
+  overflow: visible; 
 }
 
 #background-switch {
   position: absolute;
-  top: 20px;
-  right: -260px;
+  top: 0;
+  /* Se posiciona respecto al borde derecho del padre que mide 0 */
+  right: -260px; 
   width: 260px;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.7);
   transition: right 0.5s ease;
   pointer-events: auto;
+  border-radius: 8px 0 0 8px;
+  display: flex;
+  flex-direction: column;
+  /* Esta es la estocada final: */
+  will-change: right; 
 }
 
 #background-switch.visible {
@@ -453,13 +489,27 @@ body {
 }
 
 /* ===================== */
-/* LISTA DE FONDOS */
+/* LISTA DE FONDOS CON SCROLL */
 /* ===================== */
 .background-list {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 0.8rem;
   padding: 1rem;
+  
+  /* ESTO ACTIVA EL SCROLL INTERNO */
+  overflow-y: auto;
+  height: 100%; 
+}
+
+/* Personalización del scroll para que no sea el gris feo de Windows */
+.background-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.background-list::-webkit-scrollbar-thumb {
+  background: var(--base-color);
+  border-radius: 10px;
 }
 
 .bg-option {
@@ -478,12 +528,12 @@ body {
 }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-/* ACTIVADOR DE SWITCH */
+/* ACTIVADOR SWITCH SKINS */
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 #paint-trigger {
   position: absolute;
   right: 0;
-  top: 132px;
+  top: 182px;
   transform: translateY(-50%);
   width: 50px;
   height: 50px;
@@ -492,7 +542,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 30;
+  z-index: 2000;
   cursor: pointer;
   border-left: 2px solid #fff;
 }
@@ -507,12 +557,12 @@ body {
 /* ===================== */
 #switch-panel {
   position: absolute;
-  top: 190px; /* siempre debajo del activador */
+  top: 265px; /* Base ideal establecida */
   right: 0;
   width: 260px;
-  height: calc(100vh - 2cm);
-  z-index: 20;
-  pointer-events: none; /* bloquea interacción directa */
+  height: 500px; /* Altura ideal establecida */
+  z-index: 2000;
+  pointer-events: none;
 }
 
 /* ===================== */
@@ -520,13 +570,17 @@ body {
 /* ===================== */
 #color-switch {
   position: absolute;
-  top: 20px;
+  top: 0;
   right: -260px;
   width: 260px;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.7);
   transition: right 0.5s ease;
   pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px 0 0 8px;
+  overflow: hidden;
 }
 
 #color-switch.visible {
@@ -552,13 +606,25 @@ body {
 }
 
 /* ===================== */
-/* PALETA DE COLORES */
+/* PALETA DE COLORES CON SCROLL */
 /* ===================== */
 .palette {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
   padding: 1rem;
+  /* Scroll interno si hay muchos colores */
+  overflow-y: auto;
+  flex-grow: 1;
+}
+
+/* Estetica de scroll consistente */
+.palette::-webkit-scrollbar {
+  width: 6px;
+}
+.palette::-webkit-scrollbar-thumb {
+  background: var(--base-color);
+  border-radius: 10px;
 }
 
 .color-option {
@@ -615,21 +681,21 @@ body {
 }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-/* ACTIVADOR DE PLAYLIST */
+/* SWITCH ACTIVADOR DE PLAYLIST */
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 #playlist-trigger {
   position: absolute;
   right: 0;
-  top: 184px;
+  top: 234px; /* Siguiendo tu lógica de espaciado */
   transform: translateY(-50%);
   width: 50px;
   height: 50px;
-  background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), var(--base-color);/*linear-gradient(rgba(0, 0, 0, 0.2), valor menor color solido, mayor degradado oscuro */
+  background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), var(--base-color);
   border-radius: 6px 0 0 6px;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 30;
+  z-index: 2000;
   cursor: pointer;
   border-left: 2px solid #fff;
 }
@@ -644,28 +710,27 @@ body {
 /* ===================== */
 #playlist-panel {
   position: absolute;
-  top: 190px;;
+  top: 265px; /* Base ideal establecida */
   right: 0;
   width: 260px;
-  height: calc(100vh - 2cm);
-  z-index: 20;
+  height: 500px; /* Altura ideal establecida */
+  z-index: 2000;
   pointer-events: none;
 }
 
 #playlist-switch {
   position: absolute;
-  top: 20px;
+  top: 0;
   right: -260px;
   width: 260px;
-  /* CAMBIO: height auto para que el panel se ajuste al contenido */
-  height: auto; 
-  /* Limita el panel a la altura de las 10 listas + paddings */
-  max-height: 480px; 
+  height: 100%;
   background-color: rgba(0, 0, 0, 0.7);
   transition: right 0.5s ease;
   pointer-events: auto;
-  border-radius: 8px 0 0 8px; /* Opcional: redondeado para que no se vea cortado seco */
-  overflow: hidden; /* Mantiene el scroll dentro de la lista, no del panel */
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px 0 0 8px;
+  overflow: hidden;
 }
 
 #playlist-switch.visible {
@@ -1237,19 +1302,18 @@ body {
 /* FOOTER LOGO */
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 #custom-footer {
-  position: absolute;
-  bottom: -50px;
-  left: 0;
-  width: 100%;          /* mismo ancho que el header */
-  height: 83px;         /* misma medida que el header (2.2cm ≈ 83px) */
+  margin-top: auto;
+  flex-shrink: 0;
+  position: relative;
+  width: 100%;
+  height: 83px;
   background: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.3)), var(--base-color);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 10;
-  color: #fff;
-  font-size: 0.9rem;
-  box-shadow: 0 -2px 5px rgba(0,0,0,0.3);
+  z-index: 1999;
+  margin: 0;
+  padding: 0;
 }
 
 .footer-link {
@@ -1286,46 +1350,4 @@ body {
     opacity: 0.7;
     text-shadow: 0 0 3px #4e8ef7, 0 0 6px #00FFFF;
   }
-}
-
-/* ===================== */
-/* SCROLLBAR PERSONALIZADO */
-/* ===================== */
-
-/* 1. Estilo para navegadores basados en Webkit (Chrome, Safari, Edge) */
-#main-container::-webkit-scrollbar,
-.playlist-list::-webkit-scrollbar {
-  width: 8px; /* Ancho del scroll vertical */
-  height: 8px; /* Alto del scroll horizontal (por si acaso) */
-}
-
-/* El fondo del scroll (track) */
-#main-container::-webkit-scrollbar-track,
-.playlist-list::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.3); /* Un fondo oscuro semitransparente */
-  border-radius: 10px;
-}
-
-/* La barrita que se mueve (thumb) */
-#main-container::-webkit-scrollbar-thumb,
-.playlist-list::-webkit-scrollbar-thumb {
-  background: var(--base-color); /* Usamos tu azul base */
-  border-radius: 10px;
-  border: 2px solid rgba(0, 0, 0, 0.2); /* Un pequeño borde para darle relieve */
-  box-shadow: 0 0 5px var(--base-color); /* Efecto de brillo neón */
-}
-
-/* Cuando pasas el mouse por encima */
-#main-container::-webkit-scrollbar-thumb:hover,
-.playlist-list::-webkit-scrollbar-thumb:hover {
-  background: #ffffff; /* Se ilumina en blanco al tocarlo */
-  box-shadow: 0 0 10px #ffffff, 0 0 20px var(--base-color);
-  cursor: pointer;
-}
-
-/* 2. Estilo para Firefox */
-#main-container,
-.playlist-list {
-  scrollbar-width: thin;
-  scrollbar-color: var(--base-color) rgba(0, 0, 0, 0.3);
 }

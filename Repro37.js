@@ -786,36 +786,62 @@ window.onload = inicializarFondos;
   }
   updateLocation();
 
-  // ===============================
-  // 🎧 CONTADOR DE RADIOESCUCHAS (proxy)
-  // ===============================
-  function stopListenersCounter() {
-    if (contadorIntervalId !== null) {
-      clearInterval(contadorIntervalId);
-      contadorIntervalId = null;
+  // ==========================================
+// 🎧 CONTADOR DE RADIOESCUCHAS (R37-SHOUTCAST)
+// ==========================================
+function stopListenersCounter() {
+  if (contadorIntervalId !== null) {
+    console.log("📡 Deteniendo contador de oyentes");
+    clearInterval(contadorIntervalId);
+    contadorIntervalId = null;
+  }
+  // Buscamos el elemento directamente para evitar referencias nulas
+  const listenersDisplay = document.getElementById("sonic_listeners");
+  if (listenersDisplay) {
+    listenersDisplay.textContent = "--";
+  }
+}
+
+function startListenersCounter() {
+  // 1. Limpieza de seguridad
+  stopListenersCounter();
+
+  const contadorUrl = "https://technoplayerserver.net:8018/stats?json=1&sid=1";
+  const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(contadorUrl)}`;
+
+  async function updateCounter() {
+    // Solo actualizamos si estamos en modo Radio
+    if (currentMode !== "Radio") {
+      stopListenersCounter();
+      return;
     }
-    if (sonicListenersEl) sonicListenersEl.textContent = "--";
+
+    const listenersDisplay = document.getElementById("sonic_listeners");
+    if (!listenersDisplay) return;
+
+    try {
+      const res = await fetch(proxyUrl, { cache: "no-cache" });
+      if (!res.ok) throw new Error("Error en Proxy");
+
+      const data = await res.json();
+      
+      // SHOUTCAST devuelve 'currentlisteners' en su JSON de stats
+      const count = data.currentlisteners !== undefined ? data.currentlisteners : "0";
+      listenersDisplay.textContent = count;
+
+    } catch (err) {
+      console.warn("R37: Error silencioso en contador:", err.message);
+      // No reseteamos a "--" para evitar parpadeo visual, mantenemos el último valor o 0
+      if (!listenersDisplay.textContent || listenersDisplay.textContent === "--") {
+        listenersDisplay.textContent = "0";
+      }
+    }
   }
 
-  function startListenersCounter() {
-    stopListenersCounter();
-    const contadorUrl = "https://technoplayerserver.net:8018/stats?json=1&sid=1";
-    const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(contadorUrl)}`;
-
-    function updateCounter() {
-      fetch(proxyUrl, { cache: "no-cache" })
-        .then((res) => res.json())
-        .then((data) => {
-          if (sonicListenersEl) sonicListenersEl.textContent = data.currentlisteners || "0";
-        })
-        .catch(() => {
-          if (sonicListenersEl) sonicListenersEl.textContent = "0";
-        });
-    }
-
-    updateCounter();
-    contadorIntervalId = setInterval(updateCounter, 15000);
-  }
+  // Ejecución inmediata y ciclo de 15 segundos
+  updateCounter();
+  contadorIntervalId = setInterval(updateCounter, 15000);
+}
 
   // ===============================
   // 🔀 CAMBIO DE MODO (botones del panel)
