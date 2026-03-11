@@ -131,7 +131,7 @@ function startRadio() {
   if (trackTitleEl) trackTitleEl.textContent = "CASINO DIGITAL RADIO";
   if (trackArtistEl) trackArtistEl.textContent = "AUTO DJ";
   if (trackAlbumEl) trackAlbumEl.textContent = "MIX 1";
-  if (coverImg) coverImg.src = "https://santi-graphics.vercel.app/assets//covers/Cover1.png"; // respaldo inicial
+  if (coverImg) coverImg.src = "https://santi-graphics.vercel.app/assets/covers/Cover1.png"; // respaldo inicial
 
   // Carga del stream
   setSourceAndPlay("https://technoplayerserver.net:8018/stream?icy=http");
@@ -676,9 +676,14 @@ renderPlaylistMenu();
 // 🎨 FONDOS Y COLORES (sin localStorage)
 // ===============================
 function applyBackground(bgPath) {
+  // Cambiamos la variable CSS
   root.style.setProperty("--background-image", `url('${bgPath}')`);
-  if (videoElement) videoElement.style.display = "none";
-  document.body.classList.remove("video-active");
+  
+  if (videoElement) {
+    videoElement.style.display = "none";
+    // IMPORTANTE: Quitar la clase que ajusta el layout para video
+    document.body.classList.remove("video-active");
+  }
 }
 
 bgOptions.forEach((option) => {
