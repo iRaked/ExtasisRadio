@@ -18,7 +18,11 @@ $(document).ready(function() {
         "https://radio-tekileros.vercel.app/AsfaltoUrbano.json",
         "https://radio-tekileros.vercel.app/Metañero.json",
         "https://radio-tekileros.vercel.app/SesionSlam.json",
-        "https://radio-tekileros.vercel.app/RockBar.json"
+        "https://radio-tekileros.vercel.app/RockBar.json",
+        "https://radio-tekileros.vercel.app/FuriaRosa.json",
+        "https://radio-tekileros.vercel.app/RitmoRebelde.json",
+        "https://radio-tekileros.vercel.app/RockAgropecuario.json",
+        "https://radio-tekileros.vercel.app/RockCumbiero.json"
     ];
 
     let currentMode = "RADIO";
