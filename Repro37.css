@@ -18,36 +18,41 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Segoe UI', sans-serif;
-  background-image: var(--background-image);
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
+  overflow: hidden; /* elimina scroll externo */
 }
+
 /* ===================== */
 /* CONTENEDOR PRINCIPAL */
 /* ===================== */
 #main-container {
   position: relative;
   width: 100%;
-  height: calc(100vh - 1.3cm); /* altura total menos el footer */
-  overflow-y: auto;
-  overflow-x: hidden;
-  background-image: var(--background-image);
+  height: 870px; /* límite máximo del frame de Xat */
+  overflow-y: auto;   /* scroll único dentro del main */
+  overflow-x: hidden; /* evita scroll horizontal */
+  /*background-image: url("assets/bg/Vinil1.jpg");*/
   background-size: cover;
   background-position: center;
+  /*background: #000;*/
+  background: transparent; /* IMPORTANTE: Para que el video se vea */
 }
 
 /* ===================== */
-/* VIDEO DE FONDO */
+/* VIDEO DE FONDO (AJUSTE QUIRÚRGICO) */
 /* ===================== */
 #bg-video {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  /* Forzamos a que el video sea un poquito más alto que el contenedor */
+  height: 105%; 
   object-fit: cover;
   z-index: -1;
+  /* Evitamos cualquier movimiento extraño */
+  pointer-events: none;
+  /* Aseguramos que empiece desde arriba */
+  transform: translateY(0);
 }
 
 /* ===================== */
@@ -58,7 +63,7 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  height: 2.2cm;
+  height: 100px;
   background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.3)), var(--base-color);/*linear-gradient(rgba(0, 0, 0, 0.2), valor menor color solido, mayor degradado oscuro */
   backdrop-filter: none;
   display: flex;
@@ -1232,53 +1237,42 @@ body {
 /* FOOTER LOGO */
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 #custom-footer {
-  position: fixed;
-  bottom: 0;
+  position: absolute;
+  bottom: -50px;
   left: 0;
-  width: 100%;
-  height: 1.3cm;
-  background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.3)), var(--base-color);/*linear-gradient(rgba(0, 0, 0, 0.2), valor menor color solido, mayor degradado oscuro */
-  backdrop-filter: none;
+  width: 100%;          /* mismo ancho que el header */
+  height: 83px;         /* misma medida que el header (2.2cm ≈ 83px) */
+  background: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.3)), var(--base-color);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1;
+  z-index: 10;
   color: #fff;
   font-size: 0.9rem;
-  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.3);
-}
-
-.footer-inner {
-  text-align: center;
-  padding: 30px;
+  box-shadow: 0 -2px 5px rgba(0,0,0,0.3);
 }
 
 .footer-link {
   text-decoration: none;
-  display: inline-flex;
-  flex-direction: column;
+  display: flex;
+  flex-direction: column; /* logo arriba, texto debajo */
   align-items: center;
-  gap: 6px;
+  gap: 2px;               /* separación mínima */
 }
 
 .footer-icon {
-  width: 20px;
-  height: 20px;
-  ext-shadow: 0 0 10px #00FFFF;
-  transition: 0.3s;
-  filter: drop-shadow(4 4 8px #00FFFF);
+  width: 26px;
+  height: 26px;
+  filter: drop-shadow(0 0 6px #00FFFF);
 }
 
 .footer-year {
-  all: unset;
-  display: block;
   font-size: 0.9rem;
   font-weight: bold;
   background: linear-gradient(135deg, #3688ff, #00FFFF);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-shadow: 0 0 10px #4e8ef7, 0 0 20px #00FFFF;
-  animation: glowFade 5s ease-in-out infinite alternate;
+  text-shadow: 0 0 6px #4e8ef7, 0 0 12px #00FFFF;
   text-align: center;
 }
 
@@ -1286,10 +1280,52 @@ body {
 @keyframes glowFade {
   0% {
     opacity: 1;
-    text-shadow: 0 0 10px #4e8ef7, 0 0 20px #00FFFF;
+    text-shadow: 0 0 6px #4e8ef7, 0 0 12px #00FFFF;
   }
   100% {
-    opacity: 0.6;
-    text-shadow: 0 0 5px #4e8ef7, 0 0 10px #00FFFF;
+    opacity: 0.7;
+    text-shadow: 0 0 3px #4e8ef7, 0 0 6px #00FFFF;
   }
+}
+
+/* ===================== */
+/* SCROLLBAR PERSONALIZADO */
+/* ===================== */
+
+/* 1. Estilo para navegadores basados en Webkit (Chrome, Safari, Edge) */
+#main-container::-webkit-scrollbar,
+.playlist-list::-webkit-scrollbar {
+  width: 8px; /* Ancho del scroll vertical */
+  height: 8px; /* Alto del scroll horizontal (por si acaso) */
+}
+
+/* El fondo del scroll (track) */
+#main-container::-webkit-scrollbar-track,
+.playlist-list::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3); /* Un fondo oscuro semitransparente */
+  border-radius: 10px;
+}
+
+/* La barrita que se mueve (thumb) */
+#main-container::-webkit-scrollbar-thumb,
+.playlist-list::-webkit-scrollbar-thumb {
+  background: var(--base-color); /* Usamos tu azul base */
+  border-radius: 10px;
+  border: 2px solid rgba(0, 0, 0, 0.2); /* Un pequeño borde para darle relieve */
+  box-shadow: 0 0 5px var(--base-color); /* Efecto de brillo neón */
+}
+
+/* Cuando pasas el mouse por encima */
+#main-container::-webkit-scrollbar-thumb:hover,
+.playlist-list::-webkit-scrollbar-thumb:hover {
+  background: #ffffff; /* Se ilumina en blanco al tocarlo */
+  box-shadow: 0 0 10px #ffffff, 0 0 20px var(--base-color);
+  cursor: pointer;
+}
+
+/* 2. Estilo para Firefox */
+#main-container,
+.playlist-list {
+  scrollbar-width: thin;
+  scrollbar-color: var(--base-color) rgba(0, 0, 0, 0.3);
 }
