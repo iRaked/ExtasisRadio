@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <!-- Font Awesome -->
   <link rel="icon" type="image/x-icon" href="https://santi-graphics.vercel.app/assets/SG.ico" />
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -11,11 +10,11 @@
   <!-- Estilos principales -->
   <link rel="stylesheet" href="Repro37.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <!-- Scripts Principales
+  <!-- Scripts Principales -->
   <script type="text/javascript">
   document.onkeydown = function(){return false};
   document.oncontextmenu = function(){return false}
-  </script>-->
+  </script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="Repro37.js" defer></script>
 
@@ -28,10 +27,10 @@
     
   <main id="main-container">
       
-      <video autoplay muted loop id="bg-video">
-      <source src="https://santi-graphics.vercel.app/assets/video/StageCD.mp4" type="video/mp4" />
-      Tu navegador no soporta video HTML5.
-      </video>
+      <video autoplay muted loop playsinline id="bg-video">
+          <source src="https://santi-graphics.vercel.app/assets/video/StageCD.mp4" type="video/mp4" />
+          Tu navegador no soporta video HTML5.
+        </video>
 
       <header id="radio-header">
           <div class="title-deluxe">
@@ -290,22 +289,17 @@
         </section><!-- Cierre repro-container -->
 
       </section><!-- Cierre de content overlay -->
+      
+      <!-- Footer -->
+    <footer id="custom-footer">
+      <a href="#" target="_blank" rel="noreferrer" class="footer-link">
+        <img src="assets/SG.ico" alt="icono" class="footer-icon">
+        <span class="footer-year">©2026</span>
+      </a>
+    </footer>
 
     </main>
-    
-    <!-- Footer -->
-    <footer id="custom-footer">
-      <div class="footer-content">
-        <div class="footer-logo">
-          <footer class="footer-inner">
-            <a href="#" target="_blank" rel="noreferrer" class="footer-link">
-              <img src="assets/SG.ico" alt="icono" class="footer-icon">
-              <h5 class="footer-year">©2026</h5>
-            </a>
-          </footer>
-        </div>
-      </div>
-    </footer>
+
 
 </body>
 </html>
