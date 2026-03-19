@@ -32,23 +32,23 @@ body {
 }
 
 /* ===================== */
-/* 🖼️ FONDO PRINCIPAL (REPRO 45) */
+/* 🖼️ FONDO PRINCIPAL (REPRO 51) */
 /* ===================== */
 .bg-water {
-    /* 1. Fondo (Imagen y comportamiento) */
-    background: url('https://santi-graphics.vercel.app/assets/bg/BG-Magico.png') no-repeat center center / cover !important;
-    background-size: cover !important;
-    background-position: center !important;
+    /* 1. Fondo (https://santi-graphics.vercel.app/) */
+    background: url('assets/bg/RadioAmorPage.jpg') no-repeat center center / cover !important;
+    background-size: 110% auto !important;
+    background-position: center 10% !important;
     background-repeat: no-repeat !important;
 
     /* 2. Dimensiones */
-    width: 750px !important;
+    width: 800px !important;
     height: 425px !important;
 
     /* 3. Estética de bordes y resplandor */
     border-radius: 20px !important;
-    border: 2px solid #ff0000 !important;
-    box-shadow: 0 0 30px rgba(255, 0, 0, 0.6) !important;
+    border: 2px solid #00BFFF !important;
+    box-shadow: 0 0 30px rgba(0, 191, 255, 0.6) !important;
 
     /* 4. Comportamiento y Capas */
     position: relative !important;
@@ -92,8 +92,8 @@ body {
 .btn-radio {
   width: 40px;
   height: 40px;
-  background-color: rgba(225, 220, 90, 0.9); /* amarillo suave translúcido en rgba */
-  border: 2px solid #fff600;                 /* borde amarillo intenso en hex */
+  background-color: rgba(0, 191, 255, 0.9); /* azul translúcido de la nueva paleta */
+  border: 2px solid #00BFFF;                /* borde sólido en el nuevo azul */
   border-radius: 8px;
   display: flex;
   justify-content: center;
@@ -101,7 +101,6 @@ body {
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.3s ease;
 }
-
 
 .btn-radio:hover {
   transform: translateY(-2px);
@@ -126,7 +125,8 @@ body {
   background: rgba(0, 0, 0, 0.4);
   padding: 4px 8px;
   border-radius: 6px;
-  box-shadow: 0 0 8px rgba(255, 0, 0, 0.9);
+  border: 2px solid #FF69B4;
+  box-shadow: 0 0 8px rgba(255, 105, 180, 0.9);
   z-index: 10;
 }
 
@@ -139,14 +139,14 @@ body {
   font-size: 0.9rem;
   color: #fff;
   padding: 4px 10px;
-  background: rgba(255, 0, 0, 0.3); /* violeta translúcido */
-  border: 1px solid #ff0000;
+  background: rgba(255, 105, 180, 0.3); /* rosa translúcido */
+  border: 1px solid #FF69B4;
   border-radius: 6px;
   box-shadow:
-    0 0 8px #ff0000,
+    0 0 8px #FF69B4,
     2px 2px 6px rgba(0,0,0,0.8);
   white-space: nowrap;            /* evita salto de línea */
-  text-shadow: 0 0 6px #ff0000;   /* brillo ceremonial */
+  text-shadow: 0 0 6px #FF69B4;   /* brillo ceremonial */
 }
 
 /* ===================== */
@@ -202,12 +202,12 @@ body {
   position: absolute;
   width: 100%;
   left: 0;
-  top: 0;
+  bottom: -20px;
   opacity: 0;
   white-space: nowrap;
   font-weight: bold;
   font-size: 24px; /* Ajusta a tu gusto */
-  color: #fff;
+  color: #FF69B4; /* rosa vibrante de la nueva paleta */
   text-align: center;
 }
 
@@ -219,7 +219,7 @@ body {
 
 p.animtext {
   margin: 0;
-  color: #800080;
+  color: #00BFFF; /* azul vibrante de la nueva paleta */
   perspective: 1000px; /* da profundidad al efecto 3D */
 }
 
@@ -309,7 +309,7 @@ p.animtext {
 }
 
 .radio-logo:hover {
-    box-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
+    box-shadow: 0 0 20px rgba(0, 191, 255, 0.8);
 }
 
 /* CAPA DE EFECTOS */
@@ -325,7 +325,7 @@ p.animtext {
 }
 
 /* ===================== */
-/* PULSO MEDIA LUNA - BASE ROJO */
+/* PULSO MEDIA LUNA */
 /* ===================== */
 .orbital_container {
     position: absolute;
@@ -354,7 +354,13 @@ p.animtext {
     height: 280px;
     transform: translate(-50%, -50%);
     border-radius: 50%;
-    background: conic-gradient(from 90deg, #b30000, #ff1a1a, #b30000); /* rojo profundo + variación */
+    background: conic-gradient(
+        from 90deg,
+        rgba(0, 191, 255, 0.6), /* azul translúcido */
+        #00BFFF,                /* azul sólido */
+        #FF69B4,                /* rosa sólido */
+        rgba(255, 105, 180, 0.6)/* rosa translúcido */
+    );
     filter: blur(25px);
     opacity: 0.6;
     z-index: 0;
@@ -374,9 +380,11 @@ p.animtext {
     background: conic-gradient(
         from 90deg,
         transparent 0deg,
-        #b30000 60deg,       /* rojo profundo */
-        #ff1a1a 120deg,      /* rojo vibrante */
-        transparent 180deg
+        rgba(0, 191, 255, 0.6) 60deg, /* azul translúcido */
+        #00BFFF 120deg,               /* azul sólido */
+        #FF69B4 150deg,               /* rosa sólido */
+        rgba(255, 105, 180, 0.6) 180deg,/* rosa translúcido */
+        transparent 210deg
     );
     mask: radial-gradient(circle at center, transparent 100px, black 128px);
     animation: arcSpin 6s linear infinite;
@@ -388,9 +396,11 @@ p.animtext {
     background: conic-gradient(
         from 270deg,
         transparent 0deg,
-        #b30000 60deg,       /* rojo profundo */
-        #ff1a1a 120deg,      /* rojo vibrante */
-        transparent 180deg
+        #00BFFF 60deg,                 /* azul sólido */
+        rgba(0, 191, 255, 0.6) 120deg, /* azul translúcido */
+        #FF69B4 150deg,                /* rosa sólido */
+        rgba(255, 105, 180, 0.6) 180deg,/* rosa translúcido */
+        transparent 210deg
     );
 }
 
@@ -404,12 +414,12 @@ p.animtext {
 
 @keyframes glow {
     0% {
-        box-shadow: 0 0 25px rgba(179, 0, 0, 0.5);   /* halo rojo suave */
-        border-color: rgba(179, 0, 0, 0.6);          /* borde rojo translúcido */
+        box-shadow: 0 0 25px rgba(0, 191, 255, 0.5); /* azul suave nuevo */
+        border-color: rgba(0, 191, 255, 0.6);        /* azul translúcido nuevo */
     }
     100% {
-        box-shadow: 0 0 30px rgba(179, 0, 0, 0.8);   /* halo rojo intenso */
-        border-color: rgba(179, 0, 0, 0.9);          /* borde rojo sólido */
+        box-shadow: 0 0 30px rgba(255, 105, 180, 0.8); /* rosa intenso */
+        border-color: rgba(255, 105, 180, 0.9);        /* rosa sólido */
     }
 }
 
@@ -428,7 +438,6 @@ p.animtext {
     50% { transform: scaleY(1); }
 }
 
-
 /* ===================== */
 /* FOOTER */
 /* ===================== */
@@ -437,8 +446,8 @@ p.animtext {
     top: 365px;
     left: 50%;
     transform: translateX(-50%);
-    width: 750px;
-    max-width: 750px;
+    width: 800px;
+    max-width: 800px;
   height: 60px;
   display: flex;
   justify-content: space-between;
@@ -498,14 +507,14 @@ p.animtext {
   width: 220px;
   height: 24px;
   padding-left: 10px;
-  border-left: 2px solid #ff0000;
+  border-left: 2px solid #FF69B4;              /* borde rosa sólido */
   border-radius: 6px;
-  background-color: rgba(0, 0, 0, 0.4); /* fondo violeta oscuro translúcido */
+  background-color: rgba(255, 105, 180, 0.2);  /* fondo rosa translúcido */
   box-shadow:
     inset 0 1px 2px rgba(255, 255, 255, 0.2), /* luz interna superior */
     inset 0 -1px 2px rgba(0, 0, 0, 0.4),      /* sombra interna inferior */
     0 4px 8px rgba(0, 0, 0, 0.6),             /* sombra externa */
-    0 0 12px rgba(255, 0, 0, 0.3);          /* halo red */
+    0 0 12px rgba(255, 105, 180, 0.3);        /* halo rosa translúcido */
   backdrop-filter: blur(2px); /* profundidad atmosférica */
   display: flex;
   align-items: center;
@@ -539,13 +548,13 @@ p.animtext {
 
 /* Botón base con transparencia y sombra ceremonial */
 .soft {
-  background-color: rgba(255, 0, 0, 0.6); /* violeta translúcido */
-  border: 1px solid #ff0000;
+  background-color: rgba(0, 191, 255, 0.6); /* azul base translúcido */
+  border: 2px solid #00BFFF;                /* borde azul sólido */
   box-shadow:
-    8px 8px 16px rgba(0, 0, 0, 0.95),   /* sombra abajo y derecha, muy marcada */
-    0 0 12px #ff0000;
-  cursor: pointer;
+    10px 10px 20px rgba(0, 0, 0, 1),
+    0 0 24px #00BFFF;                       /* halo azul base */
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -553,10 +562,10 @@ p.animtext {
 }
 
 .soft:hover {
-  transform: scale(1.08);
-  box-shadow:
-    10px 10px 20px rgba(0, 0, 0, 6),    /* sombra más intensa al hover */
-    0 0 24px #ff0000;
+  transform: scale(1.08);
+  box-shadow:
+    10px 10px 20px rgba(0, 0, 0, 0.95),   /* sombra más intensa al hover */
+    0 0 24px #FF69B4;                     /* halo de activación */
 }
 
 .repro-controls {
@@ -611,11 +620,11 @@ p.animtext {
 
 /* Botón de reproducción */
 .btn-play {
-  background-color: rgba(255, 0, 0, 0.6); /* violeta translúcido */
-  border: 2px solid #ff0000; /* Solid Color */
+  background-color: rgba(0, 191, 255, 0.6); /* azul base translúcido */
+  border: 2px solid #00BFFF;                /* borde azul sólido */
   box-shadow:
     10px 10px 20px rgba(0, 0, 0, 1),
-    0 0 24px #000;
+    0 0 24px #00BFFF;                       /* halo azul base */
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   display: flex;
   justify-content: center;
@@ -624,10 +633,10 @@ p.animtext {
 }
 
 .btn-play:hover {
-  transform: scale(1.08);
-  box-shadow:
-    12px 12px 24px rgba(0, 0, 0, 1),
-    0 0 32px #9400D3;
+  transform: scale(1.08);
+  box-shadow:
+    12px 12px 24px rgba(0, 0, 0, 1),
+    0 0 32px #FF69B4;                       /* halo rosa de activación */
 }
 
 /* SVG dentro de botones */
@@ -658,39 +667,38 @@ button svg {
     /* Mantiene la transformación base al hover, pero lo aplica de forma fija */
     transform: scale(1.08); 
 
-    /* Fondo que indica el estado activo (usando el color rosa del modal, ff69b4) */
-    background-color: rgba(225, 220, 90, 0.8); /* Rosa vibrante translúcido */
-    border: 1px solid #fff600; /* Borde rosa más fuerte */
+    /* Fondo que indica el estado activo */
+    background-color: rgba(255, 105, 180, 0.6); /* rosa activación translúcido */
+    border: 1px solid #FF69B4;                 /* borde rosa sólido */
     
     /* Efecto de resplandor para indicar que está "encendido" */
     box-shadow: 
-        10px 10px 20px rgba(0, 0, 0, 0.8), /* Sombra fuerte */
-        0 0 15px #e1dc5a, /* Resplandor rosa */
-        0 0 25px rgba(255, 255, 255, 0.4); /* Halo blanco sutil */
+        10px 10px 20px rgba(0, 0, 0, 0.8), /* sombra fuerte */
+        0 0 15px #FF69B4,                  /* resplandor rosa activación */
+        0 0 25px rgba(255, 255, 255, 0.4); /* halo blanco sutil */
 }
 
-/* Ajuste de color del SVG para que el icono se vea mejor sobre el fondo rosa activo */
+/* Ajuste de color del SVG para que el icono se vea mejor sobre el fondo activo */
 .soft.active-one svg,
 .soft.active svg {
-    /* Usamos un violeta oscuro (casi negro) para un buen contraste */
+    /* Usamos un azul oscuro (casi negro) para buen contraste */
     fill: #17191e; 
 }
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Volumen ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Volumen Corregido ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 .volume-icon {
   color: #000;
   font-size: 16px;
 }
 
-/* Orificio para la barra de volumen */
 .volume-track {
   width: 150px;
   height: 16px;
   background: #010101;
   border-radius: 8px;
   box-shadow:
-    inset 0 0 0 1px rgba(255, 0, 0, 0.4), /* borde interno rojo suave */
-    inset 0 2px 4px #000;                 /* sombra interna */
+    inset 0 0 0 1px #00BFFF,              /* borde interno azul principal */
+    inset 0 2px 4px #000;
   display: flex;
   align-items: center;
   padding: 0 4px;
@@ -699,32 +707,64 @@ button svg {
 .volume-bar {
   width: 100%;
   height: 4px;
-  border-radius: 4px;
   appearance: none;
-  background: linear-gradient(
-    to right,
-    #ff0000 0%,     /* rojo intenso */
-    #ff0000 70%,    /* rojo dominante */
-    #b30000 70%,    /* rojo más oscuro */
-    #b30000 100%    /* rojo profundo */
-  );
+  -webkit-appearance: none;
+  background: transparent; /* fondo base transparente */
   outline: none;
   cursor: pointer;
 }
 
-.volume-bar::-webkit-slider-thumb {
-  width: 12px;
-  height: 12px;
-  background: #ff0000;
-  border-radius: 50%;
+/* Chrome, Edge y Safari */
+.volume-bar::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 4px;
   cursor: pointer;
-  appearance: none;
-  box-shadow: 0 0 2px #000;
+  border-radius: 4px;
+  background: linear-gradient(
+    to right,
+    #00BFFF 0%, 
+    #00BFFF var(--p, 70%), /* azul hasta --p */
+    #FF69B4 var(--p, 70%), /* rosa desde --p */
+    #FF69B4 100%
+  );
+}
+
+.volume-bar::-webkit-slider-thumb {
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  background: #FF69B4; /* pivote rosa sólido */
+  cursor: pointer;
+  -webkit-appearance: none;
   margin-top: -4px;
+  box-shadow: 0 0 2px #000;
+}
+
+/* Firefox */
+.volume-bar::-moz-range-progress {
+  background-color: #00BFFF; /* azul principal */
+  height: 4px;
+  border-radius: 4px;
+}
+
+.volume-bar::-moz-range-track {
+  background-color: #FF69B4; /* rosa */
+  height: 4px;
+  border-radius: 4px;
+}
+
+.volume-bar::-moz-range-thumb {
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  background: #FF69B4; /* pivote rosa sólido */
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 0 2px #000;
 }
 
 /* ===================== */
-/* 🪟 Modal de Tracks (NUEVA POSICIÓN - ROJO) */
+/* 🪟 Modal de Tracks (NUEVA POSICIÓN - AZULES) */
 /* ===================== */
 .hidden {
   display: none;
@@ -735,7 +775,7 @@ button svg {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 750px;
+  width: 800px;
   height: 440px;
   background-color: rgba(0, 0, 0, 0.1); 
   backdrop-filter: blur(4px);
@@ -752,10 +792,10 @@ button svg {
   width: 100%; 
   height: 100%; 
   background-color: rgba(20, 20, 20, 0.95);
-  border: 2px solid #ff0000;              /* borde rojo */
+  border: 2px solid #00BFFF;              /* borde azul principal */
   border-radius: 12px;
   padding: 20px;
-  box-shadow: 0 0 24px #ff0000;           /* halo rojo */
+  box-shadow: 0 0 24px #00BFFF;           /* halo azul principal */
   color: #fff;
   text-align: left;
   overflow-y: auto;
@@ -764,7 +804,7 @@ button svg {
   transform: translateY(20px);
   transition: opacity 0.3s ease, transform 0.3s ease;
   scrollbar-width: thin;
-  scrollbar-color: #ff0000 #202020;       /* scroll rojo */
+  scrollbar-color: #00BFFF #202020;       /* scroll azul principal */
 }
 
 .modal:not(.hidden) .modal-content {
@@ -779,18 +819,18 @@ button svg {
   background: none;
   border: none;
   font-size: 1.5em;
-  color: #ff0000;                         /* ícono cierre rojo */
+  color: #3acdee;                         /* ícono cierre azul activación */
   cursor: pointer;
-  text-shadow: 0 0 8px #ff0000;
+  text-shadow: 0 0 8px #0000CD;           /* sombra azul base */
   z-index: 10001;
 }
 
 .modal-title {
-  font-size: 1.2em; /* Título más pequeño */
+  font-size: 1.2em;
   margin-bottom: 10px;
-  color: #ff0000;                         /* título rojo */
-  text-shadow: 0 0 8px #ff0000;
-  text-align: center; /* Centramos el título */
+  color: #3acdee;                         /* título azul activación */
+  text-shadow: 0 0 8px #0000CD;           /* sombra azul base */
+  text-align: center;
 }
 
 .modal-info {
@@ -805,25 +845,26 @@ button svg {
   margin-left: 6px;
   background: linear-gradient(
     90deg,
-    rgba(255, 0, 0, 0.6), /* rojo translúcido */
-    #ff0000               /* rojo sólido */
+    #00BFFF,   /* azul principal */
+    rgba(0, 191, 255, 0.8) /* azul translúcido activación */
   );
   border-radius: 8px;
+  border: 2px solid #FF69B4;              /* borde rosa */
   color: #fff;
   font-weight: bold;
   animation: pulseTrack 1.5s infinite;
-  box-shadow: 0 0 6px rgba(255, 0, 0, 0.4);
+  box-shadow: 0 0 6px rgba(255, 105, 180, 0.6); /* glow rosa */
 }
 
 @keyframes pulseTrack {
   0% {
-    box-shadow: 0 0 6px rgba(255, 0, 0, 0.4); /* rojo suave */
+    box-shadow: 0 0 6px rgba(255, 105, 180, 0.4); /* rosa suave */
   }
   50% {
-    box-shadow: 0 0 12px rgba(255, 0, 0, 0.8); /* rojo vibrante */
+    box-shadow: 0 0 12px rgba(255, 105, 180, 0.9); /* rosa intenso */
   }
   100% {
-    box-shadow: 0 0 6px rgba(255, 0, 0, 0.4); /* rojo suave */
+    box-shadow: 0 0 6px rgba(255, 105, 180, 0.4); /* rosa suave */
   }
 }
 
@@ -842,34 +883,93 @@ button svg {
 }
 
 .track-list li:hover {
-  color: #ff0000;                         /* hover rojo */
-  text-shadow: 0 0 8px #ff0000;
-}
-
-#track-name.active {
-  color: #ff0000;                         /* activo rojo */
-  font-weight: bold;
-  text-shadow: 0 0 6px rgba(255, 0, 0, 0.5);
+  color: #00BFFF;                         /* azul principal */
+  text-shadow: 0 0 8px #FF69B4;           /* sombra rosa */
+  background: linear-gradient(
+    90deg,
+    rgba(0, 191, 255, 0.2),               /* azul translúcido */
+    rgba(255, 105, 180, 0.2)              /* rosa translúcido */
+  );
+  border-radius: 4px;
+  padding: 2px 4px;
   transition: all 300ms ease;
 }
 
-/* Nuevo selector para la pista activa en la lista */
-.track-list li.active-track {
-  color: #ff0000;                         /* activo rojo */
+#track-name.active {
+  color: #FF69B4;                         /* activo rosa */
   font-weight: bold;
-  text-shadow: 0 0 8px #ff0000;
-  background-color: rgba(255, 0, 0, 0.1); /* fondo sutil rojo */
+  text-shadow: 0 0 6px rgba(0, 191, 255, 0.6); /* sombra azul suave */
+  transition: all 300ms ease;
+}
+
+.track-list li.active-track {
+  color: #FF69B4;                         /* activo rosa */
+  font-weight: bold;
+  text-shadow: 0 0 8px #00BFFF;           /* sombra azul principal */
+  background: linear-gradient(
+    90deg,
+    rgba(255, 105, 180, 0.15),            /* fondo rosa translúcido */
+    rgba(0, 191, 255, 0.15)               /* fondo azul translúcido */
+  );
   border-radius: 4px;
   padding: 2px 4px;
 }
 
 /* ===================== */
-/* BURBUJAS */
+/* NOTAS */
 /* ===================== */
-#pixi-container canvas {
-  background-color: transparent !important;
+/* Modificación de los contenedores de efectos para limitarlos al reproductor */
+.music-notes-container, .sparkles-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
+    overflow: hidden;
 }
 
+/* Corregir las posiciones de inicio de las notas musicales */
+.music-note {
+    position: absolute;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 24px;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+    animation: floatNote 12s linear infinite;
+    opacity: 0;
+}
+
+.music-note:nth-child(1) { left: 20%; top: -30px; animation-delay: 0s; font-size: 25px; }
+.music-note:nth-child(2) { left: 40%; top: -30px; animation-delay: 2s; font-size: 18px; }
+.music-note:nth-child(3) { left: 60%; top: -30px; animation-delay: 4s; font-size: 22px; }
+.music-note:nth-child(4) { left: 80%; top: -30px; animation-delay: 6s; font-size: 26px; }
+.music-note:nth-child(5) { left: 10%; top: -30px; animation-delay: 1s; font-size: 20px; }
+.music-note:nth-child(6) { left: 30%; top: -30px; animation-delay: 3s; font-size: 19px; }
+.music-note:nth-child(7) { left: 50%; top: -30px; animation-delay: 5s; font-size: 24px; }
+.music-note:nth-child(8) { left: 70%; top: -30px; animation-delay: 7s; font-size: 21px; }
+
+/* Animación modificada para que las notas se muevan solo dentro del contenedor */
+@keyframes floatNote {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.8;
+    }
+    90% {
+        opacity: 0.6;
+    }
+    100% {
+        transform: translateY(380px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* ===================== */
+/* CUSTOM MESSAGE */
+/* ===================== */
 .custom-message {
     position: absolute;
     top: 50%;
