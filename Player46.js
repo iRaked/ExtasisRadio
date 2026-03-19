@@ -79,39 +79,38 @@ function actualizarCaratula(track) {
 }
 
 // ===============================
-// 📦 CARGA DE PISTAS DESDE JSON (MODO LOCAL)
+// 📦 CARGA DE PISTAS DESDE JSON (DINÁMICO)
 // ===============================
 function cargarTracksDesdeJSON() {
-    fetch("https://radio-tekileros.vercel.app/Bandida.json")
+    fetch("https://radio-tekileros.vercel.app/Exitos.json")
         .then(res => res.ok ? res.json() : Promise.reject(`HTTP error! status: ${res.status}`))
         .then(data => {
-            const pistas = data.bandida;
+            // 💡 TRUCO: Obtenemos la primera llave del objeto (exitos, rumba, etc.)
+            const primeraLlave = Object.keys(data)[0];
+            const pistas = data[primeraLlave];
 
             if (!Array.isArray(pistas) || pistas.length === 0) {
-                console.warn("❌ No se encontraron pistas válidas en el JSON.");
+                console.warn(`❌ No se encontraron pistas en la llave: ${primeraLlave}`);
                 return;
             }
 
-            // 🔑 Mapeo al formato que Player20.js espera
+            // 🔑 Mapeo con soporte para url_dropbox, enlace o dropbox_url
             trackData = pistas.map(p => ({
-                cover: p.caratula,
-                url: p.dropbox_url,
-                artist: p.artista,
-                name: p.nombre,
-                album: p.album,
-                emotion: p.emotion,
-                genero: p.genero,
-                duracion: p.duracion,
-                id: p.id,
-                seccion: p.seccion
-            }));
+                cover: p.caratula || "https://santi-graphics.vercel.app/assets/covers/Cover1.png",
+                url: p.dropbox_url || p.url_dropbox || p.enlace, 
+                artist: p.artista || "Artista Desconocido",
+                name: p.nombre || "Sin Título",
+                album: p.album || "Single",
+                id: p.id || Math.random(),
+                seccion: p.seccion || primeraLlave
+            })).filter(track => track.url); // Solo cargamos las que tengan URL válida
 
             currentTrack = 0;
 
-            // Carga inicial de metadatos y SRC
+            // Carga inicial
             activarReproduccion(0, "initial-load"); 
             generarListaModal();
-            console.log("✅ Pistas cargadas desde Bandida.json. Audio src preparado.");
+            console.log(`✅ Pistas cargadas desde llave [${primeraLlave}]. Total: ${trackData.length}`);
         })
         .catch(err => {
             console.error("❌ Error CRÍTICO al cargar JSON:", err);
@@ -466,9 +465,13 @@ function actualizarBotonRadio() {
     const btn = document.getElementById("btn-radio");
     if (btn) {
         if (modoActual === "radio") {
-            btn.style.backgroundColor = "#9400D350";   // rojo intenso para modo radio
+            // ROSA para el estado inicial / modo radio
+            btn.style.backgroundColor = "#ff149350"; // Rosa con opacidad
+            btn.style.borderColor = "#ff1493";
         } else {
-            btn.style.backgroundColor = "#e1dc5a";   // azul para modo normal
+            // AZUL para el modo música (local)
+            btn.style.backgroundColor = "#3688ff50"; // Azul con opacidad
+            btn.style.borderColor = "#3688ff";
         }
     }
 }
@@ -600,7 +603,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
     
-    iniciarBurbujas(); 
 }); 
 
 // ===============================
@@ -917,56 +919,6 @@ document.addEventListener("DOMContentLoaded", () => {
   changeWord();
   setInterval(changeWord, 4000);
 });
-
-// ===============================
-// 🌌 PARTÍCULAS — FONDO VIVO (Lógica de las burbujas)
-// ===============================
-
-function iniciarBurbujas() {
-    const canvas = document.getElementById("burbujas");
-    if (!canvas) return;
-
-    const ctx = canvas.getContext("2d");
-
-    const resizeCanvas = () => {
-        const rect = canvas.getBoundingClientRect();
-        canvas.width = rect.width;
-        canvas.height = rect.height;
-    };
-
-    resizeCanvas();
-    window.addEventListener("resize", resizeCanvas);
-
-    let burbujas = Array.from({ length: 30 }, () => ({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        r: Math.random() * 8 + 2,
-        d: Math.random() * 1 + 0.5
-    }));
-
-    function dibujarBurbujas() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = "rgba(255, 255, 255, 0.6)";
-
-        burbujas.forEach(b => {
-            ctx.beginPath();
-            ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
-            ctx.fill();
-
-            b.y -= b.d;
-
-            if (b.y < -10) {
-                b.y = canvas.height + 10;
-                b.x = Math.random() * canvas.width;
-            }
-        });
-
-        requestAnimationFrame(dibujarBurbujas);
-    }
-
-    dibujarBurbujas();
-}
-
 
 // ==================================
 // INFORMACIÓN FECHA Y HORA (modular)
