@@ -13,25 +13,21 @@ function crearAudio() {
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // 🌊 SECTION PRINCIPAL (bg-water + ripples)
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// <section class="bg-water ripples jquery-ripples" id="stream1">
 function crearSectionPrincipal() {
   const section = document.createElement("section");
   section.className = "bg-water ripples jquery-ripples";
   section.id = "stream1";
-  section.dataset.tag = "";
 
-  // Inserta los elementos hijos principales
+  // Solo insertamos el audio y el canvas de notas
   section.appendChild(crearAudio());
-  section.appendChild(crearCanvasBurbujas());
-  section.appendChild(crearPixiContainer());
-
+  section.appendChild(crearCanvasBurbujas()); 
+  
   return section;
 }
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 💫 CANVAS BURBUJAS
+// 💫 CANVAS NOTAS (FONDO)
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// <canvas id="burbujas" ...>
 function crearCanvasBurbujas() {
   const canvas = document.createElement("canvas");
   canvas.id = "burbujas";
@@ -40,9 +36,71 @@ function crearCanvasBurbujas() {
   canvas.style.left = "0";
   canvas.style.width = "100%";
   canvas.style.height = "100%";
-  canvas.style.zIndex = "0";
+  canvas.style.zIndex = "0"; 
   canvas.style.pointerEvents = "none";
   return canvas;
+}
+
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// 🎵 CONTENEDOR DE NOTAS (ANIMACIÓN CSS)
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function crearNotasMusicales() {
+  const container = document.createElement("div");
+  container.className = "music-notes-container";
+  
+  const notas = ["♪", "♫", "♩", "♬", "♪", "♫", "♩", "♬"];
+  
+  notas.forEach(simbolo => {
+    const div = document.createElement("div");
+    div.className = "music-note";
+    div.textContent = simbolo;
+    container.appendChild(div);
+  });
+  
+  return container;
+}
+
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// 💫 CANVAS NOTAS (ANIMACIÓN)
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function inicializarNotasCanvas() {
+  const canvas = document.getElementById("burbujas");
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d");
+  
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  const notasSimbolos = ["♪", "♫", "♩", "♬"];
+  const particulas = [];
+
+  // Ajustamos a 30 notas para que se vea lleno pero fluido
+  for (let i = 0; i < 30; i++) {
+    particulas.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      vel: Math.random() * 1 + 0.5,
+      simbolo: notasSimbolos[Math.floor(Math.random() * notasSimbolos.length)],
+      size: Math.random() * 15 + 12
+    });
+  }
+
+  function animar() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "rgba(255, 255, 255, 0.3)"; // Notas blancas sutiles
+    
+    particulas.forEach(p => {
+      ctx.font = `${p.size}px Arial`;
+      ctx.fillText(p.simbolo, p.x, p.y);
+      p.y -= p.vel; 
+      if (p.y < -20) {
+        p.y = canvas.height + 20;
+        p.x = Math.random() * canvas.width;
+      }
+    });
+    requestAnimationFrame(animar);
+  }
+  animar();
 }
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -126,14 +184,14 @@ function crearHeader() {
 }
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 🌌 LOGO CONTAINER
+// 🌌 LOGO CONTAINER https://santi-graphics.vercel.app/assets/img/
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 function crearLogoContainer() {
   const logoContainer = document.createElement("div");
   logoContainer.className = "logo-container";
 
   const img = document.createElement("img");
-  img.src = "https://santi-graphics.vercel.app/assets/img/BWings.gif";
+  img.src = "assets/img/LogoRadio.png";
   img.alt = "Logo";
   img.className = "logo-base zoom-effect";
 
@@ -431,89 +489,44 @@ function inicializarRipples() {
 }
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 🎈 Burbujas Pixi
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// Inicializa las burbujas animadas con Pixi.js
-function inicializarPixiBubbles() {
-  const app = new PIXI.Application({
-    width: window.innerWidth,
-    height: window.innerHeight,
-    backgroundAlpha: 0
-  });
-
-  document.getElementById("pixi-container").appendChild(app.view);
-
-  window.addEventListener("resize", () => {
-    app.renderer.resize(window.innerWidth, window.innerHeight);
-  });
-
-  const burbujas = [];
-
-  for (let i = 0; i < 30; i++) {
-    const burbuja = new PIXI.Graphics();
-    const radius = Math.random() * 8 + 4;
-    burbuja.beginFill(0xffffff, 0.2);
-    burbuja.drawCircle(0, 0, radius);
-    burbuja.endFill();
-    burbuja.x = Math.random() * app.renderer.width;
-    burbuja.y = Math.random() * app.renderer.height;
-    burbuja.vy = Math.random() * 0.5 + 0.2;
-    app.stage.addChild(burbuja);
-    burbujas.push(burbuja);
-  }
-
-  app.ticker.add(() => {
-    burbujas.forEach(b => {
-      b.y -= b.vy;
-      if (b.y < -10) {
-        b.y = app.renderer.height + 10;
-        b.x = Math.random() * app.renderer.width;
-      }
-    });
-  });
-}
-
-
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 🧩 ENSAMBLADOR FINAL
+// 🧩 ENSAMBLADOR FINAL (REPRO 51)
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 function inicializarReproductor() {
   const body = document.body;
-  body.innerHTML = "";
+  body.innerHTML = ""; 
 
   const section = crearSectionPrincipal();
+  section.style.position = "relative"; // Necesario para que el absolute del mensaje funcione
 
-  // Bloque lateral con logo + texto
+  section.appendChild(crearNotasMusicales());
+
   const bloqueBienvenida = document.createElement("div");
   bloqueBienvenida.className = "bloque-bienvenida";
   bloqueBienvenida.appendChild(crearLogoContainer());
   bloqueBienvenida.appendChild(crearTextoBienvenida());
-
   section.appendChild(bloqueBienvenida);
 
-  // ReproBox intacto
   const reproBox = crearReproBox();
   reproBox.appendChild(crearVisualEffects());
   reproBox.appendChild(crearFooter());
+  section.appendChild(reproBox);
 
+  // EL MENSAJE: Hijo de la sección, no del reproBox
   const customMessage = document.createElement("div");
   customMessage.id = "custom-message";
   customMessage.className = "custom-message";
   customMessage.textContent = "Santi Graphics";
-  reproBox.appendChild(customMessage);
+  
+  // Añadimos a la section
+  section.appendChild(customMessage);
 
-  section.appendChild(reproBox);
   body.appendChild(section);
-
-  // Modal tracks
   body.appendChild(crearModalTracks());
 
-  // Inicializadores de efectos visuales
   inicializarWavesEQ();
   inicializarRipples();
-  inicializarPixiBubbles();
+  inicializarNotasCanvas(); 
 
   window.dispatchEvent(new Event("repro-ready"));
 }
-
 inicializarReproductor();
