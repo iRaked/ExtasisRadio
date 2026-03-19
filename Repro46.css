@@ -35,8 +35,8 @@ body {
 /* 🖼️ FONDO PRINCIPAL (REPRO 51) */
 /* ===================== */
 .bg-water {
-    /* 1. Fondo (https://santi-graphics.vercel.app/) */
-    background: url('assets/bg/RadioAmorPage.jpg') no-repeat center center / cover !important;
+    /* 1. Fondo */
+    background: url('https://santi-graphics.vercel.app/assets/bg/RadioAmorPage.jpg') no-repeat center center / cover !important;
     background-size: 110% auto !important;
     background-position: center 10% !important;
     background-repeat: no-repeat !important;
