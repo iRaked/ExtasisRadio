@@ -82,20 +82,22 @@ function actualizarCaratula(track) {
 // 📦 CARGA DE PISTAS DESDE JSON (MODO LOCAL)
 // ===============================
 function cargarTracksDesdeJSON() {
-    fetch("https://radio-tekileros.vercel.app/Bandida.json")
+    // 1. Actualizamos a la nueva URL del JSON
+    fetch("https://radio-tekileros.vercel.app/BolerosRancheros.json")
         .then(res => res.ok ? res.json() : Promise.reject(`HTTP error! status: ${res.status}`))
         .then(data => {
-            const pistas = data.bandida;
+            // 2. Accedemos a la nueva raíz "boleros rancheros"
+            const pistas = data["boleros rancheros"];
 
             if (!Array.isArray(pistas) || pistas.length === 0) {
-                console.warn("❌ No se encontraron pistas válidas en el JSON.");
+                console.warn("❌ No se encontraron pistas válidas en el JSON de Boleros Rancheros.");
                 return;
             }
 
             // 🔑 Mapeo al formato que Player20.js espera
             trackData = pistas.map(p => ({
                 cover: p.caratula,
-                url: p.dropbox_url,
+                url: p.enlace,       // 🔄 Cambiado de dropbox_url a enlace
                 artist: p.artista,
                 name: p.nombre,
                 album: p.album,
@@ -111,7 +113,7 @@ function cargarTracksDesdeJSON() {
             // Carga inicial de metadatos y SRC
             activarReproduccion(0, "initial-load"); 
             generarListaModal();
-            console.log("✅ Pistas cargadas desde Bandida.json. Audio src preparado.");
+            console.log("✅ Pistas cargadas desde BolerosRancheros.json. Audio src preparado.");
         })
         .catch(err => {
             console.error("❌ Error CRÍTICO al cargar JSON:", err);
@@ -251,38 +253,45 @@ function iniciarActualizacionRadio() {
     iniciarContadorRadioescuchas();
 
     // Nuevo server para canción actual
-    const radioUrl = "https://technoplayerserver.net/8148/currentsong?sid=1";
+    const radioUrl = "https://radio.technoplayerserver.com:8034/currentsong?sid=1";
 
     const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(radioUrl)}`;
 
     async function actualizarDesdeServidor() {
         try {
-            const response = await fetch(proxyUrl, { cache: 'no-cache' });
-            const newSongTitleRaw = await response.text();
-            
-            const cleanedTitle = newSongTitleRaw.trim()
-                .replace(/AUTODJ/gi, '')
-                .replace(/\|\s*$/g, '')
-                .trim();
 
-            if (!cleanedTitle || cleanedTitle.toLowerCase().includes('offline') || cleanedTitle === lastTrackTitle) {
-                 if (cleanedTitle && cleanedTitle.toLowerCase().includes('offline')) {
-                     if (currentArtistName) currentArtistName.textContent = "¡Música sí!";
-                     if (currentTrackName) currentTrackName.textContent = "Datos bloqueados";
-                 }
-                 return;
-            }
-            
-            lastTrackTitle = cleanedTitle;
-            
-            const songtitleSplit = cleanedTitle.split(/ - | – /);
-            let artist = "Radio";
-            let title = cleanedTitle; 
+const response = await fetch(proxyUrl, { cache: 'no-cache' });
+const rawData = await response.text();
 
-            if (songtitleSplit.length >= 2) {
-                artist = songtitleSplit[0].trim();
-                title = songtitleSplit.slice(1).join(' - ').trim(); 
-            }
+// 1. Limpieza de números de control (ej: el "25" al inicio y "1" al final)
+// Eliminamos números al principio y al final, y limpiamos espacios
+let cleanedTitle = rawData.replace(/^\d+/, '').replace(/\d+$/, '').trim();
+
+// 2. Si no hay guion, intentamos detectarlo. 
+// A veces el servidor envía "CANCION   ARTISTA" con muchos espacios.
+if (!cleanedTitle.includes(" - ") && cleanedTitle.includes("   ")) {
+    cleanedTitle = cleanedTitle.replace(/\s{2,}/g, " - ");
+}
+
+// 3. Filtros adicionales de tu lógica
+cleanedTitle = cleanedTitle.replace(/AUTODJ/gi, '').replace(/\(LETRA\)/gi, '').trim();
+
+if (!cleanedTitle || cleanedTitle.toLowerCase().includes('offline') || cleanedTitle === lastTrackTitle) {
+    return;
+}
+
+lastTrackTitle = cleanedTitle;
+
+// Separar Artista y Título
+let artist = "AUTO DJ";
+let title = cleanedTitle;
+
+if (cleanedTitle.includes(" - ")) {
+    const parts = cleanedTitle.split(" - ");
+    // Pero vamos a intentar ser inteligentes:
+    artist = parts[1] ? parts[1].trim() : parts[0].trim();
+    title = parts[1] ? parts[0].trim() : "Radio";
+}
             
             // 🛑 CRÍTICO: ALIMENTAR EL HISTORIAL DE RADIO
             const currentTrackTime = new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
@@ -325,34 +334,39 @@ function iniciarContadorRadioescuchas() {
     detenerContadorRadioescuchas();
     if (!contadorElemento) return;
 
-    const contadorUrl = "https://technoplayerserver.net/8148/stats?json=1&sid=1";
-    const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(contadorUrl)}`;
+    // URL CORRECTA PARA STATS (Suele ser /stats o /7.html en Shoutcast)
+    // Probamos con el endpoint de stats que suele estar abierto en el puerto 8034
+    const statsUrl = "https://radio.technoplayerserver.com:8034/stats?sid=1";
+    const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(statsUrl)}`;
 
     async function actualizarContador() {
-        if (modoActual !== "radio") { 
-            detenerContadorRadioescuchas(); 
-            return; 
-        }
+        if (modoActual !== "radio") return;
+        
         try {
-            const response = await fetch(proxyUrl, { cache: "no-cache" });
-            const xmlText = await response.text();
-
+            const response = await fetch(proxyUrl);
+            const text = await response.text();
+            
+            // Si el server devuelve XML
             const parser = new DOMParser();
-            const xmlDoc = parser.parseFromString(xmlText, "application/xml");
-
-            const listeners = xmlDoc.querySelector("CURRENTLISTENERS")?.textContent;
-            contadorElemento.textContent = listeners || "0";
+            const xmlDoc = parser.parseFromString(text, "text/xml");
+            const listeners = xmlDoc.getElementsByTagName("CURRENTLISTENERS")[0]?.textContent;
+            
+            // Si no es XML (a veces devuelven solo un número), intentamos extraerlo
+            if (listeners) {
+                contadorElemento.textContent = listeners;
+            } else {
+                // Intento de respaldo: si el texto es corto y es un número
+                const fallback = text.match(/\d+/);
+                contadorElemento.textContent = fallback ? fallback[0] : "0";
+            }
         } catch (error) {
-            console.error("❌ Error al obtener contador de oyentes:", error);
+            console.error("Error contador:", error);
             contadorElemento.textContent = "0";
         }
     }
-
     actualizarContador();
-    contadorIntervalId = setInterval(actualizarContador, 15000);
+    contadorIntervalId = setInterval(actualizarContador, 20000); // 20 seg para no saturar
 }
-
-
 
 // ===============================
 // 🔄 ALTERNANCIA DE MODOS
@@ -360,17 +374,31 @@ function iniciarContadorRadioescuchas() {
 
 if (btnRadio) {
     btnRadio.addEventListener("click", () => {
-        // Captura el gesto si no ha ocurrido (el cambio de modo es un gesto válido)
+        // 1. Captura el gesto del usuario para desbloquear el audio
         if (!gestureDetected) { 
             gestureDetected = true; 
             audio.muted = false;
         } 
 
+        // 2. Referencia al contenedor principal para los efectos visuales
+        const contenedorFondo = document.querySelector('.bg-water');
+
+        // 3. Lógica de cambio de modo y efectos visuales
         if (modoActual === "radio") {
+            // VOLVIENDO A MODO LOCAL
             activarModoLocal();
+            if (contenedorFondo) {
+                contenedorFondo.classList.remove('modo-radio-active');
+            }
         } else {
+            // ACTIVANDO MODO RADIO (GOLD EDITION)
             activarModoRadio();
+            if (contenedorFondo) {
+                contenedorFondo.classList.add('modo-radio-active');
+            }
         }
+
+        // 4. Actualización de UI y Metadatos
         actualizarMetaModo();
         actualizarBotonRadio();
     });
@@ -395,7 +423,7 @@ function activarModoRadio() {
     audio.pause();
     
     // 🔑 CLAVE 2: Asignar el SRC
-    audio.src = "https://technoplayerserver.net/8148/stream";
+    audio.src = "https://radio.technoplayerserver.com:8034/stream";
     audio.load();
 
     // 1. Asegurarse de que el audio esté silenciado temporalmente (el gesto ya lo desbloqueó)
@@ -451,9 +479,22 @@ function actualizarBotonRadio() {
     const btn = document.getElementById("btn-radio");
     if (btn) {
         if (modoActual === "radio") {
-            btn.style.backgroundColor = "#3688ff50";   // azul intenso para modo radio
+            // MODO RADIO: "ENCENDIDO ORO"
+            // Añadimos la clase que tiene todos los filtros de brillo y sombras
+            btn.classList.add('active');
+            
+            // Ajustes de soporte por si hay estilos inline previos
+            btn.style.backgroundColor = ""; // Dejamos que el CSS tome el mando
+            btn.style.boxShadow = ""; 
+            btn.style.color = "#000"; // Texto/Icono negro para resaltar sobre el oro
         } else {
-            btn.style.backgroundColor = "#3688ff";   // azul para modo normal
+            // MODO NORMAL: "OBSIDIANA EN REPOSO"
+            btn.classList.remove('active');
+            
+            // Limpiamos estilos inline para que brille el diseño base de obsidiana
+            btn.style.backgroundColor = "";
+            btn.style.boxShadow = "";
+            btn.style.color = "#d4af37"; // El texto vuelve a ser oro mate
         }
     }
 }
@@ -517,35 +558,56 @@ document.addEventListener("DOMContentLoaded", () => {
     // ===============================
     // 🎛️ BOTONERA
     // ===============================
+    // CONTROLADOR DE PLAY/PAUSE CON ESTADO ORO
+if (playPauseBtn) {
+    playPauseBtn.addEventListener("click", () => {
+        // 1. Verificación de seguridad
+        if (!audio.src) {
+            console.error("❌ No hay stream cargado");
+            return;
+        }
 
-    if (playPauseBtn) {
-        playPauseBtn.addEventListener("click", () => {
-            if (!audio.src) {
-                console.warn("⚠️ No hay fuente de audio (audio.src) definida para reproducir.");
-                return;
-            }
+        // 2. Desbloqueo de Audio (User Gesture)
+        if (!gestureDetected) {
+            gestureDetected = true;
+            audio.muted = false;
+        }
 
-            if (!gestureDetected) {
-                gestureDetected = true;
-                audio.muted = false;
-            }
-
-            if (audio.paused || audio.ended) {
-                audio.play().then(() => {
-                    if (iconPlay) iconPlay.classList.add("hidden");
-                    if (iconPause) iconPause.classList.remove("hidden");
-                    if (discImg) discImg.classList.add("rotating");
-                }).catch(err => {
-                    console.warn("⚠️ Error al reanudar:", err);
-                });
-            } else {
-                audio.pause();
-                if (iconPause) iconPause.classList.add("hidden");
-                if (iconPlay) iconPlay.classList.remove("hidden");
-                if (discImg) discImg.classList.remove("rotating");
-            }
-        });
-    }
+        // 3. Toggle de Reproducción
+        if (audio.paused || audio.ended) {
+            audio.play().then(() => {
+                // --- ACTIVAR MODO ORO ---
+                playPauseBtn.classList.add("is-playing"); 
+                
+                // Switch de Iconos (Play -> Pause)
+                if (iconPlay) iconPlay.classList.add("hidden");
+                if (iconPause) iconPause.classList.remove("hidden");
+                
+                // Animación de Carátula
+                if (discImg) discImg.classList.add("rotating"); 
+                
+                console.log("▶️ Reproduciendo: Estado Oro Activo");
+            }).catch(err => {
+                console.warn("⚠️ Error en reproducción:", err);
+                // Si falla, nos aseguramos de que no se quede en Oro
+                playPauseBtn.classList.remove("is-playing");
+            });
+        } else {
+            // --- DESACTIVAR MODO ORO ---
+            audio.pause();
+            playPauseBtn.classList.remove("is-playing"); 
+            
+            // Switch de Iconos (Pause -> Play)
+            if (iconPause) iconPause.classList.add("hidden");
+            if (iconPlay) iconPlay.classList.remove("hidden");
+            
+            // Detener Animación
+            if (discImg) discImg.classList.remove("rotating");
+            
+            console.log("⏸️ Pausado: Estado Negro Activo");
+        }
+    });
+}
 
     // LISTENERS DE BOTONES LOCALES
     if (nextBtn) nextBtn.addEventListener('click', nextTrack);
@@ -694,7 +756,7 @@ function generarListaModal() {
         trackHistory.forEach((track, index) => {
             const li = document.createElement('li');
             // Formato: Hora | Artista - Título
-            li.textContent = `${track.time} | ${track.artist} - ${track.title}`; 
+            li.textContent = `${track.time} | ${track.artista} - ${track.title}`; 
             // Las pistas del historial no son clicables para reproducción
             trackList.appendChild(li);
         });
@@ -793,21 +855,25 @@ function actualizarModalActualTrack() {
 }
 
 // ===============================
-// 🔊 FUNCIÓN DE CONTROL DE VOLUMEN
+// 🔊 FUNCIÓN DE CONTROL DE VOLUMEN (SILVER)
 // ===============================
 function actualizarBarraVolumen(volume) {
     const percentage = volume * 100;
-    const activeColor = '#3688ff';   // azul intenso
-    const inactiveColor = '#1f4d99'; // azul oscuro para la parte inactiva
-
+    
     if (volumeBar) {
-        volumeBar.style.background = `linear-gradient(
-            to right,
-            ${activeColor} 0%,
-            ${activeColor} ${percentage}%,
-            ${inactiveColor} ${percentage}%,
-            ${inactiveColor} 100%
-        )`;
+        // En lugar de pintar colores aquí, enviamos el valor al CSS
+        // Esto garantiza que el degradado y el pivote compartan el mismo eje
+        volumeBar.style.setProperty('--p', `${percentage}%`);
+    }
+
+    if (volumeIcon) {
+        if (volume === 0) {
+            volumeIcon.className = 'fas fa-volume-mute volume-icon';
+        } else if (volume > 0.6) {
+            volumeIcon.className = 'fas fa-volume-up volume-icon';
+        } else {
+            volumeIcon.className = 'fas fa-volume-down volume-icon';
+        }
     }
 }
 
@@ -815,79 +881,24 @@ function inicializarVolumen() {
     const initialVolume = 70; 
     const audioVolume = initialVolume / 100;
 
+    // Buscamos los elementos en el DOM (ya que se crean dinámicamente)
+    const volumeBar = document.getElementById('volumeBar');
+    const volumeIcon = document.getElementById('volumeIcon');
+
     if (volumeBar) {
         volumeBar.value = initialVolume;
         actualizarBarraVolumen(audioVolume);
         
-        if (audio) {
-            audio.volume = audioVolume;
-        }
+        if (audio) { audio.volume = audioVolume; }
 
         volumeBar.addEventListener('input', () => {
-            const newVolume = volumeBar.value / 100;
+            const val = volumeBar.value;
+            const newVolume = val / 100;
             
-            if (audio) {
-                audio.volume = newVolume;
-            }
-            
+            if (audio) { audio.volume = newVolume; }
             actualizarBarraVolumen(newVolume);
-
-            if (volumeIcon) {
-                volumeIcon.className = (newVolume === 0) ? 
-                    'fas fa-volume-mute volume-icon' : 
-                    'fas fa-volume-down volume-icon';
-            }
         });
     }
-}
-
-// ===============================
-// 🌌 PARTÍCULAS — FONDO VIVO (Lógica de las burbujas)
-// ===============================
-
-function iniciarBurbujas() {
-    const canvas = document.getElementById("burbujas");
-    if (!canvas) return;
-
-    const ctx = canvas.getContext("2d");
-
-    const resizeCanvas = () => {
-        const rect = canvas.getBoundingClientRect();
-        canvas.width = rect.width;
-        canvas.height = rect.height;
-    };
-
-    resizeCanvas();
-    window.addEventListener("resize", resizeCanvas);
-
-    let burbujas = Array.from({ length: 30 }, () => ({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        r: Math.random() * 8 + 2,
-        d: Math.random() * 1 + 0.5
-    }));
-
-    function dibujarBurbujas() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = "rgba(255, 255, 255, 0.6)";
-
-        burbujas.forEach(b => {
-            ctx.beginPath();
-            ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
-            ctx.fill();
-
-            b.y -= b.d;
-
-            if (b.y < -10) {
-                b.y = canvas.height + 10;
-                b.x = Math.random() * canvas.width;
-            }
-        });
-
-        requestAnimationFrame(dibujarBurbujas);
-    }
-
-    dibujarBurbujas();
 }
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

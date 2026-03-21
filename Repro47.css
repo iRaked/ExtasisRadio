@@ -31,33 +31,21 @@ body {
   background: transparent;
 }
 
-/* ===================== */
-/* 🖼️ FONDO PRINCIPAL (REPRO 45) */
-/* ===================== */
-.bg-water {
-    /* 1. Fondo (Imagen y comportamiento) */
-    background: url('https://santi-graphics.vercel.app/assets/bg/BG-Extasis.png') no-repeat center center / cover !important;
-    background-size: cover !important;
-    background-position: center !important;
-    background-repeat: no-repeat !important;
-
-    /* 2. Dimensiones */
-    width: 750px !important;
-    height: 425px !important;
-
-    /* 3. Estética de bordes y resplandor */
-    border-radius: 20px !important;
-    border: 2px solid #FF1493 !important;
-    box-shadow: 0 0 30px rgba(255, 20, 147, 0.6) !important;
-
-    /* 4. Comportamiento y Capas */
-    position: relative !important;
-    overflow: hidden !important;
-    pointer-events: auto !important;
-    z-index: 0 !important;
-
-    /* 5. Corrección de visualización */
-    display: block !important;
+/* ============================================================ */
+/* 🌑 CAPA DE CONTRASTE (OBSIDIANA)                              */
+/* ============================================================ */
+/* Esta capa oscurece los bordes para resaltar el resplandor oro */
+.bg-water::after {
+    content: '';
+    position: absolute;
+    top: 0; 
+    left: 0;
+    width: 100%; 
+    height: 100%;
+    /* Degradado radial para viñeteado de lujo */
+    background: radial-gradient(circle at center, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.7) 100%) !important;
+    z-index: -1; 
+    pointer-events: none;
 }
 
 /* ===================== */
@@ -92,8 +80,8 @@ body {
 .btn-radio {
   width: 40px;
   height: 40px;
-  background-color: rgba(255, 20, 147, 0.6); /* Deep Pink translúcido en rgba */
-  border: 2px solid #ff1493;                 /* borde sólido en hex */
+  background-color: rgba(255, 255, 255, 0.6); /* Deep Pink translúcido en rgba */
+  border: 2px solid #fff;                 /* borde sólido en hex */
   border-radius: 8px;
   display: flex;
   justify-content: center;
@@ -126,7 +114,7 @@ body {
   background: rgba(0, 0, 0, 0.4);
   padding: 4px 8px;
   border-radius: 6px;
-  box-shadow: 0 0 8px rgba(255, 20, 147, 0.9);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.9);
   z-index: 10;
 }
 
@@ -139,14 +127,14 @@ body {
   font-size: 0.9rem;
   color: #fff;
   padding: 4px 10px;
-  background: rgba(255, 20, 147, 0.3); /* translúcido */
-  border: 1px solid #FF1493;
+  background: rgba(255, 255, 255, 0.3); /* translúcido */
+  border: 1px solid #fff;
   border-radius: 6px;
   box-shadow:
-    0 0 8px #FF1493,
+    0 0 8px #fff,
     2px 2px 6px rgba(0,0,0,0.8);
   white-space: nowrap;            /* evita salto de línea */
-  text-shadow: 0 0 6px #FF1493;   /* brillo ceremonial */
+  text-shadow: 0 0 6px #fff;   /* brillo ceremonial */
 }
 
 /* ===================== */
@@ -154,7 +142,7 @@ body {
 /* ===================== */
 .bloque-bienvenida {
   position: absolute;
-  top: 50%;        /* mitad vertical */
+  top: 55%;        /* mitad vertical */
   left: 1%;        /* ajusta este valor para moverlo más a la izquierda */
   transform: translateY(-50%);
   display: flex;
@@ -202,12 +190,12 @@ body {
   position: absolute;
   width: 100%;
   left: 0;
-  top: 0;
+  top: -40px;
   opacity: 0;
   white-space: nowrap;
   font-weight: bold;
   font-size: 24px; /* Ajusta a tu gusto */
-  color: #FF1493;
+  color: #fff;
   text-align: center;
 }
 
@@ -309,7 +297,7 @@ p.animtext {
 }
 
 .radio-logo:hover {
-    box-shadow: 0 0 20px rgba(255, 20, 147, 0.8);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
 }
 
 /* CAPA DE EFECTOS */
@@ -325,7 +313,7 @@ p.animtext {
 }
 
 /* ===================== */
-/* PULSO MEDIA LUNA */
+/* PULSO MEDIA LUNA - SILVER EDITION */
 /* ===================== */
 .orbital_container {
     position: absolute;
@@ -356,12 +344,12 @@ p.animtext {
     border-radius: 50%;
     background: conic-gradient(
         from 90deg,
-        rgba(255, 20, 147, 0.6), /* Deep Pink translúcido */
-        #ff1493,                 /* Deep Pink sólido */
-        #e1dc5a                  /* crema */
+        rgba(192, 192, 192, 0.4), /* Plata translúcido */
+        #ffffff,                 /* Brillo blanco (Highlight) */
+        #a8a9ad                  /* Gris metálico profundo */
     );
     filter: blur(25px);
-    opacity: 0.6;
+    opacity: 0.7; /* Un poco más de opacidad para que el plata resalte */
     z-index: 0;
     animation: glowPulse 6s ease-in-out infinite;
 }
@@ -379,11 +367,12 @@ p.animtext {
     background: conic-gradient(
         from 90deg,
         transparent 0deg,
-        rgba(255, 20, 147, 0.6) 60deg, /* Deep Pink translúcido */
-        #ff1493 120deg,                /* Deep Pink sólido */
+        rgba(224, 224, 224, 0.5) 60deg, /* Silver light */
+        #ffffff 120deg,                /* Destello blanco */
         transparent 180deg
     );
     mask: radial-gradient(circle at center, transparent 100px, black 128px);
+    -webkit-mask: radial-gradient(circle at center, transparent 100px, black 128px);
     animation: arcSpin 6s linear infinite;
     opacity: 0.9;
 }
@@ -393,14 +382,14 @@ p.animtext {
     background: conic-gradient(
         from 270deg,
         transparent 0deg,
-        #ff1493 60deg,                 /* Deep Pink sólido */
-        rgba(255, 20, 147, 0.6) 120deg,/* Deep Pink translúcido */
+        #c0c0c0 60deg,                /* Plata sólido */
+        rgba(169, 169, 169, 0.6) 120deg, /* Gris oscuro translúcido */
         transparent 180deg
     );
 }
 
 /* ===================== */
-/* ANIMACIONES Y MEDIA QUERIES */
+/* ANIMACIONES Y MEDIA QUERIES - SILVER EDITION */
 /* ===================== */
 @keyframes vinylSpin {
     0% { transform: rotate(0deg); }
@@ -409,18 +398,24 @@ p.animtext {
 
 @keyframes glow {
     0% {
-        box-shadow: 0 0 25px rgba(255, 20, 147, 0.5);   /* halo Deep Pink suave */
-        border-color: rgba(255, 20, 147, 0.6);          /* borde Deep Pink translúcido */
+        box-shadow: 0 0 25px rgba(224, 224, 224, 0.4);  /* Halo plata suave */
+        border-color: rgba(255, 255, 255, 0.5);        /* Borde blanco translúcido */
     }
     100% {
-        box-shadow: 0 0 30px rgba(255, 20, 147, 0.8);   /* halo Deep Pink intenso */
-        border-color: rgba(255, 20, 147, 0.9);          /* borde Deep Pink sólido */
+        box-shadow: 0 0 35px rgba(255, 255, 255, 0.7);  /* Halo blanco intenso (brillo metálico) */
+        border-color: rgba(192, 192, 192, 0.9);        /* Borde plata sólido */
     }
 }
 
 @keyframes glowPulse {
-    0% { opacity: 0.4; filter: blur(20px); }
-    100% { opacity: 0.8; filter: blur(25px); }
+    0% { 
+        opacity: 0.4; 
+        filter: blur(20px) brightness(1); 
+    }
+    100% { 
+        opacity: 0.8; 
+        filter: blur(28px) brightness(1.3); /* Aumento de brillo para efecto cromo */
+    }
 }
 
 @keyframes arcSpin {
@@ -502,14 +497,14 @@ p.animtext {
   width: 220px;
   height: 24px;
   padding-left: 10px;
-  border-left: 2px solid #FF1493; /* borde sólido Deep Pink en hex */
+  border-left: 2px solid #fff; /* borde sólido Deep Pink en hex */
   border-radius: 6px;
-  background-color: rgba(20, 0, 30, 0.4); /* fondo violeta oscuro translúcido */
+  background-color: rgba(0, 0, 0, 0.4); /* fondo violeta oscuro translúcido */
   box-shadow:
     inset 0 1px 2px rgba(255, 255, 255, 0.2), /* luz interna superior */
     inset 0 -1px 2px rgba(0, 0, 0, 0.4),      /* sombra interna inferior */
     0 4px 8px rgba(0, 0, 0, 0.6),             /* sombra externa */
-    0 0 12px rgba(255, 20, 147, 0.3);         /* halo Deep Pink en rgba */
+    0 0 12px rgba(255, 255, 255, 0.3);         /* halo Deep Pink en rgba */
   backdrop-filter: blur(2px); /* profundidad atmosférica */
   display: flex;
   align-items: center;
@@ -544,11 +539,11 @@ p.animtext {
 
 /* Botón base con transparencia y sombra ceremonial */
 .soft {
-  background-color: rgba(255, 20, 147, 0.6); /* Deep Pink translúcido en rgba */
-  border: 1px solid #ff1493;                 /* borde sólido Deep Pink en hex */
+  background-color: rgba(255, 255, 255, 0.3); /* Deep Pink translúcido en rgba */
+  border: 1px solid #fff;                 /* borde sólido Deep Pink en hex */
   box-shadow:
     8px 8px 16px rgba(0, 0, 0, 0.95),        /* sombra abajo y derecha, muy marcada */
-    0 0 12px #ff1493;                         /* halo Deep Pink en hex */
+    0 0 12px #fff;                         /* halo Deep Pink en hex */
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   display: flex;
@@ -561,7 +556,7 @@ p.animtext {
   transform: scale(1.08);
   box-shadow:
     10px 10px 20px rgba(0, 0, 0, 0.95),       /* sombra más intensa al hover */
-    0 0 24px #ff1493;                         /* halo Deep Pink más fuerte en hex */
+    0 0 24px #fff;                         /* halo Deep Pink más fuerte en hex */
 }
 
 .repro-controls {
@@ -616,11 +611,11 @@ p.animtext {
 
 /* Botón de reproducción */
 .btn-play {
-  background-color: rgba(255, 20, 147, 0.6); /* Deep Pink translúcido en rgba */
-  border: 2px solid #ff1493;                 /* borde sólido Deep Pink en hex */
+  background-color: rgba(255, 255, 255, 0.3); /* translúcido en rgba 0.6 a color */
+  border: 2px solid #fff;                 /* borde sólido Deep Pink en hex */
   box-shadow:
     10px 10px 20px rgba(0, 0, 0, 1),
-    0 0 24px #ff1493;                         /* halo Deep Pink en hex */
+    0 0 24px #fff;                         /* halo Deep Pink en hex */
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   display: flex;
   justify-content: center;
@@ -632,7 +627,7 @@ p.animtext {
   transform: scale(1.08);
   box-shadow:
     12px 12px 24px rgba(0, 0, 0, 1),
-    0 0 32px #ff1493;                         /* halo Deep Pink más intenso */
+    0 0 32px #fff;                         /* halo Deep Pink más intenso */
 }
 
 
@@ -655,7 +650,7 @@ button svg {
 }
 
 /* ===================== */
-/* ESTILOS DE ESTADO (ACTIVE) */
+/* ESTILOS DE ESTADO (ACTIVE) - SILVER EDITION */
 /* ===================== */
 
 /* Aplica a Shuffle (.active) y Repeat (.active-one) */
@@ -664,41 +659,45 @@ button svg {
     /* Mantiene la transformación base al hover, pero lo aplica de forma fija */
     transform: scale(1.08); 
 
-    /* Fondo que indica el estado activo */
-    background-color: rgba(148, 0, 211, 0.8); /* violeta translúcido */
-    border: 1px solid #9400D3;                /* borde violeta sólido */
+    /* Fondo que indica el estado activo: Gris metálico cepillado */
+    background-color: rgba(168, 169, 173, 0.9); 
+    border: 1px solid #ffffff; /* Borde blanco para simular brillo en el canto */
     
-    /* Efecto de resplandor para indicar que está "encendido" */
+    /* Efecto de resplandor: Luz blanca/plata fría */
     box-shadow: 
-        10px 10px 20px rgba(0, 0, 0, 0.8), /* sombra fuerte */
-        0 0 15px #9400D3,                  /* resplandor violeta */
-        0 0 25px rgba(255, 255, 255, 0.4); /* halo blanco sutil */
+        10px 10px 20px rgba(0, 0, 0, 0.6), /* Sombra proyectada */
+        0 0 15px rgba(255, 255, 255, 0.8), /* Resplandor blanco "encendido" */
+        0 0 25px rgba(192, 192, 192, 0.5); /* Halo plata ambiental */
 }
 
-/* Ajuste de color del SVG para que el icono se vea mejor sobre el fondo activo */
+/* Ajuste de color del SVG para que el icono resalte sobre el plata */
 .soft.active-one svg,
 .soft.active svg {
-    /* Usamos un violeta oscuro (casi negro) para un buen contraste */
+    /* Usamos el color oscuro de la interfaz original para máximo contraste */
     fill: #17191e; 
+    /* Opcional: un ligero filtro para que el icono parezca grabado */
+    filter: drop-shadow(0px 1px 1px rgba(255, 255, 255, 0.3));
 }
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Volumen Corregido ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ VOLUMEN PREMIUM - SILVER/CHROME ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 .volume-icon {
-  color: #000;
+  color: #a0a0a0; /* Gris metálico base */
   font-size: 16px;
+  filter: drop-shadow(0 1px 1px rgba(0,0,0,0.5));
 }
 
 .volume-track {
   width: 150px;
   height: 16px;
-  background: #010101;
+  background: #0a0a0a; /* Fondo ultra oscuro para contraste */
   border-radius: 8px;
   box-shadow:
-    inset 0 0 0 1px #ff1493,       /* borde interno Deep Pink en hex */
-    inset 0 2px 4px #000;
+    inset 0 0 0 1px rgba(255, 255, 255, 0.1), /* Brillo en el borde interno */
+    inset 0 2px 5px #000;                     /* Profundidad del surco */
   display: flex;
   align-items: center;
   padding: 0 4px;
+  border: 1px solid #1a1a1a;
 }
 
 .volume-bar {
@@ -706,208 +705,271 @@ button svg {
   height: 4px;
   appearance: none;
   -webkit-appearance: none;
-  background: transparent; /* Dejamos el fondo base transparente */
+  background: transparent !important;
   outline: none;
   cursor: pointer;
 }
 
-/* ESTO PINTA LA BARRA EN CHROME, EDGE Y SAFARI */
+/* --- CHROME, EDGE Y SAFARI --- */
 .volume-bar::-webkit-slider-runnable-track {
   width: 100%;
   height: 4px;
   cursor: pointer;
   border-radius: 4px;
+  /* Gradiente que simula acero pulido (activo) y carbón (inactivo) */
   background: linear-gradient(
     to right,
-    rgba(255, 20, 147, 0.6) 0%,   /* Deep Pink translúcido en rgba */
-    rgba(255, 20, 147, 0.6) 70%, 
-    #ff1493 70%,                  /* Deep Pink sólido en hex */
-    #ff1493 100%
+    #e0e0e0 0%,                  /* Brillo inicial */
+    #888888 var(--p, 70%),       /* Acero cepillado hasta el pivote */
+    #222222 var(--p, 70%),       /* Riel oscuro inactivo */
+    #111111 100%
   );
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.8);
 }
 
-/* EL PIVOTE EN CHROME, EDGE Y SAFARI */
 .volume-bar::-webkit-slider-thumb {
-  height: 12px;
-  width: 12px;
-  border-radius: 50%;
-  background: #ff1493; /* Deep Pink sólido en hex */
-  cursor: pointer;
   -webkit-appearance: none;
-  margin-top: -4px; /* Centra el pivote sobre los 4px de la barra */
-  box-shadow: 0 0 2px #000;
+  height: 16px; /* Más grande para que parezca una perilla real */
+  width: 16px;
+  border-radius: 50%;
+  /* EFECTO CROMO: Reflejo de luz blanca -> Gris plata -> Gris plomo */
+  background: radial-gradient(circle at 35% 35%, 
+    #ffffff 0%, 
+    #b0b0b0 45%, 
+    #666666 100%
+  );
+  cursor: pointer;
+  margin-top: -6px; /* Centrado respecto a los 4px del track */
+  border: 1px solid #888;
+  box-shadow: 
+    0 3px 5px rgba(0,0,0,0.6),      /* Sombra proyectada */
+    inset 0 1px 0 rgba(255,255,255,0.8); /* Reflejo superior del metal */
 }
 
-/* ESTO PINTA LA BARRA EN FIREFOX */
+/* --- FIREFOX --- */
 .volume-bar::-moz-range-progress {
-  background-color: rgba(255, 20, 147, 0.6); /* Deep Pink translúcido en rgba */
+  background: linear-gradient(to bottom, #e0e0e0, #888);
   height: 4px;
   border-radius: 4px;
 }
 
 .volume-bar::-moz-range-track {
-  background-color: #ff1493; /* Deep Pink sólido en hex */
+  background-color: #222;
   height: 4px;
   border-radius: 4px;
 }
 
 .volume-bar::-moz-range-thumb {
-  height: 12px;
-  width: 12px;
+  height: 16px;
+  width: 16px;
   border-radius: 50%;
-  background: #ff1493; /* Deep Pink sólido en hex */
+  background: radial-gradient(circle at 35% 35%, #ffffff, #b0b0b0, #666);
   cursor: pointer;
-  border: none;
-  box-shadow: 0 0 2px #000;
+  border: 1px solid #888;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
 
 /* ===================== */
-/* 🪟 Modal de Tracks (NUEVA POSICIÓN) */
+/* 🪟 Modal de Tracks (SILVER & NEUTRAL EDITION) */
 /* ===================== */
 .hidden {
-  display: none;
+    display: none;
 }
 
 .modal {
-  position: absolute; 
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 750px;
-  height: 440px;
-  background-color: rgba(0, 0, 0, 0.1); 
-  backdrop-filter: blur(4px);
-  border-radius: 12px;
-  overflow: hidden; 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
+    position: absolute; 
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 750px;
+    height: 440px;
+    background-color: rgba(0, 0, 0, 0.2); 
+    backdrop-filter: blur(6px);
+    border-radius: 12px;
+    overflow: hidden; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
 }
 
 .modal-content {
-  position: relative;
-  width: 100%; 
-  height: 100%; 
-  background-color: rgba(20, 20, 20, 0.95);
-  border: 2px solid #ff1493;              /* borde Deep Pink */
-  border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 0 24px #ff1493;           /* halo Deep Pink */
-  color: #fff;
-  text-align: left;
-  overflow-y: auto;
-  z-index: 10000;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
-  scrollbar-width: thin;
-  scrollbar-color: #ff1493 #202020;       /* scroll Deep Pink */
+    position: relative;
+    width: 100%; 
+    height: 100%; 
+    background-color: rgba(15, 15, 15, 0.98);
+    border: 2px solid #b0b0b0;              /* Borde Plata Neutro */
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.15); /* Halo blanco suave */
+    color: #fff;
+    text-align: left;
+    overflow-y: auto;
+    z-index: 10000;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    scrollbar-width: thin;
+    scrollbar-color: #888888 #1a1a1a;       /* Scroll Gris Neutro */
 }
 
 .modal:not(.hidden) .modal-content {
-  opacity: 1;
-  transform: translateY(0);
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .modal-x {
-  position: absolute;
-  top: 12px;
-  right: 16px;
-  background: none;
-  border: none;
-  font-size: 1.5em;
-  color: #ff1493;                         /* ícono cierre Deep Pink */
-  cursor: pointer;
-  text-shadow: 0 0 8px #ff1493;
-  z-index: 10001;
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    color: #e0e0e0;                         /* Ícono cierre plata claro */
+    cursor: pointer;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+    transition: color 0.3s ease;
+    z-index: 10001;
+}
+
+.modal-x:hover {
+    color: #ffffff;
 }
 
 .modal-title {
-  font-size: 1.2em; /* Título más pequeño */
-  margin-bottom: 10px;
-  color: #ff1493;                         /* título Deep Pink */
-  text-shadow: 0 0 8px #ff1493;
-  text-align: center; /* Centramos el título */
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    color: #ffffff;                         /* Título blanco puro */
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    text-align: center;
 }
 
 .modal-info {
-  font-size: 0.95em;
-  color: #ccc;
-  margin-bottom: 12px;
+    font-size: 0.95em;
+    color: #a0a0a0;                         /* Gris medio */
+    margin-bottom: 12px;
 }
 
 #current-track-name {
-  display: inline-block;
-  padding: 4px 12px;
-  margin-left: 6px;
-  background: linear-gradient(
-    90deg,
-    rgba(255, 20, 147, 0.6), /* Deep Pink translúcido */
-    #ff1493                  /* Deep Pink sólido */
-  );
-  border-radius: 8px;
-  color: #fff;
-  font-weight: bold;
-  animation: pulseTrack 1.5s infinite;
-  box-shadow: 0 0 6px rgba(255, 20, 147, 0.4);
+    display: inline-block;
+    padding: 4px 12px;
+    margin-left: 6px;
+    background: linear-gradient(
+        90deg,
+        rgba(100, 100, 100, 0.6),           /* Gris acero translúcido */
+        #888888                             /* Gris sólido */
+    );
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: #fff;
+    font-weight: bold;
+    animation: pulseTrack 2s infinite;      /* Pulso más pausado y elegante */
 }
 
 @keyframes pulseTrack {
-  0% {
-    box-shadow: 0 0 6px rgba(255, 20, 147, 0.4); /* Deep Pink suave */
-  }
-  50% {
-    box-shadow: 0 0 12px rgba(255, 20, 147, 0.8); /* Deep Pink vibrante */
-  }
-  100% {
-    box-shadow: 0 0 6px rgba(255, 20, 147, 0.4); /* Deep Pink suave */
-  }
+    0% {
+        box-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+    }
+    50% {
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+    }
+    100% {
+        box-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+    }
 }
 
 .track-list {
-  list-style: none;
-  padding: 0;
-  margin-bottom: 20px;
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
 }
 
 .track-list li {
-  margin: 8px 0;
-  font-size: 1em;
-  color: #ccc;
-  cursor: pointer;
-  transition: color 0.3s ease, text-shadow 0.3s ease;
+    margin: 8px 0;
+    font-size: 1em;
+    color: #999;
+    cursor: pointer;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
 }
 
 .track-list li:hover {
-  color: #ff1493;                         /* hover Deep Pink */
-  text-shadow: 0 0 8px #ff1493;
+    color: #ffffff;                         /* Hover blanco */
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
 }
 
 #track-name.active {
-  color: #ff1493;                         /* activo Deep Pink */
-  font-weight: bold;
-  text-shadow: 0 0 6px rgba(255, 20, 147, 0.5);
-  transition: all 300ms ease;
+    color: #ffffff;                         /* Activo blanco */
+    font-weight: bold;
+    text-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
+    transition: all 300ms ease;
 }
 
-/* Nuevo selector para la pista activa en la lista */
+/* Selector para la pista activa en la lista con look metálico */
 .track-list li.active-track {
-  color: #ff1493;                         /* activo Deep Pink */
-  font-weight: bold;
-  text-shadow: 0 0 8px rgba(255, 20, 147, 0.6);
-  background-color: rgba(255, 20, 147, 0.1); /* fondo sutil Deep Pink */
-  border-radius: 4px;
-  padding: 2px 4px;
+    color: #ffffff;                         /* Texto blanco */
+    font-weight: bold;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+    background-color: rgba(255, 255, 255, 0.1); /* Reflejo sutil de luz */
+    border-left: 3px solid #ffffff;         /* Indicador lateral blanco */
+    border-radius: 4px;
+    padding: 2px 8px;
 }
 
 /* ===================== */
-/* BURBUJAS */
+/* NOTAS */
 /* ===================== */
-#pixi-container canvas {
-  background-color: transparent !important;
+/* Modificación de los contenedores de efectos para limitarlos al reproductor */
+.music-notes-container, .sparkles-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
+    overflow: hidden;
 }
 
+/* Corregir las posiciones de inicio de las notas musicales */
+.music-note {
+    position: absolute;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 24px;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+    animation: floatNote 12s linear infinite;
+    opacity: 0;
+}
+
+.music-note:nth-child(1) { left: 20%; top: -30px; animation-delay: 0s; font-size: 25px; }
+.music-note:nth-child(2) { left: 40%; top: -30px; animation-delay: 2s; font-size: 18px; }
+.music-note:nth-child(3) { left: 60%; top: -30px; animation-delay: 4s; font-size: 22px; }
+.music-note:nth-child(4) { left: 80%; top: -30px; animation-delay: 6s; font-size: 26px; }
+.music-note:nth-child(5) { left: 10%; top: -30px; animation-delay: 1s; font-size: 20px; }
+.music-note:nth-child(6) { left: 30%; top: -30px; animation-delay: 3s; font-size: 19px; }
+.music-note:nth-child(7) { left: 50%; top: -30px; animation-delay: 5s; font-size: 24px; }
+.music-note:nth-child(8) { left: 70%; top: -30px; animation-delay: 7s; font-size: 21px; }
+
+/* Animación modificada para que las notas se muevan solo dentro del contenedor */
+@keyframes floatNote {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.8;
+    }
+    90% {
+        opacity: 0.6;
+    }
+    100% {
+        transform: translateY(380px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* ===================== */
+/* MESSAGE */
+/* ===================== */
 .custom-message {
     position: absolute;
     top: 50%;

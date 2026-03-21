@@ -6,32 +6,28 @@ function crearAudio() {
   const audio = document.createElement("audio");
   audio.id = "player";
   audio.setAttribute("autoplay", "");
-  audio.src = "https://technoplayerserver.net/8148/stream"; // stream real
+  audio.src = "https://radio.technoplayerserver.com:8034/stream";
   return audio;
 }
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // 🌊 SECTION PRINCIPAL (bg-water + ripples)
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// <section class="bg-water ripples jquery-ripples" id="stream1">
 function crearSectionPrincipal() {
   const section = document.createElement("section");
   section.className = "bg-water ripples jquery-ripples";
   section.id = "stream1";
-  section.dataset.tag = "";
 
-  // Inserta los elementos hijos principales
+  // Solo insertamos el audio y el canvas de notas
   section.appendChild(crearAudio());
-  section.appendChild(crearCanvasBurbujas());
-  section.appendChild(crearPixiContainer());
-
+  section.appendChild(crearCanvasBurbujas()); 
+  
   return section;
 }
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 💫 CANVAS BURBUJAS
+// 💫 CANVAS NOTAS (FONDO)
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// <canvas id="burbujas" ...>
 function crearCanvasBurbujas() {
   const canvas = document.createElement("canvas");
   canvas.id = "burbujas";
@@ -40,9 +36,71 @@ function crearCanvasBurbujas() {
   canvas.style.left = "0";
   canvas.style.width = "100%";
   canvas.style.height = "100%";
-  canvas.style.zIndex = "0";
+  canvas.style.zIndex = "0"; 
   canvas.style.pointerEvents = "none";
   return canvas;
+}
+
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// 🎵 CONTENEDOR DE NOTAS (ANIMACIÓN CSS)
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function crearNotasMusicales() {
+  const container = document.createElement("div");
+  container.className = "music-notes-container";
+  
+  const notas = ["♪", "♫", "♩", "♬", "♪", "♫", "♩", "♬"];
+  
+  notas.forEach(simbolo => {
+    const div = document.createElement("div");
+    div.className = "music-note";
+    div.textContent = simbolo;
+    container.appendChild(div);
+  });
+  
+  return container;
+}
+
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// 💫 CANVAS NOTAS (ANIMACIÓN)
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function inicializarNotasCanvas() {
+  const canvas = document.getElementById("burbujas");
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d");
+  
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  const notasSimbolos = ["♪", "♫", "♩", "♬"];
+  const particulas = [];
+
+  // Ajustamos a 30 notas para que se vea lleno pero fluido
+  for (let i = 0; i < 30; i++) {
+    particulas.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      vel: Math.random() * 1 + 0.5,
+      simbolo: notasSimbolos[Math.floor(Math.random() * notasSimbolos.length)],
+      size: Math.random() * 15 + 12
+    });
+  }
+
+  function animar() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "rgba(255, 255, 255, 0.3)"; // Notas blancas sutiles
+    
+    particulas.forEach(p => {
+      ctx.font = `${p.size}px Arial`;
+      ctx.fillText(p.simbolo, p.x, p.y);
+      p.y -= p.vel; 
+      if (p.y < -20) {
+        p.y = canvas.height + 20;
+        p.x = Math.random() * canvas.width;
+      }
+    });
+    requestAnimationFrame(animar);
+  }
+  animar();
 }
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -126,14 +184,14 @@ function crearHeader() {
 }
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 🌌 LOGO CONTAINER
+// 🌌 LOGO CONTAINER https://santi-graphics.vercel.app/
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 function crearLogoContainer() {
   const logoContainer = document.createElement("div");
   logoContainer.className = "logo-container";
 
   const img = document.createElement("img");
-  img.src = "https://santi-graphics.vercel.app/assets/img/BWings.gif";
+  img.src = "assets/img/Logo-Cristal.png";
   img.alt = "Logo";
   img.className = "logo-base zoom-effect";
 
@@ -301,8 +359,10 @@ function crearBotonera() {
   `;
   buttons.appendChild(btnPrev);
 
-  // Play/Pause
-  const btnPlayPause = document.createElement("button");
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// ⏯️ BOTÓN PLAY/PAUSE (DINÁMICO)
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+const btnPlayPause = document.createElement("button");
   btnPlayPause.id = "btn-play-pause";
   btnPlayPause.className = "flex justify-center items-center w-20 h-20 ml-6 rounded-full soft btn-play";
   btnPlayPause.setAttribute("aria-label", "Play/Pause");
@@ -479,23 +539,23 @@ function inicializarPixiBubbles() {
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 function inicializarReproductor() {
   const body = document.body;
-  body.innerHTML = "";
+  body.innerHTML = ""; // Limpieza de desastres previos
 
   const section = crearSectionPrincipal();
 
-  // Bloque lateral con logo + texto
+  // 1. Bloque de Bienvenida (Logo + Texto)
   const bloqueBienvenida = document.createElement("div");
   bloqueBienvenida.className = "bloque-bienvenida";
   bloqueBienvenida.appendChild(crearLogoContainer());
   bloqueBienvenida.appendChild(crearTextoBienvenida());
-
   section.appendChild(bloqueBienvenida);
 
-  // ReproBox intacto
+  // 2. ReproBox (Interfaz Principal)
   const reproBox = crearReproBox();
   reproBox.appendChild(crearVisualEffects());
   reproBox.appendChild(crearFooter());
 
+  // Mensaje de marca
   const customMessage = document.createElement("div");
   customMessage.id = "custom-message";
   customMessage.className = "custom-message";
@@ -503,17 +563,19 @@ function inicializarReproductor() {
   reproBox.appendChild(customMessage);
 
   section.appendChild(reproBox);
+  
+  // 3. Inyección al DOM
   body.appendChild(section);
-
-  // Modal tracks
   body.appendChild(crearModalTracks());
 
-  // Inicializadores de efectos visuales
+  // 4. Inicialización de Motores
   inicializarWavesEQ();
   inicializarRipples();
-  inicializarPixiBubbles();
+  inicializarControlPlay(); // <--- FUNDAMENTAL
+  inicializarNotasCanvas(); // Arranca el canvas en lugar de Pixi
 
   window.dispatchEvent(new Event("repro-ready"));
 }
 
+// Lanzamiento
 inicializarReproductor();
