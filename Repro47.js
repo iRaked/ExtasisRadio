@@ -184,14 +184,14 @@ function crearHeader() {
 }
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 🌌 LOGO CONTAINER https://santi-graphics.vercel.app/
+// 🌌 LOGO CONTAINER 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 function crearLogoContainer() {
   const logoContainer = document.createElement("div");
   logoContainer.className = "logo-container";
 
   const img = document.createElement("img");
-  img.src = "assets/img/Logo-Cristal.png";
+  img.src = "https://santi-graphics.vercel.app/assets/img/Logo-Cristal.png";
   img.alt = "Logo";
   img.className = "logo-base zoom-effect";
 
