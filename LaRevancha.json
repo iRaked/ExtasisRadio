@@ -870,6 +870,19 @@
       "country": ["Puerto Rico"]
     },
     {
+      "id": "listless-3am-siempre",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover3/Listless-3am-(Siempre).jpg",
+      "artista": "Listless",
+      "nombre": "3am (Siempre)",
+      "album": "Single",
+      "enlace": "https://xat-music3.vercel.app/assets/audio3/Listless-3am-(Siempre).mp3",
+      "genero": "Punk Rock",
+      "emotion": "Insomnio",
+      "seccion": "la revancha",
+      "duracion": "1:22",
+      "country": ["Argentina"]
+    },
+    {
       "id": "luana-dejame-ir",
       "caratula": "https://iraked.github.io/SantiGraphics/assets/cover3/Luana-Dejame-ir.jpg",
       "artista": "Luana",
@@ -1499,6 +1512,32 @@
       "country": ["Colombia"]
     },
     {
+      "id": "carlos-sadness-feliz-feliz",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover3/Carlos-Sadness-Feliz-feliz.jpg",
+      "artista": "Carlos Sadness",
+      "nombre": "Feliz Feliz",
+      "album": "Realismo Mágico",
+      "enlace": "https://xat-music3.vercel.app/assets/audio3/Carlos-Sadness-Feliz-feliz.mp3",
+      "genero": "Indie Pop",
+      "emotion": "Optimismo",
+      "seccion": "la revancha",
+      "duracion": "2:44",
+      "country": ["España"]
+    },
+    {
+      "id": "dave-bolano-que-ganas",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover3/Dave-Bolano-Que-ganas.jpg",
+      "artista": "Dave Bolaño",
+      "nombre": "Que Ganas",
+      "album": "Single",
+      "enlace": "https://xat-music3.vercel.app/assets/audio3/Dave-Bolano-Que-ganas.mp3",
+      "genero": "Pop Latino",
+      "emotion": "Deseo",
+      "seccion": "la revancha",
+      "duracion": "2:42",
+      "country": ["Colombia"]
+    },
+    {
       "id": "marwan-pensabamos-que-el-amor-era-solo-una-fiesta",
       "caratula": "https://iraked.github.io/SantiGraphics/assets/cover3/Marwan-Pensabamos-que-el-amor-era-solo-una-fiesta.jpg",
       "artista": "Marwán",
@@ -1509,6 +1548,19 @@
       "emotion": "Desilusion",
       "seccion": "la revancha",
       "duracion": "2:37",
+      "country": ["España"]
+    },
+    {
+      "id": "bustamante-el-dia-que-te-vayas",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover3/Bustamante-El-dia-que-te-vayas.jpg",
+      "artista": "David Bustamante",
+      "nombre": "El Día Que Te Vayas",
+      "album": "Single",
+      "enlace": "https://xat-music3.vercel.app/assets/audio3/Bustamante-El-dia-que-te-vayas.MP3",
+      "genero": "Pop",
+      "emotion": "Despedida",
+      "seccion": "la revancha",
+      "duracion": "2:35",
       "country": ["España"]
     },
     {
@@ -1542,6 +1594,19 @@
 
 
 
+    {
+      "id": "carlos-menchaca-vete-a-la-chingada",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover3/Carlos-Menchaca-Vete-a-la-chingada.jpg",
+      "artista": "Carlos Menchaca",
+      "nombre": "Vete A La Chingada",
+      "album": "Single",
+      "enlace": "https://xat-music3.vercel.app/assets/audio3/Carlos-Menchaca-Vete-a-la-chingada.mp3",
+      "genero": "Regional Mexicano",
+      "emotion": "Hastiado",
+      "seccion": "la revancha",
+      "duracion": "3:06",
+      "country": ["Mexico"]
+    },
     {
       "id": "daaz-mi-version-de-ti",
       "caratula": "https://iraked.github.io/SantiGraphics/assets/cover3/Daaz-Mi-version-de-ti.jpg",
