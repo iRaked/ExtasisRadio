@@ -62,7 +62,7 @@
       "genero": "Cumbia",
       "emotion": "Coqueto",
       "seccion": "reventon musical",
-      "duracion": "2:50",
+      "duracion": "8:09",
       "country": ["Mexico"]
     },
     {
@@ -288,11 +288,11 @@
     },
     {
       "id": "el-vaiven-mx-medley-tributo-a-rigo-tovar",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover3/El-Vaiven-MX-Medley-tributo-a-rigo-tovar.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover3/El-Vaiven-MX-Medley-tributo-a-Rigo-Tovar.jpg",
       "artista": "El Vaiven MX",
       "nombre": "Medley Tributo A Rigo Tovar",
       "album": "Tributos",
-      "enlace": "https://xat-music3.vercel.app/assets/audio3/El-Vaiven-MX-Medley-tributo-a-rigo-tovar.mp3",
+      "enlace": "https://xat-music3.vercel.app/assets/audio3/El-Vaiven-MX-Medley-tributo-a-Rigo-Tovar.mp3",
       "genero": "Cumbia",
       "emotion": "Nostálgico",
       "seccion": "reventon musical",
