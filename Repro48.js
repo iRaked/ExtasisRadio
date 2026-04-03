@@ -771,7 +771,7 @@ function inicializarEfectosAvanzados() {
         'width': '100%',
         'height': '100%',
         'z-index': '1', // Capa base de fondo
-        'background-image': 'url("assets/bg/Monumental.jpg")',
+        'background-image': 'url("https://santi-graphics.vercel.app/assets/bg/Monumental.jpg")',
         'background-size': 'cover',
         'background-position': 'center',
         'pointer-events': 'auto' // Permite interactuar con las ondas

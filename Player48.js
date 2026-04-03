@@ -12,7 +12,7 @@ function crearMainContainer() {
 
     // 2. Logo River 3D
     const logo3d = crearElemento("div", { className: "logo-river-3d" });
-    logo3d.appendChild(crearElemento("img", { src: "assets/img/AFA.png", alt: "Logo 3D", className: "logo-imagen" }));
+    logo3d.appendChild(crearElemento("img", { src: "https://santi-graphics.vercel.app/assets/img/AFA.png", alt: "Logo 3D", className: "logo-imagen" }));
     main.appendChild(logo3d);
 
     // 3. Interfaz Estadio
