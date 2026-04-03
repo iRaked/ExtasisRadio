@@ -1,67 +1,88 @@
-body {
-  position: relative;
-  overflow: hidden;
-  margin: 0;
-  padding: 0;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: Arial, sans-serif;
-  z-index: 0;
-}
-
-.repro-box {
-  position: relative;
-  z-index: 1;
-  padding: 20px;
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 01 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+/* ***************************** CONTENEDORES ***************************** */
+.main-container {
+  width: 804px;
+  height: 625px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: flex-start;
+  overflow: hidden;
+  position: relative;
+  /* outline: 3px dashed #00FF00; */
 }
 
-#particles {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
+/* LOGO: Independiente de la interfaz para evitar conflictos de blur */
+.logo-river-3d {
+  width: 300px;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 50; 
+  margin-bottom: -200px; /* Sube para dar efecto de profundidad */
+  perspective: 1000px;
   pointer-events: none;
-  background: transparent;
+}
+
+.logo-imagen {
+  max-width: 100%;
+  max-height: 100%;
+  animation: girarLogo 5s linear infinite;
+  transform-style: preserve-3d;
+  filter: drop-shadow(0 10px 20px rgba(0,0,0,0.8));
+}
+
+@keyframes girarLogo {
+  from { transform: rotateY(0deg); }
+  to { transform: rotateY(360deg); }
+}
+
+/* INTERFAZ: El contenedor de los controles */
+.interfaz-estadio {
+  width: 800px;
+  height: 425px;
+  position: relative;
+  z-index: 10;
+  border-radius: 16px;
+  overflow: hidden; /* Corta el agua y las notas en las esquinas */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: black; /* Fondo base por si el img tarda en cargar */
+  border: 2px solid #74acdf; /* Borde de 1px sólido color negro */
+  /*box-shadow: 0 0 8px rgba(0, 0, 0, 0.9);*/
+}
+
+/* El Fondo Monumental */
+.interfaz-estadio::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: url('assets/bg/Monumental.jpg');
+  background-size: cover;
+  background-position: center;
+  filter: blur(0px);
+  transform: scale(1.1);
+  z-index: -2; /* Al fondo de todo */
 }
 
 /* ===================== */
-/* 🖼️ FONDO PRINCIPAL (REPRO 45) */
+/* AQUA & ESTRUCTURA */
 /* ===================== */
-.bg-water {
-    /* 1. Fondo (Imagen y comportamiento) */
-    background: url('https://santi-graphics.vercel.app/assets/bg/BG-1Rinconcito.png') no-repeat center center / cover !important;
-    background-size: cover !important;
-    background-position: center !important;
-    background-repeat: no-repeat !important;
-
-    /* 2. Dimensiones */
-    width: 750px !important;
-    height: 425px !important;
-
-    /* 3. Estética de bordes y resplandor */
-    border-radius: 20px !important;
-    border: 2px solid #0000CD !important;
-    box-shadow: 0 0 30px rgba(0, 0, 205, 0.6) !important;
-
-    /* 4. Comportamiento y Capas */
-    position: relative !important;
-    overflow: hidden !important;
-    pointer-events: auto !important;
-    z-index: 0 !important;
-
-    /* 5. Corrección de visualización */
-    display: block !important;
+#pixi-container {
+    pointer-events: none; /* Crucial: permite clickear los botones debajo del efecto */
+    mix-blend-mode: screen; /* Opcional: hace que las ondas interactúen con la luz de la UI */
 }
 
+#pixi-container canvas {
+    background-color: transparent !important;
+    display: block;
+}
+
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 02 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
 /* ===================== */
-/* 💿 PARTE 2: DISCO, ENCABEZADO Y TEXTOS */
+/* DISCO, ENCABEZADO Y TEXTOS */
 /* ===================== */
 .repro-header {
   width: 100%;
@@ -69,6 +90,7 @@ body {
   align-items: center;
   justify-content: space-between;
   margin-bottom: 20px;
+  z-index: 25;
 }
 
 .btn-menu {
@@ -76,12 +98,13 @@ body {
   border: none;
   cursor: pointer;
   padding: 5px;
+  z-index: 30;
 }
 
 .icon-menu {
   width: 32px;
   height: 32px;
-  fill: #fff;
+  fill: #74acdf;
   transition: transform 0.3s ease;
 }
 
@@ -92,14 +115,15 @@ body {
 .btn-radio {
   width: 40px;
   height: 40px;
-  background-color: rgba(0, 0, 205, 0.9); /* azul translúcido en rgba */
-  border: 2px solid #0000CD;               /* borde sólido en hex */
+  background-color: rgba(116, 172, 223, 0.9); /* Celeste translúcido */
+  border: 2px solid #FFFFFF;                /* Blanco */
   border-radius: 8px;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.3s ease;
+  z-index: 30;
 }
 
 .btn-radio:hover {
@@ -109,329 +133,59 @@ body {
 .btn-radio svg {
   width: 60%;
   height: 60%;
-  fill: #000000;
+  fill: #fff;
   pointer-events: none;
 }
 
 .radioescuchas {
   position: absolute;
   top: 80px;
-  left: 20px;
+  left: 10px;
   display: flex;
   align-items: center;
   gap: 6px;
   font-size: 14px;
   color: white;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(116, 172, 223, 0.4);
   padding: 4px 8px;
   border-radius: 6px;
-  box-shadow: 0 0 8px rgba(0, 0, 205, 0.9);
-  z-index: 10;
+  border: 1px solid #FFFFFF;                /* Blanco */
+  box-shadow: 0 0 8px rgba(116, 172, 223, 0.9);
+  z-index: 25;
 }
 
 /* ===================== */
 /* INFO TIME (fecha/hora) */
 /* ===================== */
 .info-time {
-  margin-left: 15px;              /* separación respecto al botón menú */
-  font-family: 'Orbitron', sans-serif; /* tipografía ceremonial */
-  font-size: 0.9rem;
+  /* CAMBIO CLAVE: Posicionamiento absoluto respecto a .interfaz-estadio */
+  position: absolute;
+  bottom: 65px;         /* Se ubica justo arriba del footer (que mide 60px) */
+  left: 260px;           /* Alineado a la izquierda, puedes ajustarlo según prefieras */
+  
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.85rem;   /* Un poco más compacto para que no sature */
   color: #fff;
-  padding: 4px 10px;
-  background: rgba(104, 101, 20, 0.3); /* violeta translúcido */
-  border: 1px solid #0000CD;
-  border-radius: 6px;
+  padding: 4px 12px;
+  background: rgba(0, 0, 0, 0.7); /* Fondo más oscuro para máxima nitidez */
+  border: 1px solid #74ACDF;
+  border-radius: 4px;
+  
   box-shadow:
-    0 0 8px #3acdee,
-    2px 2px 6px rgba(0,0,0,0.8);
-  white-space: nowrap;            /* evita salto de línea */
-  text-shadow: 0 0 6px #0000CD;   /* brillo ceremonial */
-}
-
-/* ===================== */
-/* BLOQUE BIENVENIDA */
-/* ===================== */
-.bloque-bienvenida {
-  position: absolute;
-  top: 50%;        /* mitad vertical */
-  left: 1%;        /* ajusta este valor para moverlo más a la izquierda */
-  transform: translateY(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 15px;
-}
-
-.logo-container-bienvenida {
-  text-align: center;
-}
-
-.logo-base-bienvenida.zoom-effect {
-  width: 150px;
-  height: auto;
-  animation: zoomInOut 6s ease-in-out infinite;
-}
-
-@keyframes zoomInOut {
-  0%   { transform: scale(1); }
-  50%  { transform: scale(1.08); }
-  100% { transform: scale(1); }
-}
-
-.context-bienvenida {
-  text-align: center;
-}
-
-/* Ajustes para que las palabras se superpongan correctamente */
-.context-bienvenida {
-  position: relative;
-  width: 300px; /* Ajusta según el largo de tu texto */
-  height: 50px; 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.animtext {
-  position: relative;
-  width: 100%;
-}
-
-.word {
-  position: absolute;
-  width: 100%;
-  left: 0;
-  top: 0;
-  opacity: 0;
+    0 0 10px rgba(116, 172, 223, 0.5),
+    inset 0 0 5px rgba(116, 172, 223, 0.2);
+    
   white-space: nowrap;
-  font-weight: bold;
-  font-size: 24px; /* Ajusta a tu gusto */
-  color: #6495ED;
-  text-align: center;
+  text-shadow: 0 0 5px #74ACDF;
+  
+  /* Z-INDEX: Debe ser mayor que el estadio (10) pero menor que el logo (50) */
+  z-index: 25; 
+  
+  pointer-events: none; /* Para que no bloquee clics accidentales */
+  transition: all 0.3s ease;
 }
 
-.letter {
-  display: inline-block;
-  position: relative;
-  transform-style: preserve-3d;
-}
-
-p.animtext {
-  margin: 0;
-  color: #0000CD;
-  perspective: 1000px; /* da profundidad al efecto 3D */
-}
-
-.letter.out {
-  transform: rotateX(90deg);
-  transition: transform 0.32s cubic-bezier(0.55, 0.055, 0.675, 0.19);
-}
-.letter.behind {
-  transform: rotateX(-90deg);
-}
-.letter.in {
-  transform: rotateX(0deg);
-  transition: transform 0.38s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-/* ===================== */
-/* LOGO RADIO */
-/* ===================== */
-.lateral-container {
-  position: absolute;
-  top: 40%;
-  left: 50%;   /* izquierda media de main */
-  transform: translateY(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 15px;
-}
-
-.logo-container {
-  text-align: center;
-}
-
-.logo-base.zoom-effect {
-  width: 250px;
-  height: auto;
-  animation: zoomInOut 6s ease-in-out infinite;
-}
-
-.context {
-  text-align: center;
-}
-
-/* ===================== */
-/* ESTRUCTURA BASE Y LOGO */
-/* ===================== */
-.logo-waves-wrapper {
-    position: relative; 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 250px;
-    height: 250px;
-    gap: 12px;
-    margin: 20px auto;
-    transform: scale(0.85);
-}
-
-.radio-logo {
-    width: 100%;
-    max-width: 220px;
-    height: auto;
-    aspect-ratio: 1 / 1;
-    margin: 0; 
-    border: 1px solid rgb(255, 255, 255);
-    border-radius: 50%;
-    overflow: hidden;
-    position: relative;
-    animation: vinylSpin 3s linear infinite, glow 3s infinite alternate;
-    box-shadow: 0 0 15px rgb(255, 255, 255);
-    z-index: 6; 
-    isolation: isolate;
-}
-
-.radio-logo::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    opacity: 1.0;
-    z-index: 2;
-}
-
-.radio-logo:hover {
-    box-shadow: 0 0 20px rgba(0, 0, 205, 0.8);
-}
-
-/* CAPA DE EFECTOS */
-.effects-layer {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-    height: 100%;
-    z-index: 3;
-    pointer-events: none;
-}
-
-/* ===================== */
-/* PULSO MEDIA LUNA */
-/* ===================== */
-.orbital_container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 280px;
-    height: 280px;
-    border-radius: 50%;
-    z-index: 1;
-}
-
-.avatar-glow {
-    position: relative;
-    display: inline-block;
-    width: 100%;
-    height: 100%;
-}
-
-.avatar-glow::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 280px;
-    height: 280px;
-    transform: translate(-50%, -50%);
-    border-radius: 50%;
-    background: conic-gradient(
-        from 90deg,
-        rgba(0, 0, 205, 0.6), /* azul translúcido */
-        #0000CD,              /* azul sólido */
-        #e1dc5a               /* crema */
-    );
-    filter: blur(25px);
-    opacity: 0.6;
-    z-index: 0;
-    animation: glowPulse 6s ease-in-out infinite;
-}
-
-.orbital_arc {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 260px;
-    height: 260px;
-    transform: translate(-50%, -50%);
-    transform-origin: 50% 50%;
-    border-radius: 50%;
-    z-index: 1;
-    background: conic-gradient(
-        from 90deg,
-        transparent 0deg,
-        rgba(0, 0, 205, 0.6) 60deg, /* azul translúcido */
-        #0000CD 120deg,             /* azul sólido */
-        transparent 180deg
-    );
-    mask: radial-gradient(circle at center, transparent 100px, black 128px);
-    animation: arcSpin 6s linear infinite;
-    opacity: 0.9;
-}
-
-.arc2 {
-    animation-delay: -3s;
-    background: conic-gradient(
-        from 270deg,
-        transparent 0deg,
-        #0000CD 60deg,              /* azul sólido */
-        rgba(0, 0, 205, 0.6) 120deg,/* azul translúcido */
-        transparent 180deg
-    );
-}
-
-/* ===================== */
-/* ANIMACIONES Y MEDIA QUERIES */
-/* ===================== */
-@keyframes vinylSpin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-@keyframes glow {
-    0% {
-        box-shadow: 0 0 25px rgba(0, 0, 205, 0.5); /* azul suave */
-        border-color: rgba(0, 0, 205, 0.6);        /* azul translúcido */
-    }
-    100% {
-        box-shadow: 0 0 30px rgba(0, 0, 205, 0.8); /* azul intenso */
-        border-color: rgba(0, 0, 205, 0.9);        /* azul sólido */
-    }
-}
-
-@keyframes glowPulse {
-    0% { opacity: 0.4; filter: blur(20px); }
-    100% { opacity: 0.8; filter: blur(25px); }
-}
-
-@keyframes arcSpin {
-    0%   { transform: translate(-50%, -50%) rotate(0deg); }
-    100% { transform: translate(-50%, -50%) rotate(360deg); }
-}
-
-@keyframes wave-animation {
-    0%, 100% { transform: scaleY(0.5); }
-    50% { transform: scaleY(1); }
-}
-
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 03 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
 /* ===================== */
 /* FOOTER */
 /* ===================== */
@@ -440,8 +194,8 @@ p.animtext {
     top: 365px;
     left: 50%;
     transform: translateX(-50%);
-    width: 750px;
-    max-width: 750px;
+    width: 758px;
+    max-width: 758px;
   height: 60px;
   display: flex;
   justify-content: space-between;
@@ -452,8 +206,8 @@ p.animtext {
     inset 0 -2px 4px rgba(0, 0, 0, 0.4),
     0 4px 8px rgba(0, 0, 0, 0.6);
   padding: 0 20px;
-  border-top: 1px solid #5a5a5a;
-  z-index: 10;
+  border-top: 1px solid #74ACDF;
+  z-index: 30;
 }
 
 .left-zone,
@@ -501,14 +255,14 @@ p.animtext {
   width: 220px;
   height: 24px;
   padding-left: 10px;
-  border-left: 2px solid #0000CD;              /* borde azul sólido */
+  border-left: 2px solid #74ACDF;
   border-radius: 6px;
-  background-color: rgba(0, 0, 30, 0.4);       /* fondo azul oscuro translúcido */
+  background-color: rgba(0, 0, 0, 0.4); /* fondo oscuro translúcido */
   box-shadow:
     inset 0 1px 2px rgba(255, 255, 255, 0.2), /* luz interna superior */
     inset 0 -1px 2px rgba(0, 0, 0, 0.4),      /* sombra interna inferior */
     0 4px 8px rgba(0, 0, 0, 0.6),             /* sombra externa */
-    0 0 12px rgba(0, 0, 205, 0.3);            /* halo azul translúcido */
+    0 0 12px rgba(116, 172, 223, 0.3);          /* halo */
   backdrop-filter: blur(2px); /* profundidad atmosférica */
   display: flex;
   align-items: center;
@@ -520,7 +274,7 @@ p.animtext {
   animation: scrollMeta 12s linear infinite;
   color: #fff;
   font-size: 13px;
-  text-shadow: 1px 1px 0 #000;
+  text-shadow: 1px 1px 0 #74acdf;
 }
 
 
@@ -537,16 +291,16 @@ p.animtext {
   justify-content: center;
   align-items: center;
   margin-top: 1px;
-    z-index: 20;
+    z-index: 40;
 }
 
 /* Botón base con transparencia y sombra ceremonial */
 .soft {
-  background-color: rgba(0, 0, 205, 0.6); /* azul base translúcido */
-  border: 1px solid #0000CD;              /* borde azul sólido */
+  background-color: rgba(0, 0, 0, 0.6); /* translúcido */
+  border: 1px solid #74acdf;
   box-shadow:
-    8px 8px 16px rgba(0, 0, 0, 0.95),     /* sombra abajo y derecha, muy marcada */
-    0 0 12px #0000CD;                     /* halo azul base */
+    8px 8px 16px rgba(0, 0, 0, 0.95),   /* sombra abajo y derecha, muy marcada */
+    0 0 12px #74acdf;
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   display: flex;
@@ -556,10 +310,10 @@ p.animtext {
 }
 
 .soft:hover {
-  transform: scale(1.08);
-  box-shadow:
-    10px 10px 20px rgba(0, 0, 0, 0.95),   /* sombra más intensa al hover */
-    0 0 24px #3acdee;                     /* halo azul de activación */
+  transform: scale(1.08);
+  box-shadow:
+    10px 10px 20px rgba(0, 0, 0, 6),    /* sombra más intensa al hover */
+    0 0 24px #74acdf;
 }
 
 .repro-controls {
@@ -612,38 +366,47 @@ p.animtext {
   height: 70%;
 }
 
-/* Botón de reproducción */
+/* Botón de reproducción 
 .btn-play {
-  background-color: rgba(0, 0, 205, 0.6); /* azul base translúcido */
-  border: 2px solid #0000CD;              /* borde azul sólido */
+  background-color: rgba(0, 0, 0, 0.6);
+  border: 2px solid #ff0000;
   box-shadow:
     10px 10px 20px rgba(0, 0, 0, 1),
-    0 0 24px #0000CD;                     /* halo azul base */
+    0 0 24px #ff0000;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 50%;
+}*/
+
+.btn-play {
+  background-color: rgba(116, 172, 223, 0.15); /* Efecto cristal rojo */
+  border: 2px solid #74acdf; /* Aquí sí va el sólido para jerarquía */
+  box-shadow:
+    10px 10px 20px rgba(0, 0, 0, 1),
+    0 0 24px rgba(116, 172, 223, 0.5); /* El halo "ceremonial" */
+  border-radius: 50%;
 }
 
 .btn-play:hover {
-  transform: scale(1.08);
-  box-shadow:
-    12px 12px 24px rgba(0, 0, 0, 1),
-    0 0 32px #3acdee;                     /* halo azul de activación */
+  transform: scale(1.08);
+  box-shadow:
+    12px 12px 24px rgba(0, 0, 0, 1),
+    0 0 32px #74acdf;
 }
 
 /* SVG dentro de botones */
 button svg {
   width: 50%;
   height: 50%;
-  fill: #000;
+  fill: #fff;
   pointer-events: none;
 }
 
 .btn-play svg path {
   filter: url(#inset-shadow);
-  fill: #17191e;
+  fill: #fff;
 }
 
 .icon-pause,
@@ -661,247 +424,309 @@ button svg {
     /* Mantiene la transformación base al hover, pero lo aplica de forma fija */
     transform: scale(1.08); 
 
-    /* Fondo que indica el estado activo */
-    background-color: rgba(58, 205, 238, 0.6); /* azul activación translúcido */
-    border: 1px solid #3acdee;                /* borde azul activación sólido */
+    /* Fondo que indica el estado activo (usando el color del modal) */
+    background-color: rgba(116, 172, 223, 0.8); /* vibrante translúcido */
+    border: 1px solid #74acdf; /* Borde más fuerte */
     
     /* Efecto de resplandor para indicar que está "encendido" */
     box-shadow: 
-        10px 10px 20px rgba(0, 0, 0, 0.8), /* sombra fuerte */
-        0 0 15px #3acdee,                  /* resplandor azul activación */
-        0 0 25px rgba(255, 255, 255, 0.4); /* halo blanco sutil */
+        10px 10px 20px rgba(0, 0, 0, 0.8), /* Sombra fuerte */
+        0 0 15px #74acdf, /* Resplandor */
+        0 0 25px rgba(255, 255, 255, 0.4); /* Halo blanco sutil */
 }
 
-/* Ajuste de color del SVG para que el icono se vea mejor sobre el fondo activo */
+/* Ajuste de color del SVG para que el icono se vea mejor sobre el fondo rosa activo */
 .soft.active-one svg,
 .soft.active svg {
-    /* Usamos un azul oscuro (casi negro) para buen contraste */
-    fill: #17191e; 
+    /* Usamos un oscuro (casi negro) para un buen contraste */
+    fill: #010101; 
 }
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Volumen Corregido ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Volumen ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 .volume-icon {
-  color: #000;
+  color: #fff;
   font-size: 16px;
 }
 
+/* Contenedor Orificio */
 .volume-track {
-  width: 150px;
-  height: 16px;
-  background: #010101;
-  border-radius: 8px;
+  width: 160px;
+  height: 20px;
+  background: #010101; 
+  border-radius: 10px;
   box-shadow:
-    inset 0 0 0 1px #0000CD,              /* borde interno azul base */
-    inset 0 2px 4px #000;
+    inset 4px 4px 8px rgba(0, 0, 0, 0.9),
+    0 1px 0 rgba(255, 255, 255, 0.1);
   display: flex;
   align-items: center;
-  padding: 0 4px;
+  padding: 0 8px;
+  border: 1px solid #222;
 }
 
+/* 1. Reset General de la Barra */
 .volume-bar {
   width: 100%;
-  height: 4px;
   appearance: none;
-  -webkit-appearance: none;
-  background: transparent; /* Dejamos el fondo base transparente */
+  -webkit-appearance: none; /* Forzar desaparición de estilos nativos */
+  background: transparent;  /* Dejamos que el track mande */
   outline: none;
   cursor: pointer;
 }
 
-/* ESTO PINTA LA BARRA EN CHROME, EDGE Y SAFARI */
+/* 2. EL CARRIL PARA CHROME / EDGE / SAFARI (Aquí es donde vive el color) */
 .volume-bar::-webkit-slider-runnable-track {
   width: 100%;
-  height: 4px;
+  height: 6px;
   cursor: pointer;
-  border-radius: 4px;
-  background: linear-gradient(
-    to right,
-    #3acdee 0%, #3acdee 70%, /* azul activación */
-    #0000CD 70%, #0000CD 100% /* azul base */
-  );
+  border-radius: 3px;
+  /* GRADIENTE */
+  background: linear-gradient(to right, #74acdf 0%, #74acdf var(--v-pct, 70%), #1a1a1a var(--v-pct, 70%), #1a1a1a 100%);
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.8);
 }
 
-/* EL PIVOTE EN CHROME, EDGE Y SAFARI */
-.volume-bar::-webkit-slider-thumb {
-  height: 12px;
-  width: 12px;
-  border-radius: 50%;
-  background: #3acdee; /* azul activación sólido */
-  cursor: pointer;
-  -webkit-appearance: none;
-  margin-top: -4px; /* Centra el pivote sobre los 4px de la barra */
-  box-shadow: 0 0 2px #000;
-}
-
-/* ESTO PINTA LA BARRA EN FIREFOX */
-.volume-bar::-moz-range-progress {
-  background-color: #3acdee; /* azul activación */
-  height: 4px;
-  border-radius: 4px;
-}
-
+/* 3. EL CARRIL PARA FIREFOX */
 .volume-bar::-moz-range-track {
-  background-color: #0000CD; /* azul base */
-  height: 4px;
-  border-radius: 4px;
+  width: 100%;
+  height: 6px;
+  cursor: pointer;
+  border-radius: 3px;
+  background: #1a1a1a; /* Fondo base */
+}
+
+/* 4. PROGRESO EN FIREFOX (Rojo) */
+.volume-bar::-moz-range-progress {
+  background-color: #74acdf;
+  height: 6px;
+  border-radius: 3px;
+}
+
+/* 5. EL PIBOTE (THUMB) - AJUSTE FINAL */
+.volume-bar::-webkit-slider-thumb {
+  appearance: none;
+  -webkit-appearance: none;
+  height: 14px;
+  width: 14px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 2px solid #74acdf;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.8);
+  margin-top: -4.5px; /* Alineación central */
+  cursor: pointer;
 }
 
 .volume-bar::-moz-range-thumb {
-  height: 12px;
-  width: 12px;
+  height: 14px;
+  width: 14px;
   border-radius: 50%;
-  background: #3acdee; /* azul activación sólido */
+  background: #ffffff;
+  border: 2px solid #74acdf;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.8);
   cursor: pointer;
-  border: none;
-  box-shadow: 0 0 2px #000;
 }
 
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 04 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
 /* ===================== */
-/* 🪟 Modal de Tracks (NUEVA POSICIÓN - AZULES) */
+/* 🪟 Modal de Tracks e Historial */
 /* ===================== */
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 .modal {
   position: absolute; 
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 750px;
-  height: 440px;
-  background-color: rgba(0, 0, 0, 0.1); 
-  backdrop-filter: blur(4px);
-  border-radius: 12px;
-  overflow: hidden; 
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 9999;
+  transition: all 0.4s ease;
 }
 
 .modal-content {
   position: relative;
-  width: 100%; 
-  height: 100%; 
-  background-color: rgba(20, 20, 20, 0.95);
-  border: 2px solid #0000CD;              /* borde azul base */
-  border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 0 24px #3acdee;           /* halo azul activación */
+  width: 90%;
+  max-width: 800px; 
+  height: 80%;
+  background-color: rgba(10, 10, 10, 0.98);
+  border: 2px solid #74acdf;
+  border-radius: 8px;
+  padding: 30px;
+  box-shadow: 0 0 30px rgba(116, 172, 223, 0.4);
   color: #fff;
   text-align: left;
   overflow-y: auto;
   z-index: 10000;
   opacity: 0;
-  transform: translateY(20px);
+  transform: scale(0.95);
   transition: opacity 0.3s ease, transform 0.3s ease;
   scrollbar-width: thin;
-  scrollbar-color: #3acdee #202020;       /* scroll azul activación */
+  scrollbar-color: #74acdf #111; 
 }
+
+/* Scrollbars */
+.modal-content::-webkit-scrollbar { width: 6px; }
+.modal-content::-webkit-scrollbar-track { background: #111; }
+.modal-content::-webkit-scrollbar-thumb { background: #74acdf; border-radius: 10px; }
 
 .modal:not(.hidden) .modal-content {
   opacity: 1;
-  transform: translateY(0);
+  transform: scale(1);
 }
 
 .modal-x {
   position: absolute;
-  top: 12px;
-  right: 16px;
+  top: 15px;
+  right: 20px;
   background: none;
   border: none;
-  font-size: 1.5em;
-  color: #3acdee;                         /* ícono cierre azul activación */
+  font-size: 1.8em;
+  color: #74acdf;
   cursor: pointer;
-  text-shadow: 0 0 8px #0000CD;           /* sombra azul base */
+  text-shadow: 0 0 10px rgba(116, 172, 223, 0.5);
   z-index: 10001;
+  transition: transform 0.2s ease;
 }
+
+.modal-x:hover { transform: scale(1.2); color: #fff; }
 
 .modal-title {
-  font-size: 1.2em;
-  margin-bottom: 10px;
-  color: #3acdee;                         /* título azul activación */
-  text-shadow: 0 0 8px #0000CD;           /* sombra azul base */
-  text-align: center;
-}
-
-.modal-info {
-  font-size: 0.95em;
-  color: #ccc;
-  margin-bottom: 12px;
-}
-
-#current-track-name {
-  display: inline-block;
-  padding: 4px 12px;
-  margin-left: 6px;
-  background: linear-gradient(
-    90deg,
-    #0000CD,   /* azul base */
-    #3acdee    /* azul activación */
-  );
-  border-radius: 8px;
-  color: #fff;
-  font-weight: bold;
-  animation: pulseTrack 1.5s infinite;
-  box-shadow: 0 0 6px rgba(0, 0, 205, 0.4);
-}
-
-@keyframes pulseTrack {
-  0% {
-    box-shadow: 0 0 6px rgba(0, 0, 205, 0.4); /* azul base suave */
-  }
-  50% {
-    box-shadow: 0 0 12px rgba(58, 205, 238, 0.8); /* azul activación vibrante */
-  }
-  100% {
-    box-shadow: 0 0 6px rgba(0, 0, 205, 0.4); /* azul base suave */
-  }
-}
-
-.track-list {
-  list-style: none;
-  padding: 0;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.4em;
   margin-bottom: 20px;
+  color: #74acdf;
+  text-shadow: 0 0 10px rgba(116, 172, 223, 0.3);
+  text-align: center;
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(116, 172, 223, 0.2);
+  padding-bottom: 10px;
 }
+
+/* --- Estructura Interna de la Lista (Carátulas) --- */
 
 .track-list li {
-  margin: 8px 0;
-  font-size: 1em;
-  color: #ccc;
+  display: flex; /* Alinea carátula y texto */
+  align-items: center;
+  padding: 10px;
+  margin: 5px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.2s ease;
   cursor: pointer;
-  transition: color 0.3s ease, text-shadow 0.3s ease;
+  gap: 15px;
 }
 
-.track-list li:hover {
-  color: #3acdee;                         /* hover azul activación */
-  text-shadow: 0 0 8px #0000CD;           /* sombra azul base */
+.modal-thumb-container {
+  width: 50px;
+  height: 50px;
+  flex-shrink: 0; /* Evita que la imagen se achique */
+  border: 1px solid rgba(116, 172, 223, 0.3);
+  border-radius: 4px;
+  overflow: hidden;
+  background: #000;
 }
 
-#track-name.active {
-  color: #3acdee;                         /* activo azul activación */
+.modal-track-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.modal-track-info {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.modal-track-title {
   font-weight: bold;
-  text-shadow: 0 0 6px rgba(0, 0, 205, 0.5);
-  transition: all 300ms ease;
+  font-size: 0.95em;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.modal-track-artist {
+  font-size: 0.8em;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Efectos Hover y Activo */
+.track-list li:hover {
+  background: rgba(116, 172, 223, 0.1);
+  color: #74acdf;
+  padding-left: 20px; /* Efecto de desplazamiento */
 }
 
 .track-list li.active-track {
-  color: #3acdee;                         /* activo azul activación */
+  color: #fff;
   font-weight: bold;
-  text-shadow: 0 0 8px #0000CD;           /* sombra azul base */
-  background-color: rgba(58, 205, 238, 0.1); /* fondo sutil azul activación */
+  background: rgba(116, 172, 223, 0.2);
+  border-left: 4px solid #74acdf;
+  text-shadow: 0 0 8px rgba(116, 172, 223, 0.6);
+}
+
+/* Pista actual destacada en el header del modal */
+#current-track-name-modal {
+  display: inline-block;
+  padding: 6px 15px;
+  background: linear-gradient(90deg, #74acdf, #900000); 
   border-radius: 4px;
-  padding: 2px 4px;
+  color: #fff;
+  font-weight: bold;
+  animation: pulseTrackRed 2s infinite;
+}
+
+@keyframes pulseTrackRed {
+  0% { box-shadow: 0 0 5px rgba(116, 172, 223, 0.5); }
+  50% { box-shadow: 0 0 15px rgba(116, 172, 223, 0.8); }
+  100% { box-shadow: 0 0 5px rgba(116, 172, 223, 0.5); }
+}
+
+/* Resaltado para el canal activo en el selector */
+.canal-option.active-canal {
+    background: rgba(116, 172, 223, 0.1); /* Fondo rojizo suave */
+    border-left: 4px solid #74acdf; /* Línea roja lateral */
+    pointer-events: none; /* Opcional: evita re-clickear lo que ya está activo */
+}
+
+.canal-option.active-canal .modal-track-title {
+    color: #74acdf;
+    font-weight: bold;
+}
+
+.canal-thumb img {
+    border-radius: 8px;
+}
+
+/* Fila de título para alinear el check al final o al lado */
+.title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.active-check {
+    color: #74acdf; /* neón sutil o el color de acento de tu UI */
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.canal-option.active-canal {
+    background: rgba(255, 255, 255, 0.05);
+    border-left: 3px solid #fff; /* 00ff88 Match con el check */
+    cursor: default;
 }
 
 /* ===================== */
-/* BURBUJAS */
+/* MENSAJE */
 /* ===================== */
-#pixi-container canvas {
-  background-color: transparent !important;
-}
-
 .custom-message {
     position: absolute;
     top: 50%;
@@ -909,12 +734,12 @@ button svg {
     transform: translate(-50%, -50%);
     padding: 15px 25px;
     background: rgba(0, 0, 0, 0.9);
-    border: 2px solid #ff0000;
+    border: 2px solid #74acdf;
     border-radius: 10px;
     color: #fff;
     font-size: 1.1em;
-    text-shadow: 0 0 8px #c2a044;
-    box-shadow: 0 0 20px #ff0000b3; /* b3 ≈ 70% de opacidad */
+    text-shadow: 0 0 8px #74acdf;
+    box-shadow: 0 0 20px #74acdfb3; /* b3 ≈ 70% de opacidad */
     z-index: 9999;
     opacity: 0;
     pointer-events: none;
