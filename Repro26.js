@@ -1,239 +1,293 @@
-// ======== ESTADO GLOBAL (correcciones necesarias) ========
+// ======== ESTADO GLOBAL ========
 let currentTrack = 0;
 let isPlaying = false;
-let modo = 'streaming'; // por defecto radio
+let modo = 'streaming'; 
 let playlist = [];
+let trackData = [];
 let emisora = 'Casino Digital Radio';
-let repeatTrack = false; // ← estaba sin declarar
+let repeatTrack = false; 
 let shuffleMode = false;
 
-let radioMetaInterval = null;
-let lastRadioTitle = '';
-let trackHistory = []; // historial ilimitado
+// Variables para el control de intervalos (Limpieza robusta)
+let timerInterval = null; 
+let radioIntervalId = null;
+let lastTrackTitle = '';
+let trackHistory = []; 
+let gestureDetected = false;
 
 const audio = document.getElementById('audioStreaming');
 const btnPlay = document.querySelector('.btn-play');
 const btnOnline = document.querySelector('.btn-online');
 const playIcon = btnPlay.querySelector('i');
 const metaText = document.querySelector('.meta-text');
-const coverImg = document.querySelector('.cover-img'); // carátula grande del panel izquierdo
+const coverImg = document.querySelector('.cover-img'); 
+const displayTiempo = document.getElementById('timeDisplay');
+const labelTiempo = document.querySelector('.status-block:first-child');
+
+const DEFAULT_COVER = 'https://santi-graphics.vercel.app/assets/covers/Cover1.png';
+const LISTA_NEGRA = ["Casino Digital", "Siente la música", "Unknown", "Offline", "Autodj", "Streaming", "Santi Graphics", "Transmisión en vivo", "SANTI MIX DJ"];
 
 audio.muted = false;
 audio.autoplay = false;
+audio.volume = 0.7;
 
-
-// ======== HELPERS DE PORTADA (iTunes JSONP con jQuery) ========
+// ======== HELPERS ========
 function formatArtist(artist) {
-  if (!artist) return '';
-  artist = artist.toLowerCase().trim();
-  if (artist.includes(' &')) artist = artist.substring(0, artist.indexOf(' &'));
-  if (artist.includes(' feat')) artist = artist.substring(0, artist.indexOf(' feat'));
-  if (artist.includes(' ft.')) artist = artist.substring(0, artist.indexOf(' ft.'));
-  return artist;
+    if (!artist) return '';
+    return artist.toLowerCase().trim().split(/ [(&]/)[0].split(' feat')[0].split(' ft.')[0];
 }
 
 function formatTitle(title) {
-  if (!title) return '';
-  title = title.toLowerCase().trim();
-  if (title.includes('&')) title = title.replace('&', 'and');
-  if (title.includes(' (')) title = title.substring(0, title.indexOf(' ('));
-  if (title.includes(' ft')) title = title.substring(0, title.indexOf(' ft'));
-  return title;
+    if (!title) return '';
+    return title.toLowerCase().trim().replace('&', 'and').split(/ [(&]/)[0].split(' ft')[0];
+}
+
+function aplicarMarquesina(element) {
+    if (!element) return;
+    const content = element.querySelector('.track-content') || element; 
+    content.classList.remove('marquee');
+    if (content.scrollWidth > element.clientWidth + 2) {
+        content.classList.add('marquee');
+    }
 }
 
 function actualizarCaratula(url) {
-  if (!coverImg) return;
-  const valida = typeof url === 'string' && url.trim() !== '';
-  coverImg.src = valida ? url : 'assets/covers/Cover1.png';
+    if (!coverImg) return;
+    coverImg.src = (url && url.trim() !== '') ? url : DEFAULT_COVER;
+}
+
+// ======== LÓGICA DE TIEMPO (RELOJ VS TRACK) ========
+function gestionarTiempo() {
+    clearInterval(timerInterval);
+    
+    if (modo === 'streaming') {
+        if (labelTiempo) labelTiempo.textContent = 'HORA LOCAL';
+        const actualizarReloj = () => {
+            const ahora = new Date();
+            const h = String(ahora.getHours()).padStart(2, '0');
+            const m = String(ahora.getMinutes()).padStart(2, '0');
+            const s = String(ahora.getSeconds()).padStart(2, '0');
+            if (displayTiempo) displayTiempo.textContent = `${h}:${m}:${s}`;
+        };
+        actualizarReloj();
+        timerInterval = setInterval(actualizarReloj, 1000);
+    } else {
+        if (labelTiempo) labelTiempo.textContent = 'TIME TRACK';
+        timerInterval = setInterval(() => {
+            if (!audio.paused) {
+                const current = audio.currentTime;
+                const mins = String(Math.floor(current / 60)).padStart(2, '0');
+                const secs = String(Math.floor(current % 60)).padStart(2, '0');
+                if (displayTiempo) displayTiempo.textContent = `${mins}:${secs}`;
+            }
+        }, 1000);
+    }
+}
+
+// ======== GESTIÓN DE HISTORIAL ========
+function guardarEnHistorial(artist, title, cover = DEFAULT_COVER) {
+    const artistClean = artist.trim();
+    const titleClean = title.trim();
+    const fullSearch = `${artistClean} ${titleClean}`.toLowerCase();
+
+    if (LISTA_NEGRA.some(p => fullSearch.includes(p.toLowerCase())) || artistClean === emisora || !titleClean) return;
+    if (trackHistory.length > 0 && trackHistory[0].title === titleClean) return;
+
+    const time = new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+    trackHistory.unshift({ artist: artistClean, title: titleClean, time, cover: cover });
+    
+    if (modo === 'streaming') renderPanelDerechoStreaming({ titulo: titleClean, artista: artistClean });
+}
+
+// ======== RADIO POLLING ========
+function iniciarActualizacionRadio() {
+    if (radioIntervalId) clearInterval(radioIntervalId);
+    const radioUrl = "https://technoplayerserver.net:8018/stats?json=1&sid=1";
+
+    const actualizarServidor = () => {
+        if (modo !== 'streaming') return;
+        $.ajax({
+            dataType: 'jsonp',
+            url: radioUrl,
+            success: function(data) {
+                const cleaned = data.songtitle.trim().replace(/SANTI MIX DJ/gi, '').replace(/\|\s*$/g, '').trim();
+                if (!cleaned || cleaned === lastTrackTitle || cleaned.toLowerCase().includes('offline')) return;
+                
+                lastTrackTitle = cleaned;
+                const split = cleaned.split(/ - | – /);
+                let artista = split.length >= 2 ? split[0].trim() : emisora;
+                let titulo = split.length >= 2 ? split.slice(1).join(' - ').trim() : cleaned;
+
+                metaText.textContent = `${artista} - ${titulo}`;
+                aplicarMarquesina(metaText.parentElement);
+                guardarEnHistorial(artista, titulo, DEFAULT_COVER);
+                obtenerCaratulaDesdeiTunes(artista, titulo);
+            },
+            timeout: 8000
+        });
+    };
+    actualizarServidor();
+    radioIntervalId = setInterval(actualizarServidor, 12000);
 }
 
 function obtenerCaratulaDesdeiTunes(artist, title) {
-  const hasJQ = typeof window.$ !== 'undefined' && typeof $.ajax !== 'undefined';
-  if (!hasJQ) {
-    const cover = 'assets/covers/Cover1.png';
-    actualizarCaratula(cover);
-    guardarEnHistorial(artist, title, cover);
-    return;
-  }
-
-  const query = encodeURIComponent(`${formatArtist(artist)} ${formatTitle(title)}`.trim());
-  const url = `https://itunes.apple.com/search?term=${query}&media=music&limit=1`;
-
-  $.ajax({
-    dataType: 'jsonp',
-    url,
-    success: function (data) {
-      let cover = 'assets/covers/Cover1.png';
-      if (data && data.results && data.results.length >= 1) {
-        cover = data.results[0].artworkUrl100.replace('100x100', '400x400');
-      }
-      actualizarCaratula(cover);
-      guardarEnHistorial(artist, title, cover); // ← ahora sí guardamos con la portada correcta
-    },
-    error: function () {
-      const cover = 'assets/covers/Cover1.png';
-      actualizarCaratula(cover);
-      guardarEnHistorial(artist, title, cover);
-    }
-  });
-}
-
-// ======== POLLING DE METADATOS RADIO ========
-function detenerPollingRadio() {
-  if (radioMetaInterval) clearInterval(radioMetaInterval);
-  radioMetaInterval = null;
-  lastRadioTitle = '';
-}
-
-function iniciarPollingRadio() {
-  detenerPollingRadio();
-
-  const radioUrl = 'https://technoplayerserver.net:8018/currentsong?sid=1';
-  const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(radioUrl)}`;
-
-  async function actualizarMeta() {
-    try {
-      const res = await fetch(proxyUrl, { cache: 'no-cache' });
-      const raw = await res.text();
-
-      const cleaned = raw.trim()
-        .replace(/AUTODJ/gi, '')
-        .replace(/\|\s*$/g, '')
-        .trim();
-
-      if (!cleaned || cleaned.toLowerCase().includes('offline')) {
-        metaText.textContent = 'Datos bloqueados';
-        renderPanelDerechoStreaming({
-          titulo: 'Transmisión en vivo',
-          artista: emisora
-        });
-        actualizarCaratula('assets/covers/Cover1.png');
-        return;
-      }
-
-      if (cleaned === lastRadioTitle) return;
-      lastRadioTitle = cleaned;
-
-      const split = cleaned.split(/ - | – /);
-      let artista = emisora;
-      let titulo = cleaned;
-
-      if (split.length >= 2) {
-        artista = split[0].trim();
-        titulo = split.slice(1).join(' - ').trim();
-      }
-
-      metaText.textContent = `${artista} - ${titulo}`;
-
-      // Portada dinámica (actualiza coverImg global)
-      obtenerCaratulaDesdeiTunes(artista, titulo);
-
-      // Alimenta historial con portada incluida
-      const time = new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
-      const cover = coverImg ? coverImg.src : 'assets/covers/Cover1.png';
-      const newEntry = { artist: artista, title: titulo, time, cover };
-
-      if (trackHistory.length === 0 || trackHistory[0].title !== titulo) {
-        trackHistory.unshift(newEntry);
-      }
-
-      // Render panel derecho con metadatos + historial
-      renderPanelDerechoStreaming({ titulo, artista });
-    } catch (err) {
-      console.warn('[ALEXIA] Error al obtener metadatos:', err);
-    }
-  }
-
-  // Primera carga inmediata + interval
-  actualizarMeta();
-  radioMetaInterval = setInterval(actualizarMeta, 10000);
-}
-
-// ======== INICIALIZACIÓN DE PLAYLIST LOCAL ========
-fetch('https://radio-tekileros.vercel.app/Repro26.json')
-  .then(res => res.json())
-  .then(data => {
-    playlist = data.hits || [];
-    if (modo === 'streaming') {
-      audio.src = 'https://technoplayerserver.net:8018/stream?icy=http';
-      btnOnline.textContent = 'STREAMING';
-      metaText.textContent = '🔴 Transmisión en vivo';
-      actualizarCaratula('assets/covers/Cover1.png'); // limpieza al entrar a radio
-      iniciarPollingRadio();
-    } else {
-      btnOnline.textContent = 'MÚSICA';
-      renderPanelDerechoLocal();
-      cargarTrack(currentTrack);
-    }
-  });
-
-
-// ======== ALTERNANCIA DE MODO ========
-btnOnline.addEventListener('click', () => {
-  modo = modo === 'local' ? 'streaming' : 'local';
-  btnOnline.textContent = modo === 'local' ? 'MÚSICA' : 'STREAMING';
-
-  // Reset controles
-  repeatTrack = false;
-  shuffleMode = false;
-  document.querySelector('.btn-repeat')?.classList.remove('active');
-  document.querySelector('.btn-shuffle')?.classList.remove('active');
-
-  if (modo === 'streaming') {
-    // Limpieza visual/caratula
-    actualizarCaratula('assets/covers/Cover1.png');
-
-    // Fuente y reproducción
-    audio.pause();
-    audio.src = 'https://technoplayerserver.net:8018/stream?icy=http';
-    audio.load();
-    audio.play().then(() => {
-      isPlaying = true;
-      playIcon.className = 'fas fa-pause';
-      metaText.textContent = '🔴 Transmisión en vivo';
-    }).catch(err => console.warn('[ALEXIA] Streaming bloqueado:', err));
-
-    // Metadatos y panel
-    iniciarPollingRadio();
-
-  } else {
-    // Salir de radio: detener polling y limpiar panel
-    detenerPollingRadio();
-
-    audio.pause();
-    renderPanelDerechoLocal();
-
-    // Cargar track actual y su carátula local
-    cargarTrack(currentTrack);
-  }
-
-  console.log(`[ALEXIA] Modo cambiado a: ${modo}`);
-});
-
-
-// ======== PLAY/PAUSE UNIVERSAL ========
-btnPlay.addEventListener('click', () => {
-  if (!audio.src || audio.src === '#') {
-    audio.src = 'https://technoplayerserver.net:8018/stream?icy=http';
-    audio.load();
-  }
-
-  if (audio.paused || audio.ended) {
-    audio.play().then(() => {
-      isPlaying = true;
-      playIcon.className = 'fas fa-pause';
-      console.log('[ALEXIA] Reproducción iniciada');
-    }).catch(err => {
-      console.warn('[ALEXIA] Error al reproducir:', err);
+    const query = encodeURIComponent(`${formatArtist(artist)} ${formatTitle(title)}`.trim());
+    $.ajax({
+        dataType: 'jsonp',
+        url: `https://itunes.apple.com/search?term=${query}&media=music&limit=1`,
+        success: function (data) {
+            let cover = DEFAULT_COVER;
+            if (data?.results?.length > 0) {
+                cover = data.results[0].artworkUrl100.replace('100x100', '400x400');
+            }
+            actualizarCaratula(cover);
+            if (trackHistory.length > 0 && trackHistory[0].title === title.trim()) {
+                trackHistory[0].cover = cover;
+                renderPanelDerechoStreaming({ titulo: title, artista: artist });
+            }
+        }
     });
-  } else {
-    audio.pause();
-    isPlaying = false;
-    playIcon.className = 'fas fa-play';
-    console.log('[ALEXIA] Reproducción pausada');
-  }
-});
+}
 
+// ======== RENDERS ========
+function cargarTrack(index) {
+    const track = playlist[index];
+    if (!track) return;
+    actualizarCaratula(track.caratula);
+    audio.src = track.enlace;
+    metaText.textContent = `${track.artista} - ${track.nombre}`;
+    aplicarMarquesina(metaText.parentElement);
+    audio.load();
+    if (gestureDetected) {
+        audio.play().then(() => {
+            isPlaying = true;
+            playIcon.className = 'fas fa-pause';
+        });
+    }
+}
+
+function renderPanelDerechoLocal() {
+    const panel = document.querySelector('.panel-right');
+    if (!panel || modo !== 'local') return;
+
+    panel.innerHTML = '';
+    playlist.forEach((track, index) => {
+        const isCurrent = index === currentTrack;
+        const bloque = document.createElement('div');
+        
+        // Si es el actual, le clavamos la clase 'active' para el parpadeo
+        bloque.className = `track-block ${isCurrent ? 'active' : ''}`;
+        bloque.id = `track-${index}`; // ID para poder localizarlo
+        
+        bloque.innerHTML = `
+            <div class="track-cover"><img src="${track.caratula}" /></div>
+            <div class="track-meta">
+                <div class="track-title">${track.nombre}</div>
+                <div class="track-info">
+                    <span class="track-artist">${track.artista}</span>
+                    <span class="track-duration">⏱️ ${track.duracion || '--:--'}</span>
+                </div>
+            </div>
+            <div class="track-number">${String(index + 1).padStart(2, '0')}</div>`;
+        
+        bloque.onclick = () => { 
+            currentTrack = index; 
+            cargarTrack(currentTrack); 
+            renderPanelDerechoLocal(); 
+        };
+        panel.appendChild(bloque);
+    });
+
+    // AUTO-SCROLL: Mueve el track activo al tope del panel
+    const activeTrack = document.getElementById(`track-${currentTrack}`);
+    if (activeTrack) {
+        setTimeout(() => {
+            activeTrack.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
+    }
+}
+
+function renderPanelDerechoStreaming(current) {
+    const panel = document.querySelector('.panel-right');
+    if (!panel || modo !== 'streaming') return;
+    panel.innerHTML = '';
+    const bloqueLive = document.createElement('div');
+    bloqueLive.className = 'track-block active';
+    bloqueLive.innerHTML = `
+        <div class="track-cover"><img src="${coverImg.src}" /></div>
+        <div class="track-meta">
+            <div class="track-title">${current.titulo}</div>
+            <div class="track-info"><span class="track-artist">${current.artista}</span><span class="track-duration">LIVE</span></div>
+        </div>
+        <div class="track-number">🔴</div>`;
+    panel.appendChild(bloqueLive);
+
+    trackHistory.forEach((item, idx) => {
+        const bloque = document.createElement('div');
+        bloque.className = 'track-block';
+        bloque.innerHTML = `
+            <div class="track-cover"><img src="${item.cover}" /></div>
+            <div class="track-meta">
+                <div class="track-title">${item.title}</div>
+                <div class="track-info"><span class="track-artist">${item.artist}</span><span class="track-duration">${item.time}</span></div>
+            </div>
+            <div class="track-number">${String(idx + 1).padStart(2, '0')}</div>`;
+        panel.appendChild(bloque);
+    });
+}
+
+// ======== BLOQUE DE CAMBIO DE MODO (LIMPIEZA ATÓMICA) ========
+btnOnline.onclick = () => {
+    // 1. Matar TODOS los procesos de tiempo y radio de raíz
+    clearInterval(radioIntervalId);
+    clearInterval(timerInterval);
+    radioIntervalId = null;
+    timerInterval = null;
+
+    // 2. Limpieza de variables de control y UI
+    lastTrackTitle = '';
+    trackHistory = [];
+    if (displayTiempo) displayTiempo.textContent = '00:00';
+    actualizarCaratula(DEFAULT_COVER);
+
+    // 3. MATAR LA CONEXIÓN (IMPORTANTE)
+    // No basta con pause(), hay que vaciar el buffer físico
+    audio.pause();
+    audio.removeAttribute('src'); 
+    audio.load(); 
+
+    // 4. Switch de modo
+    modo = (modo === 'local') ? 'streaming' : 'local';
+    btnOnline.textContent = (modo === 'local') ? 'MÚSICA' : 'STREAMING';
+
+    // 5. Carga de nueva fuente
+    if (modo === 'streaming') {
+        audio.src = 'https://technoplayerserver.net:8018/stream?icy=http';
+        iniciarActualizacionRadio(); 
+    } else {
+        cargarTrack(currentTrack);
+        renderPanelDerechoLocal();
+    }
+    
+    // 6. Reiniciar contadores (Reloj vs Track)
+    gestionarTiempo();
+    
+    // 7. Playback
+    if (gestureDetected) {
+        audio.play().catch(e => console.warn("Reintento de audio..."));
+    }
+};
+
+// 2. Play / Pause
+btnPlay.onclick = () => {
+    if (audio.paused) { 
+        audio.play(); 
+        playIcon.className = 'fas fa-pause'; 
+    } else { 
+        audio.pause(); 
+        playIcon.className = 'fas fa-play'; 
+    }
+};
 
 // ======== BOTONES REPEAT Y SHUFFLE (MODO LOCAL) ========
 const repeatBtn = document.getElementById('btnRepeat');
@@ -287,142 +341,7 @@ shuffleBtn.addEventListener('click', () => {
   }
 });
 
-
-
-// ======== LOCAL: CARGA Y RENDER ========
-function cargarTrack(index) {
-  const track = playlist[index];
-  if (!track || !track.enlace) return;
-
-  actualizarCaratula(track.caratula);
-  audio.src = track.enlace;
-  audio.load();
-  metaText.textContent = `${track.artista} - ${track.nombre}`;
-
-  audio.play().then(() => {
-    isPlaying = true;
-    playIcon.className = 'fas fa-pause';
-  }).catch(err => {
-    console.warn('[ALEXIA] Autoplay bloqueado:', err);
-  });
-}
-
-audio.addEventListener('ended', () => {
-  if (modo === 'local') {
-    if (repeatTrack) {
-      cargarTrack(currentTrack);
-    } else if (shuffleMode) {
-      let nextTrack;
-      do {
-        nextTrack = Math.floor(Math.random() * playlist.length);
-      } while (nextTrack === currentTrack && playlist.length > 1);
-      currentTrack = nextTrack;
-      cargarTrack(currentTrack);
-    } else {
-      currentTrack++;
-      if (currentTrack < playlist.length) {
-        cargarTrack(currentTrack);
-      } else {
-        console.log('[ALEXIA] Playlist finalizada sin repetición');
-      }
-    }
-    renderPanelDerechoLocal();
-  }
-});
-
-function renderPanelDerechoLocal() {
-  const panel = document.querySelector('.panel-right');
-  if (!panel) return;
-  panel.innerHTML = '';
-
-  playlist.forEach((track, index) => {
-    const bloque = document.createElement('div');
-    bloque.className = 'track-block';
-    if (index === currentTrack) bloque.classList.add('active');
-
-    bloque.innerHTML = `
-      <div class="track-cover"><img src="${track.caratula}" alt="Carátula" /></div>
-      <div class="track-meta">
-        <div class="track-title">${track.nombre}</div>
-        <div class="track-info">
-          <span class="track-artist">${track.artista}</span>
-          <span class="track-duration">⏱️ ${track.duracion || '--:--'}</span>
-        </div>
-      </div>
-      <div class="track-number">${String(index + 1).padStart(2, '0')}</div>
-    `;
-
-    bloque.addEventListener('click', () => {
-      currentTrack = index;
-      cargarTrack(currentTrack);
-      renderPanelDerechoLocal();
-    });
-
-    panel.appendChild(bloque);
-  });
-}
-
-
-// ======== STREAMING: PANEL DERECHO + HISTORIAL ========
-function renderPanelDerechoStreaming({ titulo, artista }) {
-  const panel = document.querySelector('.panel-right');
-  if (!panel) return;
-  panel.innerHTML = '';
-
-  // Bloque activo (pista en vivo)
-  const bloqueActual = document.createElement('div');
-  bloqueActual.className = 'track-block active';
-  bloqueActual.innerHTML = `
-    <div class="track-cover">
-      <img src="${coverImg ? coverImg.src : 'assets/covers/Cover1.png'}" alt="Carátula" />
-    </div>
-    <div class="track-meta">
-      <div class="track-title">${titulo}</div>
-      <div class="track-info">
-        <span class="track-artist">${artista}</span>
-        <span class="track-duration">LIVE</span>
-      </div>
-    </div>
-    <div class="track-number">🔴</div>
-  `;
-  panel.appendChild(bloqueActual);
-
-  // Historial completo debajo (sin límite) con mini carátulas reales
-  if (trackHistory.length > 0) {
-    trackHistory.forEach((entry, index) => {
-      const bloqueHist = document.createElement('div');
-      bloqueHist.className = 'track-block';
-      bloqueHist.innerHTML = `
-        <div class="track-cover">
-          <img src="${entry.cover || 'assets/covers/Cover1.png'}" alt="Historial" />
-        </div>
-        <div class="track-meta">
-          <div class="track-title">${entry.title}</div>
-          <div class="track-info">
-            <span class="track-artist">${entry.artist}</span>
-            <span class="track-duration">${entry.time}</span>
-          </div>
-        </div>
-        <div class="track-number">${String(index + 1).padStart(2, '0')}</div>
-      `;
-      panel.appendChild(bloqueHist);
-    });
-  }
-}
-
-function guardarEnHistorial(artist, title, cover) {
-  const time = new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
-  const newEntry = { artist, title, time, cover };
-
-  if (trackHistory.length === 0 || trackHistory[0].title !== title) {
-    trackHistory.unshift(newEntry);
-  }
-
-  // Render panel derecho con metadatos + historial
-  renderPanelDerechoStreaming({ titulo: title, artista: artist });
-}
-
-
+// 5. Volumen (Sincronización de pivote)
 // ======== VOLUMEN INICIAL Y CONTROL ========
 const volumeBar = document.querySelector('.volume-bar');
 const volumeIcon = document.getElementById('volumeIcon');
@@ -463,21 +382,58 @@ function actualizarIconoVolumen(valor) {
   }
 }
 
-
-// 🔓 Desbloqueo universal por primer gesto humano
-let gestureDetected = false;
-
-document.addEventListener('click', () => {
-  if (!gestureDetected) {
-    gestureDetected = true;
-    audio.muted = false;
-
-    if (audio.src && audio.paused) {
-      audio.play().then(() => {
-        playIcon.className = 'fas fa-pause';
-        console.log('[ALEXIA] Audio desbloqueado y reproducido');
-      }).catch(err => console.warn('[ALEXIA] Error al reproducir tras gesto:', err));
+// 6. Lógica de salto al terminar (Ended)
+audio.onended = () => {
+    if (modo === 'local') {
+        if (repeatTrack) {
+            audio.currentTime = 0;
+            audio.play();
+        } else {
+            currentTrack = shuffleMode 
+                ? Math.floor(Math.random() * playlist.length) 
+                : (currentTrack + 1) % playlist.length;
+            cargarTrack(currentTrack);
+            renderPanelDerechoLocal();
+        }
     }
-  }
+};
 
+// ======== INICIALIZACIÓN ========
+document.addEventListener('click', () => {
+    if (!gestureDetected) {
+        gestureDetected = true;
+        audio.muted = false;
+        if (modo === 'streaming') {
+            audio.play().then(() => { isPlaying = true; playIcon.className = 'fas fa-pause'; });
+        }
+    }
 }, { once: true });
+
+fetch('https://radio-tekileros.vercel.app/Repro26.json')
+    .then(res => res.json())
+    .then(data => {
+        playlist = data.hits || [];
+        if (modo === 'streaming') {
+            iniciarActualizacionRadio();
+            audio.src = 'https://technoplayerserver.net:8018/stream?icy=http';
+        } else {
+            cargarTrack(currentTrack);
+            renderPanelDerechoLocal();
+        }
+        gestionarTiempo();
+    });
+
+// ======== MODAL CONTACTO ========
+const modal = document.getElementById('modalContacto');
+const closeBtn = document.querySelector('.close-modal');
+const triggers = [document.getElementById('btnContacto'), document.getElementById('openContact')];
+
+triggers.forEach(btn => {
+    if (btn) btn.onclick = (e) => { e.preventDefault(); modal.classList.remove('hidden'); };
+});
+
+if (closeBtn) closeBtn.onclick = () => modal.classList.add('hidden');
+window.onclick = (e) => { if (e.target == modal) modal.classList.add('hidden'); };
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !modal.classList.contains('hidden')) modal.classList.add('hidden');
+});

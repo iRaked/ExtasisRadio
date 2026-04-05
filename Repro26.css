@@ -1,4 +1,5 @@
 #main-container {
+  position: relative;
   width: 722px;
   height: 402px;
   display: flex;
@@ -413,6 +414,19 @@
   }
 }
 
+/* Efecto de parpadeo para el track activo */
+.track-block.active {
+    border-left: 4px solid #d4af37; /* Una marca dorada a la izquierda */
+    background: rgba(212, 175, 55, 0.1);
+    animation: blink-active 1.5s infinite ease-in-out;
+}
+
+@keyframes blink-active {
+    0% { opacity: 1; }
+    50% { opacity: 0.6; }
+    100% { opacity: 1; }
+}
+
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Footer ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 .footer {
   width: 722px;
@@ -556,28 +570,30 @@
 
 /* Informacion de Contacto */
 .modal {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.6);
+  background: rgba(0,0,0,0.7);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 999;
+  z-index: 9999;
 }
 
 .modal.hidden {
-  display: none;
+  display: none !important;
 }
 
 .modal-content {
+  position: relative;
   background: linear-gradient(to bottom, #ebeff8 0%, #ebeff8 30%, #9c9faf 60%, #9c9faf 100%);
-  padding: 24px;
+  padding: 40px 24px 24px;
   border-radius: 8px;
-  box-shadow: 0 0 12px #000;
+  box-shadow: 0 0 15px #000;
   text-align: center;
+  min-width: 280px;
 }
 
 .contact-img {
