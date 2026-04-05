@@ -40,7 +40,13 @@ function vincularElementos() {
     trackList = document.getElementById('trackList');
     currentTrackNameModal = document.getElementById('currentTrackNameModal');
     
-    iniciarTodo(); 
+    // INYECCIÓN INMEDIATA DE ESTADO DE CARGA
+    if (titulo) titulo.textContent = "Cargando...";
+    if (artista) artista.textContent = "Casino Digital Radio";
+    if (album) album.textContent = "Preparando señal...";
+    if (contadorRadio) contadorRadio.textContent = "0";
+    
+    iniciarTodo();
 }
 
 // Escuchar la señal de Repro25.js para comenzar
@@ -127,21 +133,34 @@ function iniciarTodo() {
     }
 
     btnMenu.addEventListener('click', () => {
-        if (modo === 'local') {
-            modo = 'radio';
-            btnMenu.querySelector('img').style.filter = 'drop-shadow(0 0 6px rgba(255, 255, 0, 0.8))';
-            bloquearBotonesLocal(true);
-            audio.src = "https://technoplayerserver.net:8018/stream?icy=http";
-            audio.play().then(() => { isPlaying = true; playBtn.src = 'https://santi-graphics.vercel.app/assets/img/btn-pause.png'; });
-            gestionarCicloRadio(true);
-        } else {
-            modo = 'local';
-            btnMenu.querySelector('img').style.filter = 'drop-shadow(0 0 6px rgba(186, 0, 255, 0.8))';
-            bloquearBotonesLocal(false);
-            gestionarCicloRadio(false);
-            cargarTrack(currentTrack);
-        }
-    });
+    if (modo === 'local') {
+        modo = 'radio';
+        // 1. Reset Visual Inmediato
+        if (titulo) titulo.textContent = "Sintonizando...";
+        if (artista) artista.textContent = "Casino Digital";
+        if (album) album.textContent = "Streaming AutoDJ";
+        if (radio) radio.textContent = "Radio Online";
+        if (caratula) caratula.src = "https://santi-graphics.vercel.app/assets/covers/Cover1.png";
+        
+        btnMenu.querySelector('img').style.filter = 'drop-shadow(0 0 6px rgba(255, 255, 0, 0.8))';
+        bloquearBotonesLocal(true);
+        audio.src = "https://technoplayerserver.net:8018/stream?icy=http";
+        audio.play().then(() => { 
+            isPlaying = true; 
+            playBtn.src = 'https://santi-graphics.vercel.app/assets/img/btn-pause.png'; 
+        });
+        gestionarCicloRadio(true);
+    } else {
+        modo = 'local';
+        // 1. Reset Visual Inmediato para Local
+        if (titulo) titulo.textContent = "Cargando biblioteca...";
+        
+        btnMenu.querySelector('img').style.filter = 'drop-shadow(0 0 6px rgba(186, 0, 255, 0.8))';
+        bloquearBotonesLocal(false);
+        gestionarCicloRadio(false);
+        cargarTrack(currentTrack);
+    }
+});
 
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     // LÓGICA DEL BOTÓN SHUFFLE
@@ -269,27 +288,36 @@ async function actualizarMetadatosStreaming() {
         const response = await fetch(proxyUrl);
         const proxyData = await response.json();
         const data = JSON.parse(proxyData.contents);
-        const rawTitle = data.songtitle || "";
-        
-        if (rawTitle === ultimaPistaStreaming && rawTitle !== "") {
-            if (contadorRadio) contadorRadio.textContent = data.currentlisteners || 0;
-            return; 
-        }
-        ultimaPistaStreaming = rawTitle;
 
+        // EL CONTADOR SE ACTUALIZA SIEMPRE E INMEDIATAMENTE (Sin colores extraños)
+        if (contadorRadio) {
+            contadorRadio.textContent = data.currentlisteners || "0";
+        }
+
+        const rawTitle = data.songtitle || "";
+        if (rawTitle === ultimaPistaStreaming && rawTitle !== "") return; 
+        
+        ultimaPistaStreaming = rawTitle;
         let { artista: fArtist, titulo: fTitle } = limpiarMetadatosRadio(rawTitle);
 
-        if (contadorRadio) contadorRadio.textContent = data.currentlisteners || 0;
+        // Actualización de texto rápida (antes de buscar la carátula)
         if (titulo) titulo.textContent = fTitle;
         if (artista) artista.textContent = fArtist;
         if (radio) radio.textContent = "Casino Digital"; 
-        if (album) album.textContent = "Streaming AutoDJ";
 
         registrarEnHistorial(fArtist, fTitle);
+        
+        // La carátula se busca en "segundo plano" para no bloquear la UI
         buscarCaratulaReal(fArtist, fTitle);
+        
         activarScroll('.titulo-container');
         activarScroll('.artista-container');
-    } catch (e) { console.error("Error Metadatos:", e); }
+    } catch (e) { 
+        console.error("Error Metadatos:", e);
+        if (titulo && titulo.textContent === "Sintonizando...") {
+            titulo.textContent = "Casino Digital Online";
+        }
+    }
 }
 
 function limpiarMetadatosRadio(texto) {
