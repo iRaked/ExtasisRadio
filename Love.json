@@ -1,0 +1,20 @@
+{
+  "music": [
+    {
+      "id": "billie-eilish-birds-of-a-feather",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover3/Billie-Eilish-Birds-of-a-feather.jpg",
+      "artista": "Billie Eilish",
+      "nombre": "Birds of a Feather",
+      "album": "HIT ME HARD AND SOFT",
+      "enlace": "https://xat-music3.vercel.app/assets/audio3/Billie-Eilish-Birds-of-a-feather.MP3",
+      "genero": "Pop",
+      "emotion": "Alegre",
+      "seccion": "music",
+      "duracion": "3:33",
+      "country": ["USA"]
+    }
+
+
+
+  ]
+}
