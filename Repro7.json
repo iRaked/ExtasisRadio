@@ -1,6 +1,15 @@
 {
   "hits": [
     {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover2/Cris-MJ-Gata-only.png",
+      "artista": "Cris MJ ft. FloyyMenor",
+      "nombre": "Gata Only",
+      "enlace": "https://xat-music3.vercel.app/assets/audio3/Cris-MJ-Gata-only.MP4",
+      "seccion": "Reggaetón",
+      "genero": "Urbano Chileno",
+      "duracion": "3:42"
+    },
+    {
       "caratula": "https://iraked.github.io/SantiGraphics/assets/cover2/Xavi-La-diabla.png",
       "artista": "Xavi",
       "nombre": "La Diabla",
