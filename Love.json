@@ -4,16 +4,28 @@
       "id": "billie-eilish-birds-of-a-feather",
       "caratula": "https://iraked.github.io/SantiGraphics/assets/cover3/Billie-Eilish-Birds-of-a-feather.jpg",
       "artista": "Billie Eilish",
-      "nombre": "Birds of a Feather",
-      "album": "HIT ME HARD AND SOFT",
+      "nombre": "Birds of a feather",
+      "album": "Hit me hard and soft",
       "enlace": "https://xat-music3.vercel.app/assets/audio3/Billie-Eilish-Birds-of-a-feather.MP3",
       "genero": "Pop",
       "emotion": "Alegre",
       "seccion": "music",
       "duracion": "3:33",
       "country": ["USA"]
+    },
+    {
+      "id": "linzae-lir-se-me-nota-menos",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover3/Linzae-Lir-Se-me-nota-menos.jpg",
+      "artista": "Linzae Lir",
+      "nombre": "Se me nota menos",
+      "album": "Single",
+      "enlace": "https://xat-music3.vercel.app/assets/audio3/Linzae-Lir-Se-me-nota-menos.MP3",
+      "genero": "Pop",
+      "emotion": "Melancólica",
+      "seccion": "music",
+      "duracion": "4:07",
+      "country": ["México"]
     }
-
 
 
   ]
