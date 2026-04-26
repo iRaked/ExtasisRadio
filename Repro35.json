@@ -1,6 +1,15 @@
 {
   "hits": [
     {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover3/Ruben-Lozada-Ponte-chola.jpg",
+      "artista": "Ruben Lozada",
+      "nombre": "Ponte chola",
+      "enlace": "https://xat-music3.vercel.app/assets/audio3/Ruben-Lozada-Ponte-chola.MP3",
+      "seccion": "hits",
+      "duracion": "3:00",
+      "genero": "Regional Mexicano"
+    },
+    {
       "caratula": "",
       "artista": "Carlos Rivera",
       "nombre": "Que lo nuestro se quede nuestro",
