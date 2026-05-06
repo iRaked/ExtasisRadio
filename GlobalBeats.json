@@ -1,0 +1,15 @@
+{
+  "global beats": [
+    {
+      "id": "ARTISTA-TITULO-EN MINUSCULAS",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover4/BASE DE DATOS.jpg",
+      "artista": "PascalCase BUSQUEDA POR INTERNET*",
+      "nombre": "PascalCase INTERNET*",
+      "album": "PascalCase INTERNET*",
+      "enlace": "https://xat-music4.vercel.app/assets/audio4/BASE DE DATOS.mp3",
+      "genero": "PascalCase INTERNET*",
+      "emotion": "PascalCase 1 PALABRA (ESPAÑOL) EN BASE A LA LIRICA",
+      "seccion": "global beats",
+      "duracion": "BASE DE DATOS",
+      "country": ["PascalCase INTERNET*"]
+    },
