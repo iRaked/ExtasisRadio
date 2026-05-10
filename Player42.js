@@ -209,7 +209,7 @@ function detenerActualizacionRadio() {
 function obtenerCaratulaDesdeiTunes(artist, title) {
     if (typeof $ === 'undefined' || typeof $.ajax === 'undefined') {
         if (discImg) {
-            discImg.src = 'assets/covers/Plato.png';
+            discImg.src = 'https://santi-graphics.vercel.app/assets/covers/Plato.png';
             discImg.classList.add("rotating");
         }
         return;
@@ -375,10 +375,9 @@ if (btnRadio) {
 // Activar Modo Radio (CRÍTICO: Inicia el stream silenciado)
 function activarModoRadio() {
     modoActual = "radio";
-    
     detenerActualizacionRadio();
     
-    // 🛑 LIMPIEZA VISUAL INMEDIATA
+    // Limpieza visual previa
     if (currentArtistName) currentArtistName.textContent = "Conectando...";
     if (currentTrackName) currentTrackName.textContent = "Obteniendo datos...";
     
@@ -387,33 +386,28 @@ function activarModoRadio() {
         discImg.classList.add("rotating");
     }
     
-    // 🔑 CLAVE 1: Pausar y resetear el estado de reproducción del modo anterior
     audio.pause();
-    
-    // 🔑 CLAVE 2: Asignar el SRC
     audio.src = "https://technoplayerserver.net:8018/stream?icy=http";
     audio.load();
 
-    // 1. Asegurarse de que el audio esté silenciado temporalmente (el gesto ya lo desbloqueó)
-    if (!gestureDetected) {
-        audio.muted = true;
-    } else {
-        audio.muted = false; // Si ya hay gesto, no silenciamos
-    }
+    audio.muted = !gestureDetected;
     
-    // 2. Intentar reproducir el nuevo stream
     audio.play().then(() => {
-        // ÉXITO en la reproducción
         if (iconPlay) iconPlay.classList.add("hidden");
         if (iconPause) iconPause.classList.remove("hidden");
     }).catch(err => {
-        // FALLO, pero la fuente está cargada y lista para reintentar con el botón Play/Pause
-        console.warn("🔒 Error al iniciar Radio automáticamente en transición:", err);
+        console.error("❌ Fallo en el servidor de Radio:", err);
+        
+        // REPORTE VISUAL (Sin cambiar de modo)
+        if (currentArtistName) currentArtistName.textContent = "Servidor Offline";
+        if (currentTrackName) currentTrackName.textContent = "Error de conexión";
+        
+        if (discImg) discImg.classList.remove("rotating");
         if (iconPause) iconPause.classList.add("hidden");
         if (iconPlay) iconPlay.classList.remove("hidden"); 
     });
 
-    iniciarActualizacionRadio(); // Inicia la búsqueda de metadatos
+    iniciarActualizacionRadio(); 
 }
 
 // Activar Modo Local (se mantiene)

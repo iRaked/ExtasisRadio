@@ -154,7 +154,7 @@ function crearVisualEffects() {
   figure.className = "radio-logo";
   const img = document.createElement("img");
   img.id = "disc-img";
-  img.src = "assets/covers/Cover1.png";
+  img.src = "https://santi-graphics.vercel.app/assets/covers/Cover1.png";
   img.alt = "Carátula";
   figure.appendChild(img);
   wrapper.appendChild(figure);
