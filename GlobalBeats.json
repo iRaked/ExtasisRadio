@@ -15,11 +15,11 @@
     },
     {
       "id": "samba-do-brasil-rio",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover4/Samba-Do-Brasil-Rio.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover4/Bellini-Samba-Do-Janeiro-Remix.jpg",
       "artista": "Bellini",
       "nombre": "Samba Do Brasil Rio",
       "album": "Samba De Janeiro (The 2014 Remixes)",
-      "enlace": "https://xat-music4.vercel.app/assets/audio4/Samba-Do-Brasil-Rio.mp3",
+      "enlace": "https://xat-music4.vercel.app/assets/audio4/Bellini-Samba-Do-Janeiro-Remix.mp3",
       "genero": "Samba",
       "emotion": "Festivo",
       "seccion": "global beats",
@@ -45,7 +45,7 @@
       "artista": "Sergio Mendes",
       "nombre": "Magalenha",
       "album": "Brasileiro",
-      "enlace": "https://xat-music4.vercel.app/assets/audio4/Sergio-Mendes-Magalenha.mp3",
+      "enlace": "https://xat-music4.vercel.app/assets/audio4/Sergio-Mendes-Magalenha.MP3",
       "genero": "Samba",
       "emotion": "Ritmo",
       "seccion": "global beats",
@@ -110,7 +110,7 @@
       "artista": "Pabllo Vittar",
       "nombre": "Sao Amores",
       "album": "Batidão Tropical Vol. 2",
-      "enlace": "https://xat-music4.vercel.app/assets/audio4/Pabllo-Vittar-Sao-amores.mp3",
+      "enlace": "https://xat-music4.vercel.app/assets/audio4/Pabllo-Vittar-Sao-amores.MP3",
       "genero": "Pop",
       "emotion": "Desamor",
       "seccion": "global beats",
@@ -123,7 +123,7 @@
       "artista": "Bruno Mars",
       "nombre": "Bonde Do Brunao",
       "album": "Live In Brazil",
-      "enlace": "https://xat-music4.vercel.app/assets/audio4/Bruno-Mars-Bonde-do-brunao.mp3",
+      "enlace": "https://xat-music4.vercel.app/assets/audio4/Bruno-Mars-Bonde-do-brunao.MP3",
       "genero": "Funk",
       "emotion": "Euforia",
       "seccion": "global beats",
@@ -136,7 +136,7 @@
       "artista": "Ebola",
       "nombre": "Mkuu Luku",
       "album": "Afrobeats 2024",
-      "enlace": "https://xat-music4.vercel.app/assets/audio4/Ebola-Mkuu-Luku.mp3",
+      "enlace": "https://xat-music4.vercel.app/assets/audio4/Ebola-Mkuu-Luku.MP3",
       "genero": "Afrobeats",
       "emotion": "Poder",
       "seccion": "global beats",
@@ -169,6 +169,11 @@
       "duracion": "2:53",
       "country": ["Brasil"]
     },
+
+
+
+
+
     {
       "id": "banda-os-cometas-festa-do-alemao",
       "caratula": "https://iraked.github.io/SantiGraphics/assets/cover4/Banda-Os-Cometas-Festa-do-alemao.jpg",
@@ -318,7 +323,7 @@
       "artista": "MXZI",
       "nombre": "Favela",
       "album": "Global Hits",
-      "enlace": "https://xat-music4.vercel.app/assets/audio4/MXZI-Deno-Favela.mp3",
+      "enlace": "https://xat-music4.vercel.app/assets/audio4/MXZI-Deno-Favela.MP3",
       "genero": "Funk",
       "emotion": "Callejero",
       "seccion": "global beats",
@@ -331,7 +336,7 @@
       "artista": "NXGHT",
       "nombre": "Topa Topa Topa",
       "album": "Topa Topa (Remix)",
-      "enlace": "https://xat-music4.vercel.app/assets/audio4/NXGHT-Scythermane-Topa-topa-topa.mp3",
+      "enlace": "https://xat-music4.vercel.app/assets/audio4/NXGHT-Scythermane-Topa-topa-topa.MP3",
       "genero": "Phonk",
       "emotion": "Intenso",
       "seccion": "global beats",
@@ -344,7 +349,7 @@
       "artista": "Opus",
       "nombre": "Live Is Life",
       "album": "Up And Down",
-      "enlace": "https://xat-music4.vercel.app/assets/audio4/Opus-Live-is-life.mp3",
+      "enlace": "https://xat-music4.vercel.app/assets/audio4/Opus-Live-is-life.MP3",
       "genero": "Rock",
       "emotion": "Unión",
       "seccion": "global beats",
@@ -371,12 +376,12 @@
       "country": ["Estados Unidos"]
     },
     {
-      "id": "israel-kamakawiwo-ole-somewhere-over-the-rainbow-306",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover4/Israel-Kamakawiwo-ole-Somewhere-over-the-rainbow.jpg",
-      "artista": "Israel Kamakawiwo'ole",
-      "nombre": "Somewhere Over The Rainbow",
-      "album": "Facing Future",
-      "enlace": "https://xat-music4.vercel.app/assets/audio4/Israel-Kamakawiwo-ole-Somewhere-over-the-rainbow.mp3",
+      "id": "hawai-aloha-oe",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover4/Hawai-Aloha-oe.jpg",
+      "artista": "Hawai",
+      "nombre": "Aloha Oe",
+      "album": "Hawaiian Dreams",
+      "enlace": "https://xat-music4.vercel.app/assets/audio4/Hawai-Aloha-oe.mp3",
       "genero": "Folklore",
       "emotion": "Paz",
       "seccion": "global beats",
@@ -402,7 +407,7 @@
       "artista": "DJ Vash",
       "nombre": "Maracaibo",
       "album": "Maracaibo Remix",
-      "enlace": "https://xat-music4.vercel.app/assets/audio4/DJ-Vash-Maracaibo.mp3",
+      "enlace": "https://xat-music4.vercel.app/assets/audio4/DJ-Vash-Maracaibo.MP3",
       "genero": "Dance",
       "emotion": "Energía",
       "seccion": "global beats",
@@ -441,7 +446,7 @@
       "artista": "Camila Cabello",
       "nombre": "Havana",
       "album": "Camila",
-      "enlace": "https://xat-music4.vercel.app/assets/audio4/Camila-Cabello-Young-Thug-Havana.mp3",
+      "enlace": "https://xat-music4.vercel.app/assets/audio4/Camila-Cabello-Young-Thug-Havana.MP3",
       "genero": "Pop",
       "emotion": "Seducción",
       "seccion": "global beats",
@@ -454,13 +459,18 @@
       "artista": "Yi Sang-gon",
       "nombre": "Irreversible Truth",
       "album": "A Korean Tango",
-      "enlace": "https://xat-music4.vercel.app/assets/audio4/A-Korean-Tango-Irreversible-Truth.mp3",
+      "enlace": "https://xat-music4.vercel.app/assets/audio4/A-Korean-Tango-Irreversible-Truth.MP3",
       "genero": "Tango",
       "emotion": "Drama",
       "seccion": "global beats",
       "duracion": "7:23",
       "country": ["Corea Del Sur"]
     },
+
+
+
+
+
     {
       "id": "tyla-chanel",
       "caratula": "https://iraked.github.io/SantiGraphics/assets/cover4/Tyla-Chanel.jpg",
@@ -480,7 +490,7 @@
       "artista": "The Jaykay",
       "nombre": "Habibi",
       "album": "Habibi (Single)",
-      "enlace": "https://xat-music4.vercel.app/assets/audio4/The-Jaykay-Habibi.mp3",
+      "enlace": "https://xat-music4.vercel.app/assets/audio4/The-Jaykay-Habibi.MP3",
       "genero": "Arabic Pop",
       "emotion": "Amor",
       "seccion": "global beats",
@@ -493,7 +503,7 @@
       "artista": "DJ Nazz",
       "nombre": "Qalbi",
       "album": "Arabic Remixes",
-      "enlace": "https://xat-music4.vercel.app/assets/audio4/DJ-Nazz-Qalbi.mp3",
+      "enlace": "https://xat-music4.vercel.app/assets/audio4/DJ-Nazz-Qalbi.MP3",
       "genero": "Dance",
       "emotion": "Pasión",
       "seccion": "global beats",
@@ -506,7 +516,7 @@
       "artista": "Gal Juma",
       "nombre": "Nowruz Chahla",
       "album": "Nowruz Hits",
-      "enlace": "https://xat-music4.vercel.app/assets/audio4/Gal-Juma-Nowruz-Chahla.mp3",
+      "enlace": "https://xat-music4.vercel.app/assets/audio4/Gal-Juma-Nowruz-Chahla.MP3",
       "genero": "Folk",
       "emotion": "Celebración",
       "seccion": "global beats",
@@ -553,17 +563,30 @@
       "country": ["Indonesia"]
     },
     {
-      "id": "maestro-del-pinyin-piu-piu-piu",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover4/Maestro-Del-Pinyin-Piu-piu-piu.jpg",
-      "artista": "Maestro Del Pinyin",
-      "nombre": "Piu Piu Piu",
-      "album": "Pinyin Dance",
-      "enlace": "https://xat-music4.vercel.app/assets/audio4/Maestro-Del-Pinyin-Piu-piu-piu.mp3",
-      "genero": "Pop",
-      "emotion": "Alegre",
+      "id": "tang-duy-tan-da-vu-remix",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover4/Tang-Duy-Tan-Da-vu-Remix.jpg",
+      "artista": "Tang Duy Tan",
+      "nombre": "Da Vu Remix",
+      "album": "The Darkness Before Dawn",
+      "enlace": "https://xat-music4.vercel.app/assets/audio4/Tang-Duy-Tan-Da-vu-Remix.mp3",
+      "genero": "V-Pop",
+      "emotion": "Misterio",
       "seccion": "global beats",
       "duracion": "4:35",
-      "country": ["China"]
+      "country": ["Vietnam"]
+    },
+    {
+      "id": "dj-akimilaku-la-bomba",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover4/DJ-Akimilaku-La-bomba.jpg",
+      "artista": "DJ Akimilaku",
+      "nombre": "La Bomba",
+      "album": "La Bomba (Remix)",
+      "enlace": "https://xat-music4.vercel.app/assets/audio4/DJ-Akimilaku-La-bomba.MP3",
+      "genero": "Electronic",
+      "emotion": "Energético",
+      "seccion": "global beats",
+      "duracion": "4:45",
+      "country": ["Indonesia"]
     },
     {
       "id": "urbanai-ah-lena-la-pionera",
@@ -571,7 +594,7 @@
       "artista": "UrBanAi",
       "nombre": "Ah Lena La Pionera",
       "album": "Techno Folk",
-      "enlace": "https://xat-music4.vercel.app/assets/audio4/UrBanAi-Ah-Lena-la-pionera.mp3",
+      "enlace": "https://xat-music4.vercel.app/assets/audio4/UrBanAi-Ah-Lena-la-pionera.MP3",
       "genero": "Folk-Dance",
       "emotion": "Vigor",
       "seccion": "global beats",
@@ -589,7 +612,20 @@
       "emotion": "Recuerdo",
       "seccion": "global beats",
       "duracion": "3:11",
-      "country": ["Internacional"]
+      "country": ["Venezuela"]
+    },
+    {
+      "id": "yeh-ek-zindagi-monica-o-my-darling",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover4/Yeh-Ek-Zindagi-Monica-O-My-Darling-Huma-Qureshi-Rajkummar-Rao-Radhika.jpg",
+      "artista": "Huma Qureshi, Rajkummar Rao",
+      "nombre": "Yeh Ek Zindagi (Monica O My Darling)",
+      "album": "Monica O My Darling",
+      "enlace": "https://xat-music4.vercel.app/assets/audio4/Yeh-Ek-Zindagi-Monica-O-My-Darling-Huma-Qureshi-Rajkummar-Rao-Radhika.mp3",
+      "genero": "Bollywood",
+      "emotion": "Alegre",
+      "seccion": "global beats",
+      "duracion": ":",
+      "country": ["India"]
     },
 
 
@@ -636,23 +672,28 @@
       "country": ["Japón"]
     },
     {
-      "id": "maestro-del-pinyin-piu-piu-piu-329",
+      "id": "maestro-del-pinyin-piu-piu-piu",
       "caratula": "https://iraked.github.io/SantiGraphics/assets/cover4/Maestro-Del-Pinyin-Piu-piu-piu.jpg",
       "artista": "Maestro Del Pinyin",
-      "nombre": "Piu Piu Piu (Edit)",
-      "album": "Pinyin Dance",
+      "nombre": "Piu Piu Piu",
+      "album": "Viral Chinese Hits",
       "enlace": "https://xat-music4.vercel.app/assets/audio4/Maestro-Del-Pinyin-Piu-piu-piu.mp3",
-      "genero": "Pop",
+      "genero": "C-Pop",
       "emotion": "Diversión",
       "seccion": "global beats",
       "duracion": "3:29",
       "country": ["China"]
     },
+
+
+
+
+
     {
       "id": "forza-italia-ce-la-luna",
       "caratula": "https://iraked.github.io/SantiGraphics/assets/cover4/Forza-Italia-Ce-la-luna.jpg",
       "artista": "Forza Italia",
-      "nombre": "C'e La Luna",
+      "nombre": "Ce La Luna",
       "album": "Italian Party",
       "enlace": "https://xat-music4.vercel.app/assets/audio4/Forza-Italia-Ce-la-luna.mp3",
       "genero": "Italo-Dance",
@@ -666,10 +707,10 @@
       "caratula": "https://iraked.github.io/SantiGraphics/assets/cover4/Angelo-Venuto-Ti-amo.jpg",
       "artista": "Angelo Venuto",
       "nombre": "Ti Amo",
-      "album": "The Remixes",
+      "album": "The Best of Angelo Venuto",
       "enlace": "https://xat-music4.vercel.app/assets/audio4/Angelo-Venuto-Ti-amo.mp3",
-      "genero": "Italo-Pop",
-      "emotion": "Romance",
+      "genero": "Italo-Dance",
+      "emotion": "Amor",
       "seccion": "global beats",
       "duracion": "3:52",
       "country": ["Italia"]
@@ -679,9 +720,9 @@
       "caratula": "https://iraked.github.io/SantiGraphics/assets/cover4/Angelo-Venuto-Vivo-per-lei.jpg",
       "artista": "Angelo Venuto",
       "nombre": "Vivo Per Lei",
-      "album": "Italian Classics",
+      "album": "The Best of Angelo Venuto",
       "enlace": "https://xat-music4.vercel.app/assets/audio4/Angelo-Venuto-Vivo-per-lei.mp3",
-      "genero": "Italo-Pop",
+      "genero": "Italo-Dance",
       "emotion": "Pasión",
       "seccion": "global beats",
       "duracion": "4:39",
@@ -694,7 +735,7 @@
       "nombre": "Felicita",
       "album": "Felicita",
       "enlace": "https://xat-music4.vercel.app/assets/audio4/Al-Bano-Romina-Power-Felicita.mp3",
-      "genero": "Pop",
+      "genero": "Italo-Pop",
       "emotion": "Felicidad",
       "seccion": "global beats",
       "duracion": "3:32",
@@ -707,7 +748,7 @@
       "nombre": "Gloria Remix",
       "album": "Gloria (Remixes)",
       "enlace": "https://xat-music4.vercel.app/assets/audio4/Laura-Branigan-Gloria-Remix.mp3",
-      "genero": "Euro-Disco",
+      "genero": "Dance-Pop",
       "emotion": "Euforia",
       "seccion": "global beats",
       "duracion": "4:02",
@@ -718,9 +759,9 @@
       "caratula": "https://iraked.github.io/SantiGraphics/assets/cover4/Cladinho-Bella-ciao.jpg",
       "artista": "Cladinho",
       "nombre": "Bella Ciao",
-      "album": "Dance Covers",
+      "album": "Bella Ciao (Remix)",
       "enlace": "https://xat-music4.vercel.app/assets/audio4/Cladinho-Bella-ciao.mp3",
-      "genero": "Electronic",
+      "genero": "Italo-Dance",
       "emotion": "Resistencia",
       "seccion": "global beats",
       "duracion": "3:53",
@@ -731,23 +772,28 @@
       "caratula": "https://iraked.github.io/SantiGraphics/assets/cover4/Stereoact -Sempre-sempre.jpg",
       "artista": "Stereoact",
       "nombre": "Sempre Sempre",
-      "album": "Sempre Sempre (Remix)",
+      "album": "#Schlager",
       "enlace": "https://xat-music4.vercel.app/assets/audio4/Stereoact -Sempre-sempre.mp3",
-      "genero": "Deep House",
-      "emotion": "Energía",
+      "genero": "Schlager-Pop",
+      "emotion": "Entusiasmo",
       "seccion": "global beats",
       "duracion": "3:37",
       "country": ["Alemania"]
     },
+
+
+
+
+
     {
       "id": "katya-lel-mi-mermelada",
       "caratula": "https://iraked.github.io/SantiGraphics/assets/cover4/Katya-Lel-Mi-mermelada.jpg",
       "artista": "Katya Lel",
       "nombre": "Mi Mermelada",
-      "album": "Jaga-Jaga",
+      "album": "Jaga Jaga",
       "enlace": "https://xat-music4.vercel.app/assets/audio4/Katya-Lel-Mi-mermelada.mp3",
       "genero": "Pop",
-      "emotion": "Coqueteo",
+      "emotion": "Dulce",
       "seccion": "global beats",
       "duracion": "3:45",
       "country": ["Rusia"]
@@ -755,15 +801,15 @@
     {
       "id": "georgi-dan-moscu-kasachov",
       "caratula": "https://iraked.github.io/SantiGraphics/assets/cover4/Georgi-Dan-Moscu-Kasachov.jpg",
-      "artista": "Georgi Dan",
+      "artista": "Georgie Dann",
       "nombre": "Moscu Kasachov",
       "album": "Grandes Éxitos",
       "enlace": "https://xat-music4.vercel.app/assets/audio4/Georgi-Dan-Moscu-Kasachov.mp3",
-      "genero": "Schlager",
-      "emotion": "Baile",
+      "genero": "Pop-Dance",
+      "emotion": "Fiesta",
       "seccion": "global beats",
       "duracion": "9:29",
-      "country": ["Rumania"]
+      "country": ["España"]
     },
     {
       "id": "boneym-rasputin-remix",
@@ -773,7 +819,7 @@
       "album": "Nightflight To Venus",
       "enlace": "https://xat-music4.vercel.app/assets/audio4/BoneyM-Rasputin-Remix.mp3",
       "genero": "Disco",
-      "emotion": "Poder",
+      "emotion": "Vigor",
       "seccion": "global beats",
       "duracion": "3:34",
       "country": ["Alemania"]
@@ -783,10 +829,10 @@
       "caratula": "https://iraked.github.io/SantiGraphics/assets/cover4/Prima-Nocta-Baudica.jpg",
       "artista": "Prima Nocta",
       "nombre": "Baudica",
-      "album": "Folk Metal",
+      "album": "Lost In Time",
       "enlace": "https://xat-music4.vercel.app/assets/audio4/Prima-Nocta-Baudica.mp3",
-      "genero": "Folk Rock",
-      "emotion": "Valentía",
+      "genero": "Medieval Rock",
+      "emotion": "Épico",
       "seccion": "global beats",
       "duracion": "3:10",
       "country": ["Bélgica"]
@@ -794,12 +840,12 @@
     {
       "id": "carte-blanq-maxx-power-max-verstappen",
       "caratula": "https://iraked.github.io/SantiGraphics/assets/cover4/Carte-Blanq-Maxx-Power-Max-Verstappen.jpg",
-      "artista": "Carte Blanq & Maxx Power",
+      "artista": "Carte Blanq",
       "nombre": "Max Verstappen",
-      "album": "Super Max!",
+      "album": "Max Verstappen (Single)",
       "enlace": "https://xat-music4.vercel.app/assets/audio4/Carte-Blanq-Maxx-Power-Max-Verstappen.mp3",
-      "genero": "Hardstyle",
-      "emotion": "Triunfo",
+      "genero": "Electronic",
+      "emotion": "Adrenalina",
       "seccion": "global beats",
       "duracion": "2:48",
       "country": ["Países Bajos"]
@@ -807,12 +853,12 @@
     {
       "id": "basshunter-russia-privjet",
       "caratula": "https://iraked.github.io/SantiGraphics/assets/cover4/BassHunter-Russia-privjet.jpg",
-      "artista": "BassHunter",
+      "artista": "Basshunter",
       "nombre": "Russia Privjet",
       "album": "LOL <(^^,)>",
       "enlace": "https://xat-music4.vercel.app/assets/audio4/BassHunter-Russia-privjet.mp3",
       "genero": "Eurodance",
-      "emotion": "Adrenalina",
+      "emotion": "Euforia",
       "seccion": "global beats",
       "duracion": "3:52",
       "country": ["Suecia"]
@@ -822,17 +868,14 @@
       "caratula": "https://iraked.github.io/SantiGraphics/assets/cover4/UrBanAi-Katusa-Kalinka.jpg",
       "artista": "UrBanAi",
       "nombre": "Katusa Kalinka",
-      "album": "Techno Folk Vol. 2",
+      "album": "Techno Folk",
       "enlace": "https://xat-music4.vercel.app/assets/audio4/UrBanAi-Katusa-Kalinka.mp3",
-      "genero": "Electronic",
+      "genero": "Folk-Dance",
       "emotion": "Vigor",
       "seccion": "global beats",
       "duracion": "3:41",
       "country": ["Rusia"]
     }
-
-
-
 
 
 
