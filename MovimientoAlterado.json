@@ -822,7 +822,7 @@
 
 
 
-{
+    {
       "id": "los-gfez-diego-herrera-bien-servida",
       "caratula": "https://iraked.github.io/SantiGraphics/assets/cover4/Los-Gfez-Diego-Herrera-Bien-servida.jpg",
       "artista": "Los Gfez x Diego Herrera",
@@ -838,9 +838,9 @@
     {
       "id": "la-vida-alegre",
       "caratula": "https://iraked.github.io/SantiGraphics/assets/cover4/La-vida-alegre.jpg",
-      "artista": "Sergio Vega",
+      "artista": "Impacto Sinaloense",
       "nombre": "La Vida Alegre",
-      "album": "Puras Cumbias",
+      "album": "Impacto Sinaloense",
       "enlace": "https://xat-music4.vercel.app/assets/audio4/La-vida-alegre.mp3",
       "genero": "Norteno",
       "emotion": "Alegria",
