@@ -191,7 +191,7 @@ function crearLogoContainer() {
   logoContainer.className = "logo-container";
 
   const img = document.createElement("img");
-  img.src = "assets/img/Cofre.png";
+  img.src = "https://santi-graphics.vercel.app/assets/img/Cofre.png";
   img.alt = "Logo";
   img.className = "logo-base zoom-effect";
 
