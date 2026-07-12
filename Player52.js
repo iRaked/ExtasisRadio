@@ -252,68 +252,107 @@ function iniciarActualizacionRadio() {
     detenerActualizacionRadio();
     iniciarContadorRadioescuchas();
 
-    // Nuevo server para canción actual
-    const radioUrl = "https://radio.technoplayerserver.com:8034/currentsong?sid=1";
+    const radioUrl = "https://antyserv.in/8088/currentsong?sid=1";
 
-    const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(radioUrl)}`;
+    // 🔄 MÚLTIPLES PROXIES CORS CON FALLBACK
+    const proxies = [
+        `https://api.allorigins.win/raw?url=${encodeURIComponent(radioUrl)}`,
+        `https://corsproxy.io/?${encodeURIComponent(radioUrl)}`,
+        `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(radioUrl)}`
+    ];
+
+    let currentProxyIndex = 0;
 
     async function actualizarDesdeServidor() {
-        try {
+        // Intentar con cada proxy hasta que uno funcione
+        for (let i = 0; i < proxies.length; i++) {
+            try {
+                const proxyUrl = proxies[currentProxyIndex];
+                const response = await fetch(proxyUrl, { 
+                    cache: 'no-cache',
+                    headers: {
+                        'Accept': 'text/plain'
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
 
-const response = await fetch(proxyUrl, { cache: 'no-cache' });
-const rawData = await response.text();
+                const rawData = await response.text();
+                
+                // Si llegamos aquí, el proxy funcionó
+                currentProxyIndex = i; // Guardar el proxy que funcionó
 
-// 1. Limpieza de números de control (ej: el "25" al inicio y "1" al final)
-// Eliminamos números al principio y al final, y limpiamos espacios
-let cleanedTitle = rawData.replace(/^\d+/, '').replace(/\d+$/, '').trim();
+                // 1. Limpieza inicial
+                let cleanedTitle = rawData
+                    .replace(/^\d+/, '')
+                    .replace(/\d+$/, '')
+                    .replace(/\.(mp3|mp4|wav|flac|aac|ogg)$/i, '')
+                    .trim();
 
-// 2. Si no hay guion, intentamos detectarlo. 
-// A veces el servidor envía "CANCION   ARTISTA" con muchos espacios.
-if (!cleanedTitle.includes(" - ") && cleanedTitle.includes("   ")) {
-    cleanedTitle = cleanedTitle.replace(/\s{2,}/g, " - ");
-}
+                // 2. Si está vacío o es "offline", salir
+                if (!cleanedTitle || cleanedTitle.toLowerCase().includes('offline') || cleanedTitle === lastTrackTitle) {
+                    return;
+                }
 
-// 3. Filtros adicionales de tu lógica
-cleanedTitle = cleanedTitle.replace(/AUTODJ/gi, '').replace(/\(LETRA\)/gi, '').trim();
+                lastTrackTitle = cleanedTitle;
 
-if (!cleanedTitle || cleanedTitle.toLowerCase().includes('offline') || cleanedTitle === lastTrackTitle) {
-    return;
-}
+                // 3. PARSING INTELIGENTE DE ARTISTA Y TÍTULO
+                let artist = "AUTO DJ";
+                let title = cleanedTitle;
 
-lastTrackTitle = cleanedTitle;
+                // Formato con guion: "Artista - Título"
+                if (cleanedTitle.includes(" - ")) {
+                    const parts = cleanedTitle.split(" - ");
+                    artist = parts[0].trim();
+                    title = parts[1] ? parts[1].trim() : parts[0].trim();
+                }
+                // Formato con múltiples espacios (fallback)
+                else if (cleanedTitle.includes("   ")) {
+                    const parts = cleanedTitle.replace(/\s{2,}/g, " - ").split(" - ");
+                    artist = parts[1] ? parts[1].trim() : "AUTO DJ";
+                    title = parts[0].trim();
+                }
+                // Sin separador: todo es el título
+                else {
+                    artist = "Tesoro Musical";
+                    title = cleanedTitle;
+                }
 
-// Separar Artista y Título
-let artist = "AUTO DJ";
-let title = cleanedTitle;
+                // 4. Limpieza adicional de texto
+                title = title.replace(/AUTODJ/gi, '').replace(/\(LETRA\)/gi, '').trim();
+                artist = artist.replace(/AUTODJ/gi, '').trim() || "AUTO DJ";
 
-if (cleanedTitle.includes(" - ")) {
-    const parts = cleanedTitle.split(" - ");
-    // Pero vamos a intentar ser inteligentes:
-    artist = parts[1] ? parts[1].trim() : parts[0].trim();
-    title = parts[1] ? parts[0].trim() : "Radio";
-}
-            
-            // 🛑 CRÍTICO: ALIMENTAR EL HISTORIAL DE RADIO
-            const currentTrackTime = new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
-            const newHistoryEntry = { artist, title, time: currentTrackTime };
+                // 5. Historial
+                const currentTrackTime = new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+                const newHistoryEntry = { artist, title, time: currentTrackTime };
 
-            if (trackHistory.length === 0 || trackHistory[0].title !== title) {
-                trackHistory.unshift(newHistoryEntry);
-                if (trackHistory.length > 20) trackHistory.pop();
+                if (trackHistory.length === 0 || trackHistory[0].title !== title) {
+                    trackHistory.unshift(newHistoryEntry);
+                    if (trackHistory.length > 20) trackHistory.pop();
+                }
+
+                // 6. Actualizar UI
+                const fullTrackInfo = `${artist} - ${title}`;
+                if (currentArtistName) currentArtistName.textContent = artist;
+                if (currentTrackName) currentTrackName.textContent = title;
+                if (metaTrack) metaTrack.textContent = fullTrackInfo;
+
+                obtenerCaratulaDesdeiTunes(artist, title);
+                return; // Éxito, salir del loop
+
+            } catch (error) {
+                console.warn(`⚠️ Proxy ${currentProxyIndex + 1} falló, intentando siguiente...`);
+                currentProxyIndex = (currentProxyIndex + 1) % proxies.length;
+                
+                // Si todos los proxies fallaron
+                if (i === proxies.length - 1) {
+                    console.error("❌ Todos los proxies CORS fallaron:", error);
+                    if (currentArtistName) currentArtistName.textContent = "Tesoro Musical";
+                    if (currentTrackName) currentTrackName.textContent = "Error de conexión";
+                }
             }
-            
-            const fullTrackInfo = `${artist} - ${title}`;
-
-            if (currentArtistName) currentArtistName.textContent = artist;
-            if (currentTrackName) currentTrackName.textContent = title;
-            if (metaTrack) metaTrack.textContent = fullTrackInfo;
-            
-            obtenerCaratulaDesdeiTunes(artist, title);
-
-        } catch (error) {
-            console.error("❌ Error CRÍTICO en la actualización de Radio:", error);
-            if (currentArtistName) currentArtistName.textContent = "Error";
-            if (currentTrackName) currentTrackName.textContent = "al cargar metadatos";
         }
     }
 
@@ -334,38 +373,56 @@ function iniciarContadorRadioescuchas() {
     detenerContadorRadioescuchas();
     if (!contadorElemento) return;
 
-    // URL CORRECTA PARA STATS (Suele ser /stats o /7.html en Shoutcast)
-    // Probamos con el endpoint de stats que suele estar abierto en el puerto 8034
-    const statsUrl = "https://radio.technoplayerserver.com:8034/stats?sid=1";
-    const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(statsUrl)}`;
+    const statsUrl = "https://antyserv.in/8088/stats?sid=1";
+    
+    // Múltiples proxies para stats también
+    const proxies = [
+        `https://api.allorigins.win/raw?url=${encodeURIComponent(statsUrl)}`,
+        `https://corsproxy.io/?${encodeURIComponent(statsUrl)}`,
+        `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(statsUrl)}`
+    ];
+
+    let currentProxyIndex = 0;
 
     async function actualizarContador() {
         if (modoActual !== "radio") return;
         
-        try {
-            const response = await fetch(proxyUrl);
-            const text = await response.text();
-            
-            // Si el server devuelve XML
-            const parser = new DOMParser();
-            const xmlDoc = parser.parseFromString(text, "text/xml");
-            const listeners = xmlDoc.getElementsByTagName("CURRENTLISTENERS")[0]?.textContent;
-            
-            // Si no es XML (a veces devuelven solo un número), intentamos extraerlo
-            if (listeners) {
-                contadorElemento.textContent = listeners;
-            } else {
-                // Intento de respaldo: si el texto es corto y es un número
-                const fallback = text.match(/\d+/);
-                contadorElemento.textContent = fallback ? fallback[0] : "0";
+        for (let i = 0; i < proxies.length; i++) {
+            try {
+                const proxyUrl = proxies[currentProxyIndex];
+                const response = await fetch(proxyUrl);
+                const text = await response.text();
+                
+                // Si llegamos aquí, el proxy funcionó
+                currentProxyIndex = i;
+                
+                // Parsear XML
+                const parser = new DOMParser();
+                const xmlDoc = parser.parseFromString(text, "text/xml");
+                const listeners = xmlDoc.getElementsByTagName("CURRENTLISTENERS")[0]?.textContent;
+                
+                if (listeners) {
+                    contadorElemento.textContent = listeners;
+                } else {
+                    const fallback = text.match(/\d+/);
+                    contadorElemento.textContent = fallback ? fallback[0] : "0";
+                }
+                return; // Éxito, salir del loop
+                
+            } catch (error) {
+                console.warn(`⚠️ Proxy stats ${currentProxyIndex + 1} falló`);
+                currentProxyIndex = (currentProxyIndex + 1) % proxies.length;
+                
+                if (i === proxies.length - 1) {
+                    console.error("❌ Error contador: Todos los proxies fallaron");
+                    contadorElemento.textContent = "0";
+                }
             }
-        } catch (error) {
-            console.error("Error contador:", error);
-            contadorElemento.textContent = "0";
         }
     }
+    
     actualizarContador();
-    contadorIntervalId = setInterval(actualizarContador, 20000); // 20 seg para no saturar
+    contadorIntervalId = setInterval(actualizarContador, 20000);
 }
 
 // ===============================
@@ -423,7 +480,7 @@ function activarModoRadio() {
     audio.pause();
     
     // 🔑 CLAVE 2: Asignar el SRC
-    audio.src = "https://radio.technoplayerserver.com:8034/stream";
+    audio.src = "https://antyserv.in/8088/stream"; // NUEVO SERVIDOR
     audio.load();
 
     // 1. Asegurarse de que el audio esté silenciado temporalmente (el gesto ya lo desbloqueó)
@@ -1031,41 +1088,30 @@ function iniciarBurbujas() {
 }
 
 function crearNotaMusical(contenedor) {
-    // Array con símbolos musicales de texto real
     const simbolos = ["♪", "♫", "♩", "♬", "♪", "♫", "♩", "♬"];
     const nota = document.createElement('span');
     
-    // Contenido y Clase
     nota.textContent = simbolos[Math.floor(Math.random() * simbolos.length)];
     nota.className = 'nota-musical';
     
-    // --- ESTILOS DINÁMICOS ---
-    
-    // Posición horizontal aleatoria dentro del contenedor
     const x = Math.random() * contenedor.offsetWidth;
     nota.style.left = `${x}px`;
     
-    // Tamaño aleatorio entre 15px y 30px
     const size = Math.random() * 15 + 15;
     nota.style.fontSize = `${size}px`;
     
-    // Color aleatorio dentro de la paleta (Blanco, Oro, Oro claro)
-    const colores = ['#ffffff', '#d4af37', '#fcf3cf'];
-    nota.style.color = colores[Math.floor(Math.random() * colores.length)];
+    // ✨ SOLO DORADO - eliminamos el array de colores aleatorios
+    nota.style.color = '#d4af37';
     
-    // Duración de animación aleatoria entre 2s y 5s
     const duration = Math.random() * 3 + 2;
     nota.style.animationDuration = `${duration}s`;
 
-    // Inyectar en el DOM
     contenedor.appendChild(nota);
 
-    // Limpieza automática al terminar la animación para no saturar la memoria
     setTimeout(() => {
         nota.remove();
     }, duration * 1000);
 }
-
 
 // ==================================
 // Mostrar mensaje al hacer clic derecho
