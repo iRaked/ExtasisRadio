@@ -6,7 +6,7 @@ function crearAudio() {
   const audio = document.createElement("audio");
   audio.id = "player";
   audio.setAttribute("autoplay", "");
-  audio.src = "https://radio.technoplayerserver.com:8034/stream";
+  audio.src = "https://antyserv.in/8088/stream"; // ✅ NUEVO SERVIDOR
   return audio;
 }
 
@@ -74,7 +74,6 @@ function inicializarNotasCanvas() {
   const notasSimbolos = ["♪", "♫", "♩", "♬"];
   const particulas = [];
 
-  // Ajustamos a 30 notas para que se vea lleno pero fluido
   for (let i = 0; i < 30; i++) {
     particulas.push({
       x: Math.random() * canvas.width,
@@ -87,7 +86,8 @@ function inicializarNotasCanvas() {
 
   function animar() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = "rgba(255, 255, 255, 0.3)"; // Notas blancas sutiles
+    // ✨ SOLO CAMBIO DE COLOR: blanco → dorado (misma opacidad 0.3)
+    ctx.fillStyle = "rgba(212, 175, 55, 0.3)";
     
     particulas.forEach(p => {
       ctx.font = `${p.size}px Arial`;
@@ -191,7 +191,7 @@ function crearLogoContainer() {
   logoContainer.className = "logo-container";
 
   const img = document.createElement("img");
-  img.src = "https://santi-graphics.vercel.app/assets/img/EQ.gif";
+  img.src = "https://santi-graphics.vercel.app/assets/img/Cofre.png";
   img.alt = "Logo";
   img.className = "logo-base zoom-effect";
 
