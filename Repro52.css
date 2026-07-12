@@ -32,77 +32,53 @@ body {
 }
 
 /* ============================================================ */
-/* 🖼️ FONDO PRINCIPAL GOLD & OBSIDIAN EDITION (750x425)         */
+/* 🖼️ FONDO PRINCIPAL - GOLD & AZURE EDITION (750x425)          */
 /* ============================================================ */
 .bg-water {
-    /* 1. Fondo (Imagen Base) */
-    background: url('https://santi-graphics.vercel.app/assets/bg/Pattern.png') no-repeat center center / cover !important;
+    background: url('https://santi-graphics.vercel.app/assets/bg/Beach.png') no-repeat center center / cover !important;
     background-size: cover !important;
     background-position: center !important;
     background-repeat: no-repeat !important;
 
-    /* 2. Dimensiones Estrictas */
     width: 750px !important;
     height: 425px !important;
 
-    /* 3. Estética de Bordes y Resplandor (Oro Base) */
     border-radius: 20px !important;
-    border: 2px solid #d4af37 !important; /* Cambio a Oro Inicial */
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.8), 
-                inset 0 0 15px rgba(212, 175, 55, 0.2) !important;
+    border: 2px solid #3688ff !important; /* Azul principal */
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.3), 
+                inset 0 0 15px rgba(54, 136, 255, 0.2) !important;
 
-    /* 4. Comportamiento y Capas */
     position: relative !important;
     overflow: hidden !important;
     pointer-events: auto !important;
     z-index: 0 !important;
 
-    /* 5. Corrección de Visualización */
     display: block !important;
     transition: border-color 0.5s ease, box-shadow 0.5s ease !important;
 }
 
 /* ============================================================ */
-/* 🌑 CAPA DE CONTRASTE (OBSIDIANA)                              */
+/* ✨ MODO RADIO ACTIVO (EFECTO PULSO AZUL + ORO)               */
 /* ============================================================ */
-/* Esta capa oscurece los bordes para resaltar el resplandor oro */
-.bg-water::after {
-    content: '';
-    position: absolute;
-    top: 0; 
-    left: 0;
-    width: 100%; 
-    height: 100%;
-    /* Degradado radial para viñeteado de lujo */
-    background: radial-gradient(circle at center, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.7) 100%) !important;
-    z-index: -1; 
-    pointer-events: none;
-}
-
-/* ============================================================ */
-/* ✨ MODO RADIO ACTIVO (EFECTO PULSO ORO)                       */
-/* ============================================================ */
-/* Se activa mediante JS añadiendo la clase 'modo-radio-active'  */
 .bg-water.modo-radio-active {
-    border-color: #f9d71c !important; /* Oro Brillante */
-    box-shadow: 0 0 50px rgba(212, 175, 55, 0.6), 
+    border-color: #3688ff !important;
+    box-shadow: 0 0 50px rgba(54, 136, 255, 0.6), 
                 inset 0 0 25px rgba(212, 175, 55, 0.3) !important;
-    animation: goldPulse 3s infinite ease-in-out !important;
+    animation: azureGoldPulse 3s infinite ease-in-out !important;
 }
 
-/* Animación de respiración metálica */
-@keyframes goldPulse {
+@keyframes azureGoldPulse {
     0% { 
-        border-color: #d4af37; 
-        box-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
+        border-color: #3688ff; 
+        box-shadow: 0 0 30px rgba(54, 136, 255, 0.4);
     }
     50% { 
-        border-color: #fff280; 
-        box-shadow: 0 0 60px rgba(212, 175, 55, 0.7);
+        border-color: #66a3ff; 
+        box-shadow: 0 0 60px rgba(54, 136, 255, 0.7);
     }
     100% { 
-        border-color: #d4af37; 
-        box-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
+        border-color: #3688ff; 
+        box-shadow: 0 0 30px rgba(54, 136, 255, 0.4);
     }
 }
 
@@ -125,30 +101,23 @@ body {
 }
 
 /* ===================== */
-/* 🔱 ICONOS DEL MENÚ (ORO LÍQUIDO) */
+/* 🔱 ICONOS DEL MENÚ (AZUL + ORO) */
 /* ===================== */
 .icon-menu {
     width: 32px;
     height: 32px;
-    /* Color Base: Oro Pulido */
-    fill: #d4af37 !important; 
+    fill: #3688ff !important; /* Azul principal */
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    /* Sombra para dar profundidad al icono sobre el fondo oscuro */
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
     cursor: pointer;
 }
 
-/* EFECTO AL PASAR EL CURSOR (GLOW ORO) */
 .icon-menu:hover {
-    /* Transformación: Crece y rota levemente */
     transform: scale(1.2) rotate(5deg);
-    /* Cambio de color: Oro Blanco/Brillante */
-    fill: #fff280 !important;
-    /* Resplandor externo tipo Neón Oro */
-    filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.8)) brightness(1.2);
+    fill: #d4af37 !important; /* Dorado al hover */
+    filter: drop-shadow(0 0 8px rgba(54, 136, 255, 0.8)) brightness(1.2);
 }
 
-/* ESTADO CUANDO ESTÁ SELECCIONADO / ACTIVO */
 .icon-menu.active {
     fill: #f9d71c !important;
     filter: drop-shadow(0 0 12px rgba(249, 215, 28, 0.9));
@@ -160,17 +129,14 @@ body {
 }
 
 /* ============================================================ */
-/* 🔘 BOTÓN RADIO - GOLD & OBSIDIAN SWITCH                     */
+/* 🔘 BOTÓN RADIO - AZURE & GOLD SWITCH                         */
 /* ============================================================ */
 .btn-radio {
-    width: 48px; /* Un poco más grande para el impacto visual */
+    width: 48px;
     height: 48px;
     
-    /* Fondo: Obsidiana con profundidad (Efecto cóncavo) */
-    background: linear-gradient(145deg, #1a1a1a, #0d0d0d) !important;
-    
-    /* Borde: Oro Mate */
-    border: 2px solid #d4af37 !important;
+    background: linear-gradient(145deg, #ffffff, #f0f0f0) !important; /* Blanco con profundidad */
+    border: 2px solid #3688ff !important; /* Azul */
     border-radius: 12px;
     
     display: flex;
@@ -180,54 +146,47 @@ body {
     position: relative;
     overflow: hidden;
     
-    /* Sombra: Elevación metálica */
-    box-shadow: 4px 4px 8px #050505, 
-                -1px -1px 2px rgba(212, 175, 55, 0.2),
-                inset 0 0 5px rgba(0,0,0,0.5) !important;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1), 
+                -1px -1px 2px rgba(54, 136, 255, 0.2),
+                inset 0 0 5px rgba(255,255,255,0.5) !important;
                 
     transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
 }
 
-/* EFECTO HOVER (Pre-encendido) */
 .btn-radio:hover {
     transform: translateY(-2px) scale(1.05);
-    border-color: #fff280 !important; /* Oro brillante al acercarse */
-    box-shadow: 0 0 15px rgba(212, 175, 55, 0.4),
-                inset 0 0 8px rgba(212, 175, 55, 0.2) !important;
+    border-color: #d4af37 !important; /* Dorado al hover */
+    box-shadow: 0 0 15px rgba(54, 136, 255, 0.4),
+                inset 0 0 8px rgba(54, 136, 255, 0.2) !important;
 }
 
 /* ============================================================ */
 /* ✨ ESTADO ACTIVO (CUANDO LA RADIO ESTÁ ON)                   */
 /* ============================================================ */
-/* Debes aplicar esta clase mediante JS cuando modoActual === 'radio' */
 .btn-radio.active {
-    background: #111 !important;
-    border-color: #f9d71c !important; /* Oro intenso */
+    background: linear-gradient(145deg, #f9d71c, #d4af37) !important; /* Dorado */
+    border-color: #fff280 !important;
     
-    /* El "Glow" de la radio encendida */
-    box-shadow: 0 0 25px rgba(212, 175, 55, 0.6), 
-                inset 0 0 10px rgba(212, 175, 55, 0.4) !important;
+    box-shadow: 0 0 25px rgba(249, 215, 28, 0.6), 
+                inset 0 0 10px rgba(249, 215, 28, 0.4) !important;
 }
 
-/* El Icono dentro del botón */
 .btn-radio svg, .btn-radio i {
-    fill: #d4af37; /* Icono en oro */
-    filter: drop-shadow(0 0 2px rgba(0,0,0,0.8));
+    fill: #3688ff; /* Azul */
+    filter: drop-shadow(0 0 2px rgba(0,0,0,0.3));
     transition: all 0.3s ease;
 }
 
 .btn-radio.active svg, .btn-radio.active i {
-    fill: #fff; /* El icono se vuelve blanco/brillante al activar */
-    filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.8));
+    fill: #fff; /* Blanco al activar */
+    filter: drop-shadow(0 0 8px rgba(249, 215, 28, 0.8));
 }
 
-/* Efecto de Click (Presión mecánica) */
 .btn-radio:active {
     transform: scale(0.95);
-    box-shadow: inset 4px 4px 8px #050505, 
-                inset -1px -1px 2px rgba(212, 175, 55, 0.1) !important;
+    box-shadow: inset 4px 4px 8px rgba(0,0,0,0.1), 
+                inset -1px -1px 2px rgba(54, 136, 255, 0.1) !important;
 }
-
 
 .btn-radio:hover {
   transform: translateY(-2px);
@@ -236,12 +195,12 @@ body {
 .btn-radio svg {
   width: 60%;
   height: 60%;
-  fill: #fff;
+  fill: #3688ff;
   pointer-events: none;
 }
 
 /* ============================================================ */
-/* 🎧 CONTADOR DE RADIOESCUCHAS (GLOW ORO)                     */
+/* 🎧 CONTADOR DE RADIOESCUCHAS (AZUL + ORO)                    */
 /* ============================================================ */
 .radioescuchas {
     position: absolute;
@@ -252,81 +211,71 @@ body {
     gap: 6px;
     font-size: 14px;
     
-    /* Texto en Oro Brillante para resaltar sobre la orquídea */
-    color: #fff !important; 
+    color: #3688ff !important; /* Azul */
     
-    /* Fondo: Obsidiana translucida (Efecto Cristal) */
-    background: rgba(0, 0, 0, 0.6) !important;
-    padding: 4px 10px; /* Un poco más de aire lateral */
+    background: rgba(255, 255, 255, 0.6) !important; /* Blanco translúcido */
+    padding: 4px 10px;
     border-radius: 6px;
     
-    /* Borde fino en Oro Mate */
-    border: 1px solid rgba(212, 175, 55, 0.4) !important;
+    border: 1px solid rgba(54, 136, 255, 0.8) !important;
     
-    /* 🌟 EL GLOW ORO: Resplandor cálido y lujoso */
-    box-shadow: 0 0 12px rgba(212, 175, 55, 0.6), 
+    box-shadow: 0 0 12px rgba(54, 136, 255, 0.3), 
                 inset 0 0 4px rgba(212, 175, 55, 0.2) !important;
                 
     z-index: 10;
     font-weight: bold;
-    text-shadow: 0 0 5px rgba(0, 0, 0, 0.8); /* Sombra al texto para legibilidad */
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
     transition: all 0.3s ease;
 }
 
-/* Efecto sutil al pasar el mouse */
 .radioescuchas:hover {
-    box-shadow: 0 0 18px rgba(212, 175, 55, 0.9) !important;
+    box-shadow: 0 0 18px rgba(54, 136, 255, 0.6) !important;
     transform: translateY(-1px);
 }
 
 /* ===================== */
-/* 🕰️ INFO TIME (ORO CEREMONIAL) */
+/* 🕰️ INFO TIME (BLANCO CEREMONIAL) */
 /* ===================== */
 .info-time {
     margin-left: 15px;
     font-family: 'Orbitron', sans-serif;
     font-size: 0.9rem;
     
-    /* 1. CAMBIO DE COLOR: Oro Brillante en lugar de blanco */
-    color: #fff !important; 
+    color: #ffffff !important; /* Blanco puro */
     
     padding: 4px 10px;
     
-    /* 2. FONDO: Obsidiana translúcida para que resalte el oro */
-    background: rgba(0, 0, 0, 0.5) !important; 
+    background: rgba(54, 136, 255, 0.3) !important; /* Azul translúcido para contraste */
     
-    /* 3. BORDE: Oro Mate */
-    border: 1px solid rgba(212, 175, 55, 0.6) !important;
+    border: 1px solid rgba(255, 255, 255, 0.6) !important; /* Borde blanco */
     border-radius: 6px;
     
-    /* 4. SOMBRAS: El resplandor debe ser ámbar/oro */
     box-shadow: 
-        0 0 10px rgba(212, 175, 55, 0.5), 
-        2px 2px 6px rgba(0,0,0,0.8) !important;
+        0 0 10px rgba(54, 136, 255, 0.4), 
+        2px 2px 6px rgba(0,0,0,0.15) !important;
         
     white-space: nowrap;
     
-    /* 5. TEXT SHADOW: Brillo dorado para la tipografía Orbitron */
-    text-shadow: 0 0 8px rgba(212, 175, 55, 0.8) !important;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.9) !important; /* Brillo blanco */
     
     transition: all 0.3s ease;
 }
 
-/* Efecto Hover para que se sienta interactivo */
 .info-time:hover {
-    color: #fff280 !important; /* Oro más claro */
-    box-shadow: 0 0 15px rgba(212, 175, 55, 0.8) !important;
+    color: #ffffff !important; /* Mantiene blanco */
+    background: rgba(54, 136, 255, 0.5) !important; /* Más azul al hover */
+    box-shadow: 0 0 15px rgba(54, 136, 255, 0.7) !important;
     transform: scale(1.02);
 }
 
 /* ===================== */
-/* BLOQUE BIENVENIDA */
+/* BLOQUE BIENVENIDA (LOGO) - DERECHA INFERIOR */
 /* ===================== */
 .bloque-bienvenida {
   position: absolute;
-  top: 55%;        /* mitad vertical */
-  left: 1%;        /* ajusta este valor para moverlo más a la izquierda */
-  transform: translateY(-50%);
+  bottom: 50px; /* ALTURA */
+  right: 20px;
+  transform: none;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -349,18 +298,21 @@ body {
   100% { transform: scale(1); }
 }
 
+/* ===================== */
+/* TEXTO ANIMADO BIENVENIDA - FUERZA POSICIÓN IZQUIERDA */
+/* ===================== */
 .context-bienvenida {
-  text-align: center;
-}
-
-/* Ajustes para que las palabras se superpongan correctamente */
-.context-bienvenida {
-  position: relative;
-  width: 300px; /* Ajusta según el largo de tu texto */
-  height: 50px; 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  position: fixed !important; /* 🔥 Cambiado a fixed para salir del contenedor padre */
+  top: 55% !important;
+  left: 25% !important;
+  transform: translateY(-50%) !important;
+  width: 300px !important;
+  height: 50px !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  text-align: center !important;
+  z-index: 100 !important;
 }
 
 .animtext {
@@ -376,8 +328,8 @@ body {
   opacity: 0;
   white-space: nowrap;
   font-weight: bold;
-  font-size: 24px; /* Ajusta a tu gusto */
-  color: #fff;
+  font-size: 24px;
+  color: #3688ff;
   text-align: center;
 }
 
@@ -389,8 +341,8 @@ body {
 
 p.animtext {
   margin: 0;
-  color: #800080;
-  perspective: 1000px; /* da profundidad al efecto 3D */
+  color: #3688ff;
+  perspective: 1000px;
 }
 
 .letter.out {
@@ -411,7 +363,7 @@ p.animtext {
 .lateral-container {
   position: absolute;
   top: 40%;
-  left: 50%;   /* izquierda media de main */
+  left: 50%;
   transform: translateY(-50%);
   display: flex;
   flex-direction: column;
@@ -434,7 +386,7 @@ p.animtext {
 }
 
 /* ===================== */
-/* ESTRUCTURA BASE Y LOGO (GOLD EDITION) */
+/* ESTRUCTURA BASE Y LOGO (AZURE EDITION) */
 /* ===================== */
 .logo-waves-wrapper {
     position: relative; 
@@ -455,14 +407,12 @@ p.animtext {
     height: auto;
     aspect-ratio: 1 / 1;
     margin: 0; 
-    /* Cambio: Borde en Oro Pulido */
-    border: 1px solid #d4af37;
+    border: 1px solid #3688ff; /* Azul */
     border-radius: 50%;
     overflow: hidden;
     position: relative;
     animation: vinylSpin 3s linear infinite, glow 3s infinite alternate;
-    /* Cambio: Resplandor en Oro */
-    box-shadow: 0 0 15px rgba(212, 175, 55, 0.8);
+    box-shadow: 0 0 15px rgba(54, 136, 255, 0.5);
     z-index: 6; 
     isolation: isolate;
 }
@@ -481,11 +431,9 @@ p.animtext {
 }
 
 .radio-logo:hover {
-    /* Cambio: Brillo más intenso al pasar el mouse (Oro Brillante) */
-    box-shadow: 0 0 25px rgba(249, 215, 28, 0.9);
+    box-shadow: 0 0 25px rgba(212, 175, 55, 0.9); /* Dorado al hover */
 }
 
-/* CAPA DE EFECTOS */
 .effects-layer {
     position: absolute;
     top: 50%;
@@ -498,7 +446,7 @@ p.animtext {
 }
 
 /* ===================== */
-/* PULSO MEDIA LUNA - GOLD & OBSIDIAN EDITION */
+/* PULSO MEDIA LUNA - AZURE & CELESTE EDITION */
 /* ===================== */
 .orbital_container {
     position: absolute;
@@ -527,11 +475,13 @@ p.animtext {
     height: 280px;
     transform: translate(-50%, -50%);
     border-radius: 50%;
+    /* 🔵 Degradado azul/celeste puro, sin dorado */
     background: conic-gradient(
         from 90deg,
-        rgba(212, 175, 55, 0.4), /* Oro translúcido */
-        #f9d71c,                 /* Brillo Oro Intenso (Highlight) */
-        #8b6d1b                  /* Bronce profundo para contraste */
+        rgba(54, 136, 255, 0.4),   /* Azul translúcido */
+        #3688ff,                    /* Azul intenso */
+        #87ceeb,                    /* Celeste cielo */
+        #3688ff                     /* Azul intenso */
     );
     filter: blur(25px);
     opacity: 0.7; 
@@ -549,11 +499,12 @@ p.animtext {
     transform-origin: 50% 50%;
     border-radius: 50%;
     z-index: 1;
+    /* 🔵 Degradado azul/celeste */
     background: conic-gradient(
         from 90deg,
         transparent 0deg,
-        rgba(255, 215, 0, 0.5) 60deg, /* Destello Oro claro */
-        #fff280 120deg,                /* Luz de Oro Blanco */
+        rgba(54, 136, 255, 0.5) 60deg,   /* Azul claro */
+        #87ceeb 120deg,                   /* Celeste */
         transparent 180deg
     );
     mask: radial-gradient(circle at center, transparent 100px, black 128px);
@@ -564,17 +515,18 @@ p.animtext {
 
 .arc2 {
     animation-delay: -3s;
+    /* 🔵 Degradado celeste/azul */
     background: conic-gradient(
         from 270deg,
         transparent 0deg,
-        #d4af37 60deg,                /* Oro sólido pulido */
-        rgba(139, 109, 27, 0.6) 120deg, /* Bronce oscuro translúcido */
+        #87ceeb 60deg,                    /* Celeste */
+        rgba(54, 136, 255, 0.6) 120deg,  /* Azul translúcido */
         transparent 180deg
     );
 }
 
 /* ============================================================ */
-/* 🎬 ANIMACIONES Y MEDIA QUERIES - GOLD & OBSIDIAN EDITION      */
+/* 🎬 ANIMACIONES Y MEDIA QUERIES - AZURE & GOLD EDITION        */
 /* ============================================================ */
 @keyframes vinylSpin {
     0% { transform: rotate(0deg); }
@@ -583,15 +535,11 @@ p.animtext {
 
 @keyframes glow {
     0% {
-        /* Halo Oro Suave */
-        box-shadow: 0 0 25px rgba(212, 175, 55, 0.4);  
-        /* Borde Oro Translúcido */
-        border-color: rgba(212, 175, 55, 0.5);        
+        box-shadow: 0 0 25px rgba(54, 136, 255, 0.4);  
+        border-color: rgba(54, 136, 255, 0.5);        
     }
     100% {
-        /* Halo Oro Brillante Intenso */
-        box-shadow: 0 0 40px rgba(249, 215, 28, 0.8);  
-        /* Borde Oro Sólido Pulido */
+        box-shadow: 0 0 40px rgba(212, 175, 55, 0.8);  
         border-color: rgba(255, 242, 128, 0.9);        
     }
 }
@@ -603,7 +551,6 @@ p.animtext {
     }
     100% { 
         opacity: 0.8; 
-        /* Aumento de brillo para efecto de metal precioso bajo la luz */
         filter: blur(28px) brightness(1.5); 
     }
 }
@@ -619,7 +566,7 @@ p.animtext {
 }
 
 /* ===================== */
-/* FOOTER */
+/* FOOTER (SEMITRANSPARENTE) */
 /* ===================== */
 .footer-2_5d {
     position: absolute;
@@ -628,18 +575,21 @@ p.animtext {
     transform: translateX(-50%);
     width: 750px;
     max-width: 750px;
-  height: 60px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  /*background: linear-gradient(to bottom, #4a4a4a, #2e2e2e);*/
-  box-shadow:
-    inset 0 2px 4px rgba(0, 0, 0, 0.2),
-    inset 0 -2px 4px rgba(0, 0, 0, 0.4),
-    0 4px 8px rgba(0, 0, 0, 0.6);
-  padding: 0 20px;
-  border-top: 1px solid #000;
-  z-index: 10;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* 🌫️ Fondo semitransparente con blur */
+    background: rgba(255, 255, 255, 0.2) !important;
+    /*backdrop-filter: blur(12px);*/
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow:
+        inset 0 2px 4px rgba(255, 255, 255, 0.3),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.1),
+        0 4px 8px rgba(0, 0, 0, 0.15);
+    padding: 0 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.4);
+    z-index: 10;
 }
 
 .left-zone,
@@ -652,34 +602,36 @@ p.animtext {
 
 .footer-label,
 .footer-info {
-  color: #ccc;
+  color: #ffffff; /* Texto blanco para contraste sobre fondo translúcido */
   font-size: 14px;
-  text-shadow: 1px 1px 0 #000;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
 }
 
 .footer-btn {
   width: 40px;
   height: 40px;
-  background: linear-gradient(to bottom, #5a5a5a, #3a3a3a);
-  border: none;
+  background: rgba(255, 255, 255, 0.4); /* Semitransparente */
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: 8px;
   box-shadow:
-    inset 0 1px 2px rgba(255, 255, 255, 0.2),
-    0 2px 4px rgba(0, 0, 0, 0.5);
-  color: #fff;
+    inset 0 1px 2px rgba(255, 255, 255, 0.6),
+    0 2px 4px rgba(0, 0, 0, 0.15);
+  color: #3688ff; /* Azul */
   font-size: 18px;
   transition: transform 0.2s ease;
 }
 
 .footer-btn:hover {
   transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.6);
   box-shadow:
-    inset 0 1px 2px rgba(255, 255, 255, 0.3),
-    0 4px 6px rgba(0, 0, 0, 0.6);
+    inset 0 1px 2px rgba(255, 255, 255, 0.8),
+    0 4px 6px rgba(54, 136, 255, 0.3);
 }
 
 /* ===================== */
-/* 📟 META MARQUEE (GOLD GLASS) */
+/* 📟 META MARQUEE (AZURE GLASS) */
 /* ===================== */
 .meta-marquee {
     position: relative;
@@ -688,39 +640,33 @@ p.animtext {
     height: 24px;
     padding-left: 10px;
     
-    /* Borde lateral en Oro Intenso */
-    border-left: 2px solid #f9d71c; 
+    border-left: 2px solid #3688ff; 
     border-radius: 6px;
     
-    /* Fondo: Obsidiana translúcida */
-    background-color: rgba(0, 0, 0, 0.5) !important; 
+    background-color: rgba(255, 255, 255, 0.6) !important; /* Blanco */
     
-    /* 🌟 SOMBRAS Y GLOW: Cambiamos blancos por Oro */
     box-shadow:
-        inset 0 1px 2px rgba(212, 175, 55, 0.3), /* Luz interna superior ORO */
-        inset 0 -1px 2px rgba(0, 0, 0, 0.6),      /* Sombra interna inferior */
-        0 4px 10px rgba(0, 0, 0, 0.8),            /* Sombra externa profunda */
-        0 0 12px rgba(212, 175, 55, 0.4);         /* Halo ORO en lugar de blanco */
+        inset 0 1px 2px rgba(54, 136, 255, 0.3),
+        inset 0 -1px 2px rgba(0, 0, 0, 0.1),
+        0 4px 10px rgba(0, 0, 0, 0.2),
+        0 0 12px rgba(54, 136, 255, 0.3);
         
-    backdrop-filter: blur(4px); /* Aumentamos un poco la profundidad */
+    backdrop-filter: blur(4px);
     display: flex;
     align-items: center;
     
-    /* El texto dentro se mantiene blanco como pediste */
-    color: #ffffff;
-    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+    color: #333; /* Texto oscuro */
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
 }
-
 
 .meta-track {
   position: absolute;
   white-space: nowrap;
   animation: scrollMeta 12s linear infinite;
-  color: #fff;
+  color: #3688ff; /* Azul */
   font-size: 13px;
-  text-shadow: 1px 1px 0 #000;
+  text-shadow: 1px 1px 0 #fff;
 }
-
 
 @keyframes scrollMeta {
   0% { transform: translateX(100%); }
@@ -735,28 +681,19 @@ p.animtext {
   justify-content: center;
   align-items: center;
   margin-top: 1px;
-    z-index: 20;
+  z-index: 20;
 }
 
 /* ============================================================ */
-/* 🎚️ REPRO CONTROLS - THE GOLDEN RELIC EDITION                */
+/* 🎚️ REPRO CONTROLS - AZURE & GOLD EDITION                    */
 /* ============================================================ */
-
-/* Botón base con efecto de Moneda de Oro y Sombra Profunda */
 .soft {
-    /* Fondo: Obsidiana pulida con destello central */
-    background: radial-gradient(circle at 30% 30%, #2a2a2a 0%, #050505 100%) !important;
-    
-    /* Borde: Oro Real con textura */
-    border: 1px solid #d4af37 !important;
-    
-    /* 🌟 SOMBRA CEREMONIAL ORO: 
-       Mezclamos la sombra física negra con el halo de luz dorada */
+    background: radial-gradient(circle at 30% 30%, #ffffff50 0%, #f0f0f0 100%) !important; /* Blanco */
+    border: 1px solid #3688ff !important; /* Azul */
     box-shadow:
-        8px 8px 20px rgba(0, 0, 0, 0.98),         /* Sombra proyectada pesada */
-        inset 0 1px 1px rgba(255, 242, 128, 0.3), /* Reflejo metálico superior */
-        0 0 15px rgba(212, 175, 55, 0.5) !important; /* Halo Oro suave */
-        
+        8px 8px 20px rgba(0, 0, 0, 0.15),
+        inset 0 1px 1px rgba(54, 136, 255, 0.3),
+        0 0 15px rgba(54, 136, 255, 0.3) !important;
     cursor: pointer;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     display: flex;
@@ -766,59 +703,47 @@ p.animtext {
     position: relative;
 }
 
-/* EFECTO AL PASAR EL CURSOR (ECLIPSE SOLAR) */
 .soft:hover {
     transform: scale(1.15) translateY(-3px);
-    
-    /* El borde se calienta y brilla más */
-    border-color: #fff280 !important;
-    
-    /* El halo se expande como una corona solar */
+    border-color: #d4af37 !important; /* Dorado al hover */
     box-shadow:
-        12px 12px 25px rgba(0, 0, 0, 0.95),
-        0 0 30px rgba(212, 175, 55, 0.8),         /* Glow Oro expansivo */
-        inset 0 0 10px rgba(212, 175, 55, 0.4) !important;
+        12px 12px 25px rgba(0, 0, 0, 0.2),
+        0 0 30px rgba(212, 175, 55, 0.6),
+        inset 0 0 10px rgba(212, 175, 55, 0.3) !important;
 }
 
-/* Los Iconos dentro de los botones .soft (Play, Pause, etc.) */
 .soft svg, .soft i {
-    fill: #f9d71c !important; /* Oro brillante */
-    filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.6));
+    fill: #3688ff !important; /* Azul */
+    filter: drop-shadow(0 0 5px rgba(54, 136, 255, 0.4));
     transition: transform 0.3s ease;
 }
 
 .soft:hover svg, .soft:hover i {
     transform: scale(1.1);
-    fill: #fff !important; /* El icono destella en blanco al contacto */
+    fill: #d4af37 !important; /* Dorado al hover */
 }
 
-/* CONTENEDOR DE CONTROLES */
 .repro-controls {
     display: flex !important;
     justify-content: center !important; 
     align-items: center !important;
-    
-    /* Bajamos de 1.5rem a 0.7rem para acercarlos de verdad */
     gap: 0.7rem !important; 
-    
     width: 100% !important;
     margin: 0 auto 0.8rem auto !important;
     padding: 0 !important;
 }
 
-/* Limpieza TOTAL de márgenes */
 #repeat-button, 
 #prev-button, 
 #btn-play-pause, 
 #next-button, 
 #shuffle-button {
-    /* IMPORTANTE: El margen debe ser 0 para que el GAP sea el que mande */
     margin: 4px !important; 
     flex-shrink: 0 !important;
 }
 
 /* ===================== */
-/* 🎯 Tamaños individuales para cada botón */
+/* 🎯 Tamaños individuales */
 /* ===================== */
 #repeat-button {
   width: 32px;
@@ -860,32 +785,25 @@ p.animtext {
 /* ============================================================ */
 /* 💎 EL BOTÓN DE PLAY - INDEPENDIENTE Y BLINDADO              */
 /* ============================================================ */
-
-/* 1. REPOSO: Negro absoluto */
 .btn-play svg, 
 .btn-play svg path {
-    fill: #000000 !important;
+    fill: #3688ff !important; /* Azul */
     filter: none !important;
     transition: all 0.3s ease;
 }
 
-/* 2. HOVER: Blanco (sin importar si suena o no) */
 .btn-play:hover svg, 
 .btn-play:hover svg path {
-    fill: #ffffff !important;
-    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.8)) !important;
+    fill: #d4af37 !important; /* Dorado al hover */
+    filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.8)) !important;
 }
 
-/* 3. ACTIVE (CLICK): Chispazo Oro Blanco */
 .btn-play:active svg, 
 .btn-play:active svg path {
-    fill: #fff280 !important;
+    fill: #f9d71c !important;
     transform: scale(0.9);
 }
 
-/* 4. ESTADO ORO (CUANDO SUENA): REGLA DE MÁXIMA PRIORIDAD */
-/* Si el botón tiene la clase .is-playing, el ORO DEBE GANAR */
-/* Agregamos el ID para que la especificidad sea aplastante */
 #btn-play-pause.is-playing svg,
 #btn-play-pause.is-playing svg path,
 .btn-play.is-playing svg,
@@ -895,70 +813,57 @@ p.animtext {
 }
 
 /* ============================================================ */
-/* 💎 ESTILOS DE ESTADO ACTIVO (INVERTIDO - GOLD EDITION)      */
+/* 💎 ESTILOS DE ESTADO ACTIVO (AZURE & GOLD EDITION)          */
 /* ============================================================ */
-
-/* Aplica a Shuffle (.active) y Repeat (.active-one) */
 .soft.active,
 .soft.active-one {
     transform: scale(1.08); 
-
-    /* Fondo: Oro Intenso (Invertido) */
-    background: #f9d71c !important; 
-    
-    /* Borde: Oro Blanco para resaltar el relieve */
+    background: linear-gradient(145deg, #f9d71c, #d4af37) !important; /* Dorado */
     border: 1px solid #fff280 !important; 
-    
-    /* Resplandor: Halo ámbar que emana del botón de oro */
     box-shadow: 
-        10px 10px 20px rgba(0, 0, 0, 0.8), /* Sombra profunda */
-        0 0 20px rgba(249, 215, 28, 0.7),   /* Glow oro principal */
-        0 0 35px rgba(212, 175, 55, 0.4) !important; /* Halo ambiental */
+        10px 10px 20px rgba(0, 0, 0, 0.2),
+        0 0 20px rgba(249, 215, 28, 0.7),
+        0 0 35px rgba(212, 175, 55, 0.4) !important;
 }
 
-/* Ajuste del Icono: Negro sobre el fondo de Oro para máximo contraste */
 .soft.active-one svg,
 .soft.active svg,
 .soft.active-one i,
 .soft.active i,
 .soft.active-one svg path,
 .soft.active svg path {
-    /* Negro absoluto para que parezca troquelado en el oro */
-    fill: #000000 !important;
-    color: #000000 !important;
-    
-    /* Sombra interna sutil para dar profundidad al icono */
-    filter: drop-shadow(0px 1px 1px rgba(255, 255, 255, 0.2)) !important;
+    fill: #3688ff !important; /* Azul sobre dorado */
+    color: #3688ff !important;
+    filter: drop-shadow(0px 1px 1px rgba(255, 255, 255, 0.5)) !important;
 }
 
-/* Efecto Hover cuando ya están activos (brillo extra) */
 .soft.active:hover,
 .soft.active-one:hover {
-    background: #fff280 !important; /* Oro más claro al pasar el mouse */
+    background: linear-gradient(145deg, #fff280, #f9d71c) !important;
     box-shadow: 
-        12px 12px 25px rgba(0, 0, 0, 0.9),
+        12px 12px 25px rgba(0, 0, 0, 0.25),
         0 0 30px rgba(249, 215, 28, 0.9) !important;
 }
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ VOLUMEN PREMIUM - GOLD & OBSIDIAN ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ VOLUMEN PREMIUM - AZURE & GOLD ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 .volume-icon {
-  color: #f9d71c; /* Oro vibrante */
+  color: #3688ff; /* Azul */
   font-size: 16px;
-  filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.5));
+  filter: drop-shadow(0 0 5px rgba(54, 136, 255, 0.3));
 }
 
 .volume-track {
   width: 150px;
   height: 16px;
-  background: #050505; /* Fondo de Obsidiana pura */
+  background: #ffffff90; /* Blanco */
   border-radius: 8px;
   box-shadow:
-    inset 0 0 0 1px rgba(212, 175, 55, 0.2), /* Brillo perimetral en oro */
-    inset 0 2px 5px #000;                     /* Profundidad del surco */
+    inset 0 0 0 1px rgba(54, 136, 255, 0.2),
+    inset 0 2px 5px rgba(0,0,0,0.1);
   display: flex;
   align-items: center;
   padding: 0 4px;
-  border: 1px solid #1a1100; /* Borde oscuro con matiz bronce */
+  border: 1px solid #e0e0e0;
 }
 
 .volume-bar {
@@ -977,15 +882,14 @@ p.animtext {
   height: 4px;
   cursor: pointer;
   border-radius: 4px;
-  /* Gradiente: Oro Líquido (activo) y Obsidiana (inactivo) */
   background: linear-gradient(
     to right,
-    #fff280 0%,                /* Brillo inicial de oro blanco */
-    #d4af37 var(--p, 70%),      /* Oro pulido hasta el nivel actual */
-    #1a1a1a var(--p, 70%),      /* Riel de obsidiana inactivo */
-    #0a0a0a 100%
+    #3688ff 0%,                /* Azul */
+    #d4af37 var(--p, 70%),    /* Dorado hasta el nivel actual */
+    #e0e0e0 var(--p, 70%),    /* Gris inactivo */
+    #f5f5f5 100%
   );
-  box-shadow: inset 0 1px 2px rgba(0,0,0,0.8);
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
 }
 
 .volume-bar::-webkit-slider-thumb {
@@ -993,29 +897,28 @@ p.animtext {
   height: 16px; 
   width: 16px;
   border-radius: 50%;
-  /* EFECTO PEPITA DE ORO: Luz de oro blanco -> Oro sólido -> Bronce profundo */
   background: radial-gradient(circle at 35% 35%, 
     #ffffff 0%, 
-    #f9d71c 45%, 
-    #8b6d1b 100%
+    #3688ff 45%, 
+    #1a5bc4 100%
   );
   cursor: pointer;
-  margin-top: -6px; /* MANTENEMOS TU CALIBRACIÓN EXACTA */
-  border: 1px solid #d4af37;
+  margin-top: -6px;
+  border: 1px solid #3688ff;
   box-shadow: 
-    0 3px 6px rgba(0,0,0,0.8),      /* Sombra proyectada */
-    inset 0 1px 0 rgba(255,255,255,0.5); /* Reflejo superior de lujo */
+    0 3px 6px rgba(0,0,0,0.2),
+    inset 0 1px 0 rgba(255,255,255,0.8);
 }
 
 /* --- FIREFOX --- */
 .volume-bar::-moz-range-progress {
-  background: linear-gradient(to bottom, #fff280, #d4af37);
+  background: linear-gradient(to bottom, #3688ff, #d4af37);
   height: 4px;
   border-radius: 4px;
 }
 
 .volume-bar::-moz-range-track {
-  background-color: #1a1a1a;
+  background-color: #f5f5f5;
   height: 4px;
   border-radius: 4px;
 }
@@ -1024,14 +927,14 @@ p.animtext {
   height: 16px;
   width: 16px;
   border-radius: 50%;
-  background: radial-gradient(circle at 35% 35%, #ffffff, #f9d71c, #8b6d1b);
+  background: radial-gradient(circle at 35% 35%, #ffffff, #3688ff, #1a5bc4);
   cursor: pointer;
-  border: 1px solid #d4af37;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.7);
+  border: 1px solid #3688ff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
 /* ============================================================ */
-/* 🪟 MODAL DE TRACKS - GOLD & OBSIDIAN EDITION                */
+/* 🪟 MODAL DE TRACKS - AZURE GLASS EDITION (CON BLUR)         */
 /* ============================================================ */
 .hidden {
     display: none;
@@ -1044,26 +947,34 @@ p.animtext {
     transform: translate(-50%, -50%);
     width: 750px;
     height: 440px;
-    background-color: rgba(0, 0, 0, 0.4); /* Más oscuro para resaltar el oro */
-    backdrop-filter: blur(8px);
+    /* 🌫️ Fondo con blur glass */
+    background-color: rgba(255, 255, 255, 0.15) !important;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border-radius: 12px;
     overflow: hidden; 
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 9999;
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .modal-content {
     position: relative;
     width: 100%; 
     height: 100%; 
-    background-color: rgba(10, 10, 10, 0.98); /* Fondo Obsidiana */
-    border: 2px solid #d4af37;              /* Borde Oro Real */
+    /* 🌫️ Contenido también semitransparente con blur */
+    background-color: rgba(255, 255, 255, 0.4) !important;
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 2px solid #3688ff;
     border-radius: 12px;
     padding: 20px;
-    box-shadow: 0 0 30px rgba(212, 175, 55, 0.25); /* Halo Oro sutil */
-    color: #fff;
+    box-shadow: 
+        0 0 30px rgba(54, 136, 255, 0.4),
+        inset 0 0 20px rgba(255, 255, 255, 0.2);
+    color: #333;
     text-align: left;
     overflow-y: auto;
     z-index: 10000;
@@ -1071,9 +982,8 @@ p.animtext {
     transform: translateY(20px);
     transition: opacity 0.3s ease, transform 0.3s ease;
     
-    /* Scrollbar personalizada Oro/Obsidiana */
     scrollbar-width: thin;
-    scrollbar-color: #d4af37 #0a0a0a; 
+    scrollbar-color: #3688ff rgba(255, 255, 255, 0.3); 
 }
 
 .modal:not(.hidden) .modal-content {
@@ -1088,51 +998,50 @@ p.animtext {
     background: none;
     border: none;
     font-size: 1.5em;
-    color: #f9d71c;                         /* Cierre en Oro Brillante */
+    color: #3688ff;
     cursor: pointer;
-    text-shadow: 0 0 12px rgba(249, 215, 28, 0.5);
+    text-shadow: 0 0 12px rgba(54, 136, 255, 0.5);
     transition: all 0.3s ease;
     z-index: 10001;
 }
 
 .modal-x:hover {
-    color: #ffffff;
+    color: #d4af37;
     transform: rotate(90deg) scale(1.2);
 }
 
 .modal-title {
     font-size: 1.3em;
     margin-bottom: 15px;
-    color: #f9d71c;                         /* Título en Oro */
-    text-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+    color: #3688ff;
+    text-shadow: 0 0 15px rgba(54, 136, 255, 0.4);
     text-align: center;
     font-weight: bold;
 }
 
 .modal-info {
     font-size: 0.95em;
-    color: #d4af37;                         /* Texto informativo en Oro suave */
+    color: #d4af37;
     margin-bottom: 15px;
-    opacity: 0.8;
+    opacity: 0.9;
 }
 
 #current-track-name {
     display: inline-block;
     padding: 6px 16px;
     margin-left: 8px;
-    /* Gradiente Oro Líquido */
-    background: linear-gradient(90deg, rgba(212, 175, 55, 0.3), #f9d71c);
-    border: 1px solid rgba(255, 242, 128, 0.5);
+    background: linear-gradient(90deg, rgba(54, 136, 255, 0.3), #3688ff);
+    border: 1px solid rgba(54, 136, 255, 0.5);
     border-radius: 8px;
-    color: #000;                            /* Texto negro para contraste sobre oro */
+    color: #fff;
     font-weight: bold;
-    animation: pulseTrackGold 2.5s infinite;
+    animation: pulseTrackAzure 2.5s infinite;
 }
 
-@keyframes pulseTrackGold {
-    0% { box-shadow: 0 0 8px rgba(249, 215, 28, 0.3); }
-    50% { box-shadow: 0 0 20px rgba(249, 215, 28, 0.6); }
-    100% { box-shadow: 0 0 8px rgba(249, 215, 28, 0.3); }
+@keyframes pulseTrackAzure {
+    0% { box-shadow: 0 0 8px rgba(54, 136, 255, 0.3); }
+    50% { box-shadow: 0 0 20px rgba(54, 136, 255, 0.6); }
+    100% { box-shadow: 0 0 8px rgba(54, 136, 255, 0.3); }
 }
 
 .track-list {
@@ -1145,31 +1054,30 @@ p.animtext {
     margin: 10px 0;
     padding: 5px 10px;
     font-size: 1em;
-    color: #b0b0b0;                         /* Gris claro para tracks inactivos */
+    color: #333; /* Texto oscuro para contraste sobre fondo blur */
     cursor: pointer;
     transition: all 0.3s ease;
     border-radius: 6px;
 }
 
 .track-list li:hover {
-    color: #f9d71c;                         /* Hover Oro */
-    background-color: rgba(212, 175, 55, 0.1);
+    color: #3688ff;
+    background-color: rgba(54, 136, 255, 0.15);
     padding-left: 15px;
 }
 
-/* Selector para la pista activa en la lista */
 .track-list li.active-track {
-    color: #000 !important;                 /* Texto Negro sobre fondo Oro */
+    color: #fff !important;
     font-weight: bold;
-    background: #f9d71c !important;         /* Fondo Oro sólido */
+    background: linear-gradient(145deg, #f9d71c, #d4af37) !important;
     box-shadow: 0 0 15px rgba(249, 215, 28, 0.4);
-    border-left: 5px solid #ffffff;         /* Destello blanco lateral */
+    border-left: 5px solid #3688ff;
     border-radius: 4px;
     padding: 5px 12px;
 }
 
 /* ===================== */
-/* BURBUJAS & NOTAS */
+/* BURBUJAS & NOTAS (DORADAS) */
 /* ===================== */
 #pixi-container canvas {
   background-color: transparent !important;
@@ -1177,12 +1085,13 @@ p.animtext {
 
 .nota-musical {
     position: absolute;
-    bottom: -50px; /* Empiezan desde abajo del todo */
-    color: rgba(212, 175, 55, 0.6); /* Color Oro con transparencia */
+    bottom: -50px;
+    /* ✨ Dorado puro */
+    color: #d4af37 !important;
     pointer-events: none;
     z-index: 5;
     animation: flotarSubir linear forwards;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.8);
 }
 
 @keyframes flotarSubir {
@@ -1197,7 +1106,7 @@ p.animtext {
         opacity: 0.8;
     }
     100% {
-        transform: translateY(-450px) rotate(360deg); /* Sube y gira */
+        transform: translateY(-450px) rotate(360deg);
         opacity: 0;
     }
 }
@@ -1211,13 +1120,13 @@ p.animtext {
     left: 50%;
     transform: translate(-50%, -50%);
     padding: 15px 25px;
-    background: rgba(0, 0, 0, 0.9);
-    border: 2px solid #ff0000;
+    background: rgba(255, 255, 255, 0.95); /* Blanco */
+    border: 2px solid #3688ff; /* Azul */
     border-radius: 10px;
-    color: #fff;
+    color: #3688ff;
     font-size: 1.1em;
-    text-shadow: 0 0 8px #c2a044;
-    box-shadow: 0 0 20px #ff0000b3; /* b3 ≈ 70% de opacidad */
+    text-shadow: 0 0 8px rgba(54, 136, 255, 0.3);
+    box-shadow: 0 0 20px rgba(54, 136, 255, 0.5);
     z-index: 9999;
     opacity: 0;
     pointer-events: none;
