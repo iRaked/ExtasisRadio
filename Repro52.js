@@ -6,7 +6,7 @@ function crearAudio() {
   const audio = document.createElement("audio");
   audio.id = "player";
   audio.setAttribute("autoplay", "");
-  audio.src = "https://antyserv.in/8088/stream"; // ✅ NUEVO SERVIDOR
+  audio.src = "https://antyserv.in/8088/stream";
   return audio;
 }
 
@@ -74,6 +74,7 @@ function inicializarNotasCanvas() {
   const notasSimbolos = ["♪", "♫", "♩", "♬"];
   const particulas = [];
 
+  // Ajustamos a 30 notas para que se vea lleno pero fluido
   for (let i = 0; i < 30; i++) {
     particulas.push({
       x: Math.random() * canvas.width,
@@ -86,8 +87,7 @@ function inicializarNotasCanvas() {
 
   function animar() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    // ✨ SOLO CAMBIO DE COLOR: blanco → dorado (misma opacidad 0.3)
-    ctx.fillStyle = "rgba(212, 175, 55, 0.3)";
+    ctx.fillStyle = "rgba(212, 175, 55, 0.3)"; // Notas doradas sutiles
     
     particulas.forEach(p => {
       ctx.font = `${p.size}px Arial`;
@@ -191,7 +191,7 @@ function crearLogoContainer() {
   logoContainer.className = "logo-container";
 
   const img = document.createElement("img");
-  img.src = "https://santi-graphics.vercel.app/assets/img/Cofre.png";
+  img.src = "assets/img/Cofre.png";
   img.alt = "Logo";
   img.className = "logo-base zoom-effect";
 
@@ -414,37 +414,6 @@ const btnPlayPause = document.createElement("button");
 }
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 🎮 CONTROLADOR DE PLAY / PAUSE
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-function inicializarControlPlay() {
-  const btn = document.getElementById("btn-play-pause");
-  const audio = document.getElementById("player");
-  const iconPlay = btn.querySelector(".icon-play");
-  const iconPause = btn.querySelector(".icon-pause");
-
-  if (!btn || !audio) return;
-
-  btn.addEventListener("click", () => {
-    if (audio.paused) {
-      audio.play().then(() => {
-        // Al dar play: ocultamos play, mostramos pause
-        iconPlay.classList.add("hidden");
-        iconPause.classList.remove("hidden");
-        btn.classList.add("is-playing"); // Para tus estilos de oro
-      }).catch(err => {
-        console.error("Error al reproducir:", err);
-      });
-    } else {
-      audio.pause();
-      // Al pausar: mostramos play, ocultamos pause
-      iconPlay.classList.remove("hidden");
-      iconPause.classList.add("hidden");
-      btn.classList.remove("is-playing");
-    }
-  });
-}
-
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // 📜 MODAL TRACKS
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // <div id="modal-tracks" class="modal hidden"> ...
@@ -602,7 +571,6 @@ function inicializarReproductor() {
   // 4. Inicialización de Motores
   inicializarWavesEQ();
   inicializarRipples();
-  inicializarControlPlay(); // <--- FUNDAMENTAL
   inicializarNotasCanvas(); // Arranca el canvas en lugar de Pixi
 
   window.dispatchEvent(new Event("repro-ready"));
