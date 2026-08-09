@@ -1,0 +1,32 @@
+{
+  "varios": [
+    {
+      "id": "radiohead-creep",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover4/La-Polla-Records-Malajo.jpg",
+      "artista": "Radiohead",
+      "nombre": "Creep",
+      "album": "Pablo Honey",
+      "enlace": "https://xat-music4.vercel.app/assets/audio4/Radiohead-Creep.MP3",
+      "genero": "Rock",
+      "emotion": "Inseguridad",
+      "seccion": "varios",
+      "duracion": "3:52",
+      "country": ["Reino Unido"]
+    },
+    {
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Panda-Romance-en-re-sostenido.jpg",
+      "id": "panda-romance-en-re-sostenido",
+      "emotion": "anhelo",
+      "artista": "Panda",
+      "nombre": "Romance en re sostenido",
+      "album": "Para ti con desprecio",
+      "enlace": "https://xat-music.vercel.app/assets/audio2/Panda-Romance-en-re-sostenido.mp3",
+      "seccion": "furia rosa",
+      "genero": "Rock Alternativo",
+      "duracion": "3:40",
+      "country": ["México"]
+    }
+
+
+  ]
+}
