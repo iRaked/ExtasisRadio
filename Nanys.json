@@ -2,7 +2,7 @@
   "varios": [
     {
       "id": "radiohead-creep",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover4/La-Polla-Records-Malajo.jpg",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover4/Radiohead-Creep.jpg",
       "artista": "Radiohead",
       "nombre": "Creep",
       "album": "Pablo Honey",
@@ -14,17 +14,30 @@
       "country": ["Reino Unido"]
     },
     {
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover1/Panda-Romance-en-re-sostenido.jpg",
-      "id": "panda-romance-en-re-sostenido",
-      "emotion": "anhelo",
-      "artista": "Panda",
-      "nombre": "Romance en re sostenido",
-      "album": "Para ti con desprecio",
-      "enlace": "https://xat-music.vercel.app/assets/audio2/Panda-Romance-en-re-sostenido.mp3",
-      "seccion": "furia rosa",
-      "genero": "Rock Alternativo",
-      "duracion": "3:40",
+      "id": "leon-larregui-locos",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover4/Leon-Larregui-Locos.jpg",
+      "artista": "León Larregui",
+      "nombre": "Locos",
+      "album": "Voluma",
+      "enlace": "https://xat-music4.vercel.app/assets/audio4/Leon-Larregui-Locos.MP3",
+      "genero": "Indie / Alternativo",
+      "emotion": "Euforia",
+      "seccion": "varios",
+      "duracion": "3:33",
       "country": ["México"]
+    },
+    {
+      "id": "bad-bunny-ojitos-lindos",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover4/Bad-Bunny-Ojitos-lindos.jpg",
+      "artista": "Bad Bunny",
+      "nombre": "Ojitos Lindos",
+      "album": "Un Verano Sin Ti",
+      "enlace": "https://xat-music4.vercel.app/assets/audio4/Bad-Bunny-Ojitos-lindos.MP3",
+      "genero": "Reggaetón / Pop",
+      "emotion": "Ternura",
+      "seccion": "varios",
+      "duracion": "4:18",
+      "country": ["Puerto Rico"]
     }
 
 
