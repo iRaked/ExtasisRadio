@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <link rel="icon" type="image/x-icon" href="https://santi-graphics.vercel.app/assets/SG.ico" />
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="author" content="Rick">
+  <title>R53</title>
+  <!-- Estilos externos https://radio-tekileros.vercel.app/-->
+  <link href="Repro53.css" rel="stylesheet" type="text/css">
+  <link rel="author" href="https://santi-graphics.vercel.app/copyright.txt">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.1.2/tailwind.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <!-- Scripts externos -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="Repro53.js" defer></script>
+  <script src="Player53.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
+  <!-- BLOCK 
+  <script type="text/javascript">
+  document.onkeydown = function(){return false};
+  document.oncontextmenu = function(){return false}
+  </script>-->
+
+
+</head>
+
+<body>
+    
+  <!-- Audio -->
+  <audio id="audio" preload="metadata"></audio>
+
+  <main class="r53-stage">
+    <section class="r53-player" id="r53">
+
+      <!-- Fondo y portada -->
+      <div class="r53-backdrop"></div>
+      <div class="r53-shade"></div>
+      <div class="r53-cover"></div>
+
+      <!-- Domo central / luces -->
+      <div class="r53-dome"></div>
+      <div class="r53-spotlight"></div>
+      <div class="r53-beam"></div>
+
+      <!-- Arco de progreso (semicírculo) -->
+      <svg class="r53-arc" id="r53Arc" viewBox="0 0 400 400" aria-hidden="true">
+      <path class="arc-hit"   d="M 45.5 241.4 A 160 160 0 1 1 354.5 241.4"/>
+      <path class="arc-base"  d="M 45.5 241.4 A 160 160 0 1 1 354.5 241.4"/>
+      <path class="arc-prog"  id="r53Prog" d="M 45.5 241.4 A 160 160 0 1 1 359.1 183.3"/>
+      <circle class="arc-handle" id="r53Handle" cx="359.1" cy="183.3" r="7"/>
+    </svg>
+
+      <!-- Abanico de pistas (metadatos) -->
+      <ul class="r53-tracklist" id="r53Tracklist"></ul>
+
+      <!-- Corazón + tiempo -->
+      <div class="r53-meta">
+        <button class="r53-heart" id="r53Heart"><i class="fa-solid fa-heart"></i></button>
+        <div class="r53-time">
+          <span id="r53Cur">2:00</span><span class="sep">/</span><span id="r53Tot">2:23</span>
+        </div>
+      </div>
+
+      <!-- Shuffle / Repeat -->
+      <button class="r53-btn r53-btn--sh" id="r53Shuffle"><i class="fa-solid fa-shuffle"></i></button>
+      <button class="r53-btn r53-btn--rp" id="r53Repeat"><i class="fa-solid fa-repeat"></i></button>
+
+      <!-- Cápsula de transporte -->
+      <div class="r53-transport">
+        <div class="r53-pill"></div>
+        <button class="r53-skip r53-skip--prev" id="r53Prev"><i class="fa-solid fa-backward-step"></i></button>
+        <div class="r53-halo"></div>
+        <button class="r53-play" id="r53Play">
+          <span class="core"><i class="fa-solid fa-pause" id="r53PlayIcon"></i></span>
+        </button>
+        <button class="r53-skip r53-skip--next" id="r53Next"><i class="fa-solid fa-forward-step"></i></button>
+      </div>
+        
+      <!-- Volumen -->
+      <div class="r53-vol" id="r53Vol">
+        <button class="r53-vol-ico" id="r53Mute"><i id="r53MuteIcon" class="fa-solid fa-volume-high"></i></button>
+        <div class="r53-vol-track" id="r53VolTrack">
+          <div class="r53-vol-fill"  id="r53VolFill"></div>
+          <div class="r53-vol-boost" id="r53VolBoost"></div>
+          <div class="r53-vol-thumb" id="r53VolThumb"></div>
+        </div>
+        <span class="r53-vol-val" id="r53VolVal">100</span>
+      </div>
+
+      <div class="r53-homebar"></div>
+    </section>
+  </main>
+
+</body>
+</html>
