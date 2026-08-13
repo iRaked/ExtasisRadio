@@ -125,6 +125,31 @@
   ['pointerup','pointercancel'].forEach(ev=> volTrack.addEventListener(ev, ()=> volArrastre = false));
   document.addEventListener('r53:volumen', e=> pintarVolumen(e.detail));
   $('#r53Mute').addEventListener('click', () => P() && P().toggleMute());
+    
+    $('#r53CacheAll').addEventListener('click', async () => {
+    if (!navigator.onLine) {
+      alert('Necesitas conexión para descargar la playlist');
+      return;
+    }
+    if (!window.R53Player) return;
+    
+    const pistas = window.R53Player.estado.lista;
+    console.log(`R53: Descargando ${pistas.length} pistas para offline...`);
+    
+    for (let i = 0; i < pistas.length; i++) {
+      const pista = pistas[i];
+      try {
+        console.log(`R53: Descargando ${i+1}/${pistas.length} - ${pista.titulo}`);
+        await fetch(pista.src);
+        await fetch(pista.cover);
+      } catch(e) {
+        console.warn(`R53: Falló ${pista.titulo}`, e);
+      }
+    }
+    
+    console.log('R53: Playlist completa descargada para offline');
+    alert('✅ Playlist descargada. Ya puedes usarla sin internet.');
+  });
 
   /* ---- Botones ---- */
   $('#r53Play').addEventListener('click', () => P() && P().toggle());

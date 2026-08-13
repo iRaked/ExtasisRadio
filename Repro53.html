@@ -78,6 +78,10 @@
         <button class="r53-skip r53-skip--next" id="r53Next"><i class="fa-solid fa-forward-step"></i></button>
       </div>
         
+    <button class="r53-btn r53-btn--cache" id="r53CacheAll" title="Descargar playlist para offline">
+      <i class="fa-solid fa-cloud-arrow-down"></i>
+    </button>
+        
       <!-- Volumen -->
       <div class="r53-vol" id="r53Vol">
         <button class="r53-vol-ico" id="r53Mute"><i id="r53MuteIcon" class="fa-solid fa-volume-high"></i></button>
@@ -92,6 +96,21 @@
       <div class="r53-homebar"></div>
     </section>
   </main>
+    
+  <!-- Service Worker -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw53.js')
+          .then(reg => {
+            console.log('SW: Registrado', reg.scope);
+            // Fuerza activación inmediata en desarrollo
+            if (reg.waiting) reg.waiting.postMessage('skipWaiting');
+          })
+          .catch(err => console.warn('SW: Error de registro', err));
+      });
+    }
+  </script>
 
 </body>
 </html>
