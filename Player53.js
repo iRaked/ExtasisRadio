@@ -70,7 +70,7 @@ window.R53Player = (function(){
       if (!Array.isArray(sec)) return;
       sec.forEach(t => pistas.push({
         id:t.id, titulo:t.nombre, artista:t.artista, album:t.album,
-        cover:t.portada || t.caratula,  // ← acepta ambos campos
+        cover:t.portada || t.caratula,
         src:t.enlace, dur:t.duracion,
         genero:t.genero, emotion:t.emotion, seccion:t.seccion, country:t.country
       }));
@@ -81,7 +81,12 @@ window.R53Player = (function(){
   /* ---- Web Audio (boost 2x) ---- */
   async function probarCORS(url){
     try{
-      const res = await fetch(url, { method:'HEAD', mode:'cors' });
+      const res = await fetch(url, {
+        method:'GET',
+        mode:'cors',
+        cache:'no-store',
+        headers:{ 'Range':'bytes=0-0' }
+      });
       return !!res.headers.get('access-control-allow-origin');
     }catch(e){ return false; }
   }
@@ -118,12 +123,11 @@ window.R53Player = (function(){
     return vol;
   }
 
-    /* ---- Init con soporte offline ---- */
+  /* ---- Init con soporte offline ---- */
   async function init(){
-    // Detecta estado de conexión
     const estaOnline = navigator.onLine;
     console.log(`R53: ${estaOnline ? 'Online' : 'Offline'} al iniciar`);
-    
+
     try{
       const res = await fetch(JSON_URL);
       if (!res.ok) throw new Error('JSON no disponible');
@@ -131,7 +135,6 @@ window.R53Player = (function(){
       console.log('R53: JSON cargado desde red');
     }catch(e){
       console.warn('R53: JSON desde caché (offline)', e);
-      // Intenta leer desde caché
       if ('caches' in window) {
         const cache = await caches.open('r53-cache-v1');
         const cached = await cache.match(JSON_URL);
@@ -144,18 +147,18 @@ window.R53Player = (function(){
         }
       }
     }
-    
+
     estado.listo = true;
-    
+
     if (estado.lista.length){
-      // 🛡️ Busca el primer track válido para probar CORS (solo si hay red)
+      // 🛡️ Busca el primer track válido para probar CORS
       if (estaOnline) {
         for (const pista of estado.lista){
           try {
-            const check = await fetch(pista.src, { method:'HEAD' });
-            if (check.ok){
-              boostOK = await probarCORS(pista.src);
-              if (boostOK) audio.crossOrigin = 'anonymous';
+            const ok = await probarCORS(pista.src);
+            if (ok){
+              boostOK = true;
+              audio.crossOrigin = 'anonymous';
               console.log('R53: CORS detectado, boost 2x disponible');
               break;
             }
@@ -164,21 +167,20 @@ window.R53Player = (function(){
       }
       cargarPista(0, false);
     }
-    
+
     aplicarVolumen();
-    emitir('listo', { 
-      lista: estado.lista, 
-      actual: estado.actual, 
+    emitir('listo', {
+      lista: estado.lista,
+      actual: estado.actual,
       sonando: estado.sonando,
       online: estaOnline
     });
   }
-  
+
   /* ---- Eventos de conexión ---- */
   window.addEventListener('online', () => {
     console.log('R53: Conexión restaurada');
     emitir('conexion', { online: true });
-    // Recarga el JSON para obtener actualizaciones
     fetch(JSON_URL)
       .then(res => res.ok ? res.json() : null)
       .then(data => {
@@ -190,7 +192,7 @@ window.R53Player = (function(){
       })
       .catch(e => console.warn('R53: No se pudo actualizar la playlist', e));
   });
-  
+
   window.addEventListener('offline', () => {
     console.log('R53: Sin conexión');
     emitir('conexion', { online: false });
@@ -201,23 +203,21 @@ window.R53Player = (function(){
     if (!estado.lista.length) return;
     estado.actual = (i + estado.lista.length) % estado.lista.length;
     const t = estado.lista[estado.actual];
-    
-    // 🛡️ Resetea el audio antes de cargar
+
     audio.pause();
     audio.removeAttribute('src');
     audio.load();
-    
+
     audio.src = t.src;
     aplicarCover(t.cover);
     emitir('cambio', { pista:t, index:estado.actual, lista:estado.lista });
-    
-    // 🛡️ Actualiza duración inmediatamente (muestra el dur del JSON mientras carga)
+
     const tot = document.getElementById('r53Tot');
     if (tot && t.dur) tot.textContent = t.dur;
     const cur = document.getElementById('r53Cur');
     if (cur) cur.textContent = '0:00';
     progreso(0);
-    
+
     if (autoplay) reproducir();
   }
 
@@ -253,7 +253,7 @@ window.R53Player = (function(){
   function toggleShuffle(){
     modo.shuffle = !modo.shuffle;
     emitir('modo', { ...modo });
-    if (modo.shuffle) siguiente(); // 🔀 inmediato
+    if (modo.shuffle) siguiente();
     return modo.shuffle;
   }
 
@@ -304,11 +304,10 @@ window.R53Player = (function(){
     }
   });
 
-  audio.addEventListener('error', (e)=>{
+  audio.addEventListener('error', ()=>{
     aplicarCover(COVER_DEF);
     const t = estado.lista[estado.actual];
     console.error(`R53: Error 404 o red → "${t?.titulo}" (${audio.src})`);
-    
     fallosConsecutivos++;
     if (estado.lista.length > 1 && fallosConsecutivos < estado.lista.length){
       console.warn(`R53: Saltando al siguiente (error ${fallosConsecutivos})`);
@@ -319,15 +318,12 @@ window.R53Player = (function(){
     }
   });
 
-    /* ---- Indicador de conexión ---- */
+  /* ---- Indicador de conexión ---- */
   function actualizarIndicadorConexion(online){
     const playerEl = document.getElementById('r53');
     if (!playerEl) return;
-    
-    // Quita o agrega clase para estilos
     playerEl.classList.toggle('offline', !online);
-    
-    // Crea badge si no existe
+
     let badge = document.getElementById('r53OfflineBadge');
     if (!badge) {
       badge = document.createElement('div');
@@ -335,18 +331,15 @@ window.R53Player = (function(){
       badge.className = 'r53-offline-badge';
       playerEl.appendChild(badge);
     }
-    
     badge.textContent = online ? '🟢 Online' : '🔴 Offline';
     badge.style.display = online ? 'none' : 'block';
   }
-  
-  // Escucha eventos de conexión
+
   document.addEventListener('r53:conexion', e => actualizarIndicadorConexion(e.detail.online));
   document.addEventListener('r53:listo', e => {
     if (e.detail.online !== undefined) actualizarIndicadorConexion(e.detail.online);
   });
-  
-  // Estado inicial
+
   actualizarIndicadorConexion(navigator.onLine);
 
   /* ---- Inicialización ---- */

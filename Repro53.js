@@ -36,9 +36,9 @@
     $('#r53Shuffle').classList.toggle('active', !!modo.shuffle);
     $('#r53Repeat').classList.toggle('active',  !!modo.repeat);
   }
-    
-    /* ---- 📱 Auto-escalado: reproductor SIEMPRE completo en pantalla ---- */
-  const W = 400, H = 860; // dimensiones de diseño
+
+  /* ---- 📱 Auto-escalado ---- */
+  const W = 400, H = 860;
   function escalar(){
     const s = Math.min(1, (window.innerWidth - 12) / W, (window.innerHeight - 12) / H);
     playerEl.style.transform = 'scale(' + s + ')';
@@ -87,24 +87,30 @@
     if (e.detail.pista.dur) $('#r53Tot').textContent = e.detail.pista.dur;
   });
   document.addEventListener('r53:estado', e=> sincronizarIcono(e.detail.sonando));
-  document.addEventListener('r53:modo',   e=> sincronizarModo(e.detail)); // ← el que faltaba
-    
-    /* ---- Volumen ---- */
-  const volWrap = $('#r53Vol'), volTrack = $('#r53VolTrack'), volFill = $('#r53VolFill'),
-        volThumb = $('#r53VolThumb'), volVal = $('#r53VolVal'),
-        volBoost = $('#r53VolBoost'), volIco = $('#r53MuteIcon');
+  document.addEventListener('r53:modo',   e=> sincronizarModo(e.detail));
+
+  /* ---- Volumen ---- */
+  const volWrap  = $('#r53Vol');
+  const volTrack = $('#r53VolTrack');
+  const volFill  = $('#r53VolFill');
+  const volThumb = $('#r53VolThumb');
+  const volVal   = $('#r53VolVal');
+  const volBoost = $('#r53VolBoost');
+  const volIco   = $('#r53MuteIcon');
 
   function pintarVolumen(d){
     const max = d.boost ? 2 : 1;
     const p = Math.min(1, d.vol / max);
-    volFill.style.width  = (p * 100) + '%';
-    volThumb.style.left  = (p * 100) + '%';
-    volVal.textContent   = Math.round(d.vol * 100);
-    volBoost.style.display = d.boost ? 'block' : 'none';
-    volWrap.classList.toggle('hot', d.vol > 1); // brillo extra en zona boost
-    volIco.className = d.vol === 0 ? 'fa-solid fa-volume-xmark'
-                     : d.vol < .5 ? 'fa-solid fa-volume-low'
-                     : 'fa-solid fa-volume-high';
+    if (volFill)  volFill.style.width  = (p * 100) + '%';
+    if (volThumb) volThumb.style.left  = (p * 100) + '%';
+    if (volVal)   volVal.textContent   = Math.round(d.vol * 100);
+    if (volBoost) volBoost.style.display = d.boost ? 'block' : 'none';
+    if (volWrap)  volWrap.classList.toggle('hot', d.vol > 1);
+    if (volIco){
+      volIco.className = d.vol === 0 ? 'fa-solid fa-volume-xmark'
+                       : d.vol < .5 ? 'fa-solid fa-volume-low'
+                       : 'fa-solid fa-volume-high';
+    }
   }
   function volDesdeEvento(e){
     const r = volTrack.getBoundingClientRect();
@@ -113,55 +119,57 @@
   let volArrastre = false;
   function aplicarVolUI(e){
     const max = P() && P().boostDisponible() ? 2 : 1;
-    P() && P().setVolumen(volDesdeEvento(e) * max);
+    if (P()) P().setVolumen(volDesdeEvento(e) * max);
   }
-  volTrack.addEventListener('pointerdown', e=>{
-    e.preventDefault();
-    volArrastre = true;
-    volTrack.setPointerCapture && volTrack.setPointerCapture(e.pointerId);
-    aplicarVolUI(e);
-  });
-  volTrack.addEventListener('pointermove', e=>{ if (volArrastre) aplicarVolUI(e); });
-  ['pointerup','pointercancel'].forEach(ev=> volTrack.addEventListener(ev, ()=> volArrastre = false));
+  if (volTrack){
+    volTrack.addEventListener('pointerdown', e=>{
+      e.preventDefault();
+      volArrastre = true;
+      volTrack.setPointerCapture && volTrack.setPointerCapture(e.pointerId);
+      aplicarVolUI(e);
+    });
+    volTrack.addEventListener('pointermove', e=>{ if (volArrastre) aplicarVolUI(e); });
+    ['pointerup','pointercancel'].forEach(ev => volTrack.addEventListener(ev, ()=> volArrastre = false));
+  }
   document.addEventListener('r53:volumen', e=> pintarVolumen(e.detail));
-  $('#r53Mute').addEventListener('click', () => P() && P().toggleMute());
-    
-    $('#r53CacheAll').addEventListener('click', async () => {
-    if (!navigator.onLine) {
-      alert('Necesitas conexión para descargar la playlist');
-      return;
-    }
-    if (!window.R53Player) return;
-    
-    const pistas = window.R53Player.estado.lista;
-    console.log(`R53: Descargando ${pistas.length} pistas para offline...`);
-    
-    for (let i = 0; i < pistas.length; i++) {
-      const pista = pistas[i];
-      try {
-        console.log(`R53: Descargando ${i+1}/${pistas.length} - ${pista.titulo}`);
-        await fetch(pista.src);
-        await fetch(pista.cover);
-      } catch(e) {
-        console.warn(`R53: Falló ${pista.titulo}`, e);
+  const muteBtn = $('#r53Mute');
+  if (muteBtn) muteBtn.addEventListener('click', () => P() && P().toggleMute());
+
+  /* ---- Botón de descarga (opcional, solo si existe) ---- */
+  const cacheBtn = $('#r53CacheAll');
+  if (cacheBtn){
+    cacheBtn.addEventListener('click', async ()=>{
+      if (!navigator.onLine){ alert('Necesitas conexión para descargar la playlist'); return; }
+      if (!P()) return;
+      const pistas = P().estado.lista;
+      if (!confirm(`Se descargarán ${pistas.length} tracks para uso offline.\n¿Continuar?`)) return;
+
+      cacheBtn.classList.add('busy');
+      let ok = 0;
+      for (let i = 0; i < pistas.length; i++){
+        try{
+          const a = await fetch(pistas[i].src);
+          const c = await fetch(pistas[i].cover);
+          if (a.ok && c.ok) ok++;
+        }catch(err){ console.warn(`R53: falló ${pistas[i].titulo}`); }
       }
-    }
-    
-    console.log('R53: Playlist completa descargada para offline');
-    alert('✅ Playlist descargada. Ya puedes usarla sin internet.');
-  });
+      cacheBtn.classList.remove('busy');
+      alert(`✅ ${ok}/${pistas.length} tracks descargados para offline.`);
+    });
+  }
 
   /* ---- Botones ---- */
-  $('#r53Play').addEventListener('click', () => P() && P().toggle());
-  $('#r53Next').addEventListener('click', () => P() && P().siguiente());
-  $('#r53Prev').addEventListener('click', () => P() && P().anterior());
+  $('#r53Play').addEventListener('click',    () => P() && P().toggle());
+  $('#r53Next').addEventListener('click',    () => P() && P().siguiente());
+  $('#r53Prev').addEventListener('click',    () => P() && P().anterior());
   $('#r53Shuffle').addEventListener('click', e=>{
     const on = !!(P() && P().toggleShuffle());
-    e.currentTarget.classList.toggle('active', on); // LED inmediato
+    e.currentTarget.classList.toggle('active', on);
   });
   $('#r53Repeat').addEventListener('click', e=>{
     const on = !!(P() && P().toggleRepeat());
-    e.currentTarget.classList.toggle('active', on); // LED inmediato
+    e.currentTarget.classList.toggle('active', on);
   });
-  $('#r53Heart').addEventListener('click', e => e.currentTarget.classList.toggle('active'));
+  const heartBtn = $('#r53Heart');
+  if (heartBtn) heartBtn.addEventListener('click', e => e.currentTarget.classList.toggle('active'));
 })();

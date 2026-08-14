@@ -20,9 +20,17 @@ self.addEventListener('install', event => {
   console.log('SW: Instalando...');
   event.waitUntil(
     caches.open(CACHE_NAME)
-      .then(cache => {
+      .then(async cache => {
         console.log('SW: Cacheando assets estáticos');
-        return cache.addAll(CACHE_ASSETS);
+        // Instalación tolerante a fallos: si un asset falla, no rompe todo
+        const results = await Promise.allSettled(
+          CACHE_ASSETS.map(url => cache.add(url).catch(err => {
+            console.warn('SW: No se pudo cachear', url);
+          }))
+        );
+        const failed = results.filter(r => r.status === 'rejected').length;
+        if (failed > 0) console.warn(`SW: ${failed} assets no se pudieron cachear`);
+        return true;
       })
       .then(() => self.skipWaiting())
   );
@@ -45,47 +53,60 @@ self.addEventListener('activate', event => {
 
 /* ---- Fetch: estrategia híbrida ---- */
 self.addEventListener('fetch', event => {
-  const url = new URL(event.request.url);
-  
-  // 1) Para audios e imágenes: Network First + Cache Fallback
-  if (url.pathname.includes('/audio') || url.pathname.includes('/cover') || url.hostname.includes('iraked.github.io')) {
+  // 🛡️ Solo interceptar peticiones GET (HEAD, POST, OPTIONS no son cacheables)
+  if (event.request.method !== 'GET') return;
+
+  let url;
+  try { url = new URL(event.request.url); } catch(e) { return; }
+
+  // Solo manejar peticiones del mismo origen o de CDNs permitidos
+  const esCDN = url.hostname.includes('cdnjs.cloudflare.com') ||
+                url.hostname.includes('cdn.jsdelivr.net') ||
+                url.hostname.includes('fonts.googleapis.com') ||
+                url.hostname.includes('fonts.gstatic.com') ||
+                url.hostname.includes('iraked.github.io') ||
+                url.hostname.includes('santi-graphics.vercel.app') ||
+                url.hostname.includes('xat-music2.vercel.app');
+
+  if (url.origin !== self.location.origin && !esCDN) return;
+
+  // 1) Audios e imágenes: Network First + Cache Fallback
+  if (url.pathname.includes('/audio') || url.pathname.includes('/cover') ||
+      url.hostname.includes('iraked.github.io') || url.hostname.includes('xat-music2.vercel.app')) {
     event.respondWith(
       fetch(event.request)
         .then(response => {
-          // Si la respuesta es válida, la cacheamos
-          if (response.ok) {
+          if (response && response.ok && response.status === 200) {
             const responseClone = response.clone();
             caches.open(CACHE_NAME).then(cache => {
-              cache.put(event.request, responseClone);
+              cache.put(event.request, responseClone).catch(()=>{});
               console.log('SW: Cacheado', url.pathname);
             });
           }
           return response;
         })
         .catch(() => {
-          // Si falla la red, intenta servir desde caché
           return caches.match(event.request).then(cached => {
             if (cached) {
               console.log('SW: Sirviendo desde caché (offline)', url.pathname);
               return cached;
             }
-            // Si no está en caché, devuelve un error personalizado
             return new Response('', { status: 404, statusText: 'Not Found (Offline)' });
           });
         })
     );
     return;
   }
-  
-  // 2) Para el JSON: Network First + Cache Fallback (datos frescos cuando hay red)
+
+  // 2) JSON: Network First + Cache Fallback
   if (url.pathname.includes('.json')) {
     event.respondWith(
       fetch(event.request)
         .then(response => {
-          if (response.ok) {
+          if (response && response.ok && response.status === 200) {
             const responseClone = response.clone();
             caches.open(CACHE_NAME).then(cache => {
-              cache.put(event.request, responseClone);
+              cache.put(event.request, responseClone).catch(()=>{});
               console.log('SW: JSON actualizado en caché');
             });
           }
@@ -98,11 +119,13 @@ self.addEventListener('fetch', event => {
     );
     return;
   }
-  
-  // 3) Para el resto: Cache First (assets estáticos)
+
+  // 3) Resto: Cache First (assets estáticos)
   event.respondWith(
     caches.match(event.request).then(cached => {
-      return cached || fetch(event.request);
+      return cached || fetch(event.request).catch(() => {
+        return new Response('', { status: 404, statusText: 'Offline' });
+      });
     })
   );
 });
@@ -112,8 +135,7 @@ self.addEventListener('message', event => {
   if (event.data === 'skipWaiting') {
     self.skipWaiting();
   }
-  if (event.data.type === 'CACHE_AUDIO') {
-    // Permite cachear audios manualmente
+  if (event.data && event.data.type === 'CACHE_AUDIO') {
     caches.open(CACHE_NAME).then(cache => {
       cache.add(event.data.url).then(() => {
         console.log('SW: Audio cacheado manualmente', event.data.url);
