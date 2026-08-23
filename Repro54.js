@@ -165,7 +165,7 @@ function activarModoRadio() {
 }
 
 // ===============================
-// 📻 ACTUALIZACIÓN DE METADATOS (Versión sin carga infinita)
+// 📻 ACTUALIZACIÓN DE METADATOS (Modo Diagnóstico)
 // ===============================
 let metadataAbortController = null;
 
@@ -180,36 +180,40 @@ function iniciarActualizacionRadio() {
     }
     metadataAbortController = new AbortController();
 
-    // En lugar de apuntar a SurferNetwork directamente:
-    // const urlPrueba = "https://stream-179.surfernetwork.com/xk7mncypfa0uv?json=1";
-
-    // Apuntas a tu propio intermediario en Vercel:
+    // Usamos el proxy de Vercel que configuramos en /api/metadata
     const urlPrueba = "/api/metadata";
-    //const urlPrueba = "https://stream-179.surfernetwork.com/xk7mncypfa0uv?json=1";
     
     try {
+      // Damos un margen de 10 segundos antes de abortar por timeout
+      const timeoutId = setTimeout(() => metadataAbortController.abort(), 10000);
+
       const response = await fetch(urlPrueba, {
         method: 'GET',
         signal: metadataAbortController.signal,
         cache: 'no-cache'
       });
 
+      clearTimeout(timeoutId);
+
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       
       const data = await response.json();
-      console.log("✅ DATA RECIBIDA:", data);
+      console.log("✅ DATA CRUDITA RECIBIDA DEL PROXY:", data);
       
-      // Descomenta y ajusta según la estructura real del JSON que devuelva el servidor
-      // if (data.songtitle) {
-      //   metadataSpan.textContent = data.songtitle;
-      //   // Llamar a obtenerCaratulaDesdeiTunes aquí si aplica
-      // }
+      // 👉 PRUEBA ESTO: Revisa en la consola de tu navegador (F12) 
+      // qué estructura tiene 'data' para desplegarla aquí:
+      if (data) {
+        // Asignación genérica provisional para ver algo en pantalla de inmediato
+        const textoObtenido = data.songtitle || data.title || data.currentSong || JSON.stringify(data);
+        metadataSpan.textContent = `En La Disco RG — Reproduciendo: ${textoObtenido}`;
+      }
 
     } catch (error) {
       if (error.name === 'AbortError') {
-        console.warn("⏱️ Petición cancelada a propósito para evitar carga infinita.");
+        console.warn("⏱️ La petición tardó demasiado o fue abortada.");
       } else {
-        console.warn("⚠️ Sin metadatos en este ciclo:", error.message);
+        console.warn("⚠️ Error al obtener metadatos:", error.message);
+        metadataSpan.textContent = "En La Disco RG — En línea (Sin metadatos remotos)";
       }
     }
   }
