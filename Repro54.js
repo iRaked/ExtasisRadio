@@ -1,4 +1,23 @@
 // ===============================
+// 🎨 CONFIGURACIÓN DE ASSETS (EDITAR AQUÍ PARA CAMBIAR TODAS LAS IMÁGENES)
+// ===============================
+const ASSETS = {
+  // Carátula por defecto
+  coverDefault: "https://santi-graphics.vercel.app/assets/img/DiscoRG.jpg",
+  
+  // Botones de control
+  playBtn: "https://santi-graphics.vercel.app/assets/img/play-btn-silver.png",
+  pauseBtn: "https://santi-graphics.vercel.app/assets/img/pause-btn-silver.png",
+  plusBtn: "https://santi-graphics.vercel.app/assets/img/plus-btn-silver.png",
+  
+  // Elementos decorativos y de fondo
+  discVinyl: "https://santi-graphics.vercel.app/assets/img/Disc-Power.png",
+  fussionBase: "https://santi-graphics.vercel.app/assets/img/Fussion3.png",
+  buttonDecorative: "https://santi-graphics.vercel.app/assets/img/Button-Silver.png",
+  bgClear: "https://santi-graphics.vercel.app/assets/bg/Clear2.png"
+};
+
+// ===============================
 // 🎧 VARIABLES GLOBALES Y ESTADOS
 // ===============================
 let modoActual = "radio";
@@ -11,18 +30,13 @@ let ultimaPistaStreaming = "";
 // Referencias al DOM
 let audio, btnPlay, btnOnline, btnRwd, btnFwd, metadataSpan, infoSpan, discImg, turbineCoverImg;
 
-// Rutas base
-const BASE_URL = "https://santi-graphics.vercel.app/assets/";
-const COVER_DEFAULT = `${BASE_URL}covers/Cover1.png`;
-const PLAY_BTN = `${BASE_URL}img/play-btn-silver.png`;
-const PAUSE_BTN = `${BASE_URL}img/pause-btn-silver.png`;
-
 // ===============================
 // 🛠️ FUNCIONES AUXILIARES
 // ===============================
 function actualizarCaratulas(nuevaRuta) {
   if (turbineCoverImg) {
-    turbineCoverImg.src = nuevaRuta;
+    // Si no se pasa ruta, usa la por defecto
+    turbineCoverImg.src = nuevaRuta || ASSETS.coverDefault;
   }
 }
 
@@ -64,7 +78,7 @@ function limpiarMetadatosRadio(texto) {
 // ==========================================
 function obtenerCaratulaDesdeiTunes(artist, title) {
   if (typeof $ === 'undefined' || typeof $.ajax === 'undefined') {
-    actualizarCaratulas(COVER_DEFAULT);
+    actualizarCaratulas(ASSETS.coverDefault);
     return;
   }
   
@@ -77,14 +91,14 @@ function obtenerCaratulaDesdeiTunes(artist, title) {
     dataType: 'jsonp',
     url: url,
     success: function(data) {
-      let cover = COVER_DEFAULT;
+      let cover = ASSETS.coverDefault; // Fallback a Default Cover
       if (data.results && data.results.length > 0) {
         cover = data.results[0].artworkUrl100.replace('100x100bb', '400x400bb');
       }
       actualizarCaratulas(cover);
     },
     error: function() {
-      actualizarCaratulas(COVER_DEFAULT);
+      actualizarCaratulas(ASSETS.coverDefault); // Fallback a cover en caso de error
     }
   });
 }
@@ -102,7 +116,6 @@ function detenerActualizacionRadio() {
 function iniciarActualizacionRadio() {
   detenerActualizacionRadio();
 
-  // URL directa a Zeno FM
   const radioUrl = "https://api.zeno.fm/mounts/metadata/subscribe/bmv9fcypfa0uv";
   zenoEventSource = new EventSource(radioUrl);
 
@@ -126,7 +139,6 @@ function iniciarActualizacionRadio() {
         title = songtitleSplit.slice(1).join(" - ").trim(); 
       }
       
-      // Actualización Visual Explícita
       if (metadataSpan) {
         metadataSpan.textContent = `En La Disco RG — ${title} — ${artist}`;
       }
@@ -134,6 +146,7 @@ function iniciarActualizacionRadio() {
       obtenerCaratulaDesdeiTunes(artist, title);
 
     } catch (error) {
+      // Ignorar tramas de "ping" o datos vacíos
     }
   });
 
@@ -147,7 +160,7 @@ function activarModoRadio() {
   detenerActualizacionRadio();
   
   if (metadataSpan) metadataSpan.textContent = "En La Disco RG — Conectando...";
-  actualizarCaratulas(COVER_DEFAULT);
+  actualizarCaratulas(ASSETS.coverDefault); // Default Cover
   
   if (audio) {
     audio.pause();
@@ -161,11 +174,11 @@ function activarModoRadio() {
     }
 
     audio.play().then(() => {
-      if (btnPlay) btnPlay.querySelector('img').src = PAUSE_BTN;
+      if (btnPlay) btnPlay.querySelector('img').src = ASSETS.pauseBtn;
       if (discImg) discImg.style.animationPlayState = "running";
     }).catch(err => {
       console.log("⏳ Audio en espera de interacción del usuario.");
-      if (btnPlay) btnPlay.querySelector('img').src = PLAY_BTN;
+      if (btnPlay) btnPlay.querySelector('img').src = ASSETS.playBtn;
       if (discImg) discImg.style.animationPlayState = "paused";
     });
   }
@@ -181,13 +194,13 @@ function activarModoLocal() {
   detenerActualizacionRadio();
   
   if (metadataSpan) metadataSpan.textContent = "🎶 Cargando Playlist...";
-  actualizarCaratulas(COVER_DEFAULT);
+  actualizarCaratulas(ASSETS.coverDefault); // Default Cover
   
   if (audio) {
     audio.pause();
     audio.muted = !gestureDetected;
   }
-  if (btnPlay) btnPlay.querySelector('img').src = PLAY_BTN;
+  if (btnPlay) btnPlay.querySelector('img').src = ASSETS.playBtn;
   if (discImg) discImg.style.animationPlayState = "paused";
 
   fetch("https://radio-tekileros.vercel.app/Spotifly.json")
@@ -216,7 +229,8 @@ function cargarTrack(index) {
   if (modoActual !== "local" || !playlist[index] || !audio) return;
   const track = playlist[index];
 
-  actualizarCaratulas(track.caratula || COVER_DEFAULT);
+  // Si el track no tiene carátula, Default Cover
+  actualizarCaratulas(track.caratula || ASSETS.coverDefault);
   audio.src = track.enlace;
   audio.load();
 
@@ -227,14 +241,14 @@ function cargarTrack(index) {
 
   if (gestureDetected) {
     audio.play().then(() => {
-      if (btnPlay) btnPlay.querySelector('img').src = PAUSE_BTN;
+      if (btnPlay) btnPlay.querySelector('img').src = ASSETS.pauseBtn;
       if (discImg) discImg.style.animationPlayState = "running";
     }).catch(() => {
-      if (btnPlay) btnPlay.querySelector('img').src = PLAY_BTN;
+      if (btnPlay) btnPlay.querySelector('img').src = ASSETS.playBtn;
       if (discImg) discImg.style.animationPlayState = "paused";
     });
   } else {
-    if (btnPlay) btnPlay.querySelector('img').src = PLAY_BTN;
+    if (btnPlay) btnPlay.querySelector('img').src = ASSETS.playBtn;
     if (discImg) discImg.style.animationPlayState = "paused";
   }
 }
@@ -267,7 +281,7 @@ function inicializarReproductor() {
       audio.muted = false;
       if (audio && audio.src && audio.paused) {
         audio.play().then(() => {
-          if (btnPlay) btnPlay.querySelector('img').src = PAUSE_BTN;
+          if (btnPlay) btnPlay.querySelector('img').src = ASSETS.pauseBtn;
           if (discImg) discImg.style.animationPlayState = "running";
         }).catch(() => {});
       }
@@ -282,12 +296,12 @@ function inicializarReproductor() {
       }
       if (audio.paused || audio.ended) {
         audio.play().then(() => {
-          btnPlay.querySelector('img').src = PAUSE_BTN;
+          btnPlay.querySelector('img').src = ASSETS.pauseBtn;
           if (discImg) discImg.style.animationPlayState = "running";
         }).catch(() => {});
       } else {
         audio.pause();
-        btnPlay.querySelector('img').src = PLAY_BTN;
+        btnPlay.querySelector('img').src = ASSETS.playBtn;
         if (discImg) discImg.style.animationPlayState = "paused";
       }
     });
@@ -335,7 +349,7 @@ function inicializarReproductor() {
   });
 
   activarModoRadio();
-  console.log("✅ Reproductor 54 inicializado (EventSource directo aplicado).");
+  console.log("✅ Reproductor En La Disco RG inicializado.");
 }
 
 document.addEventListener("DOMContentLoaded", inicializarReproductor);
