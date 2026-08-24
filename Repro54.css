@@ -13,8 +13,8 @@ body {
   position: relative;
   overflow: hidden;
   
-  /* Color de fondo BASE (se verá donde Clear.png sea transparente) */
-  background-color: #00000060;
+  /* Color de fondo BASE (60 Base) */
+  background-color: #00000040;
   
   /* Imagen Clear.png encima (Ruta actualizada) */
   background-image: url('https://santi-graphics.vercel.app/assets/bg/Clear.png');
