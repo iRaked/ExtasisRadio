@@ -1,5 +1,5 @@
 body {
-  background: none;
+  background: black;
   margin: 0;
   height: 100vh;
   display: flex;
@@ -8,16 +8,16 @@ body {
 }
 
 .main-container {
-  width: 820px;
+  width: 820px; /*840 Full*/
   height: 600px;
   position: relative;
   overflow: hidden;
   
   /* Color de fondo BASE (60 Base) */
-  background-color: #00000020;
+  background-color: #00000010;
   
   /* Imagen Clear.png encima (Ruta actualizada) */
-  background-image: url('https://santi-graphics.vercel.app/assets/bg/Clear.png');
+  background-image: url('https://santi-graphics.vercel.app/assets/bg/Clear2.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
