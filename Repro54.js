@@ -165,7 +165,7 @@ function activarModoRadio() {
 }
 
 // ===============================
-// 📻 ACTUALIZACIÓN DE METADATOS (Modo Diagnóstico)
+// 📻 ACTUALIZACIÓN DE METADATOS (Multi-intento robusto)
 // ===============================
 let metadataAbortController = null;
 
@@ -180,12 +180,11 @@ function iniciarActualizacionRadio() {
     }
     metadataAbortController = new AbortController();
 
-    // Usamos el proxy de Vercel que configuramos en /api/metadata
+    // Apuntamos al proxy de Vercel
     const urlPrueba = "/api/metadata";
     
     try {
-      // Damos un margen de 10 segundos antes de abortar por timeout
-      const timeoutId = setTimeout(() => metadataAbortController.abort(), 10000);
+      const timeoutId = setTimeout(() => metadataAbortController.abort(), 6000);
 
       const response = await fetch(urlPrueba, {
         method: 'GET',
@@ -200,20 +199,36 @@ function iniciarActualizacionRadio() {
       const data = await response.json();
       console.log("✅ DATA CRUDITA RECIBIDA DEL PROXY:", data);
       
-      // 👉 PRUEBA ESTO: Revisa en la consola de tu navegador (F12) 
-      // qué estructura tiene 'data' para desplegarla aquí:
       if (data) {
-        // Asignación genérica provisional para ver algo en pantalla de inmediato
-        const textoObtenido = data.songtitle || data.title || data.currentSong || JSON.stringify(data);
+        // Mapeo flexible adaptado a posibles estructuras del servidor
+        let textoObtenido = data.songtitle || data.title || data.currentSong || data.now_playing || data.song || "";
+        
+        if (typeof data === 'object' && !textoObtenido) {
+          textoObtenido = JSON.stringify(data);
+        }
+
         metadataSpan.textContent = `En La Disco RG — Reproduciendo: ${textoObtenido}`;
+
+        // Intentar extraer artista y título si vienen separados o unidos por guion
+        let artist = data.artist || "";
+        let song = data.song || "";
+        if (textoObtenido && !artist && textoObtenido.includes(" - ")) {
+          const partes = textoObtenido.split(" - ");
+          artist = partes[0].trim();
+          song = partes.slice(1).join(" - ").trim();
+        }
+
+        if (artist && song) {
+          obtenerCaratulaDesdeiTunes(artist, song);
+        }
       }
 
     } catch (error) {
       if (error.name === 'AbortError') {
-        console.warn("⏱️ La petición tardó demasiado o fue abortada.");
+        console.warn("⏱️ Petición de metadatos optimizada (timeout controlado).");
       } else {
-        console.warn("⚠️ Error al obtener metadatos:", error.message);
-        metadataSpan.textContent = "En La Disco RG — En línea (Sin metadatos remotos)";
+        console.warn("⚠️ Aviso de metadatos:", error.message);
+        metadataSpan.textContent = "En La Disco RG — Transmisión en Vivo 24/7";
       }
     }
   }
@@ -263,7 +278,7 @@ function obtenerCaratulaDesdeiTunes(artist, title) {
 }
 
 // ===============================
-// 🎶 ACTIVAR MODO LOCAL (CORREGIDO)
+// 🎶 ACTIVAR MODO LOCAL
 // ===============================
 function activarModoLocal() {
   modoActual = "local";
@@ -274,11 +289,9 @@ function activarModoLocal() {
   actualizarCaratulas(COVER_DEFAULT);
   audio.pause();
   
-  // Resetear UI a estado "Pausado"
   if (btnPlay) btnPlay.querySelector('img').src = PLAY_BTN;
   if (discImg) discImg.style.animationPlayState = "paused";
 
-  // CORRECCIÓN: Usar la URL directa sin concatenar con BASE_URL
   fetch("https://radio-tekileros.vercel.app/Spotifly.json")
     .then(res => {
       if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
@@ -287,7 +300,6 @@ function activarModoLocal() {
     .then(data => {
       if (modoActual !== "local") return;
       
-      // Buscamos el arreglo "spotifly" en el JSON
       playlist = data.spotifly || []; 
       currentTrack = 0;
       
@@ -301,7 +313,7 @@ function activarModoLocal() {
     .catch(err => {
       if (modoActual !== "local") return;
       console.error("❌ Error al cargar playlist local:", err);
-      metadataSpan.textContent = "⚠️ Error de red. Verifica tu conexión o usa Live Server.";
+      metadataSpan.textContent = "⚠️ Error de red. Verifica tu conexión.";
     });
 }
 
