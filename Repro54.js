@@ -92,7 +92,7 @@ function detenerActualizacionRadio() {
 }
 
 // ===============================
-// 📻 LÓGICA DE RADIO (SSE ZENO FM - DIRECTA, SIN PROXYS)
+// 📻 LÓGICA DE RADIO (SSE ZENO FM)
 // ===============================
 function iniciarMetadatosZeno() {
   detenerActualizacionRadio();
@@ -134,7 +134,7 @@ function iniciarMetadatosZeno() {
     };
 
     zenoEventSource.onerror = function() {
-      // El navegador reintenta automáticamente. No hacemos nada para evitar bucles de error.
+      // El navegador reintenta automáticamente.
     };
 
   } catch (error) {
@@ -154,8 +154,20 @@ function activarModoRadio() {
     audio.src = "https://stream-179.surfernetwork.com/xk7mncypfa0uv?zt=eyJhbGciOiJIUzI1NiJ9.eyJzdHJlYW0iOiJ4azdtbmN5cGZhMHV2IiwiaG9zdCI6InN0cmVhbS0xNzkuc3VyZmVybmV0d29yay5jb20iLCJydHRsIjo1LCJqdGkiOiJFWWhhaUdHblR1cXM1T0ZsQVJkYklnIiwiaWF0IjoxNzg3NTE0MzczLCJleHAiOjE3ODc1MTQ0MzN9.jD9Ywk3MTar7pVggqmh-z8usYfm1Ka-QIqg5WkhM4qI";
     audio.load();
     audio.muted = !gestureDetected;
+    
     if (gestureDetected) {
-      audio.play().catch(() => {});
+      audio.play().then(() => {
+        // CORRECCIÓN: Actualización explícita de la UI al reproducir
+        if (btnPlay) btnPlay.querySelector('img').src = PAUSE_BTN;
+        if (discImg) discImg.style.animationPlayState = "running";
+      }).catch(() => {
+        if (btnPlay) btnPlay.querySelector('img').src = PLAY_BTN;
+        if (discImg) discImg.style.animationPlayState = "paused";
+      });
+    } else {
+      // CORRECCIÓN: Asegurar estado de pausa visual si no hay gesto
+      if (btnPlay) btnPlay.querySelector('img').src = PLAY_BTN;
+      if (discImg) discImg.style.animationPlayState = "paused";
     }
   }
 
@@ -210,7 +222,17 @@ function cargarTrack(index) {
   actualizarFechaHoraSimple();
 
   if (gestureDetected) {
-    audio.play().catch(() => {});
+    audio.play().then(() => {
+      // CORRECCIÓN: Actualización explícita de la UI al reproducir
+      if (btnPlay) btnPlay.querySelector('img').src = PAUSE_BTN;
+      if (discImg) discImg.style.animationPlayState = "running";
+    }).catch(() => {
+      if (btnPlay) btnPlay.querySelector('img').src = PLAY_BTN;
+      if (discImg) discImg.style.animationPlayState = "paused";
+    });
+  } else {
+    if (btnPlay) btnPlay.querySelector('img').src = PLAY_BTN;
+    if (discImg) discImg.style.animationPlayState = "paused";
   }
 }
 
@@ -221,7 +243,6 @@ function inicializarReproductor() {
   if (isInitialized) return;
   isInitialized = true;
 
-  // 1. Asignar DOM
   audio = document.getElementById("player");
   btnPlay = document.getElementById("playPause");
   btnOnline = document.getElementById("plus");
@@ -232,22 +253,22 @@ function inicializarReproductor() {
   discImg = document.querySelector(".disc-img");
   turbineCoverImg = document.querySelector(".turbine-cover-img");
 
-  // 2. Fecha y Hora (Se ejecuta inmediatamente y de forma segura)
   actualizarFechaHoraSimple();
   setInterval(actualizarFechaHoraSimple, 60000);
 
-  // 3. Desbloqueo de Audio
   function desbloqueoAutoplay() {
     if (audio && audio.muted) audio.muted = false;
     if (audio && audio.paused && audio.src && modoActual === "radio") {
-      audio.play().catch(() => {});
+      audio.play().then(() => {
+        if (btnPlay) btnPlay.querySelector('img').src = PAUSE_BTN;
+        if (discImg) discImg.style.animationPlayState = "running";
+      }).catch(() => {});
     }
   }
   ['click', 'touchstart', 'keydown'].forEach(evento => {
     document.addEventListener(evento, desbloqueoAutoplay, { once: true });
   });
 
-  // 4. Eventos de Botones
   if (btnPlay && audio) {
     btnPlay.addEventListener("click", () => {
       if (!gestureDetected) { gestureDetected = true; audio.muted = false; }
@@ -289,7 +310,6 @@ function inicializarReproductor() {
     });
   }
 
-  // 5. Clic derecho
   document.addEventListener("contextmenu", (e) => {
     e.preventDefault();
     const msg = document.getElementById("custom-message");
@@ -299,9 +319,8 @@ function inicializarReproductor() {
     }
   });
 
-  // 6. Arrancar
   activarModoRadio();
-  console.log("✅ Reproductor 54 inicializado (Versión Xat-Safe).");
+  console.log("✅ Reproductor 54 inicializado (Bug de UI corregido).");
 }
 
 document.addEventListener("DOMContentLoaded", inicializarReproductor);
