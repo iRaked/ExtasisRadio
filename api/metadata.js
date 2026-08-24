@@ -1,39 +1,45 @@
 export default async function handler(req, res) {
-  // Permitir CORS para desarrollo local o producción
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET');
 
   try {
-    // Apuntamos al endpoint exacto que descubrimos en la red
-    const targetUrl = "https://stream-179.surfernetwork.com/xk7mncypfa0uv/stats?sid=1&json=1";
+    const targetUrl = "https://api.zeno.fm/mounts/metadata/subscribe/bmv9fcypfa0uv";
     
     const response = await fetch(targetUrl, {
       headers: {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
-        'Accept': 'application/javascript, application/json'
+        'Accept': 'text/event-stream, application/json'
       }
     });
 
     if (!response.ok) {
-      throw new Error(`SurferNetwork respondió con estado ${response.status}`);
+      throw new Error(`Zeno API respondió con estado ${response.status}`);
     }
 
     const text = await response.text();
 
-    // Como SurferNetwork devuelve JSONP (ej: jQuery3000...\n({ ... })) 
-    // limpiamos el wrapper para extraer únicamente el objeto JSON real:
-    const jsonMatch = text.match(/\{[\s\S]*\}/);
-    if (!jsonMatch) {
-      throw new Error("No se pudo parsear el formato JSONP del servidor");
+    // Como Zeno responde mediante Server-Sent Events (SSE), capturamos la línea de datos
+    const lines = text.split('\n');
+    let streamTitle = "En La Disco RG — Transmisión en Vivo 24/7";
+
+    for (const line of lines) {
+      if (line.startsWith('data:')) {
+        try {
+          const jsonD = JSON.parse(line.replace('data:', '').trim());
+          if (jsonD.streamTitle) {
+            streamTitle = jsonD.streamTitle;
+          }
+        } catch (e) {
+          // Ignorar líneas de ping o malformadas
+        }
+      }
     }
 
-    const data = JSON.parse(jsonMatch[0]);
-
-    // Retornamos los datos limpios al frontend de Repro54.js
-    return res.status(200).json(data);
+    // Retornamos estandarizado para que el reproductor lo lea sin problema
+    return res.status(200).json({ songtitle: streamTitle });
 
   } catch (error) {
-    console.error("Error al obtener metadatos de radio:", error.message);
+    console.error("Error al obtener metadatos de Zeno:", error.message);
     return res.status(500).json({ error: error.message });
   }
 }
