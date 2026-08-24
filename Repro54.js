@@ -1,15 +1,12 @@
 // ===============================
-// 🎧 VARIABLES GLOBALES
+// 🎧 VARIABLES GLOBALES Y ESTADOS
 // ===============================
 let modoActual = "radio";
 let gestureDetected = false;
 let playlist = [];
 let currentTrack = 0;
 let radioIntervalId = null;
-let zenoEventSource = null;
-let radioListeners = "--";
 let ultimaPistaStreaming = "";
-let isInitialized = false;
 
 // Referencias al DOM
 let audio, btnPlay, btnOnline, btnRwd, btnFwd, metadataSpan, infoSpan, discImg, turbineCoverImg;
@@ -21,12 +18,10 @@ const PLAY_BTN = `${BASE_URL}img/play-btn-silver.png`;
 const PAUSE_BTN = `${BASE_URL}img/pause-btn-silver.png`;
 
 // ===============================
-// 🛠️ FUNCIONES DE UTILIDAD
+// 🛠️ FUNCIONES AUXILIARES
 // ===============================
 function actualizarCaratulas(nuevaRuta) {
-  if (turbineCoverImg) {
-    turbineCoverImg.src = nuevaRuta;
-  }
+  if (turbineCoverImg) turbineCoverImg.src = nuevaRuta;
 }
 
 function actualizarFechaHoraSimple() {
@@ -35,12 +30,8 @@ function actualizarFechaHoraSimple() {
     const opciones = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
     const fecha = ahora.toLocaleDateString('es-MX', opciones);
     const hora = ahora.toLocaleTimeString('es-MX', { hour: 'numeric', minute: '2-digit' });
-    if (infoSpan) {
-      infoSpan.textContent = `${fecha} ${hora} | 🎧 Radioescuchas: ${radioListeners}`;
-    }
-  } catch (e) {
-    console.error("Error en fecha/hora:", e);
-  }
+    if (infoSpan) infoSpan.textContent = `${fecha} • ${hora}`;
+  } catch (e) { console.error("Error en fecha/hora:", e); }
 }
 
 function limpiarMetadatosRadio(texto) {
@@ -62,137 +53,135 @@ function limpiarMetadatosRadio(texto) {
   return { artista: art, titulo: tit };
 }
 
-async function buscarCaratulaReal(artistaQuery, tituloQuery) {
-  if (!artistaQuery || artistaQuery === "En La Disco RG" || artistaQuery === "Transmisión en Vivo") {
+// ==========================================
+// 🖼️ CARÁTULAS: JSONP
+// ==========================================
+function obtenerCaratulaDesdeiTunes(artist, title) {
+  if (typeof $ === 'undefined' || typeof $.ajax === 'undefined') {
     actualizarCaratulas(COVER_DEFAULT);
     return;
   }
-  
-  const termino = `${artistaQuery} ${tituloQuery}`.toLowerCase().replace(/\(.*?\)|\[.*?\]|feat\.|ft\./g, " ").trim();
-  const itunesUrl = `https://itunes.apple.com/search?term=${encodeURIComponent(termino)}&media=music&limit=1`;
-  
-  try {
-    const res = await fetch(itunesUrl);
-    const json = await res.json();
-    if (json.results && json.results.length > 0) {
-      actualizarCaratulas(json.results[0].artworkUrl100.replace("100x100bb", "400x400bb"));
-    } else {
-      actualizarCaratulas(COVER_DEFAULT);
-    }
-  } catch (e) { 
-    actualizarCaratulas(COVER_DEFAULT); 
-  }
+  const formattedArtist = artist.toLowerCase().trim().replace(/\s*&\s*.*|\s*feat\.?.*|\s*ft\..*/gi, "");
+  const formattedTitle = title.toLowerCase().trim().replace(/\s*&\s*/gi, " and ").replace(/\s*\(.*\)/gi, "");
+  const query = encodeURIComponent(`${formattedArtist} ${formattedTitle}`);
+  const url = `https://itunes.apple.com/search?term=${query}&media=music&limit=1`;
+
+  $.ajax({
+    dataType: 'jsonp',
+    url: url,
+    success: function(data) {
+      let cover = COVER_DEFAULT;
+      if (data.results && data.results.length > 0) {
+        cover = data.results[0].artworkUrl100.replace('100x100bb', '400x400bb');
+      }
+      actualizarCaratulas(cover);
+    },
+    error: function() { actualizarCaratulas(COVER_DEFAULT); }
+  });
 }
 
 function detenerActualizacionRadio() {
-  if (zenoEventSource) {
-    zenoEventSource.close();
-    zenoEventSource = null;
+  if (radioIntervalId !== null) {
+    clearInterval(radioIntervalId);
+    radioIntervalId = null;
   }
 }
 
-// ===============================
-// 📻 LÓGICA DE RADIO (SSE ZENO FM)
-// ===============================
-function iniciarMetadatosZeno() {
+// ==========================================
+// 📻 MODO RADIO: FETCH AL PUENTE DE VERCEL
+// ==========================================
+function iniciarActualizacionRadio() {
   detenerActualizacionRadio();
 
-  const zenoUrl = "https://api.zeno.fm/mounts/metadata/subscribe/bmv9fcypfa0uv";
-  
-  try {
-    zenoEventSource = new EventSource(zenoUrl);
+  // URL DE TU PUENTE (https://iraked.github.io/ExtasisRadio/api/zeno.js)
+  const puenteUrl = "https://radio-tekileros.vercel.app/api/zeno";
 
-    zenoEventSource.onmessage = function(event) {
-      if (modoActual !== "radio") return;
+  async function actualizarDesdeServidor() {
+    if (modoActual !== "radio") return;
+    
+    try {
+      // Añadimos un timestamp para romper cualquier caché intermedio
+      const response = await fetch(`${puenteUrl}?t=${Date.now()}`, { cache: 'no-store' });
+      const data = await response.json();
       
-      try {
-        const data = JSON.parse(event.data);
-        if (data && data.streamTitle) {
-          let textoObtenido = data.streamTitle;
-          
-          if (textoObtenido === ultimaPistaStreaming && textoObtenido !== "") return;
-          ultimaPistaStreaming = textoObtenido;
+      if (data && data.streamTitle) {
+        const cleanedTitle = data.streamTitle.trim().replace(/AUTODJ/gi, '').replace(/\|\s*$/g, '').trim();
 
-          let artist = "En La Disco RG";
-          let title = textoObtenido;
-
-          if (textoObtenido.includes(" - ")) {
-            const partes = textoObtenido.split(" - ");
-            artist = partes[0].trim();
-            title = partes.slice(1).join(" - ").trim();
-          }
-
-          if (metadataSpan) {
-            metadataSpan.textContent = `En La Disco RG — ${title} — ${artist}`;
-          }
-
-          buscarCaratulaReal(artist, title);
+        if (!cleanedTitle || cleanedTitle.toLowerCase().includes('offline') || cleanedTitle === ultimaPistaStreaming) {
+          return;
         }
-      } catch (e) {
-        // Ignorar pings
+        
+        ultimaPistaStreaming = cleanedTitle;
+        let { artista, titulo } = limpiarMetadatosRadio(cleanedTitle);
+        
+        if (metadataSpan) {
+          metadataSpan.textContent = `En La Disco RG — ${titulo} — ${artista}`;
+        }
+        
+        obtenerCaratulaDesdeiTunes(artista, titulo);
       }
-    };
-
-    zenoEventSource.onerror = function() {
-      // El navegador reintenta automáticamente.
-    };
-
-  } catch (error) {
-    console.error("❌ No se pudo inicializar EventSource:", error);
+    } catch (error) {
+      console.warn("⚠️ Error en actualización de Radio (reintentando...):", error);
+    }
   }
+
+  actualizarDesdeServidor();
+  radioIntervalId = setInterval(actualizarDesdeServidor, 10000);
 }
 
 function activarModoRadio() {
   modoActual = "radio";
   detenerActualizacionRadio();
-
+  
   if (metadataSpan) metadataSpan.textContent = "En La Disco RG — Conectando...";
   actualizarCaratulas(COVER_DEFAULT);
-
+  
   if (audio) {
     audio.pause();
     audio.src = "https://stream-179.surfernetwork.com/xk7mncypfa0uv?zt=eyJhbGciOiJIUzI1NiJ9.eyJzdHJlYW0iOiJ4azdtbmN5cGZhMHV2IiwiaG9zdCI6InN0cmVhbS0xNzkuc3VyZmVybmV0d29yay5jb20iLCJydHRsIjo1LCJqdGkiOiJFWWhhaUdHblR1cXM1T0ZsQVJkYklnIiwiaWF0IjoxNzg3NTE0MzczLCJleHAiOjE3ODc1MTQ0MzN9.jD9Ywk3MTar7pVggqmh-z8usYfm1Ka-QIqg5WkhM4qI";
     audio.load();
-    audio.muted = !gestureDetected;
-    
-    if (gestureDetected) {
-      audio.play().then(() => {
-        // CORRECCIÓN: Actualización explícita de la UI al reproducir
-        if (btnPlay) btnPlay.querySelector('img').src = PAUSE_BTN;
-        if (discImg) discImg.style.animationPlayState = "running";
-      }).catch(() => {
-        if (btnPlay) btnPlay.querySelector('img').src = PLAY_BTN;
-        if (discImg) discImg.style.animationPlayState = "paused";
-      });
+
+    if (!gestureDetected) {
+      audio.muted = true;
     } else {
-      // CORRECCIÓN: Asegurar estado de pausa visual si no hay gesto
+      audio.muted = false;
+    }
+
+    audio.play().then(() => {
+      if (btnPlay) btnPlay.querySelector('img').src = PAUSE_BTN;
+      if (discImg) discImg.style.animationPlayState = "running";
+    }).catch(err => {
+      console.log("⏳ Audio en espera de interacción del usuario.");
       if (btnPlay) btnPlay.querySelector('img').src = PLAY_BTN;
       if (discImg) discImg.style.animationPlayState = "paused";
-    }
+    });
   }
 
-  iniciarMetadatosZeno();
+  iniciarActualizacionRadio();
 }
 
 // ===============================
-// 🎶 LÓGICA DE MODO LOCAL
+// 🎶 MODO LOCAL
 // ===============================
 function activarModoLocal() {
   modoActual = "local";
   detenerActualizacionRadio();
-
+  
   if (metadataSpan) metadataSpan.textContent = "🎶 Cargando Playlist...";
   actualizarCaratulas(COVER_DEFAULT);
   
-  if (audio) audio.pause();
-  if (btnPlay) {
-    const img = btnPlay.querySelector('img');
-    if (img) img.src = PLAY_BTN;
+  if (audio) {
+    audio.pause();
+    audio.muted = !gestureDetected;
   }
+  if (btnPlay) btnPlay.querySelector('img').src = PLAY_BTN;
   if (discImg) discImg.style.animationPlayState = "paused";
 
   fetch("https://radio-tekileros.vercel.app/Spotifly.json")
-    .then(res => res.json())
+    .then(res => {
+      if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+      return res.json();
+    })
     .then(data => {
       if (modoActual !== "local") return;
       playlist = data.spotifly || []; 
@@ -200,10 +189,12 @@ function activarModoLocal() {
       if (playlist.length > 0) {
         if (metadataSpan) metadataSpan.textContent = `🎶 Playlist activa (${playlist.length} tracks)`;
         cargarTrack(currentTrack);
+      } else {
+        if (metadataSpan) metadataSpan.textContent = "⚠️ No hay pistas";
       }
     })
     .catch(err => {
-      console.error("Error playlist:", err);
+      console.error("❌ Error al cargar playlist:", err);
       if (metadataSpan) metadataSpan.textContent = "⚠️ Error de red";
     });
 }
@@ -216,14 +207,11 @@ function cargarTrack(index) {
   audio.src = track.enlace;
   audio.load();
 
-  if (metadataSpan) {
-    metadataSpan.textContent = `[${index + 1}] ${track.nombre} — ${track.artista}`;
-  }
+  if (metadataSpan) metadataSpan.textContent = `[${index + 1}] ${track.nombre} — ${track.artista}`;
   actualizarFechaHoraSimple();
 
   if (gestureDetected) {
     audio.play().then(() => {
-      // CORRECCIÓN: Actualización explícita de la UI al reproducir
       if (btnPlay) btnPlay.querySelector('img').src = PAUSE_BTN;
       if (discImg) discImg.style.animationPlayState = "running";
     }).catch(() => {
@@ -237,12 +225,9 @@ function cargarTrack(index) {
 }
 
 // ===============================
-// 🚀 INICIALIZACIÓN
+// 🚀 INICIALIZACIÓN Y GESTOS
 // ===============================
 function inicializarReproductor() {
-  if (isInitialized) return;
-  isInitialized = true;
-
   audio = document.getElementById("player");
   btnPlay = document.getElementById("playPause");
   btnOnline = document.getElementById("plus");
@@ -256,18 +241,20 @@ function inicializarReproductor() {
   actualizarFechaHoraSimple();
   setInterval(actualizarFechaHoraSimple, 60000);
 
-  function desbloqueoAutoplay() {
-    if (audio && audio.muted) audio.muted = false;
-    if (audio && audio.paused && audio.src && modoActual === "radio") {
-      audio.play().then(() => {
-        if (btnPlay) btnPlay.querySelector('img').src = PAUSE_BTN;
-        if (discImg) discImg.style.animationPlayState = "running";
-      }).catch(() => {});
+  if (audio) { audio.muted = true; audio.muted = false; }
+
+  document.addEventListener("click", () => {
+    if (!gestureDetected) {
+      gestureDetected = true;
+      audio.muted = false;
+      if (audio && audio.src && audio.paused) {
+        audio.play().then(() => {
+          if (btnPlay) btnPlay.querySelector('img').src = PAUSE_BTN;
+          if (discImg) discImg.style.animationPlayState = "running";
+        }).catch(() => {});
+      }
     }
-  }
-  ['click', 'touchstart', 'keydown'].forEach(evento => {
-    document.addEventListener(evento, desbloqueoAutoplay, { once: true });
-  });
+  }, { once: true });
 
   if (btnPlay && audio) {
     btnPlay.addEventListener("click", () => {
@@ -320,13 +307,12 @@ function inicializarReproductor() {
   });
 
   activarModoRadio();
-  console.log("✅ Reproductor 54 inicializado (Bug de UI corregido).");
+  console.log("✅ Reproductor 54 inicializado (Puente Vercel activo).");
 }
 
 document.addEventListener("DOMContentLoaded", inicializarReproductor);
 window.addEventListener("repro-ready", inicializarReproductor);
 
-// Ripples
 $(document).ready(function() {
   if (typeof $.fn.ripples === 'function') {
     $('.main-container').ripples({ resolution: 512, dropRadius: 20, perturbance: 0.04 });
