@@ -1,6 +1,7 @@
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 🎧 AUDIO PRINCIPAL
+// 1. FUNCIONES DE CREACIÓN DE ELEMENTOS (HTML DINÁMICO)
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
 function crearAudio() {
   const audio = document.createElement("audio");
   audio.id = "player";
@@ -10,105 +11,63 @@ function crearAudio() {
   return audio;
 }
 
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 🌊 CONTENEDOR PRINCIPAL (main-container + bg-water)
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-function crearMainContainer() {
-  const container = document.createElement("div");
-  container.className = "main-container";
-  
-  // El audio va dentro del contenedor principal
-  container.appendChild(crearAudio());
-  
-  return container;
-}
-
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 💿 DISCO DE VINIL (Fondo)
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 function crearDiscoVinil() {
   const div = document.createElement("div");
   div.className = "ctn-disc";
-  
   const img = document.createElement("img");
   img.src = "https://santi-graphics.vercel.app/assets/img/Disc-Power.png";
   img.alt = "Disco de vinil";
   img.className = "disc-img";
-  
   div.appendChild(img);
   return div;
 }
 
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 🖼️ LOGO / PORTADA CENTRAL
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 function crearLogoWrapper() {
   const div = document.createElement("div");
   div.className = "wrapper";
-  
   const img = document.createElement("img");
   img.src = "https://santi-graphics.vercel.app/assets/img/DiscoRG.jpg";
   img.alt = "Logo Central";
   img.className = "cover-art";
-  
   div.appendChild(img);
   return div;
 }
 
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 🌌 IMAGEN BASE (Fussion3)
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 function crearFussionBase() {
   const div = document.createElement("div");
   div.className = "ctn-base";
-  
   const img = document.createElement("img");
   img.src = "https://santi-graphics.vercel.app/assets/img/Fussion3.png";
   img.alt = "Imagen Base";
   img.className = "stage-fussion";
-  
   div.appendChild(img);
   return div;
 }
 
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 📝 METADATOS (Marquesina Superior)
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 function crearMetadatos() {
   const div = document.createElement("div");
   div.className = "metadata-marquee marquee";
-  
   const span = document.createElement("span");
   span.id = "player-track";
-  span.textContent = "[1] Título del Track — Artista - Género - 0:00";
-  
+  span.textContent = "En La Disco RG — Conectando...";
   div.appendChild(span);
   return div;
 }
 
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 🕒 INFO Y RADIOESCUCHAS (Marquesina Inferior)
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 function crearInfoMarquee() {
   const div = document.createElement("div");
   div.className = "info-marquee marquee";
-  
   const span = document.createElement("span");
   span.id = "player-info";
-  span.textContent = "Día: Domingo • Mes: Agosto • Año: 2026 • Hora: 00:00 | 🎧 Radioescuchas: 0";
-  
+  span.textContent = "Cargando fecha y oyentes...";
   div.appendChild(span);
   return div;
 }
 
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 🎛️ CONTROLES PRINCIPALES (Play/Plus)
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 function crearControles() {
   const div = document.createElement("div");
   div.className = "controls-wrapper";
 
-  // Botón Play/Pause
   const btnPlay = document.createElement("button");
   btnPlay.id = "playPause";
   const imgPlay = document.createElement("img");
@@ -116,7 +75,6 @@ function crearControles() {
   imgPlay.alt = "Play/Pause";
   btnPlay.appendChild(imgPlay);
 
-  // Botón Plus (Modo)
   const btnPlus = document.createElement("button");
   btnPlus.id = "plus";
   const imgPlus = document.createElement("img");
@@ -129,9 +87,6 @@ function crearControles() {
   return div;
 }
 
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// ⏪ ⏩ BOTONES AVANCE Y RETROCESO
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 function crearBotonesAvanceRetroceso() {
   const fragment = document.createDocumentFragment();
 
@@ -154,16 +109,12 @@ function crearBotonesAvanceRetroceso() {
   return fragment;
 }
 
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// ⚙️ DECORATIVOS (Turbina + Carátula lateral)
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 function crearDecorativos() {
   const div = document.createElement("div");
   div.className = "decorative-wrapper";
 
   const turbineContainer = document.createElement("div");
   turbineContainer.className = "turbine-cover-container";
-  
   const imgTurbine = document.createElement("img");
   imgTurbine.src = "https://santi-graphics.vercel.app/assets/covers/Cover1.png";
   imgTurbine.alt = "Carátula en Turbina";
@@ -180,9 +131,6 @@ function crearDecorativos() {
   return div;
 }
 
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 💬 MENSAJE PERSONALIZADO (Clic derecho)
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 function crearMensajePersonalizado() {
   const div = document.createElement("div");
   div.id = "custom-message";
@@ -192,31 +140,18 @@ function crearMensajePersonalizado() {
 }
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 💧 ACTIVACIÓN RIPPLES
+// 2. ENSAMBLADOR Y LÓGICA DE EVENTOS (ORDEN CRÍTICO)
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-function inicializarRipples() {
-  try {
-    $('.main-container').ripples({
-      resolution: 512,
-      dropRadius: 20,
-      perturbance: 0.04
-    });
-    console.log("💧 Efecto Ripples inicializado.");
-  } catch (e) {
-    console.warn("⚠️ Error al inicializar Ripples:", e);
-  }
-}
 
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 🧩 ENSAMBLADOR FINAL
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 function inicializarReproductor() {
   const body = document.body;
+  body.innerHTML = ""; // Limpia el body para evitar duplicados
+
+  // 2.1 Crear y ensamblar el contenedor principal
+  const mainContainer = document.createElement("div");
+  mainContainer.className = "main-container";
   
-  // 1. Crear contenedor principal
-  const mainContainer = crearMainContainer();
-  
-  // 2. Ensamblar capas en orden de z-index
+  mainContainer.appendChild(crearAudio());
   mainContainer.appendChild(crearDiscoVinil());
   mainContainer.appendChild(crearLogoWrapper());
   mainContainer.appendChild(crearFussionBase());
@@ -227,19 +162,99 @@ function inicializarReproductor() {
   mainContainer.appendChild(crearDecorativos());
   mainContainer.appendChild(crearMensajePersonalizado());
   
-  // 3. Inyección al DOM (reemplaza o limpia el body para evitar duplicados)
-  body.innerHTML = ""; 
+  // 2.2 Inyectar al DOM (¡AHORA LOS ELEMENTOS YA EXISTEN!)
   body.appendChild(mainContainer);
 
-  // 4. Inicialización de Motores Visuales
-  inicializarRipples();
+  // 2.3 Inicializar efectos visuales
+  if (typeof $.fn.ripples === 'function') {
+    $('.main-container').ripples({ resolution: 512, dropRadius: 20, perturbance: 0.04 });
+    console.log("💧 Efecto Ripples inicializado.");
+  }
 
-  // 5. Disparar evento de listo para que Repro25.js pueda tomar el control
+  // 2.4 LÓGICA DE EVENTOS (Segura, porque el DOM ya existe)
+  const audio = document.getElementById("player");
+  const btnPlay = document.getElementById("playPause");
+  const btnPlus = document.getElementById("plus");
+  const btnRwd = document.getElementById("btn-rwd");
+  const btnFwd = document.getElementById("btn-fwd");
+  const trackSpan = document.getElementById("player-track");
+  const infoSpan = document.getElementById("player-info");
+  const discImg = document.querySelector(".disc-img");
+  const turbineCoverImg = document.querySelector(".turbine-cover-img");
+  const customMsg = document.getElementById("custom-message");
+
+  let gestureDetected = false;
+  let modoActual = "radio";
+
+  // Función auxiliar para actualizar UI de Play/Pause
+  function setPlayState(isPlaying) {
+    if (!btnPlay) return;
+    const img = btnPlay.querySelector("img");
+    if (isPlaying) {
+      img.src = "https://santi-graphics.vercel.app/assets/img/pause-btn-silver.png";
+      if (discImg) discImg.style.animationPlayState = "running";
+    } else {
+      img.src = "https://santi-graphics.vercel.app/assets/img/play-btn-silver.png";
+      if (discImg) discImg.style.animationPlayState = "paused";
+    }
+  }
+
+  // Evento Play/Pause
+  if (btnPlay) {
+    btnPlay.addEventListener("click", () => {
+      if (!gestureDetected) { gestureDetected = true; audio.muted = false; }
+      if (audio.paused || audio.ended) {
+        audio.play().then(() => setPlayState(true)).catch(console.warn);
+      } else {
+        audio.pause();
+        setPlayState(false);
+      }
+    });
+  }
+
+  // Evento Plus (Cambio de modo - Ejemplo básico)
+  if (btnPlus) {
+    btnPlus.addEventListener("click", () => {
+      if (!gestureDetected) { gestureDetected = true; audio.muted = false; }
+      modoActual = (modoActual === "radio") ? "local" : "radio";
+      if (trackSpan) trackSpan.textContent = `Modo cambiado a: ${modoActual.toUpperCase()}`;
+      // Aquí iría la lógica completa de carga de JSON o Radio
+    });
+  }
+
+  // Evento Clic Derecho
+  document.addEventListener("contextmenu", (e) => {
+    e.preventDefault();
+    if (customMsg) {
+      customMsg.classList.add("show");
+      setTimeout(() => customMsg.classList.remove("show"), 2000);
+    }
+  });
+
+  // Sincronización con eventos nativos del audio
+  if (audio) {
+    audio.addEventListener('playing', () => setPlayState(true));
+    audio.addEventListener('pause', () => setPlayState(false));
+    
+    // Desbloqueo de audio en el primer clic en cualquier parte
+    document.addEventListener("click", () => {
+      if (!gestureDetected) {
+        gestureDetected = true;
+        audio.muted = false;
+        if (audio.paused) audio.play().catch(() => {});
+      }
+    }, { once: true });
+  }
+
+  console.log("✅ Estructura HTML dinámica y lógica de eventos ensambladas correctamente.");
+  
+  // Disparar evento por si otros scripts (como Repro25.js) necesitan escuchar
   window.dispatchEvent(new Event("repro-ready"));
-  console.log("✅ Estructura HTML dinámica ensamblada correctamente.");
 }
 
-// Lanzamiento
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// 3. LANZAMIENTO
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 document.addEventListener("DOMContentLoaded", () => {
   inicializarReproductor();
 });
