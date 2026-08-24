@@ -1,6 +1,7 @@
 :root {
   --color-marquee: #ffffff;
   --color-boton: #c0c0c0;
+  --bg-clear-url: url('https://santi-graphics.vercel.app/assets/bg/DiscoRG.jpg');
 }
 
 body {
@@ -22,7 +23,7 @@ body {
   background-color: #00000010;
   
   /* Fondo Transparente para Ripples */
-  background-image: url('https://santi-graphics.vercel.app/assets/bg/Clear2.png');
+  background-image: var(--bg-clear-url);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
