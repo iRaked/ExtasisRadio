@@ -5,7 +5,7 @@ let modoActual = "radio";
 let gestureDetected = false;
 let playlist = [];
 let currentTrack = 0;
-let radioIntervalId = null;
+let zenoEventSource = null;
 let ultimaPistaStreaming = "";
 
 // Referencias al DOM
@@ -21,7 +21,9 @@ const PAUSE_BTN = `${BASE_URL}img/pause-btn-silver.png`;
 // 🛠️ FUNCIONES AUXILIARES
 // ===============================
 function actualizarCaratulas(nuevaRuta) {
-  if (turbineCoverImg) turbineCoverImg.src = nuevaRuta;
+  if (turbineCoverImg) {
+    turbineCoverImg.src = nuevaRuta;
+  }
 }
 
 function actualizarFechaHoraSimple() {
@@ -30,8 +32,12 @@ function actualizarFechaHoraSimple() {
     const opciones = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
     const fecha = ahora.toLocaleDateString('es-MX', opciones);
     const hora = ahora.toLocaleTimeString('es-MX', { hour: 'numeric', minute: '2-digit' });
-    if (infoSpan) infoSpan.textContent = `${fecha} • ${hora}`;
-  } catch (e) { console.error("Error en fecha/hora:", e); }
+    if (infoSpan) {
+      infoSpan.textContent = `${fecha} • ${hora}`;
+    }
+  } catch (e) {
+    console.error("Error en fecha/hora:", e);
+  }
 }
 
 function limpiarMetadatosRadio(texto) {
@@ -61,6 +67,7 @@ function obtenerCaratulaDesdeiTunes(artist, title) {
     actualizarCaratulas(COVER_DEFAULT);
     return;
   }
+  
   const formattedArtist = artist.toLowerCase().trim().replace(/\s*&\s*.*|\s*feat\.?.*|\s*ft\..*/gi, "");
   const formattedTitle = title.toLowerCase().trim().replace(/\s*&\s*/gi, " and ").replace(/\s*\(.*\)/gi, "");
   const query = encodeURIComponent(`${formattedArtist} ${formattedTitle}`);
@@ -76,57 +83,63 @@ function obtenerCaratulaDesdeiTunes(artist, title) {
       }
       actualizarCaratulas(cover);
     },
-    error: function() { actualizarCaratulas(COVER_DEFAULT); }
+    error: function() {
+      actualizarCaratulas(COVER_DEFAULT);
+    }
   });
 }
 
 function detenerActualizacionRadio() {
-  if (radioIntervalId !== null) {
-    clearInterval(radioIntervalId);
-    radioIntervalId = null;
+  if (zenoEventSource) {
+    zenoEventSource.close();
+    zenoEventSource = null;
   }
 }
 
 // ==========================================
-// 📻 MODO RADIO: FETCH AL PUENTE DE VERCEL
+// 📻 MODO RADIO: EVENTSOURCE DIRECTO
 // ==========================================
 function iniciarActualizacionRadio() {
   detenerActualizacionRadio();
 
-  // URL DE TU PUENTE (https://iraked.github.io/ExtasisRadio/api/zeno.js)
-  const puenteUrl = "https://radio-tekileros.vercel.app/api/zeno";
+  // URL directa a Zeno FM
+  const radioUrl = "https://api.zeno.fm/mounts/metadata/subscribe/bmv9fcypfa0uv";
+  zenoEventSource = new EventSource(radioUrl);
 
-  async function actualizarDesdeServidor() {
-    if (modoActual !== "radio") return;
-    
+  zenoEventSource.addEventListener("message", (event) => {
     try {
-      // Añadimos un timestamp para romper cualquier caché intermedio
-      const response = await fetch(`${puenteUrl}?t=${Date.now()}`, { cache: 'no-store' });
-      const data = await response.json();
-      
-      if (data && data.streamTitle) {
-        const cleanedTitle = data.streamTitle.trim().replace(/AUTODJ/gi, '').replace(/\|\s*$/g, '').trim();
+      const data = JSON.parse(event.data);
+      const cleanedTitle = data.streamTitle ? data.streamTitle.trim() : "";
 
-        if (!cleanedTitle || cleanedTitle.toLowerCase().includes('offline') || cleanedTitle === ultimaPistaStreaming) {
-          return;
-        }
-        
-        ultimaPistaStreaming = cleanedTitle;
-        let { artista, titulo } = limpiarMetadatosRadio(cleanedTitle);
-        
-        if (metadataSpan) {
-          metadataSpan.textContent = `En La Disco RG — ${titulo} — ${artista}`;
-        }
-        
-        obtenerCaratulaDesdeiTunes(artista, titulo);
+      if (!cleanedTitle || cleanedTitle === ultimaPistaStreaming) {
+        return;
       }
-    } catch (error) {
-      console.warn("⚠️ Error en actualización de Radio (reintentando...):", error);
-    }
-  }
+      
+      ultimaPistaStreaming = cleanedTitle;
+      
+      const songtitleSplit = cleanedTitle.split(/ - | – /);
+      let artist = "En La Disco RG";
+      let title = cleanedTitle; 
 
-  actualizarDesdeServidor();
-  radioIntervalId = setInterval(actualizarDesdeServidor, 10000);
+      if (songtitleSplit.length >= 2) {
+        artist = songtitleSplit[0].trim();
+        title = songtitleSplit.slice(1).join(" - ").trim(); 
+      }
+      
+      // Actualización Visual Explícita
+      if (metadataSpan) {
+        metadataSpan.textContent = `En La Disco RG — ${title} — ${artist}`;
+      }
+      
+      obtenerCaratulaDesdeiTunes(artist, title);
+
+    } catch (error) {
+    }
+  });
+
+  zenoEventSource.addEventListener("error", (err) => {
+    console.warn("⚠️ Conexión SSE interrumpida, el navegador reintentará automáticamente...");
+  });
 }
 
 function activarModoRadio() {
@@ -207,7 +220,9 @@ function cargarTrack(index) {
   audio.src = track.enlace;
   audio.load();
 
-  if (metadataSpan) metadataSpan.textContent = `[${index + 1}] ${track.nombre} — ${track.artista}`;
+  if (metadataSpan) {
+    metadataSpan.textContent = `[${index + 1}] ${track.nombre} — ${track.artista}`;
+  }
   actualizarFechaHoraSimple();
 
   if (gestureDetected) {
@@ -241,7 +256,10 @@ function inicializarReproductor() {
   actualizarFechaHoraSimple();
   setInterval(actualizarFechaHoraSimple, 60000);
 
-  if (audio) { audio.muted = true; audio.muted = false; }
+  if (audio) { 
+    audio.muted = true; 
+    audio.muted = false; 
+  }
 
   document.addEventListener("click", () => {
     if (!gestureDetected) {
@@ -258,7 +276,10 @@ function inicializarReproductor() {
 
   if (btnPlay && audio) {
     btnPlay.addEventListener("click", () => {
-      if (!gestureDetected) { gestureDetected = true; audio.muted = false; }
+      if (!gestureDetected) { 
+        gestureDetected = true; 
+        audio.muted = false; 
+      }
       if (audio.paused || audio.ended) {
         audio.play().then(() => {
           btnPlay.querySelector('img').src = PAUSE_BTN;
@@ -292,8 +313,15 @@ function inicializarReproductor() {
 
   if (btnOnline) {
     btnOnline.addEventListener("click", () => {
-      if (!gestureDetected) { gestureDetected = true; audio.muted = false; }
-      modoActual === "radio" ? activarModoLocal() : activarModoRadio();
+      if (!gestureDetected) { 
+        gestureDetected = true; 
+        audio.muted = false; 
+      }
+      if (modoActual === "radio") {
+        activarModoLocal();
+      } else {
+        activarModoRadio();
+      }
     });
   }
 
@@ -307,12 +335,13 @@ function inicializarReproductor() {
   });
 
   activarModoRadio();
-  console.log("✅ Reproductor 54 inicializado (Puente Vercel activo).");
+  console.log("✅ Reproductor 54 inicializado (EventSource directo aplicado).");
 }
 
 document.addEventListener("DOMContentLoaded", inicializarReproductor);
 window.addEventListener("repro-ready", inicializarReproductor);
 
+// Ripples
 $(document).ready(function() {
   if (typeof $.fn.ripples === 'function') {
     $('.main-container').ripples({ resolution: 512, dropRadius: 20, perturbance: 0.04 });
