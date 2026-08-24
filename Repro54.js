@@ -5,8 +5,8 @@ let modoActual = "radio";
 let gestureDetected = false;
 let playlist = [];
 let currentTrack = 0;
-let radioIntervalId = null;
 let iTunesAbortController = null;
+let zenoEventSource = null;
 
 const audio = document.getElementById("player");
 
@@ -139,11 +139,12 @@ document.addEventListener("click", () => {
 // 🧹 LIMPIEZAS
 // ===============================
 function detenerActualizacionRadio() {
-  if (radioIntervalId) {
-    clearInterval(radioIntervalId);
-    radioIntervalId = null;
+  if (zenoEventSource) {
+    zenoEventSource.close();
+    zenoEventSource = null;
   }
 }
+
 function cancelarItunesFetch() {
   if (iTunesAbortController) {
     iTunesAbortController.abort();
@@ -152,7 +153,7 @@ function cancelarItunesFetch() {
 }
 
 // ===============================
-// 📻 ACTIVAR MODO RADIO (SURFERNETWORK)
+// 📻 ACTIVAR MODO RADIO (STREAM DIRECTO + ZENO SSE)
 // ===============================
 function activarModoRadio() {
   modoActual = "radio";
@@ -171,70 +172,55 @@ function activarModoRadio() {
     audio.play().catch(err => console.warn("🔒 Error al iniciar Radio:", err));
   }
 
-  iniciarActualizacionRadio();
+  iniciarMetadatosZenoDirecto();
 }
 
 // ===============================
-// 📻 ACTUALIZACIÓN DE METADATOS (Estable y sin errores 500)
+// 📻 CONEXIÓN DIRECTA SSE (ZENO.FM)
 // ===============================
-let metadataAbortController = null;
-
-function iniciarActualizacionRadio() {
+function iniciarMetadatosZenoDirecto() {
   detenerActualizacionRadio();
 
-  async function actualizarDesdeServidor() {
-    if (modoActual !== "radio") return;
+  const zenoUrl = "https://api.zeno.fm/mounts/metadata/subscribe/bmv9fcypfa0uv";
+  
+  try {
+    zenoEventSource = new EventSource(zenoUrl);
 
-    if (metadataAbortController) {
-      metadataAbortController.abort();
-    }
-    metadataAbortController = new AbortController();
+    zenoEventSource.onmessage = function(event) {
+      if (modoActual !== "radio") return;
+      try {
+        const data = JSON.parse(event.data);
+        if (data && data.streamTitle) {
+          let textoObtenido = data.streamTitle;
+          metadataSpan.textContent = `En La Disco RG — Reproduciendo: ${textoObtenido}`;
 
-    const urlPrueba = "/api/metadata";
-    
-    try {
-      const timeoutId = setTimeout(() => metadataAbortController.abort(), 6000);
+          let artist = "";
+          let song = "";
+          if (textoObtenido.includes(" - ")) {
+            const partes = textoObtenido.split(" - ");
+            artist = partes[0].trim();
+            song = partes.slice(1).join(" - ").trim();
+          }
 
-      const response = await fetch(urlPrueba, {
-        method: 'GET',
-        signal: metadataAbortController.signal,
-        cache: 'no-cache'
-      });
-
-      clearTimeout(timeoutId);
-
-      if (!response.ok) {
-        // Silenciamos la alerta de error en consola para producción y mantenemos el marquee limpio
-        if (metadataSpan) metadataSpan.textContent = "En La Disco RG — Transmisión en Vivo 24/7";
-        return;
-      }
-      
-      const data = await response.json();
-      if (data && metadataSpan) {
-        let textoObtenido = data.songtitle || data.title || data.currentSong || data.now_playing || data.song || "En La Disco RG — Transmisión en Vivo 24/7";
-        metadataSpan.textContent = `En La Disco RG — Reproduciendo: ${textoObtenido}`;
-
-        let artist = data.artist || "";
-        let song = data.song || "";
-        if (textoObtenido && !artist && textoObtenido.includes(" - ")) {
-          const partes = textoObtenido.split(" - ");
-          artist = partes[0].trim();
-          song = partes.slice(1).join(" - ").trim();
+          if (artist && song) {
+            obtenerCaratulaDesdeiTunes(artist, song);
+          }
         }
-
-        if (artist && song) {
-          obtenerCaratulaDesdeiTunes(artist, song);
-        }
+      } catch (e) {
+        // Ignorar tramas vacías o pings de control
       }
-    } catch (error) {
+    };
+
+    zenoEventSource.onerror = function() {
       if (metadataSpan) {
         metadataSpan.textContent = "En La Disco RG — Transmisión en Vivo 24/7";
       }
-    }
-  }
+      // El navegador reintentará la conexión automáticamente de forma nativa ante cortes de red
+    };
 
-  actualizarDesdeServidor();
-  radioIntervalId = setInterval(actualizarDesdeServidor, 15000);
+  } catch (error) {
+    console.warn("⚠️ No se pudo inicializar EventSource para metadatos:", error);
+  }
 }
 
 // ===============================
