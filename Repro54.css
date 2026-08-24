@@ -1,3 +1,8 @@
+:root {
+  --color-marquee: #ffffff;
+  --color-boton: #c0c0c0;
+}
+
 body {
   background: black;
   margin: 0;
@@ -8,7 +13,7 @@ body {
 }
 
 .main-container {
-  width: 820px; /*840 Full*/
+  width: 840px;
   height: 600px;
   position: relative;
   overflow: hidden;
@@ -16,7 +21,7 @@ body {
   /* Color de fondo BASE (60 Base) */
   background-color: #00000010;
   
-  /* Imagen Clear.png encima (Ruta actualizada) */
+  /* Fondo Transparente para Ripples */
   background-image: url('https://santi-graphics.vercel.app/assets/bg/Clear2.png');
   background-size: cover;
   background-position: center;
@@ -34,7 +39,7 @@ body {
   pointer-events: none !important;
 }
 
-/* Disco y portada (z-index 2 y 3) */
+/* Disco y portada */
 .ctn-disc {
   position: absolute;
   top: 50%;
@@ -87,12 +92,11 @@ body {
   border: 1px solid #000;
 }
 
-/* Metadatos y controles (z-index 10) */
 .metadata-marquee {
   position: absolute;
   top: 205px;
-  left: 470px;
-  right: 10px;
+  left: 480px;
+  right: 15px;
   height: 30px;
   overflow: hidden;
   white-space: nowrap;
@@ -100,7 +104,7 @@ body {
   padding: 4px 8px;
   font-weight: bold;
   font-size: 1.2em;
-  color: #fff; /* Cambiado a blanco para mejor contraste sobre el fondo oscuro */
+  color: var(--color-marquee);
   text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
   z-index: 10;
 }
@@ -108,15 +112,15 @@ body {
 .info-marquee {
   position: absolute;
   top: 285px;
-  left: 490px;
-  right: 50px;
+  left: 500px;
+  right: 60px;
   height: 30px;
   overflow: hidden;
   white-space: nowrap;
   box-sizing: border-box;
   padding: 4px 8px;
   font-size: 0.95em;
-  color: #e0e0e0;
+  color: var(--color-marquee);
   text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
   opacity: 0.9;
   z-index: 10;
@@ -174,8 +178,8 @@ body {
   height: 60px;
   border-radius: 50%;
   background: rgba(0, 0, 0, 0.15);
-  border: 2px solid rgba(232, 232, 232, 0.6);
-  color: #c0c0c0;
+  border: 2px solid var(--color-boton); /* BOTONES COLOR ROOT */
+  color: var(--color-boton); /* BOTONES COLOR ROOT */
   font-size: 1.5em;
   display: flex;
   justify-content: center;
@@ -252,11 +256,11 @@ body {
   transform: translate(-50%, -50%);
   padding: 15px 25px;
   background: rgba(0, 0, 0, 0.9);
-  border: 2px solid #c0c0c0;
+  border: 2px solid var(--color-boton);
   border-radius: 10px;
   color: #fff;
   font-size: 1.1em;
-  text-shadow: 0 0 8px #c0c0c0;
+  text-shadow: 0 0 8px var(--color-boton);
   box-shadow: 0 0 20px rgba(232, 232, 232, 0.7);
   z-index: 9999;
   opacity: 0;
