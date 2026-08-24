@@ -7,20 +7,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="author" content="Rick">
   <title>En La Disco RG</title>
+  
   <!-- Estilos externos -->
   <link rel="author" href="https://santi-graphics.vercel.app/copyright.txt">
   <link rel="stylesheet" href="Repro54.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  
   <!-- Scripts externos -->
-  <script src="Repro54.js" defer></script>
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/7.2.4/pixi.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.ripples/0.5.3/jquery.ripples.min.js"></script>
-  <!--<script type="text/javascript">
-  document.onkeydown = function(){return false};
-  document.oncontextmenu = function(){return false}
-  </script>-->
-
+  <script src="Repro54.js" defer></script>
+  
+  <script type="text/javascript">
+    document.onkeydown = function(){return false};
+    document.oncontextmenu = function(){return false}
+  </script>
 </head>
 
 <body>
@@ -29,31 +31,31 @@
   <!-- Audio principal -->
   <audio id="player" autoplay muted></audio>
 
-  <!-- Disco de Vinil (z-index 2) -->
+  <!-- Disco de Vinil -->
   <div class="ctn-disc">
     <img src="https://santi-graphics.vercel.app/assets/img/Disc-Power.png" alt="Disco de vinil" class="disc-img" />
   </div>
 
-  <!-- Portada / Logo sobre el disco (z-index 3) -->
+  <!-- Portada / Logo sobre el disco -->
   <div class="wrapper">
     <img src="https://santi-graphics.vercel.app/assets/img/DiscoRG.jpg" alt="Logo Central" class="cover-art" />
   </div>
 
-  <!-- Imagen Fussion2 (z-index 5) -->
+  <!-- Imagen Fussion -->
   <div class="ctn-base">
     <img src="https://santi-graphics.vercel.app/assets/img/Fussion3.png" alt="Imagen Base" class="stage-fussion" />
   </div>
 
-  <!-- Metadatos (z-index 10) -->
+  <!-- Metadatos -->
   <div class="metadata-marquee marquee">
-    <span>[1] Título del Track — Artista - Género - 0:00</span>
+    <span>En La Disco RG — Transmisión en Vivo</span>
   </div>
 
   <div class="info-marquee marquee">
-    <span>Día: Domingo • Mes: Agosto • Año: 2026 • Hora: 00:00 | 🎧 Radioescuchas: 0</span>
+    <span>Cargando fecha y hora...</span>
   </div>
 
-  <!-- Controles (z-index 10) -->
+  <!-- Controles -->
   <div class="controls-wrapper">
     <button id="playPause">
       <img src="https://santi-graphics.vercel.app/assets/img/play-btn-silver.png" alt="Play/Pause" />
@@ -71,15 +73,16 @@
     <i class="fas fa-forward-step"></i>
   </button>
 
-  <!-- Decorativos (z-index 10) -->
+  <!-- Decorativos -->
   <div class="decorative-wrapper">
     <div class="turbine-cover-container">
+      <!-- NOTA: El JS sobrescribirá esto con la carátula real o la por defecto, pero iniciamos con una coherente -->
       <img src="https://santi-graphics.vercel.app/assets/covers/Cover1.png" alt="Carátula en Turbina" class="turbine-cover-img" />
     </div>
     <img src="https://santi-graphics.vercel.app/assets/img/Button-Silver.png" alt="Botón decorativo" class="decorative-overlay" />
   </div>
 
-  <!-- Mensaje personalizado -->
+  <!-- Mensaje -->
   <div id="custom-message" class="custom-message">Santi Graphics</div>
 </div>
 
