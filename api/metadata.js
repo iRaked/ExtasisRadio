@@ -1,38 +1,39 @@
 export default async function handler(req, res) {
-  res.setHeader('Access-Control-Allow-Credentials', true);
+  // Permitir CORS para desarrollo local o producción
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version');
-
-  if (req.method === 'OPTIONS') {
-    res.status(200).end();
-    return;
-  }
+  res.setHeader('Access-Control-Allow-Methods', 'GET');
 
   try {
-    // Usamos AbortController en el servidor para que no se quede colgado indefinidamente
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 4000);
-
-    const response = await fetch("https://stream-179.surfernetwork.com/xk7mncypfa0uv?json=1", {
+    // Apuntamos al endpoint exacto que descubrimos en la red
+    const targetUrl = "https://stream-179.surfernetwork.com/xk7mncypfa0uv/stats?sid=1&json=1";
+    
+    const response = await fetch(targetUrl, {
       headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-        'Accept': 'application/json'
-      },
-      signal: controller.signal
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
+        'Accept': 'application/javascript, application/json'
+      }
     });
 
-    clearTimeout(timeoutId);
-
     if (!response.ok) {
-      throw new Error(`SurferNetwork respondió con status: ${response.status}`);
+      throw new Error(`SurferNetwork respondió con estado ${response.status}`);
     }
 
-    const data = await response.json();
+    const text = await response.text();
+
+    // Como SurferNetwork devuelve JSONP (ej: jQuery3000...\n({ ... })) 
+    // limpiamos el wrapper para extraer únicamente el objeto JSON real:
+    const jsonMatch = text.match(/\{[\s\S]*\}/);
+    if (!jsonMatch) {
+      throw new Error("No se pudo parsear el formato JSONP del servidor");
+    }
+
+    const data = JSON.parse(jsonMatch[0]);
+
+    // Retornamos los datos limpios al frontend de Repro54.js
     return res.status(200).json(data);
 
   } catch (error) {
-    console.error("Error en proxy api/metadata:", error.message);
-    return res.status(500).json({ error: "Timeout o fallo al conectar con la radio", details: error.message });
+    console.error("Error al obtener metadatos de radio:", error.message);
+    return res.status(500).json({ error: error.message });
   }
 }
