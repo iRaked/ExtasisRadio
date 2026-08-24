@@ -1,37 +1,32 @@
 // ===============================
-// 🎧 INICIALIZACIÓN GLOBAL
+// 🎧 VARIABLES GLOBALES
 // ===============================
 let modoActual = "radio";
 let gestureDetected = false;
 let playlist = [];
 let currentTrack = 0;
-let iTunesAbortController = null;
+let radioIntervalId = null;
 let zenoEventSource = null;
+let iTunesAbortController = null;
+let radioListeners = "--";
+let ultimaPistaStreaming = "";
+let isInitialized = false;
 
-const audio = document.getElementById("player");
+// Referencias al DOM
+let audio, btnPlay, btnOnline, btnRwd, btnFwd, metadataSpan, infoSpan, discImg, turbineCoverImg;
 
-// ===============================
-// 🎯 ELEMENTOS DEL DOM
-// ===============================
-const btnPlay = document.getElementById("playPause");
-const btnOnline = document.getElementById("plus");
-const btnRwd = document.getElementById("btn-rwd");
-const btnFwd = document.getElementById("btn-fwd");
-const metadataSpan = document.querySelector(".metadata-marquee span");
-const infoSpan = document.querySelector(".info-marquee span");
-const discImg = document.querySelector(".disc-img");
-const turbineCoverImg = document.querySelector(".turbine-cover-img");
-
-// Rutas base actualizadas
+// Rutas base
 const BASE_URL = "https://santi-graphics.vercel.app/assets/";
 const COVER_DEFAULT = `${BASE_URL}covers/Cover1.png`;
 const PLAY_BTN = `${BASE_URL}img/play-btn-silver.png`;
 const PAUSE_BTN = `${BASE_URL}img/pause-btn-silver.png`;
 
 // ===============================
-// 🕓 FORMATO DE FECHA, HORA Y RADIOESCUCHAS
+// 🛠️ FUNCIONES DE UTILIDAD
 // ===============================
-let radioListeners = "--";
+function actualizarCaratulas(nuevaRuta) {
+  if (turbineCoverImg) turbineCoverImg.src = nuevaRuta;
+}
 
 function actualizarFechaHoraSimple() {
   const ahora = new Date();
@@ -42,106 +37,82 @@ function actualizarFechaHoraSimple() {
     infoSpan.textContent = `${fecha} ${hora} | 🎧 Radioescuchas: ${radioListeners}`;
   }
 }
-setInterval(actualizarFechaHoraSimple, 60000);
-actualizarFechaHoraSimple();
 
-// ===============================
-// ▶️ BOTÓN PLAY/PAUSE UNIVERSAL
-// ===============================
-if (btnPlay) {
-  btnPlay.addEventListener("click", () => {
-    if (!audio.src) {
-      console.warn("⚠️ No hay fuente de audio definida.");
-      return;
+function limpiarMetadatosRadio(texto) {
+  if (!texto || texto.includes("Stream") || texto.includes("Unknown") || texto.trim() === "") {
+    return { artista: "En La Disco RG", titulo: "Transmisión en Vivo" };
+  }
+  let limpio = texto.replace(/WWW\..*\..*|http:\/\/.*|\[.*\]|<.*>|128kbps|64kbps|mp3|AUTODJ/gi, "").trim();
+  const separadores = [" - ", " – ", " — ", " / "];
+  let art = "En La Disco RG", tit = limpio;
+  
+  for (const sep of separadores) {
+    if (limpio.includes(sep)) {
+      const parts = limpio.split(sep);
+      art = parts[0].trim();
+      tit = parts.slice(1).join(sep).trim();
+      break;
     }
-
-    if (!gestureDetected) {
-      gestureDetected = true;
-      audio.muted = false;
-    }
-
-    if (audio.paused || audio.ended) {
-      audio.play().then(() => {
-        const img = btnPlay.querySelector('img');
-        if (img) img.src = PAUSE_BTN;
-        if (discImg) discImg.style.animationPlayState = "running";
-      }).catch(err => {
-        console.warn("⚠️ Error al reproducir:", err);
-      });
-    } else {
-      audio.pause();
-      const img = btnPlay.querySelector('img');
-      if (img) img.src = PLAY_BTN;
-      if (discImg) discImg.style.animationPlayState = "paused";
-    }
-  });
+  }
+  return { artista: art, titulo: tit };
 }
 
 // ===============================
-// 🎛️ BOTONES RWD & FWD
+// 📻 LÓGICA DE RADIO (BLINDADA PARA XAT - Estilo R25)
 // ===============================
-if (btnRwd) {
-  btnRwd.addEventListener("click", () => {
-    if (modoActual === "local") {
-      currentTrack--;
-      if (currentTrack < 0) currentTrack = playlist.length - 1;
-      cargarTrack(currentTrack);
-    } else {
-      console.log("⏪ Retroceso no disponible en modo radio");
+async function actualizarMetadatosStreaming() {
+  if (modoActual !== "radio") return;
+  
+  // Usamos el endpoint de Zeno/SurferNetwork pero forzado a través del proxy de allorigins
+  // Esto evita que el CSP de Xat bloquee la conexión directa a api.zeno.fm o stream-179
+  const urlStats = `https://stream-179.surfernetwork.com/xk7mncypfa0uv?json=1&t=${Date.now()}`;
+  const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(urlStats)}`;
+
+  try {
+    const response = await fetch(proxyUrl);
+    const proxyData = await response.json();
+    
+    // CLAVE DE R25: Parsear el contenido anidado que devuelve el proxy
+    const data = JSON.parse(proxyData.contents);
+
+    // 1. Actualizar contador de oyentes (si el JSON lo trae, si no, se mantiene el anterior)
+    if (data.listeners !== undefined) {
+      radioListeners = data.listeners;
+      actualizarFechaHoraSimple();
     }
-  });
+
+    // 2. Obtener el título (Zeno suele usar 'streamTitle' o 'title')
+    const rawTitle = data.streamTitle || data.title || data.songtitle || "";
+    
+    if (rawTitle === ultimaPistaStreaming && rawTitle !== "") return; // Evita spam de actualizaciones
+    
+    ultimaPistaStreaming = rawTitle;
+    
+    // 3. Limpiar y separar Artista - Título
+    let { artista: fArtist, titulo: fTitle } = limpiarMetadatosRadio(rawTitle);
+
+    if (metadataSpan) {
+      metadataSpan.textContent = `En La Disco RG — ${fTitle} — ${fArtist}`;
+    }
+
+    // 4. Buscar carátula en segundo plano (no bloquea la UI)
+    buscarCaratulaReal(fArtist, fTitle);
+    
+  } catch (e) { 
+    console.warn("⚠️ Error Metadatos (Reintentando en 8s):", e);
+    // Fallback visual para que no se vea roto si el proxy falla momentáneamente
+    if (metadataSpan && metadataSpan.textContent.includes("Conectando")) {
+      metadataSpan.textContent = "En La Disco RG — Transmisión en Vivo 24/7";
+    }
+  }
 }
 
-if (btnFwd) {
-  btnFwd.addEventListener("click", () => {
-    if (modoActual === "local") {
-      currentTrack++;
-      if (currentTrack >= playlist.length) currentTrack = 0;
-      cargarTrack(currentTrack);
-    } else {
-      console.log("⏩ Avance no disponible en modo radio");
-    }
-  });
-}
-
-// ===============================
-// ▶️ SINCRONIZACIÓN VISUAL
-// ===============================
-audio.addEventListener('playing', () => {
-  if (btnPlay) {
-    const img = btnPlay.querySelector('img');
-    if (img) img.src = PAUSE_BTN;
-  }
-  if (discImg) discImg.style.animationPlayState = "running";
-});
-audio.addEventListener('pause', () => {
-  if (btnPlay) {
-    const img = btnPlay.querySelector('img');
-    if (img) img.src = PLAY_BTN;
-  }
-  if (discImg) discImg.style.animationPlayState = "paused";
-});
-
-// ===============================
-// 🖱️ GESTO HUMANO
-// ===============================
-document.addEventListener("click", () => {
-  if (!gestureDetected) {
-    gestureDetected = true;
-    audio.muted = false;
-    if (audio.src && audio.paused) {
-      audio.play().catch(err => console.warn("⚠️ Error al iniciar tras gesto:", err));
-    }
-  }
-}, { once: true });
-
-// ===============================
-// 🧹 LIMPIEZAS
-// ===============================
-function detenerActualizacionRadio() {
-  if (zenoEventSource) {
-    zenoEventSource.close();
-    zenoEventSource = null;
+function gestionarCicloRadio(activar) {
+  if (radioIntervalId) clearInterval(radioIntervalId);
+  if (activar) {
+    ultimaPistaStreaming = ""; // Forzar primera lectura
+    actualizarMetadatosStreaming(); // Llamada inmediata
+    radioIntervalId = setInterval(actualizarMetadatosStreaming, 8000); // 8 segundos (el punto dulce de R25)
   }
 }
 
@@ -152,33 +123,21 @@ function cancelarItunesFetch() {
   }
 }
 
-// ===============================
-// 📻 ACTIVAR MODO RADIO (STREAM DIRECTO + ZENO SSE)
-// ===============================
-function activarModoRadio() {
-  modoActual = "radio";
-  detenerActualizacionRadio();
-  cancelarItunesFetch();
-
-  if (metadataSpan) metadataSpan.textContent = "En La Disco RG — Transmisión en Vivo 24/7";
-  actualizarCaratulas(COVER_DEFAULT);
-
-  audio.pause();
-  audio.src = "https://stream-179.surfernetwork.com/xk7mncypfa0uv?zt=eyJhbGciOiJIUzI1NiJ9.eyJzdHJlYW0iOiJ4azdtbmN5cGZhMHV2IiwiaG9zdCI6InN0cmVhbS0xNzkuc3VyZmVybmV0d29yay5jb20iLCJydHRsIjo1LCJqdGkiOiJFWWhhaUdHblR1cXM1T0ZsQVJkYklnIiwiaWF0IjoxNzg3NTE0MzczLCJleHAiOjE3ODc1MTQ0MzN9.jD9Ywk3MTar7pVggqmh-z8usYfm1Ka-QIqg5WkhM4qI";
-  audio.load();
-
-  audio.muted = !gestureDetected;
-  if (gestureDetected) {
-    audio.play().catch(err => console.warn("🔒 Error al iniciar Radio:", err));
+function detenerActualizacionRadio() {
+  if (zenoEventSource) {
+    zenoEventSource.close();
+    zenoEventSource = null;
   }
-
-  iniciarMetadatosZenoDirecto();
+  if (radioIntervalId) {
+    clearInterval(radioIntervalId);
+    radioIntervalId = null;
+  }
 }
 
 // ===============================
-// 📻 CONEXIÓN DIRECTA SSE (ZENO.FM)
+// 📻 LÓGICA DE RADIO (SSE ZENO FM - EXACTO COMO FUNCIONA)
 // ===============================
-function iniciarMetadatosZenoDirecto() {
+function iniciarMetadatosZeno() {
   detenerActualizacionRadio();
 
   const zenoUrl = "https://api.zeno.fm/mounts/metadata/subscribe/bmv9fcypfa0uv";
@@ -188,83 +147,77 @@ function iniciarMetadatosZenoDirecto() {
 
     zenoEventSource.onmessage = function(event) {
       if (modoActual !== "radio") return;
+      
       try {
+        // Parsear el JSON que viene en el "data:" del SSE
         const data = JSON.parse(event.data);
+        
         if (data && data.streamTitle) {
           let textoObtenido = data.streamTitle;
-          metadataSpan.textContent = `En La Disco RG — Reproduciendo: ${textoObtenido}`;
+          
+          // Evitar actualizaciones si es la misma pista
+          if (textoObtenido === ultimaPistaStreaming && textoObtenido !== "") return;
+          ultimaPistaStreaming = textoObtenido;
 
-          let artist = "";
-          let song = "";
+          let artist = "En La Disco RG";
+          let title = textoObtenido;
+
+          // Separar artista y título si viene con " - "
           if (textoObtenido.includes(" - ")) {
             const partes = textoObtenido.split(" - ");
             artist = partes[0].trim();
-            song = partes.slice(1).join(" - ").trim();
+            title = partes.slice(1).join(" - ").trim();
           }
 
-          if (artist && song) {
-            obtenerCaratulaDesdeiTunes(artist, song);
+          // Actualizar marquesina
+          if (metadataSpan) {
+            metadataSpan.textContent = `En La Disco RG — ${title} — ${artist}`;
           }
+
+          // Buscar carátula en segundo plano
+          buscarCaratulaReal(artist, title);
         }
       } catch (e) {
-        // Ignorar tramas vacías o pings de control
+        // Ignorar tramas de "ping" o datos vacíos que no son JSON
       }
     };
 
     zenoEventSource.onerror = function() {
-      if (metadataSpan) {
+      console.warn("⚠️ Conexión SSE cerrada. El navegador reintentará automáticamente.");
+      if (metadataSpan && metadataSpan.textContent.includes("Conectando")) {
         metadataSpan.textContent = "En La Disco RG — Transmisión en Vivo 24/7";
       }
-      // El navegador reintentará la conexión automáticamente de forma nativa ante cortes de red
     };
 
   } catch (error) {
-    console.warn("⚠️ No se pudo inicializar EventSource para metadatos:", error);
+    console.error("❌ No se pudo inicializar EventSource:", error);
   }
 }
 
-// ===============================
-// 🖼️ CARÁTULA DINÁMICA EN CAPA LATERAL
-// ===============================
-function actualizarCaratulas(nuevaRuta) {
-  if (turbineCoverImg) {
-    turbineCoverImg.src = nuevaRuta;
-  }
-}
-
-function obtenerCaratulaDesdeiTunes(artist, title) {
-  if (typeof $ === 'undefined' || typeof $.ajax === 'undefined') {
-    if (modoActual !== "radio") return;
-    actualizarCaratulas(COVER_DEFAULT);
-    return;
-  }
-
+function activarModoRadio() {
+  modoActual = "radio";
+  detenerActualizacionRadio();
   cancelarItunesFetch();
-  iTunesAbortController = new AbortController();
 
-  const query = encodeURIComponent(`${artist} ${title}`);
-  const url = `https://itunes.apple.com/search?term=${query}&media=music&limit=1`;
+  if (metadataSpan) metadataSpan.textContent = "En La Disco RG — Conectando...";
+  actualizarCaratulas(COVER_DEFAULT);
 
-  $.ajax({
-    dataType: 'jsonp',
-    url,
-    success: function(data) {
-      if (modoActual !== "radio") return;
-      let cover = COVER_DEFAULT;
-      if (data.results && data.results.length > 0) {
-        cover = data.results[0].artworkUrl100.replace('100x100', '400x400');
-      }
-      actualizarCaratulas(cover);
-    },
-    error: function() {
-      if (modoActual !== "radio") return;
-      actualizarCaratulas(COVER_DEFAULT);
+  if (audio) {
+    audio.pause();
+    audio.src = "https://stream-179.surfernetwork.com/xk7mncypfa0uv?zt=eyJhbGciOiJIUzI1NiJ9.eyJzdHJlYW0iOiJ4azdtbmN5cGZhMHV2IiwiaG9zdCI6InN0cmVhbS0xNzkuc3VyZmVybmV0d29yay5jb20iLCJydHRsIjo1LCJqdGkiOiJFWWhhaUdHblR1cXM1T0ZsQVJkYklnIiwiaWF0IjoxNzg3NTE0MzczLCJleHAiOjE3ODc1MTQ0MzN9.jD9Ywk3MTar7pVggqmh-z8usYfm1Ka-QIqg5WkhM4qI";
+    audio.load();
+    audio.muted = !gestureDetected;
+    if (gestureDetected) {
+      audio.play().catch(err => console.warn("🔒 Error al iniciar Radio:", err));
     }
-  });
+  }
+
+  // Iniciar la conexión SSE real
+  iniciarMetadatosZeno();
 }
 
 // ===============================
-// 🎶 ACTIVAR MODO LOCAL
+// 🎶 LÓGICA DE MODO LOCAL
 // ===============================
 function activarModoLocal() {
   modoActual = "local";
@@ -273,8 +226,8 @@ function activarModoLocal() {
 
   if (metadataSpan) metadataSpan.textContent = "🎶 Cargando Playlist Spotifly...";
   actualizarCaratulas(COVER_DEFAULT);
-  audio.pause();
   
+  if (audio) audio.pause();
   if (btnPlay) {
     const img = btnPlay.querySelector('img');
     if (img) img.src = PLAY_BTN;
@@ -306,13 +259,9 @@ function activarModoLocal() {
     });
 }
 
-// ===============================
-// 🎧 CARGAR TRACK LOCAL
-// ===============================
 function cargarTrack(index) {
-  if (modoActual !== "local") return;
+  if (modoActual !== "local" || !playlist[index] || !audio) return;
   const track = playlist[index];
-  if (!track) return;
 
   const caratulaTrack = track.caratula || COVER_DEFAULT;
   actualizarCaratulas(caratulaTrack);
@@ -331,54 +280,133 @@ function cargarTrack(index) {
 }
 
 // ===============================
-// 🔁 REPRODUCCIÓN CONTINUA LOCAL
+// 🚀 INICIALIZACIÓN Y EVENTOS
 // ===============================
-audio.addEventListener("ended", () => {
-  if (modoActual === "local") {
-    currentTrack++;
-    if (currentTrack < playlist.length) {
-      cargarTrack(currentTrack);
-    } else {
-      if (metadataSpan) metadataSpan.textContent = "🎶 Playlist finalizada";
+function inicializarReproductor() {
+  if (isInitialized) return;
+  isInitialized = true;
+
+  audio = document.getElementById("player");
+  btnPlay = document.getElementById("playPause");
+  btnOnline = document.getElementById("plus");
+  btnRwd = document.getElementById("btn-rwd");
+  btnFwd = document.getElementById("btn-fwd");
+  metadataSpan = document.querySelector(".metadata-marquee span");
+  infoSpan = document.querySelector(".info-marquee span");
+  discImg = document.querySelector(".disc-img");
+  turbineCoverImg = document.querySelector(".turbine-cover-img");
+
+  function desbloqueoAutoplay() {
+    if (audio && audio.muted) audio.muted = false;
+    if (audio && audio.paused && audio.src && modoActual === "radio") {
+      audio.play().then(() => {
+        console.log("✅ Audio desbloqueado por interacción del usuario");
+      }).catch(() => {});
     }
   }
-});
+  ['click', 'touchstart', 'keydown'].forEach(evento => {
+    document.addEventListener(evento, desbloqueoAutoplay, { once: true });
+  });
 
-// ===============================
-// 🎛️ BOTÓN PLUS (ALTERNANCIA)
-// ===============================
-if (btnOnline) {
-  btnOnline.addEventListener("click", () => {
-    if (!gestureDetected) {
-      gestureDetected = true;
-      audio.muted = false;
-    }
-    if (modoActual === "radio") {
-      activarModoLocal();
-    } else {
-      activarModoRadio();
+  if (btnPlay && audio) {
+    btnPlay.addEventListener("click", () => {
+      if (!audio.src) return;
+
+      if (!gestureDetected) {
+        gestureDetected = true;
+        audio.muted = false;
+      }
+
+      if (audio.paused || audio.ended) {
+        audio.play().then(() => {
+          const img = btnPlay.querySelector('img');
+          if (img) img.src = PAUSE_BTN;
+          if (discImg) discImg.style.animationPlayState = "running";
+        }).catch(err => console.warn("⚠️ Error al reproducir:", err));
+      } else {
+        audio.pause();
+        const img = btnPlay.querySelector('img');
+        if (img) img.src = PLAY_BTN;
+        if (discImg) discImg.style.animationPlayState = "paused";
+      }
+    });
+  }
+
+  if (btnRwd) {
+    btnRwd.addEventListener("click", () => {
+      if (modoActual === "local") {
+        currentTrack = (currentTrack - 1 + playlist.length) % playlist.length;
+        cargarTrack(currentTrack);
+      }
+    });
+  }
+
+  if (btnFwd) {
+    btnFwd.addEventListener("click", () => {
+      if (modoActual === "local") {
+        currentTrack = (currentTrack + 1) % playlist.length;
+        cargarTrack(currentTrack);
+      }
+    });
+  }
+
+  if (audio) {
+    audio.addEventListener('playing', () => {
+      if (btnPlay) {
+        const img = btnPlay.querySelector('img');
+        if (img) img.src = PAUSE_BTN;
+      }
+      if (discImg) discImg.style.animationPlayState = "running";
+    });
+    
+    audio.addEventListener('pause', () => {
+      if (btnPlay) {
+        const img = btnPlay.querySelector('img');
+        if (img) img.src = PLAY_BTN;
+      }
+      if (discImg) discImg.style.animationPlayState = "paused";
+    });
+
+    audio.addEventListener("ended", () => {
+      if (modoActual === "local") {
+        currentTrack = (currentTrack + 1) % playlist.length;
+        cargarTrack(currentTrack);
+      }
+    });
+  }
+
+  if (btnOnline) {
+    btnOnline.addEventListener("click", () => {
+      if (!gestureDetected) {
+        gestureDetected = true;
+        audio.muted = false;
+      }
+      if (modoActual === "radio") {
+        activarModoLocal();
+      } else {
+        activarModoRadio();
+      }
+    });
+  }
+
+  document.addEventListener("contextmenu", (e) => {
+    e.preventDefault();
+    const msg = document.getElementById("custom-message");
+    if (msg) {
+      msg.classList.add("show");
+      setTimeout(() => msg.classList.remove("show"), 2000);
     }
   });
+
+  setInterval(actualizarFechaHoraSimple, 60000);
+  actualizarFechaHoraSimple();
+
+  activarModoRadio();
+  console.log("✅ Reproductor 54 inicializado correctamente.");
 }
 
-// ===============================
-// 🚀 INICIALIZACIÓN
-// ===============================
-document.addEventListener("DOMContentLoaded", () => {
-  activarModoRadio();
-});
-
-// Clic derecho personalizado
-document.addEventListener("contextmenu", (e) => {
-  e.preventDefault();
-  const msg = document.getElementById("custom-message");
-  if (msg) {
-    msg.classList.add("show");
-    setTimeout(() => {
-      msg.classList.remove("show");
-    }, 2000);
-  }
-});
+document.addEventListener("DOMContentLoaded", inicializarReproductor);
+window.addEventListener("repro-ready", inicializarReproductor);
 
 // ===============================
 // 💧 ACTIVACIÓN DE EFECTO AGUA
