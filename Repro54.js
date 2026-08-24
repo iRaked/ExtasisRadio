@@ -33,6 +33,22 @@ let audio, btnPlay, btnOnline, btnRwd, btnFwd, metadataSpan, infoSpan, discImg, 
 // ===============================
 // 🛠️ FUNCIONES AUXILIARES
 // ===============================
+// Esta función aplica las rutas del objeto ASSETS al HTML automáticamente al cargar
+function aplicarAssetsAlDOM() {
+  const setSrc = (selector, url) => {
+    const el = document.querySelector(selector);
+    if (el) el.src = url;
+  };
+
+  setSrc('.disc-img', ASSETS.discVinyl);
+  setSrc('.cover-art', ASSETS.coverDefault);
+  setSrc('.stage-fussion', ASSETS.fussionBase);
+  setSrc('#playPause img', ASSETS.playBtn);
+  setSrc('#plus img', ASSETS.plusBtn);
+  setSrc('.turbine-cover-img', ASSETS.coverDefault);
+  setSrc('.decorative-overlay', ASSETS.buttonDecorative);
+}
+
 function actualizarCaratulas(nuevaRuta) {
   if (turbineCoverImg) {
     // Si no se pasa ruta, usa la por defecto
@@ -266,6 +282,8 @@ function inicializarReproductor() {
   infoSpan = document.querySelector(".info-marquee span");
   discImg = document.querySelector(".disc-img");
   turbineCoverImg = document.querySelector(".turbine-cover-img");
+
+  aplicarAssetsAlDOM();
 
   actualizarFechaHoraSimple();
   setInterval(actualizarFechaHoraSimple, 60000);
