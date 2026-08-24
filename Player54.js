@@ -1,13 +1,10 @@
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 1. FUNCIONES DE CREACIÓN DE ELEMENTOS (HTML DINÁMICO)
+// 1. FUNCIONES DE CREACIÓN DE ELEMENTOS (ESQUELETO HTML)
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
 function crearAudio() {
   const audio = document.createElement("audio");
   audio.id = "player";
-  audio.setAttribute("autoplay", "");
-  audio.setAttribute("muted", "");
-  audio.src = "https://stream-179.surfernetwork.com/xk7mncypfa0uv?zt=eyJhbGciOiJIUzI1NiJ9.eyJzdHJlYW0iOiJ4azdtbmN5cGZhMHV2IiwiaG9zdCI6InN0cmVhbS0xNzkuc3VyZmVybmV0d29yay5jb20iLCJydHRsIjo1LCJqdGkiOiJFWWhhaUdHblR1cXM1T0ZsQVJkYklnIiwiaWF0IjoxNzg3NTE0MzczLCJleHAiOjE3ODc1MTQ0MzN9.jD9Ywk3MTar7pVggqmh-z8usYfm1Ka-QIqg5WkhM4qI";
+  // No se pone src ni autoplay aquí, main.js controlará la reproducción
   return audio;
 }
 
@@ -15,7 +12,7 @@ function crearDiscoVinil() {
   const div = document.createElement("div");
   div.className = "ctn-disc";
   const img = document.createElement("img");
-  img.src = "https://santi-graphics.vercel.app/assets/img/Disc-Power.png";
+  img.src = ""; // Se llenará desde main.js (ASSETS.discVinyl)
   img.alt = "Disco de vinil";
   img.className = "disc-img";
   div.appendChild(img);
@@ -26,7 +23,7 @@ function crearLogoWrapper() {
   const div = document.createElement("div");
   div.className = "wrapper";
   const img = document.createElement("img");
-  img.src = "https://santi-graphics.vercel.app/assets/img/DiscoRG.jpg";
+  img.src = ""; // Se llenará desde main.js (ASSETS.coverDefault)
   img.alt = "Logo Central";
   img.className = "cover-art";
   div.appendChild(img);
@@ -37,7 +34,7 @@ function crearFussionBase() {
   const div = document.createElement("div");
   div.className = "ctn-base";
   const img = document.createElement("img");
-  img.src = "https://santi-graphics.vercel.app/assets/img/Fussion3.png";
+  img.src = ""; // Se llenará desde main.js (ASSETS.fussionBase)
   img.alt = "Imagen Base";
   img.className = "stage-fussion";
   div.appendChild(img);
@@ -71,14 +68,14 @@ function crearControles() {
   const btnPlay = document.createElement("button");
   btnPlay.id = "playPause";
   const imgPlay = document.createElement("img");
-  imgPlay.src = "https://santi-graphics.vercel.app/assets/img/play-btn-silver.png";
+  imgPlay.src = ""; // Se llenará desde main.js (ASSETS.playBtn)
   imgPlay.alt = "Play/Pause";
   btnPlay.appendChild(imgPlay);
 
   const btnPlus = document.createElement("button");
   btnPlus.id = "plus";
   const imgPlus = document.createElement("img");
-  imgPlus.src = "https://santi-graphics.vercel.app/assets/img/plus-btn-silver.png";
+  imgPlus.src = ""; // Se llenará desde main.js (ASSETS.plusBtn)
   imgPlus.alt = "Plus";
   btnPlus.appendChild(imgPlus);
 
@@ -93,16 +90,12 @@ function crearBotonesAvanceRetroceso() {
   const btnRwd = document.createElement("button");
   btnRwd.id = "btn-rwd";
   btnRwd.className = "btn-rwd";
-  const iRwd = document.createElement("i");
-  iRwd.className = "fas fa-backward-step";
-  btnRwd.appendChild(iRwd);
+  btnRwd.innerHTML = '<i class="fas fa-backward-step"></i>';
 
   const btnFwd = document.createElement("button");
   btnFwd.id = "btn-fwd";
   btnFwd.className = "btn-fwd";
-  const iFwd = document.createElement("i");
-  iFwd.className = "fas fa-forward-step";
-  btnFwd.appendChild(iFwd);
+  btnFwd.innerHTML = '<i class="fas fa-forward-step"></i>';
 
   fragment.appendChild(btnRwd);
   fragment.appendChild(btnFwd);
@@ -116,13 +109,13 @@ function crearDecorativos() {
   const turbineContainer = document.createElement("div");
   turbineContainer.className = "turbine-cover-container";
   const imgTurbine = document.createElement("img");
-  imgTurbine.src = "https://santi-graphics.vercel.app/assets/covers/Cover1.png";
+  imgTurbine.src = ""; // Se llenará desde main.js (ASSETS.coverDefault)
   imgTurbine.alt = "Carátula en Turbina";
   imgTurbine.className = "turbine-cover-img";
   turbineContainer.appendChild(imgTurbine);
 
   const imgOverlay = document.createElement("img");
-  imgOverlay.src = "https://santi-graphics.vercel.app/assets/img/Button-Silver.png";
+  imgOverlay.src = ""; // Se llenará desde main.js (ASSETS.buttonDecorative)
   imgOverlay.alt = "Botón decorativo";
   imgOverlay.className = "decorative-overlay";
 
@@ -145,7 +138,7 @@ function crearMensajePersonalizado() {
 
 function inicializarEstructuraDOM() {
   const body = document.body;
-  body.innerHTML = ""; // Limpia el body para evitar duplicados
+  body.innerHTML = "";
 
   const mainContainer = document.createElement("div");
   mainContainer.className = "main-container";
@@ -163,11 +156,13 @@ function inicializarEstructuraDOM() {
   
   body.appendChild(mainContainer);
 
+  // Efecto Ripples
   if (typeof $.fn.ripples === 'function') {
     $('.main-container').ripples({ resolution: 512, dropRadius: 20, perturbance: 0.04 });
   }
 
   console.log("✅ Estructura HTML dinámica inyectada correctamente.");
+  
   window.dispatchEvent(new Event("repro-ready"));
 }
 
