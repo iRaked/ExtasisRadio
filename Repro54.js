@@ -38,7 +38,9 @@ function actualizarFechaHoraSimple() {
   const opciones = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
   const fecha = ahora.toLocaleDateString('es-MX', opciones);
   const hora = ahora.toLocaleTimeString('es-MX', { hour: 'numeric', minute: '2-digit' });
-  infoSpan.textContent = `${fecha} ${hora} | 🎧 Radioescuchas: ${radioListeners}`;
+  if (infoSpan) {
+    infoSpan.textContent = `${fecha} ${hora} | 🎧 Radioescuchas: ${radioListeners}`;
+  }
 }
 setInterval(actualizarFechaHoraSimple, 60000);
 actualizarFechaHoraSimple();
@@ -60,14 +62,16 @@ if (btnPlay) {
 
     if (audio.paused || audio.ended) {
       audio.play().then(() => {
-        btnPlay.querySelector('img').src = PAUSE_BTN;
+        const img = btnPlay.querySelector('img');
+        if (img) img.src = PAUSE_BTN;
         if (discImg) discImg.style.animationPlayState = "running";
       }).catch(err => {
         console.warn("⚠️ Error al reproducir:", err);
       });
     } else {
       audio.pause();
-      btnPlay.querySelector('img').src = PLAY_BTN;
+      const img = btnPlay.querySelector('img');
+      if (img) img.src = PLAY_BTN;
       if (discImg) discImg.style.animationPlayState = "paused";
     }
   });
@@ -104,11 +108,17 @@ if (btnFwd) {
 // ▶️ SINCRONIZACIÓN VISUAL
 // ===============================
 audio.addEventListener('playing', () => {
-  btnPlay.querySelector('img').src = PAUSE_BTN;
+  if (btnPlay) {
+    const img = btnPlay.querySelector('img');
+    if (img) img.src = PAUSE_BTN;
+  }
   if (discImg) discImg.style.animationPlayState = "running";
 });
 audio.addEventListener('pause', () => {
-  btnPlay.querySelector('img').src = PLAY_BTN;
+  if (btnPlay) {
+    const img = btnPlay.querySelector('img');
+    if (img) img.src = PLAY_BTN;
+  }
   if (discImg) discImg.style.animationPlayState = "paused";
 });
 
@@ -149,7 +159,7 @@ function activarModoRadio() {
   detenerActualizacionRadio();
   cancelarItunesFetch();
 
-  metadataSpan.textContent = "En La Disco RG — Conectando con SurferNetwork...";
+  if (metadataSpan) metadataSpan.textContent = "En La Disco RG — Transmisión en Vivo 24/7";
   actualizarCaratulas(COVER_DEFAULT);
 
   audio.pause();
@@ -165,7 +175,7 @@ function activarModoRadio() {
 }
 
 // ===============================
-// 📻 ACTUALIZACIÓN DE METADATOS (Multi-intento robusto)
+// 📻 ACTUALIZACIÓN DE METADATOS (Estable y sin errores 500)
 // ===============================
 let metadataAbortController = null;
 
@@ -180,7 +190,6 @@ function iniciarActualizacionRadio() {
     }
     metadataAbortController = new AbortController();
 
-    // Apuntamos al proxy de Vercel
     const urlPrueba = "/api/metadata";
     
     try {
@@ -194,22 +203,17 @@ function iniciarActualizacionRadio() {
 
       clearTimeout(timeoutId);
 
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      if (!response.ok) {
+        // Silenciamos la alerta de error en consola para producción y mantenemos el marquee limpio
+        if (metadataSpan) metadataSpan.textContent = "En La Disco RG — Transmisión en Vivo 24/7";
+        return;
+      }
       
       const data = await response.json();
-      console.log("✅ DATA CRUDITA RECIBIDA DEL PROXY:", data);
-      
-      if (data) {
-        // Mapeo flexible adaptado a posibles estructuras del servidor
-        let textoObtenido = data.songtitle || data.title || data.currentSong || data.now_playing || data.song || "";
-        
-        if (typeof data === 'object' && !textoObtenido) {
-          textoObtenido = JSON.stringify(data);
-        }
-
+      if (data && metadataSpan) {
+        let textoObtenido = data.songtitle || data.title || data.currentSong || data.now_playing || data.song || "En La Disco RG — Transmisión en Vivo 24/7";
         metadataSpan.textContent = `En La Disco RG — Reproduciendo: ${textoObtenido}`;
 
-        // Intentar extraer artista y título si vienen separados o unidos por guion
         let artist = data.artist || "";
         let song = data.song || "";
         if (textoObtenido && !artist && textoObtenido.includes(" - ")) {
@@ -222,12 +226,8 @@ function iniciarActualizacionRadio() {
           obtenerCaratulaDesdeiTunes(artist, song);
         }
       }
-
     } catch (error) {
-      if (error.name === 'AbortError') {
-        console.warn("⏱️ Petición de metadatos optimizada (timeout controlado).");
-      } else {
-        console.warn("⚠️ Aviso de metadatos:", error.message);
+      if (metadataSpan) {
         metadataSpan.textContent = "En La Disco RG — Transmisión en Vivo 24/7";
       }
     }
@@ -285,11 +285,14 @@ function activarModoLocal() {
   detenerActualizacionRadio();
   cancelarItunesFetch();
 
-  metadataSpan.textContent = "🎶 Cargando Playlist Spotifly...";
+  if (metadataSpan) metadataSpan.textContent = "🎶 Cargando Playlist Spotifly...";
   actualizarCaratulas(COVER_DEFAULT);
   audio.pause();
   
-  if (btnPlay) btnPlay.querySelector('img').src = PLAY_BTN;
+  if (btnPlay) {
+    const img = btnPlay.querySelector('img');
+    if (img) img.src = PLAY_BTN;
+  }
   if (discImg) discImg.style.animationPlayState = "paused";
 
   fetch("https://radio-tekileros.vercel.app/Spotifly.json")
@@ -304,16 +307,16 @@ function activarModoLocal() {
       currentTrack = 0;
       
       if (playlist.length > 0) {
-        metadataSpan.textContent = `🎶 Playlist Spotifly activa (${playlist.length} tracks)`;
+        if (metadataSpan) metadataSpan.textContent = `🎶 Playlist Spotifly activa (${playlist.length} tracks)`;
         cargarTrack(currentTrack);
       } else {
-        metadataSpan.textContent = "⚠️ No hay pistas en la sección 'spotifly'";
+        if (metadataSpan) metadataSpan.textContent = "⚠️ No hay pistas en la sección 'spotifly'";
       }
     })
     .catch(err => {
       if (modoActual !== "local") return;
       console.error("❌ Error al cargar playlist local:", err);
-      metadataSpan.textContent = "⚠️ Error de red. Verifica tu conexión.";
+      if (metadataSpan) metadataSpan.textContent = "⚠️ Error de red. Verifica tu conexión.";
     });
 }
 
@@ -331,7 +334,9 @@ function cargarTrack(index) {
   audio.src = track.enlace;
   audio.load();
 
-  metadataSpan.textContent = `[${index + 1}] ${track.nombre} — ${track.artista} - ${track.genero || 'Sin género'} - ${track.duracion || '0:00'}`;
+  if (metadataSpan) {
+    metadataSpan.textContent = `[${index + 1}] ${track.nombre} — ${track.artista} - ${track.genero || 'Sin género'} - ${track.duracion || '0:00'}`;
+  }
   actualizarFechaHoraSimple();
 
   if (gestureDetected) {
@@ -348,7 +353,7 @@ audio.addEventListener("ended", () => {
     if (currentTrack < playlist.length) {
       cargarTrack(currentTrack);
     } else {
-      metadataSpan.textContent = "🎶 Playlist finalizada";
+      if (metadataSpan) metadataSpan.textContent = "🎶 Playlist finalizada";
     }
   }
 });
@@ -381,11 +386,12 @@ document.addEventListener("DOMContentLoaded", () => {
 document.addEventListener("contextmenu", (e) => {
   e.preventDefault();
   const msg = document.getElementById("custom-message");
-  msg.classList.add("show");
-
-  setTimeout(() => {
-    msg.classList.remove("show");
-  }, 2000);
+  if (msg) {
+    msg.classList.add("show");
+    setTimeout(() => {
+      msg.classList.remove("show");
+    }, 2000);
+  }
 });
 
 // ===============================
@@ -394,7 +400,6 @@ document.addEventListener("contextmenu", (e) => {
 $(document).ready(function() {
   if (typeof $.fn.ripples === 'function') {
     console.log("💧 Inicializando Ripples en main-container...");
-    
     $('.main-container').ripples({
       resolution: 512,
       dropRadius: 20,
