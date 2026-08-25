@@ -4,9 +4,13 @@
 let gestureDetected = false;
 let lastTrackTitle = "";
 let trackHistory = [];
-let radioIntervalId = null;
-let contadorIntervalId = null;
 let modoActual = "radio";
+
+// Intervalos y sus IDs de ejecución para cancelar promesas obsoletas (declarados UNA sola vez)
+let radioIntervalId = null;
+let radioRunId = 0;
+let contadorIntervalId = null;
+let contadorRunId = 0;
 
 const audio = document.getElementById("player");
 const playBtn = document.getElementById("play-btn");
@@ -35,57 +39,59 @@ setDefaultMetadata();
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // ▶️ Inicialización del stream y gesto humano
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-document.addEventListener("click", async () => {
-  if (gestureDetected) return;
-  gestureDetected = true;
-  audio.muted = false;
-
-  // Esperar karaoke antes de iniciar reproducción
-  try {
-    await cargarLyricsScript("https://radio-tekileros.vercel.app/lyricsRepro.js");
-  } catch (e) {
-    console.warn("⚠️ Karaoke no disponible:", e.message);
-  }
-
+document.addEventListener("DOMContentLoaded", () => {
+  // INICIAR INMEDIATAMENTE AL CARGAR
   if (modoActual === "radio") {
-    // Primer gesto: iniciar stream de radio
-    try {
-      if (!audio.src) {
-        audio.src = "https://technoplayerserver.net/8240/stream";
-        audio.load();
-      }
-      await audio.play();
-      playIcon.classList.replace("fa-play", "fa-pause");
-
-      iniciarActualizacionRadio();
-      iniciarContadorRadioescuchas();
-
-      console.log("🟢 Primer gesto: radio iniciado.");
-    } catch (err) {
-      console.warn("⚠️ Error al iniciar stream en gesto:", err);
-      playIcon.classList.replace("fa-pause", "fa-play");
-    }
-  } else if (modoActual === "local") {
-    // Primer gesto: iniciar modo local
-    try {
-      const necesitaCargar = !Array.isArray(trackData) || trackData.length === 0;
-      if (necesitaCargar) {
-        console.log("📂 Cargando playlist Actual.json en modo local...");
-        await cargarPlaylist("actual"); // nombre corto, no URL
-      }
-
-      if (Array.isArray(trackData) && trackData.length > 0) {
-        activarReproduccion(0, "initial-gesture");
-        playIcon.classList.replace("fa-play", "fa-pause");
-        console.log(`🟢 Primer gesto: local iniciado con ${trackData.length} pistas.`);
-      } else {
-        console.warn("⚠️ No hay pistas disponibles en modo local tras gesto.");
-      }
-    } catch (err) {
-      console.error("❌ Error al iniciar modo local tras gesto:", err);
-    }
+    iniciarActualizacionRadio();
+    iniciarContadorRadioescuchas();
   }
-}, { once: true });
+
+  document.addEventListener("click", async () => {
+    if (gestureDetected) return;
+    gestureDetected = true;
+    audio.muted = false;
+
+    try {
+      await cargarLyricsScript("https://radio-tekileros.vercel.app/lyricsRepro.js");
+    } catch (e) {
+      console.warn("⚠️ Karaoke no disponible:", e.message);
+    }
+
+    if (modoActual === "radio") {
+      try {
+        if (!audio.src || audio.src === window.location.href) {
+          audio.src = "https://technoplayerserver.net/8240/stream";
+          audio.load();
+        }
+        await audio.play();
+        if (playIcon) playIcon.classList.replace("fa-play", "fa-pause");
+        if (COVER_ART_EL) COVER_ART_EL.classList.add("rotating");
+        console.log("🟢 Primer gesto: radio iniciado.");
+      } catch (err) {
+        console.warn("⚠️ Error al iniciar stream en gesto:", err);
+        if (playIcon) playIcon.classList.replace("fa-pause", "fa-play");
+      }
+    } else if (modoActual === "local") {
+      try {
+        const necesitaCargar = !Array.isArray(trackData) || trackData.length === 0;
+        if (necesitaCargar) {
+          console.log("📂 Cargando playlist Actual.json en modo local...");
+          await cargarPlaylist("actual");
+        }
+
+        if (Array.isArray(trackData) && trackData.length > 0) {
+          activarReproduccion(0, "initial-gesture");
+          if (playIcon) playIcon.classList.replace("fa-play", "fa-pause");
+          console.log(`🟢 Primer gesto: local iniciado con ${trackData.length} pistas.`);
+        } else {
+          console.warn("⚠️ No hay pistas disponibles en modo local tras gesto.");
+        }
+      } catch (err) {
+        console.error("❌ Error al iniciar modo local tras gesto:", err);
+      }
+    }
+  }, { once: true });
+});
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // 📥 Inyección robusta de lyricsRepro34.js
@@ -101,7 +107,7 @@ function cargarLyricsScript(url = "https://radio-tekileros.vercel.app/lyricsRepr
 
   return new Promise((resolve, reject) => {
     const script = document.createElement("script");
-    script.src = url; // ajusta la ruta si está en otra carpeta
+    script.src = url;
     script.id = "lyricsRepro34-script";
     script.async = true;
 
@@ -118,11 +124,9 @@ function cargarLyricsScript(url = "https://radio-tekileros.vercel.app/lyricsRepr
   });
 }
 
-
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // 🎤 KARAOKE SINCRONIZADO (usando window.lyricsLibrary)
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
 const karaokePalette = ['#ff4081', '#00e5ff', '#ffd740', '#69f0ae', '#f50057'];
 let lyricsTimeline = [];
 let lyricsIndex = 0;
@@ -203,7 +207,7 @@ function syncLyrics() {
 }
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 🎵 Eventos de audio para iniciar karaoke
+// 🎵 Eventos de audio para karaoke y reproducción continua
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 audio.addEventListener("play", () => {
   if (modoActual !== "local") { detenerKaraoke(); return; }
@@ -215,11 +219,35 @@ audio.addEventListener("pause", () => {
   animationActive = false;
 });
 
+// 🔁 UNIFICADO: Limpieza de karaoke + reproducción continua
 audio.addEventListener("ended", () => {
+  // 1. Detener karaoke siempre
   detenerKaraoke();
+
+  // 2. Si no estamos en modo local, no hacemos nada más
+  if (modoActual !== "local") return;
+
+  // 3. Lógica de continuación de playlist
+  if (shuffleActive) {
+    let nextIndex;
+    do {
+      nextIndex = Math.floor(Math.random() * trackData.length);
+    } while (nextIndex === currentTrack && trackData.length > 1);
+    activarReproduccion(nextIndex, "shuffle-next");
+    console.log(`🔀 Shuffle → pista ${nextIndex + 1}`);
+  } else {
+    const nextIndex = currentTrack + 1;
+    if (nextIndex < trackData.length) {
+      activarReproduccion(nextIndex, "auto-next");
+      console.log(`⏭️ Avanzando automáticamente a pista ${nextIndex + 1}`);
+    } else if (repeatActive) {
+      activarReproduccion(0, "auto-loop");
+      console.log("🔁 Playlist terminada, reiniciando desde el inicio");
+    } else {
+      console.log("⏹️ Playlist terminada, sin repeat activo");
+    }
+  }
 });
-
-
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // Función global para registrar historial
@@ -227,9 +255,19 @@ audio.addEventListener("ended", () => {
 function pushHistoryEntry(artist, title, cover) {
   const time = new Date().toLocaleTimeString("es-MX", { hour: "2-digit", minute: "2-digit" });
   const entry = { artist, title, time, cover };
+  
+  // Evitar duplicados consecutivos
   if (trackHistory.length === 0 || trackHistory[0].title !== title) {
     trackHistory.unshift(entry);
     if (trackHistory.length > 20) trackHistory.pop();
+  }
+}
+
+// 🚀 NUEVA FUNCIÓN: Actualiza la portada de la entrada más reciente del historial
+function actualizarUltimaPortadaEnHistorial(nuevaPortada) {
+  if (trackHistory.length > 0) {
+    // La entrada en el índice 0 es siempre la más reciente (la que se está reproduciendo)
+    trackHistory[0].cover = nuevaPortada;
   }
 }
 
@@ -285,7 +323,6 @@ async function cargarPlaylist(nombre) {
       return;
     }
 
-    // 1. FETCH ASÍNCRONO DEL ARCHIVO JSON
     const res = await fetch(file, { cache: "no-cache" });
     if (!res.ok) {
       console.error(`❌ No se pudo cargar el archivo ${file} (status ${res.status})`);
@@ -295,10 +332,8 @@ async function cargarPlaylist(nombre) {
     const data = await res.json();
     console.log("🗂️ Claves disponibles en JSON:", Object.keys(data));
 
-    // 2. VALIDACIÓN Y ASIGNACIÓN DE DATOS
     let pistas;
     if (nombre === "vina_rock" && data[clave]) {
-      // Caso especial: Viña Rock → objeto con sublistas
       const sublistas = Object.values(data[clave]);
       pistas = sublistas.flat();
     } else if (data[clave]) {
@@ -310,7 +345,6 @@ async function cargarPlaylist(nombre) {
       return;
     }
 
-    // 3. ASIGNACIÓN DE DATOS Y ESTADO GLOBAL
     trackData = pistas;
     console.log("🎶 Pistas cargadas:", trackData.length);
 
@@ -318,7 +352,6 @@ async function cargarPlaylist(nombre) {
     activarReproduccion(0, "initial-load");
     generarListaModal();
 
-    // 4. ACTUALIZACIÓN DE ETIQUETA EN LA UI
     const playlistLabel = document.getElementById("track-playlist");
     if (playlistLabel) playlistLabel.textContent = `Playlist: ${etiqueta}`;
 
@@ -327,7 +360,6 @@ async function cargarPlaylist(nombre) {
     console.error(`❌ Error al cargar playlist "${nombre}":`, err);
   }
 }
-
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // Variables de estado de playlist
@@ -342,13 +374,11 @@ function activarReproduccion(index, modo = "manual") {
   if (modoActual !== "local" || index < 0 || index >= trackData.length) return;
 
   const track = trackData[index];
-  // 🔑 Compatibilidad con "enlace" y "dropbox_url"
   const url = track.enlace || track.dropbox_url;
   if (!url) return;
 
   currentTrack = index;
 
-  // pintar metadatos en UI
   if (TRACK_TITLE_EL)  TRACK_TITLE_EL.textContent  = track.nombre;
   if (TRACK_ARTIST_EL) TRACK_ARTIST_EL.textContent = track.artista;
   if (TRACK_ALBUM_EL)  TRACK_ALBUM_EL.textContent  = track.genero || "Desconocido";
@@ -357,7 +387,6 @@ function activarReproduccion(index, modo = "manual") {
     COVER_ART_EL.classList.add("rotating");
   }
 
-  // reproducir pista
   audio.src = url;
   audio.load();
 
@@ -365,7 +394,6 @@ function activarReproduccion(index, modo = "manual") {
     playIcon.classList.replace("fa-play", "fa-pause");
   }).catch(err => {
     console.warn("⚠️ Error al reproducir pista local:", err);
-    // si falla, revertir icono y animación
     playIcon.classList.replace("fa-pause", "fa-play");
     if (COVER_ART_EL) COVER_ART_EL.classList.remove("rotating");
   });
@@ -374,7 +402,7 @@ function activarReproduccion(index, modo = "manual") {
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // 🔘 Modal de Tracks en modo local
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-const playlistBtn = document.getElementById("contenido-btn"); // botón con icono 🎵
+const playlistBtn = document.getElementById("contenido-btn");
 const modalTracks = document.getElementById("modal-playlist");
 const closePlaylistModal = document.getElementById("close-playlist-modal");
 
@@ -382,7 +410,7 @@ if (playlistBtn && modalTracks) {
   playlistBtn.addEventListener("click", () => {
     if (modoActual === "local") {
       modalTracks.classList.remove("hidden");
-      generarListaModal(); // 🔑 aquí se crean los bloques con info de los tracks
+      generarListaModal();
       console.log("🎵 Modal de tracks abierto en modo local");
     } else {
       console.log("ℹ️ Botón Playlist deshabilitado en modo radio");
@@ -390,7 +418,6 @@ if (playlistBtn && modalTracks) {
   });
 }
 
-// Cierre del modal
 if (closePlaylistModal) {
   closePlaylistModal.addEventListener("click", () => {
     modalTracks.classList.add("hidden");
@@ -423,7 +450,6 @@ function generarListaModal() {
   trackListEl.innerHTML = "";
   if (modoActual !== "local") return;
 
-  // Actualizar cabecera con la pista actual
   if (headerEl) {
     if (trackData && trackData.length > 0 && trackData[currentTrack]) {
       const track = trackData[currentTrack];
@@ -440,12 +466,10 @@ function generarListaModal() {
     return;
   }
 
-  // 🔑 Generar un bloque por cada pista
   trackData.forEach((track, index) => {
     const li = document.createElement("li");
     li.classList.add("modal-track-item");
 
-    // Carátula más pequeña
     const img = document.createElement("img");
     img.src = track.caratula || "https://santi-graphics.vercel.app/assets/covers/Cover1.png";
     img.alt = "Carátula";
@@ -453,7 +477,6 @@ function generarListaModal() {
     img.style.width = "60px";
     img.style.height = "60px";
 
-    // Información completa
     const info = document.createElement("div");
     info.classList.add("track-info");
     info.innerHTML = `
@@ -463,7 +486,6 @@ function generarListaModal() {
       <span>⏱️ ${track.duracion || "--:--"}</span>
     `;
 
-    // Al hacer clic, reproducir la pista seleccionada
     li.addEventListener("click", () => {
       activarReproduccion(index, "modal-click");
       if (headerEl) {
@@ -496,7 +518,6 @@ if (contenidoBtn && historyModal && historyList) {
     contenidoIcon && contenidoIcon.classList.add("animate-spin");
     setTimeout(() => contenidoIcon && contenidoIcon.classList.remove("animate-spin"), 600);
 
-    // Renderizar historial
     historyList.innerHTML = "";
     const list = Array.isArray(trackHistory) ? trackHistory : [];
 
@@ -525,13 +546,11 @@ if (contenidoBtn && historyModal && historyList) {
     console.log("📜 Modal Historial abierto en modo radio");
   });
 
-  // Cierre por botón ❌
   closeHistoryModal && closeHistoryModal.addEventListener("click", () => {
     historyModal.classList.add("hidden");
     console.log("❌ Modal Historial cerrado");
   });
 
-  // Cierre con tecla ESC
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && !historyModal.classList.contains("hidden")) {
       historyModal.classList.add("hidden");
@@ -539,7 +558,6 @@ if (contenidoBtn && historyModal && historyList) {
     }
   });
 
-  // Cierre por clic fuera del modal
   document.addEventListener("click", (e) => {
     const isClickOutside = !historyModal.contains(e.target) && !contenidoBtn.contains(e.target);
     if (!historyModal.classList.contains("hidden") && isClickOutside) {
@@ -550,23 +568,30 @@ if (contenidoBtn && historyModal && historyList) {
 }
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 📜 Generar el selector del modal de playlists
+// 📜 Selección automática y cierre del modal de playlist
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-function generarSelectorPlaylists() {
-  const selector = document.querySelector("#playlist-modal .track-list");
-  if (!selector) return;
+const playlistModal = document.getElementById("playlist-modal");
+const closeMenuModal = document.getElementById("close-modal-btn");
 
-  // limpiar listeners previos
-  selector.querySelectorAll("li[data-list]").forEach(li => {
-    li.replaceWith(li.cloneNode(true));
-  });
-
-  // volver a enlazar
-  const items = selector.querySelectorAll("li[data-list]");
+if (playlistModal) {
+  const items = playlistModal.querySelectorAll(".track-list li[data-list]");
   items.forEach(li => {
-    const key = li.dataset.list;
-
     li.addEventListener("click", () => {
+      const key = li.dataset.list;
+
+      // 🚀 Cambio automático a modo local al seleccionar playlist
+      if (modoActual === "radio") {
+        modoActual = "local";
+        limpiarEstadoRadio();
+        
+        // Limpiar UI INMEDIATAMENTE antes de cargar la nueva lista
+        setDefaultMetadata();
+        if (playIcon) playIcon.classList.replace("fa-pause", "fa-play");
+        if (COVER_ART_EL) COVER_ART_EL.classList.remove("rotating");
+        
+        console.log("🔄 Cambio automático a Modo Local desde Modal de Playlists");
+      }
+
       switch (key) {
         case "actual":      cargarPlaylist("actual"); break;
         case "exitos":      cargarPlaylist("exitos"); break;
@@ -575,74 +600,16 @@ function generarSelectorPlaylists() {
         case "rumba":       cargarPlaylist("rumba"); break;
         case "bandida":     cargarPlaylist("bandida"); break;
         case "vina_rock":   cargarPlaylist("vina_rock"); break;
-        case "Heavy Metal":  cargarPlaylist("guitarhero"); break;
+        case "guitarhero":  cargarPlaylist("guitarhero"); break;
         case "razteca":     cargarPlaylist("razteca"); break;
-        case "Soy Tribu":    cargarPlaylist("soytribu"); break;
+        case "soytribu":    cargarPlaylist("soytribu"); break;
         default:
-          console.warn(`❌ Playlist desconocida en modal: ${key}`);
+          console.warn(`❌ Playlist desconocida: ${key}`);
           return;
       }
 
-      document.getElementById("playlist-modal").classList.add("hidden");
-      console.log(`📂 Playlist seleccionada desde modal: ${key}`);
-    });
-  });
-}
-
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 📜 Selección automática y cierre del modal de playlist
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-const playlistModal = document.getElementById("playlist-modal");
-const closeMenuModal = document.getElementById("close-modal-btn");
-
-if (playlistModal) {
-  // Selección de playlists
-  const items = playlistModal.querySelectorAll(".track-list li[data-list]");
-  items.forEach(li => {
-    li.addEventListener("click", () => {
-      const key = li.dataset.list;
-
-      switch (key) {
-  case "actual":
-    cargarPlaylist("actual");       // raíz: "actual"
-    break;
-  case "exitos":
-    cargarPlaylist("exitos");       // raíz: "exitos"
-    break;
-  case "hardcore":
-    cargarPlaylist("hardcore");     // raíz: "hardcore"
-    break;
-  case "baladasrock":
-    cargarPlaylist("baladasrock");  // raíz: "baladasrock"
-    break;
-  case "rumba":
-    cargarPlaylist("rumba");        // raíz: "rumba"
-    break;
-  case "bandida":
-    cargarPlaylist("bandida");      // raíz: "bandida"
-    break;
-  case "vina_rock":
-    cargarPlaylist("vina_rock");    // raíz especial: objeto con sublistas
-    break;
-  case "guitarhero":
-    cargarPlaylist("guitarhero");   // raíz especial: "Heavy Metal"
-    break;
-  case "razteca":
-    cargarPlaylist("razteca");      // raíz: "razteca"
-    break;
-  case "soytribu":
-    cargarPlaylist("soytribu");     // raíz especial: "Soy Tribu"
-    break;
-  default:
-    console.warn(`❌ Playlist desconocida: ${key}`);
-    return;
-}
-
-
-      // cerrar modal al seleccionar
       playlistModal.classList.add("hidden");
 
-      // actualizar etiqueta en UI
       const playlistLabel = document.getElementById("track-playlist");
       if (playlistLabel) {
         playlistLabel.textContent = `Playlist: ${li.textContent}`;
@@ -652,7 +619,6 @@ if (playlistModal) {
     });
   });
 
-  // Cierre con botón ❌
   if (closeMenuModal) {
     closeMenuModal.addEventListener("click", () => {
       playlistModal.classList.add("hidden");
@@ -660,7 +626,6 @@ if (playlistModal) {
     });
   }
 
-  // Cierre con tecla ESC
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && !playlistModal.classList.contains("hidden")) {
       playlistModal.classList.add("hidden");
@@ -668,7 +633,6 @@ if (playlistModal) {
     }
   });
 
-  // Cierre por clic fuera del contenido
   playlistModal.addEventListener("click", (e) => {
     if (e.target === playlistModal) {
       playlistModal.classList.add("hidden");
@@ -677,152 +641,149 @@ if (playlistModal) {
   });
 }
 
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// 🖼️ Carátulas desde iTunes (JSONP para file://)
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function validarCaratula(url, fallback = "https://santi-graphics.vercel.app/assets/covers/Cover1.png") {
+  if (!COVER_ART_EL) return;
+  
+  const img = new Image();
+  img.onload = () => {
+    COVER_ART_EL.src = url;
+    COVER_ART_EL.classList.add("rotating");
+    
+    // 🚀 CORRECCIÓN: Si la portada es real (no es el fallback) y estamos en radio, 
+    // actualizamos el historial para que el primer track no se quede con la portada por defecto.
+    if (url !== fallback && modoActual === "radio") {
+      actualizarUltimaPortadaEnHistorial(url);
+    }
+  };
+  
+  img.onerror = () => {
+    COVER_ART_EL.src = fallback;
+    COVER_ART_EL.classList.remove("rotating");
+  };
+  
+  img.src = url;
+}
+
+function obtenerCaratulaDesdeiTunes(artist, title) {
+  if (!COVER_ART_EL) return;
+  
+  if (typeof $ === 'undefined' || typeof $.ajax === 'undefined') {
+    validarCaratula("https://santi-graphics.vercel.app/assets/covers/Cover1.png");
+    return;
+  }
+
+  const cleanArtist = artist.toLowerCase().trim().split(/ [(&]/)[0];
+  const cleanTitle = title.toLowerCase().trim().split(/ [(&]/)[0];
+  const query = encodeURIComponent(`${cleanArtist} ${cleanTitle}`);
+  const url = `https://itunes.apple.com/search?term=${query}&media=music&limit=1`;
+
+  $.ajax({
+    dataType: 'jsonp',
+    url: url,
+    timeout: 8000,
+    success: function(data) {
+      let cover = "https://santi-graphics.vercel.app/assets/covers/Cover1.png";
+      if (data.results && data.results.length > 0) {
+        cover = data.results[0].artworkUrl100.replace('100x100', '400x400');
+      }
+      validarCaratula(cover);
+    },
+    error: function() {
+      validarCaratula("https://santi-graphics.vercel.app/assets/covers/Cover1.png");
+    }
+  });
+}
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 🔁 Ciclo de actualización del servidor (METADATOS)
+// 🔁 Ciclo de actualización del servidor (METADATOS BLINDADO)
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 function iniciarActualizacionRadio() {
-  // si no estamos en modo radio, no iniciar nada
   if (modoActual !== "radio") return;
 
-  // limpiar intervalos previos
   if (radioIntervalId) {
     clearInterval(radioIntervalId);
     radioIntervalId = null;
   }
 
-  const radioUrl = "https://technoplayerserver.net/8240/currentsong";
-  const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(radioUrl)}`;
+  // ✅ LA URL QUE TÚ MISMO CONFIRMASTE QUE FUNCIONA CON JSONP
+  const radioUrl = "https://technoplayerserver.net:8240/stats?json=1&sid=1";
 
-  async function actualizarDesdeServidor() {
-    try {
-      const res = await fetch(proxyUrl, { cache: "no-cache" });
-      const raw = await res.text();
-      console.log("📡 Respuesta cruda metadatos:", raw);
+  function actualizarDesdeServidor() {
+    if (modoActual !== "radio") return;
 
-      // Normalización fuerte
-      let cleaned = raw
-        .replace(/AUTODJ/gi, "")
-        .replace(/Radio\s*Dale\s*Play/gi, "")
-        .replace(/\|+/g, "|")
-        .replace(/^\s*\|+|\|+\s*$/g, "")
-        .replace(/\s{2,}/g, " ")
-        .trim();
+    $.ajax({
+      dataType: 'jsonp',
+      url: radioUrl,
+      timeout: 8000,
+      success: function(data) {
+        if (modoActual !== "radio") return;
 
-      console.log("🧹 Metadatos limpiados:", cleaned);
+        // 1. PROCESAR METADATOS
+        const cleanedTitle = (data.songtitle || "")
+          .trim()
+          .replace(/SANTI MIX DJ/gi, '')
+          .replace(/AUTODJ/gi, '')
+          .replace(/Radio\s*Dale\s*Play/gi, '')
+          .replace(/\|\s*$/g, '')
+          .trim();
 
-      // Si está vacío u offline
-      if (!cleaned || /offline/i.test(cleaned)) {
-        TRACK_ARTIST_EL.textContent = "¡Música sí!";
-        TRACK_TITLE_EL.textContent  = "Datos bloqueados";
-        if (CURRENT_TRACK_DISPLAY_EL) {
-          CURRENT_TRACK_DISPLAY_EL.textContent = "Datos bloqueados — ¡Música sí!";
+        if (cleanedTitle && cleanedTitle.length >= 3 && !cleanedTitle.toLowerCase().includes('offline')) {
+          if (cleanedTitle.toLowerCase() !== (lastTrackTitle || "").toLowerCase()) {
+            lastTrackTitle = cleanedTitle;
+            const songtitleSplit = cleanedTitle.split(/ - | – /);
+            let artist = songtitleSplit.length >= 2 ? songtitleSplit[0].trim() : "Radio Dale Play";
+            let title = songtitleSplit.length >= 2 ? songtitleSplit.slice(1).join(' - ').trim() : cleanedTitle;
+
+            if (TRACK_ARTIST_EL) TRACK_ARTIST_EL.textContent = artist;
+            if (TRACK_TITLE_EL)  TRACK_TITLE_EL.textContent  = title;
+            if (TRACK_ALBUM_EL)  TRACK_ALBUM_EL.textContent  = "Stream";
+            if (CURRENT_TRACK_DISPLAY_EL) CURRENT_TRACK_DISPLAY_EL.textContent = `${title} — ${artist}`;
+
+            pushHistoryEntry(artist, title, COVER_ART_EL ? COVER_ART_EL.src : "");
+            obtenerCaratulaDesdeiTunes(artist, title);
+          }
         }
-        return;
+
+        // 2. PROCESAR CONTADOR (en la misma petición, sin esperar 30s para el primer dato)
+        if (data.currentlisteners !== undefined && contadorElemento) {
+          contadorElemento.textContent = data.currentlisteners;
+        }
+      },
+      error: function() {
+        // 🛑 REGLA DE ORO: Si falla, NO tocamos el DOM. Se mantiene la última info y contador válidos.
+        console.warn("⚠️ Fallo temporal de red (se mantiene la info actual en pantalla).");
       }
-
-      // Evitar bloqueo por repetición exacta
-      if (cleaned.toLowerCase() === (lastTrackTitle || "").toLowerCase()) {
-        console.log("⏭️ Metadatos sin cambios sustantivos, se mantiene UI.");
-        return;
-      }
-
-      lastTrackTitle = cleaned;
-
-      // Separadores flexibles: -, –, —, |, /
-      const split = cleaned.split(/\s*(?:[-–—\|\/])\s*/);
-      let artist = "Radio Dale Play";
-      let title  = cleaned;
-
-      if (split.length >= 2) {
-        artist = split[0].trim();
-        title  = split.slice(1).join(" - ").trim();
-      } else {
-        artist = "Mix / DJ";
-        title  = cleaned.trim();
-      }
-
-      console.log("🎼 Artist asignado:", artist);
-      console.log("🎼 Title asignado:", title);
-
-      // 🎨 Pintar en UI
-      if (TRACK_ARTIST_EL) TRACK_ARTIST_EL.textContent = artist;
-      if (TRACK_TITLE_EL)  TRACK_TITLE_EL.textContent  = title;
-      if (TRACK_ALBUM_EL)  TRACK_ALBUM_EL.textContent  = "Stream";
-      if (CURRENT_TRACK_DISPLAY_EL) {
-        CURRENT_TRACK_DISPLAY_EL.textContent = `${title} — ${artist}`;
-      }
-
-      // 📝 Historial
-      pushHistoryEntry(artist, title, COVER_ART_EL.src);
-
-      // 🖼 Carátula
-      if (typeof obtenerCaratulaDesdeiTunes === "function") {
-        obtenerCaratulaDesdeiTunes(artist, title);
-      }
-
-    } catch (err) {
-      console.error("❌ Error CRÍTICO en metadatos radio:", err);
-      setDefaultMetadata();
-    }
+    });
   }
 
-  // primera actualización inmediata
+  // 1. Ejecutar INMEDIATAMENTE al cargar (cero retraso)
   actualizarDesdeServidor();
-  // intervalo cada 10 segundos
-  radioIntervalId = setInterval(actualizarDesdeServidor, 10000);
+  // 2. Repetir cada 12 segundos (el contador se actualiza en cada ciclo, que es mejor que esperar 30s, pero si prefieres 30s, cambia 12000 por 30000)
+  radioIntervalId = setInterval(actualizarDesdeServidor, 12000);
 }
 
-
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 👥 Contador de radioescuchas (XML)
+// 👥 Contador de radioescuchas (INTEGRADO ARRIBA)
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 function detenerContadorRadioescuchas() {
   if (contadorIntervalId !== null) clearInterval(contadorIntervalId);
   contadorIntervalId = null;
-  if (contadorElemento) contadorElemento.textContent = "";
+  contadorRunId++;
 }
 
 function iniciarContadorRadioescuchas() {
-  if (modoActual !== "radio") return;        // solo vive en radio
+  // ✅ Ya no hace nada aquí, porque el contador se actualiza junto con los metadatos 
+  // en la función de arriba, garantizando que ambos lleguen al mismo tiempo y sin duplicar peticiones.
+  if (modoActual !== "radio") return;
   detenerContadorRadioescuchas();
-  if (!contadorElemento) return;
-
-  const statsUrl = "https://technoplayerserver.net/8240/stats"; // ✅ sin ?json=1
-  const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(statsUrl)}`;
-
-  async function actualizarContador() {
-    try {
-      const res = await fetch(proxyUrl, { cache: "no-cache" });
-      const raw = await res.text();
-
-      // Parsear XML
-      const parser = new DOMParser();
-      const xmlDoc = parser.parseFromString(raw, "application/xml");
-      const currentListenersNode = xmlDoc.querySelector("CURRENTLISTENERS");
-
-      if (currentListenersNode) {
-        contadorElemento.textContent = currentListenersNode.textContent;
-      } else {
-        contadorElemento.textContent = "0";
-      }
-      console.log("👥 Oyentes actuales:", contadorElemento.textContent);
-    } catch (err) {
-      console.error("❌ Error contador:", err);
-      contadorElemento.textContent = "0";
-    }
-  }
-
-  actualizarContador();                       // primera actualización inmediata
-  contadorIntervalId = setInterval(actualizarContador, 10000); // cada 10s
 }
-
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // 🔘 BOTONERA
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-// Referencias a botones
 const powerBtn   = document.getElementById("power-btn");
 const powerIcon  = powerBtn.querySelector("i");
 const menuBtn    = document.getElementById("menu-btn");
@@ -834,11 +795,9 @@ const repeatIcon = repeatBtn ? repeatBtn.querySelector("i") : null;
 const shuffleBtn = document.getElementById("shuffle-btn");
 const shuffleIcon= shuffleBtn ? shuffleBtn.querySelector("i") : null;
 
-// Estados globales
 let repeatActive = false;
 let shuffleActive = false;
 
-// ✅ Power: alternancia de modo
 if (powerBtn) {
   powerBtn.addEventListener("click", () => {
     powerIcon.classList.add("animate-spin");
@@ -855,12 +814,10 @@ if (powerBtn) {
       activarModoRadio();
     }
 
-    actualizarBotonRadio();
     console.log("🔀 Alternancia de modo:", modoActual);
   });
 }
 
-// ✅ Menu: abre modal playlists
 if (menuBtn) {
   menuBtn.addEventListener("click", () => {
     if (menuIcon) {
@@ -875,7 +832,6 @@ if (menuBtn) {
   });
 }
 
-// ⏪ Rewind
 if (rewindBtn) {
   rewindBtn.addEventListener("click", () => {
     if (modoActual === "local" && currentTrack > 0) {
@@ -885,7 +841,6 @@ if (rewindBtn) {
   });
 }
 
-// ⏩ Forward
 if (forwardBtn) {
   forwardBtn.addEventListener("click", () => {
     if (modoActual === "local" && currentTrack < trackData.length - 1) {
@@ -898,7 +853,6 @@ if (forwardBtn) {
   });
 }
 
-// 🔁 Repeat toggle con glow blanco
 if (repeatBtn) {
   repeatBtn.addEventListener("click", () => {
     repeatActive = !repeatActive;
@@ -913,7 +867,6 @@ if (repeatBtn) {
   });
 }
 
-// 🔀 Shuffle toggle con acción inmediata
 if (shuffleBtn) {
   shuffleBtn.addEventListener("click", () => {
     shuffleActive = !shuffleActive;
@@ -938,7 +891,6 @@ if (shuffleBtn) {
   });
 }
 
-// ▶️ Play/Pause
 playBtn.addEventListener("click", () => {
   if (modoActual === "radio") {
     if (!audio.src) {
@@ -964,109 +916,99 @@ playBtn.addEventListener("click", () => {
 });
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 🔁 Integración con reproducción continua
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-audio.addEventListener("ended", () => {
-  if (modoActual !== "local") return;
-
-  if (shuffleActive) {
-    let nextIndex;
-    do {
-      nextIndex = Math.floor(Math.random() * trackData.length);
-    } while (nextIndex === currentTrack && trackData.length > 1);
-    activarReproduccion(nextIndex, "shuffle-next");
-    console.log(`🔀 Shuffle → pista ${nextIndex + 1}`);
-  } else {
-    const nextIndex = currentTrack + 1;
-    if (nextIndex < trackData.length) {
-      activarReproduccion(nextIndex, "auto-next");
-      console.log(`⏭️ Avanzando automáticamente a pista ${nextIndex + 1}`);
-    } else if (repeatActive) {
-      activarReproduccion(0, "auto-loop");
-      console.log("🔁 Playlist terminada, reiniciando desde el inicio");
-    } else {
-      console.log("⏹️ Playlist terminada, sin repeat activo");
-    }
-  }
-});
-
-
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // CAMBIO DE MODO LOCAL y RADIO
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 function activarModoLocal() {
   modoActual = "local";
 
-  // detener intervalos de radio
   if (radioIntervalId) { clearInterval(radioIntervalId); radioIntervalId = null; }
   if (contadorIntervalId) { clearInterval(contadorIntervalId); contadorIntervalId = null; }
 
-  // limpiar audio y UI
   audio.pause();
   audio.src = "";
   COVER_ART_EL.classList.remove("rotating");
   setDefaultMetadata();
 
-  // ✅ cargar playlist y reproducir primera pista
-  // usa el nombre correcto según tu JSON: "Repro34" o "Repro36"
   cargarPlaylist("actual");
 
   console.log("🎶 Modo Local activado");
 }
 
-
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// CAMBIO DE MODO: ACTIVAR RADIO
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 function activarModoRadio() {
   modoActual = "radio";
+  
+  // Esto ahora ejecuta la limpieza visual inmediata definida arriba
+  limpiarEstadoLocal();
 
-  // preparar UI de conexión
-  TRACK_ARTIST_EL.textContent = "Conectando...";
-  TRACK_TITLE_EL.textContent  = "Obteniendo datos...";
-  TRACK_ALBUM_EL.textContent  = "";
-  COVER_ART_EL.src = "https://santi-graphics.vercel.app/assets/covers/DalePlay.png";
-  COVER_ART_EL.classList.add("rotating");
-
-  // configurar stream
-  audio.pause();
-  audio.src = "https://technoplayerserver.net/8240/stream";
+  // Configurar stream de radio
+  audio.src = "https://technoplayerserver.net:8240/stream";
   audio.load();
   audio.muted = !gestureDetected;
 
   audio.play().then(() => {
-    playIcon.classList.replace("fa-play", "fa-pause");
+    if (playIcon) playIcon.classList.replace("fa-play", "fa-pause");
+    if (COVER_ART_EL) COVER_ART_EL.classList.add("rotating");
     console.log("📻 Radio reproduciendo automáticamente");
   }).catch(err => {
     console.warn("🔒 Error al iniciar Radio:", err);
-    playIcon.classList.replace("fa-pause", "fa-play");
+    if (playIcon) playIcon.classList.replace("fa-pause", "fa-play");
+    if (COVER_ART_EL) COVER_ART_EL.classList.remove("rotating");
   });
 
-  // iniciar intervalos de radio
+  // Iniciar las peticiones de datos
   iniciarActualizacionRadio();
   iniciarContadorRadioescuchas();
 
   console.log("📻 Modo Radio activado");
 }
 
-
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 🔁 Reproducción continua en modo local
+// 🧹 FUNCIONES DE LIMPIEZA DE ESTADO (CON LIMPIEZA VISUAL)
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-audio.addEventListener("ended", () => {
-  if (modoActual !== "local") return;
+function limpiarEstadoRadio() {
+  if (radioIntervalId) { clearInterval(radioIntervalId); radioIntervalId = null; }
+  if (contadorIntervalId) { clearInterval(contadorIntervalId); contadorIntervalId = null; }
+  
+  radioRunId++;
+  contadorRunId++;
+  
+  audio.pause();
+  audio.src = "";
+  detenerKaraoke();
+  
+  console.log("🧹 Estado de Radio limpiado y promesas obsoletas invalidadas");
+}
 
-  // avanzar al siguiente track
-  const nextIndex = (currentTrack !== null ? currentTrack + 1 : 0);
+function limpiarEstadoLocal() {
+  // 1. Detener audio y karaoke
+  audio.pause();
+  audio.src = "";
+  detenerKaraoke();
+  
+  // 2. 🧹 LIMPIEZA VISUAL INMEDIATA (Elimina residuos como "Playlist: Novedades")
+  if (TRACK_TITLE_EL) TRACK_TITLE_EL.textContent = "Obteniendo datos...";
+  if (TRACK_ARTIST_EL) TRACK_ARTIST_EL.textContent = "Conectando...";
+  if (TRACK_ALBUM_EL) TRACK_ALBUM_EL.textContent = "Stream";
+  if (CURRENT_TRACK_DISPLAY_EL) CURRENT_TRACK_DISPLAY_EL.textContent = "Conectando a Radio Dale Play...";
+  
+  // Eliminar residuo del nombre de la playlist local
+  const playlistLabel = document.getElementById("track-playlist");
+  if (playlistLabel) playlistLabel.textContent = "Radio Dale Play";
 
-  if (nextIndex < trackData.length) {
-    activarReproduccion(nextIndex, "auto-next");
-    console.log(`⏭️ Avanzando automáticamente a la pista ${nextIndex + 1}`);
-  } else {
-    // si llegamos al final, reiniciar desde la primera
-    activarReproduccion(0, "auto-loop");
-    console.log("🔁 Playlist terminada, reiniciando desde el inicio");
+  // Resetear portada inmediatamente y detener rotación hasta conectar
+  if (COVER_ART_EL) {
+    COVER_ART_EL.src = "https://santi-graphics.vercel.app/assets/covers/DalePlay.png";
+    COVER_ART_EL.classList.remove("rotating");
   }
-});
 
+  // Opcional: Limpiar historial al cambiar a radio para evitar mezcla de modos
+  trackHistory = [];
 
+  console.log("🧹 Estado de Local limpiado y UI reseteada para Radio");
+}
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // 🔊 Volumen inicial y eventos (versión ligera)
@@ -1074,12 +1016,9 @@ audio.addEventListener("ended", () => {
 let lastVolume = 0.7;
 
 function actualizarVolumen(valor) {
-  // Ajusta volumen del audio
   audio.volume = valor;
-  // Actualiza porcentaje visible
   volumePercentage.textContent = `${Math.round(valor * 100)}%`;
 
-  // Cambia icono según nivel
   if (valor === 0) {
     volumeIcon.className = "fas fa-volume-mute";
   } else if (valor < 0.5) {
@@ -1088,11 +1027,9 @@ function actualizarVolumen(valor) {
     volumeIcon.className = "fas fa-volume-up";
   }
 
-  // Actualiza gradiente dinámico
   volumeSlider.style.setProperty("--volume-percent", `${valor * 100}%`);
 }
 
-// Eventos
 volumeSlider.addEventListener("input", () => {
   const newVolume = parseFloat(volumeSlider.value);
   actualizarVolumen(newVolume);
@@ -1111,24 +1048,63 @@ volumeIcon.addEventListener("click", () => {
   }
 });
 
-// Inicialización automática
 volumeSlider.value = lastVolume;
 actualizarVolumen(lastVolume);
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 🕒 Hora/Fecha y Ubicación
+// 🕒 Hora/Fecha y Ubicación (Con Degradación Elegante)
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 function actualizarFechaHora() {
   const ahora = new Date();
   const hora = ahora.toLocaleTimeString("es-MX", { hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false });
   const fecha = ahora.toLocaleDateString("es-MX", { day: "2-digit", month: "2-digit", year: "numeric" });
-  document.getElementById("current-time").textContent = hora;
-  document.getElementById("current-date").textContent = fecha;
+  
+  const timeEl = document.getElementById("current-time");
+  const dateEl = document.getElementById("current-date");
+  
+  if (timeEl) timeEl.textContent = hora;
+  if (dateEl) dateEl.textContent = fecha;
 }
+
+// 🌍 Función de geolocalización segura y aislada
+async function obtenerUbicacionSegura() {
+  const cityEl = document.getElementById("current-city");
+  const fallback = "Latinoamérica"; // Tu respaldo seguro
+
+  // Si el elemento no existe, no hacemos nada
+  if (!cityEl) return;
+  
+  // Establecer el valor por defecto inmediatamente
+  cityEl.textContent = fallback;
+
+  try {
+    // Usamos una API ligera, gratuita, sin clave y amigable con CORS
+    const response = await fetch("https://ipwho.is/", { cache: "no-cache" });
+    
+    if (!response.ok) throw new Error("Fallo en la red");
+    
+    const data = await response.json();
+    
+    // Si la API devuelve la ciudad y el país, los combinamos
+    if (data.city && data.country) {
+      cityEl.textContent = `${data.city}, ${data.country_code}`; // Ej: "CDMX, MX"
+      console.log(`📍 Ubicación detectada: ${data.city}`);
+    }
+  } catch (error) {
+    // 🛡️ AQUÍ ESTÁ LA CLAVE DE LA SEGURIDAD:
+    // Si xat.com bloquea esto, o el usuario tiene un adblocker, 
+    // el código entra aquí, registra el aviso y NO ROMPE EL RESTO DEL REPRODUCTOR.
+    console.warn("⚠️ No se pudo obtener la ubicación (bloqueado o sin conexión). Usando respaldo.");
+    cityEl.textContent = fallback;
+  }
+}
+
+// Inicialización
 actualizarFechaHora();
 setInterval(actualizarFechaHora, 1000);
 
-document.getElementById("current-city").textContent = "Latinoamérica";
+// Llamamos a la ubicación de forma segura al cargar
+obtenerUbicacionSegura();
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // Particles Rain Effect
