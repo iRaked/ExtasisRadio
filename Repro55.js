@@ -1005,33 +1005,39 @@ function cargarJuego(gameKey) {
   const gameData = gamesData[gameKey];
   
   if (!container || !gameData) {
-    console.warn(`⚠️ Juego "${gameKey}" no configurado`);
+    console.warn(`️ Juego "${gameKey}" no configurado`);
     return;
   }
   
-  // Limpiar contenedor para que solo se cargue uno a la vez
+  // ✅ Limpiar contenedor
   container.innerHTML = '';
   
-  const item = document.createElement("div");
-  item.className = "media-item";
-  item.style.aspectRatio = "4/3";
+  // ✅ Crear contenedor del bezel
+  const bezelContainer = document.createElement("div");
+  bezelContainer.className = "gba-bezel-container";
   
-  // Se inyecta exactamente la URL que proporcionaste
-  item.innerHTML = `
-    <iframe 
-      src="${gameData.url}" 
-      width="100%" 
-      height="100%"
-      frameborder="no" 
-      allowfullscreen="true" 
-      scrolling="no"
-      allow="cross-origin-isolated">
-    </iframe>
-    <div class="media-title">${gameData.title}</div>
-  `;
+  // ✅ Crear el bezel (imagen de fondo)
+  const bezel = document.createElement("div");
+  bezel.className = "gba-bezel";
   
-  container.appendChild(item);
-  console.log(`🎮 Juego cargado: ${gameData.title}`);
+  // ✅ Crear la "pantalla" donde va el juego
+  const screen = document.createElement("div");
+  screen.className = "gba-screen";
+  
+  // ✅ Crear el iframe del juego
+  const iframe = document.createElement("iframe");
+  iframe.src = gameData.url;
+  iframe.allowFullscreen = true;
+  iframe.setAttribute("allow", "cross-origin-isolated");
+  iframe.setAttribute("scrolling", "no");
+  
+  // ✅ Ensamblar todo: iframe -> screen -> bezelContainer
+  screen.appendChild(iframe);
+  bezelContainer.appendChild(bezel);
+  bezelContainer.appendChild(screen);
+  container.appendChild(bezelContainer);
+  
+  console.log(`🎮 Juego cargado: ${gameData.title} (con bezel GBA)`);
 }
 
 // Event listeners para los botones del selector
