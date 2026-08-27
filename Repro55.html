@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <link rel="icon" type="image/x-icon" href="https://santi-graphics.vercel.app/assets/SG.ico" />
+  <link rel="icon" type="image/x-icon" href="https://santi-graphics.vercel.app/assets/iPod.ico" />
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -14,7 +14,7 @@
   <meta name="apple-mobile-web-app-title" content="Spotune">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <!-- Icono para cuando se agregue a pantalla de inicio -->
-  <link rel="apple-touch-icon" href="https://santi-graphics.vercel.app/assets/SG.ico">
+  <link rel="apple-touch-icon" href="https://santi-graphics.vercel.app/assets/iPod.ico">
   <link rel="icon" type="image/x-icon" href="https://santi-graphics.vercel.app/assets/iPod.ico">
   <!-- Estilos externos -->
   <link href="Repro55.css" rel="stylesheet" type="text/css">
@@ -184,9 +184,25 @@
             <h3><i class="fas fa-gamepad"></i> Videojuegos</h3>
             <button class="btn-close"><i class="fas fa-times"></i></button>
           </div>
-          <div class="media-grid" id="gamesContainer">
-            <!-- Los juegos se inyectarán aquí dinámicamente -->
+
+          <!-- Selector de juegos -->
+          <div class="games-selector">
+            <button class="game-btn active" data-game="mario-luigi">
+              <i class="fas fa-gamepad"></i> Mario & Luigi
+            </button>
+            <button class="game-btn" data-game="mario-dk">
+              <i class="fas fa-gamepad"></i> Mario vs DK
+            </button>
+            <button class="game-btn" data-game="pokemon">
+              <i class="fas fa-gamepad"></i> Pokémon Esmeralda
+            </button>
+            <button class="game-btn" data-game="zelda">
+              <i class="fas fa-gamepad"></i> Zelda
+            </button>
           </div>
+
+          <!-- Contenedor del juego activo -->
+          <div id="activeGameContainer" class="media-grid"></div>
         </section>
     </div>
 

@@ -895,7 +895,7 @@ function agregarJuego(url, titulo) {
 function actualizarMediaSession(track) {
   if (!("mediaSession" in navigator)) return; // Si el navegador no lo soporta, salir
 
-  const coverUrl = track.caratula || track.imagen || track.cover || "https://santi-graphics.vercel.app/assets/SG.ico";
+  const coverUrl = track.caratula || track.imagen || track.cover || "https://santi-graphics.vercel.app/assets/covers/Cover1.png";
 
   navigator.mediaSession.metadata = new MediaMetadata({
     title: track.nombre || "Sin título",
@@ -932,7 +932,7 @@ function actualizarMediaSession(track) {
 }
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 📐 Ajuste automático de escala
+// 📐 Ajuste automático de escala (Solo para desktop pequeño)
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 function ajustarEscalaReproductor() {
   const stage = document.querySelector(".player-stage");
@@ -943,18 +943,118 @@ function ajustarEscalaReproductor() {
   const windowHeight = window.innerHeight;
   const windowWidth = window.innerWidth;
   
+  // ✅ Solo escalar en desktop si la ventana es más pequeña que el reproductor
   if (windowWidth > 500 && windowHeight > 900) {
-    stage.style.removeProperty("--stage-scale");
-    stage.style.transform = "none";
+    if (windowWidth < targetWidth || windowHeight < targetHeight) {
+      const scaleW = windowWidth / targetWidth;
+      const scaleH = windowHeight / targetHeight;
+      const scale = Math.min(scaleW, scaleH);
+      
+      stage.style.setProperty("--stage-scale", scale);
+      stage.style.transform = `scale(${scale})`;
+    } else {
+      stage.style.removeProperty("--stage-scale");
+      stage.style.transform = "none";
+    }
     return;
   }
   
-  const scaleH = windowHeight / targetHeight;
-  const scaleW = windowWidth / targetWidth;
-  const scale = Math.min(scaleH, scaleW);
-  
-  stage.style.setProperty("--stage-scale", scale);
-  stage.style.transform = `scale(${scale})`;
+  // ✅ En móvil: sin escala, ocupa 100% (controlado por CSS)
+  stage.style.removeProperty("--stage-scale");
+  stage.style.transform = "none";
 }
 
 window.addEventListener("resize", ajustarEscalaReproductor);
+window.addEventListener("DOMContentLoaded", ajustarEscalaReproductor);
+
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  Cargar videos de prueba al iniciar (DEMO)
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+document.addEventListener("DOMContentLoaded", () => {
+  // Agregar video de prueba después de un pequeño delay
+  setTimeout(() => {
+    // ID del video: cq1Grx7qCLw (extraído de tu URL)
+    agregarVideo("cq1Grx7qCLw", "Video de Prueba - YouTube");
+  }, 1000);
+});
+
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// 🎮 Selector de juegos (Con enlaces originales proporcionados)
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+const gamesData = {
+  "mario-dk": {
+    url: "https://www.retrogames.cc/gameboyadvance-games/mario-vs-donkey-kong-e-rising-sun.html",
+    title: "Mario vs. Donkey Kong"
+  },
+  "pokemon": {
+    url: "https://www.retrogames.cc/gameboyadvance-games/pokemon-edicion-esmeralda-s-independent.html",
+    title: "Pokémon - Versión Esmeralda"
+  },
+  "mario-luigi": {
+    url: "https://www.retrogames.cc/embed/26855-mario-and-luigi-superstar-saga-e-menace.html",
+    title: "Mario & Luigi: Superstar Saga"
+  },
+  "zelda": {
+    url: "https://www.retrogames.cc/gameboyadvance-games/the-legend-of-zelda-a-link-to-the-past-e-cezar.html",
+    title: "The Legend of Zelda - A Link to the Past & Four Swords"
+  }
+};
+
+function cargarJuego(gameKey) {
+  const container = document.getElementById("activeGameContainer");
+  const gameData = gamesData[gameKey];
+  
+  if (!container || !gameData) {
+    console.warn(`⚠️ Juego "${gameKey}" no configurado`);
+    return;
+  }
+  
+  // Limpiar contenedor para que solo se cargue uno a la vez
+  container.innerHTML = '';
+  
+  const item = document.createElement("div");
+  item.className = "media-item";
+  item.style.aspectRatio = "4/3";
+  
+  item.innerHTML = `
+    <iframe 
+      src="${gameData.url}" 
+      width="100%" 
+      height="100%"
+      frameborder="no" 
+      allowfullscreen="true" 
+      scrolling="no"
+      allow="cross-origin-isolated">
+    </iframe>
+    <div class="media-title">${gameData.title}</div>
+  `;
+  
+  container.appendChild(item);
+  console.log(`🎮 Juego cargado: ${gameData.title}`);
+}
+
+// Event listeners para los botones del selector
+document.addEventListener("click", (e) => {
+  const gameBtn = e.target.closest(".game-btn");
+  if (gameBtn) {
+    // Actualizar botones activos
+    document.querySelectorAll(".game-btn").forEach(btn => btn.classList.remove("active"));
+    gameBtn.classList.add("active");
+    
+    // Cargar juego seleccionado
+    const gameKey = gameBtn.dataset.game;
+    cargarJuego(gameKey);
+  }
+});
+
+// Cargar primer juego por defecto al abrir el overlay de juegos
+const originalAbrirOverlay = window.abrirOverlayFullscreen;
+window.abrirOverlayFullscreen = function(sectionId) {
+  originalAbrirOverlay(sectionId);
+  
+  if (sectionId === "section-games") {
+    setTimeout(() => {
+      cargarJuego("mario-luigi");
+    }, 500);
+  }
+};

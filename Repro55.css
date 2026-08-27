@@ -5,7 +5,7 @@ html, body {
   height: 100%;
   margin: 0;
   overflow: hidden;
-  background: none; /*#0b0914*/
+  background: none; /* #0b0914 */
 }
 
 body {
@@ -16,7 +16,7 @@ body {
   min-height: 100vh;
 }
 
-/* Escenario contenedor para escalar el reproductor si la pantalla es menor */
+/* Escenario contenedor - tamaño base */
 .player-stage {
   position: relative;
   width: 440px;
@@ -24,14 +24,22 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  transform-origin: center center;
+  transition: transform 0.3s ease;
 }
 
-@media (max-width: 460px), (max-height: 880px) {
-  .player-stage {
-    transform: scale(var(--stage-scale, 1));
-    transform-origin: center center;
-  }
+.player-container {
+  width: 440px;
+  height: 860px;
+  background: radial-gradient(circle at 30% 50%, var(--c2) 0%, var(--c1) 55%, var(--bg) 100%);
+  border-radius: 30px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 80px rgba(83, 42, 151, 0.4);
+  border: 1px solid rgba(125, 92, 241, 0.2);
 }
+
+* { margin:0; padding:0; box-sizing:border-box; }
 
 /* ============================================
    VARIABLES Y DEGRADADOS
@@ -49,19 +57,6 @@ body {
 
   /* Degradado azulvioleta para textos principales */
   --grad-text: linear-gradient(135deg, #8ab4f8 0%, var(--c4) 50%, var(--c3) 100%);
-}
-
-* { margin:0; padding:0; box-sizing:border-box; }
-
-.player-container {
-  width: 440px;
-  height: 860px;
-  background: radial-gradient(circle at 30% 50%, var(--c2) 0%, var(--c1) 55%, var(--bg) 100%);
-  border-radius: 30px;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 0 80px rgba(83, 42, 151, 0.4);
-  border: 1px solid rgba(125, 92, 241, 0.2);
 }
 
 /* ============================================
@@ -508,32 +503,84 @@ body {
 }
 
 /* ============================================
-   RESPONSIVE
+   SELECTOR DE JUEGOS
    ============================================ */
-/* Por defecto (Desktop): Tamaño real y fijo, sin escala forzada */
-.player-stage {
-  position: relative;
-  width: 440px;
-  height: 860px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.games-selector {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-bottom: 15px;
+  padding: 0 5px;
 }
 
-/* En pantallas pequeñas / móviles: aplicamos el escalado o cobertura completa */
-@media (max-width: 500px), (max-height: 900px) {
+.game-btn {
+  padding: 12px 15px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 2px solid rgba(125, 92, 241, 0.4);
+  color: var(--muted);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: var(--tr);
+  font-weight: 600;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.game-btn:hover {
+  background: rgba(125, 92, 241, 0.25);
+  color: var(--white);
+  border-color: var(--c3);
+  transform: translateY(-2px);
+}
+
+.game-btn.active {
+  background: linear-gradient(135deg, var(--c3) 0%, var(--c4) 100%);
+  color: var(--bg);
+  border-color: var(--c5);
+  box-shadow: 0 4px 15px rgba(125, 92, 241, 0.4);
+}
+
+.game-btn i {
+  font-size: 1.1rem;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 500px) or (max-height: 900px) {
   .player-stage {
-    transform: scale(var(--stage-scale, 1));
-    transform-origin: center center;
-    width: 440px;
-    height: 860px;
+    width: 100vw;
+    height: 100vh;
+    transform: none !important; /* ✅ Eliminar escala en móvil */
   }
   
   .player-container {
+    width: 100%;
+    height: 100%;
     border-radius: 0;
     border: none;
     box-shadow: none;
-    width: 100vw;
-    height: 100vh;
+  }
+}
+
+/* ============================================
+   RESPONSIVE - DESKTOP (Tamaño fijo centrado)
+   ============================================ */
+@media (min-width: 501px) and (min-height: 901px) {
+  .player-stage {
+    width: 440px;
+    height: 860px;
+    transform: none !important;
+  }
+  
+  .player-container {
+    width: 440px;
+    height: 860px;
+    border-radius: 30px;
+    border: 1px solid rgba(125, 92, 241, 0.2);
+    box-shadow: 0 0 80px rgba(83, 42, 151, 0.4);
   }
 }
