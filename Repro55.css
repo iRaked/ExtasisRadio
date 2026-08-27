@@ -548,66 +548,36 @@ body {
 }
 
 /* ============================================
-   BEZEL DE GAME BOY ADVANCE SP - CORREGIDO
+   CONTENEDOR DE JUEGOS - SIN BEZEL (Limpio)
    ============================================ */
 .gba-bezel-container {
   position: relative;
   width: 100%;
-  height: calc(100vh - 100px); /* Ocupa todo el espacio disponible */
+  height: calc(100vh - 180px); /* Altura disponible menos header y selector */
   background: #000;
+  border-radius: 12px;
   overflow: hidden;
 }
 
-/* La imagen del bezel cubre TODO el contenedor */
-.gba-bezel {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: url('https://santi-graphics.vercel.app/assets/img/Bezel-GBA.png') no-repeat center center;
-  background-size: 100%;  /* ✅ Aumenta este valor: 60%, 70%, 80%, 90%, 100% */
-  z-index: 1;
-  pointer-events: none;
-}
-
-/* El iframe flota SOBRE el bezel en la posición exacta de la pantalla */
-.gba-screen {
-  position: absolute;
-  z-index: 2;
-  background: #000;
-  overflow: hidden;
-  
-  /* ✅ Coordenadas del "hueco" de la pantalla en el bezel GBA SP */
-  top: -2%;      /* Ajustar: distancia desde arriba */
-  left: 4.8%;     /* Ajustar: distancia desde la izquierda */
-  width: 90.5%;    /* Ajustar: ancho de la pantalla */
-  height: 46%;   /* Ajustar: alto de la pantalla */
-}
-
-.gba-screen iframe {
+.gba-bezel-container iframe {
   width: 100%;
   height: 100%;
   border: none;
   display: block;
 }
 
-/* ============================================
-   RESPONSIVE
-   ============================================ */
-@media (max-width: 500px) or (max-height: 900px) {
-  .player-stage {
-    width: 100vw;
-    height: 100vh;
-    transform: none !important; /* ✅ Eliminar escala en móvil */
+/* Desktop grande */
+@media (min-width: 501px) and (min-height: 901px) {
+  .gba-bezel-container {
+    height: calc(860px - 180px); /* Altura del reproductor menos header/selector */
   }
-  
-  .player-container {
-    width: 100%;
-    height: 100%;
+}
+
+/* Móvil */
+@media (max-width: 500px) or (max-height: 900px) {
+  .gba-bezel-container {
+    height: calc(100vh - 200px); /* Más espacio en móvil */
     border-radius: 0;
-    border: none;
-    box-shadow: none;
   }
 }
 

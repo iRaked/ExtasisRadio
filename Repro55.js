@@ -981,22 +981,17 @@ document.addEventListener("DOMContentLoaded", () => {
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // 🎮 Selector de juegos (Con tus enlaces originales exactos)
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// 🎮 Selector de juegos (Sintaxis corregida)
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 const gamesData = {
-  "mario-dk": {
-    url: "https://www.retrogames.cc/gameboyadvance-games/mario-vs-donkey-kong-e-rising-sun.html",
-    title: "Mario vs. Donkey Kong"
-  },
-  "pokemon": {
-    url: "https://www.retrogames.cc/gameboyadvance-games/pokemon-edicion-esmeralda-s-independent.html",
-    title: "Pokémon - Versión Esmeralda"
-  },
   "mario-luigi": {
     url: "https://www.retrogames.cc/embed/26855-mario-and-luigi-superstar-saga-e-menace.html",
     title: "Mario & Luigi: Superstar Saga"
   },
-  "zelda": {
-    url: "https://www.retrogames.cc/gameboyadvance-games/the-legend-of-zelda-a-link-to-the-past-e-cezar.html",
-    title: "The Legend of Zelda - A Link to the Past & Four Swords"
+  "farm-merge": {
+    url: "https://games.crazygames.com/en_US/farm-merge-valley/index.html",
+    title: "Farm Merge Valley"
   }
 };
 
@@ -1005,39 +1000,26 @@ function cargarJuego(gameKey) {
   const gameData = gamesData[gameKey];
   
   if (!container || !gameData) {
-    console.warn(`️ Juego "${gameKey}" no configurado`);
+    console.warn(`⚠️ Juego "${gameKey}" no configurado`);
     return;
   }
   
   // ✅ Limpiar contenedor
   container.innerHTML = '';
   
-  // ✅ Crear contenedor del bezel
-  const bezelContainer = document.createElement("div");
-  bezelContainer.className = "gba-bezel-container";
-  
-  // ✅ Crear el bezel (imagen de fondo)
-  const bezel = document.createElement("div");
-  bezel.className = "gba-bezel";
-  
-  // ✅ Crear la "pantalla" donde va el juego
-  const screen = document.createElement("div");
-  screen.className = "gba-screen";
-  
-  // ✅ Crear el iframe del juego
+  // ✅ Crear iframe limpio que ocupe todo el espacio
   const iframe = document.createElement("iframe");
   iframe.src = gameData.url;
   iframe.allowFullscreen = true;
   iframe.setAttribute("allow", "cross-origin-isolated");
   iframe.setAttribute("scrolling", "no");
+  iframe.style.width = "100%";
+  iframe.style.height = "100%";
+  iframe.style.border = "none";
   
-  // ✅ Ensamblar todo: iframe -> screen -> bezelContainer
-  screen.appendChild(iframe);
-  bezelContainer.appendChild(bezel);
-  bezelContainer.appendChild(screen);
-  container.appendChild(bezelContainer);
+  container.appendChild(iframe);
   
-  console.log(`🎮 Juego cargado: ${gameData.title} (con bezel GBA)`);
+  console.log(`🎮 Juego cargado: ${gameData.title} (sin bezel)`);
 }
 
 // Event listeners para los botones del selector
@@ -1061,7 +1043,7 @@ window.abrirOverlayFullscreen = function(sectionId) {
   
   if (sectionId === "section-games") {
     setTimeout(() => {
-      cargarJuego("mario-luigi");
+      cargarJuego("mario-luigi"); // O "farm-merge" si prefieres que cargue ese por defecto
     }, 500);
   }
 };
