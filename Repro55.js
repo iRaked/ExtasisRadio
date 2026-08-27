@@ -979,7 +979,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 🎮 Selector de juegos (Con enlaces originales proporcionados)
+// 🎮 Selector de juegos (Con tus enlaces originales exactos)
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 const gamesData = {
   "mario-dk": {
@@ -1016,6 +1016,7 @@ function cargarJuego(gameKey) {
   item.className = "media-item";
   item.style.aspectRatio = "4/3";
   
+  // Se inyecta exactamente la URL que proporcionaste
   item.innerHTML = `
     <iframe 
       src="${gameData.url}" 
