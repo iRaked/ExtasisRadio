@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <link rel="icon" type="image/x-icon" href="https://santi-graphics.vercel.app/assets/SG.ico" />
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="author" content="Rick">
+  <title>Freysita</title>
+  <!-- Tema y compatibilidad básica -->
+  <meta name="theme-color" content="#342c51">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Spotune">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <!-- Icono para cuando se agregue a pantalla de inicio -->
+  <link rel="apple-touch-icon" href="https://santi-graphics.vercel.app/assets/SG.ico">
+  <link rel="icon" type="image/x-icon" href="https://santi-graphics.vercel.app/assets/iPod.ico">
+  <!-- Estilos externos -->
+  <link href="Repro55.css" rel="stylesheet" type="text/css">
+  <link rel="author" href="https://santi-graphics.vercel.app/copyright.txt">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.1.2/tailwind.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <!-- Scripts externos -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="Repro55.js" defer></script>
+  <script src="Player55.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
+  <!-- BLOCK -->
+  <script type="text/javascript">
+  document.onkeydown = function(){return false};
+  document.oncontextmenu = function(){return false}
+  </script>
+</head>
+
+<body>
+
+  <!-- Audio -->
+  <audio id="audio" preload="metadata"></audio>
+
+  <!-- Main -->
+  <div class="player-stage">
+    <div class="player-container">
+
+    <!-- Anillos decorativos -->
+    <div class="arc-rings">
+      <div class="arc-ring-inner"></div>
+      <div class="arc-ring-outer"></div>
+    </div>
+
+    <!-- 9 carátulas ajustadas de 15° en 15° para mostrarse todas -->
+    <div class="carousel-arc">
+      <div class="arc-cover" style="--a: 30deg;" data-pos="0">
+        <img src="https://santi-graphics.vercel.app/assets/covers/Cover6.png" alt="">
+      </div>
+      <div class="arc-cover" style="--a: 45deg;" data-pos="1">
+        <img src="https://santi-graphics.vercel.app/assets/covers/Cover12.png" alt="">
+      </div>
+      <div class="arc-cover" style="--a: 60deg;" data-pos="2">
+        <img src="https://santi-graphics.vercel.app/assets/covers/Cover2.png" alt="">
+      </div>
+      <div class="arc-cover" style="--a: 75deg;" data-pos="3">
+        <img src="https://santi-graphics.vercel.app/assets/covers/Cover8.png" alt="">
+      </div>
+      <div class="arc-cover active" style="--a: 90deg;" data-pos="4">
+        <img src="https://santi-graphics.vercel.app/assets/covers/Cover2.png" alt="">
+      </div>
+      <div class="arc-cover" style="--a: 105deg;" data-pos="5">
+        <img src="https://santi-graphics.vercel.app/assets/covers/Cover9.png" alt="">
+      </div>
+      <div class="arc-cover" style="--a: 120deg;" data-pos="6">
+        <img src="https://santi-graphics.vercel.app/assets/covers/Cover10.png" alt="">
+      </div>
+      <div class="arc-cover" style="--a: 135deg;" data-pos="7">
+        <img src="https://santi-graphics.vercel.app/assets/covers/Cover11.png" alt="">
+      </div>
+      <div class="arc-cover" style="--a: 150deg;" data-pos="8">
+        <img src="https://santi-graphics.vercel.app/assets/covers/Cover7.png" alt="">
+      </div>
+    </div>
+
+    <!-- 5 iconos: Video, Playlist, Music, Favoritos, Videojuegos -->
+    <div class="nav-icons-arc">
+      <div class="nav-ico" style="--a: 60deg;" data-section="video">
+        <i class="fas fa-video"></i>
+      </div>
+      <div class="nav-ico" style="--a: 75deg;" data-section="folder">
+        <i class="fas fa-folder"></i>
+      </div>
+      <div class="nav-ico active" style="--a: 90deg;" data-section="music">
+        <i class="fas fa-music"></i>
+      </div>
+      <div class="nav-ico" style="--a: 105deg;" data-section="favorites">
+        <i class="fas fa-heart"></i>
+      </div>
+      <div class="nav-ico" style="--a: 120deg;" data-section="games">
+        <i class="fas fa-gamepad"></i>
+      </div>
+    </div>
+
+    <!-- Metadatos -->
+    <div class="metadata-panel">
+      <div class="track-card">
+
+          <h2 id="trackTitle">Ay amor</h2>
+          <p id="trackArtist">Los Caligaris</p>
+
+          <!-- ✅ Contador de tiempo -->
+          <p class="track-time">
+            <span id="currentTime">0:00</span>
+            <span class="time-separator"> - </span>
+            <span id="totalDuration">5:35</span>
+          </p>
+
+          <!-- Acciones (FAV - INFO - SHUFFLE - REPEAT) -->
+          <div class="track-actions">
+            <div class="action-icons">
+              <button class="btn-act" id="btnFavorite" title="Favorito">
+                <i class="far fa-heart"></i>
+              </button>
+              <button class="btn-act" id="btnInfo" title="Información">
+                <i class="fas fa-info-circle"></i>
+              </button>
+              <!-- ✅ Nuevos botones (la lógica JS ya los detecta por su ID) -->
+              <button class="btn-act" id="btnShuffle" title="Aleatorio">
+                <i class="fas fa-random"></i>
+              </button>
+              <button class="btn-act" id="btnRepeat" title="Repetir">
+                <i class="fas fa-redo"></i>
+              </button>
+            </div>
+          </div>
+          
+          <!-- ✅ Barra de progreso -->
+          <div class="progress-container" id="progressContainer">
+            <div class="progress-bar">
+              <div class="progress-fill" id="progressFill"></div>
+            </div>
+          </div>
+
+        </div>
+    </div>
+
+    <!-- Overlay -->
+    <div class="content-overlay" id="contentOverlay">
+      <!-- Sección Videos YouTube -->
+        <section class="content-section" id="section-video">
+          <div class="section-header">
+            <h3><i class="fas fa-video"></i> Videos YouTube</h3>
+            <button class="btn-close"><i class="fas fa-times"></i></button>
+          </div>
+          <div class="media-grid" id="videoContainer">
+            <!-- Los videos se inyectarán aquí dinámicamente -->
+          </div>
+        </section>
+
+      <section class="content-section" id="section-folder">
+        <div class="section-header">
+          <h3><i class="fas fa-folder"></i> Playlists</h3>
+          <button class="btn-close"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="folder-container" id="folderContainer"></div>
+      </section>
+
+      <section class="content-section active" id="section-music">
+        <div class="section-header">
+          <h3><i class="fas fa-music"></i> Music</h3>
+          <button class="btn-close"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="playlist-container" id="playlistContainer"></div>
+      </section>
+
+      <section class="content-section" id="section-favorites">
+        <div class="section-header">
+          <h3><i class="fas fa-heart"></i> Favoritos</h3>
+          <button class="btn-close"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="favorites-container" id="favoritesContainer"></div>
+      </section>
+
+      <!-- Sección Videojuegos -->
+        <section class="content-section" id="section-games">
+          <div class="section-header">
+            <h3><i class="fas fa-gamepad"></i> Videojuegos</h3>
+            <button class="btn-close"><i class="fas fa-times"></i></button>
+          </div>
+          <div class="media-grid" id="gamesContainer">
+            <!-- Los juegos se inyectarán aquí dinámicamente -->
+          </div>
+        </section>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
