@@ -1,3 +1,12 @@
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 00 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+/*   ***************************** VARIABLES GLOBALES *****************************  */
+:root {
+  --color-primary: #3a95d2;
+  --color-secondary: #092998;
+  --color-accent: #6fdeff;
+  --bg-image: url("https://santi-graphics.vercel.app/assets/bg/Sony.png");
+}
+
 /*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 01 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
 /*   ***************************** CONTENEDORES *****************************  */
 html, body {
@@ -26,7 +35,7 @@ html, body {
   margin: auto;
   padding: 0;
   gap: 0;
-  background-image: url("https://santi-graphics.vercel.app/assets/bg/bg5.png");
+  background-image: var(--bg-image); /* ← Nuevo fondo aplicado */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -36,7 +45,7 @@ html, body {
   z-index: 1;
 }
 
-/* Scrollbar rosa unificado */
+/* Scrollbar unificado (Ahora en tonos azules) */
 #main-container::-webkit-scrollbar {
   height: 8px;
 }
@@ -46,15 +55,14 @@ html, body {
 }
 
 #main-container::-webkit-scrollbar-thumb {
-  background-color: #ff4081;   /* rosa vibrante */
+  background-color: var(--color-primary);   /* azul vibrante */
   border-radius: 4px;
-  border: 2px solid #ffc0cb;   /* halo rosa claro */
+  border: 2px solid var(--color-accent);    /* halo cian claro */
 }
 
 #main-container::-webkit-scrollbar-thumb:hover {
-  background-color: #e60073;   /* rosa intenso al hover */
+  background-color: var(--color-secondary); /* azul intenso al hover */
 }
-
 
 #left-panel,
 #right-panel {
@@ -96,7 +104,7 @@ html, body {
 .wave-bar {
   width: 10px;
   height: var(--height, 60px); /* Valor por defecto si no se define */
-  background-color: #ff4081; /* Validación emocional */
+  background-color: var(--color-primary); /* Validación emocional (Azul) */
   border-radius: 2px;
   animation: barDance 1s infinite cubic-bezier(0.4, 0, 0.2, 1);
   animation-delay: var(--delay, 0s);
@@ -105,29 +113,25 @@ html, body {
 
 /* Animaciones */
 @keyframes wave-animation {
-  0%, 100% {
-    transform: scaleY(0.5);
-  }
-  50% {
-    transform: scaleY(1);
-  }
+  0%, 100% { transform: scaleY(0.5); }
+  50% { transform: scaleY(1); }
 }
 
 @keyframes letterPulse {
   0% {
     text-shadow:
-      0 0 6px rgba(255, 64, 129, 0.9),   /* rosa base vibrante */
-      0 0 12px rgba(255, 153, 0, 0.6),   /* naranja cálido */
-      0 0 24px rgba(255, 255, 102, 0.4); /* amarillo suave */
-    color: rgba(255, 64, 129, 0.9);      /* rosa base */
+      0 0 6px rgba(58, 149, 210, 0.9),   /* azul base vibrante */
+      0 0 12px rgba(111, 222, 255, 0.6), /* cian cálido */
+      0 0 24px rgba(255, 255, 255, 0.4); /* blanco suave */
+    color: rgba(58, 149, 210, 0.9);      /* azul base */
   }
   100% {
     text-shadow:
-      0 0 10px rgba(255, 64, 129, 1),    /* rosa intenso */
-      0 0 20px rgba(255, 153, 0, 0.8),   /* naranja más fuerte */
-      0 0 30px rgba(255, 255, 102, 0.6), /* amarillo más brillante */
+      0 0 10px rgba(58, 149, 210, 1),    /* azul intenso */
+      0 0 20px rgba(111, 222, 255, 0.8), /* cian más fuerte */
+      0 0 30px rgba(9, 41, 152, 0.6),    /* azul oscuro brillante */
       0 0 40px rgba(255, 255, 255, 0.4); /* halo blanco suave */
-    color: rgba(255, 64, 129, 1);        /* rosa puro */
+    color: rgba(58, 149, 210, 1);        /* azul puro */
   }
 }
 
@@ -169,19 +173,19 @@ html, body {
   0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
     opacity: 1;
     text-shadow:
-      0 0 10px #ff4081,   /* rosa base vibrante */
-      0 0 15px #ffcc00,   /* dorado cálido */
-      0 0 25px #ffff66,   /* amarillo ritual */
-      0 0 40px #ffffff;   /* halo blanco */
-    color: #ff4081;
+      0 0 10px var(--color-primary), /* azul base vibrante */
+      0 0 15px #ffcc00,              /* dorado cálido (intacto) */
+      0 0 25px #ffff66,              /* amarillo ritual (intacto) */
+      0 0 40px #ffffff;              /* halo blanco */
+    color: var(--color-primary);
   }
   20%, 22%, 24%, 55% {
     opacity: 0.8;
     text-shadow:
-      0 0 5px #ff4081,
+      0 0 5px var(--color-primary),
       0 0 10px #ffcc00,
       0 0 15px #ffff66;
-    color: #ff4081;
+    color: var(--color-primary);
   }
 }
 
@@ -234,8 +238,8 @@ html, body {
   overflow: hidden;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   position: absolute;
-  bottom: 535px;               /* ← ajustado para visibilidad */
-  left: 50%;                  /* ← centrado horizontal */
+  bottom: 535px;
+  left: 50%;
   transform: translateX(-50%);
   z-index: 10;
 }
@@ -252,11 +256,8 @@ html, body {
   }
 }
 
-.date-separator {
-  color: #999;
-}
+.date-separator { color: #999; }
 
-/* Marquesina Ubicacion */
 #current-city {
   display: inline-block;
   white-space: nowrap;
@@ -276,31 +277,24 @@ html, body {
   100% { left: -100%; }
 }
 
-    .datetime-container i {
-    color: #ff4081;
-    font-size: 14px;
-    }
-    
-    #current-time, #current-date {
-    font-weight: bold;
-    }
-    
-    .date-separator {
-    margin: 0 5px;
-    opacity: 0.6;
-    }
-    
-    /* Animación sutil para el reloj */
-    .datetime-container .fa-clock {
-    animation: clockPulse 2s infinite linear;
-    }
-    
-    @keyframes clockPulse {
-    0% { transform: rotate(0deg); }
-    25% { transform: rotate(3deg); }
-    75% { transform: rotate(-3deg); }
-    100% { transform: rotate(0deg); }
-    }
+.datetime-container i {
+  color: var(--color-primary); /* ← Actualizado */
+  font-size: 14px;
+}
+
+#current-time, #current-date { font-weight: bold; }
+.date-separator { margin: 0 5px; opacity: 0.6; }
+
+.datetime-container .fa-clock {
+  animation: clockPulse 2s infinite linear;
+}
+
+@keyframes clockPulse {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(3deg); }
+  75% { transform: rotate(-3deg); }
+  100% { transform: rotate(0deg); }
+}
 
 /*  Radioescuchas */
 .listeners-container {
@@ -311,39 +305,24 @@ html, body {
   align-items: center;
   gap: 8px;
   font-size: 14px;
-  color: #ff4081;
+  color: var(--color-primary); /* ← Actualizado */
   position: absolute;
   top: 55px;
   left: 10px;
   z-index: 10;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
-    
-    .listeners-count {
-        font-weight: bold;
-        color: #ff4081;
-        animation: countPulse 2s infinite;
-    }
-    
-    @keyframes countPulse {
-        0% { transform: scale(1); }
-        50% { transform: scale(1.1); }
-        100% { transform: scale(1); }
-    }
-
-/* Contador de Usuarios */
-
-.listeners-container {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 14px;
-  color: #ff4081;
-}
 
 .listeners-count {
   font-weight: bold;
-  color: #ffffff; /* tono ritual */
+  color: var(--color-accent); /* ← Actualizado a cian para contraste */
+  animation: countPulse 2s infinite;
+}
+
+@keyframes countPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
 }
 
 /* Responsive */
@@ -363,9 +342,7 @@ html, body {
     font-size: 12px;
   }
 
-  #current-city {
-    max-width: 100px;
-  }
+  #current-city { max-width: 100px; }
 }
 
 /* ***************************** LOGO ***************************** */
@@ -395,12 +372,12 @@ html, body {
   background-image: url(https://santi-graphics.vercel.app/assets/img/Plato.png);
   background-size: cover;
   background-position: center;
-  opacity: 1.0; /* corregido: valor válido entre 0 y 1 */
+  opacity: 1.0;
   z-index: 2;
 }
 
 .radio-logo:hover {
-  box-shadow: 0 0 20px rgba(255, 64, 129, 0.8); /* resplandor rosa intenso */
+  box-shadow: 0 0 20px rgba(58, 149, 210, 0.8); /* ← Resplandor azul intenso */
 }
 
 @keyframes vinylSpin {
@@ -410,12 +387,12 @@ html, body {
 
 @keyframes glow {
   0% {
-    box-shadow: 0 0 25px rgba(255, 64, 129, 0.5);   /* rosa suave */
-    border-color: rgba(255, 64, 129, 0.6);          /* borde rosa tenue */
+    box-shadow: 0 0 25px rgba(58, 149, 210, 0.5);  /* ← azul suave */
+    border-color: rgba(58, 149, 210, 0.6);         /* ← borde azul tenue */
   }
   100% {
-    box-shadow: 0 0 30px rgba(255, 64, 129, 0.8);   /* resplandor rosa intenso */
-    border-color: rgba(255, 64, 129, 0.9);          /* borde vibrante */
+    box-shadow: 0 0 30px rgba(58, 149, 210, 0.8);  /* ← resplandor azul intenso */
+    border-color: rgba(58, 149, 210, 0.9);         /* ← borde vibrante */
   }
 }
 
@@ -440,23 +417,23 @@ html, body {
   font-size: 16px;
   width: 20px;
   transition: color 0.3s;
-    cursor: pointer;
-    z-index: 20;
+  cursor: pointer;
+  z-index: 20;
 }
-.volume-icon:hover { color: #ff4081; }
+.volume-icon:hover { color: var(--color-primary); }
 
 .volume-track {
   width: 250px;
   height: 16px;
   background: #010101;
   border-radius: 8px;
-  box-shadow: inset 0 0 0 1px #C8A2C8, inset 0 2px 4px #000;
+  box-shadow: inset 0 0 0 1px var(--color-accent), inset 0 2px 4px #000; /* ← Halo cian */
   display: flex;
   align-items: center;
   padding: 0 4px;
   overflow: hidden;
-    cursor: pointer;
-    z-index: 20;
+  cursor: pointer;
+  z-index: 20;
 }
 
 .volume-bar {
@@ -473,8 +450,8 @@ html, body {
   height: 6px;
   background: linear-gradient(
     to right,
-    #ff4081 0%,
-    #ff4081 var(--vol),
+    var(--color-primary) 0%,
+    var(--color-primary) var(--vol),
     #ccc var(--vol),
     #ccc 100%
   );
@@ -484,8 +461,8 @@ html, body {
   height: 6px;
   background: linear-gradient(
     to right,
-    #ff4081 0%,
-    #ff4081 var(--vol),
+    var(--color-primary) 0%,
+    var(--color-primary) var(--vol),
     #ccc var(--vol),
     #ccc 100%
   );
@@ -499,18 +476,18 @@ html, body {
   background: #ffffff;
   border-radius: 50%;
   border: 2px solid rgba(255,255,255,0.8);
-  box-shadow: 0 0 10px rgba(255,128,179,0.6);
+  box-shadow: 0 0 10px rgba(111, 222, 255, 0.6); /* ← Sombra cian */
   transition: all 0.2s;
   cursor: pointer;
-  margin-top: -4px; /* centrado visual respecto al track */
+  margin-top: -4px;
 }
 .volume-bar::-webkit-slider-thumb:hover {
   transform: scale(1.2);
-  background: #ff80b3;
+  background: var(--color-accent); /* ← Cian al hover */
 }
 .volume-bar:active::-webkit-slider-thumb {
   transform: scale(1.3);
-  background: #ff4081;
+  background: var(--color-primary); /* ← Azul al hacer clic */
 }
 
 .volume-bar::-moz-range-thumb {
@@ -519,7 +496,7 @@ html, body {
   background: #ffffff;
   border-radius: 50%;
   border: 2px solid rgba(255,255,255,0.8);
-  box-shadow: 0 0 10px rgba(255,128,179,0.6);
+  box-shadow: 0 0 10px rgba(111, 222, 255, 0.6); /* ← Sombra cian */
   transition: all 0.2s;
   cursor: pointer;
 }
@@ -554,25 +531,20 @@ html, body {
 
 /* Responsive */
 @media (max-width: 768px) {
-  .track-display-container {
-    right: 250px;
-  }
+  .track-display-container { right: 250px; }
 }
 
 /* Carátula */
-.cover-art-container {
-  flex-shrink: 0;
-}
+.cover-art-container { flex-shrink: 0; }
 
 #cover-art {
   width: 100px;
   height: 100px;
   border-radius: 10px;
   box-shadow:
-    0 0 12px 4px rgba(255, 128, 179, 0.6),  /* rosa suave cercano */
-    0 0 24px 6px rgba(255, 64, 129, 0.4),   /* rosa base medio */
+    0 0 12px 4px rgba(111, 222, 255, 0.6),  /* ← halo cian cercano */
+    0 0 24px 6px rgba(58, 149, 210, 0.4),   /* ← azul base medio */
     0 0 36px 8px rgba(255, 255, 255, 0.2);  /* halo blanco lejano */
-  object-fit: cover;
   object-fit: cover;
 }
 
@@ -590,14 +562,11 @@ html, body {
 
 /* Iconos */
 .info-track-container i {
-  color: #ff4081;
+  color: var(--color-primary); /* ← Actualizado */
   font-size: 15px;
 }
 
-.info-separator {
-  margin: 0 4px;
-  opacity: 0.5;
-}
+.info-separator { margin: 0 4px; opacity: 0.5; }
 
 /* Contenedor por línea */
 .scroll-wrapper {
@@ -621,25 +590,19 @@ html, body {
 }
 
 /* Activación forzada para prueba */
-.scrollable {
-  animation: scroll-left 10s linear infinite;
-}
+.scrollable { animation: scroll-left 10s linear infinite; }
 
 /* Animación */
 @keyframes scroll-left {
-  0% {
-    transform: translateX(100%);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
 }
 
 /* Playlist Actual */
 #track-playlist {
   font-size: 0.85em;
   font-style: italic;
-  color: var(--accent-color);
+  color: var(--color-accent); /* ← Actualizado a cian */
   margin-top: 4px;
 }
 
@@ -665,20 +628,20 @@ html, body {
   }
 }
 
-/* Estilos por género detectado */
-.emotion-cuarteto     { color: #ff9800; }
-.emotion-balada       { color: #f5c6aa; }
-.emotion-cumbia       { color: #ff4081; }
-.emotion-pop          { color: #f06292; }
-.emotion-reggae       { color: #4caf50; }
-.emotion-rock         { color: #ff5722; }
-.emotion-regional     { color: #a1887f; }
-.emotion-r-b          { color: #b39ddb; }
-.emotion-metal        { color: #ff1744; }
-.emotion-ska          { color: #ffffff; }
-.emotion-electro      { color: #3688ff; }
-.emotion-default      { color: #ff4081; }
-.emotion-picardia     { color: #ff80b3; }
+/* Estilos por género detectado (Rosas actualizados a Azul/Cian) */
+.emotion-cuarteto     { color: #ff9800; } /* Intacto */
+.emotion-balada       { color: #f5c6aa; } /* Intacto */
+.emotion-cumbia       { color: var(--color-primary); } /* ← Actualizado */
+.emotion-pop          { color: #f06292; } /* Intacto */
+.emotion-reggae       { color: #4caf50; } /* Intacto */
+.emotion-rock         { color: #ff5722; } /* Intacto */
+.emotion-regional     { color: #a1887f; } /* Intacto */
+.emotion-r-b          { color: #b39ddb; } /* Intacto */
+.emotion-metal        { color: #ff1744; } /* Intacto */
+.emotion-ska          { color: #ffffff; } /* Intacto */
+.emotion-electro      { color: #3688ff; } /* Intacto */
+.emotion-default      { color: var(--color-primary); } /* ← Actualizado */
+.emotion-picardia     { color: var(--color-accent); }  /* ← Actualizado */
 
 /* ***************************** BOTONES ***************************** */
 /* Botonera Invisible */
@@ -725,12 +688,10 @@ button {
   align-items: center;
   transition: transform 0.3s ease;
   position: absolute;
-  pointer-events: auto; /* fuerza eventos en todos los botones */
+  pointer-events: auto;
   cursor: pointer;
 }
-button:hover {
-  transform: scale(1.1);
-}
+button:hover { transform: scale(1.1); }
 
 /* 🎯 Botón POWER */
 #power-btn {
@@ -743,32 +704,29 @@ button:hover {
   background: linear-gradient(to bottom, #1a1a1a, #333); 
   color: #fff;
   transition: all 0.3s ease; 
-  box-shadow: 0 0 8px rgba(255, 128, 179, 0.8);
+  box-shadow: 0 0 8px rgba(111, 222, 255, 0.8); /* ← Halo cian */
   pointer-events: auto;
 }
 #power-btn:hover {
-  box-shadow: 0 0 12px #ff4081;
+  box-shadow: 0 0 12px var(--color-primary); /* ← Azul vibrante */
 }
 
-/* Estado Activo: degradado rosa + glow */
+/* Estado Activo: degradado azul + glow */
 #power-btn.active {
   background: linear-gradient(to right,
-      #ff80b3 0%,
-      #ff4081 50%,
-      #e60073 100%
+      var(--color-accent) 0%,
+      var(--color-primary) 50%,
+      var(--color-secondary) 100%
   ) !important;
-  box-shadow: 0 0 16px 4px #ff4081 !important;
+  box-shadow: 0 0 16px 4px var(--color-primary) !important;
 }
 #power-btn.active i {
-  text-shadow: 0 0 8px #ff4081;
+  text-shadow: 0 0 8px var(--color-primary);
   transition: transform 0.5s ease-out;
 }
 
 /* Rotación del icono */
-#power-btn.animate-icon i {
-  transform: rotate(360deg);
-}
-
+#power-btn.animate-icon i { transform: rotate(360deg); }
 
 /* 🔴 Botón Play */
 #play-btn {
@@ -777,9 +735,9 @@ button:hover {
   bottom: 20px;
   left: 38%;
   border-radius: 50%;
-  background: linear-gradient(to bottom, #1a1a1a, #333); /* base oscura */
+  background: linear-gradient(to bottom, #1a1a1a, #333);
   color: #fff;
-  box-shadow: 0 0 10px rgba(255, 128, 179, 0.8);
+  box-shadow: 0 0 10px rgba(111, 222, 255, 0.8); /* ← Halo cian */
   font-size: 1.0em;
   display: flex;
   justify-content: center;
@@ -790,12 +748,12 @@ button:hover {
   transition: background 0.3s ease;
 }
 
-/* Estado activo del Play → degradado rosa */
+/* Estado activo del Play → degradado azul */
 #play-btn.active {
   background: linear-gradient(to right,
-    #ff80b3 0%,
-    #ff4081 50%,
-    #e60073 100%
+    var(--color-accent) 0%,
+    var(--color-primary) 50%,
+    var(--color-secondary) 100%
   );
 }
 
@@ -805,12 +763,11 @@ button:hover {
   bottom: 28px;
   left: 50px;
   border-radius: 50%;
-  background: linear-gradient(to bottom, #1a1a1a, #333); /* base oscura */
+  background: linear-gradient(to bottom, #1a1a1a, #333);
   color: #fff;
-  box-shadow: 0 0 8px rgba(255, 64, 129, 0.6); /* glow */
+  box-shadow: 0 0 8px rgba(58, 149, 210, 0.6); /* ← Glow azul */
 }
-#rewind-btn:hover { box-shadow: 0 0 12px #ff4081; }
-
+#rewind-btn:hover { box-shadow: 0 0 12px var(--color-primary); }
 
 /* ⏩ Botón Forward */
 #forward-btn {
@@ -821,32 +778,26 @@ button:hover {
   border-radius: 50%;
   background: linear-gradient(to bottom, #1a1a1a, #333);
   color: #fff;
-  box-shadow: 0 0 8px rgba(255, 64, 129, 0.6);
+  box-shadow: 0 0 8px rgba(58, 149, 210, 0.6); /* ← Glow azul */
 }
-#forward-btn:hover { box-shadow: 0 0 12px #ff4081; }
-
+#forward-btn:hover { box-shadow: 0 0 12px var(--color-primary); }
 
 /* 🔁 Botón Repeat */
 .control-btn.active {
     background: linear-gradient(to right,
-        #ff80b3 0%,
-        #ff4081 50%,
-        #e60073 100%
+        var(--color-accent) 0%,
+        var(--color-primary) 50%,
+        var(--color-secondary) 100%
     ) !important;
 }
 
 .control-btn.active i {
-    text-shadow: 0 0 8px #ff4081;
-    /* Aplica una transición suave a la rotación */
+    text-shadow: 0 0 8px var(--color-primary);
     transition: transform 0.5s ease-out; 
 }
 
-/* CLASE TEMPORAL para disparar la Rotación */
-.control-btn.animate-icon i {
-    transform: rotate(360deg);
-}
+.control-btn.animate-icon i { transform: rotate(360deg); }
 
-/* 🔁 Botón Repeat */
 #repeat-btn {
     width: 45px;
     height: 45px;
@@ -855,17 +806,16 @@ button:hover {
     border-radius: 50%;
     background: linear-gradient(to bottom, #1a1a1a, #333);
     color: #fff;
-    box-shadow: 0 0 8px rgba(255, 64, 129, 0.6);
+    box-shadow: 0 0 8px rgba(58, 149, 210, 0.6);
     transition: all 0.3s ease; 
 }
-#repeat-btn:hover { box-shadow: 0 0 12px #ff4081; }
+#repeat-btn:hover { box-shadow: 0 0 12px var(--color-primary); }
 #repeat-btn.active-one {
-    box-shadow: 0 0 12px 4px rgba(255, 64, 129, 0.8);
+    box-shadow: 0 0 12px 4px rgba(58, 149, 210, 0.8);
 }
 #repeat-btn.active-one i {
-    text-shadow: 0 0 8px #ff4081;
+    text-shadow: 0 0 8px var(--color-primary);
 }
-
 
 /* 🔀 Botón Shuffle */
 #shuffle-btn {
@@ -876,12 +826,12 @@ button:hover {
     border-radius: 50%;
     background: linear-gradient(to bottom, #1a1a1a, #333);
     color: #fff;
-    box-shadow: 0 0 8px rgba(255, 64, 129, 0.6);
+    box-shadow: 0 0 8px rgba(58, 149, 210, 0.6);
     transition: all 0.3s ease;
 }
-#shuffle-btn:hover { box-shadow: 0 0 12px #ff4081; }
+#shuffle-btn:hover { box-shadow: 0 0 12px var(--color-primary); }
 #shuffle-btn.active {
-    box-shadow: 0 0 12px 4px rgba(255, 64, 129, 0.8);
+    box-shadow: 0 0 12px 4px rgba(58, 149, 210, 0.8);
 }
 
 /* 📜 Botón Menu */
@@ -892,11 +842,11 @@ button:hover {
   bottom: 60px;
   right: 320px;
   background: linear-gradient(to bottom, #1a1a1a, #333);
-  box-shadow: 0 0 6px rgba(255, 64, 129, 0.3);
+  box-shadow: 0 0 6px rgba(58, 149, 210, 0.3); /* ← Sombra azul tenue */
 }
 #menu-btn:hover {
   transform: scale(1.1);
-  box-shadow: 0 0 10px #ff4081;
+  box-shadow: 0 0 10px var(--color-primary);
 }
 
 /* 🎵 Botón Playlist */
@@ -907,17 +857,16 @@ button:hover {
   bottom: 60px;
   left: 325px;
   border-radius: 50%;
-  background: linear-gradient(to bottom, #1a1a1a, #333); /* base oscura */
+  background: linear-gradient(to bottom, #1a1a1a, #333);
   color: #fff;
-  box-shadow: 0 0 8px rgba(255, 64, 129, 0.6); /* glow rosa */
+  box-shadow: 0 0 8px rgba(58, 149, 210, 0.6); /* ← glow azul */
   transition: box-shadow 0.3s ease, transform 0.2s ease;
 }
 
 #music-btn:hover {
   transform: scale(1.1);
-  box-shadow: 0 0 12px #ff4081; /* glow rosa más intenso al hover */
+  box-shadow: 0 0 12px var(--color-primary); /* glow azul más intenso al hover */
 }
-
 
 /* ==================== Animaciones ==================== */
 @keyframes spinOnceForward {
@@ -931,23 +880,21 @@ button:hover {
 }
 
 @keyframes pulse-shuffle {
-  0% { transform: scale(1); box-shadow: 0 0 12px 4px rgba(255, 64, 129, 0.6); }
-  50% { transform: scale(1.1); box-shadow: 0 0 18px 6px rgba(255, 64, 129, 0.8); }
-  100% { transform: scale(1); box-shadow: 0 0 12px 4px rgba(255, 64, 129, 0.6); }
+  0% { transform: scale(1); box-shadow: 0 0 12px 4px rgba(58, 149, 210, 0.6); }
+  50% { transform: scale(1.1); box-shadow: 0 0 18px 6px rgba(58, 149, 210, 0.8); }
+  100% { transform: scale(1); box-shadow: 0 0 12px 4px rgba(58, 149, 210, 0.6); }
 }
 
-/* ================================================================ */
-
-.emocion-furia    { color: #ff4444; }
-.emocion-nostalgia { color: #44aaff; }
-.emocion-extasis   { color: #ffdd00; }
-.emocion-radiactiva { color: #00ff99; }
+.emocion-furia    { color: #ff4444; } /* Intacto */
+.emocion-nostalgia { color: #44aaff; } /* Intacto */
+.emocion-extasis   { color: #ffdd00; } /* Intacto */
+.emocion-radiactiva { color: #00ff99; } /* Intacto */
 
 /* 🔙 Botón Volver a listas */
 .volver-btn {
   margin-top: 12px;
   padding: 8px 14px;
-  background-color: #ff4081;
+  background-color: var(--color-primary); /* ← Actualizado */
   color: #fff;
   border: none;
   border-radius: 8px;
@@ -958,7 +905,7 @@ button:hover {
 }
 
 .volver-btn:hover {
-  background-color: rgba(255, 64, 129, 0.31); /* Antes: ff408150 */
+  background-color: rgba(58, 149, 210, 0.31); /* ← Actualizado */
   transform: scale(1.05);
 }
 
@@ -968,37 +915,20 @@ button:hover {
 }
 
 /* 🎨 Scrollbar personalizado (Webkit) */
-#contenido-panel::-webkit-scrollbar {
-  width: 8px;
-}
-
-#contenido-panel::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 8px;
-}
-
+#contenido-panel::-webkit-scrollbar { width: 8px; }
+#contenido-panel::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.05); border-radius: 8px; }
 #contenido-panel::-webkit-scrollbar-thumb {
-  background-color: #ff4081;
+  background-color: var(--color-primary); /* ← Actualizado */
   border-radius: 8px;
   border: 2px solid rgba(20, 20, 20, 0.95);
 }
 
 /* Responsive */
 @media (max-width: 768px) {
-  .playlist-panel,
-  #contenido-panel {
-    position: static;
-    width: 100%;
-    max-width: 320px;
-    margin: 16px auto;
-    top: auto;
-    right: auto;
+  .playlist-panel, #contenido-panel {
+    position: static; width: 100%; max-width: 320px; margin: 16px auto; top: auto; right: auto;
   }
-
-  .contenido-btn {
-    bottom: 60px;
-    right: 20px;
-  }
+  .contenido-btn { bottom: 60px; right: 20px; }
 }
 
 /* ************************* NOTAS MUSICALES ************************* */
@@ -1089,13 +1019,37 @@ button:hover {
   }
 }
 
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ PANEL DERECHO ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 /* ***************************** LIRYCS ***************************** */
 .right-panel {
   position: relative;
 }
 
+/* 🆕 NUEVO: Logo de fondo con animación */
+.right-panel-bg-logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  width: 65%;
+  max-width: 260px;
+  z-index: 1;
+  pointer-events: none;
+  animation: discreetZoom 8s ease-in-out infinite;
+}
+
+/* 🆕 NUEVO: Animación de zoom discreto */
+@keyframes discreetZoom {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.08);
+  }
+}
+
 .lyrics-container {
-    position: absolute;
+  position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -1108,6 +1062,7 @@ button:hover {
   font-family: 'Arial', sans-serif;
   color: white;
   overflow-y: hidden;
+  z-index: 10;
 }
 
 
@@ -1175,9 +1130,9 @@ button:hover {
   max-width: 440px; 
   background-color: #01010195;
   color: #fff;
-  border: 2px solid #ff4081;
+  border: 2px solid var(--color-primary); /* ← Actualizado */
   border-radius: 12px;
-  box-shadow: 0 0 20px #ff4081;
+  box-shadow: 0 0 20px var(--color-primary); /* ← Actualizado */
   z-index: 1000;
   padding: 20px;
   box-sizing: border-box; 
@@ -1188,18 +1143,14 @@ button:hover {
 }
 
 /* Oculto por defecto */
-.modal.hidden {
-  display: none;
-}
+.modal.hidden { display: none; }
 
-/* Background Modal (Ajustado para ocupar 100% del tamaño del modal) */
+/* Background Modal */
 .modal::before {
   content: "";
   position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 100%;
-  height: 100%;
+  top: 50%; left: 50%;
+  width: 100%; height: 100%;
   transform: translate(-50%, -50%);
   background-image: url("https://i.ibb.co/7xtPnmJk/Scene.gif");
   background-size: cover;
@@ -1223,16 +1174,13 @@ button:hover {
   align-self: flex-end; 
   background: none;
   border: none;
-  color: #ff4081;
+  color: var(--color-primary); /* ← Actualizado */
   font-size: 1.2em;
   cursor: pointer;
   transition: transform 0.2s ease;
   margin-bottom: 8px;
 }
-
-.close-btn:hover {
-  transform: scale(1.2);
-}
+.close-btn:hover { transform: scale(1.2); }
 
 /* Info de pista actual */
 .modal-info {
@@ -1245,19 +1193,18 @@ button:hover {
   max-height: 40px;
 }
 
-/* Lista de pistas (El ÚNICO lugar con scroll) */
+/* Lista de pistas */
 .track-list {
   list-style: none;
   padding: 0;
   margin: 0;
-  overflow-y: auto; /* CLAVE: Scroll solo en el contenido de la lista */
+  overflow-y: auto;
   overflow-x: hidden; 
-  flex-grow: 1; /* Ocupa todo el espacio restante dentro del modal */
+  flex-grow: 1;
 }
 
-
 /*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
-/* MODAL HISTORIAL
+/* MODAL HISTORIAL */
 /*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
 #history-modal {
   position: absolute;
@@ -1266,7 +1213,6 @@ button:hover {
   width: 100%;
   max-width: 440px; 
   height: 576px;
-  
   background: rgba(20, 20, 20, 0.95);
   border-radius: 10px;
   z-index: 100;
@@ -1311,11 +1257,11 @@ button:hover {
 }
 
 #history-list li:hover {
-  background-color: rgba(255, 64, 129, 0.7);
+  background-color: rgba(58, 149, 210, 0.7); /* ← Actualizado */
 }
 
 #history-list li.active {
-  background-color: #ff4081;
+  background-color: var(--color-primary); /* ← Actualizado */
   color: #000;
   font-weight: bold;
   border-bottom-color: transparent;
@@ -1323,11 +1269,11 @@ button:hover {
 }
 
 #history-list li.active:hover {
-  background-color: #e03874;
+  background-color: var(--color-secondary); /* ← Actualizado */
 }
 
 /*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
-/* MODAL PLAYLIST MENU (POSICIÓN Y MEDIDAS RESTAURADAS) */
+/* MODAL PLAYLIST MENU */
 /*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
 #playlist-modal {
   position: absolute;
@@ -1336,11 +1282,10 @@ button:hover {
   width: 100%;
   max-width: 440px; 
   height: 576px;
-  
   background-color: rgba(20,20,20,0.9);
-  border: 2px solid #ff4081; 
+  border: 2px solid var(--color-primary); /* ← Actualizado */
   border-radius: 12px;
-  box-shadow: 0 0 20px #ff4081;
+  box-shadow: 0 0 20px var(--color-primary); /* ← Actualizado */
   z-index: 1000;
   padding: 20px;
   box-sizing: border-box;
@@ -1349,9 +1294,7 @@ button:hover {
   overflow: hidden; 
 }
 
-#playlist-modal:not(.hidden) {
-  display: flex;
-}
+#playlist-modal:not(.hidden) { display: flex; }
 
 #playlist-modal .track-list {
   flex: 1;
@@ -1375,12 +1318,12 @@ button:hover {
 }
 
 #playlist-modal .track-list li:hover {
-  background-color: rgba(255, 64, 129, 0.7);
+  background-color: rgba(58, 149, 210, 0.7); /* ← Actualizado */
   color: #000;
 }
 
 /*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
-/* MODAL TRACKS (POSICIÓN Y MEDIDAS RESTAURADAS) */
+/* MODAL TRACKS */
 /*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
 #modal-playlist {
   position: absolute;
@@ -1389,12 +1332,11 @@ button:hover {
   width: 100%;
   max-width: 440px; 
   height: 576px;
-  
   background-color: #01010195;
   color: #fff;
-  border: 2px solid #ff4081;
+  border: 2px solid var(--color-primary); /* ← Actualizado */
   border-radius: 12px;
-  box-shadow: 0 0 20px #ff4081;
+  box-shadow: 0 0 20px var(--color-primary); /* ← Actualizado */
   z-index: 1000;
   padding: 20px;
   display: none;
@@ -1403,9 +1345,7 @@ button:hover {
   gap: 12px;
 }
 
-#modal-playlist:not(.hidden) {
-  display: flex;
-}
+#modal-playlist:not(.hidden) { display: flex; }
 
 /* Cada pista */
 .modal-track-item {
@@ -1430,7 +1370,7 @@ button:hover {
   height: 80px;
   object-fit: cover;
   border-radius: 8px;
-  box-shadow: 0 0 6px #ff4081;
+  box-shadow: 0 0 6px var(--color-primary); /* ← Actualizado */
   flex-shrink: 0;
 }
 
@@ -1451,16 +1391,10 @@ button:hover {
 }
 
 /* Scroll Color */
-.track-list::-webkit-scrollbar {
-  width: 6px;
-}
-
-.track-list::-webkit-scrollbar-track {
-  background: transparent;
-}
-
+.track-list::-webkit-scrollbar { width: 6px; }
+.track-list::-webkit-scrollbar-track { background: transparent; }
 .track-list::-webkit-scrollbar-thumb {
-  background-color: #888; 
+  background-color: var(--color-primary); /* ← Actualizado */
   border-radius: 3px;
   border: 1px solid transparent;
   background-clip: content-box;
@@ -1469,58 +1403,18 @@ button:hover {
 /* Firefox */
 .track-list {
   scrollbar-width: thin;
-  scrollbar-color: #888 transparent;
+  scrollbar-color: var(--color-primary) transparent; /* ← Actualizado */
 }
 
 /* Responsive */
 @media (max-width: 768px) {
   .modal {
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 95%;
-    max-width: 360px;
-    height: 560px;
-    padding: 16px;
+    top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 95%; max-width: 360px; height: 560px; padding: 16px;
   }
-
-  .modal::before {
-    width: 100%;
-    height: 100%;
-    clip-path: none;
-    border-radius: 12px;
-  }
-
-  .track-cover {
-    width: 60px;
-    height: 60px;
-  }
-
-  .track-info {
-    font-size: 0.85em;
-  }
-}
-
-/* 🎚️ Scroll emocional fucsia */
-.track-list::-webkit-scrollbar {
-  width: 6px;
-}
-
-.track-list::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.track-list::-webkit-scrollbar-thumb {
-  background-color: #ff4081;
-  border-radius: 3px;
-  border: 1px solid transparent;
-  background-clip: content-box;
-}
-
-/* Firefox */
-.track-list {
-  scrollbar-width: thin;
-  scrollbar-color: #ff4081 transparent;
+  .modal::before { width: 100%; height: 100%; clip-path: none; border-radius: 12px; }
+  .track-cover { width: 60px; height: 60px; }
+  .track-info { font-size: 0.85em; }
 }
 
 /* 🎶 Track actual y artista con aura ceremonial */
@@ -1528,7 +1422,7 @@ button:hover {
   display: inline-block;
   padding: 4px 12px;
   margin-left: 6px;
-  background: linear-gradient(90deg, #3688ff, #6aaeff); /* Degradado Azul Tema Actual */
+  background: linear-gradient(90deg, #3688ff, #6aaeff); /* Intacto (Azul) */
   border-radius: 8px;
   color: #fff;
   font-weight: bold;
@@ -1548,7 +1442,7 @@ button:hover {
 
 /* *********************** Registro de Visitas/Reproducciones *********************** */
 .track-info span:last-child {
-  color: #3688ff;
+  color: #3688ff; /* Intacto */
   font-weight: 500;
 }
 
@@ -1563,9 +1457,9 @@ button:hover {
 #particles {
   position: absolute;
   bottom: 190px;
-  left: 330px;              /* ← compensación exacta */
-  width: 880px;             /* ← igual al nuevo #main-container */
-  height: 580px;            /* ← igual a los paneles */
+  left: 330px;
+  width: 880px;
+  height: 580px;
   overflow: hidden;
   z-index: 4;
   pointer-events: none;
@@ -1574,8 +1468,8 @@ button:hover {
 
 @media (max-width: 768px) {
   #particles {
-    left: 0px; /* posición base */
-    transform: translateX(-100px); /* ← desplazamiento hacia la izquierda */
+    left: 0px;
+    transform: translateX(-100px);
   }
 }
 
@@ -1584,44 +1478,28 @@ button:hover {
 /*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
 @media (max-width: 768px) {
   .modal {
-    position: absolute;       /* se ancla dentro del panel */
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    margin: auto;
-    width: 100%;              /* ocupa todo el ancho del panel derecho */
-    max-width: 400px;         /* límite según el ancho del panel */
-    /* 🔑 restauramos altura original */
-    height: 534px;            /* conserva la altura fija del modal */
-    max-height: none;         /* elimina límite artificial */
-    transform: none;          /* elimina el centrado global */
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0; margin: auto;
+    width: 100%; max-width: 400px;
+    height: 534px; max-height: none; transform: none;
   }
-
-  /* Asegura que el modal se renderice dentro del panel derecho */
-  #right-panel {
-    position: relative;       /* referencia para los modales */
-  }
+  #right-panel { position: relative; }
 }
 
 .custom-message {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    top: 50%; left: 50%; transform: translate(-50%, -50%);
     padding: 15px 25px;
     background: rgba(0, 0, 0, 0.9);
-    border: 2px solid #ff0000;
+    border: 2px solid #ff0000; /* Intacto */
     border-radius: 10px;
     color: #fff;
     font-size: 1.1em;
-    text-shadow: 0 0 8px #c2a044;
-    box-shadow: 0 0 20px #ff0000b3; /* b3 ≈ 70% de opacidad */
+    text-shadow: 0 0 8px #c2a044; /* Intacto */
+    box-shadow: 0 0 20px #ff0000b3; /* Intacto */
     z-index: 9999;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease-in-out;
 }
-.custom-message.show {
-    opacity: 1;
-}
+.custom-message.show { opacity: 1; }
