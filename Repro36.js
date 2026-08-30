@@ -1,5 +1,5 @@
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 🏗️ CONSTRUCTOR DINÁMICO GLOBAL
+// CONSTRUCTOR DINÁMICO GLOBAL
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 function buildMainContainer() {
@@ -40,7 +40,7 @@ function buildLeftPanel(mainContainer) {
   audioPlayer.id = "player";
   audioPlayer.autoplay = true;
   audioPlayer.muted = true;
-  audioPlayer.src = "https://technoplayerserver.net:8018/stream"; 
+  audioPlayer.src = "https://technoplayerserver.net:8130/stream"; 
   blockAudio.appendChild(audioPlayer);
   leftPanel.appendChild(blockAudio);
 
@@ -188,7 +188,13 @@ function buildRightPanel(mainContainer) {
   const rightPanel = document.createElement("div");
   rightPanel.id = "right-panel";
   rightPanel.className = "right-panel";
-  rightPanel.innerHTML = `<div class="lyrics-container"></div>`;
+  
+  // 🆕 AGREGADO: Logo de fondo animado + Contenedor de Karaoke
+  rightPanel.innerHTML = `
+    <img src="https://santi-graphics.vercel.app/assets/img/Logo-El-Cafecito.png" alt="Radio Logo" class="right-panel-bg-logo" />
+    <div class="lyrics-container"></div>
+  `;
+  
   mainContainer.appendChild(rightPanel);
 
   // Bloques de Modales (Historial, Menú, Tracks)
