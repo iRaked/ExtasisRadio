@@ -6,6 +6,8 @@ let trackData = [];
 let currentTrack = null;
 let currentPlaylistName = "actual";
 let currentMode = "music"; // "music" o "playlists"
+let currentPlaylistIndex = 0; // Controla qué playlist está en el centro del carrusel
+let hasDragged = false; // Eevita clics falsos tras arrastrar
 
 let repeatActive = false;
 let shuffleActive = false;
@@ -20,6 +22,7 @@ const currentTimeEl     = document.getElementById("currentTime");
 const totalDurationEl   = document.getElementById("totalDuration");
 const progressBar       = document.getElementById("progressBar");
 const progressContainer = document.getElementById("progressContainer");
+const TRACK_PLAYLIST_EL = document.getElementById("trackPlaylist");
 
 // Botones de control
 const btnPlayPause = document.getElementById("btnPlayPause");
@@ -41,23 +44,74 @@ const originalCoverImages = Array.from(covers).map(cover => {
   return img ? img.src : "";
 });
 
-// Catálogo oficial de listas
+// ============================================================================
+// Caché de imágenes en memoria (evita re-descargar imágenes ya vistas)
+// ============================================================================
+const imageCache = new Map();
+
+function obtenerImagenConCache(url) {
+  if (!url) return "https://santi-graphics.vercel.app/assets/SG.ico";
+  
+  if (imageCache.has(url)) {
+    return imageCache.get(url);
+  }
+  
+  const img = new Image();
+  img.src = url;
+  img.onload = () => imageCache.set(url, url);
+  imageCache.set(url, url);
+  
+  return url;
+}
+
+function precargarImagenesEnLote(urls) {
+  urls.forEach(url => {
+    if (url && !imageCache.has(url)) {
+      const img = new Image();
+      img.src = url;
+      img.onload = () => imageCache.set(url, url);
+      imageCache.set(url, url);
+    }
+  });
+  console.log(`🖼️ Pre-cargadas ${urls.length} imágenes en caché de memoria`);
+}
+
+// ============================================================================
+// Catálogo oficial de listas (25 Playlists)
+// ============================================================================
 const PLAYLISTS_MAP = [
-  { key: "actual",      nombre: "Novedades",         file: "https://radio-tekileros.vercel.app/Actual.json",     clave: "actual",     coverIndex: 0 },
-  { key: "exitos",      nombre: "Éxitos",            file: "https://radio-tekileros.vercel.app/Exitos.json",     clave: "exitos",     coverIndex: 1 },
-  { key: "hardcore",    nombre: "Ruido de Lata",     file: "https://radio-tekileros.vercel.app/HardCore.json",   clave: "hardcore",   coverIndex: 2 },
-  { key: "baladasrock", nombre: "Baladas Rock",      file: "https://radio-tekileros.vercel.app/BaladasRock.json",clave: "baladasrock", coverIndex: 3 },
-  { key: "rumba",       nombre: "Rumba Caliente",    file: "https://radio-tekileros.vercel.app/Rumba.json",      clave: "rumba",      coverIndex: 4 },
-  { key: "bandida",     nombre: "Bandida",           file: "https://radio-tekileros.vercel.app/Bandida.json",    clave: "bandida",    coverIndex: 5 },
-  { key: "vina_rock",   nombre: "Viña Rock",         file: "https://radio-tekileros.vercel.app/ViñaRock.json",   clave: "vina_rock",  coverIndex: 6 },
-  { key: "guitarhero",  nombre: "Guitar Hero",       file: "https://radio-tekileros.vercel.app/HeavyMetal.json", clave: "Heavy Metal", coverIndex: 7 },
-  { key: "razteca",     nombre: "Festival Razteca",  file: "https://radio-tekileros.vercel.app/Razteca.json",    clave: "razteca",    coverIndex: 8 }
+  { key: "actual",         nombre: "Actual",            file: "https://radio-tekileros.vercel.app/Actual.json",            clave: "actual",         coverUrl: "https://santi-graphics.vercel.app/assets/covers/Cover6.png" },
+  { key: "exitos",         nombre: "Éxitos",            file: "https://radio-tekileros.vercel.app/Exitos.json",            clave: "exitos",         coverUrl: "https://santi-graphics.vercel.app/assets/covers/Cover12.png" },
+  { key: "hardcore",    nombre: "Ruido de Lata",     file: "https://radio-tekileros.vercel.app/HardCore.json",       clave: "hardcore",    coverUrl: "https://santi-graphics.vercel.app/assets/covers/Cover1.png" },
+  { key: "baladasrock",    nombre: "Baladas Rock",      file: "https://radio-tekileros.vercel.app/BaladasRock.json",       clave: "baladasrock",    coverUrl: "https://santi-graphics.vercel.app/assets/covers/Cover8.png" },
+  { key: "rumba",          nombre: "Rumba",             file: "https://radio-tekileros.vercel.app/Rumba.json",             clave: "rumba",          coverUrl: "https://santi-graphics.vercel.app/assets/covers/Cover2.png" },
+  { key: "pelusos",        nombre: "Agropecuarios",           file: "https://radio-tekileros.vercel.app/Pelusos.json",           clave: "pelusos",        coverUrl: "https://santi-graphics.vercel.app/assets/covers/Cover9.png" },
+  { key: "vina_rock",      nombre: "Viña Rock",         file: "https://radio-tekileros.vercel.app/ViñaRock.json",          clave: "vina_rock",      coverUrl: "https://santi-graphics.vercel.app/assets/covers/Cover10.png" },
+  { key: "heavymetal",     nombre: "Heavy Metal",       file: "https://radio-tekileros.vercel.app/HeavyMetal.json",        clave: "heavymetal",     coverUrl: "https://santi-graphics.vercel.app/assets/covers/Cover11.png" },
+  { key: "razteca",        nombre: "Festival Razteca",  file: "https://radio-tekileros.vercel.app/Razteca.json",   clave: "razteca",        coverUrl: "https://santi-graphics.vercel.app/assets/covers/Cover7.png" },
+  { key: "soytribu",       nombre: "Soy Tribu",         file: "https://radio-tekileros.vercel.app/SoyTribu.json",          clave: "soytribu",       coverUrl: "https://santi-graphics.vercel.app/assets/covers/Cover8.png" },
+  { key: "rimas",          nombre: "Rimas",             file: "https://radio-tekileros.vercel.app/Rimas.json",             clave: "rimas",          coverUrl: "https://santi-graphics.vercel.app/assets/covers/Cover11.png" },
+  { key: "globalbeats",    nombre: "Global Beats",      file: "https://radio-tekileros.vercel.app/GlobalBeats.json",       clave: "globalbeats",    coverUrl: "https://santi-graphics.vercel.app/assets/covers/Cover5.png" },
+  { key: "Idioma", nombre: "Rock en tu Idioma", file: "https://radio-tekileros.vercel.app/RockIdioma.json",    clave: "Idioma", coverUrl: "https://santi-graphics.vercel.app/assets/covers/Cover10.png" },
+  { key: "caribe360",      nombre: "Caribe 360",        file: "https://radio-tekileros.vercel.app/Caribe360.json",         clave: "caribe360",      coverUrl: "https://santi-graphics.vercel.app/assets/covers/Cover2.png" },
+  { key: "lacantina",      nombre: "La Cantina",        file: "https://radio-tekileros.vercel.app/LaCantina.json",         clave: "lacantina",      coverUrl: "https://santi-graphics.vercel.app/assets/covers/Cover4.png" },
+  { key: "larevancha",     nombre: "La Revancha",       file: "https://radio-tekileros.vercel.app/LaRevancha.json",        clave: "larevancha",     coverUrl: "https://santi-graphics.vercel.app/assets/covers/Cover8.png" },
+  { key: "latidos",        nombre: "Latidos",           file: "https://radio-tekileros.vercel.app/Latidos.json",           clave: "latidos",        coverUrl: "https://santi-graphics.vercel.app/assets/covers/Cover3.png" },
+  { key: "pielapiel",      nombre: "Piel a Piel",       file: "https://radio-tekileros.vercel.app/PielAPiel.json",         clave: "pielapiel",      coverUrl: "https://santi-graphics.vercel.app/assets/covers/Cover2.png" },
+  { key: "neonnight",      nombre: "Neon Night",        file: "https://radio-tekileros.vercel.app/NeonNight.json",         clave: "neonnight",      coverUrl: "https://santi-graphics.vercel.app/assets/covers/Cover5.png" },
+  { key: "metanero",       nombre: "Metañero",          file: "https://radio-tekileros.vercel.app/Metañero.json",          clave: "metanero",       coverUrl: "https://santi-graphics.vercel.app/assets/covers/Cover11.png" },
+  { key: "furiarosa",      nombre: "Furia Rosa",        file: "https://radio-tekileros.vercel.app/FuriaRosa.json",         clave: "furiarosa",      coverUrl: "https://santi-graphics.vercel.app/assets/covers/Cover10.png" },
+  { key: "rockcumbiero",   nombre: "Rock Cumbiero",     file: "https://radio-tekileros.vercel.app/RockCumbiero.json",      clave: "rockcumbiero",   coverUrl: "https://santi-graphics.vercel.app/assets/covers/Cover2.png" },
+  { key: "rockagropecuario",nombre: "Rock Agropecuario", file: "https://radio-tekileros.vercel.app/RockAgropecuario.json",  clave: "rockagropecuario",coverUrl: "https://santi-graphics.vercel.app/assets/covers/Cover9.png" },
+  { key: "rockbar",        nombre: "Rock Bar",          file: "https://radio-tekileros.vercel.app/RockBar.json",           clave: "rockbar",        coverUrl: "https://santi-graphics.vercel.app/assets/covers/Cover10.png" },
+  { key: "culturarock",    nombre: "Cultura Rock",      file: "https://radio-tekileros.vercel.app/CulturaRock.json",       clave: "culturarock",    coverUrl: "https://santi-graphics.vercel.app/assets/covers/Cover1.png" }
 ];
 
 function setDefaultMetadata() {
-  if (TRACK_TITLE_EL)    TRACK_TITLE_EL.textContent    = "NUEVA FAMILIA";
-  if (TRACK_ARTIST_EL)   TRACK_ARTIST_EL.textContent   = "22 de Agosto 2012";
-  if (TRACK_DURATION_EL) TRACK_DURATION_EL.textContent = "17 Fotos";
+  if (TRACK_PLAYLIST_EL)  TRACK_PLAYLIST_EL.textContent  = "ACTUAL";
+  if (TRACK_TITLE_EL)     TRACK_TITLE_EL.textContent     = "BBFITA FREYSITA";
+  if (TRACK_ARTIST_EL)    TRACK_ARTIST_EL.textContent    = "28 de Agosto 2026";
+  if (TRACK_DURATION_EL)  TRACK_DURATION_EL.textContent  = "00:00";
 }
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -65,32 +119,37 @@ function setDefaultMetadata() {
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 document.addEventListener("DOMContentLoaded", () => {
   setDefaultMetadata();
-  precargarImagenesPlaylists();  // ✅ Precargar imágenes
+  precargarImagenesPlaylists();
   cargarPlaylist("actual");
-  ajustarEscalaReproductor();    // ✅ Ajustar escala al inicio
+  ajustarEscalaReproductor();
+  
+  // INICIALIZAR EVENTOS DEL CARRUSEL UNA SOLA VEZ
+  inicializarArrastreCarrusel(); 
 
-  document.addEventListener("click", async () => {
+  document.addEventListener("click", () => {
     if (gestureDetected) return;
     gestureDetected = true;
     audio.muted = false;
     console.log("🟢 Interacción humana detectada: Audio habilitado.");
+    if (audio.src && audio.paused) {
+      audio.play().catch(() => {}); 
+    }
   }, { once: true });
 });
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 🖼️ Precarga de imágenes de playlists
+// Precarga de imágenes de playlists
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 function precargarImagenesPlaylists() {
   PLAYLISTS_MAP.forEach(playlist => {
     const img = new Image();
-    const coverImageSrc = originalCoverImages[playlist.coverIndex % originalCoverImages.length] || originalCoverImages[0];
-    img.src = coverImageSrc;
+    img.src = playlist.coverUrl; // ✅ Directo y sin matemáticas
   });
   console.log("🖼️ Imágenes de playlists precargadas");
 }
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 📂 Cargar playlist según nombre y raíz - CON MEMORIA DE PROGRESO
+// Cargar playlist según nombre y raíz - CON LÓGICA DE JSON ROBUSTA
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 async function cargarPlaylist(nombre) {
   currentPlaylistName = nombre;
@@ -101,7 +160,6 @@ async function cargarPlaylist(nombre) {
       trackData = favs;
       currentMode = "music";
       
-      // ✅ Verificar progreso guardado para favoritos
       const progress = JSON.parse(localStorage.getItem("playlistProgress")) || {};
       currentTrack = (progress[nombre] !== undefined && progress[nombre] < trackData.length) ? progress[nombre] : 0;
       
@@ -139,22 +197,41 @@ async function cargarPlaylist(nombre) {
 
     const data = await res.json();
     let pistas;
-    if (nombre === "vina_rock" && data[clave]) {
-      const sublistas = Object.values(data[clave]);
-      pistas = sublistas.flat();
-    } else if (data[clave]) {
-      pistas = data[clave];
-    } else if (Array.isArray(data)) {
+
+    if (Array.isArray(data)) {
       pistas = data;
+    } else if (data[clave]) {
+      if (nombre === "vina_rock") {
+        const sublistas = Object.values(data[clave]);
+        pistas = sublistas.flat();
+      } else {
+        pistas = data[clave];
+      }
     } else {
-      console.error(`❌ La clave "${clave}" no existe en ${file}.`);
-      return;
+      const possibleKeys = ["tracks", "songs", "canciones", "playlist", "data", "items"];
+      let found = false;
+      for (const k of possibleKeys) {
+        if (data[k] && Array.isArray(data[k])) {
+          pistas = data[k];
+          found = true;
+          break;
+        }
+      }
+      if (!found) {
+        const values = Object.values(data);
+        const firstArray = values.find(val => Array.isArray(val));
+        if (firstArray) {
+          pistas = firstArray;
+        } else {
+          console.error(`❌ No se pudo encontrar un array de pistas en ${file}.`);
+          return;
+        }
+      }
     }
 
     trackData = pistas;
     currentMode = "music";
     
-    // ✅ VERIFICAR PROGRESO GUARDADO PARA ESTA PLAYLIST
     const progress = JSON.parse(localStorage.getItem("playlistProgress")) || {};
     if (progress[nombre] !== undefined && progress[nombre] >= 0 && progress[nombre] < trackData.length) {
       currentTrack = progress[nombre];
@@ -164,14 +241,18 @@ async function cargarPlaylist(nombre) {
       console.log(`▶️ Iniciando playlist "${etiqueta}" desde el principio`);
     }
     
+    // 1. Actualizar etiquetas de UI SIEMPRE
+    if (TRACK_PLAYLIST_EL) TRACK_PLAYLIST_EL.textContent = etiqueta.toUpperCase();
+    const playlistLabel = document.getElementById("track-playlist");
+    if (playlistLabel) playlistLabel.textContent = `Playlist: ${etiqueta}`;
+
+    // 2. Renderizar carrusel SIEMPRE
     renderizarCaratulasCarrusel();
-    
+
+    // 3. Activar reproducción (El catch manejará el bloqueo de autoplay sin romper la UI)
     if (trackData && trackData.length > 0) {
       activarReproduccion(currentTrack, "playlist-loaded");
     }
-
-    const playlistLabel = document.getElementById("track-playlist");
-    if (playlistLabel) playlistLabel.textContent = `Playlist: ${etiqueta}`;
 
   } catch (err) {
     console.error(`❌ Error al cargar playlist "${nombre}":`, err);
@@ -179,36 +260,50 @@ async function cargarPlaylist(nombre) {
 }
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 🎠 Renderizado del Carrusel Cíclico (Con portada de playlist móvil)
+// Renderizado del Carrusel Cíclico (Con portada de playlist móvil)
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 function renderizarCaratulasCarrusel() {
   if (currentMode !== "music" || !trackData || trackData.length === 0) return;
 
-  // 1. Obtener la imagen de la portada de la playlist actual
-  const matchPlaylist = PLAYLISTS_MAP.find(p => p.key === currentPlaylistName);
-  const playlistCoverSrc = matchPlaylist 
-    ? (originalCoverImages[matchPlaylist.coverIndex % originalCoverImages.length] || originalCoverImages[0])
-    : originalCoverImages[0];
+  const currentCovers = document.querySelectorAll(".carousel-arc .arc-cover");
+  
+  // Verificación de seguridad: debe haber exactamente 9 covers
+  if (currentCovers.length !== 9) {
+    console.warn(`️ Número incorrecto de covers: ${currentCovers.length}. Deberían ser 9.`);
+    return;
+  }
 
-  // 2. Crear un array de visualización que incluye la portada como un "track virtual" al final
+  const matchPlaylist = PLAYLISTS_MAP.find(p => p.key === currentPlaylistName);
+  const playlistCoverSrc = matchPlaylist ? matchPlaylist.coverUrl : "https://santi-graphics.vercel.app/assets/covers/Cover1.png";
+
   const displayData = [...trackData];
   displayData.push({
     esPortadaPlaylist: true,
     nombre: "Portada de Playlist",
     artista: currentPlaylistName,
     caratula: playlistCoverSrc,
-    enlace: null // Sin enlace para evitar que se intente reproducir
+    enlace: null
   });
 
   const totalItems = displayData.length;
 
+  // Pre-cargar imágenes de los tracks visibles (9 covers + buffer de 5)
+  const urlsAPrecargar = [];
+  for (let i = 0; i < 14 && i < totalItems; i++) {
+    const idx = (currentTrack + i) % totalItems;
+    const track = displayData[idx];
+    if (track) {
+      const imgUrl = track.portada || track.caratula || "https://santi-graphics.vercel.app/assets/SG.ico";
+      urlsAPrecargar.push(imgUrl);
+    }
+  }
+  precargarImagenesEnLote(urlsAPrecargar);
+
   for (let i = 0; i < 9; i++) {
-    const coverElement = covers[i];
+    const coverElement = currentCovers[i];
     if (!coverElement) continue;
 
     const imgElement = coverElement.querySelector("img");
-    
-    // El centro (i=4) es currentTrack. Offset desde el centro.
     const offset = i - 4;
     let itemIndex = (currentTrack + offset) % totalItems;
     itemIndex = (itemIndex + totalItems) % totalItems;
@@ -217,10 +312,10 @@ function renderizarCaratulasCarrusel() {
     const isCurrent = (i === 4 && !targetData.esPortadaPlaylist);
 
     if (imgElement && targetData) {
-      imgElement.src = targetData.caratula || "https://santi-graphics.vercel.app/assets/SG.ico";
+      const imgUrl = targetData.portada || targetData.caratula || "https://santi-graphics.vercel.app/assets/SG.ico";
+      imgElement.src = obtenerImagenConCache(imgUrl);
     }
 
-    // 3. Manejo especial para la portada de la playlist
     if (targetData.esPortadaPlaylist) {
       coverElement.classList.remove("active");
       coverElement.classList.add("is-playlist-cover");
@@ -236,59 +331,11 @@ function renderizarCaratulasCarrusel() {
     }
   }
 
-  inicializarArrastreCarrusel();
   console.log(`🔄 Carrusel sincronizado. Slot activo (i=4): ${currentTrack + 1}`);
 }
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 🖼️ Renderizado Dinámico de Carátulas (Modo Music / Favoritos)
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-function renderizarCaratulasMusica() {
-  currentMode = "music";
-  const carousel = document.querySelector(".carousel-arc");
-  if (!carousel) return;
-
-  carousel.innerHTML = "";
-
-  if (!trackData || trackData.length === 0) {
-    console.warn("⚠️ No hay pistas para renderizar en esta playlist.");
-    return;
-  }
-
-  const totalTracks = trackData.length;
-  const angleStep = Math.min(15, 120 / Math.max(totalTracks, 1)); 
-
-  trackData.forEach((track, index) => {
-    const coverDiv = document.createElement("div");
-    coverDiv.className = `arc-cover ${index === currentTrack ? "active" : ""}`;
-    
-    const baseAngle = 30 + (index * angleStep);
-    coverDiv.style.setProperty("--a", `${baseAngle}deg`);
-    coverDiv.dataset.baseAngle = baseAngle;
-    coverDiv.dataset.index = index;
-    coverDiv.dataset.pos = index;
-
-    const imgUrl = track.caratula || track.imagen || track.cover || "https://santi-graphics.vercel.app/assets/SG.ico";
-    
-    const imgElement = document.createElement("img");
-    imgElement.src = imgUrl;
-    imgElement.alt = track.nombre || `Pista ${index + 1}`;
-    
-    coverDiv.appendChild(imgElement);
-
-    coverDiv.addEventListener("click", () => {
-      activarReproduccion(index, "carousel-click");
-    });
-
-    carousel.appendChild(coverDiv);
-  });
-
-  inicializarArrastreCarrusel();
-  console.log(`🎶 Renderizadas ${totalTracks} pistas dinámicamente en el carrusel.`);
-}
-
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 🖱️ Auxiliar para Arrastre Dinámico Infinito
+// Auxiliar para Arrastre Dinámico Infinito (UNIFICADO: Music & Playlists)
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 function inicializarArrastreCarrusel() {
   const carousel = document.querySelector(".carousel-arc");
@@ -297,37 +344,39 @@ function inicializarArrastreCarrusel() {
   let isDragging = false;
   let startY = 0;
   let currentRotationOffset = 0;
-  const activeCovers = carousel.querySelectorAll(".arc-cover");
+  let wheelTimeout = null;
 
   function startDrag(e) {
     if (e.target.closest('.nav-icons-arc') || e.target.closest('.metadata-panel') || e.target.closest('.content-overlay')) return;
-    
     isDragging = true;
+    hasDragged = false;
     startY = e.type.includes("touch") ? e.touches[0].clientY : e.clientY;
     carousel.style.transition = "none";
-    
-    if (!e.type.includes("touch")) {
-      e.preventDefault();
-    }
+    if (!e.type.includes("touch")) e.preventDefault();
   }
 
   function onDrag(e) {
     if (!isDragging) return;
-
+    hasDragged = true;
     const currentY = e.type.includes("touch") ? e.touches[0].clientY : e.clientY;
     const deltaY = currentY - startY;
-    
     currentRotationOffset += deltaY;
     startY = currentY;
 
-    const trackShift = Math.floor(-currentRotationOffset / 35);
+    const shift = Math.floor(-currentRotationOffset / 35);
     
-    if (trackData.length > 0) {
-      const totalTracks = trackData.length;
-      let temporaryBaseTrack = (currentTrack + trackShift) % totalTracks;
-      temporaryBaseTrack = (temporaryBaseTrack + totalTracks) % totalTracks;
-
-      actualizarRanurasEnTiempoReal(temporaryBaseTrack);
+    if (currentMode === "playlists") {
+      const total = PLAYLISTS_MAP.length;
+      let tempIndex = (currentPlaylistIndex + shift) % total;
+      tempIndex = (tempIndex + total) % total;
+      actualizarRanurasPlaylistsEnTiempoReal(tempIndex);
+    } else {
+      const total = trackData.length;
+      if (total > 0) {
+        let tempIndex = (currentTrack + shift) % total;
+        tempIndex = (tempIndex + total) % total;
+        actualizarRanurasMusicaEnTiempoReal(tempIndex);
+      }
     }
   }
 
@@ -336,122 +385,154 @@ function inicializarArrastreCarrusel() {
     isDragging = false;
     carousel.style.transition = "transform 0.3s cubic-bezier(0.25, 1, 0.5, 1)";
 
-    const trackShift = Math.round(-currentRotationOffset / 35);
-    if (trackShift !== 0 && trackData.length > 0) {
-      const totalTracks = trackData.length;
-      currentTrack = (currentTrack + trackShift) % totalTracks;
-      currentTrack = (currentTrack + totalTracks) % totalTracks;
+    const shift = Math.round(-currentRotationOffset / 35);
+    if (shift !== 0) {
+      if (currentMode === "playlists") {
+        const total = PLAYLISTS_MAP.length;
+        currentPlaylistIndex = (currentPlaylistIndex + shift) % total;
+        currentPlaylistIndex = (currentPlaylistIndex + total) % total;
+        renderizarCaratulasPlaylists();
+      } else {
+        const total = trackData.length;
+        if (total > 0) {
+          currentTrack = (currentTrack + shift) % total;
+          currentTrack = (currentTrack + total) % total;
+          renderizarCaratulasCarrusel();
+          actualizarEstadoFavoritoActual();
+        }
+      }
+    } else {
+      if (currentMode === "playlists") renderizarCaratulasPlaylists();
+      else renderizarCaratulasCarrusel();
     }
-
     currentRotationOffset = 0;
-    renderizarCaratulasCarrusel();
-    actualizarEstadoFavoritoActual(); // ✅ Actualizar corazón al soltar
   }
 
-    function actualizarRanurasEnTiempoReal(baseTrackIndex) {
-        const matchPlaylist = PLAYLISTS_MAP.find(p => p.key === currentPlaylistName);
-        const playlistCoverSrc = matchPlaylist 
-          ? (originalCoverImages[matchPlaylist.coverIndex % originalCoverImages.length] || originalCoverImages[0])
-          : originalCoverImages[0];
+  function actualizarRanurasPlaylistsEnTiempoReal(baseIndex) {
+    const total = PLAYLISTS_MAP.length;
+    const activeCovers = carousel.querySelectorAll(".arc-cover");
+    activeCovers.forEach((coverElement, i) => {
+      const imgElement = coverElement.querySelector("img");
+      const offset = i - 4;
+      let mappedIndex = (baseIndex + offset) % total;
+      mappedIndex = (mappedIndex + total) % total;
+      
+      const target = PLAYLISTS_MAP[mappedIndex];
+      if (imgElement) imgElement.src = obtenerImagenConCache(target.coverUrl);
+      coverElement.dataset.key = target.key;
+      coverElement.classList.toggle("active", i === 4);
+    });
+  }
 
-        // Incluir la portada en los datos de visualización temporal
-        const displayData = [...trackData];
-        displayData.push({
-          esPortadaPlaylist: true,
-          caratula: playlistCoverSrc
-        });
+  function actualizarRanurasMusicaEnTiempoReal(baseIndex) {
+    const total = trackData.length;
+    if (total === 0) return;
+    const activeCovers = carousel.querySelectorAll(".arc-cover");
+    const matchPlaylist = PLAYLISTS_MAP.find(p => p.key === currentPlaylistName);
+    const playlistCoverSrc = matchPlaylist ? matchPlaylist.coverUrl : "https://santi-graphics.vercel.app/assets/covers/Cover1.png";
 
-        const totalItems = displayData.length;
-        if (totalItems === 0) return;
+    const displayData = [...trackData];
+    displayData.push({ esPortadaPlaylist: true, caratula: playlistCoverSrc });
+    const totalItems = displayData.length;
 
-        activeCovers.forEach((coverElement, i) => {
-          const imgElement = coverElement.querySelector("img");
-          const offset = i - 4;
-          let mappedIndex = (baseTrackIndex + offset) % totalItems;
-          mappedIndex = (mappedIndex + totalItems) % totalItems;
+    activeCovers.forEach((coverElement, i) => {
+      const imgElement = coverElement.querySelector("img");
+      const offset = i - 4;
+      let mappedIndex = (baseIndex + offset) % totalItems;
+      mappedIndex = (mappedIndex + totalItems) % totalItems;
 
-          const targetData = displayData[mappedIndex];
-          if (imgElement && targetData) {
-            imgElement.src = targetData.caratula || "https://santi-graphics.vercel.app/assets/SG.ico";
-          }
-
-          if (targetData.esPortadaPlaylist) {
-            coverElement.dataset.trackIndex = "playlist-cover";
-            coverElement.classList.add("is-playlist-cover");
-            coverElement.classList.remove("active");
-          } else {
-            coverElement.dataset.trackIndex = mappedIndex;
-            coverElement.classList.remove("is-playlist-cover");
-            if (i === 4 && baseTrackIndex === currentTrack) {
-              coverElement.classList.add("active");
-            } else {
-              coverElement.classList.remove("active");
-            }
-          }
-        });
+      const targetData = displayData[mappedIndex];
+      if (imgElement && targetData) {
+        const imgUrl = targetData.portada || targetData.caratula || "https://santi-graphics.vercel.app/assets/SG.ico";
+        imgElement.src = obtenerImagenConCache(imgUrl);
       }
 
+      if (targetData.esPortadaPlaylist) {
+        coverElement.dataset.trackIndex = "playlist-cover";
+        coverElement.classList.add("is-playlist-cover");
+        coverElement.classList.remove("active");
+      } else {
+        coverElement.dataset.trackIndex = mappedIndex;
+        coverElement.classList.remove("is-playlist-cover");
+        coverElement.classList.toggle("active", i === 4 && mappedIndex === currentTrack);
+      }
+    });
+  }
+
   function handleWheel(e) {
+    if (wheelTimeout) return;
+    
+    wheelTimeout = setTimeout(() => {
+      wheelTimeout = null;
+    }, 200);
+
     e.preventDefault();
     const direction = e.deltaY > 0 ? 1 : -1;
-    if (trackData.length > 0) {
-      const totalTracks = trackData.length;
-      currentTrack = (currentTrack + direction + totalTracks) % totalTracks;
-      renderizarCaratulasCarrusel();
-      actualizarEstadoFavoritoActual(); // ✅ Actualizar corazón al usar rueda
+    
+    if (currentMode === "playlists") {
+      const total = PLAYLISTS_MAP.length;
+      currentPlaylistIndex = (currentPlaylistIndex + direction + total) % total;
+      renderizarCaratulasPlaylists();
+    } else {
+      const total = trackData.length;
+      if (total > 0) {
+        currentTrack = (currentTrack + direction + total) % total;
+        renderizarCaratulasCarrusel();
+        actualizarEstadoFavoritoActual();
+      }
     }
   }
 
   carousel.onmousedown = startDrag;
   window.onmousemove = onDrag;
   window.onmouseup = endDrag;
-
   carousel.ontouchstart = startDrag;
   window.ontouchmove = onDrag;
   window.ontouchend = endDrag;
-
   carousel.onwheel = handleWheel;
 }
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 📚 Renderizado Dinámico de Playlists (Modo Directorio) - UNIFICADO Y OPTIMIZADO
+//  Renderizado Dinámico de Playlists (Modo Directorio)
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 function renderizarCaratulasPlaylists() {
-  document.querySelector(".player-container").classList.add("mode-playlists");
-  
   currentMode = "playlists";
+  document.querySelector(".player-container").classList.add("mode-playlists");
   contentOverlay.classList.remove("active");
   
-  const carousel = document.querySelector(".carousel-arc");
-  if (!carousel) return;
+  const totalPlaylists = PLAYLISTS_MAP.length;
 
-  requestAnimationFrame(() => {
-    PLAYLISTS_MAP.forEach((playlist, index) => {
-      if (covers[index]) {
-        const imgElement = covers[index].querySelector("img");
-        const coverImageSrc = originalCoverImages[playlist.coverIndex % originalCoverImages.length] || originalCoverImages[0];
-        
-        if (imgElement) {
-          imgElement.src = coverImageSrc;
-          imgElement.loading = "eager";
-        }
-        
-        covers[index].classList.remove("active");
-        covers[index].dataset.key = playlist.key;
-      }
-    });
+  for (let i = 0; i < 9; i++) {
+    const coverElement = covers[i];
+    if (!coverElement) continue;
+
+    const imgElement = coverElement.querySelector("img");
+    const offset = i - 4;
+    let playlistIndex = (currentPlaylistIndex + offset) % totalPlaylists;
+    playlistIndex = (playlistIndex + totalPlaylists) % totalPlaylists;
+
+    const targetPlaylist = PLAYLISTS_MAP[playlistIndex];
+    const coverImageSrc = targetPlaylist.coverUrl;
     
-    setTimeout(() => {
-      document.querySelector(".player-container").classList.remove("mode-playlists");
-    }, 100);
-  });
+    if (imgElement) {
+      imgElement.src = obtenerImagenConCache(coverImageSrc);
+      imgElement.loading = "eager";
+    }
+    
+    coverElement.dataset.key = targetPlaylist.key;
+    coverElement.classList.remove("active", "is-playlist-cover");
+    
+    if (i === 4) {
+      coverElement.classList.add("active");
+    }
+  }
 
-  console.log(`📂 Modo Playlists activo en el carrusel.`);
+  console.log(`📂 Modo Playlists activo. Centro: ${PLAYLISTS_MAP[currentPlaylistIndex].nombre}`);
 }
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 🎛️ Reproductor Principal (Play / Pause / Cambio de Pista) - CON GUARDADO
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// Reproductor Principal (Play / Pause / Cambio de Pista) - CON GUARDADO
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 function activarReproduccion(index, modo = "manual") {
   if (!Array.isArray(trackData) || index < 0 || index >= trackData.length) return;
 
@@ -473,31 +554,65 @@ function activarReproduccion(index, modo = "manual") {
 
   currentTrack = index;
   
-  // ✅ GUARDAR PROGRESO EN LOCALSTORAGE
   const progress = JSON.parse(localStorage.getItem("playlistProgress")) || {};
   progress[currentPlaylistName] = currentTrack;
   localStorage.setItem("playlistProgress", JSON.stringify(progress));
   
+  // 1. Actualizar metadatos de texto INMEDIATAMENTE (es rápido y no bloquea)
   if (TRACK_TITLE_EL)    TRACK_TITLE_EL.textContent    = track.nombre || "Sin título";
   if (TRACK_ARTIST_EL)   TRACK_ARTIST_EL.textContent   = track.artista || "Desconocido";
   if (TRACK_DURATION_EL) TRACK_DURATION_EL.textContent = track.duracion || `${trackData.length} Pistas`;
-
-  actualizarMediaSession(track);
   actualizarEstadoFavoritoActual();
-  renderizarCaratulasCarrusel();
 
+  // 2. Iniciar la carga y reproducción del audio ANTES del renderizado pesado
   audio.src = url;
   audio.load();
+  
   audio.play().then(() => {
     if (btnPlayPause) btnPlayPause.innerHTML = '<i class="fas fa-pause"></i>';
+    // Pre-cargar el siguiente track solo cuando este ya está sonando
+    precargarSiguienteTrack();
   }).catch(err => {
-    console.warn("⚠️ Reproducción pausada por políticas del navegador:", err);
+    console.warn("⏸️ Reproducción en pausa (esperando interacción):", err.message);
     if (btnPlayPause) btnPlayPause.innerHTML = '<i class="fas fa-play"></i>';
+  });
+
+  // 3. Renderizar el carrusel en el siguiente frame para NO bloquear el audio
+  requestAnimationFrame(() => {
+    actualizarMediaSession(track);
+    renderizarCaratulasCarrusel();
   });
 }
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 🎮 Controles Multimedia
+// Pre-carga del siguiente track (Elimina el retraso al cambiar de canción)
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function precargarSiguienteTrack() {
+  if (!trackData || trackData.length === 0) return;
+  
+  // Calcular el índice del siguiente track (respetando shuffle si está activo)
+  let nextIndex;
+  if (shuffleActive) {
+    nextIndex = Math.floor(Math.random() * trackData.length);
+  } else {
+    nextIndex = (currentTrack + 1) % trackData.length;
+  }
+  
+  const nextTrack = trackData[nextIndex];
+  const nextUrl = nextTrack.enlace || nextTrack.dropbox_url || nextTrack.url;
+  
+  if (nextUrl) {
+    // Crear un objeto de audio invisible solo para forzar la descarga del buffer
+    const preloader = new Audio();
+    preloader.src = nextUrl;
+    preloader.preload = "auto";
+    preloader.load();
+    console.log(`🚀 Pre-cargando en segundo plano: ${nextTrack.nombre}`);
+  }
+}
+
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// Controles Multimedia
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 if (btnPlayPause) {
   btnPlayPause.addEventListener("click", () => {
@@ -568,9 +683,9 @@ if (btnRepeat) {
 }
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// ⏱️ Gestión de Tiempos y Barra de Progreso
+// Gestión de Tiempos y Barra de Progreso
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 
-// al inicio del archivo, así que los usamos directamente.
+// al inicio del archivo, así que los usamos directamente
 audio.addEventListener("timeupdate", () => {
   if (isNaN(audio.duration)) return;
   
@@ -635,22 +750,30 @@ function formatTime(seconds) {
 }
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 🖱️ Control de Clics en el Carrusel (Con protección para portada de playlist)
+// Control de Clics en el Carrusel (Con protección para portada de playlist y arrastre)
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 covers.forEach((cover, index) => {
-  cover.addEventListener("click", async () => {
+  cover.addEventListener("click", async (e) => {
+    // Si hubo arrastre, ignorar el clic y resetear la bandera
+    if (hasDragged) {
+      hasDragged = false;
+      e.stopPropagation();
+      return;
+    }
+
     if (currentMode === "playlists") {
       const key = cover.dataset.key;
       if (key) {
         console.log(`📂 Seleccionando playlist: ${key}`);
+        const targetIndex = PLAYLISTS_MAP.findIndex(p => p.key === key);
+        if (targetIndex !== -1) currentPlaylistIndex = targetIndex;
+        
         await cargarPlaylist(key);
       }
       return;
     }
 
     const trackIdx = cover.dataset.trackIndex;
-    
-    // ✅ IGNORAR CLICS EN LA PORTADA DE LA PLAYLIST PARA EVITAR ERRORES
     if (trackIdx === "playlist-cover") {
       console.log("📌 Clic en la portada de la playlist (no es un track reproducible).");
       return;
@@ -664,7 +787,7 @@ covers.forEach((cover, index) => {
 });
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 🔄 Secuencia Automática (Evento Ended) - CON LIMPIEZA DE PROGRESO
+// Secuencia Automática (Evento Ended) - CON LIMPIEZA DE PROGRESO
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 audio.addEventListener("ended", () => {
   if (shuffleActive) {
@@ -694,7 +817,7 @@ audio.addEventListener("ended", () => {
 });
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 🗂️ Control de Pestañas e Iconos del Arco (Nav Icons)
+// Control de Pestañas e Iconos del Arco (Nav Icons)
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 navIcons.forEach(icon => {
   icon.addEventListener("click", async () => {
@@ -704,10 +827,10 @@ navIcons.forEach(icon => {
     icon.classList.add("active");
 
     if (sectionName === "video") {
-      // ✅ Abrir overlay fullscreen de videos
+      // Abrir overlay fullscreen de videos
       abrirOverlayFullscreen("section-video");
     } else if (sectionName === "games") {
-      // ✅ Abrir overlay fullscreen de juegos
+      // Abrir overlay fullscreen de juegos
       abrirOverlayFullscreen("section-games");
     } else if (sectionName === "music") {
       cerrarOverlay();
@@ -735,7 +858,7 @@ navIcons.forEach(icon => {
 });
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// ⭐ Gestión de Favoritos: Agregar o Quitar del localStorage
+// Gestión de Favoritos: Agregar o Quitar del localStorage
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 if (btnFavorite) {
   btnFavorite.addEventListener("click", () => {
@@ -756,7 +879,7 @@ if (btnFavorite) {
           artista: trackObj.artista || "Desconocido",
           duracion: trackObj.duracion || "",
           enlace: trackUrl,
-          caratula: trackObj.caratula || trackObj.imagen || trackObj.cover,
+          caratula: trackObj.portada || trackObj.caratula || trackObj.imagen || trackObj.cover,
           playlist_origen: currentPlaylistName,
           fecha_agregado: new Date().toISOString()
         };
@@ -776,7 +899,7 @@ if (btnFavorite) {
 }
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// ⭐ Gestión de Favoritos: Actualizar estado visual del corazón
+// Gestión de Favoritos: Actualizar estado visual del corazón
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 function actualizarEstadoFavoritoActual() {
   if (!btnFavorite) return;
@@ -803,7 +926,7 @@ function actualizarEstadoFavoritoActual() {
 }
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 🎮 Control de Overlay Fullscreen (Video / Juegos)
+// Control de Overlay Fullscreen (Video / Juegos)
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 function abrirOverlayFullscreen(sectionId) {
   const section = document.getElementById(sectionId);
@@ -850,7 +973,7 @@ document.addEventListener("keydown", (e) => {
 });
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 📹 Inyectar Video de YouTube
+// Inyectar Video de YouTube
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 function agregarVideo(videoId, titulo) {
   const container = document.getElementById("videoContainer");
@@ -872,7 +995,7 @@ function agregarVideo(videoId, titulo) {
 }
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 🎮 Inyectar Juego en iframe
+// Inyectar Juego en iframe
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 function agregarJuego(url, titulo) {
   const container = document.getElementById("gamesContainer");
@@ -890,12 +1013,12 @@ function agregarJuego(url, titulo) {
 }
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 📱 MEDIA SESSION API (Para reproducción en background y pantalla de bloqueo)
+// MEDIA SESSION API (Para reproducción en background y pantalla de bloqueo)
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 function actualizarMediaSession(track) {
-  if (!("mediaSession" in navigator)) return; // Si el navegador no lo soporta, salir
+  if (!("mediaSession" in navigator)) return;
 
-  const coverUrl = track.caratula || track.imagen || track.cover || "https://santi-graphics.vercel.app/assets/covers/Cover1.png";
+  const coverUrl = track.portada || track.caratula || track.imagen || track.cover || "https://santi-graphics.vercel.app/assets/covers/Cover1.png";
 
   navigator.mediaSession.metadata = new MediaMetadata({
     title: track.nombre || "Sin título",
@@ -911,7 +1034,6 @@ function actualizarMediaSession(track) {
     ]
   });
 
-  // Definir qué hacen los botones de la pantalla de bloqueo del celular
   navigator.mediaSession.setActionHandler("play", () => {
     audio.play();
     if (btnPlayPause) btnPlayPause.innerHTML = '<i class="fas fa-pause"></i>';
@@ -923,16 +1045,16 @@ function actualizarMediaSession(track) {
   });
 
   navigator.mediaSession.setActionHandler("previoustrack", () => {
-    if (btnPrev) btnPrev.click(); // Reutiliza tu lógica existente
+    if (btnPrev) btnPrev.click();
   });
 
   navigator.mediaSession.setActionHandler("nexttrack", () => {
-    if (btnNext) btnNext.click(); // Reutiliza tu lógica existente
+    if (btnNext) btnNext.click();
   });
 }
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 📐 Ajuste automático de escala (Solo para desktop pequeño)
+// Ajuste automático de escala (Solo para desktop pequeño)
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 function ajustarEscalaReproductor() {
   const stage = document.querySelector(".player-stage");
@@ -943,7 +1065,7 @@ function ajustarEscalaReproductor() {
   const windowHeight = window.innerHeight;
   const windowWidth = window.innerWidth;
   
-  // ✅ Solo escalar en desktop si la ventana es más pequeña que el reproductor
+  // Solo escalar en desktop si la ventana es más pequeña que el reproductor
   if (windowWidth > 500 && windowHeight > 900) {
     if (windowWidth < targetWidth || windowHeight < targetHeight) {
       const scaleW = windowWidth / targetWidth;
@@ -959,7 +1081,7 @@ function ajustarEscalaReproductor() {
     return;
   }
   
-  // ✅ En móvil: sin escala, ocupa 100% (controlado por CSS)
+  // En móvil: sin escala, ocupa 100% (controlado por CSS)
   stage.style.removeProperty("--stage-scale");
   stage.style.transform = "none";
 }
@@ -968,7 +1090,7 @@ window.addEventListener("resize", ajustarEscalaReproductor);
 window.addEventListener("DOMContentLoaded", ajustarEscalaReproductor);
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-//  Cargar videos de prueba al iniciar (DEMO)
+// Cargar videos de prueba al iniciar (DEMO)
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 document.addEventListener("DOMContentLoaded", () => {
   // Agregar video de prueba después de un pequeño delay
@@ -979,10 +1101,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 🎮 Selector de juegos (Con tus enlaces originales exactos)
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 🎮 Selector de juegos (Sintaxis corregida)
+// Selector de juegos (Con tus enlaces originales exactos)
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 const gamesData = {
   "mario-luigi": {
@@ -1004,10 +1123,10 @@ function cargarJuego(gameKey) {
     return;
   }
   
-  // ✅ Limpiar contenedor
+  // Limpiar contenedor
   container.innerHTML = '';
   
-  // ✅ Crear iframe limpio que ocupe todo el espacio
+  // Crear iframe limpio que ocupe todo el espacio
   const iframe = document.createElement("iframe");
   iframe.src = gameData.url;
   iframe.allowFullscreen = true;

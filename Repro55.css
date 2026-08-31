@@ -71,7 +71,7 @@ body {
 
 .arc-ring-outer {
   position: absolute;
-  left: -140px; top: 390px;
+  left: -140px; top: 430px;
   width: 550px; height: 740px;
   margin-left: -275px; margin-top: -370px;
   border-radius: 50%;
@@ -81,7 +81,7 @@ body {
 
 .arc-ring-inner {
   position: absolute;
-  left: -190px; top: 390px;
+  left: -190px; top: 420px;
   width: 480px; height: 480px;
   margin-left: -240px; margin-top: -240px;
   border-radius: 50%;
@@ -93,7 +93,7 @@ body {
    ============================================ */
 .nav-icons-arc {
   position: absolute;
-  left: -190px; top: 390px;
+  left: -190px; top: 430px;
   width: 0; height: 0;
   z-index: 5;
 }
@@ -131,7 +131,7 @@ body {
    ============================================ */
 .carousel-arc {
   position: absolute;
-  left: -140px; top: 390px;
+  left: -140px; top: 430px;
   width: 0; height: 0;
   z-index: 2;
   transform: scaleY(1.35);
@@ -319,6 +319,38 @@ body {
   background: rgba(125, 92, 241, 0.3);
   color: var(--c5); /* Color cyan/violeta activo */
   box-shadow: 0 0 10px rgba(125, 92, 241, 0.4);
+}
+
+/* ============================================
+   ETIQUETA DE PLAYLIST EN EL PANEL
+   ============================================ */
+.track-playlist {
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--c4);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Pequeño punto indicador al lado del nombre */
+.track-playlist::before {
+  content: '';
+  display: block;
+  width: 8px;
+  height: 8px;
+  background: var(--c3);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--c3);
+  animation: pulse-dot 2s infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(0.8); }
 }
 
 /* ============================================

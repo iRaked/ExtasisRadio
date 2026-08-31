@@ -13,6 +13,10 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="Spotune">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <!-- Preconexión para eliminar el retraso de red al cargar audio -->
+  <link rel="preconnect" href="https://radio-tekileros.vercel.app" crossorigin>
+  <link rel="preconnect" href="https://xat-music4.vercel.app" crossorigin>
+  <link rel="dns-prefetch" href="https://iraked.github.io">
   <!-- Icono para cuando se agregue a pantalla de inicio -->
   <link rel="apple-touch-icon" href="https://santi-graphics.vercel.app/assets/iPod.ico">
   <link rel="icon" type="image/x-icon" href="https://santi-graphics.vercel.app/assets/iPod.ico">
@@ -57,7 +61,7 @@
         <img src="https://santi-graphics.vercel.app/assets/covers/Cover12.png" alt="">
       </div>
       <div class="arc-cover" style="--a: 60deg;" data-pos="2">
-        <img src="https://santi-graphics.vercel.app/assets/covers/Cover2.png" alt="">
+        <img src="https://santi-graphics.vercel.app/assets/covers/Cover1.png" alt="">
       </div>
       <div class="arc-cover" style="--a: 75deg;" data-pos="3">
         <img src="https://santi-graphics.vercel.app/assets/covers/Cover8.png" alt="">
@@ -102,43 +106,45 @@
     <div class="metadata-panel">
       <div class="track-card">
 
-          <h2 id="trackTitle">Ay amor</h2>
-          <p id="trackArtist">Los Caligaris</p>
+        <!-- ✅ Nuevo: Nombre de la Playlist en la parte superior -->
+        <p id="trackPlaylist" class="track-playlist">ACTUAL</p>
 
-          <!-- ✅ Contador de tiempo -->
-          <p class="track-time">
-            <span id="currentTime">0:00</span>
-            <span class="time-separator"> - </span>
-            <span id="totalDuration">5:35</span>
-          </p>
+        <h2 id="trackTitle">Ay amor</h2>
+        <p id="trackArtist">Los Caligaris</p>
 
-          <!-- Acciones (FAV - INFO - SHUFFLE - REPEAT) -->
-          <div class="track-actions">
-            <div class="action-icons">
-              <button class="btn-act" id="btnFavorite" title="Favorito">
-                <i class="far fa-heart"></i>
-              </button>
-              <button class="btn-act" id="btnInfo" title="Información">
-                <i class="fas fa-info-circle"></i>
-              </button>
-              <!-- ✅ Nuevos botones (la lógica JS ya los detecta por su ID) -->
-              <button class="btn-act" id="btnShuffle" title="Aleatorio">
-                <i class="fas fa-random"></i>
-              </button>
-              <button class="btn-act" id="btnRepeat" title="Repetir">
-                <i class="fas fa-redo"></i>
-              </button>
-            </div>
+        <!-- Contador de tiempo -->
+        <p class="track-time">
+          <span id="currentTime">0:00</span>
+          <span class="time-separator"> - </span>
+          <span id="totalDuration">5:35</span>
+        </p>
+
+        <!-- Acciones (FAV - INFO - SHUFFLE - REPEAT) -->
+        <div class="track-actions">
+          <div class="action-icons">
+            <button class="btn-act" id="btnFavorite" title="Favorito">
+              <i class="far fa-heart"></i>
+            </button>
+            <button class="btn-act" id="btnInfo" title="Información">
+              <i class="fas fa-info-circle"></i>
+            </button>
+            <button class="btn-act" id="btnShuffle" title="Aleatorio">
+              <i class="fas fa-random"></i>
+            </button>
+            <button class="btn-act" id="btnRepeat" title="Repetir">
+              <i class="fas fa-redo"></i>
+            </button>
           </div>
-          
-          <!-- ✅ Barra de progreso -->
-          <div class="progress-container" id="progressContainer">
-            <div class="progress-bar">
-              <div class="progress-fill" id="progressFill"></div>
-            </div>
-          </div>
-
         </div>
+
+        <!-- Barra de progreso -->
+        <div class="progress-container" id="progressContainer">
+          <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+        </div>
+
+      </div>
     </div>
 
     <!-- Overlay -->
