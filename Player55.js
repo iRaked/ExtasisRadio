@@ -1,7 +1,6 @@
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // 🏗️ CONSTRUCTORES DINÁMICOS DEL DOM - Player55.js
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
 function buildAudioElement() {
   const audio = document.createElement("audio");
   audio.id = "audio";
@@ -217,9 +216,8 @@ function buildContentOverlay(container) {
 }
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 🚀 INICIALIZACIÓN - Construir y montar todo el DOM
+// INICIALIZACIÓN - Construir y montar todo el DOM
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
 document.addEventListener("DOMContentLoaded", () => {
   // 1. Crear elemento de audio
   const audio = buildAudioElement();
@@ -228,6 +226,23 @@ document.addEventListener("DOMContentLoaded", () => {
   // 2. Construir y montar el reproductor
   const playerStage = buildPlayerStage();
   document.body.appendChild(playerStage);
-
+  
   console.log("🎧 Player55 DOM dinámico construido exitosamente");
+  
+  // 3. AVISAR A Repro55.js QUE EL DOM YA EXISTE
+  window.dispatchEvent(new Event('player-dom-ready'));
+
+  // 4. REGISTRO DEL SERVICE WORKER (Solo se ejecutará sin errores en https:// o localhost)
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw55.js') 
+        .then((registration) => {
+          console.log('✅ SW registrado con éxito:', registration.scope);
+        })
+        .catch((error) => {
+          // Este catch se activará en file://, lo cual es esperado e inofensivo
+          console.log('ℹ️ SW no registrado (normal si estás abriendo el archivo localmente sin servidor)');
+        });
+    });
+  }
 });

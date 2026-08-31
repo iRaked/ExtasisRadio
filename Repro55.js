@@ -12,6 +12,9 @@ let hasDragged = false; // Eevita clics falsos tras arrastrar
 let repeatActive = false;
 let shuffleActive = false;
 
+// Esperar a que Player55.js termine de construir el DOM
+window.addEventListener('player-dom-ready', () => {
+
 const audio = document.getElementById("audio");
 
 // Elementos de metadatos y controles
@@ -53,7 +56,7 @@ function obtenerImagenConCache(url) {
   if (!url) return "https://santi-graphics.vercel.app/assets/SG.ico";
   
   if (imageCache.has(url)) {
-    return imageCache.get(url);
+    return imageCache.get(url); // ← Ya está en memoria, no hace fetch
   }
   
   const img = new Image();
@@ -117,25 +120,23 @@ function setDefaultMetadata() {
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // ▶️ Inicialización ÚNICA y Gesto Humano
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-document.addEventListener("DOMContentLoaded", () => {
-  setDefaultMetadata();
-  precargarImagenesPlaylists();
-  cargarPlaylist("actual");
-  ajustarEscalaReproductor();
-  
-  // INICIALIZAR EVENTOS DEL CARRUSEL UNA SOLA VEZ
-  inicializarArrastreCarrusel(); 
+setDefaultMetadata();
+precargarImagenesPlaylists();
+cargarPlaylist("actual");
+ajustarEscalaReproductor();
 
-  document.addEventListener("click", () => {
-    if (gestureDetected) return;
-    gestureDetected = true;
-    audio.muted = false;
-    console.log("🟢 Interacción humana detectada: Audio habilitado.");
-    if (audio.src && audio.paused) {
-      audio.play().catch(() => {}); 
-    }
-  }, { once: true });
-});
+// INICIALIZAR EVENTOS DEL CARRUSEL UNA SOLA VEZ
+inicializarArrastreCarrusel(); 
+
+document.addEventListener("click", () => {
+  if (gestureDetected) return;
+  gestureDetected = true;
+  audio.muted = false;
+  console.log("🟢 Interacción humana detectada: Audio habilitado.");
+  if (audio.src && audio.paused) {
+    audio.play().catch(() => {}); 
+  }
+}, { once: true });
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // Precarga de imágenes de playlists
@@ -941,34 +942,68 @@ function abrirOverlayFullscreen(sectionId) {
   contentOverlay.classList.add("active");
 
   console.log(`️ Overlay fullscreen abierto: ${sectionId}`);
+
+  // Agregar estado al historial para habilitar el botón "Atrás" en móviles
+  history.pushState({ overlayOpen: true }, "");
+
+  // Si es la sección de juegos, cargar el juego por defecto
+  if (sectionId === "section-games") {
+    setTimeout(() => {
+      cargarJuego("mario-luigi");
+    }, 500);
+  }
 }
 
 function cerrarOverlay() {
+  if (!contentOverlay.classList.contains("active")) return;
+  
   contentOverlay.classList.remove("active");
   contentOverlay.classList.remove("full-screen");
   contentSections.forEach(sec => sec.classList.remove("active"));
   
-  // Si estábamos en modo music, volver a mostrar el carrusel normal
-  if (currentMode === "music") {
-    // No hacer nada, el carrusel ya está visible
-  } else if (currentMode === "playlists") {
+  // Si estábamos en modo playlists, volver a mostrar el carrusel de listas
+  if (currentMode === "playlists") {
     renderizarCaratulasPlaylists();
   }
 
   console.log("❌ Overlay cerrado");
+  
+  // Si el historial indica que el overlay estaba abierto, retrocedemos para limpiar el estado
+  if (history.state && history.state.overlayOpen) {
+    history.back();
+  }
 }
 
-// Cierre con botón X
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// Mecanismos de Cierre del Overlay (Botón X, Tecla ESC y Botón Atrás Móvil)
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// 1. Cierre con botón X
 document.querySelectorAll(".content-overlay .btn-close").forEach(btn => {
   btn.addEventListener("click", () => {
     cerrarOverlay();
   });
 });
 
-// Cierre con tecla ESC
+// 2. Cierre con tecla ESC (Desktop)
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape" && contentOverlay.classList.contains("active")) {
     cerrarOverlay();
+  }
+});
+
+// 3. Cierre con botón "Atrás" del navegador/móvil (popstate)
+window.addEventListener("popstate", (event) => {
+  if (contentOverlay.classList.contains("active")) {
+    // No llamamos a history.back() aquí porque popstate YA es el resultado de ir atrás.
+    // Solo cerramos la UI y limpiamos las clases.
+    contentOverlay.classList.remove("active");
+    contentOverlay.classList.remove("full-screen");
+    contentSections.forEach(sec => sec.classList.remove("active"));
+    
+    if (currentMode === "playlists") {
+      renderizarCaratulasPlaylists();
+    }
+    console.log("❌ Overlay cerrado por botón atrás del navegador/móvil");
   }
 });
 
@@ -1092,13 +1127,9 @@ window.addEventListener("DOMContentLoaded", ajustarEscalaReproductor);
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // Cargar videos de prueba al iniciar (DEMO)
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-document.addEventListener("DOMContentLoaded", () => {
-  // Agregar video de prueba después de un pequeño delay
-  setTimeout(() => {
-    // ID del video: cq1Grx7qCLw (extraído de tu URL)
-    agregarVideo("cq1Grx7qCLw", "Video de Prueba - YouTube");
-  }, 1000);
-});
+setTimeout(() => {
+  agregarVideo("cq1Grx7qCLw", "Video de Prueba - YouTube");
+}, 1000);
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // Selector de juegos (Con tus enlaces originales exactos)
@@ -1155,14 +1186,4 @@ document.addEventListener("click", (e) => {
   }
 });
 
-// Cargar primer juego por defecto al abrir el overlay de juegos
-const originalAbrirOverlay = window.abrirOverlayFullscreen;
-window.abrirOverlayFullscreen = function(sectionId) {
-  originalAbrirOverlay(sectionId);
-  
-  if (sectionId === "section-games") {
-    setTimeout(() => {
-      cargarJuego("mario-luigi"); // O "farm-merge" si prefieres que cargue ese por defecto
-    }, 500);
-  }
-};
+}); // <-- Cierra el wrapper al final del archivo
