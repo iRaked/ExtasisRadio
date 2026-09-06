@@ -1,10 +1,10 @@
 /*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 00 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
 /*   ***************************** VARIABLES GLOBALES *****************************  */
 :root {
-  --color-primary: #3a95d2;
-  --color-secondary: #092998;
-  --color-accent: #6fdeff;
-  --bg-image: url("https://santi-graphics.vercel.app/assets/bg/Sony.png");
+  --color-primary: #009E60;    /* Verde vibrante (acciones principales, glows base) */
+  --color-secondary: #CE1126;  /* Rojo intenso (hovers, estados activos, acentos fuertes) */
+  --color-accent: #FFFFFF;     /* Blanco puro (halos, bordes, brillos y detalles) */
+  --bg-image: url("https://santi-graphics.vercel.app/assets/bg/MX2.png"); /* Nuevo fondo tricolor */
 }
 
 /*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 01 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
@@ -117,21 +117,22 @@ html, body {
   50% { transform: scaleY(1); }
 }
 
+/* ======================= CAMBIAR COLOR ======================= */
 @keyframes letterPulse {
   0% {
     text-shadow:
-      0 0 6px rgba(58, 149, 210, 0.9),   /* azul base vibrante */
-      0 0 12px rgba(111, 222, 255, 0.6), /* cian cálido */
+      0 0 6px rgba(0, 158, 96, 0.9),    /* verde base vibrante */
+      0 0 12px rgba(255, 255, 255, 0.6), /* blanco cálido */
       0 0 24px rgba(255, 255, 255, 0.4); /* blanco suave */
-    color: rgba(58, 149, 210, 0.9);      /* azul base */
+    color: rgba(0, 158, 96, 0.9);        /* verde base */
   }
   100% {
     text-shadow:
-      0 0 10px rgba(58, 149, 210, 1),    /* azul intenso */
-      0 0 20px rgba(111, 222, 255, 0.8), /* cian más fuerte */
-      0 0 30px rgba(9, 41, 152, 0.6),    /* azul oscuro brillante */
+      0 0 10px rgba(0, 158, 96, 1),      /* verde intenso */
+      0 0 20px rgba(255, 255, 255, 0.8), /* blanco más fuerte */
+      0 0 30px rgba(206, 17, 38, 0.6),   /* rojo brillante */
       0 0 40px rgba(255, 255, 255, 0.4); /* halo blanco suave */
-    color: rgba(58, 149, 210, 1);        /* azul puro */
+    color: rgba(0, 158, 96, 1);          /* verde puro */
   }
 }
 
@@ -169,11 +170,12 @@ html, body {
   100% { transform: translateY(1px); }
 }
 
+/* ======================= CAMBIAR COLOR ======================= */
 @keyframes neonFlicker {
   0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
     opacity: 1;
     text-shadow:
-      0 0 10px var(--color-primary), /* azul base vibrante */
+      0 0 10px var(--color-primary), /* verde base vibrante */
       0 0 15px #ffcc00,              /* dorado cálido (intacto) */
       0 0 25px #ffff66,              /* amarillo ritual (intacto) */
       0 0 40px #ffffff;              /* halo blanco */
@@ -376,8 +378,9 @@ html, body {
   z-index: 2;
 }
 
+/* ======================= CAMBIAR COLOR ======================= */
 .radio-logo:hover {
-  box-shadow: 0 0 20px rgba(58, 149, 210, 0.8); /* ← Resplandor azul intenso */
+  box-shadow: 0 0 20px rgba(0, 158, 96, 0.8); /* ← Resplandor verde intenso */
 }
 
 @keyframes vinylSpin {
@@ -387,12 +390,12 @@ html, body {
 
 @keyframes glow {
   0% {
-    box-shadow: 0 0 25px rgba(58, 149, 210, 0.5);  /* ← azul suave */
-    border-color: rgba(58, 149, 210, 0.6);         /* ← borde azul tenue */
+    box-shadow: 0 0 25px rgba(0, 158, 96, 0.5);  /* ← verde suave */
+    border-color: rgba(0, 158, 96, 0.6);          /* ← borde verde tenue */
   }
   100% {
-    box-shadow: 0 0 30px rgba(58, 149, 210, 0.8);  /* ← resplandor azul intenso */
-    border-color: rgba(58, 149, 210, 0.9);         /* ← borde vibrante */
+    box-shadow: 0 0 30px rgba(206, 17, 38, 0.8);  /* ← resplandor rojo intenso */
+    border-color: rgba(206, 17, 38, 0.9);          /* ← borde rojo vibrante */
   }
 }
 
@@ -537,14 +540,15 @@ html, body {
 /* Carátula */
 .cover-art-container { flex-shrink: 0; }
 
+/* ======================= CAMBIAR COLOR ======================= */
 #cover-art {
   width: 100px;
   height: 100px;
   border-radius: 10px;
   box-shadow:
-    0 0 12px 4px rgba(111, 222, 255, 0.6),  /* ← halo cian cercano */
-    0 0 24px 6px rgba(58, 149, 210, 0.4),   /* ← azul base medio */
-    0 0 36px 8px rgba(255, 255, 255, 0.2);  /* halo blanco lejano */
+    0 0 12px 4px rgba(255, 255, 255, 0.6),  /* ← halo blanco cercano */
+    0 0 24px 6px rgba(0, 158, 96, 0.4),     /* ← verde base medio */
+    0 0 36px 8px rgba(206, 17, 38, 0.2);    /* ← rojo lejano */
   object-fit: cover;
 }
 
@@ -693,6 +697,7 @@ button {
 }
 button:hover { transform: scale(1.1); }
 
+/* ======================= CAMBIAR COLOR ======================= */
 /* 🎯 Botón POWER */
 #power-btn {
   position: absolute;
@@ -704,19 +709,19 @@ button:hover { transform: scale(1.1); }
   background: linear-gradient(to bottom, #1a1a1a, #333); 
   color: #fff;
   transition: all 0.3s ease; 
-  box-shadow: 0 0 8px rgba(111, 222, 255, 0.8); /* ← Halo cian */
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.8); /* ← Halo blanco */
   pointer-events: auto;
 }
 #power-btn:hover {
-  box-shadow: 0 0 12px var(--color-primary); /* ← Azul vibrante */
+  box-shadow: 0 0 12px var(--color-primary); /* ← Verde vibrante */
 }
 
-/* Estado Activo: degradado azul + glow */
+/* Estado Activo: degradado tricolor + glow */
 #power-btn.active {
   background: linear-gradient(to right,
-      var(--color-accent) 0%,
-      var(--color-primary) 50%,
-      var(--color-secondary) 100%
+      #009E60 0%,    /* Verde */
+      #FFFFFF 50%,   /* Blanco */
+      #CE1126 100%   /* Rojo */
   ) !important;
   box-shadow: 0 0 16px 4px var(--color-primary) !important;
 }
@@ -728,6 +733,7 @@ button:hover { transform: scale(1.1); }
 /* Rotación del icono */
 #power-btn.animate-icon i { transform: rotate(360deg); }
 
+/* ======================= CAMBIAR COLOR ======================= */
 /* 🔴 Botón Play */
 #play-btn {
   width: 80px;
@@ -737,7 +743,7 @@ button:hover { transform: scale(1.1); }
   border-radius: 50%;
   background: linear-gradient(to bottom, #1a1a1a, #333);
   color: #fff;
-  box-shadow: 0 0 10px rgba(111, 222, 255, 0.8); /* ← Halo cian */
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.8); /* ← Halo blanco */
   font-size: 1.0em;
   display: flex;
   justify-content: center;
@@ -748,12 +754,12 @@ button:hover { transform: scale(1.1); }
   transition: background 0.3s ease;
 }
 
-/* Estado activo del Play → degradado azul */
+/* Estado activo del Play → degradado tricolor */
 #play-btn.active {
   background: linear-gradient(to right,
-    var(--color-accent) 0%,
-    var(--color-primary) 50%,
-    var(--color-secondary) 100%
+    #009E60 0%,    /* Verde */
+    #FFFFFF 50%,   /* Blanco */
+    #CE1126 100%   /* Rojo */
   );
 }
 
@@ -765,7 +771,7 @@ button:hover { transform: scale(1.1); }
   border-radius: 50%;
   background: linear-gradient(to bottom, #1a1a1a, #333);
   color: #fff;
-  box-shadow: 0 0 8px rgba(58, 149, 210, 0.6); /* ← Glow azul */
+  box-shadow: 0 0 8px rgba(0, 158, 96, 0.6); /* ← Glow verde */
 }
 #rewind-btn:hover { box-shadow: 0 0 12px var(--color-primary); }
 
@@ -778,16 +784,16 @@ button:hover { transform: scale(1.1); }
   border-radius: 50%;
   background: linear-gradient(to bottom, #1a1a1a, #333);
   color: #fff;
-  box-shadow: 0 0 8px rgba(58, 149, 210, 0.6); /* ← Glow azul */
+  box-shadow: 0 0 8px rgba(0, 158, 96, 0.6); /* ← Glow verde */
 }
 #forward-btn:hover { box-shadow: 0 0 12px var(--color-primary); }
 
 /* 🔁 Botón Repeat */
 .control-btn.active {
     background: linear-gradient(to right,
-        var(--color-accent) 0%,
-        var(--color-primary) 50%,
-        var(--color-secondary) 100%
+        #009E60 0%,    /* Verde */
+        #FFFFFF 50%,   /* Blanco */
+        #CE1126 100%   /* Rojo */
     ) !important;
 }
 
@@ -806,15 +812,15 @@ button:hover { transform: scale(1.1); }
     border-radius: 50%;
     background: linear-gradient(to bottom, #1a1a1a, #333);
     color: #fff;
-    box-shadow: 0 0 8px rgba(58, 149, 210, 0.6);
+    box-shadow: 0 0 8px rgba(0, 158, 96, 0.6);
     transition: all 0.3s ease; 
 }
 #repeat-btn:hover { box-shadow: 0 0 12px var(--color-primary); }
 #repeat-btn.active-one {
-    box-shadow: 0 0 12px 4px rgba(58, 149, 210, 0.8);
+    box-shadow: 0 0 12px 4px rgba(206, 17, 38, 0.8); /* ← Rojo */
 }
 #repeat-btn.active-one i {
-    text-shadow: 0 0 8px var(--color-primary);
+    text-shadow: 0 0 8px var(--color-secondary);
 }
 
 /* 🔀 Botón Shuffle */
@@ -826,12 +832,12 @@ button:hover { transform: scale(1.1); }
     border-radius: 50%;
     background: linear-gradient(to bottom, #1a1a1a, #333);
     color: #fff;
-    box-shadow: 0 0 8px rgba(58, 149, 210, 0.6);
+    box-shadow: 0 0 8px rgba(0, 158, 96, 0.6);
     transition: all 0.3s ease;
 }
 #shuffle-btn:hover { box-shadow: 0 0 12px var(--color-primary); }
 #shuffle-btn.active {
-    box-shadow: 0 0 12px 4px rgba(58, 149, 210, 0.8);
+    box-shadow: 0 0 12px 4px rgba(0, 158, 96, 0.8);
 }
 
 /* 📜 Botón Menu */
@@ -842,7 +848,7 @@ button:hover { transform: scale(1.1); }
   bottom: 60px;
   right: 320px;
   background: linear-gradient(to bottom, #1a1a1a, #333);
-  box-shadow: 0 0 6px rgba(58, 149, 210, 0.3); /* ← Sombra azul tenue */
+  box-shadow: 0 0 6px rgba(0, 158, 96, 0.3); /* ← Sombra verde tenue */
 }
 #menu-btn:hover {
   transform: scale(1.1);
@@ -859,13 +865,13 @@ button:hover { transform: scale(1.1); }
   border-radius: 50%;
   background: linear-gradient(to bottom, #1a1a1a, #333);
   color: #fff;
-  box-shadow: 0 0 8px rgba(58, 149, 210, 0.6); /* ← glow azul */
+  box-shadow: 0 0 8px rgba(0, 158, 96, 0.6); /* ← glow verde */
   transition: box-shadow 0.3s ease, transform 0.2s ease;
 }
 
 #music-btn:hover {
   transform: scale(1.1);
-  box-shadow: 0 0 12px var(--color-primary); /* glow azul más intenso al hover */
+  box-shadow: 0 0 12px var(--color-primary); /* glow verde más intenso al hover */
 }
 
 /* ==================== Animaciones ==================== */
