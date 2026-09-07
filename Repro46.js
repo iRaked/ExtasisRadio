@@ -6,7 +6,7 @@ function crearAudio() {
   const audio = document.createElement("audio");
   audio.id = "player";
   audio.setAttribute("autoplay", "");
-  audio.src = "https://sonicpanel.tmcreativos.com:8042"; // stream real
+  // Sin src. Player46.js se encargará de asignarlo.
   return audio;
 }
 
@@ -235,7 +235,7 @@ function crearVisualEffects() {
   figure.className = "radio-logo";
   const img = document.createElement("img");
   img.id = "disc-img";
-  img.src = "assets/covers/Cover1.png";
+  img.src = "https://santi-graphics.vercel.app/covers/Cover1.png";
   img.alt = "Carátula";
   figure.appendChild(img);
   wrapper.appendChild(figure);
