@@ -1,26 +1,23 @@
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 🎧 AUDIO PRINCIPAL
+// 🎧 AUDIO PRINCIPAL (Sin src, lo inyecta Player20.js)
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// <audio id="player" autoplay muted></audio>
 function crearAudio() {
   const audio = document.createElement("audio");
   audio.id = "player";
   audio.setAttribute("autoplay", "");
-  audio.src = "https://sonicpanel.tmcreativos.com:8042"; // stream real
+  audio.setAttribute("muted", "");
   return audio;
 }
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 🌊 SECTION PRINCIPAL (bg-water + ripples)
+// 🌊 SECTION PRINCIPAL
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// <section class="bg-water ripples jquery-ripples" id="stream1">
 function crearSectionPrincipal() {
   const section = document.createElement("section");
   section.className = "bg-water ripples jquery-ripples";
   section.id = "stream1";
   section.dataset.tag = "";
 
-  // Inserta los elementos hijos principales
   section.appendChild(crearAudio());
   section.appendChild(crearCanvasBurbujas());
   section.appendChild(crearPixiContainer());
@@ -31,7 +28,6 @@ function crearSectionPrincipal() {
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // 💫 CANVAS BURBUJAS
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// <canvas id="burbujas" ...>
 function crearCanvasBurbujas() {
   const canvas = document.createElement("canvas");
   canvas.id = "burbujas";
@@ -48,7 +44,6 @@ function crearCanvasBurbujas() {
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // ✨ PIXI CONTAINER
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// <div id="pixi-container" ...>
 function crearPixiContainer() {
   const div = document.createElement("div");
   div.id = "pixi-container";
@@ -65,26 +60,20 @@ function crearPixiContainer() {
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // 📦 REPRO BOX (contenedor principal)
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// <div class="repro-box"> ... </div>
 function crearReproBox() {
   const reproBox = document.createElement("div");
   reproBox.className = "repro-box";
-
-  // Header
   reproBox.appendChild(crearHeader());
-
   return reproBox;
 }
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 🏷️ HEADER (menú, info-time, contador, botón radio)
+// 🏷️ HEADER
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// <div class="repro-header"> ... </div>
 function crearHeader() {
   const header = document.createElement("div");
   header.className = "repro-header";
 
-  // Botón menú
   const btnMenu = document.createElement("button");
   btnMenu.className = "btn-menu";
   btnMenu.id = "btn-menu-tracks";
@@ -95,7 +84,6 @@ function crearHeader() {
   `;
   header.appendChild(btnMenu);
 
-  // Nueva sección de información (fecha/hora)
   const infoTime = document.createElement("div");
   infoTime.className = "info-time";
   const spanInfo = document.createElement("span");
@@ -104,13 +92,11 @@ function crearHeader() {
   infoTime.appendChild(spanInfo);
   header.appendChild(infoTime);
 
-  // Contador de radioescuchas
   const radioescuchas = document.createElement("div");
   radioescuchas.className = "radioescuchas";
   radioescuchas.innerHTML = `<i class="fas fa-users"></i><span id="contadorRadio"></span>`;
   header.appendChild(radioescuchas);
 
-  // Botón radio
   const btnRadio = document.createElement("button");
   btnRadio.className = "btn-radio";
   btnRadio.id = "btn-radio";
@@ -131,12 +117,10 @@ function crearHeader() {
 function crearLogoContainer() {
   const logoContainer = document.createElement("div");
   logoContainer.className = "logo-container";
-
   const img = document.createElement("img");
   img.src = "https://santi-graphics.vercel.app/assets/img/Logo-RA.png";
   img.alt = "Logo";
   img.className = "logo-base zoom-effect";
-
   logoContainer.appendChild(img);
   return logoContainer;
 }
@@ -146,24 +130,17 @@ function crearLogoContainer() {
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 function crearTextoBienvenida() {
   const contextDiv = document.createElement("div");
-  contextDiv.className = "context-bienvenida"; // Usamos la clase del CSS
-
+  contextDiv.className = "context-bienvenida";
   const p = document.createElement("p");
   p.className = "animtext";
-  // Importante: No dejar espacios en blanco innecesarios entre las etiquetas span
-  p.innerHTML = `
-    <span class="word">¡Bienvenidos!</span>
-    <span class="word">¡Welcome!</span>
-  `;
+  p.innerHTML = `<span class="word">¡Bienvenidos!</span><span class="word">¡Welcome!</span>`;
   contextDiv.appendChild(p);
-
   return contextDiv;
 }
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 💿 VISUAL EFFECTS (logo, carátula, orbital glow)
+// 💿 VISUAL EFFECTS
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// <section id="visual-effects" class="visual-effects"> ...
 function crearVisualEffects() {
   const section = document.createElement("section");
   section.id = "visual-effects";
@@ -172,33 +149,27 @@ function crearVisualEffects() {
   const wrapper = document.createElement("div");
   wrapper.className = "logo-waves-wrapper";
 
-  // Logo / Carátula
   const figure = document.createElement("figure");
   figure.className = "radio-logo";
   const img = document.createElement("img");
   img.id = "disc-img";
-  img.src = "assets/covers/Cover1.png";
+  img.src = "https://santi-graphics.vercel.app/assets/covers/Cover1.png";
   img.alt = "Carátula";
   figure.appendChild(img);
   wrapper.appendChild(figure);
 
-  // Effects layer
   const effectsLayer = document.createElement("div");
   effectsLayer.className = "effects-layer";
-
   const orbitalContainer = document.createElement("div");
   orbitalContainer.className = "orbital_container";
-
   const orbitalArc = document.createElement("div");
   orbitalArc.className = "orbital_arc arc2";
-
   const avatarGlow = document.createElement("div");
   avatarGlow.className = "avatar-glow";
 
   orbitalContainer.appendChild(orbitalArc);
   orbitalContainer.appendChild(avatarGlow);
   effectsLayer.appendChild(orbitalContainer);
-
   wrapper.appendChild(effectsLayer);
   section.appendChild(wrapper);
 
@@ -206,44 +177,33 @@ function crearVisualEffects() {
 }
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 🎚️ FOOTER (meta-marquee, controles, volumen)
+// 🎚️ FOOTER
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// <footer class="footer-2_5d"> ...
 function crearFooter() {
   const footer = document.createElement("footer");
   footer.className = "footer-2_5d";
 
-  // Left zone: meta-marquee
   const leftZone = document.createElement("div");
   leftZone.className = "left-zone";
-
   const metaMarquee = document.createElement("div");
   metaMarquee.className = "meta-marquee";
-
   const metaTrack = document.createElement("div");
   metaTrack.className = "meta-track";
   metaTrack.id = "meta-track";
   metaTrack.textContent = "Cargando metadatos...";
-
   metaMarquee.appendChild(metaTrack);
   leftZone.appendChild(metaMarquee);
-
   footer.appendChild(leftZone);
 
-  // Botonera
   footer.appendChild(crearBotonera());
 
-  // Right zone: volumen
   const rightZone = document.createElement("div");
   rightZone.className = "right-zone";
-
   const volDown = document.createElement("i");
   volDown.className = "fas fa-volume-down volume-icon";
   volDown.id = "volumeIcon";
-
   const volTrack = document.createElement("div");
   volTrack.className = "volume-track";
-
   const volBar = document.createElement("input");
   volBar.type = "range";
   volBar.min = "0";
@@ -251,26 +211,20 @@ function crearFooter() {
   volBar.value = "70";
   volBar.className = "volume-bar";
   volBar.id = "volumeBar";
-
   volTrack.appendChild(volBar);
-
   const volUp = document.createElement("i");
   volUp.className = "fas fa-volume-up volume-icon";
-
   rightZone.appendChild(volDown);
   rightZone.appendChild(volTrack);
   rightZone.appendChild(volUp);
-
   footer.appendChild(rightZone);
 
   return footer;
 }
 
-
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// ⏯️ BOTONERA (repeat, prev, play/pause, next, shuffle)
+// ⏯️ BOTONERA
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// <div class="botonera"> ...
 function crearBotonera() {
   const botonera = document.createElement("div");
   botonera.className = "botonera";
@@ -307,13 +261,11 @@ function crearBotonera() {
   btnPlayPause.className = "flex justify-center items-center w-20 h-20 ml-6 rounded-full soft btn-play";
   btnPlayPause.setAttribute("aria-label", "Play/Pause");
   btnPlayPause.innerHTML = `
-    <!-- Ícono PLAY -->
     <svg class="icon-play icons w-8 h-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 173.861 173.861">
       <g transform="translate(5,5)">
         <path d="M34.857 3.613C20.084-4.861 8.107 2.081 8.107 19.106v125.637c0 17.042 11.977 23.975 26.75 15.509L144.67 97.275c14.778-8.477 14.778-22.211 0-30.686L34.857 3.613z" fill="#17191e"/>
       </g>
     </svg>
-    <!-- Ícono PAUSE -->
     <svg class="icon-pause icons w-8 h-8 hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
       <rect x="30" y="20" width="20" height="80" fill="#17191e"/>
       <rect x="70" y="20" width="20" height="80" fill="#17191e"/>
@@ -338,13 +290,7 @@ function crearBotonera() {
   btnShuffle.className = "flex justify-center items-center w-8 h-8 ml-6 rounded-full soft";
   btnShuffle.innerHTML = `
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 375.633 375.633" class="w-4 h-4" fill="#282b33" stroke="none">
-        <path d="M375.627 279.726l-78.877 67.608v-45.079h-13.277c-41.919 0-72.786-18.781-98.268-43.648 
-  9.828-11.569 18.738-23.214 27.027-34.108 1.904-2.513 3.796-4.993 5.684-7.473 
-  18.852 19.494 39.129 32.645 65.562 32.645h13.277v-37.568l78.872 67.623zM0 129.466h39.308c24.927 0 
-  44.377 11.716 62.321 29.371 2.953-3.791 5.939-7.74 8.953-11.683 7.337-9.66 15.093-19.831 
-  23.497-29.975-24.813-23.187-54.75-40.309-94.77-40.309H0v52.596zM296.75 28.299v44.818h-13.277c-69.375 
-  0-108.488 51.421-143.004 96.804-31.046 40.749-57.85 75.989-101.161 75.989H0v52.59h39.308c69.386 
-  0 108.498-51.394 143.015-96.766 31.035-40.798 57.844-76.033 101.15-76.033h13.277v37.84l78.883-67.629-78.883-67.613z"/>
+        <path d="M375.627 279.726l-78.877 67.608v-45.079h-13.277c-41.919 0-72.786-18.781-98.268-43.648 9.828-11.569 18.738-23.214 27.027-34.108 1.904-2.513 3.796-4.993 5.684-7.473 18.852 19.494 39.129 32.645 65.562 32.645h13.277v-37.568l78.872 67.623zM0 129.466h39.308c24.927 0 44.377 11.716 62.321 29.371 2.953-3.791 5.939-7.74 8.953-11.683 7.337-9.66 15.093-19.831 23.497-29.975-24.813-23.187-54.75-40.309-94.77-40.309H0v52.596zM296.75 28.299v44.818h-13.277c-69.375 0-108.488 51.421-143.004 96.804-31.046 40.749-57.85 75.989-101.161 75.989H0v52.59h39.308c69.386 0 108.498-51.394 143.015-96.766 31.035-40.798 57.844-76.033 101.15-76.033h13.277v37.84l78.883-67.629-78.883-67.613z"/>
     </svg>
   `;
   buttons.appendChild(btnShuffle);
@@ -356,7 +302,6 @@ function crearBotonera() {
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // 📜 MODAL TRACKS
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// <div id="modal-tracks" class="modal hidden"> ...
 function crearModalTracks() {
   const modal = document.createElement("div");
   modal.id = "modal-tracks";
@@ -365,26 +310,22 @@ function crearModalTracks() {
   const modalContent = document.createElement("div");
   modalContent.className = "modal-content";
 
-  // Botón cerrar
   const btnClose = document.createElement("button");
   btnClose.id = "close-modal";
   btnClose.className = "modal-x";
   btnClose.textContent = "✕";
   modalContent.appendChild(btnClose);
 
-  // Título
   const titulo = document.createElement("h2");
   titulo.className = "modal-title";
   titulo.textContent = "Tracks disponibles";
   modalContent.appendChild(titulo);
 
-  // Info actual (ID corregido: current-track-name-modal)
   const info = document.createElement("p");
   info.className = "modal-info";
   info.innerHTML = `Reproduciendo: <span id="current-track-name-modal">Cargando...</span>`;
   modalContent.appendChild(info);
 
-  // Lista dinámica
   const lista = document.createElement("ul");
   lista.className = "track-list";
   modalContent.appendChild(lista);
@@ -396,7 +337,6 @@ function crearModalTracks() {
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // 🌊 Waves EQ (Vue)
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// Inicializa el ecualizador animado
 function inicializarWavesEQ() {
   new Vue({
     el: "#app",
@@ -418,7 +358,6 @@ function inicializarWavesEQ() {
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // 💧 Activación Ripples
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// Inicializa el efecto de ondas en bg-water
 function inicializarRipples() {
   try {
     $('.bg-water').ripples({
@@ -433,7 +372,6 @@ function inicializarRipples() {
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // 🎈 Burbujas Pixi
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// Inicializa las burbujas animadas con Pixi.js
 function inicializarPixiBubbles() {
   const app = new PIXI.Application({
     width: window.innerWidth,
@@ -473,6 +411,53 @@ function inicializarPixiBubbles() {
   });
 }
 
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// 🫧 Burbujas Canvas 2D (Complemento de Pixi)
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function iniciarBurbujas() {
+    const canvas = document.getElementById("burbujas");
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+
+    const resizeCanvas = () => {
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = rect.width;
+        canvas.height = rect.height;
+    };
+
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas);
+
+    let burbujas = Array.from({ length: 30 }, () => ({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 8 + 2,
+        d: Math.random() * 1 + 0.5
+    }));
+
+    function dibujarBurbujas() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = "rgba(255, 255, 255, 0.6)";
+
+        burbujas.forEach(b => {
+            ctx.beginPath();
+            ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+            ctx.fill();
+
+            b.y -= b.d;
+
+            if (b.y < -10) {
+                b.y = canvas.height + 10;
+                b.x = Math.random() * canvas.width;
+            }
+        });
+
+        requestAnimationFrame(dibujarBurbujas);
+    }
+
+    dibujarBurbujas();
+}
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // 🧩 ENSAMBLADOR FINAL
@@ -483,7 +468,6 @@ function inicializarReproductor() {
 
   const section = crearSectionPrincipal();
 
-  // Bloque lateral con logo + texto
   const bloqueBienvenida = document.createElement("div");
   bloqueBienvenida.className = "bloque-bienvenida";
   bloqueBienvenida.appendChild(crearLogoContainer());
@@ -491,7 +475,6 @@ function inicializarReproductor() {
 
   section.appendChild(bloqueBienvenida);
 
-  // ReproBox intacto
   const reproBox = crearReproBox();
   reproBox.appendChild(crearVisualEffects());
   reproBox.appendChild(crearFooter());
@@ -505,13 +488,12 @@ function inicializarReproductor() {
   section.appendChild(reproBox);
   body.appendChild(section);
 
-  // Modal tracks
   body.appendChild(crearModalTracks());
 
-  // Inicializadores de efectos visuales
   inicializarWavesEQ();
   inicializarRipples();
   inicializarPixiBubbles();
+  iniciarBurbujas();
 
   window.dispatchEvent(new Event("repro-ready"));
 }

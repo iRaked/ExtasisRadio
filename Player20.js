@@ -9,9 +9,10 @@ let gestureDetected = false;
 let repeatMode = "none";
 let isShuffling = false;
 let trackHistory = [];
-let radioIntervalId = null; 
-let lastTrackTitle = "";
-let contadorIntervalId = null;
+
+// Variables unificadas para el modo radio (reemplazan a las antiguas)
+let radioUpdateIntervalId = null;
+let lastTrackTitleRadio = "";
 
 // ===============================
 // 🎯 ELEMENTOS CLAVE DEL DOM
@@ -45,7 +46,6 @@ const currentTrackNameModal = document.getElementById('current-track-name-modal'
 // ===============================
 // 🖼️ FUNCIONES AUXILIARES (Carátulas)
 // ===============================
-
 function validarCaratula(url) {
     if (!discImg) return;
     const img = new Image();
@@ -92,23 +92,20 @@ function cargarTracksDesdeJSON() {
                 return;
             }
 
-            // 🔑 Mapeo al formato que Player20.js espera
             trackData = pistas.map(p => ({
-                cover: p.caratula,
-                url: p.dropbox_url,
-                artist: p.artista,
-                name: p.nombre,
-                album: p.album,
+                cover: p.caratula || "https://santi-graphics.vercel.app/assets/covers/Cover1.png",
+                url: p.dropbox_url || p.url_dropbox || p.enlace,
+                artist: p.artista || "Artista Desconocido",
+                name: p.nombre || "Sin Título",
+                album: p.album || "Single",
                 emotion: p.emotion,
                 genero: p.genero,
                 duracion: p.duracion,
                 id: p.id,
                 seccion: p.seccion
-            }));
+            })).filter(track => track.url);
 
             currentTrack = 0;
-
-            // Carga inicial de metadatos y SRC
             activarReproduccion(0, "initial-load"); 
             generarListaModal();
             console.log("✅ Pistas cargadas desde Bandida.json. Audio src preparado.");
@@ -121,7 +118,6 @@ function cargarTracksDesdeJSON() {
 // ===============================
 // ▶️ FUNCIÓN UNIVERSAL DE REPRODUCCIÓN
 // ===============================
-
 function activarReproduccion(index, modo = "manual") {
     if (modoActual !== "local" || index < 0 || index >= trackData.length) return;
 
@@ -129,7 +125,7 @@ function activarReproduccion(index, modo = "manual") {
     if (!track?.url) return;
 
     currentTrack = index;
-    // --- ACTUALIZACIÓN VISUAL (Guardas críticas) ---
+    
     if (currentTrackName) currentTrackName.textContent = track.name;
     if (currentArtistName) currentArtistName.textContent = track.artist || "Artista Desconocido";
     if (metaTrack) {
@@ -137,7 +133,6 @@ function activarReproduccion(index, modo = "manual") {
         metaTrack.setAttribute("data-tag", track.name);
     }
     
-    // --- CARGA DE AUDIO ---
     audio.src = track.url;
     audio.load(); 
     
@@ -151,7 +146,6 @@ function activarReproduccion(index, modo = "manual") {
         return; 
     }
 
-    // --- REPRODUCCIÓN ---
     if (gestureDetected) {
         audio.muted = false;
         audio.play().then(() => {
@@ -171,211 +165,165 @@ function activarReproduccion(index, modo = "manual") {
     }
 }
 
+// ====================================================================
+// 📻 MODO RADIO - LÓGICA UNIFICADA (Metadatos + Contador + Carátula)
+// ====================================================================
+function detenerActualizacionRadioUnificada() {
+    if (radioUpdateIntervalId !== null) {
+        clearInterval(radioUpdateIntervalId);
+        radioUpdateIntervalId = null;
+    }
+    if (contadorElemento) contadorElemento.textContent = "0";
+}
 
-// ===============================
-// 📻 MODO RADIO - LÓGICA DE ACTUALIZACIÓN (Reforzada)
-// ===============================
+function obtenerCaratulaDesdeiTunesUnificada(artist, title) {
+    if (!discImg) return;
+    
+    let cleanArtist = artist.toLowerCase().trim();
+    if (cleanArtist.includes(" &")) cleanArtist = cleanArtist.substring(0, cleanArtist.indexOf(' &'));
+    else if (cleanArtist.includes("feat")) cleanArtist = cleanArtist.substring(0, cleanArtist.indexOf(' feat'));
+    
+    let cleanTitle = title.toLowerCase().trim();
+    if (cleanTitle.includes("&")) cleanTitle = cleanTitle.replace('&', 'and');
+    else if (cleanTitle.includes("(")) cleanTitle = cleanTitle.substring(0, cleanTitle.indexOf(' ('));
 
-// Funciones Auxiliares (formatArtist, formatTitle, obtenerCaratulaDesdeiTunes, detenerActualizacionRadio)
-// NOTA: Se asume que las funciones formatArtist, formatTitle y obtenerCaratulaDesdeiTunes están definidas.
-function formatArtist(artist) { 
-    artist = artist.toLowerCase().trim();
-    if (artist.includes(" &")) {
-        artist = artist.substr(0, artist.indexOf(' &'));
-    } else if (artist.includes("feat")) {
-        artist = artist.substr(0, artist.indexOf(' feat'));
-    } else if (artist.includes("ft.")) {
-        artist = artist.substr(0, artist.indexOf(' ft.'));
+    try {
+        const query = encodeURIComponent(`${cleanArtist} ${cleanTitle}`);
+        const itunesUrl = `https://itunes.apple.com/search?term=${query}&media=music&limit=1`;
+        
+        // Proxy para evitar CORS en file:// y garantizar funcionamiento
+        const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(itunesUrl)}`;
+
+        fetch(proxyUrl)
+            .then(res => res.json())
+            .then(data => {
+                const itunesData = JSON.parse(data.contents);
+                let cover = 'https://santi-graphics.vercel.app/assets/img/Plato.png';
+                
+                if (itunesData.results && itunesData.results.length > 0 && itunesData.results[0].artworkUrl100) {
+                    cover = itunesData.results[0].artworkUrl100.replace('100x100', '400x400');
+                }
+                
+                if (discImg) {
+                    discImg.src = cover;
+                    discImg.classList.add("rotating");
+                }
+            })
+            .catch(() => {
+                if (discImg) {
+                    discImg.src = 'https://santi-graphics.vercel.app/assets/img/Plato.png';
+                    discImg.classList.add("rotating");
+                }
+            });
+    } catch (e) {
+        // Silencioso
     }
-    return artist;
 }
-function formatTitle(title) { 
-    title = title.toLowerCase().trim();
-    if (title.includes("&")) {
-        title = title.replace('&', 'and');
-    } else if (title.includes("(")) {
-        title = title.substr(0, title.indexOf(' ('));
-    } else if (title.includes("ft")) {
-        title = title.substr(0, title.indexOf(' ft'));
-    }
-    return title;
-}
-function detenerActualizacionRadio() {
-    if (radioIntervalId !== null) {
-        clearInterval(radioIntervalId);
-        radioIntervalId = null;
-    }
-}
-function obtenerCaratulaDesdeiTunes(artist, title) {
-    if (typeof $ === 'undefined' || typeof $.ajax === 'undefined') {
-        if (discImg) {
-            discImg.src = 'assets/covers/Plato.png';
-            discImg.classList.add("rotating");
+
+function iniciarActualizacionRadioUnificada() {
+    detenerActualizacionRadioUnificada();
+    
+    const radioUrl = "https://server01.heplayer.com:7068/stats?sid=1";
+    
+    const proxies = [
+        `https://api.allorigins.win/get?url=${encodeURIComponent(radioUrl)}`,
+        `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(radioUrl)}`
+    ];
+
+    async function obtenerDatosDelServidor() {
+        if (modoActual !== "radio") {
+            detenerActualizacionRadioUnificada();
+            return;
         }
-        return;
-    }
-    // ... (Lógica de jQuery AJAX para iTunes) ...
-    const formattedArtist = formatArtist(artist);
-    const formattedTitle = formatTitle(title);
-    const query = encodeURIComponent(`${formattedArtist} ${formattedTitle}`);
-    const url = `https://itunes.apple.com/search?term=${query}&media=music&limit=1`;
 
-    $.ajax({
-        dataType: 'jsonp',
-        url: url,
-        success: function(data) {
-            let cover = 'https://santi-graphics.vercel.app/assets/img/Plato.png';
-            if (data.results && data.results.length === 1) {
-                cover = data.results[0].artworkUrl100.replace('100x100', '400x400');
-            }
-            if (discImg) {
-                discImg.src = cover;
-                discImg.classList.add("rotating");
-            }
-        },
-        error: function() {
-            if (discImg) {
-                discImg.src = 'https://santi-graphics.vercel.app/assets/img/Plato.png';
-                discImg.classList.add("rotating");
+        let xmlText = "";
+        
+        for (const proxyUrl of proxies) {
+            try {
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 6000);
+                
+                const response = await fetch(proxyUrl, { 
+                    cache: 'no-store',
+                    signal: controller.signal 
+                });
+                clearTimeout(timeoutId);
+                
+                if (response.ok) {
+                    if (proxyUrl.includes('allorigins')) {
+                        const data = await response.json();
+                        xmlText = data.contents;
+                    } else {
+                        xmlText = await response.text();
+                    }
+                    break;
+                }
+            } catch (e) {
+                continue;
             }
         }
-    });
-}
 
+        if (!xmlText) return;
 
-// ===============================
-// 📻 MODO RADIO - LÓGICA DE ACTUALIZACIÓN (Historial y Metadatos)
-// ===============================
-function iniciarActualizacionRadio() {
-    detenerActualizacionRadio();
-    iniciarContadorRadioescuchas();
-
-    // 1. URL Correcta para datos de SonicPanel (sin puerto 8042)
-    const radioUrl = "https://sonicpanel.tmcreativos.com/cp/get_info.php?p=8042";
-    // Usamos allorigins como puente para evitar bloqueos de seguridad (CORS)
-    const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(radioUrl)}`;
-
-    async function actualizarDesdeServidor() {
         try {
-            const response = await fetch(proxyUrl, { cache: 'no-cache' });
-            // 2. IMPORTANTE: SonicPanel responde con un JSON, no con texto plano
-            const data = await response.json(); 
-            
-            // Extraemos el título del objeto JSON
-            const rawTitle = data.title || "";
-            
+            const parser = new DOMParser();
+            const xmlDoc = parser.parseFromString(xmlText, "text/xml");
+
+            // 1. ACTUALIZAR CONTADOR
+            const listenersNode = xmlDoc.getElementsByTagName("CURRENTLISTENERS")[0];
+            const listeners = listenersNode ? listenersNode.textContent.trim() : "0";
+            if (contadorElemento) contadorElemento.textContent = listeners;
+
+            // 2. ACTUALIZAR METADATOS
+            const titleNode = xmlDoc.getElementsByTagName("SONGTITLE")[0];
+            const rawTitle = titleNode ? titleNode.textContent : "";
             const cleanedTitle = rawTitle.trim().replace(/AUTODJ/gi, '').replace(/\|\s*$/g, '').trim();
 
-            if (!cleanedTitle || cleanedTitle.toLowerCase().includes('offline') || cleanedTitle === lastTrackTitle) {
-                 if (cleanedTitle && cleanedTitle.toLowerCase().includes('offline')) {
-                     if (currentArtistName) currentArtistName.textContent = "Sintonizando...";
-                     if (currentTrackName) currentTrackName.textContent = "Señal en vivo";
-                 }
-                 return;
+            if (!cleanedTitle || cleanedTitle.toLowerCase().includes('offline')) {
+                if (metaTrack) metaTrack.textContent = "🔊 Radio en vivo";
+                return;
             }
-            
-            lastTrackTitle = cleanedTitle;
-            
-            // Separar Artista y Título (SonicPanel suele enviar "Artista - Canción")
-            const songtitleSplit = cleanedTitle.split(/ - | – /);
-            let artist = "Radio";
-            let title = cleanedTitle; 
 
-            if (songtitleSplit.length >= 2) {
-                artist = songtitleSplit[0].trim();
-                title = songtitleSplit.slice(1).join(' - ').trim(); 
-            }
-            
-            // 🛑 CRÍTICO: ALIMENTAR EL HISTORIAL
-            const currentTrackTime = new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
-            const newHistoryEntry = {
-                artist: artist,
-                title: title,
-                time: currentTrackTime
-            };
+            if (cleanedTitle !== lastTrackTitleRadio) {
+                lastTrackTitleRadio = cleanedTitle;
+                
+                if (metaTrack) metaTrack.textContent = cleanedTitle;
 
-            if (trackHistory.length === 0 || trackHistory[0].title !== title) {
-                trackHistory.unshift(newHistoryEntry);
-                if (trackHistory.length > 20) {
-                    trackHistory.pop();
+                const songtitleSplit = cleanedTitle.split(/ - | – /);
+                let artist = "Radio";
+                let title = cleanedTitle; 
+
+                if (songtitleSplit.length >= 2) {
+                    artist = songtitleSplit[0].trim();
+                    title = songtitleSplit.slice(1).join(' - ').trim(); 
                 }
+
+                // 3. ACTUALIZAR HISTORIAL
+                const currentTrackTime = new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+                const newHistoryEntry = { artist, title, time: currentTrackTime };
+
+                if (trackHistory.length === 0 || trackHistory[0].title !== title) {
+                    trackHistory.unshift(newHistoryEntry);
+                    if (trackHistory.length > 20) trackHistory.pop();
+                }
+
+                // 4. ACTUALIZAR CARÁTULA
+                obtenerCaratulaDesdeiTunesUnificada(artist, title);
             }
-            
-            const fullTrackInfo = `${artist} - ${title}`;
-
-            // Actualización Visual
-            if (currentArtistName) currentArtistName.textContent = artist;
-            if (currentTrackName) currentTrackName.textContent = title;
-            if (metaTrack) metaTrack.textContent = fullTrackInfo;
-            
-            // Intentar obtener carátula
-            obtenerCaratulaDesdeiTunes(artist, title);
-
         } catch (error) {
-            console.error("❌ Error CRÍTICO en la actualización de Radio:", error);
-            // Si el error es por el JSON, intentaremos mostrar algo genérico
-            if (currentArtistName) currentArtistName.textContent = "En vivo";
-            if (currentTrackName) currentTrackName.textContent = "Amor en el aire";
+            // Silencioso al parsear
         }
     }
 
-    actualizarDesdeServidor();
-    radioIntervalId = setInterval(actualizarDesdeServidor, 15000); // 15 seg para no saturar el proxy
-}
-    
-// ===================================
-// 📻 MODO RADIO - LÓGICA CONTADOR RADIOESCUCHAS
-// ===================================
-function detenerContadorRadioescuchas() {
-    if (contadorIntervalId !== null) clearInterval(contadorIntervalId);
-    contadorIntervalId = null;
-    if (contadorElemento) contadorElemento.textContent = "";
-}
-
-function iniciarContadorRadioescuchas() {
-    detenerContadorRadioescuchas();
-    if (typeof $ === 'undefined' || typeof $.ajax === 'undefined' || !contadorElemento) return;
-
-    // Nueva URL de SonicPanel (ruta de información centralizada)
-    const contadorUrl = "https://sonicpanel.tmcreativos.com/cp/get_info.php?p=8042";
-
-    function actualizarContador() {
-    if (modoActual !== "radio") { detenerContadorRadioescuchas(); return; }
-    
-    $.ajax({
-        url: contadorUrl,
-        method: 'GET',
-        dataType: 'json',
-        success: function(data) {
-            // 1. Actualiza los oyentes
-            contadorElemento.textContent = data.listeners || "0";
-            
-            // 2. ¡ACTUALIZA LA CANCIÓN AQUÍ! 
-            // Buscamos el elemento donde se muestra el nombre en tu repro
-            const trackNameElement = document.getElementById('current-track-name');
-            if (trackNameElement && data.title) {
-                trackNameElement.textContent = data.title;
-            }
-        },
-        error: function() {
-            contadorElemento.textContent = "0";
-        },
-        timeout: 5000
-    });
-}
-
-    actualizarContador();
-    // Lo mantenemos en 15 segundos para no saturar el servidor
-    contadorIntervalId = setInterval(actualizarContador, 15000);
+    obtenerDatosDelServidor();
+    radioUpdateIntervalId = setInterval(obtenerDatosDelServidor, 15000);
 }
 
 // ===============================
 // 🔄 ALTERNANCIA DE MODOS
 // ===============================
-
 if (btnRadio) {
     btnRadio.addEventListener("click", () => {
-        // Captura el gesto si no ha ocurrido (el cambio de modo es un gesto válido)
         if (!gestureDetected) { 
             gestureDetected = true; 
             audio.muted = false;
@@ -391,65 +339,51 @@ if (btnRadio) {
     });
 }
 
-// Activar Modo Radio (CRÍTICO: Inicia el stream silenciado)
 function activarModoRadio() {
     modoActual = "radio";
     
-    detenerActualizacionRadio();
+    detenerActualizacionRadioUnificada();
     
-    // 🛑 LIMPIEZA VISUAL INMEDIATA
     if (currentArtistName) currentArtistName.textContent = "Conectando...";
     if (currentTrackName) currentTrackName.textContent = "Obteniendo datos...";
+    if (metaTrack) metaTrack.textContent = "🔊 Modo Radio Activo";
     
     if (discImg) {
         discImg.src = "https://santi-graphics.vercel.app/assets/img/Plato.png";
         discImg.classList.add("rotating");
     }
     
-    // 🔑 CLAVE 1: Pausar y resetear el estado de reproducción del modo anterior
     audio.pause();
-    
-    // 🔑 CLAVE 2: Asignar el SRC (Actualizado para SonicPanel)
-    audio.src = "https://sonicpanel.tmcreativos.com:8042/stream";
+    audio.src = "https://server01.heplayer.com:7068/stream";
     audio.load();
 
-    // 1. Asegurarse de que el audio esté silenciado temporalmente (el gesto ya lo desbloqueó)
     if (!gestureDetected) {
         audio.muted = true;
     } else {
-        audio.muted = false; // Si ya hay gesto, no silenciamos
+        audio.muted = false;
     }
     
-    // 2. Intentar reproducir el nuevo stream
     audio.play().then(() => {
-        // ÉXITO en la reproducción
         if (iconPlay) iconPlay.classList.add("hidden");
         if (iconPause) iconPause.classList.remove("hidden");
     }).catch(err => {
-        // FALLO, pero la fuente está cargada y lista para reintentar con el botón Play/Pause
-        console.warn("🔒 Error al iniciar Radio automáticamente en transición:", err);
-        if (iconPause) iconPause.classList.add("hidden");
-        if (iconPlay) iconPlay.classList.remove("hidden"); 
+        if (err.name !== 'NotAllowedError') {
+            console.warn("🔒 Error al iniciar Radio:", err);
+        }
     });
 
-    iniciarActualizacionRadio(); // Inicia la búsqueda de metadatos
+    iniciarActualizacionRadioUnificada();
 }
 
-// Activar Modo Local (se mantiene)
 function activarModoLocal() {
     modoActual = "local";
-    detenerActualizacionRadio();
-    detenerContadorRadioescuchas();
     
-    // Pausamos explícitamente
+    detenerActualizacionRadioUnificada(); 
+    
     audio.pause(); 
-    
     if (discImg) discImg.classList.remove("rotating");
-    
-    // Mantenemos el mute si el gesto no ha ocurrido (aunque es poco probable a estas alturas)
     audio.muted = !gestureDetected;
     
-    // 🔑 CRÍTICO: Resetear el icono a PLAY (Pista 0 está lista para reproducir)
     if (iconPause) iconPause.classList.add("hidden");
     if (iconPlay) iconPlay.classList.remove("hidden"); 
     
@@ -466,9 +400,11 @@ function actualizarBotonRadio() {
     const btn = document.getElementById("btn-radio");
     if (btn) {
         if (modoActual === "radio") {
-            btn.style.backgroundColor = "#9400D350";   // rojo intenso para modo radio
+            btn.style.backgroundColor = "#9400D350";
+            btn.style.borderColor = "#9400D3";
         } else {
-            btn.style.backgroundColor = "#3688ff";   // azul para modo normal
+            btn.style.backgroundColor = "#3688ff50";
+            btn.style.borderColor = "#3688ff";
         }
     }
 }
@@ -485,22 +421,18 @@ function inicializarReproductor() {
             discImg.src = "https://santi-graphics.vercel.app/assets/img/Plato.png";
             discImg.classList.add("rotating");
         }
-        activarModoRadio(); // Llama a la versión que fuerza el SRC y play silenciado
+        activarModoRadio();
     } else {
         cargarTracksDesdeJSON();
     }
 }
 
-// Activación tras gesto humano (CRÍTICO: Listener global para capturar el primer click)
 document.addEventListener("click", () => {
     if (!gestureDetected) {
         gestureDetected = true;
-        
-        // 🔑 CLAVE: La reproducción ya se inició (silenciada). Solo necesitamos quitar el mute.
         audio.muted = false; 
 
         if (audio.src && audio.paused) {
-             // Si por alguna razón está pausado, intentamos forzar el play (ahora sin mute)
             audio.play().then(() => {
                 if (iconPlay) iconPlay.classList.add("hidden");
                 if (iconPause) iconPause.classList.remove("hidden");
@@ -508,13 +440,10 @@ document.addEventListener("click", () => {
             });
         }
         
-        // Si el audio estaba reproduciendo silenciado, solo se des-silencia.
         if (!audio.paused && modoActual === "radio") {
              if (iconPlay) iconPlay.classList.add("hidden");
              if (iconPause) iconPause.classList.remove("hidden");
         }
-        
-        console.log("🟢 Gesto humano: Audio desbloqueado.");
     }
 }, { once: true }); 
 
@@ -522,16 +451,10 @@ document.addEventListener("DOMContentLoaded", () => {
     inicializarReproductor();
     inicializarVolumen();
     
-    // 🔑 TRUCO DEL GESTO: Intentar un mute/unmute.
     if (audio) {
         audio.muted = true;
         audio.muted = false;
     }
-
-
-    // ===============================
-    // 🎛️ BOTONERA
-    // ===============================
 
     if (playPauseBtn) {
         playPauseBtn.addEventListener("click", () => {
@@ -562,24 +485,19 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // LISTENERS DE BOTONES LOCALES
     if (nextBtn) nextBtn.addEventListener('click', nextTrack);
     if (prevBtn) prevBtn.addEventListener('click', prevTrack);
     if (shuffleBtn) shuffleBtn.addEventListener('click', toggleShuffle);
     if (repeatBtn) repeatBtn.addEventListener('click', toggleRepeat);
 
-    // MANEJO DEL FINAL DE PISTA
     if (audio) {
         audio.onended = () => {
             if (modoActual !== "local") return;
-            if (audio.loop) {
-                return;
-            }
+            if (audio.loop) return;
             nextTrack();
         };
     }
     
-    // LISTENERS DEL MODAL (Abrir/Cerrar)
     if (menuBtn) {
         menuBtn.addEventListener('click', () => {
             toggleModal(true);
@@ -599,8 +517,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
-    
-    iniciarBurbujas(); 
 }); 
 
 // ===============================
@@ -620,7 +536,6 @@ function nextTrack() {
         } while (newIndex === currentTrack && trackData.length > 1);
         
         activarReproduccion(newIndex, "shuffle");
-
     } else {
         let nextIndex = (currentTrack + 1) % trackData.length;
         activarReproduccion(nextIndex, "next");
@@ -680,7 +595,6 @@ function toggleShuffle() {
         if (modoActual === "local" && trackData.length > 1) {
             nextTrack();
         }
-
     } else {
         if (shuffleBtn) shuffleBtn.classList.remove("active");
         trackHistory = [];
@@ -688,14 +602,13 @@ function toggleShuffle() {
 }
 
 // ===============================
-// 🪟 FUNCIÓN DE GENERACIÓN Y MANEJO DEL MODAL (LÓGICA DUAL)
+// 🪟 FUNCIÓN DE GENERACIÓN Y MANEJO DEL MODAL
 // ===============================
 function generarListaModal() {
     if (!trackList) return;
 
     trackList.innerHTML = ''; 
     
-    // --- LÓGICA MODO RADIO (HISTORIAL) ---
     if (modoActual === "radio") {
         if (currentTrackNameModal) currentTrackNameModal.textContent = "Historial de Radio (Últimas 20)";
         
@@ -706,15 +619,12 @@ function generarListaModal() {
             return;
         }
 
-        trackHistory.forEach((track, index) => {
+        trackHistory.forEach((track) => {
             const li = document.createElement('li');
-            // Formato: Hora | Artista - Título
             li.textContent = `${track.time} | ${track.artist} - ${track.title}`; 
-            // Las pistas del historial no son clicables para reproducción
             trackList.appendChild(li);
         });
 
-    // --- LÓGICA MODO LOCAL (LISTA COMPLETA) ---
     } else if (modoActual === "local") {
         if (currentTrackNameModal) currentTrackNameModal.textContent = "Lista de Pistas Locales";
         
@@ -726,7 +636,6 @@ function generarListaModal() {
             li.textContent = `${index + 1}. ${track.name}`;
 
             li.addEventListener('click', () => {
-                // Aquí el modo local es necesario
                 if (modoActual !== "local") return; 
                 
                 const selectedIndex = parseInt(li.getAttribute('data-index'));
@@ -736,30 +645,24 @@ function generarListaModal() {
 
             trackList.appendChild(li);
         });
-        // Llama a esta función para resaltar la pista actual
         actualizarModalActualTrack(); 
     }
 }
     
 // ===============================
-// 🔒 FUNCIÓN ABRIR/CERRAR MODAL (VERSIÓN COMPLETA)
+// 🔒 FUNCIÓN ABRIR/CERRAR MODAL
 // ===============================
 function toggleModal(show) {
     if (!modalTracks) return; 
 
     if (show) {
         modalTracks.classList.remove('hidden');
-        generarListaModal(); // lógica dual (Radio/Local)
+        generarListaModal();
 
-        // Listener para cerrar con clic fuera de la caja principal
         document.addEventListener("click", cerrarPorOutside);
-        // Listener para cerrar con ESC
         document.addEventListener("keydown", cerrarPorEsc);
-
     } else {
         modalTracks.classList.add('hidden');
-
-        // Limpieza de listeners
         document.removeEventListener("click", cerrarPorOutside);
         document.removeEventListener("keydown", cerrarPorEsc);
     }
@@ -769,7 +672,6 @@ function cerrarPorOutside(e) {
     const reproBox = document.querySelector(".repro-box");
     if (!reproBox) return;
 
-    // Si el click NO ocurrió dentro de la caja principal, cerramos el modal
     if (!reproBox.contains(e.target)) {
         toggleModal(false);
     }
@@ -781,28 +683,23 @@ function cerrarPorEsc(e) {
     }
 }
 
-
 // ===============================
 // 💡 FUNCIÓN DE RESALTADO DE PISTA ACTIVA
 // ===============================
 function actualizarModalActualTrack() {
     if (modoActual !== 'local' || trackData.length === 0) return;
 
-    // Desactiva el resaltado de la pista anterior
     document.querySelectorAll('.track-list li').forEach(li => {
         li.classList.remove('active-track');
     });
     
-    // Resalta la pista actual y la desplaza
     const currentTrackItem = document.querySelector(`.track-list li[data-index="${currentTrack}"]`);
     if (currentTrackItem) {
         currentTrackItem.classList.add('active-track');
-        // Asegura que la pista activa sea visible
         currentTrackItem.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
     
     if (currentTrackNameModal && currentTrack !== null) {
-        // Muestra el nombre de la pista actual en el encabezado del modal
         currentTrackNameModal.textContent = trackData[currentTrack].name;
     }
 }
@@ -812,9 +709,7 @@ function actualizarModalActualTrack() {
 // ===============================
 function actualizarBarraVolumen(volume) {
     const percentage = volume * 100;
-    
     if (volumeBar) {
-        // Esta línea actualiza la variable en el CSS que lee el 'runnable-track'
         volumeBar.style.setProperty('--p', percentage + '%');
     }
 }
@@ -841,7 +736,6 @@ function inicializarVolumen() {
             actualizarBarraVolumen(newVolume);
 
             if (volumeIcon) {
-                // Mantenemos tu lógica de iconos original
                 volumeIcon.className = (newVolume === 0) ? 
                     'fas fa-volume-mute volume-icon' : 
                     'fas fa-volume-down volume-icon';
@@ -849,131 +743,12 @@ function inicializarVolumen() {
         });
     }
 }
-    
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 🔄 ANIMACIÓN DE TEXTO BIENVENIDA CON LOGS
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-document.addEventListener("DOMContentLoaded", () => {
-  var words = document.getElementsByClassName('word');
-  var wordArray = [];
-  var currentWord = 0;
-
-  console.log("▶ Animación iniciada. Palabras encontradas:", words.length);
-
-  if (words.length === 0) {
-    console.warn("⚠ No se encontraron elementos con clase 'word'.");
-    return;
-  }
-
-  words[currentWord].style.opacity = 1;
-  for (var i = 0; i < words.length; i++) {
-    console.log("✂ Dividiendo palabra:", words[i].innerText);
-    splitLetters(words[i]);
-  }
-
-  function changeWord() {
-    console.log("🔄 Cambio de palabra. Índice actual:", currentWord);
-    var cw = wordArray[currentWord];
-    var nw = currentWord == words.length - 1 ? wordArray[0] : wordArray[currentWord + 1];
-    for (var i = 0; i < cw.length; i++) animateLetterOut(cw, i);
-    for (var i = 0; i < nw.length; i++) {
-      nw[i].className = 'letter behind';
-      nw[0].parentElement.style.opacity = 1;
-      animateLetterIn(nw, i);
-    }
-    currentWord = (currentWord == wordArray.length - 1) ? 0 : currentWord + 1;
-    console.log("✅ Nueva palabra activa:", nw.map(l => l.innerText).join(""));
-  }
-
-  function animateLetterOut(cw, i) {
-    setTimeout(() => {
-      cw[i].className = 'letter out';
-      console.log("⬅ Letra OUT:", cw[i].innerText, "posición", i);
-    }, i * 80);
-  }
-
-  function animateLetterIn(nw, i) {
-    setTimeout(() => {
-      nw[i].className = 'letter in';
-      console.log("➡ Letra IN:", nw[i].innerText, "posición", i);
-    }, 340 + (i * 80));
-  }
-
-  function splitLetters(word) {
-    var content = word.innerHTML;
-    word.innerHTML = '';
-    var letters = [];
-    for (var i = 0; i < content.length; i++) {
-      var letter = document.createElement('span');
-      letter.className = 'letter';
-      letter.innerHTML = content.charAt(i);
-      word.appendChild(letter);
-      letters.push(letter);
-    }
-    wordArray.push(letters);
-    console.log("🧩 Palabra dividida en letras:", letters.map(l => l.innerText));
-  }
-
-  changeWord();
-  setInterval(changeWord, 4000);
-});
-
-// ===============================
-// 🌌 PARTÍCULAS — FONDO VIVO (Lógica de las burbujas)
-// ===============================
-
-function iniciarBurbujas() {
-    const canvas = document.getElementById("burbujas");
-    if (!canvas) return;
-
-    const ctx = canvas.getContext("2d");
-
-    const resizeCanvas = () => {
-        const rect = canvas.getBoundingClientRect();
-        canvas.width = rect.width;
-        canvas.height = rect.height;
-    };
-
-    resizeCanvas();
-    window.addEventListener("resize", resizeCanvas);
-
-    let burbujas = Array.from({ length: 30 }, () => ({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        r: Math.random() * 8 + 2,
-        d: Math.random() * 1 + 0.5
-    }));
-
-    function dibujarBurbujas() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = "rgba(255, 255, 255, 0.6)";
-
-        burbujas.forEach(b => {
-            ctx.beginPath();
-            ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
-            ctx.fill();
-
-            b.y -= b.d;
-
-            if (b.y < -10) {
-                b.y = canvas.height + 10;
-                b.x = Math.random() * canvas.width;
-            }
-        });
-
-        requestAnimationFrame(dibujarBurbujas);
-    }
-
-    dibujarBurbujas();
-}
-
 
 // ==================================
 // INFORMACIÓN FECHA Y HORA (modular)
 // ==================================
 (() => {
   const STATE = { intervalId: null, selector: '#info-time-text' };
-
   const diasSemana = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
   const meses = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
 
@@ -984,7 +759,6 @@ function iniciarBurbujas() {
     const anio = now.getFullYear();
     const horas = String(now.getHours()).padStart(2,'0');
     const minutos = String(now.getMinutes()).padStart(2,'0');
-    // Ej.: Viernes 07 de Noviembre, 2025 | 17:00
     return `${diaSemana} ${diaMes} de ${mes}, ${anio} | ${horas}:${minutos}`;
   }
 
@@ -994,33 +768,28 @@ function iniciarBurbujas() {
 
   function start(selector = STATE.selector) {
     const el = document.querySelector(selector);
-    if (!el) return; // sin ruido si aún no existe
-    // Evita duplicados
+    if (!el) return;
     if (STATE.intervalId) clearInterval(STATE.intervalId);
     tick(el);
     STATE.intervalId = setInterval(() => tick(el), 60000);
   }
 
-  // Arranque seguro cuando DOM esté listo
   document.addEventListener('DOMContentLoaded', () => start());
 
-  // API mínima en window para reiniciar desde otros scripts si fuera necesario
   window.InfoTime = {
     start,
     stop: () => { if (STATE.intervalId) clearInterval(STATE.intervalId); STATE.intervalId = null; }
   };
 })();
 
-
 // ==================================
 // Mostrar mensaje al hacer clic derecho
 // ==================================
 document.addEventListener("contextmenu", (e) => {
-  e.preventDefault(); // evitar menú contextual
+  e.preventDefault();
   const msg = document.getElementById("custom-message");
   msg.classList.add("show");
 
-  // Ocultar automáticamente después de unos segundos
   setTimeout(() => {
     msg.classList.remove("show");
   }, 2000);
