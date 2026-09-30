@@ -191,7 +191,7 @@ function buildRightPanel(mainContainer) {
   
   // 🆕 AGREGADO: Logo de fondo animado + Contenedor de Karaoke
   rightPanel.innerHTML = `
-    <img src="https://santi-graphics.vercel.app/assets/img/Logo-El-Cafecito-Green.png" alt="Radio Logo" class="right-panel-bg-logo" />
+    <img src="https://santi-graphics.vercel.app/assets/img/Logo-El-Cafecito.png" alt="Radio Logo" class="right-panel-bg-logo" />
     <div class="lyrics-container"></div>
   `;
   
