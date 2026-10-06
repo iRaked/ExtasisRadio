@@ -14,17 +14,17 @@
       "country": ["México"]
     },
     {
-      "id": "edicion-especial-quedate-conmigo",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover2/Quedate-conmigo-Edicion-Especial.jpg",
-      "artista": "Edición Especial",
-      "nombre": "Quédate Conmigo",
-      "album": "Quédate Conmigo",
-      "enlace": "https://xat-music2.vercel.app/assets/audio2/Quedate-conmigo-Edicion-Especial.mp3",
-      "genero": "Norteño",
-      "emotion": "Súplica",
-      "seccion": "pelusos",
-      "duracion": "3:12",
-      "country": ["México"]
+     "id": "gusi-mi-amor-bonito",
+     "portada": "https://iraked.github.io/SantiGraphics/assets/cover2/Gusi-Mi-amor-bonito.jpg",
+     "artista": "Gusi",
+     "nombre": "Mi Amor Bonito",
+     "album": "Mi Amor Bonito",
+     "enlace": "https://xat-music2.vercel.app/assets/audio2/Gusi-Mi-amor-bonito.mp3",
+     "genero": "Pop",
+     "emotion": "Romance",
+     "seccion": "pelusos",
+     "duracion": "2:54",
+     "country": ["Colombia"]
     },
     {
       "id": "carin-leon-que-mas-puedo-pedir",
