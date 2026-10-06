@@ -182,16 +182,8 @@ body{
   cursor: grabbing;
 }
 
-/* ---------- Interacción / jerarquía ---------- */
-.r53-tracklist,
-.r53-track {
-  pointer-events: none;
-}
-.r53-btn {
-  pointer-events: auto;
-}
-
-/* ---------- Abanico de metadatos ---------- */
+/* ---------- Abanico de Metadatos Interactivo ---------- */
+/* ---------- Abanico de metadatos (ORIGINAL) ---------- */
 .r53-tracklist {
   position: absolute;
   left: 0; right: 0; top: 600px;
@@ -215,6 +207,8 @@ body{
   text-transform: uppercase;
   text-align: center;
   transition: opacity .45s ease;
+  pointer-events: auto;   /* única adición: permite click en pistas */
+  cursor: pointer;
 }
 .t-num    { font-size: 11px;  letter-spacing: 1px;   color: #cfc6c6; }
 .t-title  { font-size: 21px;  letter-spacing: 1.5px; font-weight: 500; color: #ece6e6; }
@@ -226,6 +220,27 @@ body{
 }
 .r53-track.is-current .t-num,
 .r53-track.is-current .t-artist { color: #e7dede; }
+
+/* ---- Indicador de desplazamiento de la cola ---- */
+.r53-swipe-hint{
+  position:absolute;
+  left:50%; top:296px;
+  transform:translateX(-50%);
+  z-index:7;
+  display:flex; gap:12px; align-items:center;
+  color:rgba(255,255,255,.5);
+  font-size:12px; letter-spacing:2px;
+  font-family:'Roboto Mono',monospace;
+  pointer-events:none;
+  animation:r53-hint 2.4s ease-in-out infinite;
+  text-shadow:0 0 8px rgba(255,255,255,.3);
+}
+.r53-swipe-hint i{ font-size:13px; }
+@keyframes r53-hint{
+  0%,100%{ transform:translateX(-50%) scale(1);    opacity:.45; }
+  50%    { transform:translateX(-50%) scale(1.08); opacity:.85; }
+}
+.r53-swipe-hint.hidden{ display:none; }
 
 /* ---------- Corazón + tiempo ---------- */
 .r53-meta {
