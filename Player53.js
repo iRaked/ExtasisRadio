@@ -1,7 +1,6 @@
-// ===============================
-// 🎧 INICIALIZACIÓN GLOBAL Y ESTADOS CRÍTICOS
-// ===============================
-/* ============ R53 · Motor de reproducción ============ */
+// ==========================================================
+// 🎧 R53 · Motor de Audio (expuesto como window.R53Player)
+// ==========================================================
 window.R53Player = (function(){
   'use strict';
 
@@ -12,15 +11,19 @@ window.R53Player = (function(){
   if (!audio){
     audio = document.createElement('audio');
     audio.id = 'audio';
-    audio.preload = 'metadata';
+    audio.preload = 'auto';
+    audio.crossOrigin = 'anonymous';
     document.body.appendChild(audio);
+  } else {
+    audio.crossOrigin = 'anonymous';
   }
 
   const estado = { lista: [], actual: 0, sonando: false, listo: false };
   const modo   = { shuffle: false, repeat: false };
   let scrubbing = false;
+  let playId = 0;
 
-  /* ---- Volumen: 0..1 nativo, hasta 2 con boost Web Audio ---- */
+  /* ---- Volumen & Web Audio ---- */
   let vol = 1, volPrev = 1, boostOK = false;
   let ctx = null, gainNodo = null, conectado = false;
 
@@ -31,6 +34,7 @@ window.R53Player = (function(){
   /* ---- Arco de progreso ---- */
   const C = { cx:200, cy:200, r:160, a0:195, a1:-15, span:210 };
   const pt = a => { const r = a*Math.PI/180; return [C.cx + C.r*Math.cos(r), C.cy - C.r*Math.sin(r)]; };
+
   function progreso(p){
     p = Math.min(1, Math.max(0, p || 0));
     const ang = C.a0 - C.span * p;
@@ -41,12 +45,14 @@ window.R53Player = (function(){
     if (path) path.setAttribute('d', `M ${x0} ${y0} A ${C.r} ${C.r} 0 ${large} 1 ${x1} ${y1}`);
     if (dot){ dot.setAttribute('cx', x1); dot.setAttribute('cy', y1); }
   }
+
   function scrub(p){
     scrubbing = true;
     progreso(p);
     const cur = document.getElementById('r53Cur');
     if (cur && isFinite(audio.duration)) cur.textContent = fmt(p * audio.duration);
   }
+
   function seek(p){
     scrubbing = false;
     progreso(p);
@@ -55,7 +61,9 @@ window.R53Player = (function(){
 
   /* ---- Portada con fallback ---- */
   function aplicarCover(url){
-    const poner = u => document.getElementById('r53').style.setProperty('--r53-cover', `url("${u}")`);
+    const playerEl = document.getElementById('r53');
+    if (!playerEl) return;
+    const poner = u => playerEl.style.setProperty('--r53-cover', `url("${u}")`);
     if (!url){ poner(COVER_DEF); return; }
     const img = new Image();
     img.onload  = () => poner(url);
@@ -63,7 +71,7 @@ window.R53Player = (function(){
     img.src = url;
   }
 
-  /* ---- JSON ---- */
+  /* ---- Mapeo JSON ---- */
   function cargarLista(data){
     const pistas = [];
     Object.values(data || {}).forEach(sec => {
@@ -82,14 +90,13 @@ window.R53Player = (function(){
   async function probarCORS(url){
     try{
       const res = await fetch(url, {
-        method:'GET',
-        mode:'cors',
-        cache:'no-store',
+        method:'GET', mode:'cors', cache:'no-store',
         headers:{ 'Range':'bytes=0-0' }
       });
       return !!res.headers.get('access-control-allow-origin');
     }catch(e){ return false; }
   }
+
   function conectarWebAudio(){
     if (conectado) return true;
     try{
@@ -104,6 +111,7 @@ window.R53Player = (function(){
     }catch(e){ console.warn('R53: Web Audio no disponible', e); }
     return conectado;
   }
+
   function aplicarVolumen(){
     const max = boostOK ? 2 : 1;
     const v = Math.min(max, Math.max(0, vol));
@@ -116,101 +124,137 @@ window.R53Player = (function(){
     }
     emitir('volumen', { vol: v, boost: boostOK });
   }
+
   function setVolumen(v){ vol = v; aplicarVolumen(); }
   function toggleMute(){
-    if (vol > 0){ volPrev = vol; vol = 0; } else { vol = volPrev || 1; }
+    if (vol > 0){ volPrev = vol; vol = 0; } else vol = volPrev || 1;
     aplicarVolumen();
     return vol;
   }
 
-  /* ---- Init con soporte offline ---- */
-  async function init(){
-    const estaOnline = navigator.onLine;
-    console.log(`R53: ${estaOnline ? 'Online' : 'Offline'} al iniciar`);
-
+  /* ==========================================================
+     🎛️ MEDIA SESSION (controles en pantalla de bloqueo)
+     ========================================================== */
+  function actualizarMediaSession(t){
+    if (!('mediaSession' in navigator)) return;
     try{
-      const res = await fetch(JSON_URL);
-      if (!res.ok) throw new Error('JSON no disponible');
-      estado.lista = cargarLista(await res.json());
-      console.log('R53: JSON cargado desde red');
-    }catch(e){
-      console.warn('R53: JSON desde caché (offline)', e);
-      if ('caches' in window) {
-        const cache = await caches.open('r53-cache-v1');
-        const cached = await cache.match(JSON_URL);
-        if (cached) {
-          estado.lista = cargarLista(await cached.json());
-          console.log('R53: JSON restaurado desde caché');
-        } else {
-          console.error('R53: Sin JSON ni en red ni en caché');
-          aplicarCover(COVER_DEF);
-        }
-      }
-    }
+      navigator.mediaSession.metadata = new MediaMetadata({
+        title:  t.titulo  || 'Sin título',
+        artist: t.artista || '',
+        album:  t.album   || '',
+        artwork: t.cover ? [{ src: t.cover, sizes: '512x512', type: 'image/jpeg' }] : []
+      });
+    }catch(e){}
+  }
 
-    estado.listo = true;
-
-    if (estado.lista.length){
-      // 🛡️ Busca el primer track válido para probar CORS
-      if (estaOnline) {
-        for (const pista of estado.lista){
-          try {
-            const ok = await probarCORS(pista.src);
-            if (ok){
-              boostOK = true;
-              audio.crossOrigin = 'anonymous';
-              console.log('R53: CORS detectado, boost 2x disponible');
-              break;
-            }
-          } catch(e){ /* sigue con el siguiente */ }
-        }
-      }
-      cargarPista(0, false);
-    }
-
-    aplicarVolumen();
-    emitir('listo', {
-      lista: estado.lista,
-      actual: estado.actual,
-      sonando: estado.sonando,
-      online: estaOnline
+  function configurarMediaSession(){
+    if (!('mediaSession' in navigator)) return;
+    navigator.mediaSession.setActionHandler('play',          () => reproducir());
+    navigator.mediaSession.setActionHandler('pause',         () => pausar());
+    navigator.mediaSession.setActionHandler('previoustrack', () => anterior());
+    navigator.mediaSession.setActionHandler('nexttrack',     () => siguiente());
+    navigator.mediaSession.setActionHandler('seekto', d => {
+      if (d.seekTime !== undefined && isFinite(audio.duration)) audio.currentTime = d.seekTime;
     });
   }
 
-  /* ---- Eventos de conexión ---- */
-  window.addEventListener('online', () => {
-    console.log('R53: Conexión restaurada');
-    emitir('conexion', { online: true });
-    fetch(JSON_URL)
-      .then(res => res.ok ? res.json() : null)
-      .then(data => {
-        if (data) {
-          estado.lista = cargarLista(data);
-          emitir('listo', { lista: estado.lista, actual: estado.actual, sonando: estado.sonando, online: true });
-          console.log('R53: Playlist actualizada al reconectar');
+  function actualizarPlaybackState(sonando){
+    if (!('mediaSession' in navigator)) return;
+    try{ navigator.mediaSession.playbackState = sonando ? 'playing' : 'paused'; }catch(e){}
+  }
+
+  /* ---- Init: caché primero, red después, refresh en background ---- */
+  async function init(){
+    const estaOnline = navigator.onLine;
+    let datosCargados = false;
+
+    // 1. Caché primero (instantáneo)
+    if ('caches' in window){
+      try{
+        const cacheNames = await caches.keys();
+        for (const name of cacheNames){
+          if (name.startsWith('r53-cache')){
+            const cache = await caches.open(name);
+            const cached = await cache.match(JSON_URL);
+            if (cached){
+              estado.lista = cargarLista(await cached.json());
+              estado.listo = true;
+              datosCargados = true;
+              cargarPista(0, false);
+              emitir('listo', { lista: estado.lista, actual: estado.actual, sonando: estado.sonando, online: estaOnline });
+              console.log('R53: JSON cargado desde caché');
+              break;
+            }
+          }
         }
-      })
-      .catch(e => console.warn('R53: No se pudo actualizar la playlist', e));
-  });
+      }catch(e){}
+    }
 
-  window.addEventListener('offline', () => {
-    console.log('R53: Sin conexión');
-    emitir('conexion', { online: false });
-  });
+    // 2. Si no hay caché, red
+    if (!datosCargados && estaOnline){
+      console.log('R53: Sin caché, descargando JSON de red...');
+      try{
+        const res = await fetch(JSON_URL);
+        if (res.ok){
+          estado.lista = cargarLista(await res.json());
+          estado.listo = true;
+          datosCargados = true;
+          cargarPista(0, false);
+          emitir('listo', { lista: estado.lista, actual: estado.actual, sonando: estado.sonando, online: estaOnline });
+          console.log('R53: JSON descargado de red');
+        }
+      }catch(e){
+        console.error('R53: error descargando JSON', e);
+      }
+    }
 
-  /* ---- Carga / control ---- */
+    // 3. Refresh silencioso en background
+    if (datosCargados && estaOnline){
+      fetch(JSON_URL)
+        .then(res => res.ok ? res.json() : null)
+        .then(data => {
+          if (data && data.pelusos){
+            const nuevosIds = data.pelusos.map(t => t.id).join(',');
+            const actualesIds = estado.lista.map(t => t.id).join(',');
+            if (nuevosIds !== actualesIds){
+              console.log('R53: JSON actualizado en background');
+              estado.lista = cargarLista(data);
+              emitir('listo', { lista: estado.lista, actual: estado.actual, sonando: estado.sonando, online: estaOnline });
+            }
+          }
+        }).catch(()=>{});
+    }
+
+    // 4. Prueba CORS para boost 2x
+    if (estado.lista.length && estaOnline){
+      for (const pista of estado.lista){
+        try{
+          if (await probarCORS(pista.src)){
+            boostOK = true;
+            console.log('R53: CORS detectado, boost 2x disponible');
+            break;
+          }
+        }catch(e){}
+      }
+    }
+
+    // 5. Configurar Media Session (una sola vez)
+    configurarMediaSession();
+
+    aplicarVolumen();
+  }
+
+  /* ---- Control de reproducción ---- */
   function cargarPista(i, autoplay = true){
     if (!estado.lista.length) return;
+    playId++;
     estado.actual = (i + estado.lista.length) % estado.lista.length;
     const t = estado.lista[estado.actual];
 
     audio.pause();
-    audio.removeAttribute('src');
-    audio.load();
-
     audio.src = t.src;
+    audio.load();
     aplicarCover(t.cover);
-    emitir('cambio', { pista:t, index:estado.actual, lista:estado.lista });
 
     const tot = document.getElementById('r53Tot');
     if (tot && t.dur) tot.textContent = t.dur;
@@ -218,22 +262,38 @@ window.R53Player = (function(){
     if (cur) cur.textContent = '0:00';
     progreso(0);
 
+    emitir('cambio', { pista:t, index:estado.actual, lista:estado.lista });
+
+    // 🎛️ Actualiza Media Session con los datos del nuevo track
+    actualizarMediaSession(t);
+
     if (autoplay) reproducir();
   }
 
   function reproducir(){
     if (!audio.src) return;
     if (ctx && ctx.state === 'suspended') ctx.resume();
-    audio.play().then(()=>{
-      estado.sonando = true;
-      emitir('estado', { sonando:true });
-    }).catch(err => console.warn('R53: esperando gesto del usuario', err));
+    const currentPlayId = playId;
+    const playPromise = audio.play();
+    if (playPromise !== undefined){
+      playPromise.then(() => {
+        if (currentPlayId === playId){
+          estado.sonando = true;
+          emitir('estado', { sonando:true });
+          actualizarPlaybackState(true);   // 🎛️
+        }
+      }).catch(err => {
+        if (err.name !== 'AbortError') console.warn('R53: play bloqueado', err);
+      });
+    }
   }
 
   function pausar(){
+    playId++;
     audio.pause();
     estado.sonando = false;
     emitir('estado', { sonando:false });
+    actualizarPlaybackState(false);   // 🎛️
   }
 
   const toggle = () => estado.sonando ? pausar() : reproducir();
@@ -263,18 +323,7 @@ window.R53Player = (function(){
     return modo.repeat;
   }
 
-  /* ---- 🔓 Desbloqueo con 1 clic ---- */
-  function desbloquear(e){
-    document.removeEventListener('pointerdown', desbloquear);
-    if (ctx && ctx.state === 'suspended') ctx.resume();
-    if (e.target.closest('button') || e.target.closest('.r53-arc') || e.target.closest('.r53-vol')) return;
-    if (!estado.sonando) reproducir();
-  }
-  document.addEventListener('pointerdown', desbloquear);
-
   /* ---- Eventos del audio ---- */
-  let fallosConsecutivos = 0;
-
   audio.addEventListener('timeupdate', ()=>{
     if (scrubbing) return;
     const d = audio.duration || 0;
@@ -286,82 +335,47 @@ window.R53Player = (function(){
   audio.addEventListener('loadedmetadata', ()=>{
     const tot = document.getElementById('r53Tot');
     if (tot && isFinite(audio.duration)) tot.textContent = fmt(audio.duration);
-    const cur = document.getElementById('r53Cur');
-    if (cur) cur.textContent = fmt(audio.currentTime);
-    fallosConsecutivos = 0;
   });
 
-  audio.addEventListener('playing', ()=>{
-    fallosConsecutivos = 0;
-  });
+  audio.addEventListener('ended', () => modo.repeat ? (audio.currentTime = 0, reproducir()) : siguiente());
 
-  audio.addEventListener('ended', ()=>{
-    if (modo.repeat){
-      audio.currentTime = 0;
-      reproducir();
-    } else {
-      siguiente();
-    }
-  });
-
-  audio.addEventListener('error', ()=>{
+  /* 🛡️ Reintentos: si la red titubea, reintenta la MISMA pista antes de saltar */
+  let reintentos = 0;
+  audio.addEventListener('playing', () => { reintentos = 0; });
+  audio.addEventListener('error', () => {
     aplicarCover(COVER_DEF);
-    const t = estado.lista[estado.actual];
-    console.error(`R53: Error 404 o red → "${t?.titulo}" (${audio.src})`);
-    fallosConsecutivos++;
-    if (estado.lista.length > 1 && fallosConsecutivos < estado.lista.length){
-      console.warn(`R53: Saltando al siguiente (error ${fallosConsecutivos})`);
-      setTimeout(siguiente, 800);
+    reintentos++;
+    if (reintentos <= 2){
+      console.warn(`R53: reintento ${reintentos} de la pista actual`);
+      setTimeout(() => { audio.load(); reproducir(); }, 1200);
     } else {
-      console.error('R53: Múltiples errores, pausando');
-      pausar();
+      reintentos = 0;
+      if (estado.lista.length > 1) setTimeout(siguiente, 800);
     }
   });
 
-  /* ---- Indicador de conexión ---- */
-  function actualizarIndicadorConexion(online){
-    const playerEl = document.getElementById('r53');
-    if (!playerEl) return;
-    playerEl.classList.toggle('offline', !online);
-
-    let badge = document.getElementById('r53OfflineBadge');
-    if (!badge) {
-      badge = document.createElement('div');
-      badge.id = 'r53OfflineBadge';
-      badge.className = 'r53-offline-badge';
-      playerEl.appendChild(badge);
-    }
-    badge.textContent = online ? '🟢 Online' : '🔴 Offline';
-    badge.style.display = online ? 'none' : 'block';
+  /* ---- Desbloqueo con gesto ---- */
+  function desbloquear(e){
+    document.removeEventListener('pointerdown', desbloquear);
+    if (ctx && ctx.state === 'suspended') ctx.resume();
+    if (e.target.closest('button') || e.target.closest('.r53-arc') || e.target.closest('.r53-vol') || e.target.closest('.r53-tracklist')) return;
+    if (!estado.sonando && audio.src) reproducir();
   }
+  document.addEventListener('pointerdown', desbloquear);
 
-  document.addEventListener('r53:conexion', e => actualizarIndicadorConexion(e.detail.online));
-  document.addEventListener('r53:listo', e => {
-    if (e.detail.online !== undefined) actualizarIndicadorConexion(e.detail.online);
-  });
+  /* ---- Conexión ---- */
+  window.addEventListener('online',  () => emitir('conexion', { online: true }));
+  window.addEventListener('offline', () => emitir('conexion', { online: false }));
 
-  actualizarIndicadorConexion(navigator.onLine);
-
-  /* ---- Inicialización ---- */
   init();
 
+  /* ---- API pública ---- */
   return {
     get estado(){ return estado; },
     get modo(){ return modo; },
-    reproducir,
-    pausar,
-    toggle,
-    siguiente,
-    anterior,
-    cargarPista,
-    progreso,
-    scrub,
-    seek,
-    toggleShuffle,
-    toggleRepeat,
-    setVolumen,
-    toggleMute,
-    boostDisponible: () => boostOK,
+    reproducir, pausar, toggle, siguiente, anterior, cargarPista,
+    progreso, scrub, seek, toggleShuffle, toggleRepeat,
+    setVolumen, toggleMute, boostDisponible: () => boostOK,
     coverDefault: COVER_DEF
   };
 })();
