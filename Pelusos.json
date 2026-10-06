@@ -6,11 +6,24 @@
       "artista": "Divino",
       "nombre": "Mi Vida",
       "album": "Por Experiencias Propias",
-      "enlace": "https://xat-music2.vercel.app/assets/audio2/Divino-Mi-vida.mp3",
+      "enlace": "https://xat-music2.vercel.app/assets/audio2/Divino-Mi-vida-V2.mp3",
       "genero": "Pop Latino",
       "emotion": "Entrega",
       "seccion": "pelusos",
       "duracion": "3:36",
+      "country": ["México"]
+    },
+    {
+      "id": "edicion-especial-quedate-conmigo",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover2/Edicion-Especial-Quedate-conmigo.jpg",
+      "artista": "Edición Especial",
+      "nombre": "Quédate Conmigo",
+      "album": "Quédate Conmigo",
+      "enlace": "https://xat-music2.vercel.app/assets/audio2/Edicion-Especial-Quedate-conmigo.mp3",
+      "genero": "Norteño",
+      "emotion": "Súplica",
+      "seccion": "pelusos",
+      "duracion": "3:12",
       "country": ["México"]
     },
     {
@@ -669,6 +682,19 @@
       "country": ["México"]
     },
     {
+      "id": "la-fiera-de-ojinaga-un-amor-bonito",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover2/La-Fiera-De-Ojinaga-Un-amor-bonito.jpg",
+      "artista": "La Fiera De Ojinaga",
+      "nombre": "Un Amor Bonito",
+      "album": "Un Amor Bonito",
+      "enlace": "https://xat-music2.vercel.app/assets/audio2/La-Fiera-De-Ojinaga-Un-amor-bonito.mp3",
+      "genero": "Norteño",
+      "emotion": "Devoción",
+      "seccion": "pelusos",
+      "duracion": "2:37",
+      "country": ["México"]
+    },
+    {
       "id": "las-nortenitas-de-oro-me-gustas-mucho",
       "caratula": "https://iraked.github.io/SantiGraphics/assets/cover2/Las-Nortenitas-De-Oro-Me-gustas-mucho.jpg",
       "artista": "Las Norteñitas De Oro",
@@ -848,6 +874,19 @@
       "emotion": "Entrega",
       "seccion": "pelusos",
       "duracion": "3:40",
+      "country": ["México"]
+    },
+    {
+      "id": "edicion-especial-quedate-conmigo",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover2/Quedate-conmigo-Edicion-Especial.jpg",
+      "artista": "Edición Especial",
+      "nombre": "Quédate Conmigo",
+      "album": "Quédate Conmigo",
+      "enlace": "https://xat-music2.vercel.app/assets/audio2/Quedate-conmigo-Edicion-Especial.mp3",
+      "genero": "Norteño",
+      "emotion": "Súplica",
+      "seccion": "pelusos",
+      "duracion": "3:12",
       "country": ["México"]
     },
     {
