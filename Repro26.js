@@ -102,7 +102,7 @@ function guardarEnHistorial(artist, title, cover = DEFAULT_COVER) {
 // ======== RADIO POLLING ========
 function iniciarActualizacionRadio() {
     if (radioIntervalId) clearInterval(radioIntervalId);
-    const radioUrl = "https://technoplayerserver.net:8018/stats?json=1&sid=1";
+    const radioUrl = "https://technoplayerserver.net:8240/stats?json=1&sid=1";
 
     const actualizarServidor = () => {
         if (modo !== 'streaming') return;
@@ -262,7 +262,7 @@ btnOnline.onclick = () => {
 
     // 5. Carga de nueva fuente
     if (modo === 'streaming') {
-        audio.src = 'https://technoplayerserver.net:8018/stream?icy=http';
+        audio.src = 'https://technoplayerserver.net:8240/stream?icy=http';
         iniciarActualizacionRadio(); 
     } else {
         cargarTrack(currentTrack);
@@ -415,7 +415,7 @@ fetch('https://radio-tekileros.vercel.app/Repro26.json')
         playlist = data.hits || [];
         if (modo === 'streaming') {
             iniciarActualizacionRadio();
-            audio.src = 'https://technoplayerserver.net:8018/stream?icy=http';
+            audio.src = 'https://technoplayerserver.net:8240/stream?icy=http';
         } else {
             cargarTrack(currentTrack);
             renderPanelDerechoLocal();
