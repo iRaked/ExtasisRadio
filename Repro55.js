@@ -153,16 +153,20 @@ function precargarImagenesPlaylists() {
 }
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// Cargar playlist según nombre y raíz - CON LÓGICA DE JSON ROBUSTA
+// Cargar playlist según nombre y raíz - CON PROTECCIÓN DE ESTADO
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 async function cargarPlaylist(nombre) {
-  currentPlaylistName = nombre;
+  // ✅ PROTECCIÓN: No sobrescribir el nombre de la lista real si estamos en favoritos
+  const esFavoritos = (nombre === "favoritos");
+  if (!esFavoritos) {
+    currentPlaylistName = nombre;
+  }
 
   try {
-    if (nombre === "favoritos") {
+    if (esFavoritos) {
       const favs = JSON.parse(localStorage.getItem("userFavorites")) || [];
       trackData = favs;
-      currentMode = "music";
+      currentMode = "music"; // Mantenemos modo música para que el carrusel funcione
       
       const progress = JSON.parse(localStorage.getItem("playlistProgress")) || {};
       currentTrack = (progress[nombre] !== undefined && progress[nombre] < trackData.length) ? progress[nombre] : 0;
@@ -170,13 +174,19 @@ async function cargarPlaylist(nombre) {
       console.log(`⭐ Playlist "Favoritos" cargada con ${trackData.length} elementos.`);
       
       if (trackData.length > 0) {
+        const plEl = document.getElementById("trackPlaylist");
+        if (plEl) plEl.textContent = "FAVORITOS"; // ✅ Etiqueta clara
+        
         renderizarCaratulasCarrusel();
         activarReproduccion(currentTrack, "initial-load");
       } else {
         console.log("⚠️ No hay favoritos guardados");
+        const plEl = document.getElementById("trackPlaylist");
         const titleEl = document.getElementById("trackTitle");
         const artistEl = document.getElementById("trackArtist");
         const durEl = document.getElementById("totalDuration");
+        
+        if (plEl) plEl.textContent = "FAVORITOS";
         if (titleEl) titleEl.textContent = "Sin Favoritos";
         if (artistEl) artistEl.textContent = "Agrega tracks a favoritos";
         if (durEl) durEl.textContent = "0 Pistas";
@@ -825,15 +835,23 @@ navIcons.forEach(icon => {
       abrirOverlayFullscreen("section-games");
     } else if (sectionName === "music") {
       cerrarOverlay();
-      if (currentMode === "music" && trackData.length > 0 && audio.src) {
+      
+      // ✅ DETECTAR SI VENIMOS DE FAVORITOS PARA EVITAR EL `return` TRAMPA
+      const plEl = document.getElementById("trackPlaylist");
+      const esFavoritosActivo = plEl && plEl.textContent === "FAVORITOS";
+
+      if (!esFavoritosActivo && trackData.length > 0 && audio.src) {
+        // Ya estamos en una playlist normal, solo alternar play/pause
         if (!audio.paused) {
           audio.pause();
         } else {
           audio.play().catch(err => console.warn("⚠️", err));
         }
-        return;
+      } else {
+        // Venimos de Favoritos o no hay nada cargado: recargamos la playlist original
+        await cargarPlaylist(currentPlaylistName);
       }
-      await cargarPlaylist(currentPlaylistName);
+      
     } else if (sectionName === "folder") {
       cerrarOverlay();
       renderizarCaratulasPlaylists();
