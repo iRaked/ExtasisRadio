@@ -138,18 +138,40 @@ self.addEventListener('fetch', event => {
     return;
   }
 
-  // 💻 4) APP SHELL (HTML, CSS, JS): CACHE FIRST
-  event.respondWith(
-    caches.match(event.request).then(cached => {
-      return cached || fetch(event.request).catch(() => {
-        return new Response('Offline: Recurso no disponible', { status: 503 });
-      });
-    })
-  );
-});
+    // 💻 4) ARCHIVOS JS: STALE-WHILE-REVALIDATE (Se actualizan solos en segundo plano, sin cambiar versión)
+  if (url.pathname.endsWith('.js')) {
+    event.respondWith(
+      caches.open(CACHE_NAME).then(cache => {
+        return cache.match(event.request).then(cached => {
+          const fetchPromise = fetch(event.request).then(networkResponse => {
+            if (networkResponse && networkResponse.status === 200) {
+              cache.put(event.request, networkResponse.clone()); // Actualiza la caché con la nueva versión
+            }
+            return networkResponse;
+          }).catch(() => {});
+          
+          // Devuelve la caché inmediatamente (rápido), pero actualiza de fondo
+          return cached || fetchPromise;
+        });
+      })
+    );
+    return;
+  }
+
+  // 💻 5) HTML y CSS: CACHE FIRST (Estos sí se quedan fijos hasta que cambies la versión)
+  if (url.pathname === '/' || url.pathname.endsWith('.html') || url.pathname.endsWith('.css')) {
+    event.respondWith(
+      caches.match(event.request).then(cached => {
+        return cached || fetch(event.request).catch(() => {
+          return new Response('Offline: Recurso no disponible', { status: 503 });
+        });
+      })
+    );
+    return;
+  }
 
 // ============================================================================
-// 4. MENSAJERÍA (Para forzar actualización desde el cliente si es necesario)
+// 5. MENSAJERÍA (Para forzar actualización desde el cliente si es necesario)
 // ============================================================================
 self.addEventListener('message', event => {
   if (event.data === 'skipWaiting') {
