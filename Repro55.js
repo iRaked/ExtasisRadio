@@ -5,47 +5,47 @@ let gestureDetected = false;
 let trackData = [];
 let currentTrack = null;
 let currentPlaylistName = "actual";
-let currentMode = "music"; // "music" o "playlists"
-let currentPlaylistIndex = 0; // Controla qué playlist está en el centro del carrusel
-let hasDragged = false; // Eevita clics falsos tras arrastrar
-
+let currentMode = "music";
+let currentPlaylistIndex = 0;
+let hasDragged = false;
 let repeatActive = false;
 let shuffleActive = false;
+let audio; // Referencia global para que todas las funciones la vean
 
-// Esperar a que Player55.js termine de construir el DOM
-window.addEventListener('player-dom-ready', () => {
+function iniciarReproductor() {
+  if (window._repro55_iniciado) return;
+  
+  audio = document.getElementById("audio");
+  if (!audio) {
+    window._repro55_iniciado = false; 
+    return; 
+  }
+  window._repro55_iniciado = true;
 
-const audio = document.getElementById("audio");
+  // Elementos de metadatos y controles (Nombres unificados para evitar errores)
+  const TRACK_TITLE_EL      = document.getElementById("trackTitle");
+  const TRACK_ARTIST_EL     = document.getElementById("trackArtist");
+  const TRACK_DURATION_EL   = document.getElementById("totalDuration"); // ✅ Corregido para coincidir con tu HTML
+  const currentTimeEl       = document.getElementById("currentTime");
+  const progressFill        = document.getElementById("progressFill");   // ✅ Corregido (antes era progressBar)
+  const progressContainer   = document.getElementById("progressContainer");
+  const TRACK_PLAYLIST_EL   = document.getElementById("trackPlaylist");
 
-// Elementos de metadatos y controles
-const TRACK_TITLE_EL    = document.getElementById("trackTitle");
-const TRACK_ARTIST_EL   = document.getElementById("trackArtist");
-const TRACK_DURATION_EL = document.getElementById("trackDuration");
-const currentTimeEl     = document.getElementById("currentTime");
-const totalDurationEl   = document.getElementById("totalDuration");
-const progressBar       = document.getElementById("progressBar");
-const progressContainer = document.getElementById("progressContainer");
-const TRACK_PLAYLIST_EL = document.getElementById("trackPlaylist");
+  // Botones de control
+  const btnShuffle   = document.getElementById("btnShuffle");
+  const btnRepeat    = document.getElementById("btnRepeat");
 
-// Botones de control
-const btnPlayPause = document.getElementById("btnPlayPause");
-const btnPrev      = document.getElementById("btnPrev");
-const btnNext      = document.getElementById("btnNext");
-const btnShuffle   = document.getElementById("btnShuffle");
-const btnRepeat    = document.getElementById("btnRepeat");
+  // Referencias de UI
+  const covers = document.querySelectorAll(".carousel-arc .arc-cover");
+  const navIcons = document.querySelectorAll(".nav-icons-arc .nav-ico");
+  const contentOverlay = document.getElementById("contentOverlay");
+  const contentSections = document.querySelectorAll(".content-section");
+  const btnFavorite = document.getElementById("btnFavorite");
 
-// Referencias de UI
-const covers = document.querySelectorAll(".carousel-arc .arc-cover");
-const navIcons = document.querySelectorAll(".nav-icons-arc .nav-ico");
-const contentOverlay = document.getElementById("contentOverlay");
-const contentSections = document.querySelectorAll(".content-section");
-const btnFavorite = document.getElementById("btnFavorite");
-
-// Guardar las rutas de las carátulas originales del HTML
-const originalCoverImages = Array.from(covers).map(cover => {
-  const img = cover.querySelector("img");
-  return img ? img.src : "";
-});
+  const originalCoverImages = Array.from(covers).map(cover => {
+    const img = cover.querySelector("img");
+    return img ? img.src : "";
+  });
 
 // ============================================================================
 // Caché de imágenes en memoria (evita re-descargar imágenes ya vistas)
@@ -111,32 +111,35 @@ const PLAYLISTS_MAP = [
 ];
 
 function setDefaultMetadata() {
-  if (TRACK_PLAYLIST_EL)  TRACK_PLAYLIST_EL.textContent  = "ACTUAL";
-  if (TRACK_TITLE_EL)     TRACK_TITLE_EL.textContent     = "BBFITA FREYSITA";
-  if (TRACK_ARTIST_EL)    TRACK_ARTIST_EL.textContent    = "28 de Agosto 2026";
-  if (TRACK_DURATION_EL)  TRACK_DURATION_EL.textContent  = "00:00";
+  const plEl = document.getElementById("trackPlaylist");
+  const titleEl = document.getElementById("trackTitle");
+  const artistEl = document.getElementById("trackArtist");
+  const durationEl = document.getElementById("totalDuration");
+
+  if (plEl) plEl.textContent = "ACTUAL";
+  if (titleEl) titleEl.textContent = "BBFITA FREYSITA";
+  if (artistEl) artistEl.textContent = "28 de Agosto 2026";
+  if (durationEl) durationEl.textContent = "0:00";
 }
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // ▶️ Inicialización ÚNICA y Gesto Humano
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-setDefaultMetadata();
-precargarImagenesPlaylists();
-cargarPlaylist("actual");
-ajustarEscalaReproductor();
+  setDefaultMetadata();
+  precargarImagenesPlaylists();
+  cargarPlaylist("actual");
+  ajustarEscalaReproductor();
+  inicializarArrastreCarrusel(); 
 
-// INICIALIZAR EVENTOS DEL CARRUSEL UNA SOLA VEZ
-inicializarArrastreCarrusel(); 
-
-document.addEventListener("click", () => {
-  if (gestureDetected) return;
-  gestureDetected = true;
-  audio.muted = false;
-  console.log("🟢 Interacción humana detectada: Audio habilitado.");
-  if (audio.src && audio.paused) {
-    audio.play().catch(() => {}); 
-  }
-}, { once: true });
+  document.addEventListener("click", () => {
+    if (gestureDetected) return;
+    gestureDetected = true;
+    audio.muted = false;
+    console.log("🟢 Interacción humana detectada: Audio habilitado.");
+    if (audio.src && audio.paused) {
+      audio.play().catch(() => {}); 
+    }
+  }, { once: true });
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // Precarga de imágenes de playlists
@@ -171,9 +174,12 @@ async function cargarPlaylist(nombre) {
         activarReproduccion(currentTrack, "initial-load");
       } else {
         console.log("⚠️ No hay favoritos guardados");
-        if (TRACK_TITLE_EL) TRACK_TITLE_EL.textContent = "Sin Favoritos";
-        if (TRACK_ARTIST_EL) TRACK_ARTIST_EL.textContent = "Agrega tracks a favoritos";
-        if (TRACK_DURATION_EL) TRACK_DURATION_EL.textContent = "0 Pistas";
+        const titleEl = document.getElementById("trackTitle");
+        const artistEl = document.getElementById("trackArtist");
+        const durEl = document.getElementById("totalDuration");
+        if (titleEl) titleEl.textContent = "Sin Favoritos";
+        if (artistEl) artistEl.textContent = "Agrega tracks a favoritos";
+        if (durEl) durEl.textContent = "0 Pistas";
       }
       return;
     }
@@ -243,14 +249,13 @@ async function cargarPlaylist(nombre) {
     }
     
     // 1. Actualizar etiquetas de UI SIEMPRE
-    if (TRACK_PLAYLIST_EL) TRACK_PLAYLIST_EL.textContent = etiqueta.toUpperCase();
-    const playlistLabel = document.getElementById("track-playlist");
-    if (playlistLabel) playlistLabel.textContent = `Playlist: ${etiqueta}`;
+    const plEl = document.getElementById("trackPlaylist");
+    if (plEl) plEl.textContent = etiqueta.toUpperCase();
 
     // 2. Renderizar carrusel SIEMPRE
     renderizarCaratulasCarrusel();
 
-    // 3. Activar reproducción (El catch manejará el bloqueo de autoplay sin romper la UI)
+    // 3. Activar reproducción
     if (trackData && trackData.length > 0) {
       activarReproduccion(currentTrack, "playlist-loaded");
     }
@@ -494,7 +499,7 @@ function inicializarArrastreCarrusel() {
 }
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-//  Renderizado Dinámico de Playlists (Modo Directorio)
+//  Renderizado Dinámico de Playlists (Modo Directorio con Contador Dinámico)
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 function renderizarCaratulasPlaylists() {
   currentMode = "playlists";
@@ -502,7 +507,35 @@ function renderizarCaratulasPlaylists() {
   contentOverlay.classList.remove("active");
   
   const totalPlaylists = PLAYLISTS_MAP.length;
+  const centeredPlaylist = PLAYLISTS_MAP[currentPlaylistIndex]; 
+  
+  // ✅ 1. LIMPIEZA Y ACTUALIZACIÓN DEL CUADRO DE DATOS
+  const plEl = document.getElementById("trackPlaylist");
+  const titleEl = document.getElementById("trackTitle");
+  const artistEl = document.getElementById("trackArtist");
+  const durEl = document.getElementById("totalDuration");
+  const currentTimeEl = document.getElementById("currentTime");
+  const timeSeparator = document.querySelector(".time-separator"); // ✅ Nuevo
+  const progressContainer = document.getElementById("progressContainer");
+  const progressFill = document.getElementById("progressFill");
 
+  if (plEl) plEl.textContent = "CARPETA";
+  if (titleEl) titleEl.textContent = centeredPlaylist.nombre; 
+  if (artistEl) artistEl.textContent = "";
+  
+  // ✅ LIMPIAR EL TIEMPO Y OCULTAR EL GUION PARA QUE SOLO QUEDE EL CONTADOR
+  if (currentTimeEl) currentTimeEl.textContent = "";
+  if (timeSeparator) timeSeparator.style.display = "none"; 
+  if (durEl) durEl.textContent = `${currentPlaylistIndex + 1} - ${totalPlaylists} Listas`;
+  
+  // ✅ CONGELAR Y LIMPIAR LA BARRA DE PROGRESO
+  if (progressFill) progressFill.style.width = "0%";
+  if (progressContainer) {
+    progressContainer.style.opacity = "0.2";
+    progressContainer.style.pointerEvents = "none";
+  }
+
+  // ✅ 2. RENDERIZADO DEL CARRUSEL DE LISTAS
   for (let i = 0; i < 9; i++) {
     const coverElement = covers[i];
     if (!coverElement) continue;
@@ -528,27 +561,29 @@ function renderizarCaratulasPlaylists() {
     }
   }
 
-  console.log(`📂 Modo Playlists activo. Centro: ${PLAYLISTS_MAP[currentPlaylistIndex].nombre}`);
+  console.log(`📂 Modo Playlists activo. Centro: ${centeredPlaylist.nombre} (${currentPlaylistIndex + 1}/${totalPlaylists})`);
 }
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// Reproductor Principal (Play / Pause / Cambio de Pista) - CON GUARDADO
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// Reproductor Principal (Con restauración del formato de tiempo)
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 function activarReproduccion(index, modo = "manual") {
   if (!Array.isArray(trackData) || index < 0 || index >= trackData.length) return;
+
+  // ✅ RESTAURAR EL FORMATO DE TIEMPO AL SALIR DEL MODO SELECCIÓN
+  const timeSeparator = document.querySelector(".time-separator");
+  if (timeSeparator) timeSeparator.style.display = "inline";
 
   const track = trackData[index];
   const url = track.enlace || track.dropbox_url || track.url;
   if (!url) return;
 
+  // Si es la misma pista, solo alternamos play/pause
   if (currentTrack === index && audio.src === url) {
     if (!audio.paused) {
       audio.pause();
-      if (btnPlayPause) btnPlayPause.innerHTML = '<i class="fas fa-play"></i>';
     } else {
-      audio.play().then(() => {
-        if (btnPlayPause) btnPlayPause.innerHTML = '<i class="fas fa-pause"></i>';
-      }).catch(err => console.warn("⚠️ Error al reanudar:", err));
+      audio.play().catch(err => console.warn("⚠️ Error al reanudar:", err));
     }
     return;
   }
@@ -559,26 +594,26 @@ function activarReproduccion(index, modo = "manual") {
   progress[currentPlaylistName] = currentTrack;
   localStorage.setItem("playlistProgress", JSON.stringify(progress));
   
-  // 1. Actualizar metadatos de texto INMEDIATAMENTE (es rápido y no bloquea)
-  if (TRACK_TITLE_EL)    TRACK_TITLE_EL.textContent    = track.nombre || "Sin título";
-  if (TRACK_ARTIST_EL)   TRACK_ARTIST_EL.textContent   = track.artista || "Desconocido";
-  if (TRACK_DURATION_EL) TRACK_DURATION_EL.textContent = track.duracion || `${trackData.length} Pistas`;
+  // 1. Actualizar metadatos de texto
+  const titleEl = document.getElementById("trackTitle");
+  const artistEl = document.getElementById("trackArtist");
+  const durEl = document.getElementById("totalDuration");
+  
+  if (titleEl) titleEl.textContent = track.nombre || "Sin título";
+  if (artistEl) artistEl.textContent = track.artista || "Desconocido";
+  if (durEl) durEl.textContent = track.duracion || `${trackData.length} Pistas`;
+  
   actualizarEstadoFavoritoActual();
 
-  // 2. Iniciar la carga y reproducción del audio ANTES del renderizado pesado
+  // 2. Iniciar la carga y reproducción
   audio.src = url;
   audio.load();
   
-  audio.play().then(() => {
-    if (btnPlayPause) btnPlayPause.innerHTML = '<i class="fas fa-pause"></i>';
-    // Pre-cargar el siguiente track solo cuando este ya está sonando
-    precargarSiguienteTrack();
-  }).catch(err => {
-    console.warn("⏸️ Reproducción en pausa (esperando interacción):", err.message);
-    if (btnPlayPause) btnPlayPause.innerHTML = '<i class="fas fa-play"></i>';
+  audio.play().catch(err => {
+    console.warn("⏸️ Reproducción en pausa (esperando interacción del usuario):", err.message);
   });
 
-  // 3. Renderizar el carrusel en el siguiente frame para NO bloquear el audio
+  // 3. Renderizar el carrusel en el siguiente frame
   requestAnimationFrame(() => {
     actualizarMediaSession(track);
     renderizarCaratulasCarrusel();
@@ -615,46 +650,6 @@ function precargarSiguienteTrack() {
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // Controles Multimedia
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-if (btnPlayPause) {
-  btnPlayPause.addEventListener("click", () => {
-    if (!audio.src && trackData.length > 0) {
-      activarReproduccion(0, "play-btn");
-      return;
-    }
-    if (audio.paused) {
-      audio.play().then(() => {
-        btnPlayPause.innerHTML = '<i class="fas fa-pause"></i>';
-      }).catch(err => console.warn("⚠️", err));
-    } else {
-      audio.pause();
-      btnPlayPause.innerHTML = '<i class="fas fa-play"></i>';
-    }
-  });
-}
-
-if (btnNext) {
-  btnNext.addEventListener("click", () => {
-    if (!trackData.length) return;
-    if (shuffleActive) {
-      const nextIndex = Math.floor(Math.random() * trackData.length);
-      activarReproduccion(nextIndex, "next-shuffle");
-    } else {
-      let nextIndex = currentTrack + 1;
-      if (nextIndex >= trackData.length) nextIndex = 0;
-      activarReproduccion(nextIndex, "next-btn");
-    }
-  });
-}
-
-if (btnPrev) {
-  btnPrev.addEventListener("click", () => {
-    if (!trackData.length) return;
-    let prevIndex = currentTrack - 1;
-    if (prevIndex < 0) prevIndex = trackData.length - 1;
-    activarReproduccion(prevIndex, "prev-btn");
-  });
-}
-
 if (btnShuffle) {
   btnShuffle.addEventListener("click", () => {
     shuffleActive = !shuffleActive;
@@ -686,13 +681,18 @@ if (btnRepeat) {
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // Gestión de Tiempos y Barra de Progreso
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 
-// al inicio del archivo, así que los usamos directamente
 audio.addEventListener("timeupdate", () => {
+  // ✅ FRENAR ACTUALIZACIÓN VISUAL SI ESTAMOS EN MODO LISTAS
+  if (currentMode === "playlists") return; 
+
   if (isNaN(audio.duration)) return;
   
   const progressPercent = (audio.currentTime / audio.duration) * 100;
-  if (progressFill) progressFill.style.width = `${progressPercent}%`;
+  const progressFill = document.getElementById("progressFill");
+  const currentTimeEl = document.getElementById("currentTime");
+  const totalDurationEl = document.getElementById("totalDuration");
 
+  if (progressFill) progressFill.style.width = `${progressPercent}%`;
   if (currentTimeEl) currentTimeEl.textContent = formatTime(audio.currentTime);
   if (totalDurationEl && !isNaN(audio.duration)) {
     totalDurationEl.textContent = formatTime(audio.duration);
@@ -792,24 +792,16 @@ covers.forEach((cover, index) => {
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 audio.addEventListener("ended", () => {
   if (shuffleActive) {
-    // 1. Prioridad máxima: Si shuffle está activo, saltar a uno aleatorio
     let nextIndex = Math.floor(Math.random() * trackData.length);
     activarReproduccion(nextIndex, "shuffle-next");
-    
   } else if (repeatActive) {
-    // 2. Segunda prioridad: Si repeat está activo, repetir el track actual SIEMPRE
     activarReproduccion(currentTrack, "auto-repeat-current");
-    
   } else {
-    // 3. Comportamiento normal: Avanzar al siguiente track
     const nextIndex = currentTrack + 1;
     if (nextIndex < trackData.length) {
       activarReproduccion(nextIndex, "auto-next");
     } else {
-      // Fin de la playlist, limpiar progreso
       console.log("⏹️ Fin de la playlist actual.");
-      if (btnPlayPause) btnPlayPause.innerHTML = '<i class="fas fa-play"></i>';
-      
       const progress = JSON.parse(localStorage.getItem("playlistProgress")) || {};
       delete progress[currentPlaylistName];
       localStorage.setItem("playlistProgress", JSON.stringify(progress));
@@ -828,22 +820,16 @@ navIcons.forEach(icon => {
     icon.classList.add("active");
 
     if (sectionName === "video") {
-      // Abrir overlay fullscreen de videos
       abrirOverlayFullscreen("section-video");
     } else if (sectionName === "games") {
-      // Abrir overlay fullscreen de juegos
       abrirOverlayFullscreen("section-games");
     } else if (sectionName === "music") {
       cerrarOverlay();
-      
       if (currentMode === "music" && trackData.length > 0 && audio.src) {
         if (!audio.paused) {
           audio.pause();
-          if (btnPlayPause) btnPlayPause.innerHTML = '<i class="fas fa-play"></i>';
         } else {
-          audio.play().then(() => {
-            if (btnPlayPause) btnPlayPause.innerHTML = '<i class="fas fa-pause"></i>';
-          }).catch(err => console.warn("⚠️", err));
+          audio.play().catch(err => console.warn("⚠️", err));
         }
         return;
       }
@@ -1048,7 +1034,7 @@ function agregarJuego(url, titulo) {
 }
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// MEDIA SESSION API (Para reproducción en background y pantalla de bloqueo)
+// MEDIA SESSION API
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 function actualizarMediaSession(track) {
   if (!("mediaSession" in navigator)) return;
@@ -1060,31 +1046,20 @@ function actualizarMediaSession(track) {
     artist: track.artista || "Desconocido",
     album: currentPlaylistName,
     artwork: [
-      { src: coverUrl, sizes: "96x96", type: "image/png" },
-      { src: coverUrl, sizes: "128x128", type: "image/png" },
-      { src: coverUrl, sizes: "192x192", type: "image/png" },
-      { src: coverUrl, sizes: "256x256", type: "image/png" },
-      { src: coverUrl, sizes: "384x384", type: "image/png" },
       { src: coverUrl, sizes: "512x512", type: "image/png" }
     ]
   });
 
-  navigator.mediaSession.setActionHandler("play", () => {
-    audio.play();
-    if (btnPlayPause) btnPlayPause.innerHTML = '<i class="fas fa-pause"></i>';
+  // Los controles del sistema operativo seguirán funcionando aunque no haya botón en pantalla
+  navigator.mediaSession.setActionHandler("play", () => { audio.play(); });
+  navigator.mediaSession.setActionHandler("pause", () => { audio.pause(); });
+  navigator.mediaSession.setActionHandler("previoustrack", () => { 
+    const prevIndex = currentTrack === 0 ? trackData.length - 1 : currentTrack - 1;
+    activarReproduccion(prevIndex, "prev-btn");
   });
-
-  navigator.mediaSession.setActionHandler("pause", () => {
-    audio.pause();
-    if (btnPlayPause) btnPlayPause.innerHTML = '<i class="fas fa-play"></i>';
-  });
-
-  navigator.mediaSession.setActionHandler("previoustrack", () => {
-    if (btnPrev) btnPrev.click();
-  });
-
-  navigator.mediaSession.setActionHandler("nexttrack", () => {
-    if (btnNext) btnNext.click();
+  navigator.mediaSession.setActionHandler("nexttrack", () => { 
+    const nextIndex = (currentTrack + 1) % trackData.length;
+    activarReproduccion(nextIndex, "next-btn");
   });
 }
 
@@ -1100,29 +1075,17 @@ function ajustarEscalaReproductor() {
   const windowHeight = window.innerHeight;
   const windowWidth = window.innerWidth;
   
-  // Solo escalar en desktop si la ventana es más pequeña que el reproductor
   if (windowWidth > 500 && windowHeight > 900) {
     if (windowWidth < targetWidth || windowHeight < targetHeight) {
-      const scaleW = windowWidth / targetWidth;
-      const scaleH = windowHeight / targetHeight;
-      const scale = Math.min(scaleW, scaleH);
-      
-      stage.style.setProperty("--stage-scale", scale);
+      const scale = Math.min(windowWidth / targetWidth, windowHeight / targetHeight);
       stage.style.transform = `scale(${scale})`;
     } else {
-      stage.style.removeProperty("--stage-scale");
       stage.style.transform = "none";
     }
-    return;
+  } else {
+    stage.style.transform = "none";
   }
-  
-  // En móvil: sin escala, ocupa 100% (controlado por CSS)
-  stage.style.removeProperty("--stage-scale");
-  stage.style.transform = "none";
 }
-
-window.addEventListener("resize", ajustarEscalaReproductor);
-window.addEventListener("DOMContentLoaded", ajustarEscalaReproductor);
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // Cargar videos de prueba al iniciar (DEMO)
@@ -1132,7 +1095,7 @@ setTimeout(() => {
 }, 1000);
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// Selector de juegos (Con tus enlaces originales exactos)
+// Selector de juegos
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 const gamesData = {
   "mario-luigi": {
@@ -1154,10 +1117,7 @@ function cargarJuego(gameKey) {
     return;
   }
   
-  // Limpiar contenedor
   container.innerHTML = '';
-  
-  // Crear iframe limpio que ocupe todo el espacio
   const iframe = document.createElement("iframe");
   iframe.src = gameData.url;
   iframe.allowFullscreen = true;
@@ -1168,7 +1128,6 @@ function cargarJuego(gameKey) {
   iframe.style.border = "none";
   
   container.appendChild(iframe);
-  
   console.log(`🎮 Juego cargado: ${gameData.title} (sin bezel)`);
 }
 
@@ -1176,14 +1135,24 @@ function cargarJuego(gameKey) {
 document.addEventListener("click", (e) => {
   const gameBtn = e.target.closest(".game-btn");
   if (gameBtn) {
-    // Actualizar botones activos
     document.querySelectorAll(".game-btn").forEach(btn => btn.classList.remove("active"));
     gameBtn.classList.add("active");
-    
-    // Cargar juego seleccionado
     const gameKey = gameBtn.dataset.game;
     cargarJuego(gameKey);
   }
 });
 
-}); // <-- Cierra el wrapper al final del archivo
+} // <--- ✅ ESTE ES EL CIERRE DE LA FUNCIÓN `iniciarReproductor()`. NO BORRAR.
+
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// 🚀 DISPARADOR HÍBRIDO (Va FUERA de la función, al final absoluto del archivo)
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', iniciarReproductor);
+} else {
+  if (document.getElementById('audio')) {
+    iniciarReproductor();
+  } else {
+    window.addEventListener('player-dom-ready', iniciarReproductor);
+  }
+}

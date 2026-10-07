@@ -1,145 +1,158 @@
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// ================ R55 · Service Worker (Offline Support) ================ //
+// ================ R55 · Service Worker (Offline & Audio Cache) ================ //
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-const CACHE_NAME = 'r55-cache-v2'; // Incrementa esto cuando hagas cambios mayores
+const CACHE_NAME = 'r55-cache-v3'; // ⚠️ Versión nueva para forzar limpieza de cachés rotas
 
-// Activos estáticos esenciales para que la app funcione offline
-const STATIC_ASSETS = [
-  'https://radio-tekileros.vercel.app/Freysita.html',
-  'https://radio-tekileros.vercel.app/Repro55.css',
-  'https://radio-tekileros.vercel.app/Player55.js',
-  'https://radio-tekileros.vercel.app/Repro55.js',
-  'https://radio-tekileros.vercel.app/sw55.js',
+// Activos esenciales (Rutas relativas para el dominio principal, absolutas solo para CDNs)
+const CACHE_ASSETS = [
+  '/Freysita.html',
+  '/Repro55.css',
+  '/Repro55.js',
+  '/Player55.js',
+  '/sw55.js',
   'https://santi-graphics.vercel.app/assets/iPod.ico',
-  // Precachear las 12 portadas base para que el carrusel inicial sea instantáneo
-  'https://santi-graphics.vercel.app/assets/covers/Cover1.png',
-  'https://santi-graphics.vercel.app/assets/covers/Cover2.png',
-  'https://santi-graphics.vercel.app/assets/covers/Cover3.png',
-  'https://santi-graphics.vercel.app/assets/covers/Cover4.png',
-  'https://santi-graphics.vercel.app/assets/covers/Cover5.png',
-  'https://santi-graphics.vercel.app/assets/covers/Cover6.png',
-  'https://santi-graphics.vercel.app/assets/covers/Cover7.png',
-  'https://santi-graphics.vercel.app/assets/covers/Cover8.png',
-  'https://santi-graphics.vercel.app/assets/covers/Cover9.png',
-  'https://santi-graphics.vercel.app/assets/covers/Cover10.png',
-  'https://santi-graphics.vercel.app/assets/covers/Cover11.png',
-  'https://santi-graphics.vercel.app/assets/covers/Cover12.png',
-  // Librerías externas (opcional, pero garantiza funcionamiento offline total)
   'https://code.jquery.com/jquery-3.7.1.min.js',
   'https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.1.2/tailwind.min.css',
   'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
   'https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js'
 ];
 
+// Dominios de confianza permitidos para caché (Evita errores de CORS)
+const ALLOWED_DOMAINS = [
+  'radio-tekileros.vercel.app',
+  'xat-music4.vercel.app',
+  'santi-graphics.vercel.app',
+  'iraked.github.io',
+  'cdnjs.cloudflare.com',
+  'cdn.jsdelivr.net',
+  'code.jquery.com'
+];
+
 // ============================================================================
-// 1. INSTALACIÓN: Precachear activos estáticos esenciales
+// 1. INSTALACIÓN: Precachear App Shell (con tolerancia a fallos)
 // ============================================================================
-self.addEventListener('install', (event) => {
-  console.log('[SW] Instalando Service Worker...');
+self.addEventListener('install', event => {
+  console.log('[SW R55] Instalando...');
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      console.log('[SW] Precacheando activos estáticos');
-      return cache.addAll(STATIC_ASSETS).catch(err => {
-        console.warn('[SW] Error al precachear algunos activos (puede ser por CORS o offline):', err);
-      });
-    }).then(() => self.skipWaiting()) // Forzar activación inmediata
+    caches.open(CACHE_NAME)
+      .then(async cache => {
+        const results = await Promise.allSettled(
+          CACHE_ASSETS.map(url => cache.add(url).catch(err => {
+            console.warn('[SW R55] No se pudo cachear asset:', url, err);
+          }))
+        );
+        console.log('[SW R55] Precacheo completado');
+        return true;
+      })
+      .then(() => self.skipWaiting())
   );
 });
 
 // ============================================================================
-// 2. ACTIVACIÓN: Limpiar cachés antiguas para liberar espacio
+// 2. ACTIVACIÓN: Limpiar cachés antiguas
 // ============================================================================
-self.addEventListener('activate', (event) => {
-  console.log('[SW] Activando nuevo Service Worker...');
+self.addEventListener('activate', event => {
+  console.log('[SW R55] Activando y purgando cachés obsoletas...');
   event.waitUntil(
-    caches.keys().then((cacheNames) => {
+    caches.keys().then(keys => {
       return Promise.all(
-        cacheNames.map((cacheName) => {
-          if (cacheName !== CACHE_NAME) {
-            console.log('[SW] Eliminando caché antigua:', cacheName);
-            return caches.delete(cacheName);
-          }
+        keys.filter(key => key !== CACHE_NAME).map(key => {
+          console.log('[SW R55] Eliminando caché vieja:', key);
+          return caches.delete(key);
         })
       );
-    }).then(() => self.clients.claim()) // Tomar control de todas las pestañas abiertas
+    }).then(() => self.clients.claim())
   );
 });
 
 // ============================================================================
-// 3. INTERCEPCIÓN DE SOLICITUDES (Estrategias Híbridas con Caché de Audio)
+// 3. INTERCEPCIÓN DE SOLICITUDES (Estrategias Híbridas)
 // ============================================================================
-self.addEventListener('fetch', (event) => {
-  const url = new URL(event.request.url);
+self.addEventListener('fetch', event => {
+  if (event.request.method !== 'GET') return;
 
-  // A) CACHE FIRST: App Shell, JS, CSS, Imágenes, Fuentes
-  if (
-    event.request.destination === 'script' ||
-    event.request.destination === 'style' ||
-    event.request.destination === 'image' ||
-    event.request.destination === 'font' ||
-    url.pathname === '/' || url.pathname.endsWith('.html')
-  ) {
+  let url;
+  try { url = new URL(event.request.url); } catch(e) { return; }
+
+  // Verificar si el dominio es permitido (evita intentar cachear cosas de terceros no autorizadas)
+  const isAllowed = ALLOWED_DOMAINS.some(domain => url.hostname.includes(domain)) || url.origin === self.location.origin;
+  if (!isAllowed) return;
+
+  // 🎵 1) AUDIOS: CACHE FIRST (La clave del offline)
+  if (event.request.destination === 'audio' || url.pathname.match(/\.(mp3|wav|ogg|m4a|aac)$/i) || url.hostname.includes('xat-music4')) {
     event.respondWith(
-      caches.match(event.request).then((cachedResponse) => {
-        if (cachedResponse) return cachedResponse;
-        return fetch(event.request).then((networkResponse) => {
-          if (networkResponse && networkResponse.status === 200) {
-            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, networkResponse.clone()));
+      caches.match(event.request).then(cached => {
+        if (cached) {
+          console.log('[SW R55] 🎵 Sirviendo audio desde caché:', url.pathname);
+          return cached;
+        }
+        // Si no está en caché, lo bajamos y lo guardamos para la próxima
+        return fetch(event.request).then(response => {
+          if (response && response.ok) {
+            const clone = response.clone();
+            caches.open(CACHE_NAME).then(c => c.put(event.request, clone).catch(() => {}));
           }
+          return response;
+        }).catch(() => new Response('', { status: 404, statusText: 'Offline: Audio no cacheado' }));
+      })
+    );
+    return;
+  }
+
+  // 🖼️ 2) IMÁGENES (Covers): CACHE FIRST
+  if (event.request.destination === 'image' || url.pathname.match(/\.(png|jpg|jpeg|webp|ico)$/i)) {
+    event.respondWith(
+      caches.match(event.request).then(cachedResponse => {
+        if (cachedResponse) return cachedResponse;
+        return fetch(event.request).then(networkResponse => {
+          if (!networkResponse || networkResponse.status !== 200) return networkResponse;
+          const responseToCache = networkResponse.clone();
+          caches.open(CACHE_NAME).then(cache => {
+            cache.put(event.request, responseToCache).catch(() => {});
+          });
           return networkResponse;
+        }).catch(() => new Response('', { status: 404 }));
+      })
+    );
+    return;
+  }
+
+  // 📜 3) JSONs (Playlists): STALE-WHILE-REVALIDATE
+  if (url.pathname.includes('.json')) {
+    event.respondWith(
+      caches.open(CACHE_NAME).then(cache => {
+        return cache.match(event.request).then(cachedResponse => {
+          const fetchPromise = fetch(event.request).then(networkResponse => {
+            if (networkResponse && networkResponse.status === 200) {
+              cache.put(event.request, networkResponse.clone());
+            }
+            return networkResponse;
+          }).catch(() => {});
+          
+          // Devuelve la caché inmediatamente si existe, si no, espera a la red
+          return cachedResponse || fetchPromise;
         });
       })
     );
     return;
   }
 
-  // B) NETWORK FIRST con FALLBACK: JSONs de playlists
-  if (url.pathname.endsWith('.json')) {
-    event.respondWith(
-      fetch(event.request)
-        .then((networkResponse) => {
-          if (networkResponse.ok) {
-            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, networkResponse.clone()));
-          }
-          return networkResponse;
-        })
-        .catch(() => caches.match(event.request))
-    );
-    return;
-  }
+  // 💻 4) APP SHELL (HTML, CSS, JS): CACHE FIRST
+  event.respondWith(
+    caches.match(event.request).then(cached => {
+      return cached || fetch(event.request).catch(() => {
+        return new Response('Offline: Recurso no disponible', { status: 503 });
+      });
+    })
+  );
+});
 
-  // C) NETWORK FIRST con CACHEO EXPLÍCITO: Archivos de Audio (.mp3, etc.)
-  // Garantiza que si se reprodujo online, quedará guardada para offline.
-  if (event.request.destination === 'audio' || url.pathname.endsWith('.mp3') || url.pathname.endsWith('.wav')) {
-    event.respondWith(
-      fetch(event.request)
-        .then((networkResponse) => {
-          if (networkResponse && networkResponse.status === 200) {
-            // Clonar la respuesta para guardarla en la caché del SW
-            try {
-              const responseToCache = networkResponse.clone();
-              caches.open(CACHE_NAME).then((cache) => {
-                cache.put(event.request, responseToCache);
-              });
-            } catch (err) {
-              // Si el body ya fue consumido, no podemos cachearlo (normal en streaming)
-              console.warn('[SW] No se pudo cachear audio (body ya consumido):', url.pathname);
-            }
-          }
-          return networkResponse;
-        })
-        .catch(() => {
-          // Si no hay internet, servir la versión guardada en caché
-          return caches.match(event.request).then((cachedResponse) => {
-            if (cachedResponse) return cachedResponse;
-            return new Response('Offline: Audio no disponible en caché', { status: 503 });
-          });
-        })
-    );
-    return;
+// ============================================================================
+// 4. MENSAJERÍA (Para forzar actualización desde el cliente si es necesario)
+// ============================================================================
+self.addEventListener('message', event => {
+  if (event.data === 'skipWaiting') {
+    self.skipWaiting();
   }
-
-  // D) Fallback por defecto
-  event.respondWith(fetch(event.request));
 });
