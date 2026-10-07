@@ -1,0 +1,298 @@
+/* Reset y base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background: transparent;
+  /*
+  background-image: url('assets/bg/Fondo.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  */
+
+  color: #ffffff;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* Header con efecto Marquesina */
+.main-header {
+  text-align: center;
+  padding: 15px 0;
+  width: 100%;
+  background: rgba(15, 12, 41, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  flex-shrink: 0;
+  overflow: hidden; 
+  white-space: nowrap;
+}
+
+.main-header h1 {
+  font-family: 'Cinzel', serif;
+  font-size: 2.4rem;
+  font-weight: 900;
+  color: #00d2ff;
+  text-shadow: 0 0 10px rgba(0, 210, 255, 0.6), 0 0 20px rgba(0, 210, 255, 0.3);
+  letter-spacing: 3px;
+  margin: 0;
+  display: inline-block;
+  white-space: nowrap;
+  animation: marquee-left 15s linear infinite;
+  cursor: default;
+}
+
+.main-header h1:hover {
+  animation-play-state: paused;
+}
+
+@keyframes marquee-left {
+  0% { transform: translateX(100vw); }
+  100% { transform: translateX(-100%); }
+}
+
+/* Contenedor en Fila Vertical Centrada */
+.dashboard-grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  padding: 20px 0;
+  flex: 1;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* Tarjetas (Cards) */
+.card {
+  background: rgba(36, 36, 62, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+}
+
+.card-header {
+  background: rgba(0, 0, 0, 0.4);
+  padding: 12px 15px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #00d2ff;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.card-body {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.card-body iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+  overflow: hidden;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* Reproductor */
+.repro-card {
+  width: 740px;
+  max-width: 804px;
+}
+.repro-card .card-body {
+  height: 402px;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* Juego */
+.game-card {
+  width: 640px;
+  max-width: 95vw;
+}
+.game-card .card-body {
+  width: 640px;
+  height: 480px;
+  max-width: 100%;
+  background: #000000;
+  overflow: hidden;
+}
+.game-card iframe {
+  width: 640px;
+  height: 480px;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* Reglas */
+.rules-card {
+  width: 650px;
+  max-width: 95vw;
+}
+
+.rules-card .card-body {
+  height: 750px;
+  padding: 15px;
+  background: rgba(26, 26, 46, 0.6);
+  overflow: hidden;
+}
+
+.reglas-img {
+  width: 650px;
+  height: 750px;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+  display: block;
+  animation: scrollUp 15s linear infinite;
+}
+
+.rules-card .card-body:hover .reglas-img {
+  animation-play-state: paused;
+}
+
+@keyframes scrollUp {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-750px); }
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* Mapamundi (Globo Terráqueo) */
+.map-card {
+  width: 100%;
+  max-width: 400px;
+}
+
+.map-card .card-body {
+  height: 400px;
+  background: rgba(15, 12, 41, 0.4);
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.map-card .card-body iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* Facebook */
+.fb-visual-container {
+  width: 420px;
+  max-width: 95vw;
+  background: rgba(36, 36, 62, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+  margin: 0 auto 20px auto;
+}
+
+.fb-visual-container .fb-page {
+  display: flex !important;
+  justify-content: center !important;
+  width: 100% !important;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* Footer */
+#footer-lord {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: auto;
+  padding-bottom: 10px;
+}
+
+.main-footer {
+  text-align: center;
+  padding: 10px 20px;
+  background: rgba(15, 12, 41, 0.5); /* CORREGIDO: eliminado el ";hover */" erróneo */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px 16px 0 0;
+  width: 100%;
+  max-width: 420px;
+}
+
+.footer-link {
+  text-decoration: none;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.3s ease;
+  padding: 10px 20px;
+  border-radius: 12px;
+}
+
+.footer-link:hover {
+  background: rgba(0, 243, 255, 0.08);
+  transform: translateY(-3px);
+}
+
+.footer-icon {
+  width: 30px;
+  height: 30px;
+  filter: drop-shadow(0 0 8px #00FFFF);
+  transition: all 0.4s ease;
+}
+
+.footer-link:hover .footer-icon {
+  filter: drop-shadow(0 0 15px #00FFFF) brightness(1.2);
+  transform: rotate(10deg);
+}
+
+.footer-copy {
+  all: unset;
+  display: block;
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  background: linear-gradient(135deg, #3688ff, #00FFFF);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 10px rgba(78, 142, 247, 0.5), 0 0 20px rgba(0, 255, 255, 0.3);
+  animation: glowFade 3s ease-in-out infinite alternate;
+  text-align: center;
+}
+
+@keyframes glowFade {
+  from {
+    filter: brightness(1) drop-shadow(0 0 2px #00FFFF);
+    opacity: 0.8;
+  }
+  to {
+    filter: brightness(1.3) drop-shadow(0 0 10px #00FFFF);
+    opacity: 1;
+  }
+}
