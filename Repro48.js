@@ -1,8 +1,8 @@
 // ======================================================
 // 🎧 1. INICIALIZACIÓN GLOBAL Y ESTADOS CRÍTICOS
 // ======================================================
-const API_RADIO = "https://antyserv.in:8094/stats?sid=1&json=1";
-const STREAM_URL = "https://antyserv.in:8094/stream";
+const API_RADIO = "https://technoplayerserver.net:8042/stats?sid=1&json=1";
+const STREAM_URL = "https://technoplayerserver.net:8042/stream";
 
 let trackData = [];
 let currentTrack = 0;
