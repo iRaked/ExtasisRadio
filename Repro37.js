@@ -134,7 +134,7 @@ function startRadio() {
   if (coverImg) coverImg.src = "https://santi-graphics.vercel.app/assets/covers/Cover1.png"; // respaldo inicial
 
   // Carga del stream
-  setSourceAndPlay("https://technoplayerserver.net:8018/stream?icy=http");
+  setSourceAndPlay("https://technoplayerserver.net:8042/stream?icy=http");
 
   // Actualizar modo
   updateModeAndPlaylist("Radio");
@@ -198,8 +198,8 @@ function obtenerCaratulaDesdeiTunes(artist, title) {
 // 📻 METADATOS Y CONTADOR R37
 // ===============================
 function startRadioMetadata() {
-  const radioUrl = "https://technoplayerserver.net:8018/currentsong?sid=1";
-  const statsUrl = "https://technoplayerserver.net:8018/stats?json=1&sid=1";
+  const radioUrl = "https://technoplayerserver.net:8042/currentsong?sid=1";
+  const statsUrl = "https://technoplayerserver.net:8042/stats?json=1&sid=1";
   const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(radioUrl)}`;
 
   async function updateMetadata() {
@@ -453,7 +453,7 @@ renderPlaylistMenu();
     playBtn.addEventListener("click", () => {
       if (!player.src || player.src === "#") {
         // Si no hay fuente, inicializamos al stream de radio
-        setSourceAndPlay("https://technoplayerserver.net:8018/stream?icy=http");
+        setSourceAndPlay("https://technoplayerserver.net:8042/stream?icy=http");
         updateModeAndPlaylist("Radio");
         return;
       }
@@ -806,7 +806,7 @@ function startListenersCounter() {
   // 1. Limpieza de seguridad
   stopListenersCounter();
 
-  const contadorUrl = "https://technoplayerserver.net:8018/stats?json=1&sid=1";
+  const contadorUrl = "https://technoplayerserver.net:8042/stats?json=1&sid=1";
   const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(contadorUrl)}`;
 
   async function updateCounter() {
@@ -883,3 +883,17 @@ function startListenersCounter() {
   window.addEventListener('resize', updatePlayerDimensions);
   updatePlayerDimensions();
 });
+
+function ajustarParaXat() {
+    const repro = document.getElementById('repro-master'); // El ID de tu div principal
+    const limiteXat = 1000;
+    const anchoReal = 1504;
+    
+    // Si detectamos que estamos en un espacio reducido, aplicamos zoom inverso
+    if (window.innerWidth <= limiteXat) {
+        const escala = limiteXat / anchoReal;
+        repro.style.transform = `scale(${escala})`;
+        repro.style.transformOrigin = 'top left';
+    }
+}
+window.onload = ajustarParaXat;
