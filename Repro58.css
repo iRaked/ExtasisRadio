@@ -1,0 +1,275 @@
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   --- WIDGET iPOD (ESCALADO UNIFORME A 600PX) ---
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+#widget-music {
+    position: relative;
+    display: none; 
+    justify-content: center;
+    align-items: center;
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    width: 100%;
+    height: 100%;
+}
+
+#widget-music .repro-oval {
+    width: 220px;
+    height: 100%; 
+    
+    /* Efecto Esmerilado (Glassmorphism) */
+    background: rgba(10, 10, 10, 0.4);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    
+    /* Borde Neón y Forma de Píldora Perfecta */
+    border: 1px solid rgba(136, 0, 255, 0.3);
+    border-radius: 110px;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+
+    padding: 20px 20px 50px 20px; 
+    
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.7), 
+                inset 0 0 20px rgba(136, 0, 255, 0.15);
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+/* Contenedor Circular de Carátula */
+.cover-circle {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid #8800FF;
+    box-shadow: 0 0 20px rgba(136, 0, 255, 0.5);
+    margin-bottom: 35px;
+    flex-shrink: 0;
+    background: #000;
+}
+
+.cover-circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Contenedor de Metadatos */
+.player-metadata {
+    position: relative;
+    top: 0;
+    left: 0;
+    transform: none;
+    text-align: center;
+    width: 100%;
+    padding: 0 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: -10px;
+}
+
+/* ARTISTA */
+.metadata-artist { 
+    color: #8800FF; 
+    font-size: 1.3em;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-shadow: 0 0 10px rgba(136, 0, 255, 0.6);
+    margin-bottom: 2px;
+}
+
+/* TÍTULO */
+.metadata-title { 
+    font-size: 1.1em; 
+    color: #fff;
+    opacity: 0.8;
+    line-height: 1.2;
+    margin-bottom: 2px;
+}
+
+/* EL CONTADOR */
+.metadata-time { 
+    font-size: 1.5em; 
+    color: #00f2ff; 
+    text-shadow: 0 0 15px rgba(0, 242, 255, 0.8); 
+    letter-spacing: 3px;
+    margin-top: 0 !important;
+    line-height: 1;
+}
+
+/* Estado Activo */
+#widget-music.active {
+    display: flex !important;
+}
+
+/* --- IPOD WHEEL CONTROLS --- */
+.ipod-wheel {
+    width: 180px;
+    height: 180px;
+    background: rgba(188, 19, 254, 0.02);
+    border: 2px solid rgba(136, 0, 255, 0.25);
+    border-radius: 50%;
+    
+    margin-top: auto; 
+    margin-bottom: -30px;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    box-sizing: border-box;
+    position: relative;
+    box-shadow: inset 0 0 20px rgba(136, 0, 255, 0.1),
+                0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+.wheel-btn {
+    background: none;
+    border: none;
+    color: var(--neon-aqua, #00f2ff);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-shadow: 0 0 8px var(--neon-aqua, #00f2ff);
+    z-index: 5;
+}
+
+.wheel-btn:hover {
+    color: #fff;
+    text-shadow: 0 0 15px var(--neon-aqua, #00f2ff), 0 0 25px var(--neon-lila, #bc13fe);
+    transform: scale(1.1);
+}
+
+.wheel-middle {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5px;
+    box-sizing: border-box;
+}
+
+.wheel-center-dot {
+    width: 50px;
+    height: 50px;
+    background: rgba(10, 10, 10, 0.9);
+    border: 1px solid var(--neon-lila, #bc13fe);
+    border-radius: 50%;
+    
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    box-shadow: 0 0 15px rgba(188, 19, 254, 0.3),
+                inset 0 0 10px rgba(188, 19, 254, 0.2);
+    z-index: 2;
+}
+
+.btn-menu { 
+    letter-spacing: 2px; 
+    font-weight: 800;
+    font-size: 0.75rem; 
+}
+
+.btn-pp { 
+    font-size: 1.1rem; 
+}
+
+/* --- MODAL PLAYLIST (ESTILO ÓVALO) --- */
+.playlist-modal {
+    display: none; 
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    width: 220px;
+    height: 100%;
+    
+    background: rgba(10, 10, 10, 0.98); 
+    backdrop-filter: blur(25px);
+    border: 1px solid rgba(136, 0, 255, 0.4);
+    border-radius: 110px;
+    z-index: 100;
+    
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 80px 20px;
+}
+
+.modal-header {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    top: 30px;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: var(--neon-lila, #bc13fe);
+    font-size: 1.5rem;
+    cursor: pointer;
+    text-shadow: 0 0 10px var(--neon-lila, #bc13fe);
+}
+
+.playlist-container {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    scrollbar-width: none;
+}
+
+.playlist-container::-webkit-scrollbar { 
+    display: none; 
+}
+
+#track-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+.track-item {
+    padding: 12px 10px;
+    border-bottom: 1px solid rgba(136, 0, 255, 0.1);
+    cursor: pointer;
+    transition: 0.3s;
+    text-align: center;
+}
+
+.track-item:hover {
+    background: rgba(136, 0, 255, 0.1);
+}
+
+.track-item.active {
+    border-left: 3px solid var(--neon-aqua, #00f2ff);
+    background: rgba(0, 242, 255, 0.05);
+}
+
+.track-item .t-name {
+    display: block;
+    color: #fff;
+    font-size: 0.85rem;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.track-item .t-artist {
+    display: block;
+    color: var(--neon-lila, #bc13fe);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+}

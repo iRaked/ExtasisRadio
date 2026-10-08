@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <link rel="icon" type="image/x-icon" href="https://santi-graphics.vercel.app/assets/SG.ico" />
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="author" content="Rick">
+  <title>Spin</title>
+  <!-- Estilos externos -->
+  <link href="Repro59.css" rel="stylesheet" type="text/css">
+  <link rel="author" href="https://santi-graphics.vercel.app/copyright.txt">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+  <!-- Scripts externos -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="Repro59.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+  <!-- BLOCK -->
+  <script type="text/javascript">
+  document.onkeydown = function(){return false};
+  document.oncontextmenu = function(){return false}
+  </script>
+
+</head>
+<body>
+
+<!-- Audio principal -->
+<audio id="main-audio" preload="auto"></audio>
+
+    <!-- Player -->
+    <div class="minimal-player-horizontal">
+    
+        <div class="vinyl-top-section">
+            <img src="https://santi-graphics.vercel.app/assets/img/D-Vinilo.png" class="vinyl-mega-img">
+        </div>
+
+        <div class="player-chassis-bottom">
+
+            <div class="side-bar-fixed vol-bar">
+                <div class="bar-fill" style="height: 70%;"></div>
+                <i class="fa-solid fa-volume-high bar-anchor-icon"></i>
+            </div>
+
+            <div class="controls-stack">
+                <div class="meta-row-expanded">
+                    <img src="https://santi-graphics.vercel.app/assets/covers/Cover1.png" class="meta-thumb-lg">
+                    <div class="meta-info-main">
+                        <span class="artist-txt">DJ</span>
+                        <span class="title-txt">Mix</span>
+                    </div>
+                </div>
+
+                <div class="buttons-row-slim">
+                    <button class="btn-ctrl btn-sm"><i class="fa-solid fa-repeat"></i></button>
+                    <button class="btn-ctrl btn-md"><i class="fa-solid fa-backward-step"></i></button>
+                    <button class="btn-play-hub"><i class="fa-solid fa-play"></i></button>
+                    <button class="btn-ctrl btn-md"><i class="fa-solid fa-forward-step"></i></button>
+                    <button class="btn-ctrl btn-sm"><i class="fa-solid fa-shuffle"></i></button>
+                    <!-- Botón Music -->
+                    <button class="btn-mode-top" title="Cambiar Modo">
+                        <i class="fa-solid fa-compact-disc"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="side-bar-fixed time-bar">
+                <div class="bar-fill" style="height: 45%;"></div>
+                <span class="bar-anchor-txt">3:42</span>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

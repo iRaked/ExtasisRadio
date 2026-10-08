@@ -1,0 +1,450 @@
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+/* --- PLAYER NEÓN: DIMENSIONES FIJAS E INVARIABLES --- */
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+:root {
+    --neon-rosa: #ff007f;
+    --neon-lila: #bc13fe;
+    --neon-aqua: #00f3ff;
+    --crema: #f5f5dc;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* --- 🔒 CONTENEDOR PRINCIPAL: ANCHO FIJO E INMUTABLE --- */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.music-player-card {
+    /* ANCHO FIJO: No puede cambiar bajo ninguna circunstancia */
+    width: 350px;
+    min-width: 350px;
+    max-width: 350px;
+    
+    background: #0f0f13;
+    border: 1px solid rgba(0, 243, 255, 0.2);
+    box-shadow: 0 0 25px rgba(188, 19, 254, 0.2);
+    border-radius: 20px;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    box-sizing: border-box;
+    
+    /* 🔥 RED DE SEGURIDAD: Nada puede desbordar */
+    overflow: hidden;
+}
+
+.profile-content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+}
+
+.user-info-header .profile-name {
+    color: #fff;
+    font-size: 1.4rem;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px var(--neon-lila);
+}
+
+.profile-id {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+}
+
+.profile-divider {
+    border: none;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 5px 0;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* --- 🔒 PLAYER WRAPPER: ANCHO FIJO 100% DEL PADRE --- */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.player-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Avatar / Carátula */
+.avatar-wrapper.music-cover {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.profile-avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--neon-aqua);
+    box-shadow: 0 0 15px var(--neon-aqua);
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* --- 🔒 TRACK INFO: CONTENEDOR BLINDADO --- */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.track-info {
+    width: 100%;
+    max-width: 360px; /* Ancho fijo para el área de texto */
+    min-width: 360px; /* 🔥 ANCHO MÍNIMO FIJO: No puede encogerse */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    min-width: 0; /* Permite truncamiento en flexbox */
+}
+
+.track-info h3 {
+    color: #fff;
+    font-size: 1.1rem;
+    margin: 5px 0 2px;
+    text-shadow: 0 0 10px var(--neon-aqua);
+    
+    /* 🔥 TRUNCAMIENTO ABSOLUTO */
+    width: 100%;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.track-info p {
+    color: var(--neon-lila);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 0;
+    
+    /* 🔥 TRUNCAMIENTO ABSOLUTO */
+    width: 100%;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+/* Visualizador de barras animado */
+.visualizer {
+    display: flex;
+    align-items: flex-end;
+    gap: 5px;
+    height: 25px;
+    flex-shrink: 0;
+}
+
+.visualizer span {
+    width: 4px;
+    background: var(--neon-aqua);
+    box-shadow: 0 0 10px var(--neon-aqua);
+    border-radius: 2px;
+    animation: bounce 1s ease-in-out infinite;
+    animation-play-state: paused;
+}
+
+.visualizer span:nth-child(1) { animation-delay: 0.0s; height: 40%; }
+.visualizer span:nth-child(2) { animation-delay: 0.2s; height: 60%; }
+.visualizer span:nth-child(3) { animation-delay: 0.4s; height: 100%; }
+.visualizer span:nth-child(4) { animation-delay: 0.6s; height: 40%; }
+.visualizer span:nth-child(5) { animation-delay: 0.8s; height: 80%; }
+
+@keyframes bounce {
+    0%, 100% { height: 10px; }
+    50% { height: 25px; }
+}
+
+/* Botones de Control */
+.player-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+    margin-top: 5px;
+    width: 100%;
+}
+
+.ctrl-btn {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition: 0.3s;
+    filter: drop-shadow(0 0 5px rgba(255,255,255,0.2));
+    flex-shrink: 0;
+}
+
+.ctrl-btn:hover {
+    color: var(--neon-aqua);
+    transform: scale(1.2);
+}
+
+.play-pause {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--neon-rosa);
+    color: var(--neon-rosa);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.play-pause:hover {
+    background: var(--neon-rosa);
+    color: #fff;
+    box-shadow: 0 0 20px var(--neon-rosa);
+}
+
+/* Barra de progreso */
+.progress-container {
+    width: 100%;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.progress-bar {
+    width: 0%; 
+    height: 100%;
+    background: linear-gradient(to right, var(--neon-aqua), var(--neon-lila));
+    box-shadow: 0 0 10px var(--neon-aqua);
+    transition: width 0.1s linear;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* --- BOTONES NAVEGACIÓN INTERNA (ESTADOS DE COLOR) --- */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.friends-nav-bar {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin: 10px 0;
+    flex-wrap: wrap;
+}
+
+.btn-sky-mini {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    padding: 6px 14px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(5px);
+    border-radius: 50px;
+    color: var(--crema);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.btn-sky-mini:hover {
+    border-color: var(--neon-aqua);
+    box-shadow: 0 0 10px var(--neon-aqua);
+    transform: translateY(-2px);
+}
+
+.btn-sky-mini.active-radio {
+    background: var(--neon-aqua);
+    color: var(--bg-dark);
+    border-color: var(--neon-aqua);
+    box-shadow: 0 0 15px var(--neon-aqua);
+    font-weight: bold;
+}
+
+.btn-sky-mini.active-home {
+    background: var(--neon-rosa);
+    color: #fff;
+    border-color: var(--neon-rosa);
+    box-shadow: 0 0 15px var(--neon-rosa);
+    font-weight: bold;
+}
+
+.btn-sky-mini.active-music {
+    background: var(--neon-lila);
+    color: #fff;
+    border-color: var(--neon-lila);
+    box-shadow: 0 0 15px var(--neon-lila);
+    font-weight: bold;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* --- MODAL HISTORIAL / PLAYLIST --- */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.dynamic-modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(11, 15, 25, 0.95);
+    backdrop-filter: blur(12px);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    box-sizing: border-box;
+    border-radius: inherit;
+    animation: fadeInModal 0.3s ease forwards;
+}
+
+.dynamic-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 12px;
+    margin-bottom: 15px;
+}
+
+.dynamic-modal-header h3 {
+    margin: 0;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--crema, #fff);
+}
+
+.close-modal-btn {
+    background: transparent;
+    border: none;
+    color: var(--crema, #fff);
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close-modal-btn:hover {
+    color: var(--neon-rosa);
+}
+
+.dynamic-modal-body {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-right: 5px;
+}
+
+.modal-track-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 8px 12px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.modal-track-item:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--neon-aqua);
+    transform: translateX(4px);
+}
+
+.modal-track-item img {
+    width: 45px;
+    height: 45px;
+    border-radius: 8px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.modal-track-info {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    flex: 1;
+    min-width: 0;
+}
+
+.modal-track-title {
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.modal-track-artist {
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.6);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@keyframes fadeInModal {
+    from { opacity: 0; transform: scale(0.98); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.modal-track-item.active-track {
+    background: rgba(188, 19, 254, 0.15);
+    border-color: var(--neon-lila);
+    box-shadow: 0 0 12px rgba(188, 19, 254, 0.3);
+}
+
+.modal-track-item.active-track .modal-track-title {
+    color: var(--neon-aqua);
+    text-shadow: 0 0 8px rgba(0, 243, 255, 0.4);
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* --- ESTILIZACIÓN DEL SCROLLBAR DEL MODAL (Cyber-Pop) --- */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.dynamic-modal-body::-webkit-scrollbar {
+    width: 6px;
+}
+
+.dynamic-modal-body::-webkit-scrollbar-track {
+    background: rgba(11, 15, 25, 0.6);
+    border-radius: 10px;
+}
+
+.dynamic-modal-body::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, var(--neon-aqua), var(--neon-lila));
+    border-radius: 10px;
+    box-shadow: 0 0 8px var(--neon-aqua);
+}
+
+.dynamic-modal-body::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(to bottom, var(--neon-lila), var(--neon-rosa));
+    box-shadow: 0 0 12px var(--neon-rosa);
+}
+
+.dynamic-modal-body {
+    scrollbar-width: thin;
+    scrollbar-color: var(--neon-lila) rgba(11, 15, 25, 0.6); 
+}

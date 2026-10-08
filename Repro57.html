@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <link rel="icon" type="image/x-icon" href="https://santi-graphics.vercel.app/assets/SG.ico" />
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="author" content="Rick">
+  <title>Jarvis</title>
+  <!-- Estilos externos -->
+  <link href="Repro57.css" rel="stylesheet" type="text/css">
+  <link rel="author" href="https://santi-graphics.vercel.app/copyright.txt">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+  <!-- Scripts externos -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="Repro57.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+  <!-- BLOCK -->
+  <script type="text/javascript">
+  document.onkeydown = function(){return false};
+  document.oncontextmenu = function(){return false}
+  </script>
+
+</head>
+<body>
+
+<!-- Audio principal -->
+<audio id="player" autoplay muted></audio>
+
+<!-- PLAYER HUD -->
+<div id="spotune-player" class="jarvis-ui">
+    <div class="hud-header">
+        <div class="hud-mode-btn" onclick="toggleRadioMode(event)" title="Cambiar Modo Radio / Local">
+    <i class="fa-solid fa-music"></i>
+</div>
+    </div>
+    
+    <div class="hud-main-wrapper">
+        <div class="hud-queue">
+            <span class="hud-label">PLAYLIST SPOTUNE</span>
+            <ul id="playlist-data">
+                <li><span>01</span> Cyber-Symphony.mp3</li>
+                <li><span>02</span> Night_City_Vibes.wav</li>
+                <li><span>03</span> Digital_Vic_X.mp3</li>
+            </ul>
+        </div>
+
+        <div class="hud-footer-meta">
+            <div class="hud-cd-case">
+                <img src="https://santi-graphics.vercel.app/assets/img/CD.png" class="cd-vinyl" alt="Vinyl CD">
+            </div>
+
+            <div class="hud-track-info">
+                <span class="track-artist" id="hud-artist">RICK_GRAPHICS</span>
+                <span class="track-title" id="hud-title">SINFONÍA VENEZUELA</span>
+            </div>
+
+            <div class="hud-thumb-wrapper">
+                <img id="hud-cover-img" src="" alt="Cover">
+            </div>
+        </div>
+    </div>
+
+    <div class="hud-controls">
+        <button class="hud-btn btn-repeat" title="Repetir"><i class="fa-solid fa-repeat"></i></button>
+        <button class="hud-btn btn-rwd" title="Anterior"><i class="fa-solid fa-backward-step"></i></button>
+        <button class="hud-btn btn-play" title="Reproducir / Pausa"><i class="fa-solid fa-play"></i></button>
+        <button class="hud-btn btn-fwd" title="Siguiente"><i class="fa-solid fa-forward-step"></i></button>
+        <button class="hud-btn btn-shuffle" title="Aleatorio"><i class="fa-solid fa-shuffle"></i></button>
+    </div>
+</div>
+
+</body>
+</html>

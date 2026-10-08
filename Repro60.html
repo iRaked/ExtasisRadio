@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link rel="icon" type="image/x-icon" href="https://santi-graphics.vercel.app/assets/SG.ico" />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Rick">
+    <title>Neón</title>
+    <!-- Estilos externos -->
+    <link href="Repro60.css" rel="stylesheet" type="text/css">
+    <link rel="author" href="https://santi-graphics.vercel.app/copyright.txt">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <!-- Scripts externos -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="Repro60.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <!-- BLOCK -->
+    <script type="text/javascript">
+    document.onkeydown = function(){return false};
+    document.oncontextmenu = function(){return false}
+    </script>
+</head>
+<body>
+
+    <!-- Audio principal -->
+    <audio id="main-audio" preload="auto"></audio>
+
+    <!-- Player Neón -->
+    <div id="music-modal" class="modal-overlay profile-modal-overlay">
+        <div class="profile-card-container music-player-card">
+
+            <div class="profile-content">
+
+                <div class="user-info-header">
+                    <h2 class="profile-name">CASINO PLAY</h2>
+                    <span class="profile-id">Neon Player</span>
+                </div>
+
+                <div class="friends-nav-bar">
+                    <span class="btn-sky-mini active-radio" id="btn-radio">Radio</span>
+                    <span class="btn-sky-mini" id="btn-home">Home</span>
+                    <span class="btn-sky-mini" id="btn-music">Music</span>
+                </div>
+
+                <hr class="profile-divider">
+
+                <div class="player-wrapper">
+
+                    <div class="avatar-wrapper music-cover">
+                        <img src="https://iraked.github.io/SantiGraphics/assets/covers/Cover1.png" alt="Album Art" class="profile-avatar" id="track-art">
+                        <div class="avatar-border-anim"></div>
+                    </div>
+
+                    <div class="track-info">
+                        <h3 id="track-name">AUTO DJ</h3>
+                        <p id="track-artist">Casino Digital</p>
+                    </div>
+
+                    <div class="visualizer">
+                        <span></span><span></span><span></span><span></span><span></span>
+                    </div>
+
+                    <!-- Controles avanzados (Repetir, Anterior, Play/Pause, Siguiente, Shuffle) -->
+                    <div class="player-controls">
+                        <button class="ctrl-btn"><i class="fa-solid fa-repeat"></i></button>
+                        <button class="ctrl-btn" id="prev-track"><i class="fa-solid fa-backward-step"></i></button>
+                        <button class="ctrl-btn play-pause" id="play-pause-btn"><i class="fa-solid fa-play"></i></button>
+                        <button class="ctrl-btn" id="next-track"><i class="fa-solid fa-forward-step"></i></button>
+                        <button class="ctrl-btn"><i class="fa-solid fa-shuffle"></i></button>
+                    </div>
+
+                    <div class="progress-container" id="progress-container">
+                        <div class="progress-bar" id="progress"></div>
+                    </div>
+
+                </div> 
+            </div> 
+
+            <!-- MODAL HISTORIAL / PLAYLIST -->
+            <div id="dynamic-content-modal" class="dynamic-modal-overlay" style="display: none;">
+                <div class="dynamic-modal-header">
+                    <h3 id="modal-title">Playlist</h3>
+                    <button class="close-modal-btn" onclick="closeAllModals()"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div id="modal-track-list" class="dynamic-modal-body">
+                    <!-- Pistas de la Playlist o el Historial de Radio Dinámicas -->
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

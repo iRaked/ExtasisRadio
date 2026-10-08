@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <link rel="icon" type="image/x-icon" href="https://santi-graphics.vercel.app/assets/SG.ico" />
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="author" content="Rick">
+  <title>iPod</title>
+  <!-- Estilos externos -->
+  <link href="Repro58.css" rel="stylesheet" type="text/css">
+  <link rel="author" href="https://santi-graphics.vercel.app/copyright.txt">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+  <!-- Scripts externos -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="Repro58.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+  <!-- BLOCK -->
+  <script type="text/javascript">
+  document.onkeydown = function(){return false};
+  document.oncontextmenu = function(){return false}
+  </script>
+
+</head>
+<body>
+
+<!-- Audio principal -->
+<audio id="player" autoplay muted></audio>
+
+<!-- Widget Music (iPod) -->
+<div id="widget-music" class="widget active">
+    <div class="repro-oval">
+        <div class="cover-circle">
+            <img id="player-cover" src="https://santi-graphics.vercel.app/assets/covers/Cover1.png" alt="Cover">
+        </div>
+
+        <div class="player-metadata">
+            <div id="player-artist" class="metadata-artist">ARTISTA</div>
+            <div id="player-title" class="metadata-title">TÍTULO</div>
+            <div id="player-time" class="metadata-time">0:00</div>
+        </div>
+
+        <div class="ipod-wheel">
+            <button class="wheel-btn btn-menu" id="btn-menu">MENU</button>
+
+            <div class="wheel-middle">
+                <button class="wheel-btn btn-prev" id="btn-prev">
+                    <i class="fas fa-backward"></i>
+                </button>
+
+                <div class="wheel-center-dot"></div>
+
+                <button class="wheel-btn btn-next" id="btn-next">
+                    <i class="fas fa-forward"></i>
+                </button>
+            </div>
+
+            <button class="wheel-btn btn-pp" id="btn-play-pause">
+                <i class="fas fa-play"></i>
+            </button>
+        </div>
+
+        <audio id="audio" preload="auto"></audio>
+    </div>
+    
+    <!-- Modal de Cola / Playlist -->
+    <div id="modal-playlist" class="playlist-modal">
+        <div class="modal-header">
+            <button id="close-menu" class="close-btn">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <div class="playlist-container">
+            <ul id="track-list">
+                <!-- Los elementos de la playlist se inyectarán aquí -->
+            </ul>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
