@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <link rel="icon" type="image/x-icon" href="https://santi-graphics.vercel.app/assets/SG.ico" />
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="author" content="Rick">
+  <title>Repro 33</title>
+  <!-- Estilos principales -->
+  <link rel="author" href="https://santi-graphics.vercel.app/copyright.html">
+  <link rel="stylesheet" href="Repro33.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <!-- Scripts funcionales + BLOCK 
+  <script type="text/javascript">
+  document.onkeydown = function(){return false};
+  document.oncontextmenu = function(){return false}
+  </script>-->
+  <script src="Repro33.js" defer></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+</head>
+<body>
+
+    <!--  CONTENEDOR PRINCIPAL -->
+<div id="main-container" class="main-container">
+        
+  <!-- Audio principal -->
+  <audio id="player" autoplay muted></audio>
+
+  <!-- Mensaje personalizado -->
+  <div id="custom-message" class="custom-message">Santi Graphics</div>
+
+  <!-- Imagen base del reproductor -->
+    <div class="player33">
+      <div class="speaker left"></div>
+      <div class="speaker right"></div>
+
+      <!-- Contenedor central -->
+      <div class="center-container">
+
+        <!-- Segmento de animaciones -->
+        <div class="animations">
+        <!-- Ecualizador miniatura -->
+        <canvas id="miniEQ" width="30" height="20"></canvas>
+        </div>
+
+        <!-- Carátula -->
+        <div class="cover">
+          <img src="https://santi-graphics.vercel.app/assets/covers/Cover1.png" alt="Carátula" />
+        </div>
+      </div><!-- CIERRE CENTER-CONTAINER -->
+
+      <!-- Marquesina inferior -->
+      <div class="marquee">
+        <span>Bienvenido a Radio Casino Digital</span>
+      </div>
+
+      <!-- Controles -->
+      <div class="controls">
+        <div class="buttons">
+          <button class="btn" id="music-btn"><i class="fa fa-music"></i></button>
+          <button class="btn" id="repeat-btn"><i class="fa fa-repeat"></i></button>
+          <button class="btn" id="rewind-btn"><i class="fa fa-backward"></i></button>
+          <button class="btn" id="play-btn"><i class="fa fa-play"></i></button>
+          <button class="btn" id="forward-btn"><i class="fa fa-forward"></i></button>
+          <button class="btn" id="shuffle-btn"><i class="fa fa-random"></i></button>
+        </div>
+
+        <div class="volume">
+          <i class="fa fa-volume-up"></i>
+          <input type="range" id="volume-bar" min="0" max="1" step="0.01" value="0.7">
+        </div>
+      </div><!-- CIERRE CONTROLES -->
+    </div><!-- CIERRE PLAYER33 -->
+
+</div><!-- CIERRE CONTENEDOR PRINCIPAL -->
+
+
+</body>
+</html>
