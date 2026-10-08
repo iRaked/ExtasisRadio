@@ -14,8 +14,8 @@ let rotateX = -30;
 let rotateY = -45;
 
 // URLs y Constantes
-const RADIO_STREAM_URL = "https://technoplayerserver.net:8018/stream";
-const COVER_FALLBACK = "assets/covers/Cover1.png";
+const RADIO_STREAM_URL = "https://technoplayerserver.net:8042/stream";
+const COVER_FALLBACK = "https://santi-graphics.vercel.app/assets/covers/Cover1.png";
 
 // Elementos DOM
 const scene = document.querySelector('.scene');
@@ -110,7 +110,7 @@ function setMeta(artist, title, albumOrGenero) {
 // 📻 METADATOS RADIO (Versión estable)
 // =======================================================
 function actualizarMetadatosRadio() {
-  const url = "https://technoplayerserver.net:8018/stats?json=1&sid=1";
+  const url = "https://technoplayerserver.net:8042/stats?json=1&sid=1";
   $.ajax({
     dataType: 'jsonp',
     url: url,
@@ -201,7 +201,7 @@ function aplicarMarquesina(element) {
 // 📦 METADATOS LOCAL
 // =======================================================
 function cargarTracksDesdeJSON() {
-  fetch("https://radio-tekileros.vercel.app/Repro22.json")
+  fetch("Repro22.json")
     .then(res => res.ok ? res.json() : Promise.reject(`HTTP error ${res.status}`))
     .then(data => {
       const tracks = Array.isArray(data?.hits) ? data.hits : Array.isArray(data) ? data : [];
@@ -437,5 +437,4 @@ document.addEventListener("DOMContentLoaded", () => {
       activarReproduccion(nextIndex, "next");
     };
   }
-
 });
