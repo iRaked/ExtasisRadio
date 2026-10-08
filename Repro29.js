@@ -31,7 +31,7 @@ document.body.classList.add("skin3");
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 
 // CARGA DE JSON
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 
-fetch("https://radio-tekileros.vercel.app/Repro29.json")
+fetch("Repro29.json")
   .then(res => res.json())
   .then(data => {
     fullPlaylistData = data;
@@ -128,7 +128,7 @@ fetch("https://radio-tekileros.vercel.app/Repro29.json")
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 
 function renderTrack(index) {
   if (modo === "streaming") {
-    audio.src = "https://technoplayerserver.net:8018/stream?icy=http";
+    audio.src = "https://technoplayerserver.net:8042/stream?icy=http";
     audio.muted = false;
     audio.play().catch(err => console.warn('Play streaming falló:', err));
   } else {
@@ -231,7 +231,7 @@ document.addEventListener("DOMContentLoaded", () => {
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 async function actualizarDesdeServidor() {
   try {
-    const radioUrl = "https://technoplayerserver.net:8018/currentsong?sid=1";
+    const radioUrl = "https://technoplayerserver.net:8042/currentsong?sid=1";
     const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(radioUrl)}`;
     const response = await fetch(proxyUrl, { cache: "no-cache" });
     const raw = await response.text();
@@ -640,7 +640,4 @@ document.addEventListener("contextmenu", (e) => {
   setTimeout(() => {
     msg.classList.remove("show");
   }, 2000);
-
 });
-
-
