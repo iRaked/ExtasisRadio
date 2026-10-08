@@ -158,7 +158,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function iniciarActualizacionRadio() {
     detenerActualizacionRadio();
 
-    const radioUrl = "https://technoplayerserver.net:8018/stats?json=1&sid=1";
+    const radioUrl = "https://technoplayerserver.net:8042/stats?json=1&sid=1";
 
     function actualizarDesdeServidor() {
       if (modoActual !== "radio") { detenerActualizacionRadio(); return; }
@@ -226,7 +226,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const contadorEl = document.getElementById("contadorRadio");
     if (!contadorEl) return;
 
-    const contadorUrl = "https://technoplayerserver.net:8018/stats?json=1&sid=1";
+    const contadorUrl = "https://technoplayerserver.net:8042/stats?json=1&sid=1";
     function actualizarContador() {
       if (modoActual !== "radio") { detenerContadorRadioescuchas(); return; }
 
@@ -265,7 +265,7 @@ document.addEventListener("DOMContentLoaded", () => {
     lastSongtitle = "";
 
     audio.pause();
-    audio.src = "https://technoplayerserver.net:8018/stream?icy=http";
+    audio.src = "https://technoplayerserver.net:8042/stream?icy=http";
     audio.load();
 
     if (gestureDetected) {
