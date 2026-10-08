@@ -305,7 +305,7 @@ function getCoverFromiTunes(artist, title) {
 function iniciarActualizacionRadio() {
   detenerActualizacionRadio();
 
-  const radioUrl = "https://technoplayerserver.net:8018/currentsong?sid=1";
+  const radioUrl = "https://technoplayerserver.net:8042/currentsong?sid=1";
   const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(radioUrl)}`;
 
   async function actualizarDesdeServidor() {
@@ -400,7 +400,7 @@ function cambiarModoALocal() {
 function cambiarModoARadio() {
   modo = "radio";
   lastTrackTitle = ""; // reset para evitar bloqueo por coincidencia
-  audio.src = "https://technoplayerserver.net:8018/stream?icy=http";
+  audio.src = "https://technoplayerserver.net:8042/stream?icy=http";
   audio.muted = false; // aseguramos que no quede silenciado tras el gesto
   audio.play().catch(err => console.warn("🔒 Autoplay bloqueado (radio):", err));
 
