@@ -87,7 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 function cargarTracksDesdeJSON() {
-    fetch("Repro1.json")
+    fetch("https://radio-tekileros.vercel.app/Repro1.json")
         .then(res => res.ok ? res.json() : Promise.reject(`HTTP error! status: ${res.status}`))
         .then(data => {
             // Aplanar todas las secciones en un solo array
@@ -250,12 +250,12 @@ function activarModoRadio() {
     }
 
     if (discImg) {
-        discImg.style.backgroundImage = "url('assets/img/Cover-Vinyl-Disc-FX1')";
+        discImg.style.backgroundImage = "url('https://santi-graphics.vercel.app/assets/img/Cover-Vinyl-Disc-FX1.png.png')";
         discImg.classList.add("rotating");
     }
 
     // Resetear audio y reproducir
-    audio.src = "https://technoplayerserver.net:8018/stream?icy=http";
+    audio.src = "https://technoplayerserver.net:8240/stream?icy=http";
     audio.load();
 
     audio.play().then(() => {
@@ -318,7 +318,7 @@ function actualizarMetaRadio(artist, title) {
 function iniciarActualizacionRadio() {
     detenerActualizacionRadio();
 
-    const radioUrl = "https://technoplayerserver.net:8018/currentsong?sid=1";
+    const radioUrl = "https://technoplayerserver.net:8240/currentsong?sid=1";
     const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(radioUrl)}`;
 
     async function actualizarDesdeServidor() {
@@ -447,7 +447,7 @@ function iniciarContadorRadioescuchas() {
 
     if (typeof $ === 'undefined' || typeof $.ajax === 'undefined' || !contadorElemento) return;
 
-    const contadorUrl = "https://technoplayerserver.net:8018/stats?json=1&sid=1";
+    const contadorUrl = "https://technoplayerserver.net:8240/stats?json=1&sid=1";
 
     function actualizarContador() {
         if (modoActual !== "radio") { 
