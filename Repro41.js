@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentTrack = 0;
   let currentBannerIndex = 0;
 
-  const radioServer = "https://radio-nine-gilt.vercel.app/api/radio";
+  const radioServer = "https://technoplayerserver.net:8042/stream";
 
   // Configuración inicial
   player.autoplay = true;
