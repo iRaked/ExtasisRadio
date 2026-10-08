@@ -116,11 +116,11 @@ function activarModoRadio() {
   cancelarItunesFetch();
 
   metadataSpan.textContent = "Casino Digital Radio — Conectando...";
-  coverImg.src = "https://santi-graphics.vercel.app/assets/covers/Plato.png";
+  coverImg.src = "https://santi-graphics.vercel.app/assets/img/Plato.png";
   coverImg.classList.add("rotating");
 
   audio.pause();
-  audio.src = "https://technoplayerserver.net:8018/stream?icy=http";
+  audio.src = "https://technoplayerserver.net:8042/stream?icy=http";
   audio.load();
 
   audio.muted = !gestureDetected;
@@ -139,7 +139,7 @@ let lastTrackTitle = "";
 function iniciarActualizacionRadio() {
   detenerActualizacionRadio();
 
-  const radioUrl = "https://technoplayerserver.net:8018/currentsong?sid=1";
+  const radioUrl = "https://technoplayerserver.net:8042/currentsong?sid=1";
   const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(radioUrl)}`;
 
   async function actualizarDesdeServidor() {
@@ -197,7 +197,7 @@ function iniciarActualizacionRadio() {
 function obtenerCaratulaDesdeiTunes(artist, title) {
   if (typeof $ === 'undefined' || typeof $.ajax === 'undefined') {
     if (modoActual !== "radio") return;
-    coverImg.src = 'https://santi-graphics.vercel.app/assets/covers/Plato.png';
+    coverImg.src = 'https://santi-graphics.vercel.app/assets/img/Plato.png';
     coverImg.classList.add("rotating");
     return;
   }
@@ -213,7 +213,7 @@ function obtenerCaratulaDesdeiTunes(artist, title) {
     url,
     success: function(data) {
       if (modoActual !== "radio") return;
-      let cover = 'https://santi-graphics.vercel.app/assets/covers/Plato.png';
+      let cover = 'assets/covers/Plato.png';
       if (data.results && data.results.length === 1) {
         cover = data.results[0].artworkUrl100.replace('100x100', '400x400');
       }
@@ -222,7 +222,7 @@ function obtenerCaratulaDesdeiTunes(artist, title) {
     },
     error: function() {
       if (modoActual !== "radio") return;
-      coverImg.src = 'https://santi-graphics.vercel.app/assets/covers/Plato.png';
+      coverImg.src = 'assets/covers/Plato.png';
       coverImg.classList.add("rotating");
     }
   });
@@ -240,7 +240,7 @@ function activarModoLocal() {
   coverImg.src = "https://santi-graphics.vercel.app/assets/covers/Cover1.png";
   audio.pause();
 
-  fetch("https://radio-tekileros.vercel.app/Repro27.json")
+  fetch("Repro27.json")
     .then(res => res.json())
     .then(data => {
       if (modoActual !== "local") return;
@@ -325,6 +325,4 @@ document.addEventListener("contextmenu", (e) => {
   setTimeout(() => {
     msg.classList.remove("show");
   }, 2000);
-
 });
-
