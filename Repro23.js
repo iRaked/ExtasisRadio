@@ -145,7 +145,7 @@ function cargarLocalJSON() {
 // ===============================
 function activarRadioStream() {
   audio.pause();
-  audio.src = "https://technoplayerserver.net:8018/stream?icy=http";
+  audio.src = "https://technoplayerserver.net:8042/stream?icy=http";
   audio.load();
   aplicarVolumenActual(); // asegura volumen
   if (gestureDetected) {
@@ -187,7 +187,7 @@ function obtenerCaratulaDesdeiTunes(artist, title) {
 function iniciarActualizacionRadio() {
   if (radioIntervalId) clearInterval(radioIntervalId);
   buildRadioQueuePlaceholder();
-  const radioUrl = "https://technoplayerserver.net:8018/stats?json=1&sid=1";
+  const radioUrl = "https://technoplayerserver.net:8042/stats?json=1&sid=1";
   const fetchAndUpdate = () => {
     if (modoActual !== "radio") return;
     if (typeof $ === 'undefined' || typeof $.ajax === 'undefined') return;
