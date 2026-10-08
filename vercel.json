@@ -1,6 +1,6 @@
 {
   "rewrites": [
-    { "source": "/", "destination": "/Repro25.html" },
+    { "source": "/", "destination": "/Repro43.html" },
     { "source": "/repro1", "destination": "/Repro1.html" },
     { "source": "/repro2", "destination": "/Repro2.html" },
     { "source": "/repro3", "destination": "/Repro3.html" },
@@ -60,7 +60,17 @@
     { "source": "/repro57", "destination": "/Repro57.html" },
     { "source": "/repro58", "destination": "/Repro58.html" },
     { "source": "/repro59", "destination": "/Repro59.html" },
-    { "source": "/repro60", "destination": "/Repro60.html" }
+    { "source": "/repro60", "destination": "/Repro60.html" },
+    { "source": "/repro61", "destination": "/Repro61.html" },
+    { "source": "/repro62", "destination": "/Repro62.html" },
+    { "source": "/repro63", "destination": "/Repro63.html" },
+    { "source": "/repro64", "destination": "/Repro64.html" },
+    { "source": "/repro65", "destination": "/Repro65.html" },
+    { "source": "/repro66", "destination": "/Repro66.html" },
+    { "source": "/repro67", "destination": "/Repro67.html" },
+    { "source": "/repro68", "destination": "/Repro68.html" },
+    { "source": "/repro69", "destination": "/Repro69.html" },
+    { "source": "/repro70", "destination": "/Repro70.html" }
   ],
   "headers": [
     {
