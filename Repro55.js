@@ -1106,10 +1106,10 @@ function ajustarEscalaReproductor() {
 }
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// Cargar videos de prueba al iniciar (DEMO)
+// Cargar videos de prueba al iniciar (ID)
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 setTimeout(() => {
-  agregarVideo("cq1Grx7qCLw", "Video de Prueba - YouTube");
+  agregarVideo("P2wUibDn-vE", "Video de Prueba - YouTube");
 }, 1000);
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -1160,7 +1160,7 @@ document.addEventListener("click", (e) => {
   }
 });
 
-} // <--- ✅ ESTE ES EL CIERRE DE LA FUNCIÓN `iniciarReproductor()`. NO BORRAR.
+} // <--- ✅ ESTE ES EL CIERRE DE LA FUNCIÓN `iniciarReproductor()`.
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // 🚀 DISPARADOR HÍBRIDO (Va FUERA de la función, al final absoluto del archivo)
