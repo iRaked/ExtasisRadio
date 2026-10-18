@@ -1109,7 +1109,7 @@ function ajustarEscalaReproductor() {
 // Cargar videos de prueba al iniciar (ID)
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 setTimeout(() => {
-  agregarVideo("P2wUibDn-vE", "Video de Prueba - YouTube");
+  agregarVideo("P2wUibDn-vE", "Mix Porteño");
 }, 1000);
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
