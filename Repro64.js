@@ -1321,7 +1321,7 @@ function activarFondoImagen(url) {
     
     img.src = url;
 }
-
+/*
 // ==========================================================================
 // INICIALIZACIÓN: CAMBIA LA URL DE TU IMAGEN
 // ==========================================================================
@@ -1329,4 +1329,4 @@ $(document).ready(function() {
     
     // https://santi-graphics.vercel.app/assets/bg/BG-Luna-FX.png
     cambiarFondoR64('https://santi-graphics.vercel.app/assets/video/Jack.mp4');
-});
+});*/
