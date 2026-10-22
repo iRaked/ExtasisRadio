@@ -168,12 +168,11 @@ function activarReproduccion(index, modo = "manual") {
 }
 
 
-// ===============================
-// MODO RADIO - LÓGICA DE ACTUALIZACIÓN (Reforzada)
-// ===============================
+// ==========================================================================
+// MODO RADIO - LÓGICA DE ACTUALIZACIÓN (UNIFICADA Y ESTABLE)
+// ==========================================================================
 
-// Funciones Auxiliares (formatArtist, formatTitle, obtenerCaratulaDesdeiTunes, detenerActualizacionRadio)
-// NOTA: Se asume que las funciones formatArtist, formatTitle y obtenerCaratulaDesdeiTunes están definidas.
+// 1. FUNCIONES AUXILIARES ORIGINALES (Se mantienen intactas, son robustas)
 function formatArtist(artist) { 
     artist = artist.toLowerCase().trim();
     if (artist.includes(" &")) {
@@ -185,6 +184,7 @@ function formatArtist(artist) {
     }
     return artist;
 }
+
 function formatTitle(title) { 
     title = title.toLowerCase().trim();
     if (title.includes("&")) {
@@ -196,12 +196,14 @@ function formatTitle(title) {
     }
     return title;
 }
+
 function detenerActualizacionRadio() {
     if (radioIntervalId !== null) {
         clearInterval(radioIntervalId);
         radioIntervalId = null;
     }
 }
+
 function obtenerCaratulaDesdeiTunes(artist, title) {
     if (typeof $ === 'undefined' || typeof $.ajax === 'undefined') {
         if (discImg) {
@@ -210,7 +212,7 @@ function obtenerCaratulaDesdeiTunes(artist, title) {
         }
         return;
     }
-    // ... (Lógica de jQuery AJAX para iTunes) ...
+    
     const formattedArtist = formatArtist(artist);
     const formattedTitle = formatTitle(title);
     const query = encodeURIComponent(`${formattedArtist} ${formattedTitle}`);
@@ -221,7 +223,7 @@ function obtenerCaratulaDesdeiTunes(artist, title) {
         url: url,
         success: function(data) {
             let cover = 'https://santi-graphics.vercel.app/assets/img/Plato.png';
-            if (data.results && data.results.length === 1) {
+            if (data.results && data.results.length >= 1) { // Cambiado a >= 1 por seguridad
                 cover = data.results[0].artworkUrl100.replace('100x100', '400x400');
             }
             if (discImg) {
@@ -238,56 +240,110 @@ function obtenerCaratulaDesdeiTunes(artist, title) {
     });
 }
 
-
 // ===============================
-// MODO RADIO - LÓGICA DE ACTUALIZACIÓN (Historial y Metadatos)
+// 2. LÓGICA DE METADATOS DEL NUEVO SERVIDOR
 // ===============================
+function detenerContadorRadioescuchas() {
+    if (contadorIntervalId !== null) {
+        clearInterval(contadorIntervalId);
+        contadorIntervalId = null;
+    }
+    if (contadorElemento) {
+        contadorElemento.textContent = "0";
+    }
+}
+        
 function iniciarActualizacionRadio() {
     detenerActualizacionRadio();
     iniciarContadorRadioescuchas();
 
-    // Nuevo server para canción actual
-    const radioUrl = "https://radio.technoplayerserver.com:8034/currentsong?sid=1";
-
-    const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(radioUrl)}`;
+    const radioUrl = "https://mx.hdaudiostreaming.com:7157/currentsong?";
+    const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(radioUrl)}`;
 
     async function actualizarDesdeServidor() {
         try {
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 10000);
 
-const response = await fetch(proxyUrl, { cache: 'no-cache' });
-const rawData = await response.text();
+            const response = await fetch(proxyUrl, { 
+                cache: 'no-cache',
+                signal: controller.signal 
+            });
+            clearTimeout(timeoutId);
 
-// 1. Limpieza de números de control (ej: el "25" al inicio y "1" al final)
-// Eliminamos números al principio y al final, y limpiamos espacios
-let cleanedTitle = rawData.replace(/^\d+/, '').replace(/\d+$/, '').trim();
+            if (!response.ok) return;
 
-// 2. Si no hay guion, intentamos detectarlo. 
-// A veces el servidor envía "CANCION   ARTISTA" con muchos espacios.
-if (!cleanedTitle.includes(" - ") && cleanedTitle.includes("   ")) {
-    cleanedTitle = cleanedTitle.replace(/\s{2,}/g, " - ");
-}
+            const data = await response.json();
+            const rawData = data.contents; 
 
-// 3. Filtros adicionales de tu lógica
-cleanedTitle = cleanedTitle.replace(/AUTODJ/gi, '').replace(/\(LETRA\)/gi, '').trim();
+            if (!rawData) return;
 
-if (!cleanedTitle || cleanedTitle.toLowerCase().includes('offline') || cleanedTitle === lastTrackTitle) {
-    return;
-}
+            let cleanedTitle = rawData.trim();
 
-lastTrackTitle = cleanedTitle;
+            // Limpieza específica para el nuevo servidor (elimina su basura única)
+            cleanedTitle = cleanedTitle.replace(/^YSMusic Salsa Romántica\.\s*-\s*/i, '')
+                                       .replace(/❣️.*?❣️/gi, '')
+                                       .replace(/\(LETRA\)/gi, '')
+                                       .replace(/\*.*?\*/g, '')
+                                       .replace(/AUTODJ/gi, '')
+                                       .replace(/offline/gi, '')
+                                       .trim();
 
-// Separar Artista y Título
-let artist = "AUTO DJ";
-let title = cleanedTitle;
+            if (!cleanedTitle || cleanedTitle === lastTrackTitle) {
+                return; // Sin cambios
+            }
 
-if (cleanedTitle.includes(" - ")) {
-    const parts = cleanedTitle.split(" - ");
-    // Pero vamos a intentar ser inteligentes:
-    artist = parts[1] ? parts[1].trim() : parts[0].trim();
-    title = parts[1] ? parts[0].trim() : "Radio";
-}
+            lastTrackTitle = cleanedTitle;
+
+            // 🔑 SEPARACIÓN INTELIGENTE PARA MÚLTIPLES FORMATOS
+            let artist = "Radio";
+            let title = cleanedTitle;
+
+            if (cleanedTitle.includes(" - ")) {
+                const parts = cleanedTitle.split(" - ");
+                
+                // CASO 1: Formato normal "Título - Artista" (2 partes)
+                if (parts.length === 2) {
+                    title = parts[0].trim();
+                    artist = parts[1].trim();
+                }
+                // CASO 2: Formato con basura inicial o múltiples guiones "USUARIO - Título-Artista-Año"
+                else if (parts.length >= 2) {
+                    const firstPart = parts[0].trim();
+                    // Detectar si parece un nombre de usuario (mayúsculas/números) o es muy corto
+                    const isLikelyUsername = /^[A-Z0-9_]+$/.test(firstPart) || firstPart.length < 5;
+                    
+                    if (isLikelyUsername) {
+                        // Ignorar la primera parte (basura) y procesar el resto
+                        const remaining = parts.slice(1).join(" - ").trim();
+                        
+                        // Si el resto tiene guiones simples (ej: "Hay De Amores a Amores-Marco Antonio Solis-2010")
+                        if (remaining.includes("-")) {
+                            const subParts = remaining.split("-");
+                            title = subParts[0].trim();
+                            // Unir las partes del medio como artista, ignorando el año al final si existe
+                            artist = subParts.slice(1, -1).join(" ").trim();
+                            
+                            // Si el artista quedó vacío, tomar todo excepto el título
+                            if (!artist) {
+                                artist = subParts.slice(1).join(" ").trim();
+                            }
+                        } else {
+                            title = remaining;
+                        }
+                    } else {
+                        // Formato normal con múltiples guiones en el nombre del artista
+                        title = parts[0].trim();
+                        artist = parts.slice(1).join(" - ").trim();
+                    }
+                }
+            }
+
+            // Limpieza final del artista y título (eliminar años al final como "-2010" o " 2010")
+            artist = artist.replace(/-\d{4}$/, '').replace(/\s+\d{4}$/, '').trim();
+            title = title.replace(/-\d{4}$/, '').replace(/\s+\d{4}$/, '').trim();
             
-            // 🛑 CRÍTICO: ALIMENTAR EL HISTORIAL DE RADIO
+            // Alimentar Historial y UI
             const currentTrackTime = new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
             const newHistoryEntry = { artist, title, time: currentTrackTime };
 
@@ -302,12 +358,12 @@ if (cleanedTitle.includes(" - ")) {
             if (currentTrackName) currentTrackName.textContent = title;
             if (metaTrack) metaTrack.textContent = fullTrackInfo;
             
+            // 🔑 CLAVE: Pasamos los datos LIMPIOS a la función original.
+            // Ella se encargará de hacer el formatArtist y formatTitle perfectamente.
             obtenerCaratulaDesdeiTunes(artist, title);
 
         } catch (error) {
-            console.error("❌ Error CRÍTICO en la actualización de Radio:", error);
-            if (currentArtistName) currentArtistName.textContent = "Error";
-            if (currentTrackName) currentTrackName.textContent = "al cargar metadatos";
+            // Silencioso (Timeout o error de red)
         }
     }
 
@@ -315,92 +371,59 @@ if (cleanedTitle.includes(" - ")) {
     radioIntervalId = setInterval(actualizarDesdeServidor, 10000);
 }
     
-// ===================================
-// MODO RADIO - LÓGICA CONTADOR RADIOESCUCHAS
-// ===================================
-function detenerContadorRadioescuchas() {
-    if (contadorIntervalId !== null) clearInterval(contadorIntervalId);
-    contadorIntervalId = null;
-    if (contadorElemento) contadorElemento.textContent = "";
-}
-
+// ===============================
+// 3. LÓGICA DEL CONTADOR
+// ===============================
 function iniciarContadorRadioescuchas() {
     detenerContadorRadioescuchas();
     if (!contadorElemento) return;
 
-    // URL CORRECTA PARA STATS (Suele ser /stats o /7.html en Shoutcast)
-    // Probamos con el endpoint de stats que suele estar abierto en el puerto 8034
-    const statsUrl = "https://radio.technoplayerserver.com:8034/stats?sid=1";
-    const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(statsUrl)}`;
+    const statsUrl = "https://mx.hdaudiostreaming.com:7157/stats";
+    const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(statsUrl)}`;
 
     async function actualizarContador() {
         if (modoActual !== "radio") return;
         
         try {
-            const response = await fetch(proxyUrl);
-            const text = await response.text();
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 10000);
+
+            const response = await fetch(proxyUrl, { 
+                cache: 'no-cache',
+                signal: controller.signal 
+            });
+            clearTimeout(timeoutId);
+
+            if (!response.ok) return;
             
-            // Si el server devuelve XML
+            const data = await response.json();
+            const text = data.contents;
+            
             const parser = new DOMParser();
             const xmlDoc = parser.parseFromString(text, "text/xml");
-            const listeners = xmlDoc.getElementsByTagName("CURRENTLISTENERS")[0]?.textContent;
+            const listeners = xmlDoc.getElementsByTagName("CURRENTLISTENERS")[0]?.textContent || 
+                              xmlDoc.getElementsByTagName("listeners")[0]?.textContent;
             
-            // Si no es XML (a veces devuelven solo un número), intentamos extraerlo
             if (listeners) {
                 contadorElemento.textContent = listeners;
             } else {
-                // Intento de respaldo: si el texto es corto y es un número
-                const fallback = text.match(/\d+/);
-                contadorElemento.textContent = fallback ? fallback[0] : "0";
+                const fallback = text.match(/,\s*(\d+)\s*,/);
+                contadorElemento.textContent = fallback ? fallback[1] : (text.match(/\d+/)?.[0] || "0");
             }
         } catch (error) {
-            console.error("Error contador:", error);
-            contadorElemento.textContent = "0";
+            // Silencioso
         }
     }
+    
     actualizarContador();
-    contadorIntervalId = setInterval(actualizarContador, 20000); // 20 seg para no saturar
+    contadorIntervalId = setInterval(actualizarContador, 20000);
 }
 
 // ===============================
-// ALTERNANCIA DE MODOS
+// ACTIVAR MODO RADIO (URL DE STREAM ACTUALIZADA)
 // ===============================
-if (btnRadio) {
-    btnRadio.addEventListener("click", () => {
-        // 1. Captura el gesto del usuario para desbloquear el audio
-        if (!gestureDetected) { 
-            gestureDetected = true; 
-            audio.muted = false;
-        } 
-
-        // 2. Referencia al contenedor principal para los efectos visuales
-        const contenedorFondo = document.querySelector('.bg-water');
-
-        // 3. Lógica de cambio de modo y efectos visuales
-        if (modoActual === "radio") {
-            // VOLVIENDO A MODO LOCAL
-            activarModoLocal();
-            if (contenedorFondo) {
-                contenedorFondo.classList.remove('modo-radio-active');
-            }
-        } else {
-            // ACTIVANDO MODO RADIO (GOLD EDITION)
-            activarModoRadio();
-            if (contenedorFondo) {
-                contenedorFondo.classList.add('modo-radio-active');
-            }
-        }
-
-        // 4. Actualización de UI y Metadatos
-        actualizarMetaModo();
-        actualizarBotonRadio();
-    });
-}
-
-// Activar Modo Radio (CRÍTICO: Inicia el stream silenciado)
 function activarModoRadio() {
     modoActual = "radio";
-    
     detenerActualizacionRadio();
     
     // 🛑 LIMPIEZA VISUAL INMEDIATA
@@ -412,33 +435,28 @@ function activarModoRadio() {
         discImg.classList.add("rotating");
     }
     
-    // 🔑 CLAVE 1: Pausar y resetear el estado de reproducción del modo anterior
     audio.pause();
     
-    // 🔑 CLAVE 2: Asignar el SRC
-    audio.src = "https://radio.technoplayerserver.com:8034/stream";
+    // 🔑 CLAVE: Nueva URL del stream
+    audio.src = "https://mx.hdaudiostreaming.com:7157/stream";
     audio.load();
 
-    // 1. Asegurarse de que el audio esté silenciado temporalmente (el gesto ya lo desbloqueó)
     if (!gestureDetected) {
         audio.muted = true;
     } else {
-        audio.muted = false; // Si ya hay gesto, no silenciamos
+        audio.muted = false;
     }
     
-    // 2. Intentar reproducir el nuevo stream
     audio.play().then(() => {
-        // ÉXITO en la reproducción
         if (iconPlay) iconPlay.classList.add("hidden");
         if (iconPause) iconPause.classList.remove("hidden");
     }).catch(err => {
-        // FALLO, pero la fuente está cargada y lista para reintentar con el botón Play/Pause
-        console.warn("🔒 Error al iniciar Radio automáticamente en transición:", err);
+        console.warn("🔒 Error al iniciar Radio automáticamente:", err);
         if (iconPause) iconPause.classList.add("hidden");
         if (iconPlay) iconPlay.classList.remove("hidden"); 
     });
 
-    iniciarActualizacionRadio(); // Inicia la búsqueda de metadatos
+    iniciarActualizacionRadio();
 }
 
 // Activar Modo Local (se mantiene)
