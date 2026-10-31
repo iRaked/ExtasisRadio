@@ -107,7 +107,8 @@ const PLAYLISTS_MAP = [
   { key: "rockcumbiero",   nombre: "Rock Cumbiero",     file: "https://radio-tekileros.vercel.app/RockCumbiero.json",      clave: "rockcumbiero",   coverUrl: "https://santi-graphics.vercel.app/assets/covers/Cover2.png" },
   { key: "rockagropecuario",nombre: "Rock Agropecuario", file: "https://radio-tekileros.vercel.app/RockAgropecuario.json",  clave: "rockagropecuario",coverUrl: "https://santi-graphics.vercel.app/assets/covers/Cover9.png" },
   { key: "rockbar",        nombre: "Rock Bar",          file: "https://radio-tekileros.vercel.app/RockBar.json",           clave: "rockbar",        coverUrl: "https://santi-graphics.vercel.app/assets/covers/Cover10.png" },
-  { key: "culturarock",    nombre: "Cultura Rock",      file: "https://radio-tekileros.vercel.app/CulturaRock.json",       clave: "culturarock",    coverUrl: "https://santi-graphics.vercel.app/assets/covers/Cover1.png" }
+  { key: "culturarock",    nombre: "Cultura Rock",      file: "https://radio-tekileros.vercel.app/CulturaRock.json",       clave: "culturarock",    coverUrl: "https://santi-graphics.vercel.app/assets/covers/Cover1.png" },
+  { key: "bebotes",    nombre: "Bebotes",      file: "https://radio-tekileros.vercel.app/Bebotes.json",       clave: "bebotes",    coverUrl: "https://santi-graphics.vercel.app/assets/covers/Cover12.png" }
 ];
 
 function setDefaultMetadata() {
@@ -1109,7 +1110,7 @@ function ajustarEscalaReproductor() {
 // Cargar videos de prueba al iniciar (ID)
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 setTimeout(() => {
-  agregarVideo("P2wUibDn-vE", "Mix Porteño");
+  agregarVideo("P2wUibDn-vE", "Video de Prueba - YouTube");
 }, 1000);
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
