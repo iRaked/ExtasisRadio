@@ -1,5 +1,5 @@
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// 🏗️ CONSTRUCTORES DINÁMICOS DEL DOM - Player55.js
+// CONSTRUCTORES DINÁMICOS DEL DOM - Player55.js
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 function buildAudioElement() {
   const audio = document.createElement("audio");
@@ -14,6 +14,9 @@ function buildPlayerStage() {
 
   const container = document.createElement("div");
   container.className = "player-container";
+    
+  // Botón de Modo Radio
+  buildRadioModeButton(container);
 
   // Anillos decorativos
   const arcRings = document.createElement("div");
@@ -93,6 +96,18 @@ function buildNavIcons(container) {
   });
 
   container.appendChild(navIcons);
+}
+
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// Botón de Modo Radio (Esquina Superior Derecha)
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function buildRadioModeButton(container) {
+  const btnRadio = document.createElement("button");
+  btnRadio.id = "btnRadioMode";
+  btnRadio.className = "radio-mode-btn";
+  btnRadio.title = "Cambiar a Radio en Vivo";
+  btnRadio.innerHTML = `<i class="fas fa-broadcast-tower"></i>`;
+  container.appendChild(btnRadio);
 }
 
 function buildMetadataPanel(container) {

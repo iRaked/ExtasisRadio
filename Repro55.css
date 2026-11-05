@@ -127,6 +127,50 @@ body {
 }
 
 /* ============================================
+   BOTÓN DE MODO RADIO (Esquina Superior Derecha)
+   ============================================ */
+.radio-mode-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 50;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--muted);
+  cursor: pointer;
+  transition: var(--tr);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  backdrop-filter: blur(8px);
+}
+
+.radio-mode-btn:hover {
+  background: rgba(125, 92, 241, 0.2);
+  color: var(--white);
+  transform: scale(1.05);
+}
+
+/* ✅ Estado Activo: Modo Radio (Con la paleta nativa del proyecto) */
+.radio-mode-btn.active {
+  background: linear-gradient(135deg, var(--c3) 0%, var(--c5) 100%);
+  color: var(--white);
+  border-color: transparent;
+  box-shadow: 0 0 20px rgba(125, 92, 241, 0.6); /* Glow con --c3 */
+  animation: pulse-on-air 2s infinite;
+}
+
+@keyframes pulse-on-air {
+  0% { box-shadow: 0 0 0 0 rgba(125, 92, 241, 0.7); }
+  70% { box-shadow: 0 0 0 10px rgba(125, 92, 241, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(125, 92, 241, 0); }
+}
+
+/* ============================================
    CARRUSEL DE CARÁTULAS
    ============================================ */
 .carousel-arc {

@@ -46,6 +46,75 @@ function iniciarReproductor() {
     const img = cover.querySelector("img");
     return img ? img.src : "";
   });
+    
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// 📻 LÓGICA DE MODO RADIO (Switch Simple Local <-> Stream)
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+let isRadioMode = false;
+let lastLocalPlaylist = "actual"; // Recuerda dónde estabas antes de cambiar a radio
+const RADIO_URL = "https://technoplayerserver.net/8018/stream";
+
+const btnRadioMode = document.getElementById("btnRadioMode");
+
+if (btnRadioMode) {
+  btnRadioMode.addEventListener("click", () => {
+    isRadioMode = !isRadioMode;
+    
+    const plEl = document.getElementById("trackPlaylist");
+    const titleEl = document.getElementById("trackTitle");
+    const artistEl = document.getElementById("trackArtist");
+    const durEl = document.getElementById("totalDuration");
+    const progressFill = document.getElementById("progressFill");
+    const currentTimeEl = document.getElementById("currentTime");
+
+    if (isRadioMode) {
+      // 1. Guardar estado local actual
+      lastLocalPlaylist = currentPlaylistName;
+      
+      // 2. Cambiar fuente de audio y reproducir
+      audio.src = RADIO_URL;
+      audio.load();
+      audio.play().catch(err => console.warn("⚠️ Error al reproducir radio:", err));
+        
+      // TEXTOS ESTEREOFÓNICOS / RADIOACTIVOS
+      const plEl = document.getElementById("trackPlaylist");
+      const titleEl = document.getElementById("trackTitle");
+      const artistEl = document.getElementById("trackArtist");
+      const durEl = document.getElementById("totalDuration");
+      const currentTimeEl = document.getElementById("currentTime");
+      const progressFill = document.getElementById("progressFill");
+      
+      // 3. Actualizar UI a modo "EN VIVO"
+      if (plEl) plEl.textContent = "EN VIVO";
+      if (titleEl) titleEl.textContent = "Radio Stream";
+      if (artistEl) artistEl.textContent = "Techno Player Server";
+      if (durEl) durEl.textContent = "★★★★★"; // Infinito para streams
+      if (currentTimeEl) currentTimeEl.textContent = "LIVE";
+      if (progressFill) progressFill.style.width = "100%"; // Barra llena estática
+      
+      // 4. Feedback visual en el botón
+      btnRadioMode.classList.add("active");
+      btnRadioMode.innerHTML = '<i class="fas fa-music"></i>'; // Icono para volver a Local
+      btnRadioMode.title = "Volver a Modo Local";
+      
+      console.log("📻 Modo Radio activado: ON AIR");
+      
+    } else {
+      // 1. Detener radio
+      audio.pause();
+      audio.src = "";
+      
+      // 2. Restaurar UI del botón
+      btnRadioMode.classList.remove("active");
+      btnRadioMode.innerHTML = '<i class="fas fa-broadcast-tower"></i>';
+      btnRadioMode.title = "Cambiar a Radio en Vivo";
+      
+      // 3. Restaurar la playlist local donde estábamos
+      console.log(`🔄 Volviendo a modo Local: ${lastLocalPlaylist}`);
+      cargarPlaylist(lastLocalPlaylist);
+    }
+  });
+}
 
 // ============================================================================
 // Caché de imágenes en memoria (evita re-descargar imágenes ya vistas)
@@ -693,8 +762,8 @@ if (btnRepeat) {
 // Gestión de Tiempos y Barra de Progreso
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 
 audio.addEventListener("timeupdate", () => {
-  // ✅ FRENAR ACTUALIZACIÓN VISUAL SI ESTAMOS EN MODO LISTAS
-  if (currentMode === "playlists") return; 
+  // FRENAR ACTUALIZACIÓN SI ESTAMOS EN MODO LISTAS O EN MODO RADIO
+  if (currentMode === "playlists" || isRadioMode) return; 
 
   if (isNaN(audio.duration)) return;
   
