@@ -576,12 +576,12 @@
       "country": ["Mexico"]
     },
     {
-      "id": "jose-madero-lasso-de-mi-de-mi-de-mi",
-      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover6/Jose-Madero-Lasso-De-mi-de-mi-de-mi.jpg",
+      "id": "jose-madero-lasso-de-mi-de-mi",
+      "caratula": "https://iraked.github.io/SantiGraphics/assets/cover6/Jose-Madero-Lasso-De-mi-de-mi.jpg",
       "artista": "Lasso, José Madero",
-      "nombre": "De Mí, De Mí, De Mí",
+      "nombre": "De Mí, De Mí",
       "album": "Cuatro Estaciones",
-      "enlace": "https://xat-music6.vercel.app/assets/audio6/Jose-Madero-Lasso-De-mi-de-mi-de-mi.mp3",
+      "enlace": "https://xat-music6.vercel.app/assets/audio6/Jose-Madero-Lasso-De-mi-de-mi.mp3",
       "genero": "Pop En Español",
       "emotion": "Despedida",
       "seccion": "jose madero",
