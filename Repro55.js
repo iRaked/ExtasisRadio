@@ -177,7 +177,8 @@ const PLAYLISTS_MAP = [
   { key: "rockagropecuario",nombre: "Rock Agropecuario", file: "https://radio-tekileros.vercel.app/RockAgropecuario.json",  clave: "rockagropecuario",coverUrl: "https://santi-graphics.vercel.app/assets/covers/Cover9.png" },
   { key: "rockbar",        nombre: "Rock Bar",          file: "https://radio-tekileros.vercel.app/RockBar.json",           clave: "rockbar",        coverUrl: "https://santi-graphics.vercel.app/assets/covers/Cover10.png" },
   { key: "culturarock",    nombre: "Cultura Rock",      file: "https://radio-tekileros.vercel.app/CulturaRock.json",       clave: "culturarock",    coverUrl: "https://santi-graphics.vercel.app/assets/covers/Cover1.png" },
-  { key: "bebotes",    nombre: "Bebotes",      file: "https://radio-tekileros.vercel.app/Bebotes.json",       clave: "bebotes",    coverUrl: "https://santi-graphics.vercel.app/assets/covers/Cover12.png" }
+  { key: "bebotes",    nombre: "Bebotes",      file: "https://radio-tekileros.vercel.app/Bebotes.json",       clave: "bebotes",    coverUrl: "https://santi-graphics.vercel.app/assets/covers/Cover12.png" },
+  { key: "afterdark",    nombre: "Dreams",      file: "https://radio-tekileros.vercel.app/AfterDark.json",       clave: "after dark",    coverUrl: "https://santi-graphics.vercel.app/assets/covers/Cover11.png" }
 ];
 
 function setDefaultMetadata() {
