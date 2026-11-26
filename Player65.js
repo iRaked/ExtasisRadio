@@ -43,7 +43,7 @@ function inicializarInterfazPlayer64() {
     const reproBox = document.createElement("div");
     reproBox.className = "repro-box";
 
-        // 5.1 Header (Incluye el acceso a Modo Local/Radio)
+    // 5.1 Header (Actualizado con Wrapper y Botón Plus para alineación perfecta)
     const header = document.createElement("div");
     header.className = "repro-header";
     header.innerHTML = `
@@ -57,12 +57,18 @@ function inicializarInterfazPlayer64() {
             <i class="fas fa-users"></i> <span id="contadorRadio"></span>
         </div>
         
-        <!-- MODO RADIO Y MODO LOCAL -->
-        <button class="btn-radio" id="btn-radio" aria-label="Alternar Modo Radio/Local">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 3v10.55a4 4 0 1 0 2 3.45V7h4V3h-8z"/>
-            </svg>
-        </button>
+        <!-- 🔑 NUEVO WRAPPER PARA ALINEACIÓN Y BOTÓN PLUS -->
+        <div class="right-controls-wrapper">
+            <button class="btn-radio" id="btn-radio" aria-label="Alternar Modo Radio/Local">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 3v10.55a4 4 0 1 0 2 3.45V7h4V3h-8z"/>
+                </svg>
+            </button>
+            
+            <button class="btn-plus" id="btn-bg-mode" title="Cambiar modo de fondo">
+                <i class="fas fa-layer-group"></i>
+            </button>
+        </div>
     `;
 
     // 5.2 Visual Effects
