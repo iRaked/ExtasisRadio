@@ -77,30 +77,34 @@ function actualizarCaratula(track) {
 // CARGA DE PISTAS DESDE JSON (MODO LOCAL)
 // ===============================
 function cargarTracksDesdeJSON() {
-    // 1. Actualizamos a la nueva URL del JSON
-    fetch("https://radio-tekileros.vercel.app/Spotifly.json")
+    // 1. Nueva URL del JSON para Rumba
+    fetch("https://radio-tekileros.vercel.app/Rumba.json")
         .then(res => res.ok ? res.json() : Promise.reject(`HTTP error! status: ${res.status}`))
         .then(data => {
-            // 2. Accedemos a la nueva raíz "boleros rancheros"
-            const pistas = data["spotifly"];
+            // 2. Accedemos a la nueva raíz "rumba"
+            const pistas = data["rumba"];
 
             if (!Array.isArray(pistas) || pistas.length === 0) {
-                console.warn("❌ No se encontraron pistas válidas en el JSON de Boleros Rancheros.");
+                console.warn("❌ No se encontraron pistas válidas en el JSON de Rumba.");
                 return;
             }
 
-            // 🔑 Mapeo al formato que Player20.js espera
+            // 3. Mapeo con FALLBACK INTELIGENTE para la URL del audio
             trackData = pistas.map(p => ({
-                cover: p.caratula,
-                url: p.enlace,       // 🔄 Cambiado de dropbox_url a enlace
-                artist: p.artista,
-                name: p.nombre,
-                album: p.album,
-                emotion: p.emotion,
-                genero: p.genero,
-                duracion: p.duracion,
-                id: p.id,
-                seccion: p.seccion
+                cover: p.caratula || "https://santi-graphics.vercel.app/assets/covers/Cover1.png",
+                
+                // 🔑 LÓGICA DE RESPALDO: 
+                // Intenta leer 'enlace'. Si es undefined o null, usa 'dropbox_url'.
+                url: p.enlace || p.dropbox_url, 
+                
+                artist: p.artista || "Artista Desconocido",
+                name: p.nombre || "Canción Desconocida",
+                album: p.album || "Álbum Desconocido",
+                emotion: p.emotion || "",
+                genero: p.genero || "",
+                duracion: p.duracion || "0:00",
+                id: p.id || "",
+                seccion: p.seccion || ""
             }));
 
             currentTrack = 0;
@@ -108,7 +112,7 @@ function cargarTracksDesdeJSON() {
             // Carga inicial de metadatos y SRC
             activarReproduccion(0, "initial-load"); 
             generarListaModal();
-            console.log("✅ Pistas cargadas desde Spotifly.json. Audio src preparado.");
+            console.log("✅ Pistas cargadas desde Rumba.json. Audio src preparado.");
         })
         .catch(err => {
             console.error("❌ Error CRÍTICO al cargar JSON:", err);
@@ -125,12 +129,19 @@ function activarReproduccion(index, modo = "manual") {
     if (!track?.url) return;
 
     currentTrack = index;
-    // --- ACTUALIZACIÓN VISUAL (Guardas críticas) ---
+        // --- ACTUALIZACIÓN VISUAL (Guardas críticas) ---
     if (currentTrackName) currentTrackName.textContent = track.name;
     if (currentArtistName) currentArtistName.textContent = track.artist || "Artista Desconocido";
+    
+    // 🔑 MARQUESINA CON ARTISTA Y TÍTULO (DIRECTO)
     if (metaTrack) {
-        metaTrack.textContent = track.name;
-        metaTrack.setAttribute("data-tag", track.name);
+        const textoCompleto = `${track.artist || "Artista Desconocido"} | ${track.name}`;
+        metaTrack.textContent = textoCompleto;
+        metaTrack.setAttribute("data-tag", textoCompleto);
+        
+        // Ajuste de velocidad dinámico según la longitud del texto
+        const duracion = Math.max(12, textoCompleto.length * 0.35);
+        metaTrack.style.setProperty('--scroll-duration', `${duracion}s`);
     }
     
     // --- CARGA DE AUDIO ---
@@ -240,9 +251,8 @@ function obtenerCaratulaDesdeiTunes(artist, title) {
     });
 }
 
-// ===============================
-// 2. LÓGICA DE METADATOS DEL NUEVO SERVIDOR
-// ===============================
+
+// Contador
 function detenerContadorRadioescuchas() {
     if (contadorIntervalId !== null) {
         clearInterval(contadorIntervalId);
@@ -253,11 +263,15 @@ function detenerContadorRadioescuchas() {
     }
 }
         
+// ===============================
+// 2. LÓGICA DE METADATOS DEL NUEVO SERVIDOR (BLINDADA Y DEFINITIVA)
+// ===============================
 function iniciarActualizacionRadio() {
     detenerActualizacionRadio();
     iniciarContadorRadioescuchas();
 
-    const radioUrl = "https://mx.hdaudiostreaming.com:7157/currentsong?";
+    // Usamos el endpoint JSON que ya confirmamos que responde correctamente
+    const radioUrl = "https://radio.technoplayerserver.com:8048/stats?json=1";
     const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(radioUrl)}`;
 
     async function actualizarDesdeServidor() {
@@ -274,92 +288,47 @@ function iniciarActualizacionRadio() {
             if (!response.ok) return;
 
             const data = await response.json();
-            const rawData = data.contents; 
+            const serverData = JSON.parse(data.contents); 
+            
+            if (!serverData) return;
 
-            if (!rawData) return;
+            const rawTitle = serverData.songtitle ? serverData.songtitle.trim() : "";
 
-            let cleanedTitle = rawData.trim();
-
-            // Limpieza específica para el nuevo servidor (elimina su basura única)
-            cleanedTitle = cleanedTitle.replace(/^YSMusic Salsa Romántica\.\s*-\s*/i, '')
-                                       .replace(/❣️.*?❣️/gi, '')
-                                       .replace(/\(LETRA\)/gi, '')
-                                       .replace(/\*.*?\*/g, '')
-                                       .replace(/AUTODJ/gi, '')
-                                       .replace(/offline/gi, '')
-                                       .trim();
-
-            if (!cleanedTitle || cleanedTitle === lastTrackTitle) {
-                return; // Sin cambios
-            }
-
-            lastTrackTitle = cleanedTitle;
-
-            // 🔑 SEPARACIÓN INTELIGENTE PARA MÚLTIPLES FORMATOS
-            let artist = "Radio";
-            let title = cleanedTitle;
-
-            if (cleanedTitle.includes(" - ")) {
-                const parts = cleanedTitle.split(" - ");
+            // 🔑 VALIDACIÓN DEFINITIVA: Si no hay título, aplicamos el fallback exacto solicitado
+            if (!rawTitle || rawTitle === "") {
+                const fallbackText = "ESCUCHAS RADIO FREEDOM IN YOUR SOUL - EXPRESION TACTIL UNIVERSAL";
                 
-                // CASO 1: Formato normal "Título - Artista" (2 partes)
-                if (parts.length === 2) {
-                    title = parts[0].trim();
-                    artist = parts[1].trim();
+                if (currentArtistName) currentArtistName.textContent = "Radio";
+                if (currentTrackName) currentTrackName.textContent = fallbackText;
+                if (metaTrack) metaTrack.textContent = fallbackText;
+                
+                // Carátula por defecto
+                if (discImg) {
+                    discImg.src = 'https://santi-graphics.vercel.app/assets/img/Plato.png';
+                    discImg.classList.add("rotating");
                 }
-                // CASO 2: Formato con basura inicial o múltiples guiones "USUARIO - Título-Artista-Año"
-                else if (parts.length >= 2) {
-                    const firstPart = parts[0].trim();
-                    // Detectar si parece un nombre de usuario (mayúsculas/números) o es muy corto
-                    const isLikelyUsername = /^[A-Z0-9_]+$/.test(firstPart) || firstPart.length < 5;
-                    
-                    if (isLikelyUsername) {
-                        // Ignorar la primera parte (basura) y procesar el resto
-                        const remaining = parts.slice(1).join(" - ").trim();
-                        
-                        // Si el resto tiene guiones simples (ej: "Hay De Amores a Amores-Marco Antonio Solis-2010")
-                        if (remaining.includes("-")) {
-                            const subParts = remaining.split("-");
-                            title = subParts[0].trim();
-                            // Unir las partes del medio como artista, ignorando el año al final si existe
-                            artist = subParts.slice(1, -1).join(" ").trim();
-                            
-                            // Si el artista quedó vacío, tomar todo excepto el título
-                            if (!artist) {
-                                artist = subParts.slice(1).join(" ").trim();
-                            }
-                        } else {
-                            title = remaining;
-                        }
-                    } else {
-                        // Formato normal con múltiples guiones en el nombre del artista
-                        title = parts[0].trim();
-                        artist = parts.slice(1).join(" - ").trim();
-                    }
-                }
+                
+                lastTrackTitle = fallbackText; // Evita peticiones innecesarias al no haber cambio
+                return; 
             }
 
-            // Limpieza final del artista y título (eliminar años al final como "-2010" o " 2010")
-            artist = artist.replace(/-\d{4}$/, '').replace(/\s+\d{4}$/, '').trim();
-            title = title.replace(/-\d{4}$/, '').replace(/\s+\d{4}$/, '').trim();
-            
-            // Alimentar Historial y UI
-            const currentTrackTime = new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
-            const newHistoryEntry = { artist, title, time: currentTrackTime };
+            // Si en el futuro el AutoDJ empieza a enviar data, la procesamos normalmente
+            if (rawTitle === lastTrackTitle) return;
+            lastTrackTitle = rawTitle;
 
-            if (trackHistory.length === 0 || trackHistory[0].title !== title) {
-                trackHistory.unshift(newHistoryEntry);
-                if (trackHistory.length > 20) trackHistory.pop();
+            let artist = "Radio";
+            let title = rawTitle;
+
+            if (rawTitle.includes(" - ")) {
+                const parts = rawTitle.split(" - ");
+                artist = parts[0].trim();
+                title = parts.slice(1).join(" - ").trim();
             }
-            
-            const fullTrackInfo = `${artist} - ${title}`;
 
             if (currentArtistName) currentArtistName.textContent = artist;
             if (currentTrackName) currentTrackName.textContent = title;
-            if (metaTrack) metaTrack.textContent = fullTrackInfo;
+            if (metaTrack) metaTrack.textContent = `${artist} - ${title}`;
             
-            // 🔑 CLAVE: Pasamos los datos LIMPIOS a la función original.
-            // Ella se encargará de hacer el formatArtist y formatTitle perfectamente.
             obtenerCaratulaDesdeiTunes(artist, title);
 
         } catch (error) {
@@ -368,17 +337,17 @@ function iniciarActualizacionRadio() {
     }
 
     actualizarDesdeServidor();
-    radioIntervalId = setInterval(actualizarDesdeServidor, 10000);
+    radioIntervalId = setInterval(actualizarDesdeServidor, 15000); // 15 segundos
 }
-    
+
 // ===============================
-// 3. LÓGICA DEL CONTADOR
+// 3. LÓGICA DEL CONTADOR (Optimizada con JSON)
 // ===============================
 function iniciarContadorRadioescuchas() {
     detenerContadorRadioescuchas();
     if (!contadorElemento) return;
 
-    const statsUrl = "https://mx.hdaudiostreaming.com:7157/stats";
+    const statsUrl = "https://radio.technoplayerserver.com:8048/stats?json=1";
     const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(statsUrl)}`;
 
     async function actualizarContador() {
@@ -397,18 +366,10 @@ function iniciarContadorRadioescuchas() {
             if (!response.ok) return;
             
             const data = await response.json();
-            const text = data.contents;
+            const serverData = JSON.parse(data.contents);
             
-            const parser = new DOMParser();
-            const xmlDoc = parser.parseFromString(text, "text/xml");
-            const listeners = xmlDoc.getElementsByTagName("CURRENTLISTENERS")[0]?.textContent || 
-                              xmlDoc.getElementsByTagName("listeners")[0]?.textContent;
-            
-            if (listeners) {
-                contadorElemento.textContent = listeners;
-            } else {
-                const fallback = text.match(/,\s*(\d+)\s*,/);
-                contadorElemento.textContent = fallback ? fallback[1] : (text.match(/\d+/)?.[0] || "0");
+            if (serverData && serverData.currentlisteners !== undefined) {
+                contadorElemento.textContent = serverData.currentlisteners;
             }
         } catch (error) {
             // Silencioso
@@ -416,7 +377,7 @@ function iniciarContadorRadioescuchas() {
     }
     
     actualizarContador();
-    contadorIntervalId = setInterval(actualizarContador, 20000);
+    contadorIntervalId = setInterval(actualizarContador, 20000); // 20 segundos
 }
 
 // ===============================
@@ -438,7 +399,7 @@ function activarModoRadio() {
     audio.pause();
     
     // 🔑 CLAVE: Nueva URL del stream
-    audio.src = "https://mx.hdaudiostreaming.com:7157/stream";
+    audio.src = "https://radio.technoplayerserver.com:8048/stream";
     audio.load();
 
     if (!gestureDetected) {
@@ -559,88 +520,98 @@ document.addEventListener("DOMContentLoaded", () => {
     inicializarReproductor();
     inicializarVolumen();
     
-    // 🔑 TRUCO DEL GESTO: Intentar un mute/unmute.
+    // TRUCO DEL GESTO: Intentar un mute/unmute al inicio
     if (audio) {
         audio.muted = true;
         audio.muted = false;
     }
 
+    // ==========================================
+    // 1. CONTROLADOR DE PLAY/PAUSE
+    // ==========================================
+    if (playPauseBtn) {
+        playPauseBtn.addEventListener("click", () => {
+            if (!audio.src) {
+                console.error("❌ No hay stream cargado");
+                return;
+            }
+            if (!gestureDetected) {
+                gestureDetected = true;
+                audio.muted = false;
+            }
+            if (audio.paused || audio.ended) {
+                audio.play().then(() => {
+                    playPauseBtn.classList.add("is-playing"); 
+                    if (iconPlay) iconPlay.classList.add("hidden");
+                    if (iconPause) iconPause.classList.remove("hidden");
+                    if (discImg) discImg.classList.add("rotating"); 
+                }).catch(err => {
+                    console.warn("⚠️ Error en reproducción:", err);
+                    playPauseBtn.classList.remove("is-playing");
+                });
+            } else {
+                audio.pause();
+                playPauseBtn.classList.remove("is-playing"); 
+                if (iconPause) iconPause.classList.add("hidden");
+                if (iconPlay) iconPlay.classList.remove("hidden");
+                if (discImg) discImg.classList.remove("rotating");
+            }
+        });
+    }
 
-    // ===============================
-    // BOTONERA
-    // ===============================
-    // CONTROLADOR DE PLAY/PAUSE CON ESTADO ORO
-if (playPauseBtn) {
-    playPauseBtn.addEventListener("click", () => {
-        // 1. Verificación de seguridad
-        if (!audio.src) {
-            console.error("❌ No hay stream cargado");
-            return;
-        }
-
-        // 2. Desbloqueo de Audio (User Gesture)
-        if (!gestureDetected) {
-            gestureDetected = true;
-            audio.muted = false;
-        }
-
-        // 3. Toggle de Reproducción
-        if (audio.paused || audio.ended) {
-            audio.play().then(() => {
-                // --- ACTIVAR MODO ORO ---
-                playPauseBtn.classList.add("is-playing"); 
-                
-                // Switch de Iconos (Play -> Pause)
-                if (iconPlay) iconPlay.classList.add("hidden");
-                if (iconPause) iconPause.classList.remove("hidden");
-                
-                // Animación de Carátula
-                if (discImg) discImg.classList.add("rotating"); 
-                
-                console.log("▶️ Reproduciendo: Estado Oro Activo");
-            }).catch(err => {
-                console.warn("⚠️ Error en reproducción:", err);
-                // Si falla, nos aseguramos de que no se quede en Oro
-                playPauseBtn.classList.remove("is-playing");
-            });
-        } else {
-            // --- DESACTIVAR MODO ORO ---
-            audio.pause();
-            playPauseBtn.classList.remove("is-playing"); 
-            
-            // Switch de Iconos (Pause -> Play)
-            if (iconPause) iconPause.classList.add("hidden");
-            if (iconPlay) iconPlay.classList.remove("hidden");
-            
-            // Detener Animación
-            if (discImg) discImg.classList.remove("rotating");
-            
-            console.log("⏸️ Pausado: Estado Negro Activo");
-        }
-    });
-}
-
-    // LISTENERS DE BOTONES LOCALES
+    // ==========================================
+    // 2. LISTENERS DE BOTONES DE CONTROL
+    // ==========================================
     if (nextBtn) nextBtn.addEventListener('click', nextTrack);
     if (prevBtn) prevBtn.addEventListener('click', prevTrack);
     if (shuffleBtn) shuffleBtn.addEventListener('click', toggleShuffle);
     if (repeatBtn) repeatBtn.addEventListener('click', toggleRepeat);
 
-    // MANEJO DEL FINAL DE PISTA
+    // ==========================================
+    // 3. 🔑 LISTENER DEL BOTÓN RADIO / LOCAL (BLINDADO)
+    // ==========================================
+    if (btnRadio) {
+        btnRadio.addEventListener("click", function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log("📻 Botón Radio/Local presionado. Modo actual:", modoActual);
+            
+            // Desbloquear audio con el gesto
+            if (!gestureDetected) { 
+                gestureDetected = true; 
+                if(audio) audio.muted = false;
+            } 
+
+            if (modoActual === "radio") {
+                console.log("🔄 Cambiando a MODO LOCAL");
+                activarModoLocal();
+            } else {
+                console.log("🔄 Cambiando a MODO RADIO");
+                activarModoRadio();
+            }
+
+            actualizarMetaModo();
+            actualizarBotonRadio();
+        });
+    }
+
+    // ==========================================
+    // 4. MANEJO DEL FINAL DE PISTA
+    // ==========================================
     if (audio) {
         audio.onended = () => {
             if (modoActual !== "local") return;
-            if (audio.loop) {
-                return;
-            }
+            if (audio.loop) return;
             nextTrack();
         };
     }
     
-    // LISTENERS DEL MODAL (Abrir/Cerrar)
+    // ==========================================
+    // 5. LISTENERS DEL MODAL (Abrir/Cerrar)
+    // ==========================================
     if (menuBtn) {
         menuBtn.addEventListener('click', (e) => {
-            e.stopPropagation(); // 🛑 DETIENE EL CLIC: Evita que llegue al document y cierre el modal al instante
+            e.stopPropagation();
             toggleModal(true);
         });
     }
@@ -659,7 +630,7 @@ if (playPauseBtn) {
             }
         });
     }
-});
+}); // <-- CIERRE DEL DOMContentLoaded
 
 // ===============================
 // ➡️ FUNCIÓN AVANZAR (NEXT)
@@ -781,7 +752,7 @@ function generarListaModal() {
         trackData.forEach((track, index) => {
             const li = document.createElement('li');
             li.setAttribute('data-index', index);
-            li.textContent = `${index + 1}. ${track.name}`;
+            li.textContent = `${index + 1}. ${track.artist} | ${track.name}`;
 
             li.addEventListener('click', () => {
                 // Aquí el modo local es necesario
@@ -1346,8 +1317,8 @@ function activarFondoImagen(url) {
 let estadoFondo = 0; // 0: Video, 1: Agua, 2: Transparente
 
 const CONFIG_FONDOS = {
-    video: 'https://santi-graphics.vercel.app/assets/video/Jack.mp4',
-    imagen: 'https://santi-graphics.vercel.app/assets/bg/BG-Luna-FX.png'
+    video: 'https://santi-graphics.vercel.app/assets/video/Freedom.mp4',
+    imagen: 'https://i.ibb.co/wrhf6TLM/Freedom-Custom.png'
 };
 
 function limpiarFondos() {

@@ -100,7 +100,7 @@ function inicializarInterfazPlayer64() {
             <div class="context-bienvenida">
                 <p class="animtext">
                     <span class="word">¡Bienvenidos!</span>
-                    <span class="word">El Rincón De Luna</span>
+                    <span class="word">Freedom in your Soul</span>
                 </p>
             </div>
         </div>
@@ -165,7 +165,7 @@ function inicializarInterfazPlayer64() {
     const customMsg = document.createElement("div");
     customMsg.id = "custom-message";
     customMsg.className = "custom-message";
-    customMsg.textContent = "Santi Graphics";
+    customMsg.textContent = "Rick Graphics";
 
     // Ensamblar UI dentro de repro-box
     reproBox.append(header, visualEffects, footer, customMsg);
