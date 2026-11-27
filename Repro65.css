@@ -133,29 +133,6 @@ body {
   transform: scale(1.1);
 }
 
-.btn-radio {
-  width: 40px;
-  height: 40px;
-  background-color: var(--bg-glass-mid);
-  border: 2px solid var(--color-silver-light);
-  border-radius: 8px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.3s ease;
-}
-
-.btn-radio:hover {
-  transform: translateY(-2px);
-}
-
-.btn-radio svg {
-  width: 60%;
-  height: 60%;
-  fill: var(--color-bg-darker);
-  pointer-events: none;
-}
 
 .radioescuchas {
   position: absolute;
@@ -550,17 +527,11 @@ body {
   box-shadow: 10px 10px 20px var(--shadow-deep), 0 0 24px var(--color-silver-light);
 }
 
-#repeat-button { width: 28px; height: 28px; }
-#prev-button { width: 36px; height: 36px; }
-#btn-play-pause { width: 48px; height: 48px; }
-#next-button { width: 36px; height: 36px; }
-#shuffle-button { width: 28px; height: 28px; }
 
-#repeat-button,
-#prev-button,
-#btn-play-pause,
-#next-button,
-#shuffle-button {
+#btn-play-pause { width: 48px; height: 48px; }
+
+
+#btn-play-pause {
   margin-left: 2px !important;
   margin-right: 2px !important;
 }
@@ -877,7 +848,7 @@ button svg {
   position: relative;
   width: 600px;
   height: 400px;
-  background: url('https://santi-graphics.vercel.app/assets/bg/BG-Luna-FX.png') no-repeat center center / cover;
+  background: url('https://i.ibb.co/wrhf6TLM/Freedom-Custom.png') no-repeat center center / cover;
   border-radius: 20px;
   border: 2px solid var(--color-silver-light);
   box-shadow: 0 0 30px var(--shadow-glow);
