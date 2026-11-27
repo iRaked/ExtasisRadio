@@ -1,3 +1,4 @@
+/* Repro65.js */
 // ===============================
 // INICIALIZACIÓN GLOBAL Y ESTADOS CRÍTICOS
 // ===============================
@@ -76,30 +77,34 @@ function actualizarCaratula(track) {
 // CARGA DE PISTAS DESDE JSON (MODO LOCAL)
 // ===============================
 function cargarTracksDesdeJSON() {
-    // 1. Actualizamos a la nueva URL del JSON
-    fetch("https://radio-tekileros.vercel.app/Spotifly.json")
+    // 1. Nueva URL del JSON para Rumba
+    fetch("https://radio-tekileros.vercel.app/Rumba.json")
         .then(res => res.ok ? res.json() : Promise.reject(`HTTP error! status: ${res.status}`))
         .then(data => {
-            // 2. Accedemos a la nueva raíz "boleros rancheros"
-            const pistas = data["spotifly"];
+            // 2. Accedemos a la nueva raíz "rumba"
+            const pistas = data["rumba"];
 
             if (!Array.isArray(pistas) || pistas.length === 0) {
-                console.warn("❌ No se encontraron pistas válidas en el JSON de Boleros Rancheros.");
+                console.warn("❌ No se encontraron pistas válidas en el JSON de Rumba.");
                 return;
             }
 
-            // 🔑 Mapeo al formato que Player20.js espera
+            // 3. Mapeo con FALLBACK INTELIGENTE para la URL del audio
             trackData = pistas.map(p => ({
-                cover: p.caratula,
-                url: p.enlace,       // 🔄 Cambiado de dropbox_url a enlace
-                artist: p.artista,
-                name: p.nombre,
-                album: p.album,
-                emotion: p.emotion,
-                genero: p.genero,
-                duracion: p.duracion,
-                id: p.id,
-                seccion: p.seccion
+                cover: p.caratula || "https://santi-graphics.vercel.app/assets/covers/Cover1.png",
+                
+                // 🔑 LÓGICA DE RESPALDO: 
+                // Intenta leer 'enlace'. Si es undefined o null, usa 'dropbox_url'.
+                url: p.enlace || p.dropbox_url, 
+                
+                artist: p.artista || "Artista Desconocido",
+                name: p.nombre || "Canción Desconocida",
+                album: p.album || "Álbum Desconocido",
+                emotion: p.emotion || "",
+                genero: p.genero || "",
+                duracion: p.duracion || "0:00",
+                id: p.id || "",
+                seccion: p.seccion || ""
             }));
 
             currentTrack = 0;
@@ -107,7 +112,7 @@ function cargarTracksDesdeJSON() {
             // Carga inicial de metadatos y SRC
             activarReproduccion(0, "initial-load"); 
             generarListaModal();
-            console.log("✅ Pistas cargadas desde Spotifly.json. Audio src preparado.");
+            console.log("✅ Pistas cargadas desde Rumba.json. Audio src preparado.");
         })
         .catch(err => {
             console.error("❌ Error CRÍTICO al cargar JSON:", err);
@@ -124,12 +129,19 @@ function activarReproduccion(index, modo = "manual") {
     if (!track?.url) return;
 
     currentTrack = index;
-    // --- ACTUALIZACIÓN VISUAL (Guardas críticas) ---
+        // --- ACTUALIZACIÓN VISUAL (Guardas críticas) ---
     if (currentTrackName) currentTrackName.textContent = track.name;
     if (currentArtistName) currentArtistName.textContent = track.artist || "Artista Desconocido";
+    
+    // 🔑 MARQUESINA CON ARTISTA Y TÍTULO (DIRECTO)
     if (metaTrack) {
-        metaTrack.textContent = track.name;
-        metaTrack.setAttribute("data-tag", track.name);
+        const textoCompleto = `${track.artist || "Artista Desconocido"} | ${track.name}`;
+        metaTrack.textContent = textoCompleto;
+        metaTrack.setAttribute("data-tag", textoCompleto);
+        
+        // Ajuste de velocidad dinámico según la longitud del texto
+        const duracion = Math.max(12, textoCompleto.length * 0.35);
+        metaTrack.style.setProperty('--scroll-duration', `${duracion}s`);
     }
     
     // --- CARGA DE AUDIO ---
@@ -167,12 +179,11 @@ function activarReproduccion(index, modo = "manual") {
 }
 
 
-// ===============================
-// MODO RADIO - LÓGICA DE ACTUALIZACIÓN (Reforzada)
-// ===============================
+// ==========================================================================
+// MODO RADIO - LÓGICA DE ACTUALIZACIÓN (UNIFICADA Y ESTABLE)
+// ==========================================================================
 
-// Funciones Auxiliares (formatArtist, formatTitle, obtenerCaratulaDesdeiTunes, detenerActualizacionRadio)
-// NOTA: Se asume que las funciones formatArtist, formatTitle y obtenerCaratulaDesdeiTunes están definidas.
+// 1. FUNCIONES AUXILIARES ORIGINALES (Se mantienen intactas, son robustas)
 function formatArtist(artist) { 
     artist = artist.toLowerCase().trim();
     if (artist.includes(" &")) {
@@ -184,6 +195,7 @@ function formatArtist(artist) {
     }
     return artist;
 }
+
 function formatTitle(title) { 
     title = title.toLowerCase().trim();
     if (title.includes("&")) {
@@ -195,12 +207,14 @@ function formatTitle(title) {
     }
     return title;
 }
+
 function detenerActualizacionRadio() {
     if (radioIntervalId !== null) {
         clearInterval(radioIntervalId);
         radioIntervalId = null;
     }
 }
+
 function obtenerCaratulaDesdeiTunes(artist, title) {
     if (typeof $ === 'undefined' || typeof $.ajax === 'undefined') {
         if (discImg) {
@@ -209,7 +223,7 @@ function obtenerCaratulaDesdeiTunes(artist, title) {
         }
         return;
     }
-    // ... (Lógica de jQuery AJAX para iTunes) ...
+    
     const formattedArtist = formatArtist(artist);
     const formattedTitle = formatTitle(title);
     const query = encodeURIComponent(`${formattedArtist} ${formattedTitle}`);
@@ -220,7 +234,7 @@ function obtenerCaratulaDesdeiTunes(artist, title) {
         url: url,
         success: function(data) {
             let cover = 'https://santi-graphics.vercel.app/assets/img/Plato.png';
-            if (data.results && data.results.length === 1) {
+            if (data.results && data.results.length >= 1) { // Cambiado a >= 1 por seguridad
                 cover = data.results[0].artworkUrl100.replace('100x100', '400x400');
             }
             if (discImg) {
@@ -238,168 +252,139 @@ function obtenerCaratulaDesdeiTunes(artist, title) {
 }
 
 
+// Contador
+function detenerContadorRadioescuchas() {
+    if (contadorIntervalId !== null) {
+        clearInterval(contadorIntervalId);
+        contadorIntervalId = null;
+    }
+    if (contadorElemento) {
+        contadorElemento.textContent = "0";
+    }
+}
+        
 // ===============================
-// MODO RADIO - LÓGICA DE ACTUALIZACIÓN (Historial y Metadatos)
+// 2. LÓGICA DE METADATOS DEL NUEVO SERVIDOR (BLINDADA Y DEFINITIVA)
 // ===============================
 function iniciarActualizacionRadio() {
     detenerActualizacionRadio();
     iniciarContadorRadioescuchas();
 
-    // Nuevo server para canción actual
-    const radioUrl = "https://radio.technoplayerserver.com:8034/currentsong?sid=1";
-
-    const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(radioUrl)}`;
+    // Usamos el endpoint JSON que ya confirmamos que responde correctamente
+    const radioUrl = "https://radio.technoplayerserver.com:8048/stats?json=1";
+    const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(radioUrl)}`;
 
     async function actualizarDesdeServidor() {
         try {
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 10000);
 
-const response = await fetch(proxyUrl, { cache: 'no-cache' });
-const rawData = await response.text();
+            const response = await fetch(proxyUrl, { 
+                cache: 'no-cache',
+                signal: controller.signal 
+            });
+            clearTimeout(timeoutId);
 
-// 1. Limpieza de números de control (ej: el "25" al inicio y "1" al final)
-// Eliminamos números al principio y al final, y limpiamos espacios
-let cleanedTitle = rawData.replace(/^\d+/, '').replace(/\d+$/, '').trim();
+            if (!response.ok) return;
 
-// 2. Si no hay guion, intentamos detectarlo. 
-// A veces el servidor envía "CANCION   ARTISTA" con muchos espacios.
-if (!cleanedTitle.includes(" - ") && cleanedTitle.includes("   ")) {
-    cleanedTitle = cleanedTitle.replace(/\s{2,}/g, " - ");
-}
-
-// 3. Filtros adicionales de tu lógica
-cleanedTitle = cleanedTitle.replace(/AUTODJ/gi, '').replace(/\(LETRA\)/gi, '').trim();
-
-if (!cleanedTitle || cleanedTitle.toLowerCase().includes('offline') || cleanedTitle === lastTrackTitle) {
-    return;
-}
-
-lastTrackTitle = cleanedTitle;
-
-// Separar Artista y Título
-let artist = "AUTO DJ";
-let title = cleanedTitle;
-
-if (cleanedTitle.includes(" - ")) {
-    const parts = cleanedTitle.split(" - ");
-    // Pero vamos a intentar ser inteligentes:
-    artist = parts[1] ? parts[1].trim() : parts[0].trim();
-    title = parts[1] ? parts[0].trim() : "Radio";
-}
+            const data = await response.json();
+            const serverData = JSON.parse(data.contents); 
             
-            // 🛑 CRÍTICO: ALIMENTAR EL HISTORIAL DE RADIO
-            const currentTrackTime = new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
-            const newHistoryEntry = { artist, title, time: currentTrackTime };
+            if (!serverData) return;
 
-            if (trackHistory.length === 0 || trackHistory[0].title !== title) {
-                trackHistory.unshift(newHistoryEntry);
-                if (trackHistory.length > 20) trackHistory.pop();
+            const rawTitle = serverData.songtitle ? serverData.songtitle.trim() : "";
+
+            // 🔑 VALIDACIÓN DEFINITIVA: Si no hay título, aplicamos el fallback exacto solicitado
+            if (!rawTitle || rawTitle === "") {
+                const fallbackText = "ESCUCHAS RADIO FREEDOM IN YOUR SOUL - EXPRESION TACTIL UNIVERSAL";
+                
+                if (currentArtistName) currentArtistName.textContent = "Radio";
+                if (currentTrackName) currentTrackName.textContent = fallbackText;
+                if (metaTrack) metaTrack.textContent = fallbackText;
+                
+                // Carátula por defecto
+                if (discImg) {
+                    discImg.src = 'https://santi-graphics.vercel.app/assets/img/Plato.png';
+                    discImg.classList.add("rotating");
+                }
+                
+                lastTrackTitle = fallbackText; // Evita peticiones innecesarias al no haber cambio
+                return; 
             }
-            
-            const fullTrackInfo = `${artist} - ${title}`;
+
+            // Si en el futuro el AutoDJ empieza a enviar data, la procesamos normalmente
+            if (rawTitle === lastTrackTitle) return;
+            lastTrackTitle = rawTitle;
+
+            let artist = "Radio";
+            let title = rawTitle;
+
+            if (rawTitle.includes(" - ")) {
+                const parts = rawTitle.split(" - ");
+                artist = parts[0].trim();
+                title = parts.slice(1).join(" - ").trim();
+            }
 
             if (currentArtistName) currentArtistName.textContent = artist;
             if (currentTrackName) currentTrackName.textContent = title;
-            if (metaTrack) metaTrack.textContent = fullTrackInfo;
+            if (metaTrack) metaTrack.textContent = `${artist} - ${title}`;
             
             obtenerCaratulaDesdeiTunes(artist, title);
 
         } catch (error) {
-            console.error("❌ Error CRÍTICO en la actualización de Radio:", error);
-            if (currentArtistName) currentArtistName.textContent = "Error";
-            if (currentTrackName) currentTrackName.textContent = "al cargar metadatos";
+            // Silencioso (Timeout o error de red)
         }
     }
 
     actualizarDesdeServidor();
-    radioIntervalId = setInterval(actualizarDesdeServidor, 10000);
-}
-    
-// ===================================
-// MODO RADIO - LÓGICA CONTADOR RADIOESCUCHAS
-// ===================================
-function detenerContadorRadioescuchas() {
-    if (contadorIntervalId !== null) clearInterval(contadorIntervalId);
-    contadorIntervalId = null;
-    if (contadorElemento) contadorElemento.textContent = "";
+    radioIntervalId = setInterval(actualizarDesdeServidor, 15000); // 15 segundos
 }
 
+// ===============================
+// 3. LÓGICA DEL CONTADOR (Optimizada con JSON)
+// ===============================
 function iniciarContadorRadioescuchas() {
     detenerContadorRadioescuchas();
     if (!contadorElemento) return;
 
-    // URL CORRECTA PARA STATS (Suele ser /stats o /7.html en Shoutcast)
-    // Probamos con el endpoint de stats que suele estar abierto en el puerto 8034
-    const statsUrl = "https://radio.technoplayerserver.com:8034/stats?sid=1";
-    const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(statsUrl)}`;
+    const statsUrl = "https://radio.technoplayerserver.com:8048/stats?json=1";
+    const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(statsUrl)}`;
 
     async function actualizarContador() {
         if (modoActual !== "radio") return;
         
         try {
-            const response = await fetch(proxyUrl);
-            const text = await response.text();
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 10000);
+
+            const response = await fetch(proxyUrl, { 
+                cache: 'no-cache',
+                signal: controller.signal 
+            });
+            clearTimeout(timeoutId);
+
+            if (!response.ok) return;
             
-            // Si el server devuelve XML
-            const parser = new DOMParser();
-            const xmlDoc = parser.parseFromString(text, "text/xml");
-            const listeners = xmlDoc.getElementsByTagName("CURRENTLISTENERS")[0]?.textContent;
+            const data = await response.json();
+            const serverData = JSON.parse(data.contents);
             
-            // Si no es XML (a veces devuelven solo un número), intentamos extraerlo
-            if (listeners) {
-                contadorElemento.textContent = listeners;
-            } else {
-                // Intento de respaldo: si el texto es corto y es un número
-                const fallback = text.match(/\d+/);
-                contadorElemento.textContent = fallback ? fallback[0] : "0";
+            if (serverData && serverData.currentlisteners !== undefined) {
+                contadorElemento.textContent = serverData.currentlisteners;
             }
         } catch (error) {
-            console.error("Error contador:", error);
-            contadorElemento.textContent = "0";
+            // Silencioso
         }
     }
+    
     actualizarContador();
-    contadorIntervalId = setInterval(actualizarContador, 20000); // 20 seg para no saturar
+    contadorIntervalId = setInterval(actualizarContador, 20000); // 20 segundos
 }
 
 // ===============================
-// ALTERNANCIA DE MODOS
+// ACTIVAR MODO RADIO (URL DE STREAM ACTUALIZADA)
 // ===============================
-if (btnRadio) {
-    btnRadio.addEventListener("click", () => {
-        // 1. Captura el gesto del usuario para desbloquear el audio
-        if (!gestureDetected) { 
-            gestureDetected = true; 
-            audio.muted = false;
-        } 
-
-        // 2. Referencia al contenedor principal para los efectos visuales
-        const contenedorFondo = document.querySelector('.bg-water');
-
-        // 3. Lógica de cambio de modo y efectos visuales
-        if (modoActual === "radio") {
-            // VOLVIENDO A MODO LOCAL
-            activarModoLocal();
-            if (contenedorFondo) {
-                contenedorFondo.classList.remove('modo-radio-active');
-            }
-        } else {
-            // ACTIVANDO MODO RADIO (GOLD EDITION)
-            activarModoRadio();
-            if (contenedorFondo) {
-                contenedorFondo.classList.add('modo-radio-active');
-            }
-        }
-
-        // 4. Actualización de UI y Metadatos
-        actualizarMetaModo();
-        actualizarBotonRadio();
-    });
-}
-
-// Activar Modo Radio (CRÍTICO: Inicia el stream silenciado)
 function activarModoRadio() {
     modoActual = "radio";
-    
     detenerActualizacionRadio();
     
     // 🛑 LIMPIEZA VISUAL INMEDIATA
@@ -411,33 +396,28 @@ function activarModoRadio() {
         discImg.classList.add("rotating");
     }
     
-    // 🔑 CLAVE 1: Pausar y resetear el estado de reproducción del modo anterior
     audio.pause();
     
-    // 🔑 CLAVE 2: Asignar el SRC
-    audio.src = "https://radio.technoplayerserver.com:8034/stream";
+    // 🔑 CLAVE: Nueva URL del stream
+    audio.src = "https://radio.technoplayerserver.com:8048/stream";
     audio.load();
 
-    // 1. Asegurarse de que el audio esté silenciado temporalmente (el gesto ya lo desbloqueó)
     if (!gestureDetected) {
         audio.muted = true;
     } else {
-        audio.muted = false; // Si ya hay gesto, no silenciamos
+        audio.muted = false;
     }
     
-    // 2. Intentar reproducir el nuevo stream
     audio.play().then(() => {
-        // ÉXITO en la reproducción
         if (iconPlay) iconPlay.classList.add("hidden");
         if (iconPause) iconPause.classList.remove("hidden");
     }).catch(err => {
-        // FALLO, pero la fuente está cargada y lista para reintentar con el botón Play/Pause
-        console.warn("🔒 Error al iniciar Radio automáticamente en transición:", err);
+        console.warn("🔒 Error al iniciar Radio automáticamente:", err);
         if (iconPause) iconPause.classList.add("hidden");
         if (iconPlay) iconPlay.classList.remove("hidden"); 
     });
 
-    iniciarActualizacionRadio(); // Inicia la búsqueda de metadatos
+    iniciarActualizacionRadio();
 }
 
 // Activar Modo Local (se mantiene)
@@ -540,88 +520,98 @@ document.addEventListener("DOMContentLoaded", () => {
     inicializarReproductor();
     inicializarVolumen();
     
-    // 🔑 TRUCO DEL GESTO: Intentar un mute/unmute.
+    // TRUCO DEL GESTO: Intentar un mute/unmute al inicio
     if (audio) {
         audio.muted = true;
         audio.muted = false;
     }
 
+    // ==========================================
+    // 1. CONTROLADOR DE PLAY/PAUSE
+    // ==========================================
+    if (playPauseBtn) {
+        playPauseBtn.addEventListener("click", () => {
+            if (!audio.src) {
+                console.error("❌ No hay stream cargado");
+                return;
+            }
+            if (!gestureDetected) {
+                gestureDetected = true;
+                audio.muted = false;
+            }
+            if (audio.paused || audio.ended) {
+                audio.play().then(() => {
+                    playPauseBtn.classList.add("is-playing"); 
+                    if (iconPlay) iconPlay.classList.add("hidden");
+                    if (iconPause) iconPause.classList.remove("hidden");
+                    if (discImg) discImg.classList.add("rotating"); 
+                }).catch(err => {
+                    console.warn("⚠️ Error en reproducción:", err);
+                    playPauseBtn.classList.remove("is-playing");
+                });
+            } else {
+                audio.pause();
+                playPauseBtn.classList.remove("is-playing"); 
+                if (iconPause) iconPause.classList.add("hidden");
+                if (iconPlay) iconPlay.classList.remove("hidden");
+                if (discImg) discImg.classList.remove("rotating");
+            }
+        });
+    }
 
-    // ===============================
-    // BOTONERA
-    // ===============================
-    // CONTROLADOR DE PLAY/PAUSE CON ESTADO ORO
-if (playPauseBtn) {
-    playPauseBtn.addEventListener("click", () => {
-        // 1. Verificación de seguridad
-        if (!audio.src) {
-            console.error("❌ No hay stream cargado");
-            return;
-        }
-
-        // 2. Desbloqueo de Audio (User Gesture)
-        if (!gestureDetected) {
-            gestureDetected = true;
-            audio.muted = false;
-        }
-
-        // 3. Toggle de Reproducción
-        if (audio.paused || audio.ended) {
-            audio.play().then(() => {
-                // --- ACTIVAR MODO ORO ---
-                playPauseBtn.classList.add("is-playing"); 
-                
-                // Switch de Iconos (Play -> Pause)
-                if (iconPlay) iconPlay.classList.add("hidden");
-                if (iconPause) iconPause.classList.remove("hidden");
-                
-                // Animación de Carátula
-                if (discImg) discImg.classList.add("rotating"); 
-                
-                console.log("▶️ Reproduciendo: Estado Oro Activo");
-            }).catch(err => {
-                console.warn("⚠️ Error en reproducción:", err);
-                // Si falla, nos aseguramos de que no se quede en Oro
-                playPauseBtn.classList.remove("is-playing");
-            });
-        } else {
-            // --- DESACTIVAR MODO ORO ---
-            audio.pause();
-            playPauseBtn.classList.remove("is-playing"); 
-            
-            // Switch de Iconos (Pause -> Play)
-            if (iconPause) iconPause.classList.add("hidden");
-            if (iconPlay) iconPlay.classList.remove("hidden");
-            
-            // Detener Animación
-            if (discImg) discImg.classList.remove("rotating");
-            
-            console.log("⏸️ Pausado: Estado Negro Activo");
-        }
-    });
-}
-
-    // LISTENERS DE BOTONES LOCALES
+    // ==========================================
+    // 2. LISTENERS DE BOTONES DE CONTROL
+    // ==========================================
     if (nextBtn) nextBtn.addEventListener('click', nextTrack);
     if (prevBtn) prevBtn.addEventListener('click', prevTrack);
     if (shuffleBtn) shuffleBtn.addEventListener('click', toggleShuffle);
     if (repeatBtn) repeatBtn.addEventListener('click', toggleRepeat);
 
-    // MANEJO DEL FINAL DE PISTA
+    // ==========================================
+    // 3. 🔑 LISTENER DEL BOTÓN RADIO / LOCAL (BLINDADO)
+    // ==========================================
+    if (btnRadio) {
+        btnRadio.addEventListener("click", function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log("📻 Botón Radio/Local presionado. Modo actual:", modoActual);
+            
+            // Desbloquear audio con el gesto
+            if (!gestureDetected) { 
+                gestureDetected = true; 
+                if(audio) audio.muted = false;
+            } 
+
+            if (modoActual === "radio") {
+                console.log("🔄 Cambiando a MODO LOCAL");
+                activarModoLocal();
+            } else {
+                console.log("🔄 Cambiando a MODO RADIO");
+                activarModoRadio();
+            }
+
+            actualizarMetaModo();
+            actualizarBotonRadio();
+        });
+    }
+
+    // ==========================================
+    // 4. MANEJO DEL FINAL DE PISTA
+    // ==========================================
     if (audio) {
         audio.onended = () => {
             if (modoActual !== "local") return;
-            if (audio.loop) {
-                return;
-            }
+            if (audio.loop) return;
             nextTrack();
         };
     }
     
-    // LISTENERS DEL MODAL (Abrir/Cerrar)
+    // ==========================================
+    // 5. LISTENERS DEL MODAL (Abrir/Cerrar)
+    // ==========================================
     if (menuBtn) {
         menuBtn.addEventListener('click', (e) => {
-            e.stopPropagation(); // 🛑 DETIENE EL CLIC: Evita que llegue al document y cierre el modal al instante
+            e.stopPropagation();
             toggleModal(true);
         });
     }
@@ -640,7 +630,7 @@ if (playPauseBtn) {
             }
         });
     }
-});
+}); // <-- CIERRE DEL DOMContentLoaded
 
 // ===============================
 // ➡️ FUNCIÓN AVANZAR (NEXT)
@@ -762,7 +752,7 @@ function generarListaModal() {
         trackData.forEach((track, index) => {
             const li = document.createElement('li');
             li.setAttribute('data-index', index);
-            li.textContent = `${index + 1}. ${track.name}`;
+            li.textContent = `${index + 1}. ${track.artist} | ${track.name}`;
 
             li.addEventListener('click', () => {
                 // Aquí el modo local es necesario
@@ -1102,4 +1092,303 @@ window.addEventListener("repro-ready", () => {
             }
         }
     }, { once: true });
+});
+
+// ==========================================================================
+// SOPORTE PARA INTERFAZ DINÁMICA (Re-vincular eventos tras crear el DOM)
+// ==========================================================================
+window.addEventListener("repro-ready", () => {
+    console.log("🔄 Re-vinculando eventos a la nueva interfaz dinámica...");
+
+    // 1. Re-capturar referencias del DOM recién creado
+    const btnRadio = document.getElementById("btn-radio");
+    const audio = document.getElementById("player");
+
+    // 2. Re-atachar el listener de cambio de modo (Radio <-> Local)
+    if (btnRadio) {
+        // Eliminamos listeners antiguos por si acaso
+        const newBtnRadio = btnRadio.cloneNode(true);
+        btnRadio.parentNode.replaceChild(newBtnRadio, btnRadio);
+        
+        newBtnRadio.addEventListener("click", () => {
+            console.log("📻 Botón Radio/Local presionado");
+            
+            // Desbloquear audio con el gesto
+            if (!gestureDetected) { 
+                gestureDetected = true; 
+                if(audio) audio.muted = false;
+            } 
+
+            const contenedorFondo = document.querySelector('.bg-water');
+
+            if (modoActual === "radio") {
+                activarModoLocal();
+                if (contenedorFondo) contenedorFondo.classList.remove('modo-radio-active');
+            } else {
+                activarModoRadio();
+                if (contenedorFondo) contenedorFondo.classList.add('modo-radio-active');
+            }
+
+            actualizarMetaModo();
+            actualizarBotonRadio();
+        });
+    }
+
+    // 3. Re-atachar otros controles críticos si es necesario
+    const playPauseBtn = document.getElementById("btn-play-pause");
+    if (playPauseBtn && audio) {
+        playPauseBtn.addEventListener("click", () => {
+            if (!gestureDetected) { gestureDetected = true; audio.muted = false; }
+            if (audio.paused || audio.ended) {
+                audio.play().then(() => {
+                    playPauseBtn.classList.add("is-playing"); 
+                    const iconPlay = playPauseBtn.querySelector(".icon-play");
+                    const iconPause = playPauseBtn.querySelector(".icon-pause");
+                    if (iconPlay) iconPlay.classList.add("hidden");
+                    if (iconPause) iconPause.classList.remove("hidden");
+                    const discImg = document.getElementById("disc-img");
+                    if (discImg) discImg.classList.add("rotating");
+                }).catch(() => { playPauseBtn.classList.remove("is-playing"); });
+            } else {
+                audio.pause();
+                playPauseBtn.classList.remove("is-playing"); 
+                const iconPlay = playPauseBtn.querySelector(".icon-play");
+                const iconPause = playPauseBtn.querySelector(".icon-pause");
+                if (iconPause) iconPause.classList.add("hidden");
+                if (iconPlay) iconPlay.classList.remove("hidden");
+                const discImg = document.getElementById("disc-img");
+                if (discImg) discImg.classList.remove("rotating");
+            }
+        });
+    }
+});
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// MOTOR DE FONDOS R64: DUAL (PIXIJS PARA VIDEO + RIPPLES PARA IMAGEN)
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+let pixiApp = null;
+let ripplesInstance = null;
+
+function cambiarFondoR64(url) {
+    if (!url) return;
+
+    const esVideo = url.toLowerCase().endsWith('.mp4') || url.toLowerCase().endsWith('.webm');
+
+    // LIMPIEZA TOTAL DE EFECTOS ANTERIORES
+    if (pixiApp) {
+        pixiApp.destroy(true, { children: true, texture: true, baseTexture: true });
+        pixiApp = null;
+    }
+    if (ripplesInstance) {
+        try {
+            $('#contenedor-animado').ripples('destroy');
+        } catch(e) {
+            console.warn("Ripples no estaba activo");
+        }
+        ripplesInstance = null;
+    }
+    $('#contenedor-animado').empty();
+
+    if (esVideo) {
+        console.log("🎬 MODO VIDEO: Activando PixiJS");
+        activarFondoVideo(url);
+    } else {
+        console.log("🖼️ MODO IMAGEN: Activando Ripples");
+        activarFondoImagen(url);
+    }
+}
+
+// ==========================================================================
+// MODO VIDEO: PIXIJS (EFECTO HIPER AGRESIVO)
+// ==========================================================================
+function activarFondoVideo(url) {
+    const video = document.createElement('video');
+    video.src = url;
+    video.crossOrigin = 'anonymous';
+    video.muted = true;
+    video.loop = true;
+    video.playsInline = true;
+    
+    video.play().then(() => {
+        console.log("✅ Video reproduciéndose");
+        
+        pixiApp = new PIXI.Application({
+            width: 600,
+            height: 400,
+            transparent: true,
+            backgroundAlpha: 0,
+            resolution: window.devicePixelRatio || 1,
+            autoDensity: true
+        });
+        
+        $('#contenedor-animado').empty().append(pixiApp.view).show();
+        
+        // CAPA 1: EFECTO AUTOMÁTICO (MÁS AGRESIVO)
+        const autoDisplacementTexture = PIXI.Texture.from('https://i.imgur.com/2yYayZk.png');
+        const autoDisplacementSprite = new PIXI.Sprite(autoDisplacementTexture);
+        autoDisplacementTexture.baseTexture.wrapMode = PIXI.WRAP_MODES.REPEAT;
+        autoDisplacementSprite.scale.set(5); // 🔥 Aumentado de 3 a 5
+        pixiApp.stage.addChild(autoDisplacementSprite);
+        
+        // CAPA 2: EFECTO MANUAL (MUCHO MÁS AGRESIVO)
+        const manualDisplacementTexture = PIXI.Texture.from('https://i.imgur.com/2yYayZk.png');
+        const manualDisplacementSprite = new PIXI.Sprite(manualDisplacementTexture);
+        manualDisplacementTexture.baseTexture.wrapMode = PIXI.WRAP_MODES.REPEAT;
+        manualDisplacementSprite.scale.set(12); // 🔥 Aumentado de 6 a 12 (Distorsión extrema al pasar el mouse)
+        pixiApp.stage.addChild(manualDisplacementSprite);
+        
+        // VIDEO CON AMBOS FILTROS
+        const videoTexture = PIXI.Texture.from(video);
+        const videoSprite = new PIXI.Sprite(videoTexture);
+        videoSprite.width = 600;
+        videoSprite.height = 400;
+        
+        const autoFilter = new PIXI.filters.DisplacementFilter(autoDisplacementSprite);
+        const manualFilter = new PIXI.filters.DisplacementFilter(manualDisplacementSprite);
+        videoSprite.filters = [autoFilter, manualFilter];
+        
+        pixiApp.stage.addChild(videoSprite);
+        
+        // INTERACCIÓN MANUAL
+        pixiApp.stage.eventMode = 'static';
+        pixiApp.stage.hitArea = pixiApp.screen;
+        
+        pixiApp.stage.on('pointermove', (event) => {
+            // Ajustado el offset para centrar mejor el efecto más grande
+            manualDisplacementSprite.x = event.global.x - 200;
+            manualDisplacementSprite.y = event.global.y - 200;
+        });
+        
+        // ANIMACIÓN AUTOMÁTICA (MÁS RÁPIDA Y FLUIDA)
+        pixiApp.ticker.add(() => {
+            autoDisplacementSprite.x += 2.5; // 🔥 Aumentado de 1.5 a 2.5
+            autoDisplacementSprite.y += 2.5;
+        });
+        
+        console.log("✅ PixiJS activo: Efecto HIPER agresivo automático + manual");
+    }).catch(err => {
+        console.error("❌ Error:", err);
+    });
+}
+
+// ==========================================================================
+// MODO IMAGEN: JQUERY RIPPLES
+// ==========================================================================
+function activarFondoImagen(url) {
+    console.log("🖼️ MODO IMAGEN: Aplicando Ripples a .bg-water");
+    
+    const $bgWater = $('.bg-water');
+    
+    // Aplicar la imagen como fondo de .bg-water
+    $bgWater.css('background-image', `url('${url}')`);
+    
+    // Esperar a que la imagen cargue
+    const img = new Image();
+    img.onload = function() {
+        console.log("✅ Imagen cargada. Aplicando Ripples con parámetros originales...");
+        
+        setTimeout(() => {
+            try {
+                // PARÁMETROS ORIGINALES EXACTOS - 100% MANUAL
+                ripplesInstance = $bgWater.ripples({
+                    resolution: 200,
+                    dropRadius: 20,
+                    perturbance: 0.04,
+                    interactive: true
+                });
+                
+                console.log("✅ Ripples activo. Mueve el mouse sobre el fondo.");
+            } catch(e) {
+                console.error("❌ Error al aplicar Ripples:", e);
+            }
+        }, 200);
+    };
+    
+    img.onerror = function() {
+        console.error("❌ No se pudo cargar la imagen:", url);
+    };
+    
+    img.src = url;
+}
+
+// ==========================================================================
+// GESTOR DE FONDOS R65: VIDEO -> AGUA -> TRANSPARENTE (VALORES RESTAURADOS)
+// ==========================================================================
+let estadoFondo = 0; // 0: Video, 1: Agua, 2: Transparente
+
+const CONFIG_FONDOS = {
+    video: 'https://santi-graphics.vercel.app/assets/video/Freedom.mp4',
+    imagen: 'https://i.ibb.co/wrhf6TLM/Freedom-Custom.png'
+};
+
+function limpiarFondos() {
+    // 1. Destruir PixiJS (Video)
+    if (pixiApp) {
+        pixiApp.destroy(true, { children: true, texture: true, baseTexture: true });
+        pixiApp = null;
+    }
+    // 2. Destruir Ripples (Imagen)
+    if (ripplesInstance) {
+        try {
+            $('.bg-water').ripples('destroy');
+        } catch(e) {
+            console.warn("Ripples ya estaba destruido o inactivo");
+        }
+        ripplesInstance = null;
+    }
+    // 3. Limpiar contenedor animado y estado del botón
+    $('#contenedor-animado').empty().hide();
+    $('#btn-bg-mode').removeClass('modo-transparente');
+    
+    // 4. 🛑 ELIMINADO: Ya no restauramos el fondo base aquí
+    // Cada modo se encargará de configurar su propio fondo explícitamente
+}
+
+function aplicarModoFondo() {
+    limpiarFondos();
+
+    if (estadoFondo === 0) {
+        // MODO 1: VIDEO (PixiJS)
+        console.log("🎬 MODO FONDO: Video");
+        // No configuramos background-image aquí porque PixiJS usa un canvas transparente
+        // El video se renderiza directamente en el canvas de Pixi
+        $('#contenedor-animado').show();
+        activarFondoVideo(CONFIG_FONDOS.video);
+        
+    } else if (estadoFondo === 1) {
+        // MODO 2: IMAGEN ESTÁTICA + EFECTO AGUA (Ripples)
+        console.log("💧 MODO FONDO: Imagen con efecto agua");
+        // Configuramos el fondo explícitamente con los valores originales
+        $('.bg-water').css('background', `url('${CONFIG_FONDOS.imagen}') no-repeat center center / cover`);
+        activarFondoImagen(CONFIG_FONDOS.imagen);
+        
+    } else if (estadoFondo === 2) {
+        // MODO 3: TRANSPARENCIA TOTAL
+        console.log("🫥 MODO FONDO: Transparencia Total");
+        $('#btn-bg-mode').addClass('modo-transparente');
+        
+        $('.bg-water').css('background', 'transparent');
+        $('.bg-water').css('background-color', 'transparent');
+        $('.bg-water').css('background-image', 'none');
+        $('#contenedor-animado').empty().hide();
+    }
+}
+
+function ciclarFondo() {
+    estadoFondo = (estadoFondo + 1) % 3; // Ciclo: 0 -> 1 -> 2 -> 0...
+    aplicarModoFondo();
+}
+
+// ==========================================
+// INICIALIZACIÓN DEL GESTOR
+// ==========================================
+$(document).ready(function() {
+    $('#btn-bg-mode').on('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        ciclarFondo();
+    });
+
+    // Iniciar en el modo por defecto (0 = Video) al cargar
+    aplicarModoFondo();
 });
