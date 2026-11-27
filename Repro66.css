@@ -1,0 +1,773 @@
+/* ========================================== */
+/* 1. VARIABLES — ORO ENVEJECIDO REAL         */
+/* ========================================== */
+:root {
+  --gold: #dcbb8a;
+  --gold-dark: #97805e;
+  --gold-glow: rgba(220, 187, 138, 0.45);
+  --bg: #050505;
+  --text: #f0f0f0;
+  --text-dim: #8a8a8a;
+
+  /* Posición y ancho del PANEL IZQUIERDO completo */
+  --panel-left: 150px;
+  --panel-bottom: 200px;
+  --panel-width: 420px;
+
+  /* Contador arriba (se mantiene tal cual) */
+  --listeners-x: -100px;    /* + derecha / - izquierda */
+  --listeners-y: -320px;    /* + abajo / - arriba */
+
+  /* Botonera centrada abajo */
+  --botonera-x: 0px;        /* + derecha / - izquierda */
+  --botonera-y: 50px;        /* + abajo / - arriba */
+  --botonera-width: 100%;   /* Centrada al ancho del panel */
+
+  /* Separación entre barras y botonera */
+  --bars-botonera-gap: 28px;
+  --progress-bottom-gap: var(--bars-botonera-gap);
+  --volume-top-gap: var(--bars-botonera-gap);
+}
+
+/* ========================================== */
+/* 2. RESET Y BASE                            */
+/* ========================================== */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  width: 100% !important;
+  height: 870px !important;
+  background: var(--bg);
+  overflow: hidden;
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  color: var(--text);
+  user-select: none;
+}
+
+#main-container {
+  position: relative;
+  width: 100%;
+  height: 870px;
+  overflow: hidden;
+}
+
+/* ========================================== */
+/* 3. ESCENARIO — ASPECT 1920:1080            */
+/* ========================================== */
+#turntable-stage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(100vw, calc(870px * 1920 / 1080));
+  aspect-ratio: 1920 / 1080;
+  max-height: 870px;
+  z-index: 1;
+  perspective: 1200px;
+}
+
+.layer-base {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  z-index: 1;
+}
+
+/* ========================================== */
+/* 4. GRUPO DISCO + CARÁTULA                  */
+/* ========================================== */
+.disc-group {
+  position: absolute;
+  top: 50%;
+  left: 41.5%;
+  width: 73.75%;
+  aspect-ratio: 1 / 1;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+/* Carátula */
+.layer-cover {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 36.72%;
+  aspect-ratio: 1 / 1;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  overflow: hidden;
+  z-index: 10;
+  box-shadow: inset 0 0 25px rgba(0,0,0,0.85);
+  animation: spinCover 3s linear infinite;
+}
+
+.layer-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@keyframes spinCover {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to   { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Disco (vinilo con reflejo) */
+.layer-vinyl {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: url('assets/img/Disco.png') center / 100% 100% no-repeat;
+  border-radius: 50%;
+  z-index: 4;
+  pointer-events: none;
+  animation: spinDisc 3s linear infinite;
+}
+
+@keyframes spinDisc {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.layer-vinyl::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    rgba(255,255,255,0.18) 40deg,
+    transparent 90deg,
+    rgba(255,255,255,0.08) 160deg,
+    transparent 220deg,
+    rgba(255,255,255,0.14) 300deg,
+    transparent 360deg
+  );
+  mix-blend-mode: screen;
+  opacity: 0.7;
+  animation: shineSpin 3.5s linear infinite;
+}
+
+@keyframes shineSpin {
+  to { transform: rotate(360deg); }
+}
+
+.disc-group.paused .layer-vinyl::after {
+  animation-play-state: paused;
+  opacity: 0.25;
+}
+
+/* Slide entre tracks */
+.disc-group.slide-out { animation: slideOut 0.6s ease forwards; }
+.disc-group.slide-in  { animation: slideIn 0.6s ease forwards; }
+
+@keyframes slideOut { to { transform: translate(-150%, -50%); opacity: 0; } }
+@keyframes slideIn  {
+  from { transform: translate(50%, -50%); opacity: 0; }
+  to   { transform: translate(-50%, -50%); opacity: 1; }
+}
+
+/* Pivote (estático) */
+.layer-spindle {
+  position: absolute;
+  top: 50%;
+  left: 41.5%;
+  width: 1.56%;
+  aspect-ratio: 1 / 1;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  transition: opacity 0.4s ease;
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.8));
+}
+
+.layer-spindle.fading { opacity: 0; }
+
+/* Aguja */
+.layer-needle {
+  position: absolute;
+  top: 0%;
+  left: 69.27%;
+  width: 30.52%;
+  aspect-ratio: 586 / 378;
+  z-index: 6;
+  transform-origin: 82% 18%;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  filter: drop-shadow(6px 12px 14px rgba(0,0,0,0.75));
+}
+
+.layer-needle.lifted { transform: rotate(-14deg); }
+
+/* ========================================== */
+/* 5. NOTAS MUSICALES                         */
+/* ========================================== */
+#music-notes-container {
+  position: absolute;
+  top: 50%;
+  left: 41.5%;
+  transform: translate(-50%, -50%);
+  width: 0;
+  height: 0;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.note {
+  position: absolute;
+  color: var(--gold);
+  opacity: 0;
+  text-shadow: 0 0 10px var(--gold-glow);
+  animation: floatNote 3s ease-in forwards;
+}
+
+@keyframes floatNote {
+  0%   { transform: translate(0, 0) scale(0.5) rotate(0deg); opacity: 0; }
+  15%  { opacity: 0.9; }
+  100% { transform: translate(220px, -100px) scale(1.2) rotate(20deg); opacity: 0; }
+}
+
+/* ========================================== */
+/* 6. PANEL IZQUIERDO — CONTENEDOR MAESTRO    */
+/* ========================================== */
+#left-panel {
+  position: absolute;
+  bottom: var(--panel-bottom);
+  left: var(--panel-left);
+  width: var(--panel-width);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  z-index: 20;
+}
+
+/* ------------------------------------------ */
+/* 6.1 SECCIÓN SUPERIOR (Listeners)           */
+/* ------------------------------------------ */
+#left-top-info {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  z-index: 5;
+}
+
+#listeners-display {
+  position: relative;
+  transform: translate(var(--listeners-x), var(--listeners-y));
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.1rem;
+  color: var(--gold);
+  text-shadow: 0 2px 5px rgba(0,0,0,0.8);
+}
+
+/* ------------------------------------------ */
+/* 6.2 SECCIÓN EFECTOS (Placeholder)          */
+/* ------------------------------------------ */
+#left-effects {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 40px;
+}
+
+/* ------------------------------------------ */
+/* 6.3 SECCIÓN BOTONERA (Centrada abajo)      */
+/* ------------------------------------------ */
+#botonera-container {
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  width: var(--botonera-width);
+  transform: translate(var(--botonera-x), var(--botonera-y));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  z-index: 2;
+}
+
+/* Barras dentro de la botonera */
+#progress-block,
+#volume-block {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+/* Separación entre barras y botonera */
+#progress-block {
+  margin-bottom: var(--progress-bottom-gap);
+}
+
+#volume-block {
+  margin-top: var(--volume-top-gap);
+}
+
+/* Controles dentro de la botonera */
+#controls-block {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: nowrap;
+  padding: 0.85rem 1rem;
+  background: rgba(5, 5, 5, 0.45);
+  border: 1px solid rgba(151, 128, 94, 0.35);
+  border-radius: 12px;
+  box-shadow: inset 0 0 8px rgba(220, 187, 138, 0.08), 0 4px 14px rgba(0, 0, 0, 0.45);
+  width: 100%;
+  z-index: 100;
+}
+
+/* ========================================== */
+/* 7. BOTONES DE CONTROL — ESTILO CIRCULAR    */
+/*    Paleta oro envejecido (#dcbb8a/#97805e) */
+/* ========================================== */
+
+/* Botones secundarios exteriores: Shuffle y Repetir (45px) */
+#btn-shuffle,
+#btn-rep {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: 1px solid var(--gold-dark);
+  background: linear-gradient(to bottom, #161411, #2b2419);
+  color: var(--gold);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.65), inset 0 1px 1px rgba(220, 187, 138, 0.15);
+  font-size: 1.15em;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+#btn-shuffle:hover,
+#btn-rep:hover {
+  transform: scale(1.1);
+  color: #fff;
+  border-color: var(--gold);
+  box-shadow: 0 0 12px var(--gold-glow), 0 4px 10px rgba(0, 0, 0, 0.7);
+}
+
+#btn-shuffle.active,
+#btn-shuffle.shuffle-active {
+  color: #fff;
+  border-color: #5ce1e6;
+  box-shadow: 0 0 12px 3px rgba(92, 225, 230, 0.5), 0 0 6px #00bfff !important;
+}
+
+#btn-rep.active,
+#btn-rep.repeat-track {
+  color: #fff;
+  border-color: var(--gold);
+  box-shadow: 0 0 12px 3px var(--gold-glow), 0 0 6px var(--gold) !important;
+}
+
+#btn-rep.repeat-playlist {
+  color: #fff;
+  border-color: #b57edc;
+  box-shadow: 0 0 12px 3px rgba(181, 126, 220, 0.55), 0 0 6px #9b59b6 !important;
+}
+
+/* Botones intermedios: Retroceder y Adelantar (55px) */
+#btn-rwd,
+#btn-fwd {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  border: 1px solid var(--gold-dark);
+  background: linear-gradient(to bottom, #181512, #32291c);
+  color: var(--gold);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7), inset 0 1px 2px rgba(220, 187, 138, 0.18);
+  font-size: 1.25em;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+#btn-rwd:hover,
+#btn-fwd:hover {
+  transform: scale(1.1);
+  color: #fff;
+  border-color: var(--gold);
+  box-shadow: 0 0 14px var(--gold-glow), 0 4px 10px rgba(0, 0, 0, 0.75);
+}
+
+/* Botón central principal: Play / Pause (70px) */
+#btn-play.play-btn,
+.play-btn {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, rgba(220, 187, 138, 0.22), rgba(151, 128, 94, 0.12)), linear-gradient(to bottom, #241e14, #120f0a);
+  color: var(--gold);
+  border: 2px solid var(--gold);
+  box-shadow:
+    inset 0 0 8px rgba(220, 187, 138, 0.25),
+    0 0 12px var(--gold-glow),
+    0 0 22px rgba(151, 128, 94, 0.35);
+  font-size: 1.45em;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, color 0.25s ease;
+  animation: bounceIn 0.6s ease;
+}
+
+#btn-play.play-btn:hover,
+.play-btn:hover {
+  transform: scale(1.1);
+  color: #fff;
+  box-shadow:
+    inset 0 0 10px rgba(255, 255, 255, 0.2),
+    0 0 16px var(--gold-glow),
+    0 0 28px rgba(220, 187, 138, 0.55);
+}
+
+@keyframes bounceIn {
+  0%   { opacity: 0; transform: scale3d(0.3, 0.3, 0.3); }
+  20%  { transform: scale3d(1.1, 1.1, 1.1); }
+  40%  { transform: scale3d(0.9, 0.9, 0.9); }
+  60%  { opacity: 1; transform: scale3d(1.03, 1.03, 1.03); }
+  80%  { transform: scale3d(0.97, 0.97, 0.97); }
+  100% { opacity: 1; transform: scale3d(1, 1, 1); }
+}
+
+/* Sliders */
+input[type=range] {
+  -webkit-appearance: none;
+  flex: 1;
+  background: transparent;
+  cursor: pointer;
+}
+
+input[type=range]:focus { outline: none; }
+
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 3px;
+  background: var(--gold-dark);
+  border-radius: 2px;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  background: var(--gold);
+  cursor: pointer;
+  margin-top: -4.5px;
+  box-shadow: 0 0 8px var(--gold-glow);
+  transition: transform 0.2s;
+}
+
+input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.3); }
+
+#volume-icon {
+  color: var(--gold);
+  font-size: 1.2rem;
+  cursor: pointer;
+  text-shadow: 0 2px 5px rgba(0,0,0,0.8);
+}
+
+/* ========================================== */
+/* 8. PANEL DERECHO — HISTORIAL               */
+/* ========================================== */
+#right-panel {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  right: 0;
+  width: 50%;
+  height: 100%;
+  padding: 30px 25px;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  z-index: 20;
+}
+
+#history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid var(--gold-dark);
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+}
+
+#history-title-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+#panel-title {
+  font-size: 1.1rem;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.listeners-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 30px;
+  padding: 0 11px;
+  border-radius: 999px;
+  background: #0a0a0a;
+  border: 1px solid rgba(220, 187, 138, 0.55);
+  color: var(--gold);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  flex-shrink: 0;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.9), 0 0 8px rgba(220, 187, 138, 0.2);
+}
+
+.listeners-badge i {
+  font-size: 0.90rem;
+}
+
+#history-controls-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+/* Interruptor negro unificado: Verde (Radio) / Rojo (Local) */
+#status-indicator.mode-switch {
+  appearance: none;
+  -webkit-appearance: none;
+  background: #0a0a0a;
+  border: 1px solid #00e65b;
+  border-radius: 999px;
+  padding: 4px 10px 4px 5px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  cursor: pointer;
+  color: #6dff9e;
+  font-family: inherit;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  z-index: 30;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.9), 0 0 10px rgba(0, 230, 91, 0.28);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, color 0.25s ease, transform 0.2s ease;
+}
+
+#status-indicator.mode-switch:hover {
+  transform: translateY(-1px);
+}
+
+#status-indicator .switch-track {
+  position: relative;
+  width: 34px;
+  height: 18px;
+  border-radius: 999px;
+  background: #050505;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.95);
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* Perilla verde -> Modo Radio */
+#status-indicator .switch-thumb {
+  position: absolute;
+  left: 18px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #00e65b;
+  box-shadow: 0 0 8px #00e65b, 0 0 14px rgba(0, 230, 91, 0.8);
+  transition: left 0.25s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Estado Modo Local -> Rojo */
+#status-indicator.mode-switch.local-mode,
+#status-indicator.mode-switch.off,
+#status-indicator.mode-switch[aria-checked="false"] {
+  border-color: #ff3b30;
+  color: #ff7b73;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.9), 0 0 10px rgba(255, 59, 48, 0.35);
+}
+
+#status-indicator.mode-switch.local-mode .switch-thumb,
+#status-indicator.mode-switch.off .switch-thumb,
+#status-indicator.mode-switch[aria-checked="false"] .switch-thumb {
+  left: 3px;
+  background: #ff3b30;
+  box-shadow: 0 0 8px #ff3b30, 0 0 14px rgba(255, 59, 48, 0.8);
+}
+
+#history-list {
+  list-style: none;
+  overflow-y: auto;
+  flex-grow: 1;
+  padding-right: 6px;
+}
+
+#history-list::-webkit-scrollbar { width: 4px; }
+#history-list::-webkit-scrollbar-track { background: transparent; }
+#history-list::-webkit-scrollbar-thumb {
+  background: var(--gold-dark);
+  border-radius: 2px;
+}
+
+.history-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(151,128,94,0.2);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.history-item:hover {
+  background: rgba(220,187,138,0.05);
+  border-radius: 4px;
+}
+
+.history-item.playing {
+  background: rgba(220,187,138,0.08);
+  border-radius: 4px;
+}
+
+.track-num {
+  width: 26px;
+  flex-shrink: 0;
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  text-align: center;
+  font-weight: bold;
+}
+
+.track-num.active {
+  color: var(--gold);
+  text-shadow: 0 0 8px var(--gold-glow);
+}
+
+.track-details {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  margin-left: 4px;
+  overflow: hidden;
+}
+
+.track-title {
+  font-size: 0.95rem;
+  color: #fff;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.track-artist {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.track-time {
+  flex-shrink: 0;
+  width: 44px;
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  margin-right: 8px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.fav-btn {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  cursor: pointer;
+  font-size: 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, color 0.2s ease, text-shadow 0.2s ease;
+}
+
+.fav-btn:hover {
+  color: #ff6b63;
+  transform: scale(1.2);
+}
+
+.fav-btn.active,
+.fav-btn.active i {
+  color: #ff3b30;
+  text-shadow: 0 0 8px rgba(255, 59, 48, 0.8);
+}
+
+.fav-filter-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(10, 10, 10, 0.85);
+  border: 1px solid rgba(151, 128, 94, 0.45);
+  color: var(--text-dim);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 0.85rem;
+  transition: transform 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.fav-filter-btn:hover {
+  color: #ff6b63;
+  border-color: rgba(255, 59, 48, 0.55);
+  transform: translateY(-1px);
+}
+
+.fav-filter-btn.active,
+.fav-filter-btn.active i {
+  color: #ff3b30;
+  border-color: #ff3b30;
+  box-shadow: 0 0 10px rgba(255, 59, 48, 0.45);
+}
