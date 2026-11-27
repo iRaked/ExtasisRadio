@@ -1163,6 +1163,27 @@ window.addEventListener("repro-ready", () => {
     }
 });
 
+// ===============================
+// INYECTOR DINÁMICO DE PIXIJS (Para entornos sin acceso al HTML)
+// ===============================
+function asegurarPixiJS(callback) {
+    if (typeof PIXI !== 'undefined') {
+        callback(); // Ya existe, continuamos
+        return;
+    }
+    console.log("⏳ PixiJS no detectado. Inyectando dinámicamente...");
+    const script = document.createElement('script');
+    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/pixi.js/7.2.4/pixi.min.js';
+    script.onload = () => {
+        console.log("✅ PixiJS inyectado y listo.");
+        callback();
+    };
+    script.onerror = () => {
+        console.error("❌ Fallo al inyectar PixiJS. Verifica tu conexión.");
+    };
+    document.head.appendChild(script);
+}
+
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // MOTOR DE FONDOS R64: DUAL (PIXIJS PARA VIDEO + RIPPLES PARA IMAGEN)
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -1199,75 +1220,83 @@ function cambiarFondoR64(url) {
 }
 
 // ==========================================================================
-// MODO VIDEO: PIXIJS (EFECTO HIPER AGRESIVO)
+// MODO VIDEO: PIXIJS (CON INYECCIÓN DINÁMICA)
 // ==========================================================================
 function activarFondoVideo(url) {
-    const video = document.createElement('video');
-    video.src = url;
-    video.crossOrigin = 'anonymous';
-    video.muted = true;
-    video.loop = true;
-    video.playsInline = true;
-    
-    video.play().then(() => {
-        console.log("✅ Video reproduciéndose");
+    // 🔑 CLAVE: Esperamos a que Pixi esté disponible antes de hacer nada
+    asegurarPixiJS(() => {
+        console.log("🎬 MODO VIDEO: Iniciando renderizado con PixiJS");
         
-        pixiApp = new PIXI.Application({
-            width: 600,
-            height: 400,
-            transparent: true,
-            backgroundAlpha: 0,
-            resolution: window.devicePixelRatio || 1,
-            autoDensity: true
+        // Forzamos la limpieza de la imagen de fondo del CSS para que no se vea mientras carga
+        $('.bg-water').css('background-image', 'none');
+        $('.bg-water').css('background-color', 'transparent');
+
+        const video = document.createElement('video');
+        video.src = url;
+        video.crossOrigin = 'anonymous';
+        video.muted = true;
+        video.loop = true;
+        video.playsInline = true;
+        
+        video.play().then(() => {
+            console.log("✅ Video reproduciéndose en segundo plano");
+            
+            pixiApp = new PIXI.Application({
+                width: 600,
+                height: 400,
+                transparent: true,
+                backgroundAlpha: 0,
+                resolution: window.devicePixelRatio || 1,
+                autoDensity: true
+            });
+            
+            $('#contenedor-animado').empty().append(pixiApp.view).show();
+            
+            // CAPA 1: EFECTO AUTOMÁTICO
+            const autoDisplacementTexture = PIXI.Texture.from('https://i.imgur.com/2yYayZk.png');
+            const autoDisplacementSprite = new PIXI.Sprite(autoDisplacementTexture);
+            autoDisplacementTexture.baseTexture.wrapMode = PIXI.WRAP_MODES.REPEAT;
+            autoDisplacementSprite.scale.set(5);
+            pixiApp.stage.addChild(autoDisplacementSprite);
+            
+            // CAPA 2: EFECTO MANUAL
+            const manualDisplacementTexture = PIXI.Texture.from('https://i.imgur.com/2yYayZk.png');
+            const manualDisplacementSprite = new PIXI.Sprite(manualDisplacementTexture);
+            manualDisplacementTexture.baseTexture.wrapMode = PIXI.WRAP_MODES.REPEAT;
+            manualDisplacementSprite.scale.set(12);
+            pixiApp.stage.addChild(manualDisplacementSprite);
+            
+            // VIDEO CON FILTROS
+            const videoTexture = PIXI.Texture.from(video);
+            const videoSprite = new PIXI.Sprite(videoTexture);
+            videoSprite.width = 600;
+            videoSprite.height = 400;
+            
+            const autoFilter = new PIXI.filters.DisplacementFilter(autoDisplacementSprite);
+            const manualFilter = new PIXI.filters.DisplacementFilter(manualDisplacementSprite);
+            videoSprite.filters = [autoFilter, manualFilter];
+            
+            pixiApp.stage.addChild(videoSprite);
+            
+            // INTERACCIÓN MANUAL
+            pixiApp.stage.eventMode = 'static';
+            pixiApp.stage.hitArea = pixiApp.screen;
+            
+            pixiApp.stage.on('pointermove', (event) => {
+                manualDisplacementSprite.x = event.global.x - 200;
+                manualDisplacementSprite.y = event.global.y - 200;
+            });
+            
+            // ANIMACIÓN AUTOMÁTICA
+            pixiApp.ticker.add(() => {
+                autoDisplacementSprite.x += 2.5;
+                autoDisplacementSprite.y += 2.5;
+            });
+            
+            console.log("✅ PixiJS activo: Efecto HIPER agresivo automático + manual");
+        }).catch(err => {
+            console.error("❌ Error al reproducir video para Pixi:", err);
         });
-        
-        $('#contenedor-animado').empty().append(pixiApp.view).show();
-        
-        // CAPA 1: EFECTO AUTOMÁTICO (MÁS AGRESIVO)
-        const autoDisplacementTexture = PIXI.Texture.from('https://i.imgur.com/2yYayZk.png');
-        const autoDisplacementSprite = new PIXI.Sprite(autoDisplacementTexture);
-        autoDisplacementTexture.baseTexture.wrapMode = PIXI.WRAP_MODES.REPEAT;
-        autoDisplacementSprite.scale.set(5); // 🔥 Aumentado de 3 a 5
-        pixiApp.stage.addChild(autoDisplacementSprite);
-        
-        // CAPA 2: EFECTO MANUAL (MUCHO MÁS AGRESIVO)
-        const manualDisplacementTexture = PIXI.Texture.from('https://i.imgur.com/2yYayZk.png');
-        const manualDisplacementSprite = new PIXI.Sprite(manualDisplacementTexture);
-        manualDisplacementTexture.baseTexture.wrapMode = PIXI.WRAP_MODES.REPEAT;
-        manualDisplacementSprite.scale.set(12); // 🔥 Aumentado de 6 a 12 (Distorsión extrema al pasar el mouse)
-        pixiApp.stage.addChild(manualDisplacementSprite);
-        
-        // VIDEO CON AMBOS FILTROS
-        const videoTexture = PIXI.Texture.from(video);
-        const videoSprite = new PIXI.Sprite(videoTexture);
-        videoSprite.width = 600;
-        videoSprite.height = 400;
-        
-        const autoFilter = new PIXI.filters.DisplacementFilter(autoDisplacementSprite);
-        const manualFilter = new PIXI.filters.DisplacementFilter(manualDisplacementSprite);
-        videoSprite.filters = [autoFilter, manualFilter];
-        
-        pixiApp.stage.addChild(videoSprite);
-        
-        // INTERACCIÓN MANUAL
-        pixiApp.stage.eventMode = 'static';
-        pixiApp.stage.hitArea = pixiApp.screen;
-        
-        pixiApp.stage.on('pointermove', (event) => {
-            // Ajustado el offset para centrar mejor el efecto más grande
-            manualDisplacementSprite.x = event.global.x - 200;
-            manualDisplacementSprite.y = event.global.y - 200;
-        });
-        
-        // ANIMACIÓN AUTOMÁTICA (MÁS RÁPIDA Y FLUIDA)
-        pixiApp.ticker.add(() => {
-            autoDisplacementSprite.x += 2.5; // 🔥 Aumentado de 1.5 a 2.5
-            autoDisplacementSprite.y += 2.5;
-        });
-        
-        console.log("✅ PixiJS activo: Efecto HIPER agresivo automático + manual");
-    }).catch(err => {
-        console.error("❌ Error:", err);
     });
 }
 
