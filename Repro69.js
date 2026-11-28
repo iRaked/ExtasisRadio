@@ -1,4 +1,4 @@
-/* Repro69.js */
+/* Repro65.js */
 // ===============================
 // INICIALIZACIÓN GLOBAL Y ESTADOS CRÍTICOS
 // ===============================
@@ -215,9 +215,6 @@ function detenerActualizacionRadio() {
     }
 }
 
-// ===============================
-// FUNCIONES AUXILIARES (Carátulas)
-// ===============================
 function obtenerCaratulaDesdeiTunes(artist, title) {
     // Clave normalizada para retener la carátula en memoria durante la sesión
     const claveCover = `${formatArtist(artist)}|${formatTitle(title)}`;
@@ -509,22 +506,13 @@ function activarModoRadio() {
     modoActual = "radio";
     detenerActualizacionRadio();
     
-    // 🛑 LIMPIEZA VISUAL INMEDIATA (conservando dato retenido en memoria si existe)
-    if (ultimoMetaRadio.title) {
-        if (currentArtistName) currentArtistName.textContent = ultimoMetaRadio.artist || "Radio";
-        if (currentTrackName) currentTrackName.textContent = ultimoMetaRadio.title;
-        if (discImg) {
-            discImg.src = ultimoMetaRadio.cover || "https://santi-graphics.vercel.app/assets/img/Plato.png";
-            discImg.classList.add("rotating");
-        }
-    } else {
-        if (currentArtistName) currentArtistName.textContent = "Conectando...";
-        if (currentTrackName) currentTrackName.textContent = "Obteniendo datos...";
-        
-        if (discImg) {
-            discImg.src = "https://santi-graphics.vercel.app/assets/img/Plato.png";
-            discImg.classList.add("rotating");
-        }
+    // 🛑 LIMPIEZA VISUAL INMEDIATA
+    if (currentArtistName) currentArtistName.textContent = "Conectando...";
+    if (currentTrackName) currentTrackName.textContent = "Obteniendo datos...";
+    
+    if (discImg) {
+        discImg.src = "https://santi-graphics.vercel.app/assets/img/Plato.png";
+        discImg.classList.add("rotating");
     }
     
     audio.pause();

@@ -1,6 +1,6 @@
-/* Player67.js */
+/* Player69.js */
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// CONSTRUCTOR DE INTERFAZ DINÁMICA (R67 - SOLO VIDEO)
+// CONSTRUCTOR DE INTERFAZ DINÁMICA (R69 - SOLO VIDEO)
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 function inicializarInterfazPlayer67() {
