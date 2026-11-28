@@ -1421,3 +1421,5 @@ $(document).ready(function() {
     // Iniciar en el modo por defecto (0 = Video) al cargar
     aplicarModoFondo();
 });
+
+   /* BUILD: 2026-11-28-1430 - FORZANDO INVALIDACION DE CACHE */
