@@ -120,7 +120,7 @@ body {
   inset: 0;
   width: 100%;
   height: 100%;
-  background: url('assets/img/Disco.png') center / 100% 100% no-repeat;
+  background: url('https://santi-graphics.vercel.app/assets/img/Disco.png') center / 100% 100% no-repeat;
   border-radius: 50%;
   z-index: 4;
   pointer-events: none;
