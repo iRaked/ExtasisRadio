@@ -1,4 +1,4 @@
-/* Repro65.js - VERSIÓN PURA RADIO (COMPLETA Y DEPURADA) */
+/* Repro68.js - VERSIÓN PURA RADIO (COMPLETA Y DEPURADA) */
 
 // ===============================
 // 1. INICIALIZACIÓN GLOBAL Y ESTADOS CRÍTICOS
@@ -10,10 +10,15 @@ let lastTrackTitle = "";
 let contadorIntervalId = null;
 
 // ===============================
-// 2. ELEMENTOS CLAVE DEL DOM
+// ELEMENTOS CLAVE DEL DOM
 // ===============================
 let audio = document.getElementById("player");
 let playPauseBtn = document.getElementById("btn-play-pause");
+let nextBtn = document.getElementById("next-button");
+let prevBtn = document.getElementById("prev-button");
+let shuffleBtn = document.getElementById("shuffle-button");
+let repeatBtn = document.getElementById("repeat-button");
+let btnRadio = document.getElementById("btn-radio");
 let iconPlay = playPauseBtn ? playPauseBtn.querySelector(".icon-play") : null;
 let iconPause = playPauseBtn ? playPauseBtn.querySelector(".icon-pause") : null;
 let discImg = document.getElementById("disc-img");
@@ -231,36 +236,62 @@ document.addEventListener("click", () => {
 // ===============================
 // 6. EVENT LISTENERS PRINCIPALES
 // ===============================
-document.addEventListener("DOMContentLoaded", () => {
-    inicializarReproductor();
-    inicializarVolumen();
-    
-    if (audio) { audio.muted = true; audio.muted = false; }
+function configurarPlayPauseRepro68() {
+    audio = document.getElementById("player");
+    playPauseBtn = document.getElementById("btn-play-pause");
+    iconPlay = playPauseBtn ? playPauseBtn.querySelector(".icon-play") : null;
+    iconPause = playPauseBtn ? playPauseBtn.querySelector(".icon-pause") : null;
+    discImg = document.getElementById("disc-img");
 
-    if (playPauseBtn) {
-        playPauseBtn.addEventListener("click", () => {
-            if (!audio.src) return;
-            if (!gestureDetected) { gestureDetected = true; audio.muted = false; }
-            
-            if (audio.paused || audio.ended) {
-                audio.play().then(() => {
-                    playPauseBtn.classList.add("is-playing"); 
-                    if (iconPlay) iconPlay.classList.add("hidden");
-                    if (iconPause) iconPause.classList.remove("hidden");
-                    if (discImg) discImg.classList.add("rotating"); 
-                }).catch(err => {
-                    console.warn("⚠️ Error en reproducción:", err);
-                    playPauseBtn.classList.remove("is-playing");
-                });
-            } else {
-                audio.pause();
-                playPauseBtn.classList.remove("is-playing"); 
-                if (iconPause) iconPause.classList.add("hidden");
-                if (iconPlay) iconPlay.classList.remove("hidden");
-                if (discImg) discImg.classList.remove("rotating");
-            }
-        });
+    if (!playPauseBtn || playPauseBtn.dataset.r68PlayPause === "1") return;
+    playPauseBtn.dataset.r68PlayPause = "1";
+
+    playPauseBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        // Tomar siempre el <audio id="player"> actual del DOM
+        const currentAudio = document.getElementById("player") || audio;
+        const currentPlayIcon = playPauseBtn.querySelector(".icon-play") || iconPlay;
+        const currentPauseIcon = playPauseBtn.querySelector(".icon-pause") || iconPause;
+        const currentDisc = document.getElementById("disc-img") || discImg;
+
+        if (!currentAudio || !currentAudio.src) return;
+
+        if (!gestureDetected) {
+            gestureDetected = true;
+            currentAudio.muted = false;
+        }
+
+        if (!currentAudio.paused && !currentAudio.ended) {
+            currentAudio.pause();
+            playPauseBtn.classList.remove("is-playing");
+            if (currentPauseIcon) currentPauseIcon.classList.add("hidden");
+            if (currentPlayIcon) currentPlayIcon.classList.remove("hidden");
+            if (currentDisc) currentDisc.classList.remove("rotating");
+        } else {
+            currentAudio.muted = false;
+            currentAudio.play().then(() => {
+                playPauseBtn.classList.add("is-playing");
+                if (currentPlayIcon) currentPlayIcon.classList.add("hidden");
+                if (currentPauseIcon) currentPauseIcon.classList.remove("hidden");
+                if (currentDisc) currentDisc.classList.add("rotating");
+            }).catch(err => {
+                console.warn("⚠️ Error en reproducción:", err);
+                playPauseBtn.classList.remove("is-playing");
+            });
+        }
+    });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    if (document.getElementById("player")) {
+        inicializarReproductor();
+        inicializarVolumen();
+        if (audio) { audio.muted = true; audio.muted = false; }
     }
+
+    configurarPlayPauseRepro68();
 
     if (menuBtn) {
         menuBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleModal(true); });
@@ -374,40 +405,26 @@ window.addEventListener("repro-ready", () => {
 
     inicializarReproductor();
     inicializarVolumen();
-    
-    if (playPauseBtn && audio) {
-        playPauseBtn.addEventListener("click", () => {
-            if (!gestureDetected) { gestureDetected = true; audio.muted = false; }
-            if (audio.paused || audio.ended) {
-                audio.play().then(() => {
-                    playPauseBtn.classList.add("is-playing"); 
-                    if (iconPlay) iconPlay.classList.add("hidden");
-                    if (iconPause) iconPause.classList.remove("hidden");
-                    if (discImg) discImg.classList.add("rotating");
-                }).catch(() => { playPauseBtn.classList.remove("is-playing"); });
-            } else {
-                audio.pause();
-                playPauseBtn.classList.remove("is-playing"); 
-                if (iconPause) iconPause.classList.add("hidden");
-                if (iconPlay) iconPlay.classList.remove("hidden");
-                if (discImg) discImg.classList.remove("rotating");
-            }
-        });
-    }
+    configurarPlayPauseRepro68();
 
     if (menuBtn) menuBtn.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); toggleModal(true); });
     if (closeModalBtn) closeModalBtn.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); toggleModal(false); });
     if (modalTracks) modalTracks.addEventListener('click', (e) => { if (e.target === modalTracks) toggleModal(false); });
 
     document.addEventListener("click", () => {
-        if (!gestureDetected && audio) {
+        const currentAudio = document.getElementById("player") || audio;
+        const currentPlayIcon = playPauseBtn ? playPauseBtn.querySelector(".icon-play") : iconPlay;
+        const currentPauseIcon = playPauseBtn ? playPauseBtn.querySelector(".icon-pause") : iconPause;
+        const currentDisc = document.getElementById("disc-img") || discImg;
+
+        if (!gestureDetected && currentAudio) {
             gestureDetected = true;
-            audio.muted = false;
-            if (audio.src && audio.paused) {
-                audio.play().then(() => {
-                    if (iconPlay) iconPlay.classList.add("hidden");
-                    if (iconPause) iconPause.classList.remove("hidden");
-                    if (discImg) discImg.classList.add("rotating");
+            currentAudio.muted = false;
+            if (currentAudio.src && currentAudio.paused) {
+                currentAudio.play().then(() => {
+                    if (currentPlayIcon) currentPlayIcon.classList.add("hidden");
+                    if (currentPauseIcon) currentPauseIcon.classList.remove("hidden");
+                    if (currentDisc) currentDisc.classList.add("rotating");
                 });
             }
         }
